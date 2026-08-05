@@ -1,0 +1,47 @@
+- id: mc_panduan_youyintuiguo_01
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/由因推果
+  title: 由因推果-建立联系
+  recognition: 题干给出一个原因和由它推出的结果，问"以下哪项最能支持/加强"，正确项要建立"因→果"的直接联系
+  applicability:
+    include:
+    - 题干结论是"因为A，所以B"的因果判断
+    - 问最能支持/加强结论
+    - 结论主体单一、明确（如"站立听课更专注"）
+    exclude:
+    - 问削弱而非支持
+    - 因果方向是"由果推因"（结论在解释原因，不是推出结果）
+    - 题干是二句式（论据结论有重复部分），优先针对推理过程
+  method_steps:
+  - 用"因此""结果发现""推测"定位结论，圈出结论主体和效果
+  - 支持：找能补上"因→果"缺失环节的选项（A→机制→B的完整链条）
+  - 选主体与结论主体完全一致的选项，再验证机制合理性
+  - 干扰项三类直接排除：只谈主体无关效果、因果倒置、主观表述（"喜欢/觉得"）
+  error_signatures:
+  - code: subject_mismatch
+    description: 选项主体与结论主体不一致（如结论讲"农田利用"，选项讲"蜂群行为"）
+  - code: effect_mismatch
+    description: 选项指向无关效果（如结论是"珊瑚保护"，选项讲"人体影响"）
+  - code: subjective_claim
+    description: 选项用"喜欢/觉得/个别"等主观或特例表述，无实证意义
+  - code: causal_reversal
+    description: 选项因果倒置（焦虑→高应激，而非应激→焦虑），实为削弱项
+  fix_action: 做{n}道由因推果支持题，先标结论主体，再排除干扰项，限时{sec}秒/题
+  time_budget_sec: 60
+  accuracy_rule: 先确认主体一致，再验证机制完整，最后排除主观/特例项
+  pitfall: 考官会用同义替换增加难度（"长期应激"= "长期处于巨大压力"），别因词不同漏掉正确项
+  author_note: 依据公开行测方法论整理，AI 生成，等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/原因结果
+  - 行测/判断推理/搭桥
+  - 行测/判断推理/加强题型

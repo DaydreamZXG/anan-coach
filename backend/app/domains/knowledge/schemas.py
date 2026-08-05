@@ -28,14 +28,11 @@ class QuestionExplanation(KnowledgeBaseModel):
 
 class QuestionOccurrence(KnowledgeBaseModel):
     occurrence_id: str = Field(alias="occurrenceId")
-    source_question_id: str | None = Field(default=None, alias="sourceQuestionId")
-    source_dataset_id: str | None = Field(default=None, alias="sourceDatasetId")
     province: str | None = None
     year: int | None = None
     number: int | None = None
     section: str | None = None
-    paper_title: str | None = Field(default=None, alias="paperTitle")
-    source_path: str | None = Field(default=None, alias="sourcePath")
+    paper_title: str | None = Field(alias="paperTitle")
     rank: int | None = None
 
 

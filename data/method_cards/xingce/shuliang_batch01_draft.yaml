@@ -1,0 +1,2468 @@
+- id: mc_eq_zhier_qiu_yi
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/方程思想/知二求一
+  title: 方程思想-知二求一与设未知数
+  recognition: '题干符合"知二求一"命题模式: 核心公式(总利润=总收入-总成本、工程量=效率×时间、路程=速度×时间、单价×数量=总价)给出两个量求第三个量;
+    或未知量带百分数/分数需要设未知数。'
+  applicability:
+    include:
+    - 题干直接给成本/售价/利润、效率/时间/工程量、速度/时间/路程中的两个量
+    - 边读题即可算出中间量(进货成本=进价×数量、实际销量=总量×(1-损耗率))
+    - 未知量带百分数(加价40%、逐日降10%)或分数(糖果x/3、x/4)
+    exclude:
+    - 只给比例/倍数无具体数值(改用赋值法/份数法)
+    - 未知数多于方程个数(改用不定方程法)
+    - 两个对象系数不同求数量分配(改用假设法)
+  method_steps:
+  - 识别核心公式并圈出两个已知量, 用"知二求一"定位目标量; 边读题即时算中间量(进货成本=3.5×100=350元, 损耗后实际销量=100×98%=98袋)
+  - '设未知数: 百分数转分数(40%=2/5)设成本5a则售价7a; 分数情形设总量x(男生x/4人、女生x/3人); 连续降价用总降幅=a%+b%-a%×b%'
+  - 按等量关系列方程并求解, 回答题目所求的量(如问5本书原价总和5a而非单价a)
+  - '回代验证: 单位统一(元/袋)、各环节逻辑自洽'
+  error_signatures:
+  - code: ignore_additional_cost
+    description: 忽略运费/设计费/损耗等附加成本未计入总成本
+  - code: decimal_unknown
+    description: 百分数直接设a导致小数运算(应设5a、7a)
+  - code: ignore_loss_sales
+    description: 忽略损耗仍按进货量计销量(实际销量须乘(1-损耗率))
+  - code: answer_wrong_object
+    description: 解出a后未换算题目问的总和(如5a、总价)
+  fix_action: 做6道"知二求一+设未知数"题(含损耗、连续降价变式), 限时80秒/题
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥80%
+  pitfall: 损耗商品成本按进货量全额计、收入只按实际销量计; 设未知数优先取百分数分母的倍数(40%取5a)避免小数
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/计算问题
+- id: mc_eq_hypothesis_method
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/方程思想/假设法
+  title: 方程思想-假设法(鸡兔同笼/盈亏平衡)
+  recognition: 两个对象有不同的"乘积系数"(鸡2脚兔4脚、完好箱+30元破损箱-60元、熟练工6件学徒工2件), 已知对象总数与总量。
+  applicability:
+    include:
+    - 已知总头数与总脚数/总工作量求两种对象数量
+    - 含正负收益对象(运货完好得30元、破损倒赔60元)
+    - 座位分配、效率分组等"多退少补"盈亏平衡场景
+    exclude:
+    - 单一对象问题
+    - 需同时满足两个以上独立条件(用联立方程组)
+    - 对象数量有倍数/范围等整数附加条件(用不定方程)
+  method_steps:
+  - 假设全部为对象A, 算理论总量(35头全鸡=70脚)
+  - 差额=实际总量-假设总量(94-70=24)
+  - 单位差异=把1个A换成1个B引起的总量总变化(鸡→兔多2脚; 完好→破损损失30+60=90元)
+  - 对象B个数=差额÷单位差异(24÷2=12只兔)
+  error_signatures:
+  - code: wrong_unit_diff
+    description: 单位差异算错(破损箱是损失30+60=90而非30-60)
+  - code: ignore_negative_side
+    description: 忽略负收益对象(破损箱倒赔60元未计入)
+  - code: diff_direction
+    description: 差额方向弄反(应实际总量-假设总量)
+  fix_action: 做5道假设法题(含倒赔/负收益/座位变式), 限时90秒/题
+  time_budget_sec: 90
+  accuracy_rule: 正确率≥80%
+  pitfall: 单位差异是"替换1个对象引起总量的总变化", 负收益也要计入绝对值(破损每箱损失90元)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/计算问题
+  - 行测/数量关系/计数模型问题
+- id: mc_eq_indefinite_equation
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/方程思想/不定方程
+  title: 方程思想-不定方程(公因子法与赋零法)
+  recognition: 方程个数少于未知数个数; 问对象数量(整数型)或问多个变量的组合值(非整数型)。
+  applicability:
+    include:
+    - 整数解+附加条件(正整数、倍数、取值范围、必须两种都要有)
+    - 系数与常数项存在公因子(5a+17b=100→17b必为5的倍数)
+    - '非整数型: 问整体组合值(10x+6y、a+b+c)而不问单个变量值'
+    exclude:
+    - 二元一次方程有唯一解
+    - 非整数型但题目直接问某个变量值(不能对该变量赋零)
+    - 无任何附加条件的纯代数题
+  method_steps:
+  - '整数型: 先化简(约去系数最大公约数, 如16x+10y=28→8x+5y=14); 找系数与常数项公因子d→另一项必为d的倍数→枚举并筛除不合附加条件的解'
+  - '多组解: 首解(x0,y0)后按(x0±b, y0∓a)递推枚举(如5a+3b=51得a=3、6、9及a=0), 结合"十多个/两种都用"选解'
+  - '非整数型: 对系数复杂的变量赋零化普通方程, 求其余变量, 代回求组合值; 换一个变量赋零应得到同一组合值'
+  - '验算: 组合值唯一性成立即可选, 中间出现负值/分数属正常'
+  error_signatures:
+  - code: skip_simplify
+    description: 未约去最大公约数直接找公因子, 遗漏倍数关系
+  - code: assign_zero_to_asked
+    description: 对题目直接求解的变量赋零(如问笔盒价格不能令笔盒=0)
+  - code: ignore_hidden_condition
+    description: 忽略"必须使用两种包装""十多个盒子"等隐含限制选错解
+  - code: doubt_negative
+    description: 赋零法出现负值就怀疑解法, 实际组合值仍唯一
+  fix_action: 做6道不定方程题(4道整数公因子+2道赋零法), 限时90秒/题
+  time_budget_sec: 90
+  accuracy_rule: 正确率≥70%
+  pitfall: '先判断题目问单个值还是组合值: 整数型先化简再找公因子枚举, 非整数型用赋零法但不可对所求变量赋零'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/不定方程问题
+  - 行测/数量关系/普通不定方程
+- id: mc_ratio_direct_inverse
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/和差倍比/正反比关系
+  title: 和差倍比-正反比与公倍数赋值
+  recognition: 形如A=B×C(总价=单价×数量、路程=速度×时间、工程量=效率×时间), 且其中一个量保持不变。
+  applicability:
+    include:
+    - 单价不变→总价与数量成正比; 路程不变→速度与时间成反比; 工程量不变→效率与时间成反比
+    - '给速度比/效率比求时间比(反比取倒数: m:n→n:m)'
+    - 总量未知时设总量=各时间公倍数(或速度比乘积m×n), 得整数效率
+    exclude:
+    - 三个量同时变化无常量
+    - 总量已给具体数值(直接计算)
+    - 效率变化仅发生在部分工作量(反比只用于剩余部分)
+  method_steps:
+  - 在A=B×C中找出不变量(常量)
+  - B不变→A与C成正比; A不变→B与C成反比, 速度比m:n对应时间比n:m
+  - '总量固定时赋值: 设总量=时间公倍数(小王50天小李75天→取150), 效率=总量÷时间'
+  - 按时间比分配总时间(或按效率代入列方程)求解
+  error_signatures:
+  - code: ratio_direction_wrong
+    description: 反比方向取反(速度比2:3应得时间比3:2)
+  - code: apply_to_done_part
+    description: 效率变化只影响剩余工作量, 误作用于已完成部分
+  - code: not_use_lcm
+    description: 周期/交替工程未用最小公倍数
+  fix_action: 做8道正反比与公倍数赋值题, 限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥85%
+  pitfall: 反比成立的前提是总量不变; 效率比与时间比互为倒数, 且"效率下降20%"(5:4)只对剩余工作量生效
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/和差倍比问题
+  - 行测/数量关系/工程问题
+- id: mc_ratio_unify_invariant
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/和差倍比/比例统一与不变量
+  title: 和差倍比-比例统一与不变量
+  recognition: 出现多组比例(甲:乙与乙:丙)或同一比例发生增减变化, 其中有共同量或不变量。
+  applicability:
+    include:
+    - 多级比例求统一比(初级:中级=5:3、中级:高级=2:1)
+    - 物品增减前后比例变化, 抓未增减的对象(白球数量不变、年龄差不变)
+    - 总量不变重新分配(树苗分配、杂粮调配)
+    exclude:
+    - 单一比例直接份数法(无需统一)
+    - 变化前后比例无任何共同量
+  method_steps:
+  - 找共同量(桥梁)或不变量(未增减的量、年龄差、总量)
+  - 把共同量在两比例中的数值统一为公倍数(3和2→6, 得初级:中级:高级=10:6:3)
+  - 总量不变时先统一总份数(7:4:3=14份与5:3:2=10份→统一为70份)
+  - 用"份数差对应实际差值"求1份, 反推所求量
+  error_signatures:
+  - code: not_find_invariant
+    description: 未抓不变量直接对比两比例
+  - code: wrong_unify_multiplier
+    description: 统一比例时乘错倍数
+  - code: different_piece_value
+    description: 不同比例中"1份"实际值不同仍直接比份数差
+  fix_action: 做6道比例统一题(含增减不变量), 限时80秒/题
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥80%
+  pitfall: 不同比例中的"1份"代表不同的实际值, 必须先经共同量/不变量统一后再比份数差; 总量不变则要统一总份数
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/和差倍比问题
+- id: mc_sumdiff_parity
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/和差倍比/和差公式与奇偶性
+  title: 和差倍比-和差公式与奇偶性
+  recognition: 已知两数之和与差求两数; 或可用奇偶性快速排除选项。
+  applicability:
+    include:
+    - 年龄问题、流水行程等已知和与差的场景
+    - '求大数/小数: 大数=(和+差)÷2, 小数=(和-差)÷2'
+    - '奇偶性: 两数和为偶则差必为偶(和差同奇偶); 积含偶因子则积为偶'
+    exclude:
+    - 只知和或只知差(缺少一个条件)
+    - 能直接列出唯一方程求解
+  method_steps:
+  - '提取和差关系: 大数=(和+差)÷2, 小数=(和-差)÷2'
+  - 复杂题先推导中间量和差(王哥比小李大5岁且比小王大2岁→小王比小李大3岁)
+  - '奇偶性排除: 和与差同奇偶(书+杂志=39为奇→差必为奇, 排除偶数选项)'
+  - '数字调换题: 十位数不能为0, 用限定条件筛唯一解'
+  error_signatures:
+  - code: wrong_formula
+    description: 大数小数公式分子写反((和+差)/2是大数)
+  - code: parity_overuse
+    description: 用奇偶性排除了正确选项(奇偶性只用于排除, 不能直接定解)
+  - code: tens_digit_zero
+    description: 数字调换时允许十位为0的错误设定
+  fix_action: 做6道和差/奇偶性题, 限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率≥85%
+  pitfall: 奇偶性只保证"和差同奇偶", 只能用来排除选项, 仍需代入验证
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/和差倍比问题
+  - 行测/数量关系/多位数问题
+- id: mc_profit_core_formula
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/经济利润/核心公式
+  title: 经济利润-核心公式与损耗
+  recognition: 出现进价/成本价、定价/标价、售价、销量、利润、折扣、损耗等概念。
+  applicability:
+    include:
+    - 总利润=总收入-总成本; 总收入=售价×销量; 总成本=进价×购入量+附加成本(运费)
+    - 全部售出时总利润=单件利润×销量
+    - '利润率=总利润÷总成本(成本利润率); 打折: 售价=定价×折扣率'
+    - '连续打折: 两次各降a%、b%的总降幅=a+b-a×b(百分比)'
+    exclude:
+    - 存在未售出/损耗时不能用单件利润×销量(沉没成本), 必须用总收入-总成本
+    - 资料分析中的利润率=利润÷收入(行测数量用成本利润率, 勿混用)
+  method_steps:
+  - '列成本: 总成本=进价×购入量+运费等附加成本; 有损耗时实际销量=总量×(1-损耗率)'
+  - '算收入: 总收入=售价×实际销量(未售出不计收入, 但成本已发生)'
+  - 总利润=总收入-总成本; 利润率=总利润÷总成本
+  - '折扣按顺序计算: 打八折再减5元=定价×0.8-5'
+  error_signatures:
+  - code: treat_loss_as_sold
+    description: 损耗/未售出部分仍按售出计入收入
+  - code: ignore_sunk_cost
+    description: 忽略未售出部分的成本已发生(沉没成本)
+  - code: revenue_rate_misuse
+    description: 误用利润÷收入当利润率(应为利润÷成本)
+  fix_action: 做6道利润计算题(含损耗/折扣/连续降价), 限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥85%
+  pitfall: 有损耗一律用"总利润=总收入-总成本"总式; 利润率基准是总成本而非收入
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/经济利润问题
+- id: mc_profit_assign_fraction
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/经济利润/赋值与份数
+  title: 经济利润-赋值与份数
+  recognition: 题干只给比例/倍数无具体数值(进价降20%、销量翻倍、利润为上月1.8倍); 含折扣/提价百分数。
+  applicability:
+    include:
+    - '赋值法: 设原价/进价为易算值(10元), 首日销量为1件'
+    - '份数思想: 利润40%→成本5份利润2份售价7份; 打八折→原价5份售价4份'
+    - '倍数法: 销量倍数=总利润倍数÷单件利润倍数(1.8÷1.5=1.2)'
+    - '打包法: 每卖4个赚120元、剩余1个亏100元→每组净赚20元'
+    exclude:
+    - 题干已给出具体数值(直接计算)
+    - 题目直接问赋值对象本身的值(需设未知数)
+  method_steps:
+  - 对"只给比例"的量赋值(进价=10、销量=1件), 全程一致、不重复赋值
+  - '百分数转份数: 40%=2/5→成本5份利润2份; 折扣对原价: 八折→4/5份'
+  - '倍数关系: 总利润=销量×单件利润, 已知两个倍数求第三个(销量倍数=1.8÷1.5)'
+  - '打包/分组: 赚的组与亏的剩余合并算净收益, 净收益÷每组净额=组数'
+  error_signatures:
+  - code: double_assign
+    description: 对同一量重复赋值造成矛盾
+  - code: ignore_unsold_loss
+    description: 打包时漏算未售出部分的亏损
+  - code: ratio_base_mix
+    description: 利润相对成本与折扣相对原价的基准混淆
+  fix_action: 做6道赋值/份数/打包利润题, 限时80秒/题
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥80%
+  pitfall: 利润百分比相对成本、折扣百分比相对原价, 两个基准不能混; 赋值后不能再对同一量二次赋值
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/经济利润问题
+- id: mc_profit_max_product
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/经济利润/和定积最大
+  title: 经济利润-和定积最大
+  recognition: 提价/降价与销量此消彼长(涨x元少卖kx件), 求最大收入或最大利润, 目标为乘积型(a±x)(b∓kx)。
+  applicability:
+    include:
+    - 定价与销量联动求最大收入/最大利润
+    - 固定周长下矩形面积最大(几何同类原理)
+    exclude:
+    - 目标函数非乘积型
+    - 题目不存在消长关系
+  method_steps:
+  - '建乘积模型: 收入=(单价±ax)(销量∓bx); 利润=(售价-成本±ax)(销量∓bx)'
+  - '提取公因数使两括号系数互为相反数: (4+0.4x)(20-x)=0.4(10+x)(20-x)'
+  - 令两括号相等(10+x=20-x)解得x, 代回原式求最大收入/利润
+  error_signatures:
+  - code: income_vs_profit
+    description: 题求利润却列了收入模型(漏减成本)
+  - code: not_extract_factor
+    description: 系数不同未提取公因数直接令两式相等
+  - code: not_substitute_back
+    description: 求出x后未代回原式求最大量
+  fix_action: 做5道和定积最大题(区分收入/利润), 限时90秒/题
+  time_budget_sec: 90
+  accuracy_rule: 正确率≥75%
+  pitfall: 先确认题目求收入还是利润; 两系数不同时先提取公因数使系数互为相反数, 再令两括号相等
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/经济利润问题
+  - 行测/数量关系/函数最值问题
+- id: mc_engineering_core_formula
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/工程效率/三量公式与反比
+  title: 工程效率-工程量=效率×时间
+  recognition: 涉及工程量、效率、时间三量(生产零件、修路、单独/合作完成)。
+  applicability:
+    include:
+    - 工程量不变列等量关系(两种工作方式总工程量相等)
+    - '总量未知: 取单独完成时间的公倍数设总量得整数效率(甲15天乙30天丙60天→总量60)'
+    - 合作时间=总工程量÷(效率甲+效率乙)
+    - '效率与时间反比; 合作超时: 甲乙合作t小时、甲单独超时a、乙单独超时b, 则t²=a×b'
+    exclude:
+    - 有生长/消耗双因素(用牛吃草净效率模型)
+    - 多人多任务分工(用统筹方法)
+  method_steps:
+  - '核心公式: 工程量=效率×时间; 优先找"工程量不变"列等式(32t+48(8-t-1.5)=256)'
+  - 总量未知时取各时间的公倍数赋值, 效率=总量÷时间
+  - 合作时间=总量÷效率和; 效率变化先转时间比(提高40%→5:7→7:5), 只作用于剩余工作量
+  - 故障/休息时间单独扣减, 判断是否计入总时间
+  error_signatures:
+  - code: time_unit_mix
+    description: 小时与分钟混用(0.4小时=24分钟不是40分钟)
+  - code: fault_time_miscount
+    description: 故障/休息时间计入或扣减判断错误
+  - code: ratio_on_done_part
+    description: 效率比误用于已完工部分
+  fix_action: 做8道工程基础题(含故障/效率变化/合作), 限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥85%
+  pitfall: 效率变化只影响剩余工作量; 时间单位必须统一(效率按小时计则分钟换算成小时)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/工程问题
+  - 行测/数量关系/给完工时间型
+  - 行测/数量关系/给效率比例型
+- id: mc_engineering_cattle_grass
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/工程效率/牛吃草模型
+  title: 工程效率-牛吃草模型(净效率)
+  recognition: '一边消耗一边自动增长/减少: 牛吃草(草生长)、检票口(旅客持续增加)、水池(进水管与出水管)、自动扶梯、草地枯萎。'
+  applicability:
+    include:
+    - 初始量恒定+恒定增长率+消耗率, 给出两组(消耗力量, 时间)
+    - 求第三情况所需力量/时间, 或求初始量/增长速度
+    exclude:
+    - 无增长/消耗双因素
+    - 增长率随情况变化不恒定
+  method_steps:
+  - '核心公式: 初始量=(消耗速度-增长速度)×时间, 记净效率=消耗速度-增长速度'
+  - '两组数据: 时间比→净效率比(反比)→效率差对应力量差→求净效率与增长速度(10牛20天vs15牛10天→生长=5牛)'
+  - 初始量=净效率×对应时间(100=(10-5)×20)
+  - '第三情况: 所需量=初始量÷(力量-增长速度); 多块面积先按面积比例换算初始量'
+  error_signatures:
+  - code: gross_instead_net
+    description: 用毛消耗效率(未扣增长速度)计算
+  - code: direction_wrong
+    description: 增长/减少方向搞反(草地枯萎时是效率相加)
+  - code: area_not_scaled
+    description: 三块不同面积草地未按面积比例换算初始量
+  fix_action: 做6道牛吃草题(含检票口/水池/枯萎变式), 限时100秒/题
+  time_budget_sec: 100
+  accuracy_rule: 正确率≥75%
+  pitfall: 实际消耗必须扣除增长速度(净效率=消耗-增长); 三块草地面积不同要按面积比例换算初始量, 生长效率需乘面积
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/工程问题-其他
+- id: mc_engineering_coordination
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/工程效率/统筹分工与效率变化
+  title: 工程效率-统筹分工与效率变化
+  recognition: 多人承担多项任务(分工/同时开工同时竣工); 或工程中途效率提高/降低导致提前/延期完工。
+  applicability:
+    include:
+    - '分工: 各人擅长不同任务, 优势方先独立完成再协助对方'
+    - '内部效率比: 比较每人做A/B的效率倍数, 倍数大者专做该任务'
+    - '同时竣工: 总时间=总工作量÷总效率, 反推各人分配'
+    - '1:1配套: 效率低者全力做单一部件, 高者配齐后再混合生产'
+    exclude:
+    - 单人单任务
+    - 无合作与分工的单一工程
+  method_steps:
+  - '分工决策: 算内部效率比(张做甲是乙的4倍、王做甲是乙的6倍→王专做甲)'
+  - 各做擅长任务至其中一方完成, 再合作完成剩余工作量
+  - '同时竣工: 总时间=(工程A+工程B)÷总效率, 反推某人在某工程中的完成量'
+  - '效率变化: 提高40%→原:现效率比5:7→时间比7:5, 时间差对应份数差求单份'
+  error_signatures:
+  - code: abs_instead_internal
+    description: 用绝对效率而非内部效率比决定分工
+  - code: forgot_assist
+    description: 完成自身任务后忘记协助对方剩余工作
+  - code: change_on_all
+    description: 效率变化误作用于全程而非剩余部分
+  fix_action: 做6道统筹分工/效率变化题, 限时90秒/题
+  time_budget_sec: 90
+  accuracy_rule: 正确率≥75%
+  pitfall: 分工看"内部效率倍数"(自己A/B的比值)而非绝对效率; 效率变化先转成时间比, 再只对剩余工作量使用
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/统筹规划问题
+  - 行测/数量关系/工程问题
+- id: mc_xc_train_bridge
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/行程问题/火车过桥
+  title: 行程问题-火车过桥
+  recognition: 题目中出现火车/列车通过隧道、桥梁或与另一列火车错车,要求求车长、速度或通过时间。
+  applicability:
+    include:
+    - 火车通过隧道/桥梁,求车长或所需时间
+    - 速度不变时,用时间比=路程比求未知路程/时间
+    - 求列车完全通过某点(车头进到车尾出)的时间或车身长度
+    exclude:
+    - 两人/两车直接相遇或追及(无车身长度概念)
+    - 人或点状物体运动,路程不含车身
+    - 只问车头到达某点,不需要完整车长
+  method_steps:
+  - 确定实际路程:火车通过桥/隧道时,总路程=桥(隧道)长+火车自身长度l
+  - 若速度不变,列时间比=路程比:(桥1+l)/(桥2+l)=t1/t2,解出车长l
+  - 求速度:速度=总路程÷时间;再按题目变化(如过桥速度减半)计算新路程所需时间
+  error_signatures:
+  - code: ignore_car_length
+    description: 忽略火车自身长度,直接用桥长当路程
+  - code: ratio_reversed
+    description: 时间比与路程比的对应方向写反
+  - code: unit_mismatch
+    description: 米/秒与千米/小时未换算(1米/秒=3.6千米/小时)
+  fix_action: 做5道火车过桥/列车错车题,限时75秒/题,每题检查路程是否已含车长
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: '"完全通过"指车头进入计时、车尾离开结束,路程=桥长+车长;先判断计时起止点再决定是否加车长。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/火车过桥
+- id: mc_xc_meet_chase
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/行程问题/相遇追及
+  title: 行程问题-相遇与追及
+  recognition: 两人相向而行求相遇,同向而行求追及,或多次相遇、环形跑道套圈、狗往返跑问题。
+  applicability:
+    include:
+    - 相向而行(迎面)求相遇时间:速度和×时间=总路程
+    - 同向而行求追及时间:速度差×时间=初始距离差
+    - 多次相遇/往返运动,利用路程比=速度比列比例
+    - 狗/鸟在相遇过程中往返跑,求其总路程=速度×相遇总时间
+    exclude:
+    - 涉及车身长度的火车错车(另卡)
+    - 顺水逆水行船(用流水行船公式)
+    - 走走停停、变速的非匀速运动
+  method_steps:
+  - 判断运动方向:相向(迎面)用速度和,同向(追及)用速度差
+  - 相遇:总路程=(V1+V2)×t;追及:追及时间=初始距离差÷(V2-V1)
+  - 多次相遇:第一次两人共走1倍全程,第二次共走3倍全程(每次累加2倍),用路程比=速度比列方程
+  - 简化技巧:把慢者视为静止,快者相对速度=速度差/速度和;环形套圈次数=多跑路程÷周长;狗跑总路程=狗速×相遇总时间(忽略往返细节)
+  error_signatures:
+  - code: sum_diff_swapped
+    description: 相遇题误用速度差,追及题误用速度和
+  - code: multiple_meeting_wrong
+    description: 多次相遇路程倍数算错(第二次是3倍不是2倍)
+  - code: reference_frame_confused
+    description: 参照系转换后忘记还原实际速度
+  fix_action: 做8道相遇追及题(含环形、多次相遇、狗跑),限时75秒/题,必画示意图列式
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: 追及时间=初始距离差÷速度差,其中的"初始距离差"是追及开始时两人间的距离而非全程;有人提前出发的题要先算出提前走出的那段距离。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/相遇追及
+  - 行测/数量关系/普通行程
+- id: mc_xc_river_boat
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/行程问题/流水行船
+  title: 行程问题-流水行船
+  recognition: 船在顺水/逆水中航行,求船速、水速或漂流时间;或帽子/物品落水后多久能追回。
+  applicability:
+    include:
+    - 顺水/逆水航行,求静水船速或水速
+    - 顺逆水往返两城,求距离
+    - 物品(帽子)落水漂流,求追回时间(追帽子模型)
+    exclude:
+    - 静水中(无水流)的普通相遇追及
+    - 火车过桥等含车身长度问题
+    - 环形跑道问题
+  method_steps:
+  - 列速度公式:V顺=V船+V水;V逆=V船-V水
+  - 两式相加减:V船=(V顺+V逆)÷2;V水=(V顺-V逆)÷2(和差公式)
+  - 求距离:距离=顺水速度×顺水时间(或逆水速度×逆水时间)
+  - 追帽子模型:以水流为参照系帽子相对静止,逆流上行时间=顺流追回时间,总追及时间=发现时已过去的时间,与水速无关
+  error_signatures:
+  - code: speed_add_sub_wrong
+    description: 顺水误用相减、逆水误用相加
+  - code: mean_formula_wrong
+    description: 船速误算为(V顺-V逆)/2而非(V顺+V逆)/2
+  - code: drift_time_error
+    description: 漂流距离用水速还是船速混用(漂流只用船不带桨,速度=水速)
+  fix_action: 做5道流水行船/追帽子题,限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: 漂流速度就是水速(船不划桨);往返速度比与时间比成反比(顺水快则顺水用时短),求水速一定用(顺速-逆速)÷2。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/流水行船
+- id: mc_xc_harmonic_mean
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/行程问题/等路程平均速度
+  title: 行程问题-等路程平均速度(调和平均数)
+  recognition: 往返、上下坡往返或两段路程相等但速度不同,求全程平均速度。
+  applicability:
+    include:
+    - 往返平均速度(去程V1、返程V2)
+    - 上下坡往返,上坡总路程=下坡总路程(对称)
+    - 一半路程按一种速度、另一半按另一种速度行驶
+    exclude:
+    - 按时间分配速度(一半时间甲速一半乙速,用算术平均(V1+V2)/2)
+    - 三段不等长路程需分段求总时间再除总路程
+    - 走走停停间歇运动
+  method_steps:
+  - 判断两段路程相等,套调和平均数公式:V平均=2V1V2/(V1+V2)
+  - 速算检验:调和平均数介于两速度之间且更接近较小值,必小于算术平均(V1+V2)/2,可用选项排除
+  - 总路程=平均速度×总时间,进而求单程距离或总时间
+  error_signatures:
+  - code: arithmetic_mean_misuse
+    description: 误用算术平均(V1+V2)/2,高估平均速度
+  - code: unequal_distance_formula
+    description: 两段路程不相等仍直接套调和平均公式
+  - code: weight_ignored
+    description: 混合路程平均速度直接对各段速度取平均,忽略路程权重
+  fix_action: 做5道往返/上下坡平均速度题,限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥85%
+  pitfall: 只有两段路程相等时才能用调和平均;往返问题因上坡总路程=下坡总路程仍满足条件。调和平均必小于算术平均,选项排除法常用。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/平均速度
+- id: mc_xc_uniform_motion
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/行程问题/匀变速运动
+  title: 行程问题-匀变速运动(v-t图像法)
+  recognition: 题目出现先匀加速后匀减速、初末速度为0、v-t图像、加速度等字眼。
+  applicability:
+    include:
+    - 先匀加速后匀减速求最大速度或总位移
+    - 给出v-t图像比较两人路程大小
+    - 已知初速度、时间、位移求末速度或加速度
+    exclude:
+    - 匀速直线运动(直接用S=vt)
+    - 非匀变速的走走停停问题
+    - 含车身长度的火车问题
+  method_steps:
+  - 画v-t图像,图像与坐标轴围成的面积=路程
+  - 平均速度=总路程÷总时间;匀变速中平均速度=(V0+V末)/2
+  - 初末速度为0的对称加速-减速:最大速度=2×平均速度
+  - a=(V末-V0)/t;位移S=V0t+½at²(矩形面积+三角形面积)
+  error_signatures:
+  - code: area_unit_ignored
+    description: 算图像面积时忽略坐标轴单位(分钟/小时)换算
+  - code: max_speed_half
+    description: 初末速度为0时误把平均速度当最大速度
+  - code: unit_unified_fail
+    description: km/h与m/s、分钟与小时未统一
+  fix_action: 做4道匀变速运动题,限时80秒/题,每题必画v-t图标面积
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥75%
+  pitfall: v-t图像中两线交点只表示瞬时速度相同,不表示路程相等;比路程要看各自曲线围成的面积。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/行程问题-其他
+- id: mc_xc_clock
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/行程问题/钟面问题
+  title: 行程问题-钟面问题(相对速度)
+  recognition: 求某时刻时针与分针夹角,或分针追上时针重合、再次垂直、成直线的时间。
+  applicability:
+    include:
+    - 计算某时刻时针分针的夹角
+    - 求两针重合、垂直、成直线所需时间
+    - 12小时内两针垂直/重合的次数
+    exclude:
+    - 普通相遇追及(无钟面)
+    - 涉及日历、星期的周期问题
+  method_steps:
+  - 记速度:分针6°/min,时针0.5°/min,分针相对时针快5.5°/min
+  - 夹角计算:先定基准时刻两针角度差,再±5.5°×经过分钟数
+  - 追及型:所需时间=要补足(或多走)的角度差÷5.5°/min
+  - 次数题:首次垂直需分针多走90°(耗时180/11分钟),之后每次垂直需多走180°(耗时360/11分钟),按时段累加
+  error_signatures:
+  - code: hand_speed_wrong
+    description: 时针速度误记为6°/min或分针记成0.5°/min
+  - code: vertical_angle_180
+    description: 再次垂直只加90°,忽略重合之后再垂直还需多走180°
+  - code: half_three_fallback
+    description: 误以为3点半两针垂直(实际时针已走15°,夹角75°)
+  fix_action: 做5道钟面角度/垂直时间题,限时80秒/题
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥75%
+  pitfall: 从3点整到再次垂直需多走180°(不是90°),时间=180/5.5=360/11分钟;钟面问题本质就是追及,分针每分多走5.5°。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/钟表问题
+- id: mc_yr_concentration
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/溶液问题/浓度与溶质守恒
+  title: 溶液问题-浓度与溶质守恒
+  recognition: 盐水/酒精/糖水浓度,蒸发水或加水后浓度变化,求溶质、溶液量或添加量。
+  applicability:
+    include:
+    - 蒸发水或加水稀释,溶质不变,求新浓度或求溶质/溶液
+    - 加盐/加糖提高浓度,列质量守恒方程求添加量
+    - 多次蒸发/加水等量操作,用调和数列(10/12/15/20)速断
+    exclude:
+    - 两种溶液混合(用线段法或方程,另卡)
+    - 倒出补满的循环稀释(另卡)
+    - 置换交换问题(另卡)
+  method_steps:
+  - 基础关系:溶液=溶质+溶剂;浓度=溶质÷溶液=溶质÷(溶质+溶剂);溶质=浓度×溶液
+  - 蒸发/加水:溶质不变,浓度与溶液质量成反比:W1:W2=C2:C1(如40%稀释到5%,溶液需变为8倍)
+  - 加盐(溶质溶液同变):设加x,列(原溶质+x)/(原溶液+x)=目标浓度,解方程
+  - 蒸发等量水浓度按调和数列递增(10%→12%→15%→20%),加水则递减,可直接推下一项
+  error_signatures:
+  - code: denominator_solvent
+    description: 把溶剂质量当分母(100克水+20克盐误算20%,实际16.67%)
+  - code: add_salt_simple_proportion
+    description: 加盐时按浓度比例直接算,忽略溶液总量同步增加
+  - code: evaporate_direction_reversed
+    description: 蒸发与加水的浓度升降方向搞反(蒸发升、加水降)
+  fix_action: 做8道浓度/蒸发/加水题,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥85%
+  pitfall: 加盐时分子分母同步变化,不能套浓度比例;必须列(原溶质+x)/(原溶液+x)=目标浓度的方程;分母永远是溶液(溶质+溶剂)。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/溶液问题
+- id: mc_yr_mix_line
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/溶液问题/混合与线段法
+  title: 溶液问题-混合与线段法(十字交叉)
+  recognition: 两种或多种浓度溶液混合后得到中间浓度,求取用质量比或其中一种浓度。
+  applicability:
+    include:
+    - 两种溶液按质量比混合,求混合浓度或质量比
+    - 加纯水(0%浓度)或纯溶质(100%浓度)视为特殊浓度混合
+    - 广义"部分量/总量"混合(均值、占比、增速、效率),距离比=分母反比
+    exclude:
+    - 单一溶液蒸发/加水(用溶质守恒)
+    - 三种以上多次混合的复杂情形(直接列溶质守恒方程更稳)
+  method_steps:
+  - 溶质守恒:m×a+n×b=(m+n)×c,混合浓度c必介于a、b之间
+  - 线段法:画线段,距离比(a-c):(c-b)=n:m,即距离比=质量反比,质量大的靠近自身浓度
+  - 纯水=0%浓度、纯溶质=100%浓度,同样套线段法
+  - 复杂多溶液:列方程(Σ各溶液质量×浓度=总溶液×混合浓度)求解
+  error_signatures:
+  - code: distance_ratio_reversed
+    description: 距离比与质量比方向写反(应距离比=质量反比)
+  - code: direct_average
+    description: 质量不相等仍直接对浓度取算术平均
+  - code: ratio_as_concentration
+    description: 把1:7的配比直接当浓度(实际溶质占1/8)
+  fix_action: 做7道混合浓度/线段法题,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥85%
+  pitfall: 线段法距离比与质量成反比——质量大的那份使混合浓度更靠近自身;溶质守恒是列式根本,复杂题直接用方程比线段法少错。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/溶液问题
+  - 行测/数量关系/两溶液混合
+  - 行测/数量关系/多溶液混合
+- id: mc_yr_repeat_swap
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/溶液问题/反复操作置换
+  title: 溶液问题-反复倒出补满与置换
+  recognition: 倒出一部分溶液后加满水,重复多次求最终浓度;或两容器等量交换溶液后浓度相同,求交换量。
+  applicability:
+    include:
+    - 反复"倒出x%+加满"的循环稀释,求最终浓度
+    - 容器间等量交换后浓度相同的置换问题
+    - 求交换量或某一容器目标浓度
+    exclude:
+    - 单次混合或蒸发加水(另卡)
+    - 一次性把两种溶液全部混合(用线段/方程)
+  method_steps:
+  - 循环稀释:每次"倒出a/b后补满"等效于浓度×(1-a/b);n次后浓度=C0×(1-a/b)^n
+  - 补入含溶质液体(非纯水):基准平移法——所有浓度先减干扰浓度,按纯水稀释算,结果再加回
+  - 置换相等量:整体混合浓度=总溶质÷总溶液;要求两容器浓度相同则按原质量比回分各自应含对方溶液的量
+  - 等量双向交换总量守恒:甲瓶酒精量=乙瓶水量,交换只是内部循环,总量不变
+  error_signatures:
+  - code: retention_ratio_wrong
+    description: 倒出2/5后剩余比例写成2/5(正确为3/5)
+  - code: add_nonpure_as_water
+    description: 补入含溶质液体却按纯水稀释计算
+  - code: exchange_mass_lost
+    description: 交换时误以为总量变化,忽略总量守恒
+  fix_action: 做6道循环稀释/置换题,限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: 每次操作后浓度乘的是"剩余比例":倒出2/5后×3/5,"倒出1/3补满"每次×2/3,不是减1/3;基准平移法记得最后把减掉的值加回。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/溶液问题
+- id: mc_rc_two_set
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/容斥问题/双集合容斥
+  title: 容斥问题-双集合容斥
+  recognition: 两个条件/集合,问同时满足、只满足其一或两者都不的人数。
+  applicability:
+    include:
+    - 两个集合求交集(重叠部分)人数
+    - 已知交集求总人数
+    - 求只满足其中一个条件的人数
+    exclude:
+    - 三个集合(用三集合分层法)
+    - 问最多/最少人数(用铺砖思维最值)
+  method_steps:
+  - 先算总人次=A+B(不去重直接相加)
+  - 算实际涉及人数=总人数-两者都不的人数
+  - 重叠部分=总人次-实际涉及人数(煎饼模型)
+  - 只满足其一=该集合人数-重叠部分;公式:A∪B=A+B-A∩B
+  error_signatures:
+  - code: double_counted
+    description: 直接把A+B当实际人数,未扣重叠部分
+  - code: ignore_neither
+    description: 忘记扣除"两者都不"的人数
+  - code: three_set_two_formula
+    description: 三集合题目误用双集合公式
+  fix_action: 做6道双集合容斥题,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥90%
+  pitfall: 固定三步:先加人次、再扣重叠、后补"都不";重叠部分=总人次-实际涉及人数,别忘了"都不"也算在总人数里。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/容斥原理问题
+  - 行测/数量关系/两集合
+- id: mc_rc_three_set
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/容斥问题/三集合容斥
+  title: 容斥问题-三集合容斥(分层人次法)
+  recognition: 三个集合/三项活动,给出各自人数与两层、三层重叠人数,求总人数或某层人数。
+  applicability:
+    include:
+    - 已知A、B、C及重叠条件求总人数
+    - 求仅参加一项、仅参加两项的人数
+    - 问卷回收、报名统计等人数-人次转换
+    exclude:
+    - 两个集合(用双集合公式)
+    - 求最值(用铺砖思维)
+  method_steps:
+  - 分层设量:一层(仅一项)、二层(仅两项)、三层(三项都参加)
+  - 人次守恒:总人次=一层×1+二层×2+三层×3;总人数=一层+二层+三层
+  - 人次差:总人次-总人数=二层+2×三层(多计部分),快速求未知层
+  - 标准公式:A∪B∪C=A+B+C-(A∩B+A∩C+B∩C)+A∩B∩C,代入求值
+  error_signatures:
+  - code: three_layer_minus_once
+    description: 三层重叠只减一次(每人在三个集合中被计3次,应多减2次)
+  - code: two_layer_extra_wrong
+    description: 二层多计部分算错(每人多计1次而非2次)
+  - code: neither_ignored
+    description: 忘记加回"三者都不"的人数
+  fix_action: 做7道三集合容斥题,限时80秒/题,必画三层圈图分层标注
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥80%
+  pitfall: '"至多两项"=三层为0,"至少两项"=二层+三层;人次差=二层+2×三层是最高效的突破口。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/容斥原理问题
+  - 行测/数量关系/三集合
+- id: mc_rc_extreme
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/容斥问题/容斥最值
+  title: 容斥问题-最值(铺砖思维)
+  recognition: 问"至少/最多有多少人同时满足两项或三项",或交并集的取值范围。
+  applicability:
+    include:
+    - 求双集合交集的取值区间或最值
+    - 求至少满足N项的最小人数(三集合)
+    - 每人报名项数受限,求未报名人数最多/最少
+    exclude:
+    - 求某层人数的定值(用分层公式)
+    - 纯比例无具体人数约束的题
+  method_steps:
+  - 双集合最值:A∩B∈[0,min(A,B)],A∪B∈[max(A,B),A+B]
+  - 铺砖模型:总人次=总砖块数;先满足硬性要求(如每人至少一项→每人先铺1块),剩余砖块自由分配
+  - 求"至少几人满足≥2项":剩余砖块尽量垒高(每人多拿),砖块数÷可多拿数向上取整
+  - 求"最多":剩余砖块尽量铺平扩散;若某单项人数>其他项之和,最多未报名=总人数-该最大单项
+  error_signatures:
+  - code: high_low_reversed
+    description: 求最少时误铺平、求最多时误垒高(优化方向反了)
+  - code: hard_requirement_missed
+    description: 漏掉"每人至少一项"等硬性约束就自由分配
+  - code: single_max_overflow
+    description: 最大单项>其他项之和仍硬套整除公式
+  fix_action: 做6道容斥最值题,限时85秒/题,先写总人次和硬性约束再分配
+  time_budget_sec: 85
+  accuracy_rule: 正确率≥75%
+  pitfall: 求"至少"要把剩余砖块集中在少数人身上(每人多拿、减少受影响人数);求"最多"才铺平扩散;且高层受最小单项人数限制。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/容斥原理问题
+  - 行测/数量关系/多集合反向构造
+- id: mc_shuliang_zuizhi_chouti
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/最值问题/抽屉原理
+  title: 最值问题-抽屉原理（最不利原则）
+  recognition: 看到「至少……保证……」或「至少多少次（人/个）才能保证有k个相同/达到k层」，要把物品分进若干抽屉
+  applicability:
+    include:
+    - n+1个物品放入n个抽屉，至少有一个抽屉物品≥2；推广：m×n+1个物品放n个抽屉，至少一个抽屉≥m+1
+    - 保证至少k个同色/同身高/同方案的取物、分组题
+    - 分组问题「多于k人/至少k人」反推人数（m+1=k+1）
+    exclude:
+    - 某抽屉容量不足的题（某颜色球不够k-1个，须按实际容量调整，不能直接套公式）
+    - 求「最大值最小/最小值最大」的构造数列题
+    - 已给具体概率、求概率的题
+  method_steps:
+  - 定抽屉：分组依据/方案种数=抽屉数n，物品=分配对象
+  - 找最不利情况：让每个抽屉都只铺满k-1层（目标数量-1），最多可放 n×(k-1) 个
+  - 临界+1：答案=n×(k-1)+1（公式：(目标数量-1)×抽屉数+1）
+  - 若某抽屉容量不足，该抽屉按实际容量铺满（如该色球只有4个就铺4个），其余抽屉仍铺k-1
+  error_signatures:
+  - code: ignore_capacity_limit
+    description: 忽略某抽屉容量不足，直接套n×(k-1)+1导致答案偏大（产品检测题误用2109×3）
+  - code: disturb_by_quantity
+    description: 被小球具体数量（4,6,8,9,11,10）等干扰项迷惑，没抓住抽屉=颜色种类数
+  - code: threshold_shift
+    description: 「多于2人」误理解成≥2人，实际是≥3人，m值反推错
+  - code: forget_plus_one
+    description: 铺满临界层后忘记+1，答案差1
+  fix_action: 做6道抽屉原理/最不利原则真题，限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: 求临界必须「铺满最不利层+1」，加号最容易丢；有容量上限的抽屉，其最多能铺的数量是实际容量而非k-1
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/最不利构造
+- id: mc_shuliang_zuizhi_gouzaoshulie
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/最值问题/构造数列
+  title: 最值问题-构造数列
+  recognition: 总量固定（人数/总分/本书已知），问「最多者尽量少」或「最少者尽量多」，常带「各不相同」
+  applicability:
+    include:
+    - 总分固定求第n名/最大年龄等极值（20人平均88分，求第10名最低分）
+    - 书/蛋糕/得分分配且各人数量不同，求极值
+    - 多约束极值（百分制及格线、最高分上限、倍率关系）
+    exclude:
+    - 允许相等、直接均分的题
+    - 「保证」型抽屉原理题
+    - 混合平均/十字交叉题
+  method_steps:
+  - 先算总量：如总分=人数×平均分
+  - 定向：求最小→让其他元素尽量取最大（构造成连续整数）；求最大→让其他尽量取最小
+  - 设目标为a，按 a, a-1, a-2,…（或 a+1, a+2,…）列式，用等差数列求和：奇数项Sn=中项×项数，偶数项Sn=(首项+末项)×项数/2
+  - 解方程取整：问最小向上取整，问最大向下取整；再验证实际分配方案可行
+  error_signatures:
+  - code: wrong_round_dir
+    description: 取整方向搞反（求最小应向上取整，求最大应向下取整）
+  - code: ignore_distinct
+    description: 忽略「各不相同」约束，构造出相等数值
+  - code: exceed_cap
+    description: 让其他元素取最大值时冲破题设上限（如最高分不超过21）
+  - code: no_feasibility_check
+    description: 求出小数直接取整，未验证能否组合出给定总量（21本分5人需验证）
+  fix_action: 做5道构造数列极值题（含整数约束），限时85秒/题
+  time_budget_sec: 85
+  accuracy_rule: 正确率≥75%
+  pitfall: 小数取整方向「最少向上顶，最多向下压」；「各不相同/上限/及格线」等约束必须同时满足，不能只取整不看题
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/构造数列
+- id: mc_shuliang_zuizhi_bisai
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/最值问题/比赛得分与循环赛
+  title: 最值问题-比赛得分与循环赛
+  recognition: 单循环/双循环比赛求总场次，或已知总分推平局数、再推某人得分
+  applicability:
+    include:
+    - 单循环（每两队一场）：总场次=C(n,2)=n(n-1)/2；双循环（主客场）：n(n-1)
+    - 淘汰赛决出冠军：每场淘汰1人，共n-1场（35人→35场）
+    - 胜负局单场3分、平局单场2分；总分=3×总场次-平局数
+    exclude:
+    - 给定具体对阵关系的逻辑推理题（如篮球D队比了几场）
+    - 与场次无关的纯得分应用题
+  method_steps:
+  - 先算总场次：单循环C(n,2)，双循环n(n-1)，淘汰赛n-1
+  - 由总分差推平局数：平局数=3×总场次-实际总分（每平1场比胜负局少1分）
+  - 用个人胜场/平场限制逐步推理（如冠军全胜占4个胜场，亚军必输给冠军1场，其余场次只能平）
+  error_signatures:
+  - code: double_count
+    description: 单循环用n×(n-1)忘记除以2
+  - code: miss_penalty
+    description: 平局与胜负局分差（2分vs3分）没用来推平局数
+  - code: ignore_wins_used
+    description: 推某人得分时未扣除已被冠军占用的胜场
+  fix_action: 做4道循环赛/淘汰赛场次与得分题，限时80秒/题
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥75%
+  pitfall: 单循环场次C(n,2)是因为每场被双方各记一次必须除以2；推完平局数后，剩余胜场数要分给各队不能重复使用
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/比赛问题
+- id: mc_shuliang_pailie_jiaicheng
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/排列组合/加乘原则与排列组合
+  title: 排列组合-加乘原则与A/C选择
+  recognition: 计数题第一步：完成事件「能分类独立完成」用相加，「需分步依次完成」用相乘；取出元素要不要排顺序决定用A还是C
+  applicability:
+    include:
+    - 若干互斥类别、每类能单独完成事件→分类相加（4+3+2）
+    - 多个步骤依次衔接→分步相乘（9×6）
+    - 有序分配/排队→排列A(m,n)=m×(m-1)×…×(m-n+1)；无序选人/归组→组合C(m,n)=A(m,n)/A(n,n)
+    exclude:
+    - 相邻/不相邻/定序等带特殊约束的题（先套特殊方法）
+    - 相同元素分堆（用隔板法）
+    - 问概率（先算古典概型再相除）
+  method_steps:
+  - 明确「完成事件」的完整定义，判断是类别独立（加）还是步骤衔接（乘）
+  - 判断有无顺序：有→A(m,n)；无→C(m,n)，用C(m,n)=A(m,n)/A(n,n)消序
+  - 组合数对称性：C(m,n)=C(m,m-n)，n>m/2时用互补项更快；熟记C(2,4)=6、C(2,5)=10、C(2,6)=15、C(3,6)=20
+  error_signatures:
+  - code: wrong_operation
+    description: 该乘用了加、该加用了乘
+  - code: order_judgement_error
+    description: 有顺序用成组合C、无顺序用成排列A
+  - code: cancel_not_divide
+    description: 消序想用加减抵消，实际必须除法（乘2则除2）
+  - code: classify_overlap
+    description: 分类时类别重复或遗漏
+  fix_action: 做6道加乘原则与A/C判别计算题，限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥85%
+  pitfall: 消序只能用除法（乘2则除2），不能用加减抵消；分类要「不重不漏」、分步要「完整衔接」
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/基础排列组合
+- id: mc_shuliang_pailie_fenpei
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/排列组合/分组分配
+  title: 排列组合-分组分配（先定名额再挑人）
+  recognition: 不同的人/物分给不同组，每组有人数约束（至少1人/最多几户），问分配方案数
+  applicability:
+    include:
+    - 4人分3部门每部门至少1人（2-1-1分配）；5人分3天每天1-2人（2-2-1分配）
+    - 每组有上限的分配（干部帮扶每人最多2户）
+    - 放置问题「谁选谁」：5个不同锦囊各选1个锦盒→4^5（不是5^4）
+    exclude:
+    - 纯平均分组且无接收对象（需除以A(n,n)）
+    - 相同元素分配（隔板法）
+    - 多面手能力交叉题（按能力分类）
+  method_steps:
+  - 定名额：先确定各组名额分配方案（如2-1-1、2-2-1），不同名额模式分类枚举
+  - 选容器：确定哪个组拿多份，如C(1,3)
+  - 挑人：按名额从人库依次选，如C(3,5)×C(1,2)；最后一人自动归属、不再选择
+  - 各名额模式的结果相加（如60+90=150）
+  error_signatures:
+  - code: skip_quota
+    description: 未先定名额直接分配，产生顺序重复
+  - code: last_person_dangling
+    description: 最后一人未明确归属、漏算分配
+  - code: wrong_side_choose
+    description: 放置问题选错「谁选谁」（5个锦盒选锦囊=5^4错误，应为4^5）
+  - code: group_order_not_removed
+    description: 无指向的单纯分成两捆未除以A(2,2)
+  fix_action: 做5道分组分配题（覆盖2-1-1与2-2-1两种名额模式），限时90秒/题
+  time_budget_sec: 90
+  accuracy_rule: 正确率≥75%
+  pitfall: 「先定名额再挑人」——不同容器是不同「位」不需消序；只有「单纯分成两捆」这类无指向分组才除以A(n,n)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/基础排列组合
+  - 行测/数量关系/排列组合问题
+- id: mc_shuliang_pailie_zhengnanfefan
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/排列组合/正难则反
+  title: 排列组合-正难则反（容斥）
+  recognition: 正面分类多而复杂，或条件带「至少/不能/不在/不相邻」等否定词；满足数=总数-反面数
+  applicability:
+    include:
+    - 「至少1个/每类至少1」→反面「全选某一类」；「至多3本」→反面「4本」
+    - 多个否定条件（不能放两端且不相邻）：总数-反1-反2+反1且反2
+    - 假言条件「若P则Q」的反面是「P且非Q」
+    exclude:
+    - 正面情况本来就少（直接分类更快）
+    - 无否定条件的直接计数
+  method_steps:
+  - 先算总数（不考虑限制）：如A(4,4)=24或C(4,8)=70
+  - 分别算各反面情况（可用捆绑法），如「玻璃杯在两端」=2×A(3,3)
+  - 多条件按容斥：总数-Σ反面+Σ反面交集（补回同时违反两个条件的情况）
+  - 涉及概率时直接 P=1-P(反面)
+  error_signatures:
+  - code: miss_overlap
+    description: 多个否定条件重叠部分忘记加回（24-12-12漏+8）
+  - code: wrong_negation
+    description: 否定条件找反（「至少1」反成「至少0」；假言命题反成「非P则Q」）
+  - code: bind_internal_forgot
+    description: 捆绑相邻元素后漏乘内部排列A(2,2)
+  fix_action: 做5道正难则反/容斥排列题，限时85秒/题
+  time_budget_sec: 85
+  accuracy_rule: 正确率≥80%
+  pitfall: 容斥「减反1+反2」后必须「加回反1且反2」的重叠部分；假言命题「若P则Q」的反面是「P且非Q」，不是「非P则Q」
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/排列组合问题
+  - 行测/数量关系/基础排列组合
+- id: mc_shuliang_pailie_chakong
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/排列组合/插空法
+  title: 排列组合-插空法（不相邻）
+  recognition: 「甲与乙不能相邻/不相邻」或「两两不相邻」，需把受限元素插进空位
+  applicability:
+    include:
+    - 不相邻：先排无限制元素，再在形成的空位（含两端）中插入受限元素
+    - 部分相邻「2+1」结构：相邻两元素捆成整体再与第三人插空；必须相邻则用捆绑法（整体排列后乘内部排列）
+    - 逆向：「至少两人相邻」=总数-「都不相邻」（C(3,12)-C(3,10)=100）
+    exclude:
+    - 定序/环形问题（用消序法）
+    - 相同元素分堆（隔板法）
+    - 无「相邻/不相邻」字样的普通排列
+  method_steps:
+  - 先排无限制元素：A(m,m)，形成m+1个空位（含两端）
+  - 从空位中选位置插入受限元素：需区分排序用A(k,m+1)，相同元素用C
+  - 不相邻=两人插入不同空位；空位数必须≥受限元素数（如6个空位放4位老人）
+  - 若含相邻约束：先捆绑相邻元素（乘内部A(k,k)），再整体插空
+  error_signatures:
+  - code: wrong_slots
+    description: 空位数算错（应为无限制元素数+1，含两端）
+  - code: slot_shortage
+    description: 空位不够还硬插（如老人数大于空位数）
+  - code: order_ignored
+    description: 受限元素不同却用C不用A
+  - code: condition_misread
+    description: 条件翻译反（「相邻两灯至少一盏亮」等价于「关的灯不相邻」，不是开的灯不相邻）
+  fix_action: 做5道插空法题（含逆向与相邻对照），限时80秒/题
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥80%
+  pitfall: 空位数=无限制元素数+1（含两端）；受限元素有区别要用A；「相邻/不相邻」条件先翻译对再动笔
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/不相邻问题
+- id: mc_shuliang_pailie_geting
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/排列组合/同素分堆（隔板法）
+  title: 排列组合-同素分堆（隔板法）
+  recognition: 相同的物品/名额分给若干组，各组有「至少几个/无限制/至多几个」约束
+  applicability:
+    include:
+    - n个相同物品分k组每组至少1个：C(k-1,n-1)
+    - 允许分0个（无限制）：借一法，总数+n后再按≥1分（10个分4组→C(3,13)=286）
+    - 每组至少t个：预分配（先发t-1个）再按≥1分；反向「至多m个」：超额分配+收回（先发m+1再收回，收回时至少还1）
+    exclude:
+    - 物品不同（要用排列组合分类讨论）
+    - 各组名额已固定的分配（用「先定名额再挑人」）
+  method_steps:
+  - 识别物品是否相同、组是否不同（不同组有区别，不需乘排列）
+  - 把约束统一成「每组≥1」：下限t→先预发(t-1)个；允许0个→借一法（每组借1个使总数+n）
+  - 套公式：C(k-1, n-1)（n为转化后的物品数，k为组数）
+  - 上限约束（至多m个）反向处理：借满m+1再收回，收回时每组至少还1个
+  error_signatures:
+  - code: items_distinct
+    description: 把不同物品当成同素用隔板法
+  - code: blank_group_allowed
+    description: 允许0个时没用借一法，误当每组≥1
+  - code: wrong_lower_bound
+    description: 预分配数量错（要求≥t应先发t-1个，不是t个）
+  - code: endpoint_slot_used
+    description: 误用两端间隔插板（会产生空组）
+  fix_action: 做5道同素分堆题（≥1/可0/≥t/至多m四种变式），限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: 隔板只能插在中间间隔（两端插板会出空组）；「下限高提前发、下限低借来补」，所有变式统一转成「每组≥1」标准模型
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/同素分堆问题
+- id: mc_shuliang_pailie_dingxu
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/排列组合/定序与环形
+  title: 排列组合-定序与环形（消序）
+  recognition: 部分元素顺序固定（甲乙丙固定顺序/身高递增排两排），或「围成圆桌/环形」旋转视为相同
+  applicability:
+    include:
+    - 定序：7人排队甲乙丙顺序固定→A(7,7)÷A(3,3)或C(3,7)×A(4,4)
+    - 两排按身高递增、合唱前后排对齐（每列定序）：只选每排成员，顺序自动确定
+    - 环形：n个不同对象围一圈→(n-1)!（固定1人破环成线）；环形+相邻（夫妻绑成单元再环形）
+    exclude:
+    - 元素可随意换位的普通排列
+    - 纯分组（无排列要求）
+    - 有固定方位/方向标识的方桌（按线形排列）
+  method_steps:
+  - 先判断是定序还是环形
+  - 定序：先全排列A(n,n)，再除以定序元素的全排列A(k,k)；或先给定序元素选位置C(k,n)再排其余
+  - 环形：固定1个参照对象，剩余n-1个做线形排列=(n-1)!
+  - 环形含相邻约束：先捆绑成复合单元，单元环形排列后再乘内部排列
+  error_signatures:
+  - code: circle_used_line
+    description: 环形误用A(n,n)忘除n（环形少一位）
+  - code: sequence_not_removed
+    description: 定序元素的全排列忘记除
+  - code: fixed_reference
+    description: 有固定参照物的方桌误用环形公式
+  - code: adjacency_internal
+    description: 环形+相邻时捆绑单元忘记乘内部排列
+  fix_action: 做5道定序与环形混合题（含环形相邻），限时80秒/题
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥80%
+  pitfall: 环形=固定1人再线形排列=(n-1)!；定序=全排列÷定序元素排列数；有前后排/方向区别时不要再除组间顺序
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/排列组合问题
+  - 行测/数量关系/环形排列问题
+- id: mc_shuliang_pailie_duomianshou
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/排列组合/多面手问题
+  title: 排列组合-多面手（双重能力人员）
+  recognition: 队伍中有「只会A/只会B/AB都会」三类人，要分别凑满两项任务的名额
+  applicability:
+    include:
+    - 翻译人员安排（纯英语/纯日语/双语）
+    - 龙舟左右舷选拔（仅左舷/仅右舷/双能）
+    - 任何「全才补缺」型分配
+    exclude:
+    - 无能力交叉的普通分组分配
+    - 名额无限制的选人
+  method_steps:
+  - 以「只会单一能力」的人数为分类基准（如只会英语选2/3/4人），分类必须穷尽且互斥
+  - 每类：先选单能人数C，再补多面手，最后从剩余人里选另一任务
+  - 注意多面手被前一项任务占用后，后一项任务的候选池会缩小（动态计算剩余人数）
+  error_signatures:
+  - code: candidate_pool_stale
+    description: 多面手被占用后，后续任务候选池未动态更新
+  - code: classification_incomplete
+    description: 分类没穷尽（漏掉多面手全不用的那类）
+  - code: overlap_count
+    description: 分类重叠导致重复计数
+  fix_action: 做3道多面手题，限时90秒/题
+  time_budget_sec: 90
+  accuracy_rule: 正确率≥70%
+  pitfall: 多面手一旦被选入任务A就不能再进任务B，候选池要逐类动态计算，不能一套公式打天下
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/排列组合问题-其他
+- id: mc_shuliang_pailie_cuowei
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/排列组合/错位排列
+  title: 排列组合-错位排列
+  recognition: 「都不在原位/恰好n个贴错/都拿错手机/错拿信封」等「不在原位置」的排列
+  applicability:
+    include:
+    - 全部错排：记D(n)数列 D1=0,D2=1,D3=2,D4=9,D5=44,D6=265
+    - 递推公式：D(n)=(n-1)×[D(n-1)+D(n-2)]
+    - 部分错排：先选正确的C(k,n)，剩余错排D(n-k)
+    exclude:
+    - 问正常排列（无「错位/不在原位」条件）
+    - 相邻/插空等排列
+  method_steps:
+  - 识别「不在原位置」→错位排列，先想D(n)记忆数列
+  - 全部错排直接套D(n)记忆值（D3=2、D4=9、D5=44）
+  - 恰有k个在正确位置：C(k,n)×D(n-k)
+  - 需要递推时用D(n)=(n-1)×[D(n-1)+D(n-2)]
+  error_signatures:
+  - code: wrong_value
+    description: 错排值记错（D3=2、D4=9、D5=44）
+  - code: forgot_select
+    description: 部分错排忘了先选正确的C(k,n)
+  - code: misidentify
+    description: 把「恰好1人正确」与「至少1人正确」混淆
+  fix_action: 做3道错位排列题，限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥75%
+  pitfall: 错排值必须背熟（0,1,2,9,44,265）；「恰好n个错位」要先选正确的再乘D(n-k)，不能直接套D(n)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/错位排列
+- id: mc_shuliang_pailie_tuiding
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/排列组合/递推与标数法
+  title: 排列组合-递推与标数法（最短路径）
+  recognition: 走楼梯/开灯方案/最短路径等「上一步决定下一步」的计数，或网格最短路求走法数
+  applicability:
+    include:
+    - 走台阶：a(n)=a(n-1)+a(n-2)，初始a1=1,a2=2（斐波那契 1,2,3,5,8,13,21,34,55，9级=55）
+    - 每次可跨1-3级：a(n)=a(n-1)+a(n-2)+a(n-3)
+    - 网格最短路径：标数法（边缘点标1，内部点=左点+下点）或组合数C(m,m+n)（向右m步向上n步）
+    - 必经点：分段相乘（甲→丙 × 丙→乙）
+    exclude:
+    - 有障碍/不规则的网格（用标数法而非组合数公式）
+    - 普通排列组合题
+  method_steps:
+  - 判断递推来源：最后一步跨1级来自n-1、跨2级来自n-2，建立a(n)=a(n-1)+a(n-2)(+a(n-3))
+  - 定初始值：a1=1、a2=2，依次递推到目标项
+  - 网格路径：边缘标1，内部点=左点+下点递推（标数法）；规整网格可直接C(向下的步数,总步数)
+  - 经过必经点则分成两段分别算再相乘
+  error_signatures:
+  - code: wrong_init
+    description: 初始条件设错（如a0应=1却设0）
+  - code: miscount_labels
+    description: 标数法漏加/错加相邻点数值
+  - code: used_combination_on_irregular
+    description: 不规则网格（有障碍）硬套C(m,m+n)
+  - code: reversed_order
+    description: 递推方向写反
+  fix_action: 做4道递推与最短路径题，限时80秒/题
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥75%
+  pitfall: 递推要选对「最后一步」的来源（跨1/跨2/跨3）并定准初始值；组合数法只适用规整网格，有障碍必须用标数法
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/排列组合问题
+  - 行测/数量关系/计数模型问题
+- id: mc_shuliang_gailv_gudian
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/概率问题/古典概型
+  title: 概率-古典概型（有利情况数/总情况数）
+  recognition: 等可能结果有限，问「随机/任取/任意」事件概率，P=有利情况数÷总情况数
+  applicability:
+    include:
+    - P=限定条件下的度量/已定事实的度量（数量、长度、面积均可）
+    - 抽签/密码等概率模型：正确签等概率分布，尝试n次概率=n/总数；不放回与放回第k次抽中概率相同
+    - 概率反推：数量=总数×概率；或设未知数列概率方程（彩球：a-3/3a-10=2/5）
+    exclude:
+    - 有前置条件信息的题（条件概率）
+    - 时间/长度/面积等连续量（几何概率）
+  method_steps:
+  - 定总情况数（组合或排列，分子分母规则必须统一）
+  - 数有利情况数
+  - 概率=有利情况数/总情况数；相同物品须编号视为不同个体
+  - 含「至少/不」字优先用 P=1-P(对立事件)
+  error_signatures:
+  - code: denominator_numerator_rule
+    description: 分子用组合、分母用排列，计数规则不统一
+  - code: same_items_not_numbered
+    description: 相同颜色球不编号，漏算排列
+  - code: condition_ignored
+    description: 忽略「已知」前置条件，把条件概率当古典概型
+  fix_action: 做6道古典概型题（含逆向与概率反推），限时80秒/题
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥85%
+  pitfall: 分子分母的计数方式必须一致（要么都按组合、要么都按排列）；相同物品要编号当作不同个体
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/概率问题
+  - 行测/数量关系/给情况求概率
+- id: mc_shuliang_gailv_tiaojian
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/概率问题/条件概率
+  title: 概率-条件概率与独立事件
+  recognition: 后一事件概率受前一事件结果影响（不放回/已知条件/两事件相关）；P(AB)=P(A)×P(B|A)
+  applicability:
+    include:
+    - 相关事件：P(AB)=P(A)×P(B|A)，不能用P(B)代替P(B|A)
+    - 独立事件：P(AB)=P(A)×P(B)直接相乘（掷骰/抽签放回）
+    - 分类相加分步相乘：P(C)=P(A)P(C|A)+P(B)P(C|B)
+    - 容斥型概率：P(A∪B)=P(A)+P(B)-P(A∩B)；若P(AB)≠P(A)P(B)则两事件相关
+    - 环形座位相邻概率：固定1人，剩余n-1个位置中相邻有2个→2/(n-1)
+    exclude:
+    - 等可能、无前置条件的古典概型
+    - 连续量几何概率
+  method_steps:
+  - 先判断事件独立还是相关（有无「已知/不放回/顺序影响」）
+  - 独立→直接相乘；相关→用P(AB)=P(A)×P(B|A)
+  - 分步相乘、分类相加；「至少」用1-对立
+  - 求「有人/满足其一」时画韦恩图用容斥：P(A∪B)=P(A)+P(B)-P(A∩B)
+  error_signatures:
+  - code: treat_related_as_independent
+    description: 相关事件误当独立事件，直接用P(B)相乘
+  - code: formula_condition_use
+    description: 条件概率题硬套古典概型有利/总数
+  - code: union_overlap
+    description: 容斥型概率忘记减/加交集
+  - code: circular_mistake
+    description: 环形座位相邻概率用成直线算法（100人应为2/99）
+  fix_action: 做5道条件概率/独立事件题（含容斥与环形座位），限时85秒/题
+  time_budget_sec: 85
+  accuracy_rule: 正确率≥80%
+  pitfall: 相关事件必须乘条件概率P(B|A)而非P(B)；若P(AB)≠P(A)P(B)说明两事件相关，要改用容斥/条件概率而不是直接相乘
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/概率问题-其他
+  - 行测/数量关系/给概率求概率
+- id: mc_shuliang_gailv_jihe
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/概率问题/几何概率
+  title: 概率-几何概率（长度/面积比）
+  recognition: 时间/长度/面积等连续量均匀随机，概率=有利部分度量÷总度量
+  applicability:
+    include:
+    - 等时间等待：整点前15分钟概率=15/60=1/4
+    - 二维坐标：总面积与约束直线围成面积之比（如|x-y|≤10的带状面积/30×30）
+    - 正方形顶点扇形禁区：4个90°扇形可拼成整圆，有效=总面积-圆面积（86/400）
+    - 线段切三段成三角形：用三角形不等式围出的面积/总面积（概率1/4）
+    exclude:
+    - 离散有限个结果（古典概型）
+    - 带条件概率的题
+  method_steps:
+  - 建度量模型：一维用线段长度（时间轴），二维用坐标系面积
+  - 二维：总面积=约束范围面积（如30×30=900），画出约束线（如y=x±10）
+  - 有效面积=总面积-失效面积；概率=有效面积/总面积
+  - 多个扇形合并成整圆计算（4个90°扇形=1个圆），用π≈3.14估算
+  error_signatures:
+  - code: wrong_region
+    description: 约束区域画错（方向或不等号反）
+  - code: unit_mismatch
+    description: 时间/长度单位不统一
+  - code: sector_not_merged
+    description: 多个扇形分开算导致误差
+  - code: mean_distribution_fail
+    description: 非均匀分布硬用面积比
+  fix_action: 做4道几何概率题（1维时间+2维坐标），限时90秒/题
+  time_budget_sec: 90
+  accuracy_rule: 正确率≥70%
+  pitfall: 二维几何概率关键是画对约束线围成的区域；扇形禁区可合并成整圆简化计算；注意单位统一
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/概率问题-其他
+  - 行测/数量关系/几何其他题型
+- id: mc_qty_14_cycle_full_period
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/周期问题/完整周期与余数
+  title: 周期问题-完整周期与余数处理
+  recognition: 看到'每n天/每隔n天'重复出现的排班、值班、提交、活动等,求一段时间内发生次数或某天是否发生
+  applicability:
+    include:
+    - 排班/值班/学习提交等按固定周期重复的计数题
+    - 求某段时间内某事件发生次数:先算完整周期数再处理余数
+    - 两件周期不同的事件同一天发生,求下次同时发生(用最小公倍数)
+    exclude:
+    - 涉及星期几计数且需跨月/跨年的日期题(见'日期星期推算'卡)
+    - 一个数被多个除数整除、余数有规律的题(用'同余三口诀'卡)
+  method_steps:
+  - 确定周期长度:'每隔n天'一律换算为'每n+1天'(隔4天=每5天、隔2天=每3天);'每n天'周期就是n天
+  - 计算完整周期数=总天数÷周期长度(向下取整),完整周期内各对象个数恒定(如'上2休3'任意连续10天必含4个工作日)
+  - 余数天数从该周期起始位置往后单独数出对象数,与完整周期结果相加
+  - 两周期事件同步:下次同时发生=两周期天数的最小公倍数LCM(a,b)之后(如周期3天与4天→12天)
+  error_signatures:
+  - code: every_n_days_misconverted
+    description: 把'每隔n天'直接当成周期n天,实际应为n+1天
+  - code: remainder_ignored
+    description: 只算完整周期忘记处理余数,或余数天数乱取起点
+  - code: lcm_misuse
+    description: 求两周期同步时刻却用乘积或相加,应为最小公倍数
+  fix_action: 做6道周期计数题(含'每隔n天'换算、完整周期+余数、两周期同步各2道),每题限时60秒,动笔前先标周期长度
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥80%
+  pitfall: 周期起点不影响完整周期内的对象总数,但决定余数部分的起点——余数天数必须从该周期起始日往后数,不能从第1天顺延
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/周期余数问题
+- id: mc_qty_14_date_weekday
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/周期问题/日期星期推算
+  title: 日期周期-星期推算
+  recognition: 给某月/某段时间内各星期几出现次数(如'某月有5个周二4个周三')或已知某日星期几求N天后星期几
+  applicability:
+    include:
+    - 某月/某段时间内某星期几出现次数的题
+    - 跨月、跨年推算星期
+    - 通过'某星期几出现次数异常'反推具体日期
+    exclude:
+    - 不含星期概念的纯周期计数题(用'完整周期与余数'卡)
+    - 求具体天数间隔而非星期的题(改用逐月累加法)
+  method_steps:
+  - 记住特殊天数与7的余数:闰年2月29=4×7+1、小月30=4×7+2、大月31=4×7+3、第三季度92=13×7+1、平年365=52×7+1、闰年366=52×7+2
+  - 先排除完整周数:某月30天=4周+2天,多出的2天从该月1日的星期往后占用(29日、30日分别与1日、2日星期相同)
+  - 据题目条件定位:若'5个周二4个周三',说明余下2天含周二不含周三,即可确定月末最后一天是周二
+  - 跨月推星期:分段按整月累加天数(如3月1日→5月1日=31+30=61天),再除7看余几,从起始星期往后推
+  error_signatures:
+  - code: month_days_wrong
+    description: 记错月份天数(大月31/小月30/闰年2月29),导致余数错误
+  - code: remainder_direction
+    description: 余数天对应的星期方向弄反(应从月初星期往后加,不是往前减)
+  - code: leap_year_cross
+    description: 跨年推算时忽略次年是否为闰年对2月天数的影响
+  fix_action: 做5道日期星期题(月内计数+跨月推算),每题限时70秒,先默写特殊天数与7的余数表再动笔
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥75%
+  pitfall: '''某星期几出现5次''通常意味着当月天数除以7的余数落在了该星期几上——方向是''从该月1日的星期往后推余数天'',不是往前'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/星期日期问题
+- id: mc_qty_14_mod_congruence
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/周期问题/同余问题
+  title: 余数问题-余同取余/差同减差/和同加和
+  recognition: 一个数被两个以上不同的数整除后余数有规律(余数相同、或'不足数'相同、或除数和余数和相同)
+  applicability:
+    include:
+    - 形如'C=3a+1=4b+1'余数相同的题
+    - 形如'C=3a-1=4b-1'都'缺1'的题
+    - 在给定范围内统计满足条件的数有多少个
+    exclude:
+    - 分配问题(被分配对象和接收对象都固定,同一变量直接列方程,如2a+13=3a-15)
+    - 题目已给出具体余数只需取模验证的简单题
+  method_steps:
+  - 把每式改写为'除数×商+余数'的规范形式(如5a-2=5(a-1)+3,真实余数是3),再判定类型:余数相同→余同;不足数(除数-余数)相同→差同;除数+余数和相同→和同
+  - 取两除数的最小公倍数LCM作为周期基数(如5和7→35,3和4→12,4和5→20)
+  - 写通式:余同 C=k·LCM+r(r为共同余数);差同 C=k·LCM−d(d为共同不足数);和同 C=k·LCM+S(S为共同和值)
+  - 在给定范围内代入k验证,并逐条核对原始条件(整除/余数),统计符合条件的个数(注意首项和完整周期数)
+  error_signatures:
+  - code: type_misclassified
+    description: 分不清余同/差同/和同,选错通式符号
+  - code: difference_sign
+    description: 差同问题用加号而非减号(把'缺1'写成'余1')
+  - code: lcm_wrong
+    description: 最小公倍数算错(如4和6误算为24,应为12)
+  - code: range_counting
+    description: 范围计数时漏算首项或完整周期数
+  fix_action: 做5道同余问题(三类型各约2道),每题限时75秒,先默写'余同取余/差同减差/和同加和'口诀再套通式
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥70%
+  pitfall: 判断类型要看改写后的'真实余数',不是看表达式里的减号:如m=5a-2真实余数是3(属余同),而m=3a-1真实余数是2(属'缺1'差同)——搞反了通式符号就错
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/周期余数问题
+- id: mc_qty_15_pythagorean
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/平面几何/勾股定理
+  title: 勾股定理与常用勾股数
+  recognition: 直角三角形或可构造直角三角形求边长/距离,或出现2.6、15等'不像整数'的数据(往往是勾股数比例的缩放)
+  applicability:
+    include:
+    - 已知直角三角形两边求第三边
+    - 构造辅助线出现直角(距离、最短路径、半径垂直)后用勾股定理
+    - 120°等腰三角形边长比1:1:√3(追及类几何题高频)
+    exclude:
+    - 只给角、无直角结构且没构造线索的题(考虑相似或正弦)
+    - 直接套面积公式的题
+  method_steps:
+  - 背熟高频勾股数:3-4-5、5-12-13、7-24-25、8-15-17及其倍数
+  - 识别直角三角形(a²+b²=c²,c为斜边)用已知两边求第三边;锐角三角形满足a²+b²>c²,钝角满足a²+b²<c²
+  - 遇到小数或非常规数,整体除以公因子还原为勾股数比例(如10/24/26÷2=5/12/13,2.6=13/5)
+  - 用奇数生成法补全勾股数:奇数n的平方拆成相邻两数(5²=25→12+13→5-12-13)
+  error_signatures:
+  - code: leg_hypotenuse_mixed
+    description: 把直角边当斜边,或漏看c是斜边
+  - code: scale_lost
+    description: 识别出勾股数比例但忘记乘回缩放倍数
+  - code: non_right_applied
+    description: 对非直角三角形硬套勾股定理
+  fix_action: 做6道勾股距离题(含小数数据),每题限时70秒,先写勾股数表再做题,每步检查是否还原比例
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥80%
+  pitfall: 2.6、2.4这类带一位小数的数据常是13/5、12/5这样的勾股数比例,优先整体放大还原成3-4-5/5-12-13再算
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/几何公式类-平面图形/几何结论类-三角形相关
+- id: mc_qty_15_similar_triangle
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/平面几何/相似三角形
+  title: 相似三角形-比例法
+  recognition: 图形中出现平行线、共角、垂直结构(投影/影子、三角形内作平行线),求边长或比例
+  applicability:
+    include:
+    - 影子/灯光测量问题(人、灯杆构成的相似三角形)
+    - 大三角形套小三角形、DE∥BC等平行结构
+    - 直角三角形斜边上的高(射影定理:AD²=BD×CD、AB²=BD×BC)
+    exclude:
+    - 没有可证相似的角相等/边平行线索的图形
+    - 需要精确面积的题(可考虑蝴蝶定理/正弦面积)
+  method_steps:
+  - 找相似判定:①平行线(同位角相等)DE∥BC→△ADE∽△ABC;②共角+再一个角相等;③垂直+共锐角
+  - 写对应边成比例:AD:AB=AE:AC=DE:BC(小三角形边对大三角形对应边,注意配对)
+  - 求面积时用相似比的平方:面积比=(对应边长比)²
+  - 射影定理:直角三角形斜边上的高AD²=BD×CD,适用于'直角+高'结构直接建立平方关系
+  error_signatures:
+  - code: corresponding_side_mismatch
+    description: 对应边配对错位,比例式写反
+  - code: ratio_not_squared
+    description: 求面积时用了长度比而不是长度比的平方
+  - code: shadow_equation
+    description: 影子测量题漏写位移变化量构成的等量关系
+  fix_action: 做5道相似三角形题(影子测量+平行结构),每题限时75秒,先标出对应角/对应边再写比例式
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥75%
+  pitfall: 写比例必须以'对应'为准:小三角形的某条边对应大三角形的哪条边,不能按视觉位置随意配对
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/几何公式类-平面图形/几何结论类-相似图形
+- id: mc_qty_15_shortest_path_mirror
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/平面几何/最短路径
+  title: 最短路径-镜像对称(将军饮马)
+  recognition: '''两定点+一动点在直线上''求AP+PB最短(饮马/集散中心/河岸取水),或两个动点求折线最短'
+  applicability:
+    include:
+    - 将军饮马:定点A到直线(河)再到定点B的最短折线
+    - 集散中心选址:在公路上找一点使AO+BO最小
+    - 双动点(如池塘两岸各一个动点):作两次镜像对称
+    exclude:
+    - 必须垂直过河的题(用速度分解/桥固定长度模型)
+    - 圆上取点求最短(考虑切线,不是简单对称)
+  method_steps:
+  - 作其中一个定点关于动点所在直线的对称点A'
+  - 连接A'B,与直线的交点即为最优动点位置
+  - 最短路径长度=A'B(两点之间直线最短),必要时再用勾股定理求A'B
+  - 双动点:起点关于CD边对称、终点关于AB边对称,连接两个对称点即为理论最短
+  error_signatures:
+  - code: wrong_symmetric_point
+    description: 对称点做错(应关于动点所在直线对称)
+  - code: path_double_count
+    description: 把AB原长与A'B混加(集散中心题总路程可能是A'B+AB,需看清题目问什么)
+  - code: direction_confused
+    description: 两动点时对称对象对应错(起点关于CD边、终点关于AB边搞反)
+  fix_action: 做4道镜像对称最短路径题,每题限时80秒,先画对称点再连线,不要直接量AB
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥70%
+  pitfall: 对称对象必须是'动点所在的线',对称后连线与线的交点才是最优位置;集散中心这类题要看清楚求的是A'B还是总路程
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/几何结论类-几何小题型
+  - 行测/数量关系/几何其他题型
+- id: mc_qty_16_butterfly
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/平面几何/面积比例/蝴蝶定理
+  title: 蝴蝶定理-面积比例
+  recognition: 四边形被两条对角线(或交叉线)分成四个区域,求面积比例或某区域面积
+  applicability:
+    include:
+    - 任意四边形对角线分割成的四个三角形面积关系
+    - 梯形/平行四边形(有平行边):求各区域面积比例(1:2:2:4等)
+    - 中点/等分点结合的面积问题
+    exclude:
+    - 没有完整'四边形对角线分割四区域'结构的图形
+    - 规则图形面积直接可算的题(先套基础公式)
+  method_steps:
+  - 标出四区域:四边形对角线交于O,形成S1、S2、S3、S4四个三角形
+  - 核心公式:S1×S3=S2×S4(对角相乘相等,任意四边形成立);可用正弦面积公式S=½ab·sinC推导验证
+  - 有平行边(梯形/平行四边形)时:S2=S4=√(S1×S3)
+  - 上下底比a:b→面积比a²:ab:ab:b²,记住常用比例:1:2→1:2:2:4、1:3→1:3:3:9、2:3→4:6:6:9
+  error_signatures:
+  - code: product_misorder
+    description: 对角相乘写成相邻相乘
+  - code: square_root_missing
+    description: 平行情形下S2用加减而非√(S1×S3)
+  - code: trapezoid_assumed
+    description: 任意四边形误当梯形用S2=S4
+  fix_action: 做5道蝴蝶定理题(任意四边形+梯形),每题限时80秒,先标出四个区域再套公式
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥70%
+  pitfall: S1×S3=S2×S4对任意四边形都成立,但S2=S4只在存在平行边(梯形/平行四边形)时成立
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/几何公式类-平面图形
+  - 行测/数量关系/几何公式类-平面图形/几何结论类-几何小题型
+- id: mc_qty_16_curtain_drag
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/平面几何/面积/拉窗帘法
+  title: 拉窗帘法-平行移动顶点
+  recognition: 三角形某顶点可沿平行于底边的方向自由移动(常与平行线、比例条件一起出现),求面积或面积定值
+  applicability:
+    include:
+    - 顶点沿平行于底的轨道移动而底边固定,面积不变(等底等高S=½ah)
+    - 求复杂图形中某三角形面积的定值
+    - 极限思维:动点取极端位置(端点/中点)快速验证定值
+    exclude:
+    - 没有平行轨道(底边的平行线)可移动顶点的图形
+    - 需要求具体线段长度而非面积的题
+  method_steps:
+  - 找到与底边平行的轨道线(常由平行线或图形结构提供)
+  - 沿平行线把顶点拉到便于计算的位置(如与已知点重合),面积S=½×底×高不变
+  - 结合相似三角形确定边长比例,反推目标面积(如S△ADF/S△ABC=1/4×2/3)
+  - 定值题可令动点取极端位置(如移到边上)快速求解
+  error_signatures:
+  - code: height_changed
+    description: 移动顶点时没沿平行线,导致高变化、面积不再相等
+  - code: ratio_misapplied
+    description: 面积比例关系写错(各分步比例没相乘)
+  - code: extreme_invalid
+    description: 极限位置选取超出题目允许范围
+  fix_action: 做4道拉窗帘法题,每题限时80秒,动笔前先确认顶点移动的平行轨道
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥70%
+  pitfall: 拉窗帘的前提是'同底等高'——顶点只能沿平行于底的线移动,移到别处面积就变了
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/几何公式类-平面图形/几何结论类-几何小题型
+- id: mc_qty_16_sum_product_extreme
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/平面几何/和定积最
+  title: 和定积最-周长固定面积最大
+  recognition: 周长(或边长和)固定问面积最大(围栏/围墙/场地),或面积固定求周长最小
+  applicability:
+    include:
+    - 长方形周长固定,求最大面积
+    - 三面围栏(一面靠墙),求长宽比使面积最大
+    - 整数边长限制下的最值(取最接近的相邻整数对)
+    exclude:
+    - 没有固定和约束的面积比较题
+    - 问其他形状(圆/三角形)与长方形比较(直接用'同周长圆形面积最大'结论)
+  method_steps:
+  - 周长固定→半周长m确定,面积S=a(m-a)是开口向下的二次函数,在a=m/2(长=宽=正方形)时最大
+  - 整数限制:取最接近m/2的相邻整数对(如半周长45→22和23),保证两数和为m
+  - 三面围栏:设宽为a,面积S=a×(总长−2a),令两因子相等解a;或用镜像法把墙当对称轴补成整矩形,最优长宽比2:1
+  - 推广结论:周长固定时越接近圆面积越大;表面积固定时越接近球体体积越大
+  error_signatures:
+  - code: half_perimeter_wrong
+    description: 把周长当半周长用(正方形边长=周长÷4不是÷2)
+  - code: integer_rounding
+    description: 整数约束下直接取两个22浪费警戒线,必须22和23保证和为45
+  - code: fence_two_factor
+    description: 三面围栏设元后没把面积写成两因子乘积形式
+  fix_action: 做4道和定积最题(含三面围栏),每题限时70秒,先写面积函数再找对称轴
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥75%
+  pitfall: 三面围栏的最优解不是'长=宽',而是长:宽=2:1(墙相当于对称轴,补全成矩形后才是正方形)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/几何结论类-几何小题型
+  - 行测/数量关系/函数最值问题
+- id: mc_qty_17_vol_surface
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/立体几何/体积与表面积
+  title: 立体几何-体积与表面积公式
+  recognition: 出现正方体/长方体/圆柱/圆锥/球,求体积、表面积、水深变化或体积比
+  applicability:
+    include:
+    - 柱体(正方体/长方体/圆柱)体积V=Sh(底面积×高)
+    - 锥体(圆锥/棱锥)体积V=⅓Sh
+    - 球体积V=4/3πr³、表面积S=4πr²;圆柱表面积=2πr²+2πrh
+    - 容器翻倒/竖立:体积不变,底面积与高成反比
+    exclude:
+    - 立体表面的最短路径(用展开法卡)
+    - 球面距离/经纬度(用大圆三步走)
+  method_steps:
+  - 按图形选公式:柱体V=Sh、锥体V=⅓Sh、球V=4/3πr³、球表面积4πr²
+  - 体积不变时,新水深=原体积÷新底面积(容器竖立/翻转题;底面积缩小1/4则高度扩大4倍)
+  - 相似立体:长度比k→面积比k²→体积比k³(如圆锥高度比1:2,体积比1:8)
+  - 圆锥母线l=√(r²+h²),侧面积=πrl(侧面展开为扇形);圆台侧面积=π(r+R)l
+  error_signatures:
+  - code: cone_factor
+    description: 锥体体积漏乘1/3
+  - code: sphere_coeff
+    description: 球体积4/3与球表面积4混用(体积带三次方,表面积带二次方)
+  - code: slant_height
+    description: 把圆锥高当母线用(侧面积需用母线l=√(r²+h²))
+  - code: base_area_mix
+    description: 容器翻倒时用错底面(最大底面/最小底面判断错)
+  fix_action: 做6道体积表面积题(含容器翻倒),每题限时70秒,先默写柱/锥/球公式再计算
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥80%
+  pitfall: 锥体永远比同底同高柱体多一个1/3;球体积与表面积的系数(4/3 vs 4)和次数(3次 vs 2次)极易互换
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/几何公式类-立体图形
+- id: mc_qty_17_surface_path
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/立体几何/表面最短路径
+  title: 表面最短路径-展开法
+  recognition: 蚂蚁/虫子沿圆柱、圆锥、长方体表面从一点爬到另一点求最短距离
+  applicability:
+    include:
+    - 圆柱侧面爬行(展开为长方形)
+    - 圆锥侧面爬行(展开为扇形,用弧长比求圆心角)
+    - 长方体表面爬行(展开相邻两面求对角线)
+    exclude:
+    - 球面最短距离(沿大圆弧走,不是平面展开)
+    - 可穿透内部的题(题干限制只能沿表面走)
+  method_steps:
+  - 把曲面展开成平面:圆柱侧面→长方形(高=圆柱高h,宽按爬行需要选半周长πr或整周长2πr)
+  - 展开后两点间直线距离即最短,用勾股定理求解(如15-20-25对应3-4-5)
+  - 圆锥展开为扇形:半径=母线l=√(r²+h²),圆心角=360°×(底面周长÷扇形所在圆周长2πl)
+  - 长方体:展开相邻两面,路径=√((a+b)²+c²);为取最短,选含最小两边的组合展开
+  error_signatures:
+  - code: half_vs_full
+    description: 该绕整圈却展开半圈(误选25而非10√13)
+  - code: slant_height
+    description: 圆锥展开用高h而非母线l作扇形半径
+  - code: which_faces
+    description: 长方体展开选错相邻面组合
+  fix_action: 做4道展开法最短路径题(圆柱/圆锥/长方体),每题限时90秒,先画展开图再算直线距离
+  time_budget_sec: 90
+  accuracy_rule: 正确率≥70%
+  pitfall: 圆柱'必须绕行一周'展开整圈、'相对两点'展开半圈——展开宽度的选择直接决定答案(25 vs 10√13)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/几何公式类-立体图形
+- id: mc_qty_17_cut_surface
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/立体几何/切割与截面
+  title: 立体几何-切割表面积变化
+  recognition: 正方体/球/圆柱被切一刀或挖个洞,问表面积增加或减少多少
+  applicability:
+    include:
+    - 正方体挖通道/挖圆柱洞,求表面积变化
+    - 球切成两半/圆柱截取,求新增截面面积
+    - 沿对角线切割长方体/正方体
+    exclude:
+    - 求体积的切割题(用体积公式,不看面)
+    - 涂色计数类(魔方问题用涂色公式卡)
+  method_steps:
+  - 列'多出哪些面、少了哪些面'清单:新增面=截面/通道内壁,消失面=被挖掉的表面
+  - ΔS=新增面面积之和−消失面面积之和(挖圆柱洞:增2πrh通道内壁,减2πr²上下两洞口)
+  - 球切半球:原曲面不变,新增两个圆截面各πr²(两半球总表面积=原16π+新增8π)
+  - 球形汉堡(球穿圆柱孔):球半径R、截面半径r、孔半高h满足R²=r²+h²(勾股),内壁侧面积=2πr×(2h)
+  error_signatures:
+  - code: new_vs_lost
+    description: 只算新增面漏算消失面,或把消失面也当成增加
+  - code: hole_double
+    description: 挖洞题忘记上下两个面都减少
+  - code: radius_use
+    description: 球形汉堡用截面直径而非半径
+  fix_action: 做4道切割表面积题(挖洞+半球+球形汉堡),每题限时90秒,先分别写'多出哪些面/少了哪些面'再算ΔS
+  time_budget_sec: 90
+  accuracy_rule: 正确率≥70%
+  pitfall: 切割问题的核心是'多什么面、少什么面'列清单——通道贯通时上下面各减少一个洞口面积(共减2πr²),别只算一个
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/几何公式类-立体图形
+- id: mc_qty_18_magic_cube
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/特殊题型/魔方涂色
+  title: 魔方涂色-切割计数
+  recognition: 边长为a的正方体切割成a×a×a个小立方体,求涂色1面/2面/3面或未涂色的小立方体个数
+  applicability:
+    include:
+    - 3面涂色(顶点):恒为8个
+    - 2面涂色(棱上):12(a-2)个
+    - 1面涂色(面心):6(a-2)²个
+    - 未涂色(内部):(a-2)³个
+    exclude:
+    - 不是等分切割的正方体问题
+    - 求表面积而非小立方体计数的题
+  method_steps:
+  - 确认切割边长a(a×a×a个小立方体)
+  - 直接套公式:三面涂色=8;两面涂色=12(a-2);一面涂色=6(a-2)²;未涂色=(a-2)³
+  - 验证:四类个数之和=a³;求涂色数可先算未涂色再用总数减(如8³−6³=512−216=296)
+  - 求概率/占比时除以a³(如单面6个÷27=2/9)
+  error_signatures:
+  - code: factor_missing
+    description: 漏乘系数(单面忘乘6、双面忘乘12)
+  - code: minus_two
+    description: 套(a-2)时把2写成1或0
+  - code: cube_not_squared
+    description: 单面涂色用(a-2)而不用(a-2)²
+  fix_action: 做4道魔方涂色题,每题限时70秒,先默写四类公式再代入
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥80%
+  pitfall: a≤2时(a-2)会取0或负数,这类退化的方体要单独想(如2×2×2只有8个角块全三面涂色)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/几何公式类-立体图形
+  - 行测/数量关系/计数模型问题
+- id: mc_qty_18_bottle_exchange
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/特殊题型/空瓶换酒
+  title: 空瓶换酒-等价兑换
+  recognition: '''a个空瓶换1瓶饮料/啤酒'',已知买b瓶求最多喝多少瓶,或已知喝c瓶求至少买几瓶'
+  applicability:
+    include:
+    - a空瓶换1瓶(含1空瓶)的总量计算
+    - 正向:购买b瓶,最多喝⌊b×a/(a-1)⌋瓶
+    - 逆向:需要喝c瓶,至少买⌈c×(a-1)/a⌉瓶
+    exclude:
+    - 题中空瓶不参与再次兑换(只需一次兑换结果)
+    - 兑换规则含'瓶盖+瓶身'多条件的情况
+  method_steps:
+  - 核心换算:a空瓶换1瓶等价于(a-1)个空瓶换'纯酒量'(换来的那瓶喝完后空瓶会返还)
+  - 正向:可喝总瓶数=b×a/(a-1),向下取整(如8空瓶换1瓶、买127瓶→127×8/7≈145)
+  - 逆向:需买瓶数=c×(a-1)/a,向上取整(如喝347瓶、7换1→347×6/7≈298)
+  - 必要时按'换→喝→再换'逐步验证,防止取整边界差1
+  error_signatures:
+  - code: minus_one_missing
+    description: 直接用b/a而不是b/(a-1),漏掉空瓶返还
+  - code: floor_ceil_direction
+    description: 正向应向下取整、逆向应向上取整,方向弄反
+  - code: borrow_bottle
+    description: 借瓶机制处理错(借1瓶的实质是让总瓶数凑成a的倍数)
+  fix_action: 做4道空瓶换酒题(正逆向各2道),每题限时60秒,先写b×a/(a-1)再取整
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥85%
+  pitfall: 换来的那瓶喝完还有一个空瓶回到手里,所以实质是(a-1)空瓶换1瓶纯酒,不是a空瓶换1瓶
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/计数模型问题
+- id: mc_qty_18_bash_game
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/特殊题型/轮流取物
+  title: 轮流取物-巴什博弈必胜策略
+  recognition: n个物品两人轮流取、每次取1~m个、取最后一个者胜,问先手/后手策略或谁必胜
+  applicability:
+    include:
+    - 标准巴什博弈:每次取1~m个
+    - 变形:双方可取数量不同(找可控周期和,如一方取2/4另一方取1/3→周期5)
+    exclude:
+    - '''取完为负/取最多为负''等非标准规则(需要重新分析)'
+    - 与取物无关的博弈题
+  method_steps:
+  - 计算关键数m+1(最小取1+最大取m)
+  - 判断先手优势:n mod (m+1)≠0时先手必胜,首取n mod (m+1)个(如80个、每次1-6→取80mod7=3个)
+  - 此后每轮配合:对方取x,我取(m+1−x),保证每轮合计拿走m+1
+  - 变体题:找出双方都能控制的周期和(如2+3=4+1=5),谁能先把总数变成周期倍数谁控局
+  error_signatures:
+  - code: modulo_zero
+    description: 先手取0个(当n是m+1的倍数时应后手必胜,先手无必胜策略)
+  - code: key_number
+    description: 关键数误用为m而不是m+1
+  - code: variant_cycle
+    description: 变体题没找到共同周期就硬套m+1
+  fix_action: 做3道轮流取物题(标准+变体),每题限时70秒,先算m+1再判断先手取几个
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥70%
+  pitfall: 对方取x我方必须取(m+1−x)才能锁定每轮合计为m+1,漏掉这个'凑数'配合就输
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/计数模型问题
+- id: mc_qty_19_multilevel
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/数字推理/多级数列
+  title: 数字推理-多级数列(做差做商)
+  recognition: 数列单调递增/递减或倍数感强,求下一项(江苏/浙江/广东/福建等地方考试考数推)
+  applicability:
+    include:
+    - 单调数列→逐项做差(后项减前项),一般最多做差两次
+    - 明显倍数关系→做商,公比为负则数列增减交替
+    - 数字过大(三位数以上剧增)→优先乘法/幂次关系
+    exclude:
+    - 项数≥7或含小数点/根号/分式的数列(优先考虑分组)
+    - 数字接近幂次数(优先考虑幂次修正卡)
+  method_steps:
+  - 先判方向:单调→做差;增减交替→做差后看是否负公比等比;倍数感强→做商(统一'后项除前项')
+  - 做差后继续观察新数列(等差/等比/平方等),必要时二次做差;用前2-3项验证规律成立再推下一项
+  - 特殊排除:数列含0时禁用做商/做积(0不能作除数),改用做差/求和
+  - 常规方法失效时按特征切换:项多或含小数点/根号/分式→分组观察(奇偶位/左右分);合数且项少(4项)→因式分解(如10=2×5、21=3×7、44=4×11、?=5×13)
+  error_signatures:
+  - code: subtract_direction
+    description: 前后项相减方向不统一(混用前项减后项/后项减前项)
+  - code: zero_division
+    description: 数列含0还用做商(0不能作除数)
+  - code: premature_conclusion
+    description: 只验证1项就断定规律
+  fix_action: 做6道多级数推题,每题限时60秒,严格按'先做差/做商,再验证3项'流程走
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥75%
+  pitfall: 做差/做商后得到的新数列才是找规律的载体,很多人盯着原数列硬看;统一用'后项减前项'避免方向混乱
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/多级数列
+- id: mc_qty_19_power
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/数字推理/幂次数列
+  title: 幂次数列-幂次修正
+  recognition: 数字跨度大、突增至三位数,或出现169/343/64等幂次数(或接近幂次数如26靠近27)时
+  applicability:
+    include:
+    - 明显幂次数(1-20平方、1-10立方)直接识别
+    - 幂次修正:数字=幂次±c(如26=27-1、63=64-1)
+    - 底数和指数分别成规律的双数列(n^n型、n^(n-1)型、(2n-1)^n型)
+    - 交替幂次:底数+2递增、指数3/2交替、修正项+1/-1交替
+    exclude:
+    - 数字是两质数乘积(如46=2×23)无法幂次变形(转多级做差)
+    - 小数/分数为主的数列
+  method_steps:
+  - 背熟关键幂次数:1-20平方、1-10立方、3^4=81、3^5=243、4^3=64、6^3=216
+  - 把数列改写为底数^指数形式,优先选较小底数(64看作4^3而非8^2)
+  - 观察修正项:数字=幂次±c,c恒定或成规律;数列单调递增且接近幂次数时优先试±1
+  - 指数不一时,分别看底数列与指数列是否自然/等差/交替(如4^3+1、6^2−1、8^3+1、10^2−1)
+  error_signatures:
+  - code: wrong_power_choice
+    description: 幂次基准选错(用8^2而不用4^3,导致规律隐藏)
+  - code: correction_ignored
+    description: 只看到幂次漏看±c修正项
+  - code: prime_product
+    description: 把质数乘积硬掰成幂次(46=2×23行不通还要硬凑)
+  fix_action: 做5道幂次修正数推题,每题限时70秒,先写1-20平方表再拆数字
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥70%
+  pitfall: 修正项的符号和大小要单独验证(可能是+1/-1交替,也可能是+底数、+指数等),不是只看幂次本身
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/幂次数列
+- id: mc_qty_19_recurrence
+  exam_scope: guokao
+  track: xingce
+  module_name: 数量关系
+  tag_path: 数量关系/数字推理/递推数列
+  title: 递推数列-前两项关系
+  recognition: 数列非单调/忽大忽小,或做差做商都看不出规律,项数不多(5项左右),选项出现分数/小数
+  applicability:
+    include:
+    - 斐波那契型:a(n+2)=a(n)+a(n+1)(1,1,2,3,5,8)
+    - 加权型:a(n+2)=2a(n)+a(n+1)(3/2,8,11,27,49)
+    - 逆向型:a(n+2)=a(n+1)−a(n)(60,40,-20,-60)
+    - 选项出现0.5或小数→提示1/2系数递推
+    exclude:
+    - 项数≥7的数列(优先考虑分组/机械划分)
+    - 单调且增速均匀的数列(先用做差)
+  method_steps:
+  - 先做差,把差值序列与原数列逐项对照找关联(差值=前项/后项等)
+  - 出现0.5、22.5等非常规数字→优先尝试×1/2系数递推
+  - 套候选关系并验证至少3项:斐波那契a(n+2)=a(n)+a(n+1);加权a(n+2)=2a(n)+a(n+1);逆向a(n+2)=a(n+1)−a(n)
+  - 优先尝试常见系数1/2、2、3;不行再尝试前两项和/差/积组合(如a(n+2)=3a(n)−a(n+1):4×3-5=7、5×3-7=8)
+  error_signatures:
+  - code: coefficient_miss
+    description: 忽略0.5等小数提示,硬用整数递推
+  - code: verify_partial
+    description: 只验证一项关系就下结论
+  - code: mix_operations
+    description: 把加法递推与系数递推的公式弄混
+  fix_action: 做5道递推数推题,每题限时80秒,遇到小数先想1/2系数,验证至少3项
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥65%
+  pitfall: 递推数列必须先找'哪两项怎样组合得到第三项',做完差后把差值序列与原数列逐项对照往往能直接暴露关系
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/数量关系/递推数列

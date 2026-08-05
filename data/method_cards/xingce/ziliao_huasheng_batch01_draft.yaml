@@ -1,0 +1,2981 @@
+- id: mc_add_sub_tail_highbit
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/加减法速算
+  title: 加减法速算（尾数法/高位叠加/分段法）
+  recognition: 精确加/减求和或求差，选项末位或差值可快速区分答案
+  applicability:
+    include:
+    - 若干精确数值相加求总和，选项末位不同
+    - 减法判断增量/差值是否超过某阈值
+    exclude:
+    - 含小数舍入的估算值（如4.9万+2.1万），尾数会失真
+    - 选项末位相同且需要判断十位以上
+  method_steps:
+  - 尾数法：选项末位不同看1位尾数、相同看2位尾数，只加末位即选答案；必须是精确整数
+  - 高位叠加：按千/百/十/个位逐层相加，善用等差数列求和（奇数项和=中间项×项数）
+  - 减法分段：拆成两段不借位减法，必要时用负数记借位；相邻百位减法插基准值（721-688=700+21-(700+12)）
+  - 阈值判断：百位差>阈值百位直接判定，百位差=阈值百位再比尾数够不够减
+  error_signatures:
+  - code: tail_not_exact
+    description: 对含小数/舍入的估算数据用尾数法，尾数失效
+  - code: carry_forgot
+    description: 加法忽略末位进位（1+8=9还可能有进位成7）
+  fix_action: 做20道四位数加减法限时训练，每题先定尾数法还是高位叠加，限时30秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率90%以上（加减法不容许错）
+  pitfall: 尾数法只适用精确整数，题干出现小数或'约/近'字眼立即放弃改用高位叠加
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/简单加减计算
+- id: mc_mult_scale
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/乘法放缩
+  title: 乘法放缩（拆整百×百分比）
+  recognition: 乘法中某乘数接近整百数且可拆为整百×(1±x%)，如617≈600×1.03、103=100×1.03
+  applicability:
+    include:
+    - 求现期B=A×(1+r)型乘法
+    - 乘数余数相对整百的比例≤10%时（余量比例超15%改直乘）
+    exclude:
+    - 余数比例超过15%时误差失控
+    - 选项差距极小需精确到个位时
+  method_steps:
+  - 找百分比关系：617≈600×1.03（600的1%=6、3%=18），408≈400×1.02
+  - 先算整百部分：865×400=346000
+  - 用1%基准补余量：346000的2%=6920，加总得352920
+  - 余量百分比小时用'10%减1%'：46×700=32200，9%=3220-322=2898
+  error_signatures:
+  - code: pct_miscalc
+    description: 余数对整百的百分比关系判错（18是900的2%不是1%）
+  - code: overuse
+    description: 余数超15%仍强用放缩，误差不可控
+  - code: base_unit_wrong
+    description: 1%基准算错量级（600的1%=6而非60）
+  fix_action: 做15道三位数×三位数乘法放缩题，每天先练652×7/8/9心算，限时60秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率85%，有效数字对上即可、不要求个位精确
+  pitfall: 补百分比必须用'整百部分×1%×倍数'，别把1%基准的位数（6还是60）数错
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/现期计算
+- id: mc_div_split_ratio
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比重问题/比重拆分速算
+  title: 除法拆分法（比重类）
+  recognition: 求比重/占比，分子明显小于分母，分子在分母的50%±10%、或10%附近、或100%附近
+  applicability:
+    include:
+    - 比重=部分÷整体，分子≤分母
+    - 分子在分母50%附近或1%-20%区间或接近100%时
+    exclude:
+    - 分子比分母大很多时
+    - 结果落在65%-90%区间（拆分步骤繁琐，优先放缩法）
+  method_steps:
+  - 截位同进同舍保留三位：47598÷89894→475÷898
+  - 定1%基准'包子单价'=分母÷100（898→8.98）
+  - 以50%为基准拆分子：475=449+26（449=898÷2），26÷8.98≈2.9个百分点
+  - 结果=50%+2.9%=52.9%；高比重用逆向：32503÷33546=1-(10÷335)≈97%
+  error_signatures:
+  - code: not_equiv
+    description: 分子未保持等价变形（462写成就近数而非493-31）
+  - code: uneven_truncate
+    description: 分子分母截位未同进同舍，造成系统性偏差
+  - code: magnitude_misjudge
+    description: 结果量级数错（33/2100≈1.57%误判为15.7%）
+  fix_action: 做20道比重拆分题，每题先口算分母的1%基准再拆分子，限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率85%
+  pitfall: 50%附近拆分时优先把分母调成偶数（247→248）便于除2；百分数结果注意数量级
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/现期比重
+- id: mc_div_scale_salewater
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/除法放缩
+  title: 除法放缩（盐水原理/王者荣耀法）
+  recognition: 分母接近整百/整千（986→1000），或求比例结果落在65%-90%区间
+  applicability:
+    include:
+    - 分母可调整至1000/500等规整数时
+    - 求比例/比重时选项差距中等
+    exclude:
+    - 分母远离整百且拆分更简单时
+    - 选项差距极小需高精度时
+  method_steps:
+  - 看分子分母原始比例（356/986≈1:3）
+  - 分母向整百调整：986+14=1000
+  - 分子按同比例同步增减：+5（新增盐水浓度与原比例一致）
+  - 结果=361/1000=36.1%；口诀'看比例、调整百、同增减、保浓度'
+  error_signatures:
+  - code: mismatch_scale
+    description: 分子分母增减比例不同步，只调分母不调分子
+  - code: wrong_direction
+    description: 加/减调整方向搞反
+  fix_action: 做15道除法放缩题，先判断能否凑整百分母再动分子，限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率80%（允许微调误差，选项不极近即可）
+  pitfall: 调分母后分子必须按同一百分比同步调，绝不能只动一边（破坏'浓度'）
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/现期比重
+- id: mc_frac_415
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/基期与现期/415份数法
+  title: 415份数法（含415修正）
+  recognition: 增长率可近似为常见分数（25%=1/4、33.3%=1/3、16.7%=1/6、14.3%=1/7、-9.1%=-1/11）
+  applicability:
+    include:
+    - 已知现期B和增长率r，求基期A或增量X
+    - r在常见分数附近、选项差距较大时
+    exclude:
+    - r不是常见分数且选项差距小时
+    - 需精确到个位时
+  method_steps:
+  - 将r化为分数1/n：基期n份、增量1份、现期(n+1)份；负增长现期为(n-1)份
+  - 每份=现期÷(n+1)：B=780、r=25%→每份=780÷5=156，增量=156，基期=624
+  - 快速取量替代法：25%→增量=现期×0.2，33%→×0.25，50%→×0.33，100%→×0.5，42.9%→×0.3，66.6%/80%→×0.4
+  - r非精确分数时修正：除n则乘(n-2)（除8乘6、除7乘5、除6乘4），修正方向看估大还是估小
+  error_signatures:
+  - code: neg_frac
+    description: 负增长份数写成n+1份（-9.1%应为11:-1:10）
+  - code: base_sign
+    description: 负增长基期方向搞反（基期=现期+|增量|，是加不是减）
+  - code: correction_wrong
+    description: 修正系数记错或方向错（估小则一份应变大）
+  fix_action: 做15道415份数法题，先背熟1/2~1/11分数表再套份数，限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率85%
+  pitfall: 把27.4%估成25%（估小）时，真实增量比算出的略大，不要回调
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
+  - 行测/资料分析/增长量计算
+- id: mc_hypothesis_allocation
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/基期与现期/假设分配法
+  title: 假设分配法
+  recognition: 已知现期B和增长率r求基期/增量，r在0%-20%区间（最佳5%-15%）
+  applicability:
+    include:
+    - r≤20%的基期/增量计算
+    - 多步复合运算（基期和差、连续基期）
+    exclude:
+    - r>25%时误差变大，改用415或修正法
+    - 选项差距极小需五位精度时（改用代入验证法）
+  method_steps:
+  - 假设整百/整十基期A₀（参考现期首位：B=645取600，B=702取600而非700）
+  - 算增量X₀=A₀×r：600×5.6%≈34
+  - 剩余=B-(A₀+X₀)：645-634=11，已多分配则全给基期→A=611
+  - 第二步剩余按10%基准分配：剩余×10%≈参考值，r>10%取略大、r<10%取略小，误差1-2可接受
+  error_signatures:
+  - code: step2_direction
+    description: 第二步剩余量归到基期还是增量搞错
+  - code: neg_sign
+    description: 负增长率（-4.2%）分配时符号处理错，增量应为负
+  - code: overshoot
+    description: 第二步修正量超过剩余量的25%
+  - code: bad_initial
+    description: 初始假设远离现期（现期700+还假设700）导致反复回调
+  fix_action: 做20道假设分配题，r集中在5%-15%，先练两步走（整百假设→10%基准调余量），限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率85%（允许±1-2误差，选项不极近）
+  pitfall: 增长率>20%仍硬用假设分配误差放大；增长率的百分之几（12.3%里的2.3%部分）必须按现期对应分配而非直觉取整
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
+  - 行测/资料分析/增长量计算
+- id: mc_truncate_direct_divide
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/截位直除
+  title: 截位直除法
+  recognition: 除法不规整、分子分母比例一般（平均数/倍数类），需竖式直除
+  applicability:
+    include:
+    - 平均数/倍数等不规整除法
+    - 选项差距中等以上
+    exclude:
+    - 求基期/增量（优先415或假设分配）
+    - 比重类分子远小于分母（优先拆分法）
+  method_steps:
+  - 分子分母同进同舍保留三位：357951→358、43256→432
+  - 试商首位后逐位商出1-2位有效数字
+  - 保留三位有效数字即满足90%题目的选项区分，别算到个位
+  error_signatures:
+  - code: uneven_truncate
+    description: 分子分母截位未同进同舍，系统偏差
+  - code: over_precision
+    description: 精确算到个位浪费时间（考场99%情况不需要）
+  fix_action: 做15道直除题，训练'保留三位+首位试商'本能，限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率85%
+  pitfall: 截位必须同进同舍（四舍五入统一），只舍分子不舍分母会造成固定方向偏差
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/待分类
+- id: mc_interval_growth_rate
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长率/间隔增长率
+  title: 间隔增长率（含逆运用与间隔基期）
+  recognition: 跨两年求总增长率，或已知总增速反推某一年增速，或求'前年'基期
+  applicability:
+    include:
+    - 求'前年'基期：先算间隔增长率再按一般基期求
+    - 已知总增长率R和一个单年增速反推另一年
+    - 求间隔倍数=1+间隔增长率
+    exclude:
+    - 只有单年数据的一般增长率
+  method_steps:
+  - 公式R=r₁+r₂+r₁×r₂，乘积项<1%时可忽略；乘积项估算法：18%×1/9≈2%
+  - 增速'回落/提高'换算：回落x个百分点→当年=x+回落前；提高x→当年=提高前-x
+  - 逆运用：r₁≈R-r₂-乘积项（比R-r₂略小）；若R<r₂则r₁必为负（R-r₂后再加小量）
+  - 间隔基期=现期÷(1+R)，用415/假设分配求解
+  error_signatures:
+  - code: pct_point_direction
+    description: 增速提高/回落的方向加减反
+  - code: product_ignored
+    description: 选项极近时忽略乘积项导致差约1%选错
+  - code: year_anchor
+    description: '''前年/2019年''时间锚点看错'
+  fix_action: 做12道间隔增长率题（含3道逆运用），先画时间轴再套公式，限时55秒/题
+  time_budget_sec: 55
+  accuracy_rule: 正确率85%
+  pitfall: 逆运用时R-r₂之后还要再减乘积项，不能直接拿差值当答案；R<r₂则中间年份必为负增长
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/间隔增长率
+  - 行测/资料分析/间隔基期
+- id: mc_ratio_growth_rate
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长率/比值增长率
+  title: 比值增长率
+  recognition: 题干求'平均/每/单位'的增长率，所求量=分子÷分母（人均消费=总消费额÷人数）
+  applicability:
+    include:
+    - 平均值类比值增长率（人均、单产、平均单价）
+    - 非平均比值（出口量=出口额÷单价、利润率=利润÷收入）
+    exclude:
+    - 直接给出平均数的一般增长率题
+    - 所求量是两量乘积（用乘积增长率）
+  method_steps:
+  - 识别比值关系：A=B/C，B为分子、C为分母
+  - 定分子增长率r₁、分母增长率r₂
+  - 套公式：r=(r₁-r₂)/(1+r₂)，口诀'上-下，除1+下'；r₂为负时分母写1+r₂（如1-12.1%）
+  error_signatures:
+  - code: numerator_denominator_swap
+    description: 分子分母增长率放反
+  - code: neg_denominator
+    description: 分母负增长时忘记分母用1+r₂
+  - code: not_ratio
+    description: 没识别成比值关系直接硬算现期基期
+  fix_action: 做15道比值增长率题，先练'识别分子分母'再套公式，限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率85%
+  pitfall: 分子恒为被除数的增长率（人均=总额/人数，r₁是总额增速），位置放反必错
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/平均数的增长率
+- id: mc_product_growth_rate
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长率/乘积增长率
+  title: 乘积增长率（有占比想乘积）
+  recognition: 所求量=两量乘积（总产量=单产×面积、销售额=销量×单价、部分=整体×占比），尤其材料带占比图
+  applicability:
+    include:
+    - 实际含义乘积式（总量=亩产×面积，收入=产量×价格）
+    - 部分整体式：材料给占比，口诀'有占比想乘积'（林业产值=总产值×占比）
+    exclude:
+    - 所求量是比值关系（用比值增长率）
+  method_steps:
+  - 构建乘积关系：A=B×C（土地成交额=购置面积×单价）
+  - 分别求B、C的增长率r₁、r₂（占比增长率=(现期占比-基期占比)/基期占比）
+  - 套公式：r=r₁+r₂+r₁×r₂，乘积项小（<1%）时可忽略直接相加
+  error_signatures:
+  - code: forget_product
+    description: 忽略乘积项，选项极近时差0.3%-0.4%选错
+  - code: share_growth_wrong
+    description: 占比增长率算成占比的百分点差而非增长率
+  - code: name_confusion
+    description: 产业数字化/数字产业化等名称混淆
+  fix_action: 做12道乘积增长率题，见到占比图先写乘积式再求两因子增速，限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率85%
+  pitfall: 占比增长率是'(现期占比-基期占比)÷基期占比'，不是占比直接相减（百分点）
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/增长率
+- id: mc_conservation_components_delta
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长量/整体部分增量
+  title: 整体部分增量（增量守恒）
+  recognition: 总量变化=各部分变化之和，已知三个分量的变化和一个总量，求第四项
+  applicability:
+    include:
+    - 总增量=各分项增量之和（总网民=手机网民+非手机网民）
+    - 分类别增量占比、两期增量倍数
+    exclude:
+    - 单一指标的一般增量（用415/假设分配）
+  method_steps:
+  - 列守恒式：总增量=Σ分项增量，负增长项带负号
+  - 缺项=总量-其余各项代数和（-26=-10-23+9.1+其他→其他=-2.1）
+  - 先心算增减方向与量级，再决定是否精算
+  error_signatures:
+  - code: sign_error
+    description: 分项为负增长时代数符号代错
+  - code: magnitude_misjudge
+    description: 结果占比量级数错（33/2100≈1.57%误判为15.7%）
+  fix_action: 做10道增量守恒题，先判断增减方向再算量级，限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率85%
+  pitfall: 结果为占比/比重时1%与10%差一个数量级，选项是百分数务必对数量级
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/增长量计算
+- id: mc_future_forecast
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/现期计算/后期量预测
+  title: 后期量预测（假设增量/假设增速）
+  recognition: 问'几年后首次突破/超过某值'，给出最近两年的量
+  applicability:
+    include:
+    - 按固定增量外推：B=A+n×X列不等式
+    - 按固定增速外推：逐年×(1+r)，一般只递推2-3期
+    - 小增长率（≈1%）直接用线性近似（11×3=33）
+    exclude:
+    - 有明确复合公式的题
+  method_steps:
+  - 求年均增量X=现期-基期，或估算增长率r
+  - 假设增量：列不等式 现期+X·n>目标，解n取整（注意从题干年份起算）
+  - 假设增速：逐年代入×(1+r)看第2-3年是否超目标
+  - 双变量同步变化时两边列式（510+129n > 10×(110-4n)，n取4）
+  error_signatures:
+  - code: year_start
+    description: n从错误年份起算（从2022年起算加5年=2027）
+  - code: increment_approx
+    description: 增量估算太粗导致临界年份误判
+  fix_action: 做10道后期预测题，先列式再算，含2道双变量题，限时55秒/题
+  time_budget_sec: 55
+  accuracy_rule: 正确率85%
+  pitfall: 起算年份决定n的取值：'从2022年起算几年后'与'2027年是否突破'的n不同，先定位起算年
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/现期计算
+- id: mc_base_period_sum_diff
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/基期与现期/基期和差
+  title: 基期和差
+  recognition: 同时求两个/多个基期量再相加或相减（常见于比较或求总和）
+  applicability:
+    include:
+    - 各分量基期之和
+    - 基期差、基期倍数比较
+    exclude:
+    - 单基期计算（用415/假设分配即可）
+  method_steps:
+  - 分别对各分量用415/假设分配求基期（福利彩票700的10%=70，剩余48.6分26和22.6）
+  - 小增长率（±3%）用近似：基期≈现期∓r%×现期（1072，-3.2%→基期≈1072+33=1105）
+  - 相加/相减，按选项跨度控制精度（万亿级差异可省略部分分量精确值）
+  error_signatures:
+  - code: neg_rate_dir
+    description: 负增长率分量的基期方向搞反（基期应比现期大）
+  - code: over_precision
+    description: 选项差距大时仍逐项精算浪费时间
+  fix_action: 做10道基期和差题，先判断各分量正负增长再算，限时55秒/题
+  time_budget_sec: 55
+  accuracy_rule: 正确率85%
+  pitfall: 负增长分量基期比现期大（1072→1105），别按正增长逻辑做减法
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期和差
+- id: mc_option_back_substitution
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/选项代入验证
+  title: 选项代入验证（极近选项）
+  recognition: 选项差距极小（三位数模型个位差/五位数模型百位差），直接算需五位精度
+  applicability:
+    include:
+    - 求增长量时选项差在选项值的2%以内
+    - 增长率已知、选项可作为增量的候补
+    exclude:
+    - 选项差距大时（直接估算更快）
+  method_steps:
+  - 先用分数法/估算排除明显错误选项
+  - 取选项中间值或末位为0的值代入：465→基期5505-465=5040
+  - 反推验证：基期×r≈增量，落在选项区间即中
+  - 控制误差：最大误差=选项差值×增长率，必须小于选项最小差距（560代到13700×4%=548）
+  error_signatures:
+  - code: zero_tail_ignored
+    description: 未优先选末位为0的数值代入（5040比5039好算）
+  - code: error_exceed
+    description: 代入值与真值误差超过选项差距的10%仍强选
+  fix_action: 做10道极近选项题，固定走'排除→取中间值→回代验证'三步，限时65秒/题
+  time_budget_sec: 65
+  accuracy_rule: 正确率90%（极近选项不容错）
+  pitfall: 代入值应让基期变成整数（560→13700亿）；误差=选项差值×增长率必须小于选项最小差距
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/增长量计算
+- id: mc_base_from_delta_rate
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/基期与现期/已知增量求基期
+  title: 已知增量求基期（A=X/R）
+  recognition: 材料只给变化量X和变化率R（农业统计/棉花类材料），不直接给现期，求基期
+  applicability:
+    include:
+    - 给出变化量和变化率求基期或现期
+    - 用基期×增长率反推比较倍数
+    exclude:
+    - 给了现期的常规基期题（用415/假设分配）
+  method_steps:
+  - 套公式A=X/R：63.3/0.06≈1055公斤/公顷
+  - 求现期=A+X：1055+63.3=1118.3
+  - 比较倍数时分子分母同步估算：324/87≈3.72 vs 281/62≈4.53，比值≈0.82
+  error_signatures:
+  - code: numerator_denominator_swap
+    description: 混淆分子分母位置（X/R写成R/X）
+  - code: unit_mismatch
+    description: 单位不一致（公斤/公顷、千公顷）
+  - code: sign_error
+    description: 下降率符号处理错（公式直接用绝对值）
+  fix_action: 做8道A=X/R题，先确认X与R对应关系再除，限时55秒/题
+  time_budget_sec: 55
+  accuracy_rule: 正确率85%
+  pitfall: R是百分数，除以6%（0.06）不是除以6；下降率时直接取绝对值计算
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
+- id: mc_nominal_real_growth
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长率/名义实际增长率
+  title: 名义与实际增长率换算
+  recognition: 题干同时给出名义增长率和实际增长率（实际已扣价格因素），求实际量
+  applicability:
+    include:
+    - 实际量=名义量÷(1+名义r)×(1+实际r)
+    - 选项差距大时用系数比估算
+    exclude:
+    - 只给单一增长率的一般题
+  method_steps:
+  - 口诀'名义算基期，实际推现期'：基期=名义量÷(1+名义r)，实际量=基期×(1+实际r)
+  - 估算系数比：实际系数/名义系数=1.069/1.09≈0.98，名义量直接打98折
+  - 选择公式时观察选项差异决定精算或估系数
+  error_signatures:
+  - code: coeff_invert
+    description: 系数比倒置（用了名义/实际而非实际/名义）
+  - code: ignore_real
+    description: 直接用名义增长率当实际用
+  fix_action: 做6道名义实际题，先写系数比再估算，限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率85%
+  pitfall: 实际增长率一定小于名义（已扣价格因素），系数必<1，估算方向别反
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/增长率
+- id: mc_zl_415_fenpei
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/415分配法
+  title: 415分配法（四一五法）
+  recognition: 求增长量或基期量，且增长率能近似为常见几分之一（1/3、1/4、1/5、1/2等）时
+  applicability:
+    include:
+    - 求一般增长量，增长率近似1/n常见分数（用415或假设分配）
+    - 求基期量，配合假设分配快速拆现期
+    - 选项差距大、只需估算时
+    exclude:
+    - 增长率不接近常见分数（如27.4%）时需先放缩到常见分数附近
+    - 选项间隔极小必须精确计算
+    - 负增长率场景需先看清方向再分配
+  method_steps:
+  - 把增长率近似为常见分数：33.3%≈1/3、25%≈1/4、50%≈1/2、100%≈1，现期量记为B
+  - 用'右侧分份'出增量：r=1/3时增量=现期的1/4、r=1/4时增量=现期的1/5、r=1/2时增量=现期的1/3、r=100%时增量=现期一半（66.6%则增量=现期×0.4）
+  - 基期量=现期-增量；反馈校验：增量/基期≈r，偏差大则微调初始假设
+  error_signatures:
+  - code: wrong_denominator
+    description: 增量直接用现期×r，忘了增量=现期×r/(1+r)，把r=1/3的增量算成1/3而非1/4
+  - code: negative_direction
+    description: 负增长率 r=-33.3% 仍按正数1/4分配，方向算反
+  - code: no_feedback
+    description: 算完不做增量/基期≈r的反馈校验，误差累积
+  fix_action: 做10道增长量计算题（增长率覆盖正负1/3、1/4、1/5、50%），限时45秒/题，只写'右侧分份'式不列完整除法，每题末尾做反馈校验
+  time_budget_sec: 45
+  accuracy_rule: 正确率90%以上（这是全卷速算地基）
+  pitfall: 415分配得出的是近似值，务必用'增量占比≈r'做一次反馈校验，误差大时重新假设初始值。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
+  - 行测/资料分析/增长量计算
+- id: mc_zl_jiashe_fenpei
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/假设分配法
+  title: 假设分配法
+  recognition: 求基期量/去年值，现期量和增长率都已知（比值差、基期比重、拉动增长的分母）
+  applicability:
+    include:
+    - 比值差中求'去年的分子'（如149.37亿→去年约121亿）
+    - 基期比重/基期平均数公式中的分子分母
+    - 拉动增长、增量贡献率里的增量或基期量
+    exclude:
+    - 增长率很小（如<3%）时用拆分/直除更快
+    - 只需定性判断（比重升/降）时不需要假设分配
+    - 增长率极不常见（如43%）时先假设整数基期再校验
+  method_steps:
+  - 先假设一个好算的基期量A0（取整或接近真实值），增量=A0×r
+  - 算现期估计=A0+A0×r，与真实现期B比较差值
+  - 把差值按比例分摊：约差值×(1+r)给基期、差值×r给增量，得修正后基期
+  - 校验：基期×(1+r)≈现期，一致即出答案
+  error_signatures:
+  - code: skip_feedback
+    description: 假设一次就算完，不做(1+r)校验导致累计误差
+  - code: split_all_to_base
+    description: 差值全部摊给基期，忽略增量也需同步修正
+  - code: decimal_clutter
+    description: 保留过多小数位拖慢速度（保留3位有效数字即可）
+  fix_action: 做12道基期量计算题（增长率覆盖5%~150%含翻番），限时50秒/题，统一'假设-对比-分摊-校验'四步
+  time_budget_sec: 50
+  accuracy_rule: 正确率90%以上，误差控制在选项分辨率之内
+  pitfall: 初始假设越接近真实值后续越简单；增长率悬殊（如+150%）时现期量大未必基期量大，必须先求基期再比大小。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
+  - 行测/资料分析/增长量计算
+- id: mc_zl_jiewei_zhichu
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/截位直除
+  title: 截位直除
+  recognition: 求平均数、倍数等'不规则'比值，需要精确除法
+  applicability:
+    include:
+    - 平均数=总量/份数的计算
+    - 现期倍数、基期倍数等比值
+    - 现期比重分子分母都是三、四位数的除法
+    exclude:
+    - 增长率特殊（1/3等）时优先415分配
+    - 只需比大小的题用趋势法/替代比较
+    - 选项差距极大时可只算首位
+  method_steps:
+  - 分子分母同时截取3位有效数字（3288→328，1899→190），忽略后位
+  - 直接相除，商保留2-3位有效数字；不能整除时补0下一位
+  - 与选项对照选最接近项，差距大时首位即可定
+  - 单位统一换算后先约零（亿=万万、万=百百）再算
+  error_signatures:
+  - code: magnitude_lost
+    description: 截位后商太小，忘记把量级（10^k）还原导致选项错位
+  - code: one_side_truncate
+    description: 只截分母不截分子，放缩方向不一致
+  - code: unit_ignore
+    description: 亿元/万场与元/场量级未换算直接比较
+  fix_action: 做15道平均数/倍数除法题，限时45秒/题，只写截位后的3位竖式，先换算单位再落笔
+  time_budget_sec: 45
+  accuracy_rule: 正确率90%以上
+  pitfall: 直除只保证3位有效数字精度，单位换算（亿元→元、万场→场）必须在列式前完成，否则量级差千倍。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/待分类
+- id: mc_zl_chaifen_fangsuo
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/拆分与放缩
+  title: 拆分与放缩
+  recognition: 求占比/比值，分子或分母是三、四位数，想避开完整除法
+  applicability:
+    include:
+    - 现期比重=部分/整体的估算（如839/1892）
+    - 分子接近分母的1/2、1/3、1/4等好算数时
+    - 求整体=部分/占比反推时
+    exclude:
+    - 选项间隔极小（如1.5 vs 1.8）必须精确计算
+    - 涉及增长率乘积时用415或直除
+    - 分子分母无好算关系且剩余部分过大时直接直除
+  method_steps:
+  - 找一个好算基准：分母的一半（50%）、1/3、1/4，或把分母拆成整数部分+零头
+  - 把分子拆成'基准对应值±剩余'：如839=946-107，839/1892=(946-107)/1892≈50%-5.7%
+  - 剩余小项按占比估：如47600/81752≈47600/80000=0.595，零头1752项可忽略
+  - 选最接近选项，必要时用'1%对应值'精细定位
+  error_signatures:
+  - code: small_remainder_blown
+    description: 忽略的零头占比实际接近1%时仍忽略，导致选项错
+  - code: base_too_far
+    description: 基准取得太远，剩余部分占比超过30%失去意义
+  - code: direction_mixed
+    description: 分子分母放缩方向相反，误差叠加
+  fix_action: 做12道占比估算题，限时50秒/题，强制用'基准±剩余'格式书写，标注剩余占比是否可忽略
+  time_budget_sec: 50
+  accuracy_rule: 正确率85%以上（估算允许小幅误差）
+  pitfall: 拆分只对'剩余部分很小'的分数有效；若剩余占分子20%以上，直接改用截位直除。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/现期比重
+- id: mc_zl_xianqi_bizhong
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比重类/现期比重
+  title: 现期比重计算
+  recognition: 问'某部分占整体的比重'，材料给出同一时期的分子分母
+  applicability:
+    include:
+    - 一般现期比重=部分/整体
+    - 比重和/差=(部分和或差)/整体
+    - 饼图题按12点钟方向顺时针排序，用1/2、1/3、1/4、1/8特殊比例对照
+    exclude:
+    - 问去年比重→基期比重公式
+    - 问比重变化量→比重差
+    - 分子分母分属不同时期
+  method_steps:
+  - 先确认'谁占谁'：确定分子（部分）与分母（整体），警惕'其中'提示词和图表数据错位
+  - 核对时间口径：如'1-11月'需用1-12月减12月，进出口等概念需加总
+  - 用拆分法估算：分子拆成'分母好算倍数+剩余'，或先算1%对应值再缩放
+  - 与选项比对，饼图题直接对照特殊比例排除
+  error_signatures:
+  - code: wrong_denominator
+    description: 就近取数把'辽宁占沿海城市比重'的分母误用为150万
+  - code: time_window_mix
+    description: 1-11月与1-12月数据混用
+  - code: add_vs_single
+    description: 进出口总额需加总进出口却只算单边
+  fix_action: 做10道现期比重题（含2道饼图），限时55秒/题，先标出分子分母再算
+  time_budget_sec: 55
+  accuracy_rule: 正确率90%以上
+  pitfall: 比重=部分/整体中'部分'有时需自行加总（进出口、1-11月），且分母可能离分子很远，先标出分子分母再动手。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/现期比重
+- id: mc_zl_jiqi_bizhong
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比重类/基期比重
+  title: 基期比重计算
+  recognition: 材料给现期（今年）数据，问题问去年（基期）比重或倍数、平均数
+  applicability:
+    include:
+    - 基期比重=现期比重×(1+r整体)/(1+r部分)
+    - 基期倍数、基期平均数同公式（基期A/基期B）
+    - 增长率较小时(1+r2)/(1+r1)≈1+(r2-r1)
+    exclude:
+    - 问现期比重直接除
+    - 只需判断增或减无定量需求时用比重趋势
+    - 选项间隔很大时只需定性
+  method_steps:
+  - 先求现期比重（截位直除或拆分估出约值）
+  - 写出调整因子(1+r整体)/(1+r部分)，判断与1的大小：r部分>r整体则因子<1
+  - 结果=现期比重×因子：因子<1略降、>1略升；差异大时算精确因子（如100.8/104.1≈1-3.3/104）
+  - 直接排除'现期比重值'的干扰选项（以坑治坑）
+  error_signatures:
+  - code: now_as_base_trap
+    description: 选项中的现期比重是诱饵，直接选错
+  - code: factor_flipped
+    description: 分子分母增长率位置写反，把部分放分子
+  - code: ratio_vs_diff
+    description: 用(r部分-r整体)直接替代(1+r整体)/(1+r部分)做乘法
+  fix_action: 做12道基期比重/倍数题，限时60秒/题，先圈出r部分、r整体再套公式
+  time_budget_sec: 60
+  accuracy_rule: 正确率90%以上
+  pitfall: 口诀'现期比重乘上1+增长率反过来'——部分r1放分母、整体r2放分子；选项几乎必含现期比重干扰项。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期比重
+  - 行测/资料分析/基期倍数
+  - 行测/资料分析/基期平均数
+- id: mc_zl_geji_bizhong
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比重类/隔级比重
+  title: 隔级比重（过河拆桥法）
+  recognition: 问'小集合占大集合'，直接数据缺失，但给出(小/中)和(中/大)两层占比
+  applicability:
+    include:
+    - 小/大=(小/中)×(中/大)，中间层级约去（如公立医院床位/全国床位=75.7%×77.1%）
+    - 已知(小/大)和(中/大)求(小/中)：小/中=(小/大)÷(中/大)
+    - 给定百分比时优先建相对关系而非算绝对值
+    exclude:
+    - 直接有小/大数据时不绕弯
+    - 只有两层结构无需桥梁
+    - 需要中间层绝对数值时
+  method_steps:
+  - 识别三层结构，确认哪个是中间层（中）
+  - 用已知两个占比搭建桥梁：小/大=(小/中)×(中/大)，或除法(小/大)÷(中/大)
+  - 把百分数转成好算分数约分（75.7%≈3/4、77.1%≈77%；35.8%÷44.5%≈358/445再约分）
+  - 心算乘积或商，对照选项
+  error_signatures:
+  - code: wrong_caliber
+    description: 把'医院中公立占比'与'公立占全国比重'两个口径当同一个
+  - code: absolute_operation
+    description: 明明只给百分比却构造4.17万亿÷(44.5%×GDP)的绝对运算
+  - code: skip_reduction
+    description: 复杂百分数不约分硬算
+  fix_action: 做8道隔级比重题，限时60秒/题，强制先写'小/大=(小/中)×(中/大)'再算
+  time_budget_sec: 60
+  accuracy_rule: 正确率90%以上
+  pitfall: 约分时分子分母要同除同一数（如358/445同÷111→322/400≈80.5%），确保放缩方向一致。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/比重问题
+- id: mc_zl_bizhong_qushi
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比重类/比重趋势判断
+  title: 比重趋势判断
+  recognition: 问'比重上升/下降的有几个年份（品类）'，只需定性不需要具体百分点
+  applicability:
+    include:
+    - 比较r部分与r整体：r1>r2比重上升，r1<r2下降，相等不变
+    - 逆运用：比重上升→部分增速>整体增速（用于比较各部分增速排序）
+    - 结合现期占比推测基期：现占比X%且上升→原占比<X%；下降→原>X%
+    - 适用于平均数、倍数等其他比值
+    exclude:
+    - 问变化幅度（几个百分点）→比重差公式
+    - 增长率数据完全缺失
+    - 现期占比接近需精确大小时
+  method_steps:
+  - 锁定分子r1与分母r2（按题干指标定位，别错配）
+  - 带符号比较大小（10%>5%>-5%>-10%），只比大小不比差值
+  - 若缺整体增速，用三排序思想等价转成'某部分增速>另一部分增速'
+  - 顺带定基期位置：上升则基期<现期占比
+  error_signatures:
+  - code: sign_mix
+    description: 正负号比较错误，把-3.54%当作大于正增速
+  - code: pair_mismatch
+    description: 分子分母指标错配（如用进口增速比出口占比）
+  - code: gap_vs_growth
+    description: 用增速回落幅度（几个百分点）代替增速本身比较
+  fix_action: 做12道比重趋势题，限时45秒/题，只写'r1?r2→升/降'不列式计算
+  time_budget_sec: 45
+  accuracy_rule: 正确率95%以上（纯定性题必须拿满）
+  pitfall: '''回落几个百分点''不是当季增速，先算出各年实际r1、r2再逐年比较，别用回落幅度直接比。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/两期比重
+- id: mc_zl_bizhong_cha
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比重类/比重差计算
+  title: 比重差计算
+  recognition: 问'比重上升/下降了几个百分点'，需要定量数值
+  applicability:
+    include:
+    - 比重差=基期部分量/现期整体量×(r1-r2)，结果绝对值<|r1-r2|
+    - 秒杀：结果必小于增速差，先排除大于|r1-r2|的选项
+    - 量级判断：a/B较小时（如10%）变化量≈a/B×增速差，很小
+    - 选项间隔大时用a/B≈现期部分/现期整体近似
+    exclude:
+    - 只需判断方向→比重趋势
+    - 选项间隔小到0.3个百分点（如1.5 vs 1.8）时必须精确计算
+    - 缺r1或r2数据
+  method_steps:
+  - 确认r1（部分增速）、r2（整体增速）及符号
+  - 算增速差r1-r2；比重差绝对值必小于它，先排除过大选项
+  - 估算基期部分/现期整体（约=现期部分/现期整体），相乘得量级
+  - 必要时用假设分配求精确基期分子再算（如7500/1.314≈5723）
+  error_signatures:
+  - code: unit_pp
+    description: 结果写百分数（1.5%）而非百分点（1.5个百分点）
+  - code: exceed_gap
+    description: 结果大于|r1-r2|还选，违背秒杀原理
+  - code: precise_slop
+    description: 选项间隔0.3个百分点时仍用估算导致选错
+  fix_action: 做10道比重差题，限时60秒/题，先写'变化量<|r1-r2|'再估算
+  time_budget_sec: 60
+  accuracy_rule: 正确率90%以上
+  pitfall: 比重差单位是百分点；若算出结果>增速差说明公式或数据取错，立刻回头查分子分母。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/两期比重
+- id: mc_zl_shizi_jiaocha
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/盐水混合/十字交叉法
+  title: 十字交叉法（已知3R求量比）
+  recognition: 整体=两部分相加，已知整体和两部分的率（增长率/浓度/满意度）三个值，求两部分量之比
+  applicability:
+    include:
+    - 增长率混合求基期量比（A/B=(r整体-r部分2)/(部分1-整体)）
+    - 浓度、满意度、人均收入等a=b/c结构的量
+    - 求人数比：口诀'求人数想盐水'（人数常为分母）
+    exclude:
+    - 不满足'整体=部分1+部分2'（人均收入不能直接相加时先确认可加性）
+    - 已知两个率和量比求第三个率→线段法
+    - 只问排序→三排序
+  method_steps:
+  - 画十字：左上r1、右上r2、中间r整体
+  - 交叉相减取正：r整体-r2 与 r1-r整体，得量比 部分1/部分2=(r整体-r2)/(r1-r整体)
+  - 口诀'大差对小量'：差大对应量小的部分
+  - 检查所求顺序（如题问'女:男'还是'男:女'），必要时换算占比
+  error_signatures:
+  - code: order_flipped
+    description: 交叉相减后量比顺序与所求方向颠倒
+  - code: non_additive
+    description: 把不能相加的人均收入直接套盐水模型
+  - code: absolute_sign
+    description: 差未取绝对值导致负数混乱
+  fix_action: 做10道十字交叉题，限时50秒/题，只写'交叉式+量比'两步，标注所求是哪个量的比
+  time_budget_sec: 50
+  accuracy_rule: 正确率90%以上
+  pitfall: 十字交叉求的是'分母量之比'——增长率对应基期量、平均数对应人数，先确认所求哪个量的比。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/混合增长率
+- id: mc_zl_xuanduan_fa
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/盐水混合/线段法
+  title: 线段法（已知2R和量比求第3R）
+  recognition: 已知整体与一个部分的率（或两部分的率）又知道量之比，求第三个率（常见混合增长率或某部分增长率）
+  applicability:
+    include:
+    - 混合增长率：已知一部分增长率和整体增长率、量比求另一部分增长率
+    - 已知两率求混合值（整体必在两率之间、靠近量大一侧）
+    - 多部分混合粗略判断范围
+    exclude:
+    - 已知3个率求量比→十字交叉更省
+    - 各部分量相近且选项极近时需精确基期量比
+    - 缺少'整体=两部分'关系
+  method_steps:
+  - 划线标点：数轴从左到右标出两率（小左大右）
+  - 量之反比：两率到混合点的距离比=对应量之比的反比（量大者距离短）
+  - 几何计算：总跨度按份数均分，定位混合点或未知率
+  - 校验：混合点必在两率之间、靠近量大一方
+  error_signatures:
+  - code: ratio_not_inverse
+    description: 量比直接当距离比用，没取反比
+  - code: current_as_base
+    description: 增长率混合用现期量比代替基期量比（增速悬殊时错）
+  - code: symbol_ignored
+    description: 负增长率时距离计算忘带方向
+  fix_action: 做10道混合增长率题，限时55秒/题，统一'划线-反比-分格'三步
+  time_budget_sec: 55
+  accuracy_rule: 正确率90%以上
+  pitfall: 增长率混合的量比必须是基期量比；只有增速接近（差≤5个百分点）且较小、选项宽松时才可用现期量近似。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/混合增长率
+- id: mc_zl_san_paixu
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/盐水混合/三排序问题
+  title: 三排序问题
+  recognition: 比较'整体与两个部分'三者的大小排序，常问'有几个满足某部分>整体'
+  applicability:
+    include:
+    - 整体必在两部分之间，部分1>整体⇔整体>部分2
+    - 当月vs累计增速：当月增速>累计增速 ⇔ 本月累计增速环比上升
+    - 出口占比上升 ⇔ 出口增速>进口增速（总增速介于两者之间时）
+    - 新增占比拉高累计占比 ⇔ 新增占比>累计占比
+    exclude:
+    - 需要精确数值（求具体增速）
+    - 三者关系不明（不满足整体=部分和）
+    - 只给两组数据无法确定第三组排序
+  method_steps:
+  - 识别'整体-部分1-部分2'结构，确认谁是整体
+  - 把所求排序等价转换成已知的两个排序（如'女生>全班'转成'全班>男生'）
+  - 按转换后的条件逐一数出满足的个数（统计累计增速环比上升的月份数）
+  - 对照选项秒选
+  error_signatures:
+  - code: equivalence_wrong
+    description: 等价转换方向搞反（如把部分1>整体写成整体>部分1）
+  - code: count_window
+    description: 统计月份时漏掉起始月份（如只数3-12月共10个月）
+  - code: sign_compare
+    description: 正负增速比较时忘记-15.8%<141.3%这类大小
+  fix_action: 做10道三排序题，限时45秒/题，每道先写等价关系式再数数
+  time_budget_sec: 45
+  accuracy_rule: 正确率90%以上
+  pitfall: 三排序的实质是'整体值介于两部分之间'，只可判断排序不可算具体值；等价条件选错整题就反了。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/混合增长率
+- id: mc_zl_hunhe_zengzhanglv
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/盐水混合/混合增长率判断
+  title: 混合增长率判断
+  recognition: 问整体增长率（或某部分增长率），材料给整体+部分增长率或总量，具有'整体=部分1+部分2'结构
+  applicability:
+    include:
+    - 进出口总额与进口/出口；1-6月与6月；收支盈余=收入-支出
+    - 判断混合值介于两分量之间、靠近量大一方
+    - 特殊反超：增长率悬殊（+150% vs +21.5%）时现期量大的未必基期量大，必须求基期
+    exclude:
+    - 问间隔增长率（时间上连续两年）→用r1+r2+r1×r2
+    - 明确给出现期量比且增速接近时可近似
+    - 不符合整体=部分相加关系
+  method_steps:
+  - 先定性：混合率必在两部分率之间，且靠近基期量大的部分
+  - 量比悬殊或选项近时，取中间值估算再微调，或线段法分格精算
+  - 若增长率悬殊（翻番级）先算基期量A=B/(1+r)再定靠近方向
+  - 结果落区间后对照选项排除两端值
+  error_signatures:
+  - code: current_size_order
+    description: 现期量大就认为基期量也大（忽略+150%类高增速）
+  - code: range_violation
+    description: 结果选在两部分率范围之外
+  - code: nominal_vs_real
+    description: 名义与实际增长率混淆（需扣除价格因素时）
+  fix_action: 做12道混合增长率题，限时55秒/题，先定性区间再定量
+  time_budget_sec: 55
+  accuracy_rule: 正确率90%以上
+  pitfall: 混合值只会落在两部分率之间——若选项全在区间外或靠近量大一侧但数据异常，检查是否用了现期量代替基期量。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/混合增长率
+- id: mc_zl_fenshu_bijiao
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比较类/分数大小比较
+  title: 分数大小比较（趋势法/通分法）
+  recognition: 比较两个（组）分数大小或排序，如比重、基期量、性别比等比值
+  applicability:
+    include:
+    - 趋势法：分子增速>分母增速→分数变大（如3/468 vs 4/489）
+    - 通分法：分母相同比分子、分子相同比分母；或统一分子/分母后比
+    - 分子分母比值明显的连续年份/选项比较
+    exclude:
+    - 需要具体数值（计算题）→直除
+    - 分数与特殊值（50%等）比较且属综合分析→王者荣耀法
+    - 增速比较（不同基期）→双线法
+  method_steps:
+  - 两分数同时放大看：估算分子涨了多少倍、分母涨了多少倍
+  - 分子涨得快（倍数大）→分数变大；分母涨得快→分数变小
+  - 或通分：统一分母（找倍数）或统一分子（放大到相同值）后直接比
+  - 判断'后面分数是变大还是变小'得出排序
+  error_signatures:
+  - code: abs_diff_confusion
+    description: 只看数值差（46→117）不看倍数，把'涨得快'误判
+  - code: same_denominator_error
+    description: 分子相同比分母时把分母大的当成大的
+  - code: partial_compare
+    description: 只比较第一对忘了逐步传递排序
+  fix_action: 做10道分数比较题，限时40秒/题，只写'分子x倍/分母y倍'判断
+  time_budget_sec: 40
+  accuracy_rule: 正确率90%以上
+  pitfall: 趋势法只看'谁涨得快'而非'谁涨得多'；涨得快慢用倍数估算，别用绝对差值。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/比值比较
+- id: mc_zl_wangzhe_rongyao
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比较类/王者荣耀法
+  title: 王者荣耀法（基准+剩余拆分）
+  recognition: 判断某占比是否超过特殊值（50%、1/3、2/3、75%），常见于综合分析题
+  applicability:
+    include:
+    - 判断'超过50%'、'超过1/3'、'超过2/3'等阈值是否成立
+    - 分子分母能拆出好算的'基准部分'（如5400/2700=50%）
+    - 剩余部分占比小的情形
+    exclude:
+    - 剩余部分占比大（如>30%），基准意义失效
+    - 需要精确占比数值
+    - 普通两分数比较（直接用趋势法）
+  method_steps:
+  - 把分子分母同缩到好算基准：如5412/(2700+12)→5400/2700=50%，剩余1/12
+  - 判断剩余部分对基准的影响方向：剩余占比<基准（50%）则整体略小于50%
+  - 剩余占比>基准则整体略超阈值，等于则持平
+  - 与题干'是否超过阈值'对照得出结论
+  error_signatures:
+  - code: base_not_round
+    description: 基准拆不出整比例还硬拆
+  - code: remainder_heavy
+    description: 剩余占比接近或超过基准时仍判方向
+  - code: unit_mismatch
+    description: 基准分子分母量级不一致（如5400/2700时未注意0）
+  fix_action: 做8道王者荣耀法题，限时45秒/题，格式'基准X%+剩余→方向'
+  time_budget_sec: 45
+  accuracy_rule: 正确率90%以上
+  pitfall: 只判断'是否超过阈值'，误差容忍度高；若剩余部分对整体影响超过基准一半，别再勉强定性。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/综合分析
+- id: mc_zl_shuangxian_fa
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比较类/双线法
+  title: 双线法（增速大小比较）
+  recognition: 比较连续年份/项目的增长率大小，给出现期量与基期量序列
+  applicability:
+    include:
+    - 求各年增量x=b-a（保留3位），观察基期a单调变化
+    - 分子x降+分母a升→增速必降
+    - 分子明显占优（某年增量远大于其他）时直接选
+    exclude:
+    - 基期波动大（非单调）时需验证计算
+    - 求具体增速数值
+    - 图形题斜率比较（斜率大≠增速快）
+  method_steps:
+  - 逐项算增量x=b-a，保留3位有效数字
+  - 建坐标系：横轴基期a、纵轴增量x，增速=x/a即与原点连线斜率
+  - 优先排除'分子减分母增'的年份；再看分子变化突出的选项
+  - 必要时用增速=x/a（截位）验证1-2个关键年份
+  error_signatures:
+  - code: slope_equals_growth
+    description: 误以为斜率（增量）最大=增速最大，忽视基期差异
+  - code: non_monotonic_use
+    description: 基期不单调时仍只用排除法
+  - code: adjacent_only
+    description: 只比相邻年份漏掉更早年份
+  fix_action: 做8道双线法题，限时50秒/题，每道画出a-x简图
+  time_budget_sec: 50
+  accuracy_rule: 正确率85%以上
+  pitfall: 斜率表示增量而非增长率——同样增量5，从5→10是100%，从10→15只有50%。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/一般增长率
+- id: mc_zl_zengliang_bijiao
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比较类/增量大小比较
+  title: 增量大小比较
+  recognition: 比较两个（组）量的增长量/下降量大小，给出现期量B和增长率r
+  applicability:
+    include:
+    - 大大则大：B和r都大时增量必大
+    - 一大一小看倍数：比较B的倍数与r的倍数，B倍数>r倍数则B大一方增量大
+    - 负增长率比绝对值（下降量），带符号排序
+    exclude:
+    - 需要具体增量数值→415或假设分配
+    - 只需排序首位/末位时可只看极值
+    - 增长率数据缺失
+  method_steps:
+  - 正负分组：正增长增量>负增长；负增长按|r|和B比下降量
+  - 同方向用'大大则大'快速定大小
+  - 一大一小时算倍数：B是对方x倍、r是对方y倍，x>y则增量大
+  - 现期量差距大但倍数接近时用b×r粗算校验
+  error_signatures:
+  - code: sign_order_ignored
+    description: 正增量比大小却忽略符号排序（负增量其实应排末位）
+  - code: ignore_magnitude
+    description: 只比r不看B量级（如B差17倍时r优势不足）
+  - code: negative_not_last
+    description: 负增长项忘了直接排末位
+  fix_action: 做10道增量排序题，限时50秒/题，先写'正负分组→倍数'
+  time_budget_sec: 50
+  accuracy_rule: 正确率90%以上
+  pitfall: 增量排序必须带符号：负增长量比任何正增长量都小；下降量比绝对值大者下降更多。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/增长量比较
+- id: mc_zl_tidai_bijiao
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比较类/替代比较法
+  title: 替代比较法
+  recognition: 比较增速/年均增长率/比重而想省去基期计算
+  applicability:
+    include:
+    - b/a代替x/a比增速（x=b-a），少算一步减法
+    - 末期/基期代替年均增长率（年数相同时，(1+r)^n单调于末期/基期）
+    - 部分A/整体用部分A/部分B代替比大小
+    - x/b代替x/a（缺基期时）
+    exclude:
+    - 负增长情形（替代关系可能失效）
+    - 需要具体增速数值
+    - 增长率较小（<100%）且要精确值时直接用公式
+  method_steps:
+  - 判断所比较指标能否替代（增速比大小→b/a；年均→末期/基期）
+  - 选替代式，计算或心算各替代值（保留3位）
+  - 排序替代值，替代值大者对应指标大
+  - 对照选项
+  error_signatures:
+  - code: negative_replace
+    description: 负增长时用x/b代替x/a出错
+  - code: period_unequal
+    description: 年均替代时各对象年数不一致
+  - code: skip_a
+    description: 需要b/a却直接比了x（漏加基期）
+  fix_action: 做8道替代比较题，限时45秒/题，先写'替代式'再算
+  time_budget_sec: 45
+  accuracy_rule: 正确率85%以上
+  pitfall: 替代只保序不保量：它能告诉你谁大谁小，不能给出具体增速值；负增长时谨慎用x/b替代。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/一般增长率
+  - 行测/资料分析/年均增长率
+- id: mc_zl_bizhi_zengzhanglv
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/平均数与倍数/比值增长率
+  title: 比值增长率（平均数增长率）
+  recognition: 问'平均数（单价/人均/单位产量）同比增长了百分之几'
+  applicability:
+    include:
+    - 公式r=(r1-r2)/(1+r2)，r1为分子（总量）增速、r2为分母（份数）增速
+    - 需自行用增量求r1、r2（如出口金额增速、出口数量增速）
+    - 部分=整体×占比时的占比增速
+    exclude:
+    - 问绝对值变化（元）→比值差
+    - 分子分母增速未给出且无法求
+    - 平均数现期基期都给出时直接算
+  method_steps:
+  - 识别分子（A）与分母（B），按'后除前'（A/B）确认
+  - 算r1=(A现-A基)/A基、r2=(B现-B基)/B基（截位3位）
+  - 代入(r1-r2)/(1+r2)估算（如21%/1.06≈20%）
+  - 注意结果符号与大小，对照选项
+  error_signatures:
+  - code: use_general_growth
+    description: 误用一般增长率公式算平均数
+  - code: denom_wrong
+    description: (r1-r2)忘除(1+r2)，或除以(1+r1)
+  - code: flip_ab
+    description: 分子分母增速对调（把r1、r2位置写反）
+  fix_action: 做10道比值增长率题，限时55秒/题，固定先写r1、r2再套公式
+  time_budget_sec: 55
+  accuracy_rule: 正确率90%以上
+  pitfall: 比值增长率与比值差公式分母不同——差用(1+r1)，率用(1+r2)，别混；单位是百分比而非量纲。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/平均数的增长率
+- id: mc_zl_bizhi_cha
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/平均数与倍数/比值差
+  title: 比值差（平均数差）
+  recognition: 问'平均每单位（每人次/每场）比去年增加/减少了多少元'
+  applicability:
+    include:
+    - 公式：去年分子/今年分母×(r1-r2)，r1分子增速、r2分母增速
+    - 用假设分配求去年分子（如149.37亿→约121亿）
+    - 单位换算后估算（亿元/万场→千元/场）
+    exclude:
+    - 问百分比变化→比值增长率
+    - 现期与基期数值都直接给出→直接相减
+    - 比重差（结果单位必为百分点）
+  method_steps:
+  - 确定分子A、分母B及各自增速r1、r2，求r1-r2（带符号）
+  - 用假设分配或拆分求去年分子
+  - 套公式：去年分子/今年分母×(r1-r2)
+  - 统一单位后估算（如121/13.78×2.2%≈1728元），符号为负则减少
+  error_signatures:
+  - code: sign_ignore
+    description: r1-r2为负时仍选'增加'选项
+  - code: unit_mix
+    description: 亿元/万场与元/场量级没换算
+  - code: rate_vs_gap
+    description: 与比值增长率公式混淆，用了(1+r2)做分母
+  fix_action: 做8道比值差题，限时60秒/题，先写'符号+公式'再算
+  time_budget_sec: 60
+  accuracy_rule: 正确率85%以上
+  pitfall: 比值差结果带量纲（元/人次），负号表减少；公式分母是'今年分母'，不是基期分母。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/平均数的增长量
+- id: mc_zl_nianjun_zengliang
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/年均增长/年均增长量
+  title: 年均增长量
+  recognition: 问'某段时间内平均每年增长多少'，给期间起止年份的数值
+  applicability:
+    include:
+    - 公式(末期-基期)/年份差
+    - 五年计划（十三五2016-2020）、问题年份延后时基期前推一年（如(2020-2015)/5）
+    - 江苏考题惯例前推基期
+    exclude:
+    - 明确给出基期年份直接使用无需前推
+    - 图表无前一年数据不强制前推
+    - 问年均增长率（相对）→格尺法
+  method_steps:
+  - 判断基期：题干/材料若'特意延后问题年份'或属五年计划，基期前推一年
+  - 分子=末期值-基期值（带符号），分母=实际年份差
+  - 相除保留3位有效数字
+  - 结果符号代表年均增/降
+  error_signatures:
+  - code: year_diff_wrong
+    description: 年份差算成4（2021-2017）而非5个增长区间
+  - code: base_forward_miss
+    description: 十三五计算用了(2020-2016)/4而非(2020-2015)/5
+  - code: one_year_degenerate
+    description: 2021-2022不前推退化成单年增量
+  fix_action: 做10道年均增长量题，限时60秒/题，先写'基期=？年份差=？'再算
+  time_budget_sec: 60
+  accuracy_rule: 正确率90%以上
+  pitfall: '''2017-2021年''实际指2016年末至2021年末——分子用2021-2016、分母用5，别按年份个数算。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/年均增长量
+- id: mc_zl_nianjun_zengzhanglv
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/年均增长/年均增长率（格尺法）
+  title: 年均增长率（格尺法）
+  recognition: 问'某段时间年均增长百分之几'，给末期与基期值
+  applicability:
+    include:
+    - 公式末期/基期=(1+r)^n
+    - 记忆值：1.05^4≈1.22、1.1^4≈1.46、1.15^4≈1.75、1.2^4≈2.07
+    - 选项差距大直接代入验证；稍近用格尺法细分；极近用1+nr近似
+    - 与间隔增长率结合逆推
+    exclude:
+    - 选项间隔极大（7%/11%/16%/21%）时代入即可无需格尺
+    - r较大且n>5时近似误差大
+    - 未判断是否前推基期
+  method_steps:
+  - 确定基期（五年计划/延后问法前推一年），算末期/基期
+  - 差距大：对照记忆值代入选项验证（如1.35介于1.1^2=1.21与1.2^2=1.44之间）
+  - 稍近：格尺法，把两记忆刻度间按份均分定位（如1.46与1.75分5格每格1%）
+  - 极近：末期/基期≈1+nr直接解r
+  error_signatures:
+  - code: n_wrong
+    description: 年份差n算错（2019-2021是2年不是3年）
+  - code: ignore_high_order
+    description: 增长率大时仍用1+nr近似
+  - code: base_skip
+    description: 未判断前推基期直接取图表首年
+  fix_action: 做12道年均增长率题，限时70秒/题，先背1.22/1.46/1.75/2.07再算
+  time_budget_sec: 70
+  accuracy_rule: 正确率85%以上
+  pitfall: 口诀'年均增长非平均，复合计算要记清'——(1+r)^n是利滚利，7%×3≈21%的线性相加是陷阱。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/年均增长率
+- id: mc_zl_dengjiange_tuisuan
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/年均增长/等间隔增速推算
+  title: 等间隔增速推算
+  recognition: 给出两段等间隔（如2-6月、7-11月各5个月）且增速相同，已知两点值求第三点值
+  applicability:
+    include:
+    - 关系式：11月值=6月值²/1月值（期末/中期=中期/期初）
+    - 类似2023-2025与2020-2022增速相同求2025值
+    - 江苏高频考法
+    exclude:
+    - 间隔不等时不能套此式
+    - 无明确'增速相同/间隔相同'条件
+    - 需要年均增速本身而非预测值
+  method_steps:
+  - 确认两段间隔相同且增速相同
+  - 列比例：期末/中期=中期/期初，移项得 期末=中期²/期初
+  - 估算：中期/期初≈k，则期末≈中期×k（如1028/565≈1.8→结果≈1028×1.8≈1850）
+  - 与选项比对（略小于中期×2取最接近项）
+  error_signatures:
+  - code: period_mismatch
+    description: 间隔不同硬套等比例
+  - code: base_shift
+    description: 年初用上年末数据没前推（2023年初=2022年末）
+  - code: square_wrong
+    description: 把'中期²'理解成六月平方而非移项产物
+  fix_action: 做6道等间隔推算题，限时60秒/题，只写'期末=中期²/期初'
+  time_budget_sec: 60
+  accuracy_rule: 正确率85%以上
+  pitfall: 关键在移项：两个中期值相乘除以期初；且基期必须用前一年末数据（年初用前年末）。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/年均增长率
+- id: mc_zl_ladong_gongxian
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/特殊考点/拉动增长与增量贡献率
+  title: 拉动增长与增量贡献率
+  recognition: 问'某部分拉动整体增长几个百分点'或'某部分对整体增长的贡献率'
+  applicability:
+    include:
+    - 拉动增长=部分增量/整体基期量（结果用百分点）
+    - 增量贡献率=部分增量/整体增量（各部分贡献率之和=100%）
+    - 比较不同部分贡献率实质是比较各部分增量
+    exclude:
+    - 整体基期量与增量都未给且难求
+    - 比较各部分整体口径不一致
+    - 只需比大小可用增量比较法
+  method_steps:
+  - 用415或假设分配求部分增量x（如172731×11.9%≈21591）
+  - 求整体基期量A（现期/(1+r)）或整体增量X
+  - 拉动增长=x/A（百分点）；贡献率=x/X
+  - 比贡献率时直接用增量大小排序（一大一小看倍数）
+  error_signatures:
+  - code: denom_confusion
+    description: 拉动增长分母用整体增量、贡献率分母用整体基期
+  - code: unit_percent
+    description: 拉动增长结果写%而非'百分点'
+  - code: value_added_trap
+    description: 把'增加值'（专有名词）当增长量
+  fix_action: 做8道拉动/贡献率题，限时55秒/题，先写'分子增量/分母（基期或增量）'
+  time_budget_sec: 55
+  accuracy_rule: 正确率90%以上
+  pitfall: 拉动增长与贡献率只差分母一个字母——拉动是x/A（整体基期）、贡献率是x/X（整体增量），先看问法。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/增长量
+- id: mc_zl_rongchi_jiaoji
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/特殊考点/容斥问题
+  title: 容斥问题（交集计算）
+  recognition: 问'既满足A又满足B的人（占比）至少/至多多少'
+  applicability:
+    include:
+    - 交集判断：两占比之和>100%必有交集
+    - 至多=两占比中较小值；至少=a%+b%-100%
+    - 题干'文字多'多为包含关系，'文字少'用a+b-100%
+    exclude:
+    - 占比和≤100%时无法判断必有交集
+    - 问'恰好'某占比（数据不足）
+    - 非占比类数量直接加减
+  method_steps:
+  - 提取两个占比a%、b%（确认分母是否同一整体）
+  - 判断交集存在：a+b>100则必有
+  - 至少=a+b-100%；至多=min(a,b)
+  - 乘总人数换算人数，注意题干整体范围（如'在满意家长中'分母是60%）
+  error_signatures:
+  - code: wrong_universe
+    description: 分母换范围（满意家长中占比）还用100%当整体
+  - code: min_max_reverse
+    description: 至少/至多取反（至少用min、至多用a+b-100%）
+  - code: direct_add
+    description: 直接a+b当作交集
+  fix_action: 做8道容斥题，限时50秒/题，先写'存在性→至少→至多'三行
+  time_budget_sec: 50
+  accuracy_rule: 正确率90%以上
+  pitfall: 至少/至多公式里的'整体'必须与两个占比的分母一致——题干一旦把条件限定到子集（如满意家长中），先改分母再套公式。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/待分类
+- id: mc_negative_growth_assignment
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/基期与现期/基期量计算
+  title: 负增长率假设分配法
+  recognition: 已知现期量b和负增长率r（-20%~0%），求基期量（如现期687、r=-3.4%）
+  applicability:
+    include:
+    - 小负增长率（-20%以内）的基期量估算
+    - 现期量为百位量级、选项差距较大、需快速出答案
+    exclude:
+    - 增长率超过-30%（如-30.7%）：建议改用直除法
+    - 选项精确到个位或要求高精度的计算（本方法允许误差1以内）
+    - 增长率为正数的基期计算（按正增长假设分配流程走）
+  method_steps:
+  - 基期取整：取略大于现期的整百数作基期a（现期400+取500、500+取600；如687→700、432→500）
+  - 算初始增量：x = a×r（r为负，x为负；如700×(-3.4%)≈-24）
+  - 求剩余：剩余 = b - (a + x)；剩余小（如11）直接并入基期得"基期711、增量-24"；剩余大则二次分配，基期加调整量、增量反向回调（+2与-46配对，正负抵消）
+  - 验证：基期≈现期/(1+r)，误差1以内即收手，不再过度修正
+  error_signatures:
+  - code: base_below_current
+    description: 基期整百取值小于现期（如现期432取400），分配方向矛盾
+  - code: sign_violation
+    description: 增量符号与基期同号，违反"基现同号、增量反号"规则
+  - code: double_assign_same_sign
+    description: 二次分配时两边符号相同，未做到正负抵消
+  - code: over_refine_small_residue
+    description: 剩余量很小时仍反复二次分配，精度收益为零
+  fix_action: 做10道负增长率基期估算题，限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 百位量级误差1以内可接受；正确率90%以上
+  pitfall: 负增长率下基期值必须大于现期值——从小于现期的整百数起分必然方向全错
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
+- id: mc_extreme_negative_fraction
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/极端负增长率分数法
+  title: 极端负增长率分数速算
+  recognition: 负增长率接近整分数（如-80%、-50%），按份数直接换算基期与变化量
+  applicability:
+    include:
+    - r=-80%（-4/5）等极端下降率：基期量=现期量×5、变化量=现期量×4
+    - 增长率能精确或近似转为简单分数（如-7.2%≈-1/14）时
+    exclude:
+    - 增长率在-20%~20%区间（用假设分配法更顺手）
+    - 增长率无法转成简单分数（如-30.7%）时（应改用直除法）
+  method_steps:
+  - 把增长率转分数：-80% = -4/5，先确定分母分子的份数关系
+  - 定份数：基期5份、变化量-4份、现期1份（现期=基期+变化量）
+  - 直接换算：基期量 = 现期量×5，变化量 = 现期量×4
+  - 精确核对：基期 = 现期/(1+r)（如792÷0.928≈853.4）
+  error_signatures:
+  - code: fraction_mapping_wrong
+    description: 百分数转分数对应记错（-7.2%接近-7.1%=-1/14，不是-1/13）
+  - code: current_period_shares
+    description: 现期份数算错，把现期份数当成基期份数
+  - code: force_fraction
+    description: 增长率不能转整分数时硬套分数法
+  fix_action: 做8道极端负增长率（|r|≥40%）基期题，限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: 分数法直接得精确值无需修正；转分数误差控制在1个百分数点内
+  pitfall: 唯一易错点是百分数-分数对应关系，-7.2%≈-1/14这类近似值记错会导致整个计算偏离
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
+- id: mc_hypothesis_assignment_ratio
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/假设分配法
+  title: 假设分配法（份数比例速算）
+  recognition: 已知现期量B和增长率r，快速求增量X与基期量A（b=ax题型）
+  applicability:
+    include:
+    - r为33%、42.9%、50%、66%、80%-100%等典型比例时按份数直接出增量
+    - '|r|<30%的基期计算：先估整百再修正'
+    - 15%以上增速配合四幺五分数法辅助
+    exclude:
+    - 选项极近（千分级差异）：应改用代入验证法，不用速算
+    - 增长率绝对值超过30%且无典型分数（建议直除）
+  method_steps:
+  - 命中的典型比例直接给增量：33%→X=B/4（基期3:增量1:现期4）；42.9%→X=0.3B；50%→X=B/3（2:1:3）；66%→X=0.4B（3:2:5）；80%-100%→X≈B/2
+  - 未命中：取接近现期的整百基期A，X≈A×r，用A的10%、20%量级做上下修正
+  - 精度不足做二次修正，直到A+X=B（误差到个位即可）
+  - 负增长率：被分配数取绝对值（|A|>|B|），增量X与基期A异号，余数并入基数项
+  error_signatures:
+  - code: ratio_shares_wrong
+    description: 份数关系记反（33%是3:1:4，X=B/4而不是B×1/3）
+  - code: no_adjustment
+    description: 估完整百基期不修正，直接把假设值当答案
+  - code: negative_sign_mix
+    description: 负增长时基期取整小于现期，或增量符号与基期同号
+  - code: over_use_415
+    description: r很小（如3%）时也硬上份数法，不如直接计算
+  fix_action: 做12道基期/增量速算题，限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 误差1以内；正确率90%以上
+  pitfall: 份数法的分母永远是"现期份数"——33%时增量X=B/4，不是B×33%，记错比例整题皆错
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
+  - 行测/资料分析/增长量计算
+- id: mc_415_fraction_method
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/百分数转分数
+  title: 四幺五分数法（百分数转分数速算）
+  recognition: 算式里出现百分数（增速/占比），想用简单分数替换来做乘法或除法
+  applicability:
+    include:
+    - 乘法中遇百分数：拆分（55%=50%+5%）或方缩（212×334≈200×334+6%×334≈66840）
+    - 除法中遇(1+r)：把r转成简单分数估算
+    - 选项差距大、不需精确的场合
+    exclude:
+    - 选项极近需精确计算（分数近似误差可能致错）
+    - 百分数与分数对应关系不熟时强行转换（记忆优先）
+  method_steps:
+  - 背熟常用对照：20%=1/5、25%=1/4、33.3%=1/3、50%=1/2、66.7%=2/3、75%=3/4、9.1%≈1/11、11.1%≈1/9
+  - 乘法拆分：按分配律拆成整百×(1+百分数)，百分数部分单独精确算（6%×334不能只估40）
+  - 除法放缩：分母接近整百时分子分母同比例变化；r<0先取绝对值
+  - 修正系数成套记：1/9对应"除10后乘8"；33.3%乘2.2、50%乘1.3、66.7%乘0.9、100%乘0.5
+  error_signatures:
+  - code: fraction_table_wrong
+    description: 33.3%与25%对应分数记混（1/3与1/4）
+  - code: scale_unsynced
+    description: 放缩只改分母不改分子，分式值改变
+  - code: negative_abs_forgot
+    description: 负增长率未先取绝对值计算
+  - code: correction_skipped
+    description: 用n+1法除后漏乘(n-1)修正系数
+  fix_action: 做10道百分数转分数速算题，限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 常用对照表秒答无误；速算误差1%以内
+  pitfall: 修正系数是成对记的——1/9对应"除10后乘8"，只记"除10"会系统性偏大
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/待分类
+- id: mc_ratio_product_growth_rate
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长率/比值与乘积增长率
+  title: 比值增长率与乘积增长率判别
+  recognition: 要求某量的增速，而该量由另两个量相除（A=B÷C）或相乘（A=B×C）构成，已知两因子增速
+  applicability:
+    include:
+    - A=B÷C型：平均数（人均收入、单位面积产量）、单价（出口量=出口额÷单价）、整体=部分÷占比
+    - A=B×C型：总产量=亩产×面积、总销售额=销量×单价、部分=整体×占比（看到"占比"想乘积）
+    exclude:
+    - 单一量直接给现期基期求增速（直接用定义式计算）
+    - 问"上升/下降多少百分点"的占比差或比值差（用(a/B)×(r1-r2)，不是增长率公式）
+  method_steps:
+  - 识别构造：含"÷"或平均数/单价→比值型；含"×"、占比、亩产×面积→乘积型
+  - 比值增长率：R=(r1-r2)/(1+r2)，r1为分子增速、r2为分母增速（如出口量=(31.5%-9.3%)/(1+9.3%)≈20.3%）
+  - 乘积增长率：R=r1+r2+r1×r2，交叉项不能漏（如9.7%+0.87%+9.7%×0.87%≈10.7%）
+  - 占比类先把占比换算成增速再代入：占比从80.2%→80.9%，增速≈0.7%÷80.2%≈0.87%
+  error_signatures:
+  - code: ratio_product_swap
+    description: 比值型误用乘积公式，漏掉除以(1+r2)
+  - code: cross_term_missed
+    description: 乘积公式漏交叉项r1×r2
+  - code: percent_point_as_rate
+    description: 把占比的百分点变化（如0.7%）直接当增速代入
+  - code: negative_rate_error
+    description: 增速为负时分子符号处理错（如r1=-5%、r2=-10%）
+  fix_action: 做10道比值/乘积增长率题，限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 公式识别正确率100%、计算结果正确率90%以上
+  pitfall: 只有"可求增速"的比值才适用比值增长率公式；比重本身不计算增速，问比重上升几个百分点用比重差公式
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/平均数的增长率
+  - 行测/资料分析/增长率
+- id: mc_trap_checklist
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/审题技巧/思维陷阱排查
+  title: 思维陷阱排查五查
+  recognition: 统计类材料题（表格/图表+选项），动笔前先排查时间、单位、排序、合计行、主客体五类坑
+  applicability:
+    include:
+    - 时间范围题（2011-2020要排除2009-2010前两年、"1-X月"vs"全年"、环比vs同比）
+    - 含"合计/总计/全国"行的表格计数题
+    - 排序类（明确"从低到高"）与倍数表述类（"多多少倍"=比值-1）
+    - 进出口主客体表述（"A从B进口"≡"B向A出口"）
+    exclude:
+    - 纯数值计算、无时间/单位/排序干扰的简单题（可直接算）
+    - 明确给单一数值的基期/现期题
+  method_steps:
+  - 锁时间：先圈出题干时间范围，划掉范围外数据（"环比比邻居，同比比兄弟"）；材料"1-X月"警惕选项的"全年"
+  - 换单位：先统一单位再比较（1毫克=1000微克、1亿吨=10000万吨）
+  - 排合计行：计数类默认"全国/合计/总计"行不计入（如省市增速比较排除"全国"行）
+  - 明表述：确认排序方向与倍数含义（"多多少倍"=A/B-1）、主客体方向（进口方/出口方对调）
+  error_signatures:
+  - code: year_range_leak
+    description: 起始年份多算/漏算（问2014-2018误把2013计入）
+  - code: unit_mismatch
+    description: 亿吨与万吨、微克与毫克未统一直接比较
+  - code: sort_reversed
+    description: 排序算对但选反（题干要求"从低到高"）
+  - code: total_row_counted
+    description: 计数时把"全国/合计"行算进去
+  - code: subject_object_reverse
+    description: 主客体颠倒，"欧盟从我国进口"实为"我国向欧盟出口"
+  fix_action: 做15道资料分析陷阱题，限时60秒/题，每题先列"陷阱清单"再动笔
+  time_budget_sec: 60
+  accuracy_rule: 陷阱识别100%（计算可容错，陷阱不可漏）
+  pitfall: 陷阱题常"计算全对但选错"——自查时先对时间范围和单位，不要急着重算数字
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/待分类
+- id: mc_first_year_increment
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长量/首年增量计算
+  title: 首年增量计算
+  recognition: 求时间段内逐年增量的计数/比较题，起点年份没有上年数据（如2011-2017年二手车增量低于80万辆的年份数）
+  applicability:
+    include:
+    - 逐年增量计数/比较类题目
+    - 材料只给各年现期量，首年需单独按增速算
+    exclude:
+    - 有完整上年数据的普通相邻年增量（直接现期-基期）
+    - 求"平均增量"（用总量÷年数，不是逐年加总）
+  method_steps:
+  - 非首年增量 = 本年现期 - 上年现期，可用"前两位相减法"粗判（794-682看前两位即知≈112>80）
+  - 首年增量 = 首年现期 × 首年同比增速（如682×12.4%≈84.6万）
+  - 增速若取整估大（12.4%按12.5%算），结果偏大，接近临界值时留余量或向下修正
+  error_signatures:
+  - code: first_year_zero
+    description: 首年增量记为0或漏算首年
+  - code: adjacent_diff_for_first
+    description: 首年误用"减上年"的方式（首年根本没有上年数据）
+  - code: rate_round_up_skip
+    description: 增速估大不修正，导致首年增量误判过线/未过线
+  fix_action: 做10道逐年增量计数题，限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 计数类最终个数必须完全正确
+  pitfall: 首年增量既不是0也不是相邻年差，必须用"首年现期×首年增速"；增速估大会虚高，接近临界值要谨慎
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/增长量计算
+- id: mc_cumulative_monthly_avg
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/审题技巧/累计与月均换算
+  title: 累计与月均换算
+  recognition: 材料给"1-X月累计"数据或"1-2月合并"统计，题干要当月、月均、季均或单月极值
+  applicability:
+    include:
+    - 固定资产投资等累计类材料的当月量（8月当月=1-8月累计-1-7月累计）
+    - 求月均增量/月均收入（总增量÷月份数；季度÷3）
+    - 1-2月合并统计（春节因素）判断单月极值
+    exclude:
+    - 材料直接给当月/单月数据（直接使用）
+    - 求全年总量（直接加总）
+  method_steps:
+  - 当月量 = 本月累计 - 上月累计（累计差得当月）
+  - 月均 = 总量 ÷ 月份数：季度÷3、1-2月合并÷2、1-8月月均÷8；求"月均增量"先算总增量再÷月数
+  - 1-2月合并判极值：均分则单月3.09亿吨；非均分则必有一月<3.09亿吨，用它与其他月份最低值（如3.14）比较
+  error_signatures:
+  - code: avg_div_missing
+    description: 算出总量后漏除以月份数（月均漏除）
+  - code: quarter_div_12
+    description: 季度月均误除以12个月
+  - code: merged_months_ignored
+    description: 忽略1-2月合并统计，直接当单月数据比较
+  fix_action: 做8道累计/月均陷阱题，限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 陷阱识别100%、最终数量正确
+  pitfall: 题干一出现"月均/季均"或"1-X月累计"，先补上"÷月份数"或"累计差"这一步，再谈计算
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/待分类
+- id: mc_assumed_distribution
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/假设分配法
+  title: 假设分配法
+  recognition: 现期量和增长率都已知,需要较精确地估基期量/增长量,尤其增长率大或要做基期差值时
+  applicability:
+    include:
+    - 求基期量/增长量:把现期拆成若干易算基数分别乘r
+    - 基期差值、基期和差计算(如进出口基期差、第三产业与城乡居民基期量)
+    - 增长率>50%时替代盐水法做精确计算
+    exclude:
+    - r是整分数可直接用415分数法
+    - 选项差距极大只需粗估
+  method_steps:
+  - 把现期量拆成易算的整十/整百基数+剩余(如3183=3000+183、7586=7000+586)
+  - 每个基数乘r得增量并累加,逐块从现期量中扣除得基期(3000×6.06%≈182,剩余183×6.06%≈11)
+  - 剩余部分继续分配直到误差可接受;结果与选项接近时改用四位有效数字二次验证(1195 vs 1200)
+  error_signatures:
+  - code: allocation_bias
+    description: 分配基数上下同时给多/给少导致估算单向偏移
+  - code: precision_too_low
+    description: 结果接近(如1195 vs 1200)仍用三位数精度
+  - code: high_growth_error
+    description: 增长率>50%时忽略误差放大,1%误差可导致结果偏差约0.5个百分点
+  fix_action: 做15道假设分配法求基期/增量题,限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 85%
+  pitfall: 增长率大时最后两位做差是主要误差源,结果接近必须把精度提到四位数
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
+  - 行测/资料分析/增长量计算
+- id: mc_truncated_direct_division
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/截位直除
+  title: 截位直除法
+  recognition: 现期量÷(1+r)求基期,或A/B除法,数字位数长且r不是特殊分数
+  applicability:
+    include:
+    - 基期量=现期÷(1+r)需要较精确的商
+    - 除法求比重/占比,选项首位不同
+    - 结余率等需要精确商的场景(选项差距小时不宜用放缩)
+    exclude:
+    - r是特殊分数(改用415/分数法)
+    - 选项差距极小(个位差异)需完整五位数
+  method_steps:
+  - 分子分母同截三位有效数字(四舍五入)
+  - 直除得商的首位或前两位(807.5/1.132≈713、11800/135.4≈87开头)
+  - 与选项首位/次位比对锁定答案
+  error_signatures:
+  - code: truncation_error
+    description: 截位舍入导致末位对不上选项
+  - code: digit_loss
+    description: 差值运算后有效数字降到两位使误差放大(进口=总额−出口)
+  - code: wrong_direction
+    description: 应除(1+r)却误除(1−r)
+  fix_action: 做10道截位直除求基期/比重题,限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: 90%
+  pitfall: 先看选项差距再决定截几位:差距大保留三位即可,差距小(个位差异)必须用完整数字
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/待分类
+- id: mc_base_period_proportion
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比重/基期比重
+  title: 基期比重
+  recognition: 求上年(基期)某部分占整体的比重,或基期两个量的比值/倍数
+  applicability:
+    include:
+    - 基期比重=现期比重×(1+b)/(1+a)
+    - 基期比值(城镇/农村收入比、比值变化)
+    - 基期倍数
+    exclude:
+    - 只判断比重升降(改用增速比较,不计算)
+    - 求现期比重
+  method_steps:
+  - 求现期比值,分子分母各截三位(82989取829、46385取463),829/463≈1.79
+  - 乘调整系数(1+b)/(1+a):分子增速a>分母增速b则基期比重>现期
+  - 增速差小时用近似:现期比重+现期比重×增速差(增速差1.6%→加0.03得1.82)
+  error_signatures:
+  - code: ratio_flipped
+    description: 分子分母增速装反导致调整方向错误
+  - code: point_as_percent
+    description: 把'快1.6个百分点'当成直接乘1.6%
+  - code: unit_mismatch
+    description: 单位不一致就相除(亿元与万元混用)
+  fix_action: 做8道基期比重/基期比值题,限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 85%
+  pitfall: 分子增速高于分母增速时,基期比重大于现期比重,方向常与直觉相反
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期比重
+  - 行测/资料分析/基期倍数
+- id: mc_proportion_trend
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比重/比重变化趋势
+  title: 比重变化趋势判断
+  recognition: 判断比重较上年上升还是下降,或多行数据中哪些比重上升,只看增速不看量
+  applicability:
+    include:
+    - r1(部分增速)>r2(整体增速)→比重上升,否则下降
+    - 单价/均价趋势(销售额增速>面积增速→均价上升)
+    - '''分子快,分数大''口诀,适用于比重和单价两类问题'
+    exclude:
+    - 需要比重变化的具体数值(百分点)
+    - 部分与整体的统计口径不同
+  method_steps:
+  - 锁定部分增速r1与整体增速r2,整体口径要找准(如'电信业务总收入'而非'数据及互联网业务收入')
+  - 逐行比较r1与r2,只比符号不算量
+  - 连续多年r1>r2→比重持续上升
+  error_signatures:
+  - code: wrong_whole
+    description: 比较的整体对象搞错,导致所有行判断失效
+  - code: sum_row_included
+    description: 把'总计/全省'等汇总行纳入比较
+  - code: direction_flip
+    description: r1<r2时误判比重上升
+  fix_action: 做10道比重趋势判断题,限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 90%
+  pitfall: 先确认整体是谁、是否排除汇总行,再比r1与r2的大小
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/两期比重
+- id: mc_saline_method_mixed_growth
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长率/混合增长率
+  title: 盐水法(混合增长率)
+  recognition: 两部分(进口/出口、季度、废铅/其他)增速不同,已知部分增速和整体增速求另一部分,或求混合增速;整体增速介于部分之间
+  applicability:
+    include:
+    - 求混合增速:整体居中,介于两分项之间
+    - 已知整体+一个部分反推另一部分(线段法)
+    - 两个部分增速相同时整体增速也相同(顺差增长率=24.5%)
+    exclude:
+    - 增长率>50%时现期量之比≠基期量之比,需用假设分配或直除
+    - 能直接算出结果时优先A/B/X公式而非盐水
+    - 需要精确值
+  method_steps:
+  - 画线段:两个部分增速为两端,整体增速居中
+  - 估基期量之比(增长率大时不可用现期量比)
+  - 量值反比:距离比=基期量比的倒数,按比例分配跨度求未知端(量比1:2→距离2:1,跨度17%分配得7.5%;量比3:1→距离1:3,第四季度=10.9%+3×1.2%)
+  error_signatures:
+  - code: base_vs_present_ratio
+    description: 高增长率下用现期量比代替基期量比产生显著误差(80.3%/86.9%案例)
+  - code: inverse_direction
+    description: 量比与距离比方向取反,应为倒数关系
+  - code: overkill_use
+    description: 能精确计算时仍硬用盐水,复杂易错
+  fix_action: 做8道混合增长率/十字交叉题,限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 85%
+  pitfall: 基期量之比≠现期量之比:增长率悬殊时必须用基期量比,否则要么换成假设分配/直除
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/混合增长率
+- id: mc_increment_comparison_multiple
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长量/增量比较
+  title: 增量比较(一大一小看倍数)
+  recognition: 比较两个部分的增长量谁大,已知各自现期量和增速
+  applicability:
+    include:
+    - 小增速时增量≈b×r(1+r)分母可忽略
+    - 一大一小看倍数:现期量与增速一大一小时比乘积
+    - 排序题先定最大最小再比中间(正大负小看绝对量)
+    exclude:
+    - 增速>10%需完整计算Δ=b×r/(1+r)
+    - 现期量倍数与增速倍数很接近(边缘案例)
+    - 基数差异悬殊的极端情况
+  method_steps:
+  - 同号才能比:正增量>负增量
+  - 双大直接判:现期量大且增速也大者增量大,排除另一
+  - 一大一小:算现期量倍数与增速倍数,乘积大者增量大(3.18/7.63≈0.42倍×增速比7.3/2.5≈2.92倍)
+  error_signatures:
+  - code: base_effect_ignored
+    description: 基数差悬殊(127.6 vs 8.13)时忽略基数效应,高增速弥补不了绝对量
+  - code: denominator_ignored
+    description: 大增速(如>100%)下忽略(1+r)分母导致误判
+  - code: near_tie_gamble
+    description: 倍数接近时仍赌倍数判断
+  fix_action: 做10道增量比较题,限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 90%
+  pitfall: 基数差距过大时,增长率上的倍数弥补不了绝对量的差距
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/增长量比较
+- id: mc_average_annual_growth
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长率/年均增长率
+  title: 年均增长率估算
+  recognition: 求多年平均增速,或给多组基期末期求谁的年均增速大
+  applicability:
+    include:
+    - 末期/基期=(1+r)^n,记基准值:1.05^4≈1.22、1.1^4≈1.46、1.15^4≈1.75、1.2^4≈2.07、1.1^5≈1.61
+    - 年份间隔相同直接比末期/基期大小,无需开方
+    - r较小时近似(1+r)^n≈1+nr
+    exclude:
+    - 年份间隔不同时直接比末期/基期
+    - 需精确到小数点后的r值
+  method_steps:
+  - 确定基期、末期和年份差n(注意基期可能比题干起始年早一年)
+  - 算末期/基期(43502/32193≈1.36)
+  - 与记忆基准比较定区间(1.1^4=1.46>1.36→r<10%);间隔相同直接按比值排序
+  error_signatures:
+  - code: year_count_error
+    description: 年份差算错:问2017-2021年要用2016年作基期,n=5
+  - code: base_misread
+    description: 误用相邻年数据当基期
+  - code: ratio_compare_invalid
+    description: 年份间隔不同却直接比末期/基期
+  fix_action: 做8道年均增长率题,限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 85%
+  pitfall: 年均增速题的基期常比题干起始年早一年(2017-2021共5年,用2016作基期)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/年均增长率
+- id: mc_base_period_sum_difference
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/基期与现期/基期和差
+  title: 基期和差
+  recognition: 求多个分量的基期之和或之差(如粮食总产量、基期差值),已知各分量现期值和增速
+  applicability:
+    include:
+    - 各分量现期÷(1+r)估基期再求和/差
+    - 增速接近时用'基期差<现期差'定性排除选项
+    - 保留三位有效数字计算
+    exclude:
+    - 单一基期量(直接用415/假设分配/直除)
+    - 分量间统计口径不统一
+  method_steps:
+  - 各分量分别估基期(增速小可现期×(1−r);增速大用假设分配/直除)
+  - 增速接近且求差值时,先判'基期差应小于现期差'排除选项
+  - 求和/差后与选项比对,允许1%左右误差
+  error_signatures:
+  - code: range_mix
+    description: 把'1-7月累计'与'7月当月'数据混用
+  - code: error_stack
+    description: 每个分量估算误差叠加导致结果偏离
+  - code: qualitative_overuse
+    description: 需要精确差值时仍只用盐水定性
+  fix_action: 做8道基期和差题,限时55秒/题
+  time_budget_sec: 55
+  accuracy_rule: 85%
+  pitfall: 累计值与当月值、全国与地区数据最容易混,先核实每个分量的统计口径
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期和差
+- id: mc_growth_rate_split
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长率/增长率拆分
+  title: 增长率拆分法
+  recognition: 已知基期量和增长量(或增量)求增长率,或已知基期+增速预测现期
+  applicability:
+    include:
+    - 增量÷基期求r(54/857)
+    - 先算整数百分数再算小数百分数(5%对应43,余11≈1.1%)
+    - 预测下期:基期×(1+拆分增速)
+    exclude:
+    - 需高精度时
+    - 数字过小无拆分意义
+  method_steps:
+  - 找基准百分数:基期857的5%≈43
+  - 剩余增量除以基期估小数百分数(11/857≈1.1%)
+  - 相加得增速6.3%,或同法验算预测值(9115+5%≈46+1%≈12≈969)
+  error_signatures:
+  - code: base_vs_present
+    description: 把现期量当分母(54/911而非54/857)
+  - code: split_missed
+    description: 拆分的小数部分漏加
+  - code: prediction_base
+    description: 预测下期时用了过期的基期
+  fix_action: 做6道拆分法求增速题,限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 90%
+  pitfall: 增长率的分母是基期量,不是现期量
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/一般增长率
+- id: mc_unit_conversion
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/单位换算
+  title: 单位换算与临界判断
+  recognition: 材料单位与选项或判断标准单位不一致,需要换算后比较大小(如'平均每项合同成交额超过百万')
+  applicability:
+    include:
+    - 亿元↔万元(1亿=10000万)
+    - 吨→斤(1吨=2000斤),万吨→亿斤
+    - 公顷→亩(1公顷=15亩);千分号‰与百分号%区分
+    exclude:
+    - 双方单位已一致
+  method_steps:
+  - 把两个量换算到同一单位
+  - 把临界条件化成易比形式(成交额×10>合同数,等价于成交额>合同数×0.1)
+  - 换算后逐项比较,不必逐行精确计算
+  error_signatures:
+  - code: multiply_divide_flip
+    description: 公顷转亩误用÷15而非×15(1亩150万→15亩应×15)
+  - code: permille_confuse
+    description: 千分号‰当成百分号%(10‰=1%,400万应为4亿)
+  - code: decimal_point
+    description: 万亿元↔亿元小数点位置错位
+  fix_action: 做6道单位换算题,限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: 90%
+  pitfall: 1公顷=15亩是乘15;万吨→亿斤先×2000(吨→斤)再÷10000
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/待分类
+- id: mc_two_line_trend_method
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比值/双线法
+  title: 双线法(分数变化趋势)
+  recognition: 比较多期比值(占比/单价/增速)的升降趋势,或判断某年增速相对上年升还是降,看分子分母两条线的相对走向
+  applicability:
+    include:
+    - 分子增速慢于分母→分数变小
+    - 分子降+分母升→该年比值/增速必降(可秒判)
+    - 比较多个品种/地区占比变动大小
+    exclude:
+    - 需要具体数值或百分点
+    - 分子分母同向且变化复杂
+  method_steps:
+  - 只抓分子、分母各自的趋势方向
+  - 分子降、分母升的组合直接判定增速下降(2019年分子11→9、分母持续升)
+  - 分子分母同向时比较增速大小定升降
+  error_signatures:
+  - code: trend_flip
+    description: 把分子分母趋势方向看反
+  - code: precise_missing
+    description: 要精确比值时仍用趋势法粗判
+  fix_action: 做8道趋势比较题,限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 90%
+  pitfall: 双线法只能定方向,需要具体比值时还得计算,别省那一步
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/两期比重
+  - 行测/资料分析/两期平均数比较
+- id: mc_base_from_change_rate
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/基期与现期/变化量反推基期
+  title: 基期量=变化量÷变化率
+  recognition: 已知绝对变化量x和变化率r,求基期量(如'面积减少215.1千公顷,降24.3%')
+  applicability:
+    include:
+    - 基期量a=x÷r
+    - r是特殊分数时用乘法速算(24.3%≈1/4→215.1×4≈860)
+    - 求单位面积产量等派生量时先反推基期量
+    exclude:
+    - 求的是现期量(需加回变化量)
+    - 变化量与变化率口径不一致
+  method_steps:
+  - a=x÷r,增长率用小数(215.1÷0.243)
+  - 特殊分数化乘:24.3%≈1/4→×4;14.9%≈15%→97÷0.15≈647
+  - 若题目要现期量,记得加回变化量(a+x)
+  error_signatures:
+  - code: base_vs_present_confuse
+    description: 用x/r算出的基期量直接当现期用(88.4/4.4%=2010是2016年数据,2017应为2100)
+  - code: sign_ignored
+    description: 下降率的负号处理混乱
+  fix_action: 做6道x/r反推题,限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: 90%
+  pitfall: x/r算出来是基期量,题目问现期时要加上变化量
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
+- id: mc_base_period_ratio_split
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比重/基期比重
+  title: 基期比重拆分法
+  recognition: 求去年某部分占整体的比重,给出现期比重和部分/整体增长率
+  applicability:
+    include:
+    - 基期比重=现期比重×(1+r整体)/(1+r部分)
+    - 拆分乘法:832×75%=624,余数43/832≈5%,75%+5%=80%
+    - 比重之和恒100%,可用非住宅占比=100%-84%反推校验
+    exclude:
+    - 选项差距极小、需要精确计算时
+    - 部分与整体增长率都很大(>10%)时简化误差大
+  method_steps:
+  - 先算现期比重:整数部分与余数部分分别拆算再相加
+  - 看增速比:若r部分≈r整体,基期比重≈现期比重;若r部分>r整体,基期比重比现期小
+  - 微调:基期比重≈现期比重×(1+r整体-r部分),如80%×105%≈84%
+  - 用100%-某部分占比反推另一部分,验证是否与选项吻合
+  error_signatures:
+  - code: wrong_growth_ratio
+    description: 分子分母增长率放反(把部分增长率放到整体位置)
+  - code: naive_use_current_ratio
+    description: 直接把现期比重当成基期比重,不做增速调整
+  - code: split_remainder_error
+    description: 拆分的余数占比(如43/832≈5%)估错导致结果偏移
+  fix_action: 做8道基期比重拆分题,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: ≥90%
+  pitfall: 拆分时余数占比虽然小但不能丢;比重之和恒100%,务必用另一部分反推校验。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期比重
+- id: mc_assumption_allocation
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/速算技巧/假设分配法
+  title: 假设分配法(增量/基期互推)
+  recognition: 已知现期和增长率求增量或基期,且增长率是便于分配的简单百分数(如4%、24.4%)
+  applicability:
+    include:
+    - 已知现期2091亿增长4%求增量:先2000×4%=80,余91×4%≈3.6,合计83.6亿
+    - 反推基期:假设2000亿则增量300亿,实际2428亿需更大基数
+    - 环比反推上月:假设基期1.15、增量0.15的分配
+    - 近似增长率估算:192.7亿增长24.4%≈25%(1/4),增量≈192.7/5≈38.5
+    exclude:
+    - 增长率非整数且选项差距很小时需精确计算
+    - 可以直接截位直除时用除法更快
+  method_steps:
+  - 取一个好算的整数基期a,增量≈a×r
+  - 余数(现期-a)单独分配:余×r
+  - 两项相加得总增量;现期-增量=基期
+  - 用选项反推:假设偏小则真实基数更大,按比例放大调整
+  error_signatures:
+  - code: forget_remainder_allocation
+    description: 只算整数部分增量,漏掉余数部分的增量
+  - code: wrong_assumption_direction
+    description: 假设基期偏大/偏小的方向判断反,调整方向错误
+  - code: rate_round_overflow
+    description: 把24.4%约成25%后未记住实际结果应略小于估算值
+  fix_action: 做10道假设分配法题,限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: ≥90%
+  pitfall: 假设的基准要取好算的整数(如2000),余数增量虽小但不可丢;增长率取大估算时记得结果偏小。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
+  - 行测/资料分析/增长量计算
+- id: mc_saline_mixture
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长率/盐水原理(混合增速)
+  title: 盐水原理判断混合增速与比重升降
+  recognition: 整体由两部分组成,问整体增速范围、部分增速范围,或问比重较上年升还是降
+  applicability:
+    include:
+    - 整体增速必在两部分增速之间且偏向量大一方:出口19.9%与进口13.3%之间,偏向出口额大的一边,肯定>16%
+    - 判断比重升降只比增速大小:部分增速>整体增速则比重上升,不用算绝对值
+    - 上下半年同比增速相同(如均168%)则全年增速=该增速,同浓度混合验证
+    - 混合增速反推基期量之比(盐水法得基期比8:5)
+    exclude:
+    - 不能用盐水原理做精确加权计算,只能定方向/范围
+    - 三部分以上混合时原理复杂
+    - 题干要求精确百分点值时需十字交叉或加权平均
+  method_steps:
+  - 混合增速必介于最小与最大增速之间
+  - 偏向基数(量)大的一方:量之比反比于增速差之比
+  - 判断比重升降:只比较部分增速与整体增速大小,不看负号与绝对值
+  - 需精度时用加权平均或十字交叉补算
+  error_signatures:
+  - code: wrong_bias_side
+    description: 混合增速偏向量小的一方,方向判断反
+  - code: use_saline_for_exact
+    description: 用盐水原理精确求值导致偏差
+  - code: forget_containment
+    description: 忘记整体增速必须落在分项增速之间,选出了区间外的选项
+  fix_action: 做8道盐水原理题,限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: ≥85%
+  pitfall: 盐水只解决方向/范围判断,不替代精确计算;判断比重升降永远只比增速大小。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/混合增长率
+  - 行测/资料分析/两期比重
+- id: mc_growth_amount_comparison
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长量/增长量大小比较
+  title: 增长量比较(大大则大、一大一小看乘积)
+  recognition: 比较多个量的增长量大小,已知各量基期(或现期)与增长率
+  applicability:
+    include:
+    - 基期大且增长率大→增长量一定大(大大则大)
+    - 一大一小时比较现期×r的乘积:粮油食品13776×10.2% vs 日用品5392×13.7%
+    - 牛肉5.2×3.4% > 羊肉3.1×4.0%用乘积判定
+    exclude:
+    - 增长率>20%时现期×r近似增量误差大,需除以(1+r)
+    - 单位不统一时先换算
+  method_steps:
+  - 先比基期与增长率方向:两者都大者直接胜出
+  - 一大一小时比现期×r的乘积(增量≈现期·r,当r较小时)
+  - 乘积接近时再精确除以(1+r)比较
+  - 注意题干问的是增长率还是增长量,别拿增量比法套增速
+  error_signatures:
+  - code: product_rule_when_large_r
+    description: r>20%时用现期×r代替增量,偏差大
+  - code: multiply_wrong_factors
+    description: 用基期×增长率而不是现期×增长率比较乘积
+  - code: confuse_growth_rate_amount
+    description: 混淆增长快慢(率)与增长高低(量)的题干要求
+  fix_action: 做6道增长量比较题,限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: ≥85%
+  pitfall: “增长快慢”指增长率比较,“增长高低”指增长量比较,先看题干词再选比较方法。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/增长量比较
+- id: mc_growth_rate_substitution
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长率/增长率替代比较与1%基准
+  title: 增长率替代比较(增量/末期)与1%基准速算
+  recognition: 比较多个量的增速大小且增量易得,或求某量变化值需要快速估算
+  applicability:
+    include:
+    - 用增量/末期数代替增量/基期数比较增速:失业险2.42/292.1<1%,城乡居民养老189.1/2077.99≈9%
+    - 用x/b代替x/a比较增速,保持比较基准统一
+    - 求变化量时以1%为基准:10.8万的1%=1080元,2.2%≈2.2×1080≈2376元
+    - 用整基数校验:4000的5%仅200,判断某增速是否>5%
+    exclude:
+    - 选项给出精确增速值、需要真实基期时
+    - 被比较量的基期差异极大时替代排序可能失真
+  method_steps:
+  - 取各量的增量/末期数作为增速替代值,直接排序
+  - 求变化量:先算现期值的1%作为基准
+  - 变化量≈1%基准×增速差(以百分点计)
+  - 量级校验:用整基数(如4000、2000)的百分比估算合理性
+  error_signatures:
+  - code: treat_substitution_as_exact
+    description: 用末期替代基期的排序值当作精确增速作答
+  - code: percent_base_error
+    description: 1%基准取错基数(用末期而不是现期)
+  - code: mixed_comparison_bases
+    description: 替代比较时部分用基期部分用末期,基准不统一导致比乱数据
+  fix_action: 做8道替代比较题,限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: ≥85%
+  pitfall: 替代比较只保证排序,不保证精确值;所有被比较项必须用同一种基准(都取末期)才不会乱。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/一般增长率
+- id: mc_extreme_rate_reverse_check
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/增长率/极端增长率反向验证
+  title: 极端增长率反向验证
+  recognition: 增长率异常大(如1208.8%)或异常负值,求基期量或反推数量级
+  applicability:
+    include:
+    - 超大增长率反推基期:100元增长12倍→1300元,实际1082<1300→基期<100亿元
+    - 极端增速时优先考虑数量级合理性,跳过公式直算
+    - 用选项数量级(如是否超过某整百)快速排除
+    exclude:
+    - 正常增速(±50%内)直接计算更快
+    - 要求精确到个位数的题目
+  method_steps:
+  - 看到异常大增速先设整基期(如100亿元)
+  - 现期=基期×(1+r),把真实现期与该整基期推算值比较定基期上下界
+  - 增长1208.8%≈现期=基期×(1+12.088), 实际1082亿<100×(1+12.088)≈1309亿→基期<100
+  - 用数量级匹配选项作答
+  error_signatures:
+  - code: rate_multiple_error
+    description: 把1208.8%误当12.088倍而不是(1+12.088)倍
+  - code: ignore_magnitude
+    description: 不验证数量级直接套公式,选错量级选项
+  - code: forget_minus_upper_half
+    description: 已知全年销量后忘记减上半年销量(常见陷阱)
+  fix_action: 做5道极端增速反向验证题,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: ≥80%
+  pitfall: 增长1208.8%意味着现期=基期×(1+12.088),不是基期×12;数量级先行校验。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
+- id: mc_inclusion_exclusion
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/其他/容斥原理(交集最值)
+  title: 容斥原理求交集人数
+  recognition: 两个比例群体在同一总样本中,问“至少/至多多少人同时满足两个条件”
+  applicability:
+    include:
+    - 交集最小值=A+B-100%:71-80岁24.2%且用线上支付78.5%,至少24.2%+78.5%-100%=2.7%≈30人
+    - 交集最大值=完全包含情况(取较小者)
+    - 判断两集合是否必然有交集(看两占比之和是否超100%)
+    - 放大字体55.6%+放大图标66.1%-100%=21.7%≈241人≥230
+    exclude:
+    - 三集合容斥
+    - 求两集合之外的人数
+  method_steps:
+  - 交集最大值=min(A,B)(完全包含)
+  - 交集最小值=A+B-100%(超过100%的部分必然重叠)
+  - 人数=百分比×总样本数(注意用对当年样本总量)
+  - 结果与题目给出的门槛人数比较判断选项
+  error_signatures:
+  - code: forget_minus_total
+    description: 求“至少”时忘记减100%
+  - code: wrong_total_base
+    description: 用错样本总数(如1181与1107两年混用)
+  - code: min_max_reversed
+    description: 把交集最小值与最大值公式用反
+  fix_action: 做5道容斥原理题,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: ≥85%
+  pitfall: A+B-100%只在两占比之和超过100%时适用;和不超过100%时最小交集可为0。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/待分类
+- id: mc_mom_reverse_fraction
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/基期与现期/环比反推(份数法)
+  title: 环比反推上月值(份数法)
+  recognition: 已知本月值和环比变化率,需反推上月或前月数据,或用累计值推单月
+  applicability:
+    include:
+    - 环比下降不足1/3:设去年为3份、变化量1份,反推上月
+    - 用累计值减本月和前月估算目标月(1-3月总量1291万-336万-估算2月)
+    - 港口2月环比用假设分配:基期约1.15、增量0.15,1月=4.54-2.85≈1.7,占比37.4%
+    exclude:
+    - 选项差距极小需精确计算
+    - 环比变化率接近1/2等非简单分数时份数法误差大
+  method_steps:
+  - 把环比变化率写成简单分数(如≈1/3、1/4)
+  - 设基期为n份、变化量为1份,现期=n±1份
+  - 求单份值反推上月,再代入累计值求目标月
+  - 边界验证:“不到三分之一”则估算值应比按1/3算的略小
+  error_signatures:
+  - code: ignore_boundary_word
+    description: 忽略“不到三分之一”等限定词导致估算偏大
+  - code: sign_error_chain
+    description: 环比下降/上升方向用反,反推全错
+  - code: accumulated_error
+    description: 累计值减本月再减估算上月,估算误差累积到目标月
+  fix_action: 做6道环比反推题,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: ≥85%
+  pitfall: “不到1/3”这类边界词决定估算偏小方向;上月是估算值时误差会向后累积。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
+- id: mc_ratio_difference_calc
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/比重/比重差计算
+  title: 比重差计算(现期比重×增速差)
+  recognition: 问某部分占整体的比重较上年上升/下降多少个百分点
+  applicability:
+    include:
+    - 比重差=现期比重×(r部分-r整体)/(1+r部分)
+    - r部分较小时简化为现期比重×(r部分-r整体):1016/2295≈44.3%×11%≈4.87%
+    - 快速判断方向:部分增速为负、整体增速为正则比重必定下降
+    exclude:
+    - 选项差距极小、临界值附近(如4% vs 4.2%)时不可简化
+    - r部分<-10%时(1+r部分)不可忽略
+  method_steps:
+  - 算现期比重a/b到能区分选项的精度
+  - 找增速差r部分-r整体
+  - 比重差≈a/b×(r部分-r整体);需精度时除以(1+r部分)
+  - 符号判断:r部分>r整体则比重上升,反之下降
+  error_signatures:
+  - code: ignore_denominator_term
+    description: 忽略(1+r部分)导致临界值误判(如4%与4.2%)
+  - code: base_period_vs_diff_confuse
+    description: 把比重差当基期比重差或反之,混用公式
+  - code: direction_sign_error
+    description: 增速差正负号取反,升降方向答错
+  fix_action: 做8道比重差题,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: ≥85%
+  pitfall: 临界值附近的题(“上升4个百分点以上”)必须精确算,简化会导致方向对但数值卡错边界。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/两期比重
+- id: mc_product_multiplication_unit
+  exam_scope: guokao
+  track: xingce
+  module_name: 资料分析
+  tag_path: 资料分析/基期与现期/乘积比较与单位换算
+  title: 产量乘积倍数比较与单位换算
+  recognition: 比较两个“量×率”的乘积大小(总产量=面积×单产),或涉及公顷/亩、亿/万等隐含单位换算
+  applicability:
+    include:
+    - 比较总产量=面积×单产时先看倍数关系:若a是a'的m倍而b'不到b的m倍,则a×b>a'×b'
+    - 1公顷=15亩:30.7公斤/公顷÷15≈2公斤/亩,5988.8÷15≈399.3公斤/亩
+    - 单位合理性校验:烤烟7.06万吨/3.2665万公顷≈2.16吨/公顷,排除不合理的万吨/公顷选项
+    exclude:
+    - 两个乘积的倍数都接近1时需要精确计算
+    - 乘数与被乘数单位已在同量级、无需换算时
+  method_steps:
+  - 识别乘积关系与隐含单位(公顷↔亩×15,亿↔万×10000)
+  - 比较乘积:固定一边,看另一边的倍数是否足够抵消
+  - 例:玉米36759.7×5972.7与小麦24186.5×5327.4,面积约1.5倍、单产约1.1倍→玉米更大
+  - 单产结果换算到合理量级(吨/公顷)做常识校验
+  error_signatures:
+  - code: unit_conversion_wrong
+    description: 公顷亩换算方向搞反(÷15写成×15)
+  - code: grain_vs_rice_confuse
+    description: 把谷物整体单产当成稻谷单产
+  - code: multiple_check_lazy
+    description: 不比较倍数直接算乘积,浪费时间且易错
+  fix_action: 做6道乘积比较与单位换算题,限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: ≥85%
+  pitfall: “谷物整体单产≠稻谷单产”,每个单产都独立换算独立验证;单位合理性是最快的纠错手段。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/资料分析/倍数比较

@@ -1,0 +1,5153 @@
+- id: mc_scientific_traversal_order
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/科学遍历
+  title: 科学遍历-按考频顺序验证规律
+  recognition: 图形信息多、一时看不出考点时,不要随机试错,按'对称(12%)→一笔画(7%)→面(7%)→直线数(4%)→交点数(3%)→直角数(1.5%)→切点数(0.6%)'的考频降序快速验证;约50%-60%题由典型特征图形直接定位考点
+  applicability:
+    include:
+    - 一组图/两组图/九宫格/分类分组等平面题通用
+    - 图形规整、信息量大、无法一眼定位考点时
+    - 难题(单图同时含线数/平行线/面/切点等多特征,如导学第一题)
+    exclude:
+    - 特征图形极其明显(日字形/五角星/内嵌三角形)可直接定位考点
+    - 立体图形、平面拼合类题目
+    - 黑白格变换等专题
+  method_steps:
+  - 第一步验证对称性(轴对称/中心对称),对称是全图推最高频考点占12%
+  - 第二步验证一笔画(去框法/奇点0或2),占7%
+  - 第三步按面→线→点顺序逐个数数量,找恒定/等差/分组
+  - 前序全无效再试直角数/平行线组数/切点数等低频特征,选项必须唯一符合
+  error_signatures:
+  - code: random_trial
+    description: 随机暴力试错规律(面→角→对称乱跳),漏掉对称、一笔画等基础考点,耗时是系统解法的6-10倍
+  - code: reverse_order
+    description: 倒序从低频考点入手(先数切点/交点),浪费验证成本
+  - code: over_stay
+    description: 单题死磕超过2-3分钟,未按顺序转移
+  - code: miss_compound
+    description: 只验单一规律,未处理约15%的复合考点题(需分步排除)
+  fix_action: 做30道混合考点图推题,限时40秒/题,每道在草稿记录按遍历顺序验证的规律序列
+  time_budget_sec: 40
+  accuracy_rule: 常规题正确率≥90%;遍历顺序本身5-10分钟内背熟
+  pitfall: 复合考点约占15%:单一规律可能同时满足多个选项,要用线数排除一部分、面数再确定最终答案,不能用单个规律硬选
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称
+  - 数量规律-一笔画
+  - 数量规律-面
+  - 数量规律-线
+  - 数量规律-点
+  - 属性规律-曲直
+  - 数量规律-角(直角)
+  - 数量规律-点(切点)
+  knowledge_nodes:
+  - 行测/判断推理/图形推理
+- id: mc_parallel_lines_count
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一根线
+  title: 一根线-平行线组数
+  recognition: 图形出现内嵌三角形、四边形缺角、规则多边形或多条平行线段时,优先数平行线组数(2条平行线=1组);规律可为等差数列也可为交替数列(如3,2,3,2,3)
+  applicability:
+    include:
+    - 内嵌三角形结构(考官偏爱的平行线标志结构)
+    - 图形中有多组平行线段、Z形折线、梯形
+    - 反复出现的'特殊三角形绘制方式'暗示平行线考点
+    exclude:
+    - 图形中没有任何平行线段
+    - 已唯一判定一笔画/对称等高配频考点
+    - 平行线段数量少且不成规律
+  method_steps:
+  - 逐图数平行线组数:同方向的两条平行线段=1组,Z形折线也含1组
+  - 列出各组数量,找等差(0,1,2,3,4,5)/恒定/交替数列
+  - 选项逐个匹配平行线组数,取唯一符合项
+  - 首组无规律时检验奇偶位交替数列(3,2,3,2)
+  error_signatures:
+  - code: miss_parallel
+    description: 对平行线不敏感,真题正确率仅22%,因为根本没往平行线方向想
+  - code: wrong_group_count
+    description: 把方向不同的线段误算为一组,或漏数隐藏的平行组
+  - code: only_arithmetic
+    description: 只找递增等差数列,忽略3,2,3,2这类交替数列
+  fix_action: 做20道平行线专项图推题,限时40秒/题,每图必标出平行线组数
+  time_budget_sec: 40
+  accuracy_rule: ≥85%
+  pitfall: 平行线题真实正确率仅22%-25%,难点不在数错,而在没有'见平行线就数组数'的条件反射
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-线(平行线组数)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+- id: mc_right_angle_count
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一根线
+  title: 一根线-直角数量与方向
+  recognition: 图形出现直角三角形、四边形缺角(矩形缺角)、多直角折线时,优先数直角数;考官设计的直角'绝对不是随意出现的'
+  applicability:
+    include:
+    - 直角三角形或矩形缺角图形
+    - L/U/口字形等折线(分别1/2/4个直角)
+    - 组合图形中明显直角特征
+    exclude:
+    - 图形圆滑无直角
+    - 对称/一笔画已唯一判定
+    - 仅1个直角、无设计痕迹
+  method_steps:
+  - 逐段检查折线数直角:L形转折=1个直角,U形=2个,口字形=4个
+  - 列各图直角数找等差/分组规律(如1,2,3递增)
+  - 选项数直角匹配唯一项
+  - 若各图直角数相同,改看直角方向是否规律旋转(如每次顺时针90°)
+  error_signatures:
+  - code: count_omission
+    description: 复杂图形漏数隐藏直角(如一根线中不易察觉的转折)
+  - code: wrong_ansatz
+    description: 误判为竖线数量相加等机构错误规律(该规律2000多题仅出现30次,非高频)
+  - code: ignore_direction
+    description: 只数直角数量,忽略直角方向旋转规律
+  fix_action: 做15道直角数专项题,限时40秒/题,每图标注直角数量和方向
+  time_budget_sec: 40
+  accuracy_rule: ≥85%
+  pitfall: 直角数易误判为线数或面数;考官画出16个直角的图形意图性极强(非常规绘制难度大),这是'数直角'的强信号
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-角(直角数量)
+  - 位置规律-旋转(直角方向)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-角
+  - 行测/判断推理/位置规律-旋转
+- id: mc_tangent_point_count
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/切点
+  title: 导学-曲线与直线切点数量
+  recognition: 图形出现圆/弧线与直线相切时,优先数切点数量(相切圆→切点数是课程强调的条件反射之一);典型如'每个图形含1个曲线与直线切点'
+  applicability:
+    include:
+    - 圆/弧线与直线相切
+    - 相切圆图形
+    - 曲线与直线仅接触一点(相切而非穿过)
+    exclude:
+    - 图形无明显相切关系、只有普通相交
+    - 对称/一笔画/面等高频规律已唯一判定
+    - 切点难以精确定义的图形
+  method_steps:
+  - 识别切点:曲线与直线只接触一点且不相交穿过
+  - 逐图数切点数量,找恒定/等差规律
+  - 选项验证唯一符合项
+  - 区分切点与交点总数,不要混数
+  error_signatures:
+  - code: mix_with_intersection
+    description: 把切点混入交点总数一起数,规律失效
+  - code: miss_tangent
+    description: 只数线/面/对称,忽略明显的相切特征
+  - code: priority_error
+    description: 切点占比仅0.6%,不应在遍历第一步尝试
+  fix_action: 做10道切点专项题,限时50秒/题,先走高频遍历再数切点
+  time_budget_sec: 50
+  accuracy_rule: ≥80%
+  pitfall: 切点是低频考点(约0.6%),只在图形明确出现'圆/弧+直线相切'且高频规律失效时才数;单图常有干扰信息(如5根线/平行线),需先剔除
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-点(切点/交点)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-点
+- id: mc_graphic_operation
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/图形运算
+  title: 图形运算-求同求异叠加黑白
+  recognition: 两组图或九宫格中,单张图形本身数量无规律时,转向图与图之间的运算:求同(留共同)、求异(去共同)、叠加、黑白运算、三图数字相加
+  applicability:
+    include:
+    - 两组图题型(第一组3图+第二组3图)
+    - 九宫格题型(每行3图有运算关系)
+    - 图形外形相似、有重叠区域
+    - 黑白块图形
+    exclude:
+    - 一组图题(6图找整体规律)
+    - 分类分组题(6图分两组)
+    - 单图特征规律已唯一确定
+  method_steps:
+  - 先确认单图特征(对称/面/线)均无统一规律
+  - 两组图:验证前两图求同/求异/叠加得到第三图
+  - 三图数字运算:第一组图一+图二=图三的特征值(如面数4+3=7),第二组套用同式
+  - 九宫格:每行三图同理;再试按列、米字型或全图整体看
+  error_signatures:
+  - code: only_single_figure
+    description: 只在单张图上数数,忽略图间运算关系
+  - code: wrong_axis
+    description: 九宫格只按行验证,未尝试按列或米字型
+  - code: premature_unique
+    description: 把部分符合的选项当成唯一解,未验证运算式对第二组也成立
+  fix_action: 做20道两组图/九宫格图形运算题,限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: ≥85%
+  pitfall: 同一图形运算考点,掌握方法后正确率90%,未掌握骤降至58%;关键是'先单图、后图间运算'的顺序
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-加减同异(求同/求异/叠加/黑白运算)
+  knowledge_nodes:
+  - 行测/判断推理/样式规律-加减同异
+  - 行测/判断推理/样式规律-黑白运算
+- id: mc_one_line_stroke
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一根线
+  title: 一根线-一笔画判断(去框法)
+  recognition: 图形由一根连续线条构成(直线/曲线/折线/扭曲带尖角线条/带线头),明显不对称时优先判一笔画;一根线图形中一笔画考点占41%
+  applicability:
+    include:
+    - 单一线条图形(直线、曲线、折线、缠绕线条)
+    - 封闭面内单线图形
+    - 仅以点相交的多图形组合
+    - 五角星、日字形等特征图
+    exclude:
+    - 图形明显对称且有对称规律
+    - 规整多边形(优先平行线/直角)
+    - 十字交叉图形(必为两笔画干扰项)
+  method_steps:
+  - 用去框法:去掉仅以点相交的封闭图形和最外围框,看剩余线条
+  - 判断剩余部分能否一笔不抬笔画成(或数奇点:0或2个为一笔画)
+  - 题干前几图确认一笔画后,逐个选项去框验证
+  - 熟练者10秒判考点+10秒选答案,单图判断2秒内
+  error_signatures:
+  - code: frame_interference
+    description: 被外框迷惑,把一笔画图形误判为多笔画
+  - code: cross_misjudge
+    description: 十字交叉图形误判为一笔画(实际两笔画)
+  - code: oddpoint_slow
+    description: 一上来数奇点拖慢速度,应先肉眼去框
+  - code: ignore_cannot
+    description: 忽略题干'不能'的要求,选成符合规律项
+  fix_action: 做20道一笔画判断题(含去框法),限时30秒/题,单图2秒内判断
+  time_budget_sec: 30
+  accuracy_rule: 简单题100%,中等题≥90%(难题不超过1分钟)
+  pitfall: 一笔画占41%是一根线图形的压倒性第一考点;'扭来扭去带尖角'的图形90%考一笔画或曲直性
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-一笔画
+  - 数量规律-线
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+- id: mc_one_line_symmetry
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一根线
+  title: 一根线-对称性(对称轴方向/中心对称)
+  recognition: 一根线图形明显对称、或所有图形均为对称图形时优先验证对称性;对称性在一根线考点中占8%,在全图推占比12%为最高频
+  applicability:
+    include:
+    - 轴对称/中心对称图形
+    - 对称轴方向旋转规律(平行→斜45°→垂直→横向)
+    - 分类分组题(轴对称vs中心对称vs双重对称)
+    exclude:
+    - 图形明显不对称
+    - 一笔画已唯一判定
+    - 对称无规律时立即转向数量
+  method_steps:
+  - 判断每个图形:轴对称/中心对称/双重对称
+  - 所有图对称→观察对称轴数量或方向变化(如每次旋转45°)
+  - 分类分组:按对称类型分两组(如纯轴对称 vs 轴对称+中心对称)
+  - 选项验证唯一符合项,排除多对称轴或中心对称的干扰项
+  error_signatures:
+  - code: skip_symmetry
+    description: 未先验证对称直接数数,漏掉最高频考点
+  - code: axis_direction_ignored
+    description: 只判是否对称,忽略对称轴方向变化的旋转规律
+  - code: confound_symmetry_types
+    description: 混淆轴对称与中心对称,选错分类
+  fix_action: 做15道对称性图推题,限时30秒/题,每图标注对称类型和对称轴方向
+  time_budget_sec: 30
+  accuracy_rule: ≥90%
+  pitfall: 对称性是全图推最高频考点(12%),必须作为遍历第一优先级;对称+一笔画复合考点要分步处理
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+- id: mc_one_line_faces
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一根线
+  title: 一根线-面数量
+  recognition: 纯线条图形数封闭区域(默认0面,每封闭1区+1面),面数呈等差/恒定/交替/分组时考面数量;一根线考点中面占11%
+  applicability:
+    include:
+    - 多根线围成封闭区域的图形
+    - 单线弯曲成环(1个环=1个面)
+    - 面数递增1,2,3,4、或交替2,3,2,3
+    exclude:
+    - 纯开放单线无线框(0面无区分度)
+    - 一笔画/对称已唯一判定
+    - 面数无规律
+  method_steps:
+  - 数封闭区域数量:一个封闭环=1面,两个相交环=2面,嵌套逐层数(如Q形=1面)
+  - 列各图面数找等差/恒定/交替/分组规律
+  - 选项匹配唯一符合项
+  - 多个选项符合时,转面形状/独立vs包含关系等二次筛选
+  error_signatures:
+  - code: nested_face_miss
+    description: 嵌套图形漏数内部面
+  - code: default_face_error
+    description: 把纯线条开放图形误算为有面
+  - code: no_second_verify
+    description: 面数多选项符合时未继续验证面形状(如山东题两片面形状不相同)
+  fix_action: 做15道数面题,限时30秒/题,每图标注每个封闭区域
+  time_budget_sec: 30
+  accuracy_rule: ≥90%
+  pitfall: 面+笔画+曲直三重验证难题正确率仅35%;面数规律对多个选项时按'面→线→点'顺序叠加验证,不能提前跳关
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-面
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-面
+- id: mc_one_line_lines_points
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一根线
+  title: 一根线-直线数与交点数
+  recognition: 规整简单直线图形优先数直线段数量(如1→5递增),复杂交叉图形数交点数;一根线考点中交点占11%、直线数占4%
+  applicability:
+    include:
+    - 简单直线图形(数独立直线段)
+    - 多线段交叉图形(数交点)
+    - 曲线图形中优先数直线交点
+    exclude:
+    - 明显一笔画/对称/面规律
+    - 纯曲线图形(无线交点)
+    - 曲直混合图形(应分离统计曲线/直线数)
+  method_steps:
+  - 数独立直线段数量,找等差/恒定/分组
+  - 数交点:曲线图形只数直线交点;线条特别粗的提示只数'十字形'交点
+  - 数线时同步记录数字,便于发现差值规律
+  - 选项验证唯一符合项
+  error_signatures:
+  - code: miscount_line
+    description: 数线漏数或重复计,导致规律错位
+  - code: curve_point_mixed
+    description: 把曲线交点混入直线交点计数
+  - code: no_record
+    description: 数线时未记录数字,错失线数-点数=固定值等差值规律
+  fix_action: 做15道数线/数点题,限时35秒/题,数线同时把数字写在草稿
+  time_budget_sec: 35
+  accuracy_rule: ≥85%
+  pitfall: 复杂图形中交点特征比线条更稳定,线数被干扰时优先数交点;但交点属低频,需在对称/一笔画/面之后验证
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-线
+  - 数量规律-点
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+  - 行测/判断推理/数量规律-点
+- id: mc_one_line_curvature
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一根线
+  title: 一根线-曲直性(含曲直分离统计)
+  recognition: 图形同时含曲线与直线段、或纯直/纯曲交替、或'张牙舞爪'抽象图形时优先看曲直性;一根线考点中曲直性占7%
+  applicability:
+    include:
+    - 纯直-纯曲交替规律
+    - 曲直混合图形
+    - 抽象图形(曲直性>部分数>其他特征)
+    - 曲线段数量固定或曲线段间隔等差
+    exclude:
+    - 全曲线或全直线图形(曲直无区分度)
+    - 对称/一笔画已唯一判定
+    - 规整图形(优先直角/平行线)
+  method_steps:
+  - 确认图形非全曲非全直
+  - 看曲直交替/混合类型(纯直/纯曲/混合各归一类)
+  - 混合图形分别数曲线数和直线数,尝试差/和/比值(如曲线数-直线数=固定值)
+  - 选项验证唯一符合项
+  error_signatures:
+  - code: premature_giveup
+    description: 简单曲直判断无效就放弃,未做曲直分离统计
+  - code: mixed_count_error
+    description: 混合图形未分别统计曲线数和直线数,直接数总线段
+  - code: interval_miss
+    description: 忽略曲线段间隔等差规律(相接→隔1线→隔2线→隔3线)
+  fix_action: 做15道曲直性题(含分离统计),限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: ≥80%
+  pitfall: '''两种数量相减''是考官能出的最难题型(如曲线数-直线数=5);超过相减范围的规律基本属偏题,不用深究'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-曲直
+  - 数量规律-线
+  - 数量规律-点
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-曲直性
+  - 行测/判断推理/数量规律-线
+- id: mc_one_line_parts
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一根线
+  title: 一根线-部分数
+  recognition: 图形由明显分离的独立线条/部分构成时考部分数(相连为1部分,分离另计);常作分类分组题考点或九宫格部分数求和恒定
+  applicability:
+    include:
+    - 多个独立小图形(部分数=独立块数)
+    - 分类分组题(3图1部分 vs 3图2部分)
+    - 九宫格部分数之和恒定(如图1+图2+图3=固定值)
+    exclude:
+    - 图形整体连通无分离
+    - 对称/一笔画/面/线已唯一判定
+    - 单图部分数无规律
+  method_steps:
+  - 数独立部分:相互连接的线条算1部分,分离线条单独计数
+  - 找恒定/分组/求和规律
+  - 九宫格试部分数求和恒定
+  - 选项验证唯一符合项
+  error_signatures:
+  - code: point_touch_error
+    description: 把仅点接触的两个图形算作两部分(点接触仍为1部分)
+  - code: miss_sum_rule
+    description: 九宫格部分数之和恒定的规律未尝试
+  - code: not_fallback
+    description: 其他规律失效时未把部分数作为备选
+  fix_action: 做10道部分数题,限时35秒/题
+  time_budget_sec: 35
+  accuracy_rule: ≥85%
+  pitfall: 部分数常作为其他规律失效后的备选,但分类分组题中它常是主考点;一根线考点中部分数占8%
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素(部分数/独立部分)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+- id: mc_inner_line_deframe_stroke
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/封闭面内一根线
+  title: 封闭面内一根线-去框判一笔画
+  recognition: 图形含封闭区域且内部有单一线条(头尾连边界),或题干出现2-3个以上此类图形时,85%以上考一笔画;口诀:封闭图形不要怕,一根线先一笔画,有面仅相交于点,直接无脑去掉它
+  applicability:
+    include:
+    - 外框+内单线图形(方框内单线必为一笔画)
+    - 圆与线仅点相切/相交(可去圆)
+    - 嵌套图形(三角形内含矩形框)
+    - 日字形、多圆相切
+    exclude:
+    - 内部明显多根线(如内十字,为两笔画)
+    - 图形全开放无外框
+    - 已唯一判定对称/面数等
+  method_steps:
+  - 肉眼去框:忽略外框只看内部线条(外框是干扰项)
+  - 去掉所有仅以点相交的图形(圆/三角/矩形,不影响笔画数)
+  - 看剩余线条是否为一根连续线,判断一笔画/多笔画
+  - 选项逐个去框验证,排除明显两笔/三笔项
+  error_signatures:
+  - code: frame_interference
+    description: 被相同外框迷惑,忽略内部线条,90%未听课者误判
+  - code: circle_interference
+    description: 圆是干扰项未去掉,直接数笔画
+  - code: no_verify_habit
+    description: 不坚持验证一笔画,靠外形联想(如看成'房子')导致58%错误率
+  fix_action: 做20道封闭面内一笔画题(含去框),限时30秒/题,单图2秒内去框判断
+  time_budget_sec: 30
+  accuracy_rule: 70%正确率题做到100%秒杀;简单分类题20秒内
+  pitfall: 统一正方形外框/圆就是'去框'提示;仅以点相交的图形不影响一笔画,可无脑去掉
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-一笔画
+  - 数量规律-面
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+  - 行测/判断推理/数量规律-面
+- id: mc_inner_line_stroke_increment
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/封闭面内一根线
+  title: 封闭面内一根线-笔画数递增与分类分组
+  recognition: 九宫格/一组图中各图面内线条数依次增加(单线→双线→三线)对应笔画数递增;分类分组题按面内线数分两类(单线一笔画vs双线两笔画)
+  applicability:
+    include:
+    - 九宫格笔画数递增(1笔-2笔-3笔)
+    - 分类分组(①⑤⑥单线 vs ②③④双线)
+    - 问号处选面内三线的图形
+    exclude:
+    - 各图面内线条数相同
+    - 图形不含外框
+    - 对称/面数等规律已唯一
+  method_steps:
+  - 逐图去框数面内线条数
+  - 面内线数=笔画数(单线1笔、双线2笔、三线3笔)
+  - 找递增(1-2-3)或分组(1笔vs2笔)规律
+  - 选项匹配,注意表面复杂实为两笔画的干扰项
+  error_signatures:
+  - code: inner_cross_trap
+    description: 把内十字结构当成单线,误判为一笔画(实际两笔画,20%正确率陷阱)
+  - code: frame_distraction
+    description: 被外框复杂程度迷惑,忽略面内线数
+  - code: miss_increment
+    description: 未识别1-2-3笔画递增,选了同为两笔画的复杂项
+  fix_action: 做10道封闭面内笔画分类/递增题,限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: ≥90%
+  pitfall: 非典型考法(如所有选项均一笔画时比面数)正确率仅20%-50%;先走常规'面内线数=笔画数',再考虑面数/外框三线匹配等特殊规则
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-一笔画
+  - 数量规律-面
+  - 数量规律-素
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+  - 行测/判断推理/数量规律-面
+- id: mc_one_face_identify_priority
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一个面
+  title: 一个面-识别与口诀优先验证
+  recognition: 题干图形中至少有一个由线条围成的封闭连续区域(单个封闭面),常是圆、三角、五角星等标准几何图形,一眼封闭、信息量有限;考点分布:对称19%+面数15%+一笔画6%=优先40%,边12%+交点7%+直角13%=次级50%,属性加减等高阶10%
+  applicability:
+    include:
+    - 题干所有图形都是单一封闭面(一个面)、不知道该考什么时
+    - 圆形、三角形、五角星等明显封闭的标准几何图形
+    - 图形简洁、信息量少、看起来没规律时
+    exclude:
+    - 图形含多个独立小图形堆叠(应走'有重复的独立小图形'诀)
+    - 汉字、字母、数字类图形(走对应专门诀)
+    - 纯开放线条、无封闭区域(不是'一个面')
+  method_steps:
+  - 先验优先级最高的三项(各1-2秒):对称性→面数量→一笔画,解决40%的题
+  - 前40%无效且是规则几何图形时,数边数、交点数、直角数,解决30%的题
+  - 遇到扇形、月牙形等不规则面,直接看曲直性,解决20%的题
+  - 前90%都验证无效时,才做属性间数量加减运算,解决10%的题
+  error_signatures:
+  - code: jump_rule_order
+    description: 跳过口诀顺序直接数线数点,浪费10秒以上且易漏送分题
+  - code: overlook_one_face
+    description: 忽略'一个面'这个识别特征,去数部分数或走其他诀
+  - code: overcomplicate_simple
+    description: 图形简单反而过度怀疑,不敢选唯一符合的简单规律
+  fix_action: 做15道'单一封闭面'图形推理题,限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率85%以上
+  pitfall: 口诀顺序不可颠倒:对称/面数/笔画优先,数线点角其次,加减运算最后;不能因'这题看起来考曲直'就跳步骤
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-面
+  - 属性规律-对称
+  - 数量规律-笔画数
+  - 数量规律-线
+  - 数量规律-点
+  - 数量规律-角
+  - 属性规律-曲直
+  - 样式规律-加减同异
+  knowledge_nodes:
+  - 行测/判断推理/图形推理
+- id: mc_one_face_one_stroke
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一个面
+  title: 一个面-一笔画判断
+  recognition: 图形是单一封闭面时,每个封闭面本身必为一笔画;封闭面内出现'内十字'、单根分隔线则是两笔画标志
+  applicability:
+    include:
+    - 单一封闭面且笔画特征明显(五角星、内十字、日字变形)
+    - 封闭面内有一条线穿过,提示笔画数
+    - 分类分组题中出现一笔画/两笔画/三笔画选项
+    exclude:
+    - 图形明显不连通或含多个分离部分(需先去框再判)
+    - 已确定考对称性/面数量等其他规律的题
+    - 极复杂的立体框架结构(可能提示三笔画,需去框后数笔画)
+  method_steps:
+  - 判定连通性:图形必须连通才谈笔画数
+  - 数奇点(连接奇数条线的点):奇点数为0或2即一笔画
+  - 用'去框法'简化:封闭外框(仅与内部线交于点的圆/框)可直接去掉,看剩余部分笔画数
+  - 记典型标志:内十字、日字中间横线=两笔画;五角星、O形、S形=一笔画
+  error_signatures:
+  - code: miss_outer_frame
+    description: 不先去掉外框,把封闭框的笔画数也算进去导致误判
+  - code: miscount_odd_points
+    description: 奇点数错(漏数/多数),尤其线与线相接的端点
+  - code: overthink_simple
+    description: 因图形简单而过度怀疑'会不会这么简单',错过唯一一笔画选项
+  - code: ignore_inner_cross
+    description: 没识别出内十字是两笔画标志,判成一笔画
+  fix_action: 做20道笔画数题(含去框法),限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率90%以上
+  pitfall: 值(线段)与点相交的圆可直接去掉简化;考官常故意不画全内十字线条来设陷阱
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-笔画数
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+- id: mc_one_face_symmetry
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一个面
+  title: 一个面-对称性细分
+  recognition: 题干图形全是轴对称/中心对称图形(无明显不对称图形)时,对称性成为主要考点;不规则但对称的'怪异图形'更强烈提示对称
+  applicability:
+    include:
+    - 所有图形均为对称图形(轴对称、中心对称或两者兼具)
+    - 图形为不规则对称形态(怪异对称图形),往往是'明牌'考对称
+    - 直线框+圆的组合图形
+    exclude:
+    - 题干中出现任意不对称图形(分类分组题除外)
+    - 已确定考笔画/面数等其他规律的题
+    - 对称性验证前先出现明显中心对称干扰的复杂图形
+  method_steps:
+  - 先分类型:轴对称/中心对称/既轴对称又中心对称(注意平行四边形、正偶数边形是中心对称)
+  - 再看方向:对称轴方向是否旋转变化(竖→斜→横→斜,每次45°)
+  - 再数数量:正三角形3条、矩形2条、正方形4条、圆无数条;正多边形对称轴数=边数
+  - 类型/方向/数量都无规律时,看重叠方式:对称轴与图形交于边还是交于点
+  error_signatures:
+  - code: miscount_axis_number
+    description: 对称轴数量漏数(正方形是4条不是2条)
+  - code: confuse_symmetry_type
+    description: 混淆纯轴对称与既轴对称又中心对称(尤其正偶数边形)
+  - code: stop_at_no_rule
+    description: 类型方向数量都无规律就放弃,漏掉'对称轴重叠方式'终极考点
+  - code: miss_center_symmetry
+    description: 识别不出中心对称(平行四边形等)
+  fix_action: 做15道对称性细分题(类型/方向/数量/重叠四层),限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率85%以上
+  pitfall: 对称轴数量为'无穷大'的圆是干扰项;对称轴数量出现非常规序列(如3→4→∞→5→4)时,选项唯一性是突破口
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称
+  - 数量规律-对称轴
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+- id: mc_one_face_count_face_line_point
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一个面
+  title: 一个面-规则面数线点角
+  recognition: 口诀前40%验证无效、图形为规则几何形状时,数面、边、交点;数点考点仅占7%,必须按固定顺序排查而非一上来就数点
+  applicability:
+    include:
+    - 图形是规则多边形(四边形、五边形等),边数成等差序列
+    - 各图形交点明显可数
+    - 面数量1,2,3,4,5递增(选6面)
+    exclude:
+    - 图形不规则(扇形/月牙)优先看曲直而非数边
+    - 已确定考一笔画/对称/直角的题
+    - 选项面数全相同时(数面无区分度,换其他规律)
+  method_steps:
+  - 固定排查顺序:面→对称→笔画→线→点,前三个各1-2秒快速排除
+  - 数面:题干面数成等差(1,2,3,4,5)则选下一个
+  - 数边/直线:边数3,4,5,6则选7边;复杂图形内外边分开计数
+  - 直线边数全相同(如全7)时转数交点:交点成等差(3,4,5,6,7)选8点
+  error_signatures:
+  - code: mix_inner_outer
+    description: 复杂图形内外边混在一起数错(如外6内7是13边)
+  - code: miss_point_switch
+    description: 直线数全一样就放弃,没转考交点数
+  - code: count_curve_as_line
+    description: 把曲线算进直线数
+  - code: skip_basic_check
+    description: 跳过面/对称/笔画前三步直接数点,错失送分题
+  fix_action: 做15道数面数线数点题,限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率85%以上
+  pitfall: 完整按'面→对称→笔画→线→点'排查比直接数点省一半时间;即使最终考低频考点也必须走完整流程
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-面
+  - 数量规律-线
+  - 数量规律-点
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-面
+  - 行测/判断推理/数量规律-线
+  - 行测/判断推理/数量规律-点
+- id: mc_one_face_count_right_angle
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一个面
+  title: 一个面-数直角
+  recognition: 图形含直角三角形、缺角梯形、'修角'设计或明显直角结构时,优先数直角数量
+  applicability:
+    include:
+    - 题干每个图形都含直角
+    - 出现直角三角形、缺角梯形、直角延伸线(调整直角数的设计)
+    - 图形不对称、全一笔画、单一封闭面,常规规律无效
+    exclude:
+    - 图形无直角特征(三角形图形不数直角)
+    - 已确定考对称/笔画/面数等规律的题
+    - 只含钝角/锐角的图形
+  method_steps:
+  - 发现直角元素后把'数直角'提到线/点前面优先验证
+  - 系统数直角:封闭四边形4个直角、十字交叉线4个直角、单根线上垂直的线2个直角
+  - 验证递增规律(1,2,3,4,5选6),或直角数=面数的关联
+  - 复杂图形分区计数再相加
+  error_signatures:
+  - code: miss_outer_right_angle
+    description: 外直角漏数(图形最外侧的直角容易被忽略)
+  - code: miscount_angles
+    description: 直角计数不系统,漏数内部组合角
+  - code: default_count_line
+    description: 默认按'线→点'老路数,浪费10-20秒没优先数直角
+  - code: hesitate_triangle
+    description: 对非标准摆放的直角三角形是否含直角判断犹豫
+  fix_action: 做15道数直角题,限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率85%以上
+  pitfall: 直角优先级高于数线/点;考官用复杂图形诱导考生数线/点,实际考直角递增
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-角
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-角
+- id: mc_one_face_curve_straight_closed
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一个面
+  title: 一个面-曲直性与开闭性
+  recognition: 出现扇形、月牙形、心形等不规则面,或图形明显区分纯曲/纯直/混合时,看曲直性
+  applicability:
+    include:
+    - 题干图形含扇形、月牙形、心形等元素(扇形出现强烈提示曲直性)
+    - 图形可清晰分成纯曲线/纯直线/曲直混合三类
+    - 前序规律排除后剩两个选项,用开放/封闭性二次区分
+    exclude:
+    - 图形全是圆或纯曲线(纯曲提示数曲线数量而非曲直分类)
+    - 已确定考对称/笔画/面数的题
+    - 数字/汉字类图形(走专门诀)
+  method_steps:
+  - 先看曲直分类:纯曲/纯直/曲直混合能否把六个图形分成两组
+  - 分类无唯一解时分别统计直线数和曲线数
+  - 看差值与运算:直线数-曲线数是否为固定差值(如+1或-1),或曲线与直线数量相同且曲直相间隔
+  - 结合部分数筛选:曲直混合图形部分数是否一致
+  error_signatures:
+  - code: count_curve_as_line
+    description: 把曲线数进直线数(转折线段算直线,连续弧度算单曲线)
+  - code: miss_mixed_class
+    description: 忽略曲直混合与纯曲/纯直的区分,只数数量
+  - code: ignore_closed_open
+    description: 曲直能排除部分选项后忽略开放/封闭性收尾
+  - code: only_count_not_classify
+    description: 只做数量统计,漏了'曲直分类分组'这个更快的解法
+  fix_action: 做12道曲直性题(分类+差值运算),限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率85%以上
+  pitfall: 曲直混合图形常考'直线数减曲线数'的固定差值,必须把曲线和直线分开记录,不能合并计数
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-曲直
+  - 属性规律-开闭
+  - 数量规律-素
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-曲直性
+  - 行测/判断推理/属性规律-开闭性
+- id: mc_one_face_arithmetic_operation
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/一个面
+  title: 一个面-数量加减运算
+  recognition: 前90%常规规律都无效、图形可量化为数字(面/线/点/对称轴数)时,考虑图形间数量加减;此类题型在1600道中约60道(加法30道+减法30道),低频但易错
+  applicability:
+    include:
+    - 两幅图/九宫格形式,每图考单一属性,前两图数字之和=第三图
+    - 三图数字之和构成规律(3+2+5=10)
+    - 分类分组题每图考两种属性,两属性相减成等差(面数-交点数)
+    - 出现'零交点'图形时优先考虑加减而非等差
+    exclude:
+    - 常规规律(对称/面数/笔画/线点)已验证出唯一解
+    - 图形太复杂无法快速量化
+    - 数字序列本身成等差数列且唯一(不必硬套加减)
+  method_steps:
+  - 在图形旁直接标注数字(面/线/点/对称轴数),先验证单一属性(面最快1秒)
+  - 两图/九宫格:验证'前两图数字之和=第三图',九宫格要验证两行以上
+  - 分类分组:同时记录两种属性(如面数和交点数),相减看差值是否成等差或恒定
+  - 曲线与直线分开统计,验证直线数-曲线数是否恒定(±1)
+  error_signatures:
+  - code: only_single_attribute
+    description: 只记单一属性,漏掉'面数-点数=等差'的双属性减法规律
+  - code: mechanical_sequence
+    description: 机械找1,2,3,4,5递增,没看出加法关系(1+2=3,2+3=5)
+  - code: merge_curve_line
+    description: 曲线直线合并计数,曲直差值规律丢失
+  - code: mental_math
+    description: 只靠心算不书面标注,漏数字
+  fix_action: 做12道数量加减运算题,限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: 正确率75%以上
+  pitfall: 数字加减是最后验证手段而非首选;对称轴数量也能参与加减(图1对称轴+图2对称轴=图3对称轴)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-加减同异
+  - 数量规律-面
+  - 数量规律-点
+  - 数量规律-线
+  - 数量规律-对称轴
+  knowledge_nodes:
+  - 行测/判断推理/样式规律-加减同异
+  - 行测/判断推理/数量规律-面
+- id: mc_two_lines_two_stroke
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/两根线
+  title: 两根线-两笔画判断
+  recognition: 图形由两根独立线条构成(开放或封闭),或'内十字''日字变形'结构,往两笔画想
+  applicability:
+    include:
+    - 图形含内十字结构(典型两笔画标志)
+    - '''外框+内部线条''组合图形'
+    - 日字变形(去掉框后剩两根线)
+    exclude:
+    - 图形明显为一笔画(五角星、O形、S形)
+    - 已确定考对称/面数/曲直等其他规律
+    - 多根线密集交叉(先数奇点而非死记)
+  method_steps:
+  - 用去框法:去掉封闭外框(仅与点相交的框可直接去),看剩余部分
+  - 剩余部分能一笔画出→一笔画;需两笔→两笔画;三笔→三笔画
+  - 用奇点复核:连通图形奇点数为0或2是一笔画,4个奇点两笔画
+  - 背典型图形库:一笔画(五角星/O形/S形),两笔画(十字/H形/A形),5秒内判定为熟练
+  error_signatures:
+  - code: only_look_one_stroke
+    description: 只盯一笔画忽略两笔画考点,两根线时考官就考两笔画
+  - code: forget_remove_frame
+    description: 不先去框,把外框笔画数算进去误判
+  - code: miss_inner_cross
+    description: 没认出内十字是两笔画标志
+  - code: slow_judgment
+    description: 笔画判定超过30秒,典型图形库没背熟
+  fix_action: 做20道两笔画判定题(去框法),限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率90%以上
+  pitfall: '''两根线就要考两笔画'',考官认为一笔画和两笔画同等重要;该考点识别正确率仅60%,考生普遍只关注一笔画'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-笔画数
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+- id: mc_two_lines_symmetry
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/两根线
+  title: 两根线-对称性组合
+  recognition: 两根线组成且全部图形对称时,优先验证对称性,再细看对称轴数量/方向/重叠
+  applicability:
+    include:
+    - 两根线图形均对称(轴对称/中心对称)
+    - 两根线+对称,对称轴数量明显成两类(单轴vs双轴)
+    - 对称图形且对称轴与线段交点呈现'点-线'交替规律
+    exclude:
+    - 图形明显不对称(扭曲形态),快速排除对称考点
+    - 笔画数分布不均(先排笔画再排对称)
+    - 已确定考面数/曲直等规律
+  method_steps:
+  - 先确认所有图形对称(出现不对称图形即排除对称考点)
+  - 分类型:轴对称/中心对称/双对称(排除中心对称选项)
+  - 数对称轴数量:分成单对称轴vs双对称轴两类(该题正确率90%,易识别)
+  - 数量方向都无规律时看重叠方式:对称轴与图形交于点还是交于线
+  error_signatures:
+  - code: skip_symmetry
+    description: 两根线图形没先验对称性,直接数线
+  - code: miscount_axis
+    description: 对称轴数量数错(矩形2条/正方形4条)
+  - code: ignore_overlap
+    description: 忽略对称轴与线段交点是'点'还是'线'的交替规律
+  - code: single_path
+    description: 陷入单一解题路径,应先验笔画数再验对称性
+  fix_action: 做12道两根线对称题,限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率85%以上
+  pitfall: 图形细节(矩形→正方形)会显著改变难度(正确率从90%骤降至51%),验证顺序必须严格:对称性→对称轴特征→数量规律
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称
+  - 数量规律-对称轴
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+- id: mc_two_lines_standard_check
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/两根线
+  title: 两根线-标准化排查与复合考点
+  recognition: 两根线组合图形,常规属性(对称/笔画)无解时,按固定顺序排查面数量、曲直性、交点数,最后找交点位置
+  applicability:
+    include:
+    - 两根线图形笔画数/对称性都排除后的场景
+    - 所有图形面数量相同,需找第二规律(如线条方向上下交替)
+    - 面数量成等差(0,1,2,3,4选5面)
+    - 所有图形线数交点数相同,考交点位置(中间折线/边端)
+    exclude:
+    - 已通过对称/笔画/面数确定唯一解
+    - 图形不是'两根线'构成(多根线不适用)
+    - 汉字/字母/数字类(走专门诀)
+  method_steps:
+  - 标准化流程:验笔画数→验对称性→验面数量→验曲直性→数线/点(前三步各1-2秒)
+  - 面数量无唯一解时,找第二规律:线条方向上下交替、曲直交替等交替样式
+  - 曲直分类:纯曲/纯直/混合分组;无解再数直线-曲线差值(转折线段算直线)
+  - 线数点数都相同时,考察交点位置:对多折线编号,交点所在折线位置(中间/边端)
+  error_signatures:
+  - code: skip_standard_order
+    description: 跳过标准排查顺序跳步,漏掉秒杀题
+  - code: miss_second_rule
+    description: 面数量相同就卡住,没找第二规律(方向交替)
+  - code: count_break_as_curve
+    description: 转折线段误算曲线(转折算直线,连续弧度算单曲线)
+  - code: miss_intersection_position
+    description: 交点位置特征(中间/边端)没看
+  fix_action: 做15道两根线复合题,限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: 正确率80%以上
+  pitfall: 两根线所有常规属性都相同时,考点落在'交点位置特征'(中间/边端)或线条相对位置这类低正确率(约50%)的新考点
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-笔画数
+  - 属性规律-对称
+  - 数量规律-面
+  - 属性规律-曲直
+  - 数量规律-点
+  - 样式规律-加减同异
+  knowledge_nodes:
+  - 行测/判断推理/图形推理
+- id: mc_intersecting_circle_priority
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/相交圆
+  title: 相交圆-识别与五大考点优先级
+  recognition: 图形由若干圆/椭圆相交、相切组合而成(有公共点或重叠区域),多圆接触重叠;考点分布:一笔画70%(含结合面数量),交点20%,曲直10%,对称仅7%
+  applicability:
+    include:
+    - 两个圆相切/相交、三个圆相切等多圆组合
+    - 圆形元素相互接触或重叠(无论有无连接线)
+    - 圆+直线混合的相交图形
+    exclude:
+    - 单个圆(无相交,信息单一,直接考对称轴无数条)
+    - 已确定考其他规律的复杂图形
+    - 汉字/字母类(走专门诀)
+  method_steps:
+  - 背口诀:'相交圆、两根线,对称数面一笔画,看完曲直数交点'
+  - 优先验证对称性和一笔画(占70%考点)
+  - 再验面数量(圆形组合形成的封闭区域数量易统计)
+  - 最后才数交点(占比20%,耗时易错);曲直性占比10%
+  error_signatures:
+  - code: count_intersection_first
+    description: 一上来就数交点(耗时易错),跳过70%的一笔画/对称考点
+  - code: forget_circle_combination
+    description: 只把每个圆当单独图形,没当相交组合看
+  - code: underestimate_symmetry
+    description: 低估对称性(虽占比仅7%,但识别快、优先验证不亏)
+  - code: miss_five_checks
+    description: 不知道五大考点(一笔画/对称/面/交点/曲直)而漏考点
+  fix_action: 做10道相交圆识别题(判断该走五大考点哪个),限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率85%以上
+  pitfall: 一笔画考点占比70%,含标准一笔画图形(封闭框+单线)的相交圆题是秒杀题,应先验证一笔画
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-笔画数
+  - 属性规律-对称
+  - 数量规律-面
+  - 数量规律-点
+  - 属性规律-曲直
+  knowledge_nodes:
+  - 行测/判断推理/图形推理
+- id: mc_intersecting_circle_stroke_symmetry
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/相交圆
+  title: 相交圆-一笔画与对称
+  recognition: 相交圆组合中含封闭框内单线、'日'字变形、多线相交于单点等标准一笔画图形时,优先考一笔画;全对称时考对称
+  applicability:
+    include:
+    - 封闭图形内单线(方框/圆/三角形内单线)
+    - '''日''字型及其变体、多线相交于单点的网状结构'
+    - 封闭面内双线(十字架)提示两笔画
+    - 全图形轴对称/中心对称可区分时
+    exclude:
+    - 出现四笔画等复杂图形(排除一笔画)
+    - 图形明显不对称
+    - 已确定考面数量/交点的题
+  method_steps:
+  - 去框法:去除仅与点相交的外框,剩余部分能一笔画成即成立
+  - 标准一笔画图形(封闭框+单线、日字变形)5秒内秒判
+  - 封闭面内双线(十字架)、立体框架提示两笔画或三笔画
+  - 对称题先分类型(中心对称vs轴对称),再对称轴数量/方向(奇数角图形如五角星仅轴对称)
+  error_signatures:
+  - code: miss_double_line
+    description: 没识别封闭面内双线是两笔画(圆内双线是标准两笔画)
+  - code: confuse_center_axial
+    description: 忽视中心对称与轴对称的区别(五角星等奇数角图形仅轴对称)
+  - code: overfocus_complex
+    description: 过度关注复杂考点,漏掉唯一一笔画选项
+  - code: forget_frame_remove
+    description: 忘用去框法,误判多笔画
+  fix_action: 做15道相交圆笔画对称题,限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率90%以上
+  pitfall: 考官通过修改单个图形切换考点(把对称图改为两笔画图),需站在考官视角预判陷阱
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-笔画数
+  - 属性规律-对称
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+  - 行测/判断推理/属性规律-对称性
+- id: mc_intersecting_circle_face_point
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/相交圆
+  title: 相交圆-面数量与交点运算
+  recognition: 相交圆组合封闭区域清晰可数,或交点明显,优先数面/数点;九宫格形式考虑数字求和
+  applicability:
+    include:
+    - 九宫格数面:每行面数总和固定(如4+9+2=15)
+    - 面数相加:前两图面数之和=第三图(5+2=7)
+    - 交点递增(2,3,4,5,6选7)
+    - 多边形边线延伸形成新增交点
+    exclude:
+    - 选项全为一笔画(先排除笔画考点再数面)
+    - 已确定考对称/曲直的题
+    - 图形太密无法快速数面数点
+  method_steps:
+  - 先排除笔画数和对称性(复杂图形通常无规律),再数面
+  - 九宫格:每行数字求和(4+9+2=15),验证至少两行再推第三行
+  - 数交点:注意线段延伸形成的新交点,曲线与直线交点分开数
+  - 面/点数量等差递增时选下一个,选项交点数相同要都数排除干扰
+  error_signatures:
+  - code: only_check_one_row
+    description: 九宫格只验一行规律就选(至少验证两行)
+  - code: miss_extended_intersection
+    description: 线段延伸形成的新交点漏数
+  - code: mix_curve_line_point
+    description: 曲线与直线交点合并计数
+  - code: ignore_sum_rule
+    description: 没看出面数和恒定/相加规律,机械找递增
+  fix_action: 做12道相交圆数面数点题,限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: 正确率80%以上
+  pitfall: 数字关系类考法占比约4%;交点数量规律需确认其他选项交点数,避免多个选项交点数相同的干扰
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-面
+  - 数量规律-点
+  - 样式规律-加减同异
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-面
+  - 行测/判断推理/数量规律-点
+  - 行测/判断推理/样式规律-加减同异
+- id: mc_yj_yuan_xiangjiao_fangshi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/均有圆
+  title: 均有圆-相交方式(相离/相切/相交)
+  recognition: 题干所有图形都含圆或圆弧,且图形间的相对位置关系一眼可辨(相离/相切/相交)。占'均有圆'诀约20%的送分题型。
+  applicability:
+    include:
+    - 两套图形均含圆形元素,位置关系呈'相离-相切-相交'循环交替
+    - 考官用圆弧/椭圆替代完整圆形(都视为'圆'的考查形式)
+    exclude:
+    - 图形内部结构复杂,圆与其他元素有大量交叉线(优先数切点/交点)
+    - 图形间不存在明显的位置关系变化
+  method_steps:
+  - 整体扫一遍每幅图中圆与圆、圆与直线的相对位置
+  - 按相离→相切→相交顺序判断归类,看是否成循环/交替规律
+  - 选项中出现唯一符合位置关系的图形时直接秒选
+  - 圆弧与直线相切按圆与直线相切等效处理
+  error_signatures:
+  - code: confuse_tangent_intersect
+    description: 把相切误判为相交(相切只接触一点不穿过)
+  - code: ignore_arc_equivalent
+    description: 忽视圆弧与完整圆的等效性,漏判其相切/相交功能
+  - code: miss_cycle_sequence
+    description: 忽略相离-相切-相交的动态循环,只盯着单个图形
+  fix_action: 做15道均有圆相交方式题,限时30秒/题,每题强制先标位置关系再选答案
+  time_budget_sec: 30
+  accuracy_rule: 送分题,要求≥90%正确率
+  pitfall: 圆弧与直线相切不等于相交,此类'弧线代替整圆'的变体正确率骤降至69%,口诀是'见弧当圆解'。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律-相对位置(相离/相切/相交)
+  knowledge_nodes:
+  - 行测/判断推理/特殊规律-图形间关系
+- id: mc_yj_yuan_qiedian_count
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/均有圆
+  title: 均有圆-切点数量
+  recognition: 图形均含圆/圆弧且相互接触(相切),优先数每个图形的切点总数。切点考点占'均有圆'诀45%,优先级最高,口诀'见圆先数切'。
+  applicability:
+    include:
+    - 六图分组题:圆与多边形/其他圆相切,按切点数量分两组(如1切点组/2切点组)
+    - 序列题:切点数呈0→1→2→3递增,找下一图
+    - 图形抽象难以直接判断位置关系时
+    exclude:
+    - 图形间全部相离、无任何接触
+    - 题干明显在考相交方式循环(先判断位置关系)
+  method_steps:
+  - 确认'均有圆'特征,切点数量列为第一优先级考察
+  - 逐个图形标记接触性质(交/切/离),只统计相切接触点
+  - 找切点数量的变化规律(递增/相同分组/遍历交替)
+  - 注意接触点存在微小空白的'假相切'不能计为切点
+  error_signatures:
+  - code: count_intersect_as_tangent
+    description: 把相交穿过的点也计为切点
+  - code: skip_tangent_check
+    description: 见到复杂图形直接去数线数点,未先数切点
+  - code: ignore_arc_tangent
+    description: 忽视曲线片段替代整圆后的相切点
+  - code: count_gap_as_tangent
+    description: 把有微小空白的'假相切'当成真切点
+  fix_action: 做20道均有圆切点题,限时45秒/题,每图先手写切点数再对答案
+  time_budget_sec: 45
+  accuracy_rule: ≥85%(该类历史正确率仅64%-76%,属'看着送分实际易错')
+  pitfall: 六个图形均含圆时不要先数线,切点数量是最高优先级特征;若所有图切点数都相同,再考虑'交点在圆弧上的位置(中间/边缘)'这类冷门考法。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-点(切点计数)
+  - 位置规律-相对位置(相切接触点)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-点
+  - 行测/判断推理/特殊规律-图形间关系
+- id: mc_yj_yuan_quxian_jiaodian
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/均有圆
+  title: 均有圆-曲线交点(曲直交点)
+  recognition: 圆/弧线穿过多条直线或与其他图形交叉,需数交点;弧线、不规则曲线在考官命题思维中与圆等效。
+  applicability:
+    include:
+    - 题干均为圆与直线组合,圆上交点呈2,3,4,5,6递增序列
+    - 九宫格中按行/列找曲线交点规律
+    - 图形混乱抽象时,专注数曲线与其他元素的交点反而更快
+    exclude:
+    - 图形几乎全为曲线(曲直交点太少)
+    - 曲直交点无规律时转数总交点数或曲线数(见method_steps)
+  method_steps:
+  - 只数曲线(圆/弧)与直线的交点,排除直线与直线的交点
+  - 若曲直交点无规律,改为数所有交点总数
+  - 观察曲线数与交点的隐藏关系(如曲直交点=2×曲线数)
+  - 找递增/相同序列并验证选项,不遗漏任何一条短线
+  error_signatures:
+  - code: mix_line_line_intersect
+    description: 把直线与直线的交点也计入,破坏规律
+  - code: miss_short_line
+    description: 遗漏容易被忽略的短直线,交点少算
+  - code: only_single_feature
+    description: 只试一种数法,未切换到总交点数或曲线数倍数关系
+  fix_action: 做20道均有圆交点题,限时45秒/题,固定先数'曲直交点'再扩展数法
+  time_budget_sec: 45
+  accuracy_rule: ≥85%(历史正确率66%-80%)
+  pitfall: 题干所有图形都含圆时,应只计算曲线交点数而排除直线交点;图形越抽象干扰越少,核心规律反而更明显。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-点(交点计数)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-点
+- id: mc_yj_yuan_nei_feature
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/均有圆
+  title: 均有圆-圆内特征(圆内交点/圆内面数)
+  recognition: 所有图形外框均为圆且内部被线条切割,常规相交方式与圆上交点均无规律时,转向'只看圆内'。占该诀15%。
+  applicability:
+    include:
+    - 圆内交点呈等差数列递增(0,1,2,3,4)
+    - 圆内被分割形成的面数量递增(1,2,3,4,5)
+    - 九宫格按行看圆内交点(每行数量相同)
+    exclude:
+    - 圆上交点已能找到规律(先数圆上)
+    - 圆内为空、无切割线条
+  method_steps:
+  - 先验证相交方式(均为相交则排除),数圆上交点
+  - 圆上交点无规律→改数圆内交点数
+  - 圆内交点也无规律→数圆内封闭区域(面)数量
+  - 命中序列(如1,2,3,4,5)后选满足下一值的图形
+  error_signatures:
+  - code: mix_inside_outside
+    description: 圆内圆外不分,把外部线条交点也计入
+  - code: count_on_circle_as_inside
+    description: 把圆上交点当作圆内交点
+  - code: ignore_inner_faces
+    description: 只数点不数面,错过圆内面数量规律
+  fix_action: 做12道圆内特征题,限时50秒/题,养成'圆上→圆内→面'三步验证顺序
+  time_budget_sec: 50
+  accuracy_rule: ≥80%(注意'只看圆内'的命题陷阱)
+  pitfall: 考官用外部复杂图形干扰视线,实际只需盯圆内部分;建议固定验证顺序'交点→线→面',圆内面数量虽少见但交点规律失效时必须考虑。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-点(圆内交点计数)
+  - 数量规律-面(圆内封闭区域)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-点
+  - 行测/判断推理/数量规律-面
+- id: mc_yj_yuan_remove_count_lines
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/均有圆
+  title: 均有圆-去圆数直线(圆作干扰项)
+  recognition: 所有图形外框是完全相同的圆/方框,内部线条简单;或圆内线条乱而常规规律全失效时尝试去框数直线。占该诀10%。
+  applicability:
+    include:
+    - 外框完全一致(提示忽略外框看内部),内部直线递增1,2,3,4
+    - 黑点/复杂曲线干扰直线统计时(完全忽略圆,只数直线)
+    exclude:
+    - 内部无线条或线条极杂无法数清
+    - 交点/切点等常规规律已有明确答案
+  method_steps:
+  - 判断外框是否完全一致→一致则忽略外框
+  - 完全忽略圆形,只统计所有直线数量(含短线段)
+  - 找直线递增序列(如5,6,7,8,9)并选下一项
+  error_signatures:
+  - code: count_frame_as_line
+    description: 把相同外框(圆/方框)也算进直线数
+  - code: misled_by_black_dot
+    description: 被黑点干扰计数产生歧义
+  - code: treat_circle_as_core
+    description: 误把圆当成核心考点,忽略内部直线规律
+  fix_action: 做10道'去圆数直线'题,限时40秒/题,先练'完全忽略圆'的意识
+  time_budget_sec: 40
+  accuracy_rule: ≥85%
+  pitfall: 圆本身不影响直线数与笔画数;出现'四四四/三三三'重复模式时优先采用去框思维,圆只是干扰项,实际考察非圆部分的直线数量。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-线(直线数量)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+- id: mc_duichen_leixing_fenlei
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/对称性图形
+  title: 对称性图形-对称类型区分(轴/中心/复合)
+  recognition: 题干出现2个以上规整对称图形(风车/正多边形/字母),优先验证对称性而不是数点面线;对称类型题占该诀约48%-50%。
+  applicability:
+    include:
+    - 分组题按'轴对称vs非轴对称'或三类对称分堆
+    - 出现风车、星形、规则多边形
+    - 找'与众不同'图形(其余中心对称,只有1个仅轴对称)
+    exclude:
+    - 图形全部带斜线阴影(必定不对称,无对称考点)
+    - 图形明显杂乱无章无对称性
+  method_steps:
+  - 对折看是否轴对称(找对称轴)
+  - 旋转180°看是否重合(中心对称)
+  - 分成三类:仅轴对称/仅中心对称/复合对称
+  - 按题干规律(交替/分组/选同)定答案
+  error_signatures:
+  - code: odd_star_as_center
+    description: 五角星等奇数角星形误判为中心对称
+  - code: composite_as_axis_only
+    description: 把复合对称图形当'仅轴对称'选
+  - code: cube_perspective_as_axis
+    description: 正方体透视图误判为轴对称
+  - code: shadow_breaks_symmetry
+    description: 忽略斜线阴影破坏对称性
+  fix_action: 做20道对称类型分类题,限时40秒/题,每题先写出对称属性再选
+  time_budget_sec: 40
+  accuracy_rule: ≥85%
+  pitfall: 口诀'奇数角,仅轴对,不中心':正三角形/五角星旋转180°不重合不是中心对称;带斜杠阴影的图形必定不对称。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称(轴对称/中心对称/复合对称)
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+- id: mc_duichen_zhou_shuliang
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/对称性图形
+  title: 对称性图形-对称轴数量(扇叶数)
+  recognition: 风车类图形(扇叶/角均匀分布),对称轴数量=扇叶(角)数量;对称轴数量题占该诀约27%。
+  applicability:
+    include:
+    - 3角风车=3条轴,4角风车=4条轴,扇叶数即轴数
+    - 对称轴数呈递增/递减序列(6角→5角→4角→3角→2角→1角)
+    exclude:
+    - 图形内部有干扰线(可能破坏对称轴,需重数)
+    - 内外圈角数不一致的复合图形
+  method_steps:
+  - 确认是风车类(扇叶均匀对称)图形
+  - 数扇叶(角)数量即对称轴数量
+  - 看数量序列的增减规律并选下一项
+  - 有内部线条时重数真实对称轴数
+  error_signatures:
+  - code: count_outer_angle_only
+    description: 只数外观角数,忽略内部线条破坏对称轴
+  - code: outer3_inner4_miscount
+    description: 外3内4复合图形误算3条轴(实际仅1条有效)
+  - code: inner_line_reduces_axis
+    description: 中间加线后仍按原对称轴数选
+  fix_action: 做20道对称轴数量题,限时35秒/题,熟练后可10秒内完成
+  time_budget_sec: 35
+  accuracy_rule: ≥85%(熟悉扇叶数=轴数的考生正确率达85%)
+  pitfall: 复合图形陷阱:外圈3角内圈4角时仅1条有效对称轴,此题正确率仅42%且50%的人误选A;中间加线会减少对称轴(如斜向轴失效)。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称(对称轴数量)
+  - 数量规律-角(扇叶/角数计数,辅助)
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+  - 行测/判断推理/数量规律-角
+- id: mc_duichen_zhou_fangxiang
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/对称性图形
+  title: 对称性图形-对称轴方向(横/竖/斜)
+  recognition: 各图形对称轴数量相同(通常1-2条)但方向不同(横/竖/斜),江苏卷特色题型;占该诀约16%。
+  applicability:
+    include:
+    - 对称轴方向交替/循环(竖→横→斜)或类型循环(横/斜/交叉)
+    - 对称轴按45°顺时针旋转规律(国考/浙江题)
+    - 对称轴方向+面数/一笔画的复合考点(如2025江苏A卷)
+    exclude:
+    - 对称轴数量本身有规律(先看数量)
+    - 图形不对称
+  method_steps:
+  - 确认每图对称轴数量一致
+  - 标出对称轴方向(横/竖/斜/交叉)
+  - 找方向变化规律(交替/旋转/类型循环)
+  - 排除表面方向符合但含隐藏多余对称轴的选项
+  error_signatures:
+  - code: ignore_hidden_multi_axis
+    description: 选项表面方向符合但实际有4条对称轴,未排除
+  - code: mix_direction_and_quantity
+    description: 把方向规律与数量规律混为一谈
+  - code: miss_rotation_rule
+    description: 忽略对称轴按45°旋转的规律
+  fix_action: 做15道对称轴方向题,限时40秒/题,专门练江苏卷对称轴题型
+  time_budget_sec: 40
+  accuracy_rule: ≥80%(此类正确率波动大,历史38%-66%)
+  pitfall: 迷惑选项往往方向特征符合但对称轴数量不符(如交叉轴图形实际有4条轴),方向和数量必须同时满足。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称(对称轴方向)
+  - 位置规律-旋转(对称轴旋转角度)
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+  - 行测/判断推理/位置规律-旋转
+- id: mc_duichen_zhou_chongdie
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/对称性图形
+  title: 对称性图形-对称轴重叠特征(交线/交点)
+  recognition: 图形全为对称图形且对称轴数量、方向、面数量均无规律时,看对称轴与图形元素的接触方式;占该诀约9%。
+  applicability:
+    include:
+    - 全部为单对称轴图形,数量方向均无规律
+    - 分组题:对称轴与边线重叠 vs 对称轴仅过顶点
+    exclude:
+    - 对称轴数量或方向已有明显规律
+    - 图形不对称
+  method_steps:
+  - 确认全图对称且数量(如均1条)、方向、面数均无规律
+  - 观察对称轴与图形的接触方式:与边线重叠/仅通过顶点
+  - 与线重叠的图形必然存在两个全等面共享边
+  - 按重叠方式分组或找规律
+  error_signatures:
+  - code: misread_as_shared_face
+    description: 误读为'相同形状面的公共边',本质是对称轴重叠方式
+  - code: forget_overlap_check
+    description: 数量方向无规律后就放弃,未考察重叠方式
+  - code: classify_face_same_only
+    description: 只按面相同分类,忽略重叠方式是本质
+  fix_action: 做10道对称轴重叠题,限时50秒/题,掌握后即为送分题
+  time_budget_sec: 50
+  accuracy_rule: ≥75%(历史正确率仅30%-60%,但掌握后即送分)
+  pitfall: '''面相同''现象由对称轴与边重叠导致,不要停留在面层面,直接看对称轴与线/点的接触方式。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称(对称轴与元素重叠特征)
+  - 数量规律-面(全等面共享边,辅助)
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+- id: mc_duichen_kan_yiban
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/对称性图形
+  title: 对称性图形-对称看一半(半边补全)
+  recognition: 图形及选项全部对称,但常规对称规律(类型/数量/方向)全部失效,图形呈左右对折可拆半。
+  applicability:
+    include:
+    - 字母类对称图形(X/H/T/O/I/V)
+    - 复古题(2012年广州/深圳)等罕见考法
+    exclude:
+    - 图形不对称,无半形可拆
+    - 常规对称规律已能锁定答案
+  method_steps:
+  - 观察到全对称但常规规律失效
+  - 将图形沿对称轴拆为左右半(或只看左半)
+  - 观察半形构成字母/图形的序列(A,B,C,D→E)
+  - 或验证'字母整体+半部分双对称'(L整体对称但半边不对称,排除)
+  error_signatures:
+  - code: only_check_whole
+    description: 只看整体对称,未拆半观察
+  - code: accept_l_half_sym
+    description: 接受整体对称但半部分不对称的字母(如L)
+  - code: miss_half_sequence
+    description: 忽略半形本身的字母序列规律
+  fix_action: 做5道对称看一半题,限时45秒/题,了解即可
+  time_budget_sec: 45
+  accuracy_rule: ≥70%(罕见考点,见世面为主)
+  pitfall: 双重对称要求:字母本身对称且半部分也对称,如V整体对称、半形也对称才符合。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称(轴对称/镜像对折)
+  - 样式规律-图形拆分(整体拆半重构,辅助)
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+- id: mc_xiaolian_duichen
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/笑脸类
+  title: 笑脸类-对称性优先(45%)
+  recognition: 出现笑脸/拟人图形或'香蕉圆、单一面'等规整图形,第一优先看对称性(近半数题目考对称)。
+  applicability:
+    include:
+    - 九宫格中对称轴数量'前两图相加=第三图'(1+2=3,2+3=5选五角星)
+    - 对称属性交替(轴→轴+中心→轴→轴+中心)
+    - 分组题按对称/不对称分类
+    exclude:
+    - 图形带斜线阴影(必不对称,跳过对称考点)
+    - 图形杂乱明显不对称且无规律
+  method_steps:
+  - 逐个判断对称属性:轴对称/中心对称/复合对称
+  - 九宫格先看对称轴数量是否有'相加/倍增'规律
+  - 数量无规律→看对称属性类型交替
+  - 分组题即使出现非全对称,仍检验按对称性分组的可能
+  error_signatures:
+  - code: miss_row_add_rule
+    description: 忽略九宫格前两图对称轴数相加=第三图的规律
+  - code: odd_angle_star_axis_only
+    description: 忽视五角星等奇数角星形仅轴对称
+  - code: ignore_axis_center_three
+    description: 不区分仅轴/仅中心/两者兼具三种状态
+  fix_action: 做15道笑脸对称题,限时40秒/题,牢记'笑脸先看对称轴'
+  time_budget_sec: 40
+  accuracy_rule: ≥85%
+  pitfall: 笑脸类口诀'笑脸先看对称轴,曲直部分心中有;鼻嘴眼型莫疏漏';对称性失效之前不要跳到数点。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称(轴对称/中心对称/复合对称)
+  - 属性规律-对称(对称轴数量)
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+- id: mc_xiaolian_quzhi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/笑脸类
+  title: 笑脸类-曲直性(曲线数量)
+  recognition: 对称性无规律且图形抽象简化(单线条、IC卡、缺角矩形、鬼脸方框脸)时,曲直性为第二考查重点,占该诀28%。
+  applicability:
+    include:
+    - 极度简化的单线条图形
+    - 需同时统计曲线数与直线数,找差值规律(曲线-直线=定值)
+    - 框内计数无规律时转为带框整体计数
+    exclude:
+    - 图形含大面积黑色阴影(先考虑部分数)
+    - 对称性仍有明显规律
+  method_steps:
+  - 对称性失效后转曲直性
+  - 逐一数曲线数量(圆形眼睛计1条曲线,五官细节都计入)
+  - 同时记录直线数量,检查差值/倍数规律
+  - 框内无规律则带外框整体重数
+  error_signatures:
+  - code: miss_detail_curve
+    description: 漏计眼睛等五官细节的曲线
+  - code: no_count_when_pure
+    description: 图形纯曲或纯直时放弃精确计数
+  - code: ignore_frame_count
+    description: 忽略方框脸是否包含边框计数
+  fix_action: 做12道笑脸曲直题,限时45秒/题,每图写下'X曲Y直'再找规律
+  time_budget_sec: 45
+  accuracy_rule: ≥80%(曲直性非高频,需结合数量)
+  pitfall: 曲线数与直线数要同时记录,差值规律(如曲线数-直线数=定值)比单纯'含不含曲线'更常成为考点。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-曲直(曲线/直线性质)
+  - 数量规律-线(曲线/直线数量)
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-曲直性
+  - 行测/判断推理/数量规律-线
+- id: mc_xiaolian_bufenshu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/笑脸类
+  title: 笑脸类-部分数(独立部分计数)
+  recognition: 出现黑色阴影区域或分散独立小图形时优先考虑部分数;图形特别抽象时也可能考部分数。占该诀11%。
+  applicability:
+    include:
+    - 黑色阴影图形(阴影提示数部分/数面而非数线)
+    - 眼睛、嘴巴等分离不连通的元素
+    - 部分数递增1,2,3,4,5序列
+    exclude:
+    - 连续一笔线条图形(自然为1部分)
+    - 图形被明显线条连成一体
+  method_steps:
+  - 黑阴影或分散图形→选部分数考点
+  - 不连通区域独立计数(眼睛、嘴巴分开算)
+  - 大面积黑色区域统一算1个部分,不细分内部
+  - 排除装饰性线条(头发纹路)不计入,找递增规律
+  error_signatures:
+  - code: count_decorative_line
+    description: 把装饰性线条(头发纹路)计入部分数
+  - code: split_big_shadow
+    description: 把大面积黑色区域内部细分多部分
+  - code: ignore_disconnected
+    description: 忽略不连通的眼睛/嘴巴各自独立成部分
+  fix_action: 做10道部分数题,限时45秒/题,先练'不连通即独立'的意识
+  time_budget_sec: 45
+  accuracy_rule: ≥85%
+  pitfall: 若部分数也失效,剩余交集可能只剩面数量(笑脸类特例):单线图=0个面,封闭图=1个面。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素(部分数/独立部分)
+  - 数量规律-面(封闭区域,特例辅助)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+- id: mc_xiaolian_zituxing
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/笑脸类
+  title: 笑脸类-子图形样式(五官细节)
+  recognition: 对称性/曲直性/部分数全部失效时,关注五官异常设计(三角形鼻、双三角眼、双圆眼);难题考五官细节,占该诀11%。
+  applicability:
+    include:
+    - 鼻子采用三角形等特殊设计(数字'4'隐含直角三角形)
+    - 两个完全相同的子图形(双圆、双三角、双六边形)
+    - 出现多个三角形或三角形穿线图形(考三角形数量)
+    exclude:
+    - 五官设计正常、无异常子图形
+    - 常规考点尚能区分选项
+  method_steps:
+  - 排除对称/曲直/部分数后锁定子图形考点
+  - 找出异常设计的五官(异形鼻子/眼睛)
+  - 对比子图形相似性:是否含两个相同子图形、三角形元素
+  - 数特殊元素数量(三角形个数),选唯一满足的选项
+  error_signatures:
+  - code: miss_hidden_triangle
+    description: 漏看复杂图形中隐含的三角形元素
+  - code: ignore_repeat_element
+    description: 忽略两个相同子图形的重复特征
+  - code: focus_overall_only
+    description: 只关注整体,不看五官局部细节
+  fix_action: 做8道子图形样式题,限时50秒/题,重点练'异常五官即考点'
+  time_budget_sec: 50
+  accuracy_rule: ≥75%(子图形样式占11%,难度偏高)
+  pitfall: 考官通过特殊子图形(如非常规鼻子设计)暗示考点,异常设计的五官往往是解题钥匙。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素(元素种类/相同元素计数)
+  - 样式规律-元素同异(相同子图形/三角形特征)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+  - 行测/判断推理/样式规律-遍历
+- id: mc_jiu_jue_fenli_yangshi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/两图形分两部分
+  title: 两图形分两部分-相离看样式（对称/一笔画/曲直）
+  recognition: 题干所有图形都由两个独立几何图形构成、两图完全分离无接触时，优先『分开看样式』（占比30%，最高频考点）。
+  applicability:
+    include:
+    - 两图形相离（完全分离无接触）且每个图都恰为两部分
+    - 两子图对称性组合有规律（如一个轴对称+一个中心对称）或笔画数组合有规律（一个一笔画+一个两笔画）
+    - 两子图曲直性组合交替（上曲下直/上直下曲）
+    exclude:
+    - 两图存在相接或重叠关系（走连接方式/重叠面路线）
+    - 子图均不对称且笔画数一致，样式规律无法区分
+  method_steps:
+  - 先确认两图分离，同时排除部分数考点（所有图均为两部分时部分数不适用）
+  - 分别记录两子图的对称性（轴对称/中心对称/不对称）与笔画数（一笔画/两笔画），找组合规律
+  - 对称/笔画无规律时，分别看两子图曲直性组合是否交替或重复
+  - 多个选项符合时，用面数量/直线数等附加特征二次筛选
+  error_signatures:
+  - code: only_symmetry
+    description: 只验证对称性漏看笔画数，单一维度误选
+  - code: miss_axis_direction
+    description: 忽略对称轴方向关系（平行/垂直/45度交替）
+  - code: count_parts
+    description: 看到分离图形去数部分数，忽略所有图部分数相同无法区分
+  - code: not_double_check
+    description: 需同时满足对称+笔画双规律，只验一个条件
+  fix_action: 做8道两图形相离真题，限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率90%以上
+  pitfall: 两子图需同时满足对称性与笔画数双重规律，单看对称性会误选（例题明确提示）。相离图样式考点占比30%为最高频，先于数量关系验证。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称(轴对称/中心对称/对称轴方向)
+  - 数量规律-线(一笔画/两笔画)
+  - 属性规律-曲直(全直/全曲/混合)
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+  - 行测/判断推理/数量规律-线
+  - 行测/判断推理/属性规律-曲直性
+- id: mc_jiu_jue_xiangjie_lianjie
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/两图形分两部分
+  title: 两图形分两部分-相接看连接方式（点接/边接/夹角）
+  recognition: 两图形以点或边相接时，考连接方式差异：相接边数等差、点接vs边接分类、相接边长短或夹角（占比约25%）。
+  applicability:
+    include:
+    - 两图形点/边相接，相接边数呈等差递增（1,2,3,5…）
+    - 分类题：一部分点相接、另一部分边相接（如①③④边接 vs ②⑤⑥点接）
+    - 非典型：相接边长/短分类，或相接边夹角（直角/锐角）分类
+    exclude:
+    - 两图形相离或重叠（不属于相接考点）
+    - 对称性明显有规律时优先对称路线
+  method_steps:
+  - 确认两图相接，先数相接边数看是否等差递增（短线连接也计入边数）
+  - 相接边数无法区分时，改分类：点相接一组、边相接一组
+  - 仍无法区分时，观察相接边附加属性：长短、夹角（直角/锐角）
+  error_signatures:
+  - code: only_count_edges
+    description: 只数相接边数陷入死胡同，忽略夹角/长短等次级特征
+  - code: count_overlap
+    description: 混淆重叠面积与相接方式（重叠不等于相接）
+  - code: ignore_short_edge
+    description: 漏计短线连接导致相接边数少算
+  - code: angle_miss
+    description: 没观察相接边夹角（直角/锐角）这一关键特征
+  fix_action: 做6道相接连接方式真题（含分类题），限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率90%以上（送分题正确率可达90-91%）
+  pitfall: 相接边数都相同时容易卡住，此时转向相接边夹角（直角/锐角）或长短等非典型特征；此类考点近十年仅考1-2次但一旦考出即可秒杀，也可用『相接处交点数递增』（2021北京题规律）兜底。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-点(相接处交点数递增)
+  - 数量规律-线(相接边数量)
+  - 位置规律-连接方式(点接/边接分类)
+  knowledge_nodes:
+  - 行测/判断推理/特殊规律-图形间关系
+  - 行测/判断推理/数量规律-点
+  - 行测/判断推理/数量规律-线
+- id: mc_jiu_jue_chongdie_mian
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/两图形分两部分
+  title: 两图形分两部分-重叠看重叠面（边数/对称/相同图形）
+  recognition: 两图形重叠相交时，重点观察重叠形成的面的边数、对称性，以及是否两个完全相同图形重叠（占比约20%）。
+  applicability:
+    include:
+    - 两图形重叠相交，重叠面边数呈递增（三角3边→四边4边→五边5边→七边）
+    - 两个完全相同的图形重叠（约5%罕见考法）
+    - 重叠面本身是对称图形或形状特殊；或两图边数相等（6边+6边）
+    exclude:
+    - 两图相离（无重叠面可看）
+    - 题干多数选项无相交面时注意反推：『存在相交面本身』即为规律
+  method_steps:
+  - 确认两图重叠，先数重叠面边数看是否递增或等差
+  - 观察重叠面形状类别与对称性（重叠面独立于原图特征）
+  - 识别是否两个完全相同图形重叠（正确选项应含两个相同图形）
+  - 同时可分别统计两图边数看是否相等
+  error_signatures:
+  - code: forget_overlap_face
+    description: 只数两图各自边数，忘记重叠区域是独立观察对象
+  - code: curve_count_error
+    description: 曲线边计数混淆导致重叠面边数算错
+  - code: ignore_same_overlap
+    description: 没识别相同图形重叠这一特殊规律
+  - code: count_outside_not_inside
+    description: 把外轮廓边数当重叠面边数
+  fix_action: 做6道重叠类真题，限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率85%以上
+  pitfall: 重叠面边数可能独立于原图形特征单独成规律（如重叠面3→4→5递增而原图无规律），口诀『重叠莫忘重叠面』。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-面(重叠面边数递增)
+  - 属性规律-对称(重叠面对称性)
+  - 样式规律-相同元素(两个相同图形重叠)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-面
+  - 行测/判断推理/属性规律-对称性
+- id: mc_shi_jue_neiwai_yangshi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/两图形分内外框
+  title: 两图形分内外框-内外分开看样式（对称/曲直）
+  recognition: 内框被外框完全包围的结构，先分别看内外对称性与曲直性（占比18%），外框通常是一笔画故不考笔画数。
+  applicability:
+    include:
+    - 明显『外框+内图』结构，外框为规则几何图形
+    - 外轴对称+内中心对称组合，或『外曲内直/外直内曲』交替
+    - 对称轴方向（外框对称轴旋转）与内框样式双规律叠加
+    exclude:
+    - 外框直线数有明显递增时优先数量考点（直线计数36%更高频）
+    - 内外框均不规则无对称性
+  method_steps:
+  - 确认内外框结构，先看外框对称性（对称轴数量/方向）
+  - 再看内框对称性与曲直属性，与外框组合验证（外轴对称+内中心对称等）
+  - 对称性无规律时改看曲直：分别定内外曲直属性，找交替/重复组合
+  - 外框含圆等非多边形时不数直线，回到样式/面/点
+  error_signatures:
+  - code: count_pen_stroke
+    description: 想数笔画数（外框通常都是一笔画，无效考点）
+  - code: single_dimension
+    description: 只看外框忽略内框，或只看样式漏数量
+  - code: axis_direction_only
+    description: 对称轴方向判断不准导致误选
+  - code: miss_curve_line_combo
+    description: 曲直组合（外曲内直等）没分开判定内外
+  fix_action: 做6道内外框样式真题，限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率85%以上
+  pitfall: 『外曲内直』类曲直交替题中，选项出现曲直混合vs纯曲时，优先选更宽泛共性（含曲线即可）。对称轴方向（平行/垂直/45度）是隐藏考点。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称(外框/内框分开判断及对称轴方向)
+  - 属性规律-曲直(内外曲直组合)
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+  - 行测/判断推理/属性规律-曲直性
+- id: mc_shi_jue_zhixian_jishu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/两图形分内外框
+  title: 两图形分内外框-内外直线计数（占比36%最高频）
+  recognition: 规则多边形内外框结构，优先统计内外框直线段数量，看等差/差值/倍数/和值关系（占比36%，最高频考点）。
+  applicability:
+    include:
+    - 外框与内框都是直线多边形（曲线框设计难故考题多直线框）
+    - 外框直线数等差递增（3→4→5→6）或内外数量差固定（外=内+1）
+    - 内外数量大小关系交替（外>内、内>外轮流）或和为定值
+    exclude:
+    - 外框含圆或曲线时不宜直接数直线数
+    - 图形不规则、棱角与真实直线段难区分
+  method_steps:
+  - 分别记录外框直线数和内框直线数
+  - 检验三种关系：外-内=定值、内外和=定值、外/内=倍数
+  - 差值不固定时转看相对大小关系是否交替（外>内/内>外）
+  - 注意区分图形棱角与真实直线段，避免多算
+  error_signatures:
+  - code: count_corner_as_line
+    description: 把棱角/弧段误当直线段计数
+  - code: only_diff
+    description: 拘泥于具体差值而忽略大小关系交替规律（65%正确率题）
+  - code: mix_inner_outer
+    description: 内外数量混淆不清
+  - code: miss_sum_relation
+    description: 外框直线数=内部各图形直线数之和的和值关系没看到
+  fix_action: 做8道内外框直线数真题，限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率90%以上
+  pitfall: 内外直线数差值不固定时，很多考生死磕差值；实际是『大小关系交替』规律，先看相对大小再谈数值。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-线(外框直线数/内框直线数的和差倍关系)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+- id: mc_shi_jue_kuang_jiaodian
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/两图形分内外框
+  title: 两图形分内外框-去框看/看框交点（双规律）
+  recognition: 外框内线条复杂的题，用『去框法』只看内部图形交点/直线，或『聚焦框法』只看外框上交点数（占比18%）。
+  applicability:
+    include:
+    - 外框与内部线条交点数量有递增规律（框上交点0→1→2→3→4）
+    - 去框后内部直线数/交点数恒定或成规律
+    - 双规律叠加：先按框上交点排除，再按内部直线数验证
+    exclude:
+    - 内部无明显独立图形可分析时（无法去框）
+    - 外框形状各异的题（框上交点统计困难）
+  method_steps:
+  - 统计外框上的交点数（与内部线条相交形成的点），看是否递增/等差/恒定
+  - 忽略外框，仅分析内部图形的交点与直线数
+  - 双规律验证：先用数量排除选项，再验证第二维特征
+  error_signatures:
+  - code: overall_points
+    description: 数整体交点数混淆框上/框内/内部交叉点
+  - code: stop_at_first
+    description: 第一步能排除但停手，没有做第二维验证（70%正确率题多数考生止步第二步）
+  - code: mix_way
+    description: 去框法与聚焦框法没有灵活切换
+  - code: ignore_orientation
+    description: 矩形外框题没关注内部线条与外框相交方位
+  fix_action: 做6道去框/看框真题，限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: 正确率85%以上
+  pitfall: 矩形外框题常考内部线条与外框的相交方位（下→左→上→右循环），数交点不够还要看方位（70%正确率说明多数考生止步第二步验证）。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-点(框上交点/框内交点分开统计)
+  - 数量规律-线(去框后内部直线数)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-点
+  - 行测/判断推理/数量规律-线
+- id: mc_shi_jue_neiwai_huhuan
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/两图形分内外框
+  title: 两图形分内外框-内外框互换（位置交换+缩放）
+  recognition: 图形由简单几何形状构成内外框结构时，优先考虑内外元素位置交换规律（占比20%，图形越简单越优先）。
+  applicability:
+    include:
+    - 每个图都是外框+内框两个简单图形，相邻图间存在形状继承
+    - 前图外框变后图内框、前图内框变后图外框
+    - 位置交换伴随比例缩放（外框缩小为内框、内框放大为外框）
+    exclude:
+    - 内外框数量/样式有明显规律时优先数量样式考点
+    - 图形复杂、无清晰内外分界的题
+  method_steps:
+  - 看前三个图：第一个图的外框是否变成第三个图的内框、第二个图的内框是否变成第三个图的外框
+  - 验证形状继承关系（方向需保持一致，不旋转）
+  - 按『外框→内框、内框→外框』规律锁定选项，注意缩放但方向不变
+  error_signatures:
+  - code: miss_swap
+    description: 没意识到内外位置交换，往数量/对称方向死磕
+  - code: rotate_change
+    description: 忽视方向一致性，选了方向反转的选项
+  - code: wrong_scale
+    description: 缩放比例理解错误导致错选
+  - code: ignore_simple
+    description: 图形简单反而忽略基础变换
+  fix_action: 做5道内外框互换真题，限时35秒/题（送分题应100%正确）
+  time_budget_sec: 35
+  accuracy_rule: 正确率100%（送分题，官方正确率仅68%属于易错但简单）
+  pitfall: 图形越简单越要关注基础变换——看似简单反而正确率低（68%），此类题应保证全对。非典型变体是相交边形式的内外框互换（45%正确率），方向一致性是关键判断点。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律-互换(内外框元素位置对调)
+  - 样式规律-相同元素(形状继承)
+  knowledge_nodes:
+  - 行测/判断推理/位置规律-综合
+- id: mc_shiyi_jue_zuidamian
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/均有封闭多边形外框
+  title: 封闭外框-最大面最小面特征（占比25%最高频）
+  recognition: 封闭多边形外框且内部有明显比其他区域大/小的面时，优先看最大面特征：与外框同形、边数递增、对称性（占比25%，最高频考点）。
+  applicability:
+    include:
+    - 图形内存在明显唯一最大面（考官会给出视觉提示）
+    - 最大面与外框形状相同/相似（需完全独立于外框边线）
+    - 最大面边数递增（3→4→5→6→7）或最大面是轴对称/中心对称图形
+    exclude:
+    - 各面大小接近、无明显最大面时（转数量关系）
+    - 简单外框数量规律（边面同数）先于最大面验证
+  method_steps:
+  - 先识别是否存在明显最大面（耗时小于2秒）
+  - 检验四类规律：与外框同形、边数递增、对称性（轴对称/中心对称）、特定形状
+  - 注意最大面必须完全独立于外框边线（有公共边时必不满足等比相似）
+  - 主要规律不显时用最小面作次级验证
+  error_signatures:
+  - code: skip_max_face
+    description: 忽略明显最大面去数复杂数量关系
+  - code: share_edge
+    description: 最大面与外框有公共边仍判定为同形（不满足等比）
+  - code: symmetric_miss
+    description: 忽略斜置图形的中心对称性
+  - code: multiple_max
+    description: 出现多个相似面时没确认唯一最大面
+  fix_action: 做8道最大面特征真题，限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率85%以上
+  pitfall: 最大面与外框的相似是严格等比对应，有公共边时必错（35%正确率题易忽略最大面的主导地位）；出现多个相似面时要确认唯一最大面。口诀：一看外框二看面，最大最小很明显。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-面(最大面/最小面边数)
+  - 属性规律-对称(最大面对称性)
+  - 样式规律-相似形(最大面与外框同形)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-面
+  - 行测/判断推理/属性规律-对称性
+- id: mc_shiyi_jue_xiangtong_zi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/均有封闭多边形外框
+  title: 封闭外框-相同子图形样式与数量
+  recognition: 封闭外框内部出现重复的子图形（正方形/圆/三角形等）时，考子图形样式相同或数量递增（样式相同11%+数量考点）。
+  applicability:
+    include:
+    - 题干中重复出现某一种特定子图形（考官常通过图形突变给出暗示）
+    - 相同子图形数量呈递增（2→3→4→5→6）
+    - 分类题：三个相同子图形 vs 两两相同组合；或最大面最小面形状一致
+    exclude:
+    - 子图形样式无重复、各元素出现无规律时
+    - 外框边数、面数等常规规律已能锁定答案时
+  method_steps:
+  - 看外框边数是否有规律，无规律立即转向内部子图形
+  - 统计各子图形样式出现情况，锁定重复出现的样式（如正方形）
+  - 数相同子图形数量，验证递增/等差/分组
+  - 选项中出现唯一含该子图形的直接秒选
+  error_signatures:
+  - code: distracted_by_frame
+    description: 被外框边数干扰而忽略内部相同面特征
+  - code: miss_hint
+    description: 忽略考官通过图形突变埋的明示
+  - code: count_once
+    description: 相同图形重复时只算一次导致数量规律失效
+  - code: miss_same_face
+    description: 没识别题干中多个相同面（2个/3个相同三角形）
+  fix_action: 做6道相同子图形真题，限时35秒/题
+  time_budget_sec: 35
+  accuracy_rule: 正确率85%以上
+  pitfall: 相同子图形数量通常比交点计数更快得出答案——优先快速验证子图形特征再上复杂计数；考官通过第4图突变给出明示。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素(相同子图形数量递增)
+  - 样式规律-相同元素(子图形样式重复)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+  - 行测/判断推理/样式规律-遍历
+- id: mc_shiyi_jue_bianmian_guanxi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/均有封闭多边形外框
+  title: 封闭外框-外框边数与面数量关系（边面同数/差值）
+  recognition: 封闭多边形外框题先看外框边数，与面数量比较是否相等或差值固定（边面关系占比10%，三角形外框常考）。
+  applicability:
+    include:
+    - 外框为三角形等简单多边形，考察外框边数=面数量或差值成等差（外框边数-面数=1,2,3,4）
+    - 外框边数无直接规律时计算外框边数-面数量的差值
+    - 邻图比较：相邻图形只增一条线时关注新增交点(+1)/面(+2)
+    exclude:
+    - 外框含圆时直线数失效（转面/交点）
+    - 外框边数超过10时不作为考点
+  method_steps:
+  - 先看外框边数是否有递增/等差规律
+  - 计算外框边数与面数量关系：相等？差值固定？（外框边数-面数=1,2,3,4）
+  - 三角形外框优先想边面差值（口诀：见三角形想差值，线面关系验三遍）
+  - 邻图比较时关注相邻图形新增线条带来的交点/面数变化
+  error_signatures:
+  - code: ignore_diff
+    description: 只数面或只数线，忽略线面差值这个隐藏规律
+  - code: triangle_trap
+    description: 三角形外框误判为单纯数面或数线
+  - code: count_curve_frame
+    description: 圆框混入时仍数直线数导致错乱
+  - code: one_dimension_only
+    description: 极端低正确率题需三维度综合（外框边数/总线条数/面数量），只验一个维度
+  fix_action: 做8道边面关系真题，限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率80%以上（此类题整体正确率普遍低于50%，需刻意练习）
+  pitfall: 极端低正确率题（15%）需三维度综合：外框边数、总线条数、面数量三者差值分组，单一维度验证不够（口诀：见三角形想差值，线面关系验三遍）。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-线(外框边数)
+  - 数量规律-面(面数量)
+  - 数量规律-线面联动(边面相等或差值)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+  - 行测/判断推理/数量规律-面
+- id: mc_shiyi_jue_kuangneiwai_jiaodian
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/均有封闭多边形外框
+  title: 封闭外框-框上交点与框内交点分开数
+  recognition: 外框绘制随意、内部线条复杂的题，分别统计框上交点和框内交点数量，看分组或差值规律（总交点数占比10%）。
+  applicability:
+    include:
+    - 外框边数无规律、内部线条复杂时优先数交点
+    - 框上交点数量分组（7个vs6个）或框上-框内差值固定（如4或0）
+    - 邻图比较：每增一条线交点数+1（4→5→6→7→8）
+    exclude:
+    - 有简单样式/最大面规律时优先更快的考点
+    - 图形几乎无内部交点时（空框）
+  method_steps:
+  - 分别统计框上交点数与框内交点数
+  - 看单独维度是否成递增/等差/分组
+  - 单独无规律时算差值：框上交点-框内交点=定值（如4或0）
+  - 邻图比较：相邻图增一条线→交点+1，推测序列
+  error_signatures:
+  - code: mix_points
+    description: 混淆框上交点与框内交点（整体数点）
+  - code: ignore_relation
+    description: 只数一个维度，忽略框上框内和差关系
+  - code: count_curve_intersect
+    description: 曲线与直线交点单独计数规则不清
+  - code: count_frame_vertices
+    description: 把外框本身的顶点当框上交点误算
+  fix_action: 做8道框上框内交点真题，限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: 正确率80%以上
+  pitfall: 框上交点与框内交点是两个独立统计对象，差值规律（框上-框内=4或0）常被整体数点掩盖；外框边数超过10时通常不作为考点。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-点(框上交点/框内交点分开统计)
+  - 数量规律-点(交点增减与线条增减联动)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-点
+- id: mc_shiyi_jue_zhijiao
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/均有封闭多边形外框
+  title: 封闭外框-直角数量（直角三角形提示）
+  recognition: 图形中含直角三角形/直角梯形/矩形时，优先数直角数量（占比9%），出现直角三角形是强烈提示。
+  applicability:
+    include:
+    - 多个图形含直角三角形元素（直角数1,2,3,2,3个）
+    - 直角数递增（2→3→4→5）或恒定（均为2个）
+    - 单图直角特征（如直角三角形）与整体直角规律双路径破题
+    exclude:
+    - 图形无直角或直角含糊不清（非严格90度不计）
+    - 明显的对称/最大面规律优先
+  method_steps:
+  - 识别直角三角形/矩形/直角梯形等含直角元素
+  - 严格判定90度角（模糊折角排除）
+  - 数直角数量验证递增/恒定/等差
+  - 复杂图形只统计外框直角（单面图形暗示只看外框属性）
+  error_signatures:
+  - code: lax_angle
+    description: 非严格90度角计入导致数量错乱
+  - code: count_all_angles
+    description: 把所有角都数一遍而非只数直角
+  - code: miss_frame_only
+    description: 混合单面图形时没意识到只看外框直角
+  - code: low_sensitivity
+    description: 对直角敏感度不足（56%正确率反映该问题）
+  fix_action: 做6道直角数真题，限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率85%以上
+  pitfall: 外框直角数递增（0,1,2,3,4）常被平行线组数等干扰，先聚焦直角再验其他；非90度折角不能计入。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-角(直角数量)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-角
+- id: mc_shiyi_jue_sanjiaoxing
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/均有封闭多边形外框
+  title: 封闭外框-三角形数量（最后手段）
+  recognition: 封闭多边形外框题排除面数/交点数/线数后仍无规律时，数三角形面数量（占比13%，三角形考点出现概率超80%）。
+  applicability:
+    include:
+    - 封闭多边形外框且内含多个三角形面
+    - 面数、交点数、线数均排除后使用（最后手段）
+    - 先定三角形数量后验性质（全三角形 vs 含非三角形面）
+    exclude:
+    - 非封闭多边形外框的题（此考点仅适用封闭外框）
+    - 有明显最大面/相同子图形特征时优先
+  method_steps:
+  - 先排除面数量、交点数、线数等常规考点
+  - 统计每图三角形面数量（含隐藏的组合小三角形）
+  - 验证数量分组（4个 vs 3个）或恒定（均为2个）
+  - 数量相同时再验证是否全为三角形面（排除含非三角面的选项）
+  error_signatures:
+  - code: not_last
+    description: 跳过多重排除直接数三角形导致浪费时间
+  - code: count_outer
+    description: 数外框整体的三角而不专注内部三角形面
+  - code: miss_hidden
+    description: 遗漏组合图形中隐藏的小三角形
+  - code: count_number_only
+    description: 只数数量不验性质，含非三角面的选项误选
+  fix_action: 做8道三角形数量真题，限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: 正确率80%以上
+  pitfall: 三角形数量在面数题中出现概率超80%，但必须先『先定数量后验性质』——数量对但含非三角面的选项要排除。熟练后可在20秒内完成考点排查。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-面(三角形面数量)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-面
+- id: mc_shiyi_jue_quxian_pingxingxian
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/均有封闭多边形外框
+  title: 封闭外框-曲线数平行线（低频特殊要素）
+  recognition: 封闭外框内含曲线或含梯形/平行四边形等平行边结构时，分别统计曲线数量和平行线组数（曲线6%、平行线2000+真题仅12-13次）。
+  applicability:
+    include:
+    - 外框含曲线，考察曲线数量奇偶性或曲直组合（如两曲七直）
+    - 含梯形/矩形/平行四边形等平行边元素，数平行线组数（同方向计1组）
+    - 图形中平行线数量大于3组或曲线特征突出时优先考虑
+    exclude:
+    - 全直线无平行边结构时
+    - 有明显更高频考点（最大面/三角形）时
+  method_steps:
+  - 分离统计曲线与直线数量（曲线必须光滑连续，V形转折算两条曲线）
+  - 验证曲直数量组合规律（如两曲七直）或曲线奇偶性
+  - 对含平行边的图形数平行线组数：同一方向不论条数计1组
+  error_signatures:
+  - code: v_shape
+    description: 把V形转折当一条曲线（应算两条）
+  - code: not_separate
+    description: 曲直混合图没有分开统计数量
+  - code: parallel_direction
+    description: 不同方向平行线混计一组
+  - code: curve_odd_even_miss
+    description: 忽略曲线数量奇偶性考点
+  fix_action: 做4道曲线/平行线真题，限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率75%以上
+  pitfall: 平行线组数按方向计：矩形上下+左右=2组、梯形两底边=1组；曲线转折点判定标准（光滑连续才算1条）是33%正确率题的关键。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-线(曲线数量/曲直分离)
+  - 数量规律-线(平行线组数)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+- id: mc_shier_jue_shuliang
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/有重复的独立小图形
+  title: 重复小图形-数量规律（占比35%）
+  recognition: 出现重复独立小图形时最优先想数量：总数/各类数量/黑白分开统计/和差质数（占比35%，最高频考点）。
+  applicability:
+    include:
+    - 独立重复小图形（圆、三角、星、箭头等）排布
+    - 各类小图形数量呈等差/递增/交替/质数（2,3,5,7,11）
+    - 黑白元素需分开统计数量或看和差关系；或总数守恒
+    exclude:
+    - 仅两种图形且数量数不出规律时，优先验证数量转换考点
+    - 有明显遍历循环特征时走遍历路线
+  method_steps:
+  - 分别统计各类小图形数量（黑白分开）
+  - 检验递增/递减/等差/交替/质数序列规律
+  - 单类无规律时计算两类数量差值（注意正负方向）或总数守恒
+  - 数量、种类都无法区分时用开放/封闭属性收尾
+  error_signatures:
+  - code: direction_error
+    description: 差值规律方向判断失误（圆-方=2 vs 方-圆=-2，40%错误率来源）
+  - code: mix_black_white
+    description: 黑白球没分开计数
+  - code: fibonacci_trap
+    description: 把质数序列(2,3,5,7)误判为斐波那契
+  - code: chaos_not_rule
+    description: 乱序当成规律（奇偶交替题误选破坏交替的数）
+  fix_action: 做10道重复小图形数量真题，限时35秒/题
+  time_budget_sec: 35
+  accuracy_rule: 正确率90%以上
+  pitfall: 数量差异明显时优先想数字运算；差值规律必须注意谁减谁的方向（正确率40%的题源于方向判断失误）。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素(相同小图形数量/总数)
+  - 数量规律-素(黑白分开计数/和差关系)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+- id: mc_shier_jue_zhuanhuan
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/有重复的独立小图形
+  title: 重复小图形-样式数量转换（图1+图3=2×图2）
+  recognition: 两种以上图形直接数数量无规律时，验证图1+图3=2×图2公式——成立则100%是赋值换算考点（占比15%）。
+  applicability:
+    include:
+    - 仅含两三种重复图形，直接计数无规律
+    - 图形排成两行/多组，可套用图1+图3=2×图2验证
+    - 问号处需计算各图形代表数值之和
+    exclude:
+    - 数量已有直接规律的题
+    - 图形种类超过3个时优先种类数路线
+  method_steps:
+  - 给不同图形赋值（方形常=4、三角=3、圆=1；按边/曲线数联想）
+  - 验证图1+图3=2×图2：代入赋值看是否成立
+  - 建立方程组求解各图形代表数值
+  - 计算问号处数值，选匹配选项
+  error_signatures:
+  - code: direct_count
+    description: 直接数数无规律仍硬数，不转赋值思路
+  - code: not_verify_formula
+    description: 没先验证图1+图3=2×图2就盲目赋值
+  - code: three_variable_error
+    description: 三变量题解方程出错（25%正确率）
+  - code: only_two_hint_miss
+    description: 仅含两种图形时没优先验证此考点
+  fix_action: 做8道数量转换真题，限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率85%以上
+  pitfall: 只有两种图形时优先验证此考点，20秒内可完成验证计算——重复小图形出现必先考虑数量转换。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素(图形代表数值的运算关系)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+- id: mc_shier_jue_zhonglei_bianli
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/有重复的独立小图形
+  title: 重复小图形-种类数与样式遍历
+  recognition: 图形总数相同但元素分布不同→数种类数；元素循环出现→看遍历顺序（种类6%+遍历25%）。
+  applicability:
+    include:
+    - 总数相同但种类分布不同（三一一/二二一等种类分布规律）
+    - 元素按固定顺序循环（圈→三角→方块→星，含去头去尾）
+    - 双重遍历：形状+颜色/位置双重约束；或总数遍历（元素数量总和恒定）
+    exclude:
+    - 种类超过3个时排除数字代表可能
+    - 数量规律已明确的题
+  method_steps:
+  - 相同图形无论数量多少计1种，统计每图种类数及分布
+  - 若种类数有循环/交替/分组规律，锁定答案
+  - 元素循环出现时确认循环顺序（如1-2-3-4→2-3-4→3-4去头）
+  - 复合遍历（黑白/位置）需逐一验证维度
+  error_signatures:
+  - code: confuse_type_traverse
+    description: 混淆种类数统计与遍历顺序两考点
+  - code: count_same_as_many
+    description: 把4个相同正方形算4种
+  - code: miss_double
+    description: 元素+颜色双重遍历只验证了形状维度
+  - code: miss_total_conserve
+    description: 总数遍历（元素总数恒定）没结合样式遍历验证
+  fix_action: 做8道种类数/遍历真题，限时35秒/题
+  time_budget_sec: 35
+  accuracy_rule: 正确率90%以上
+  pitfall: 遍历题特征明显（小嘴大嘴循环变化时100%考遍历），发现循环优先看顺序；注意去头去尾和双重维度（颜色/位置）。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素(图形种类数)
+  - 样式规律-遍历(元素循环/双重遍历)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+  - 行测/判断推理/样式规律-遍历
+- id: mc_shier_jue_pingyi_xuanzhuan
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/有重复的独立小图形
+  title: 重复小图形-平移旋转与样式位置（内外圈/步幅）
+  recognition: 重复独立小图形在格子或排线中出现且数量稳定时，考察平移/旋转规律或样式位置关系（平移旋转13%+位置6%）。
+  applicability:
+    include:
+    - 4×4等格子中小图形移动（内外圈分别看）
+    - 线状排列的重复图形整体平移（尾部元素循环回开头）
+    - 只有两种简单图形时看位置交替/方向一致性（箭头指向一致/对角线交替）
+    exclude:
+    - 元素数量在变化时优先数量规律
+    - 无格子/无固定排列框架时
+  method_steps:
+  - 确认数量恒定后选特征明显的成对图形追踪轨迹
+  - 格子题分内外圈分别看移动规律（不同图形移动步幅可不同：叉逆时针1格/星顺时针2格）
+  - 线状排列：整体右移1格、尾元素回到开头
+  - 简单图形看方向一致性与位置交替（对角线交替等）
+  error_signatures:
+  - code: single_element
+    description: 只盯单个图形忽略双图联动
+  - code: outer_inner_mix
+    description: 内外圈移动规律混淆
+  - code: wrong_step
+    description: 没识别不同图形移动步幅不同
+  - code: direction_change
+    description: 箭头方向不一致仍选入
+  fix_action: 做6道平移旋转位置真题，限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 正确率85%以上
+  pitfall: 黑白格/黑白球类题的基础就是内外圈分看+步幅不同，此考点是标准黑白球题的延伸基础（4×4格内圈4格外圈12格分看）。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律-平移(格子/线状移动)
+  - 位置规律-旋转(重复图形旋转)
+  - 位置规律-相对位置(样式位置交替/方向)
+  knowledge_nodes:
+  - 行测/判断推理/位置规律-平移
+  - 行测/判断推理/位置规律-旋转
+  - 行测/判断推理/位置规律-综合
+- id: mc_graph_jue13_blackwhite
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/图形整体轮廓相同
+  title: 图形整体轮廓相同-黑白运算
+  recognition: 多图形外轮廓完全相同、内部有黑有白(点/星可视为黑),以两幅图或九宫格呈现时,直接进入黑白运算思维。口诀:整体轮廓若相同,有黑有白算黑白。黑白运算占轮廓相同类考点的23%,与旋转翻转合计超80%。
+  applicability:
+    include:
+    - 九宫格或两幅图,轮廓相同且有黑有白
+    - 黑白块数量多、格子规则
+    - 轮廓相同+黑白但直接算不通→考虑先旋转再运算
+    exclude:
+    - 只有一幅图(连续多图)→多为旋转/平移/遍历,黑白运算概率低
+    - 黑块很少(2-4个)且轮廓不同→提示图形考点
+    - 纯单色线条、无黑白对比→求异/求同
+  method_steps:
+  - 先判图形数量:两幅图或九宫格+有黑有白→黑白运算
+  - 看四个选项,找颜色不同的一处位置(差异定位)
+  - 在题干前两图(或九宫格前两行)同一位置找该颜色的运算组合(如白+黑),得结果排除不符合的选项
+  - 再找下一个差异位置重复,直至唯一答案(熟练后20秒内)
+  error_signatures:
+  - code: forget_rotate
+    description: 黑白运算+旋转题只做运算忘了旋转(正确率仅44%)
+  - code: whole_grid_slow
+    description: 整图逐格运算浪费时间,应从选项差异位置反推
+  - code: assume_horizontal
+    description: 九宫格默认横看,横行规律被破坏时不转竖行验证(2023省联考大坑)
+  fix_action: 做5道九宫格/两幅图黑白运算题+3道黑白运算+旋转复合题,限时40秒/题,每题先找选项差异位置再运算
+  time_budget_sec: 40
+  accuracy_rule: 90%以上(黑白运算是送分题,正确率普遍80%+,应做到秒杀)
+  pitfall: 有黑有白但同一位置运算结果矛盾时,极可能是先旋转90°再运算(历年仅1-2%考法),不要死磕直接运算
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-叠加(黑白运算)
+  - 样式规律-加减同异
+  knowledge_nodes:
+  - 行测/判断推理/样式规律-黑白运算
+  - 行测/判断推理/黑白块类
+- id: mc_graph_jue13_rotate_flip
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/图形整体轮廓相同
+  title: 图形整体轮廓相同-旋转与翻转
+  recognition: 图形整体轮廓相同、无黑白对比、各图长得几乎一样且方向在变,想到旋转或翻转。旋转占33%、翻转占26%,合起来是轮廓相同类的最大头。口诀:全图相同看旋转。
+  applicability:
+    include:
+    - 全图相同、内部元素方向在变→旋转/翻转
+    - 内部有钟表式子图形(时分秒针)各自按规律转→子图形分别旋转
+    - 选项中出现两个互为旋转90°或互为镜像的图→提示考点
+    exclude:
+    - 有黑有白→优先黑白运算
+    - 子图形在换位置而非换方向→平移
+    - 轮廓各不相同→此诀不适用
+  method_steps:
+  - 在图形上选两个特征点(凸起+凹陷)标1、2,看相对方向
+  - 题干各图1→2均顺时针→是旋转;选项中出现1→2变逆时针→该图经过翻转,排除
+  - 确认旋转后,看每步旋转角度(90°/180°或45°递增)与参照线(横/竖线)的翻转方向
+  error_signatures:
+  - code: confuse_rotate_flip
+    description: 混淆旋转180°与左右翻转(旋转保持方向、翻转镜像颠倒)
+  - code: miss_inner_outer
+    description: 16格以上图形不知道内外圈各自旋转,缺乏内外圈意识(正确率仅44%)
+  - code: wrong_subfigure
+    description: 子图形分别旋转时只盯一个子图形,漏看其他子图形的旋转规律
+  fix_action: 做6道轮廓相同旋转/翻转题,限时45秒/题,每题先用参照物法判断旋转还是翻转再算
+  time_budget_sec: 45
+  accuracy_rule: 90%以上(旋转/翻转是送分题,正确率普遍80%+)
+  pitfall: 区分旋转与翻转最快的方法:找两个参照点看相对方向,旋转保持顺时针/逆时针不变,翻转(镜像)会改变相对方向
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律-旋转
+  - 位置规律-翻转
+  knowledge_nodes:
+  - 行测/判断推理/位置规律-旋转
+  - 行测/判断推理/位置规律-翻转
+- id: mc_graph_jue13_translate_innerouter
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/图形整体轮廓相同
+  title: 图形整体轮廓相同-平移与内外圈
+  recognition: 图形轮廓相同、内部有多个相同子图形(小球/方块/箭头/线条)在移动位置,想到平移;16格及以上必分内外圈。口诀:子图相同做平移。平移占轮廓相同类的13%。
+  applicability:
+    include:
+    - 内部子图形数量相同、位置在变→平移(直线移动或绕圈移动)
+    - 16格及以上图形→先分内外圈,内外圈各自平移/旋转
+    - 箭头等元素多→用捆绑观察法,两个箭头一组看
+    exclude:
+    - 子图形方向是镜像变化→翻转
+    - 整体像一张图在转→旋转
+    - 黑块少且轮廓不同→提示图形考点
+  method_steps:
+  - 16格以上先分内外圈,分别看内圈、外圈元素的移动方向与步数
+  - 单看一个元素:确认移动方向(直线/绕圈)、步数(固定或递增)、贯穿(出界从对侧进)还是反弹(来回)
+  - 多元素用捆绑观察法(两个箭头一起看),找一个特征明显的子图形去选项匹配
+  error_signatures:
+  - code: miss_inner_outer
+    description: 把内外圈当成整体移动,缺乏内外圈意识(正确率仅44%)
+  - code: bounce_confused
+    description: 没识别出反弹(来回)移动,按单向移动推断
+  - code: move_rotate_missed
+    description: 边移边转时只算移动不算旋转(或反之),漏掉同时发生的规律
+  fix_action: 做5道平移题(含2道内外圈、1道反弹、1道边移边转),限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 85%以上
+  pitfall: 子图形移动中可能被其他线条覆盖(看似消失实际位置没变);移动方式要区分贯穿(出界从对侧进入)与反弹(折返来回)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律-平移
+  - 位置规律-旋转
+  knowledge_nodes:
+  - 行测/判断推理/位置规律-平移
+  - 行测/判断推理/位置规律-旋转
+- id: mc_graph_jue13_blackwhite_rotate
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/图形整体轮廓相同
+  title: 图形整体轮廓相同-黑白运算+旋转复合
+  recognition: 轮廓相同有黑有白,但直接按黑白运算验证规则矛盾(同一位置结果不统一),提示是黑白运算与旋转复合。历年真题仅4-5道,是拉分题。
+  applicability:
+    include:
+    - 九宫格/两幅图,轮廓相同,直接黑白运算算不通
+    - 图形有明显旋转关系(180°)或一正一斜(45°)
+    exclude:
+    - 直接运算规则统一→普通黑白运算
+    - 无黑白对比→非此考点
+  method_steps:
+  - 先判断运算与旋转的先后顺序:一个图是另一个旋转后的样子→先转再算;运算后还需转→先算再转
+  - 先转再算:将一个图旋转90°后与另一图做黑白运算,规则即统一(目前此类考法均旋转90°)
+  - 先算再转:两图求异后把结果旋转180°得到答案;外框往往消失,可先排除带外框的选项
+  error_signatures:
+  - code: forgot_rotate_after
+    description: 只做运算忘了再旋转(正确率仅44%)
+  - code: hard_calc_wrong_rule
+    description: 直接算发现规则不统一仍硬算,不知道要先转90°(正确率48%)
+  - code: wrong_angle
+    description: 旋转角度判断错(90°还是180°)
+  fix_action: 做3道黑白运算+旋转复合题,限时50秒/题,做题先标'先转再算还是先算再转'
+  time_budget_sec: 50
+  accuracy_rule: 70%以上(此类题历年正确率40-48%,达到70%即领先)
+  pitfall: 运算与旋转的先后顺序决定结果,必须用'直接算规则是否统一'来判断是否需要先旋转
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-叠加(黑白运算)
+  - 位置规律-旋转
+  knowledge_nodes:
+  - 行测/判断推理/样式规律-黑白运算
+  - 行测/判断推理/位置规律-旋转
+- id: mc_graph_jue13_traversal
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/图形整体轮廓相同
+  title: 图形整体轮廓相同-样式遍历
+  recognition: 一幅图中轮廓相同、内部样式多样(白色/横线/斜线/网格/黑色),各样式出现次数相同,想到样式遍历。遍历仅占轮廓相同类的3%,几乎不单独考,常与其他考点结合。
+  applicability:
+    include:
+    - 单幅图(连续多图)、轮廓相同、样式种类多
+    - 每个位置图案遍历所有样式(简单考法)或每种样式总出现次数相同(复杂考法)
+    exclude:
+    - 两幅图或九宫格有黑有白→黑白运算
+    - 子图形在移动→平移
+  method_steps:
+  - 给样式标号(白=1,横线=2,斜线=3,网格=4,黑=5)
+  - 统计已出现次数,找缺失样式(简单看每个位置,复杂看总次数均等)
+  - 排除含题干从未出现的新样式选项
+  error_signatures:
+  - code: treat_as_blackwhite
+    description: 单幅图样式多误当黑白运算
+  - code: miss_position_traverse
+    description: 只数总次数,忽略'每个位置都遍历一遍'的简单考法
+  fix_action: 做2道样式遍历题,限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 80%以上
+  pitfall: 遍历与黑白运算靠图形数量区分:一幅图→遍历,两幅图/九宫格→黑白运算
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-遍历
+  knowledge_nodes:
+  - 行测/判断推理/样式规律-遍历
+- id: mc_graph_jue14_yunsuan
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/相同位置有相同线条
+  title: 相同位置有相同线条-求异求同叠加
+  recognition: 不同图形在相同位置出现相同线条(或阴影/符号),立即进入图形运算思维。口诀:相同位置线条重,两两相同必求异。考点分布:求异占50%、求同20%、叠加20%。
+  applicability:
+    include:
+    - 三图一组/九宫格,相同位置两两相同→求异
+    - 三图都有相同线条且线条数越来越少→求同
+    - 线条越来越多→叠加
+    exclude:
+    - 相邻图形只差一个元素→一次改变一点
+    - 轮廓完全相同且有黑有白→黑白运算
+    - 图形整体在转→旋转
+  method_steps:
+  - 判断运算类型:两图相同→求异;三图相同且线条减少→求同;线条增多→叠加
+  - 用关键线条法:对比选项,只盯有区别的那1-2条线,不整图运算
+  - 反推:该线在题干两图都有→求异后应无;只有一个图有→求异后应有,据此排除选项
+  error_signatures:
+  - code: over_think_simple
+    description: 图形太简单反而不敢选求异,想复杂了(正确率仅65%)
+  - code: whole_figure_slow
+    description: 整图逐一运算耗时易错,应盯住选项差异线反推
+  - code: confuse_same_diff
+    description: 求异(去同存异)与求同(保留相同)混淆
+  - code: assume_horizontal
+    description: 九宫格默认横看,实际是竖看运算(正确率仅35%)
+  fix_action: 做6道求异/求同/叠加题,限时30秒/题,每题先判断运算类型再用关键线条法
+  time_budget_sec: 30
+  accuracy_rule: 95%以上(求异是必拿分题型,3-5秒判断考点、10-15秒出答案)
+  pitfall: 相同位置线条重复且两两相同必求异;三图相同则求同或叠加——线条少=求同,线条多=叠加
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-加减同异(去同存异)
+  - 样式规律-叠加
+  knowledge_nodes:
+  - 行测/判断推理/样式规律-加减同异
+  - 行测/判断推理/样式规律-黑白运算
+- id: mc_graph_jue14_yunsuan_rotate
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/相同位置有相同线条
+  title: 相同位置有相同线条-运算+旋转/翻转复合
+  recognition: 相同位置有相同线条但直接求异/求同结果对不上(位置不对应),想到运算后还做了旋转或翻转。考官常用'加旋转/翻转'来加大难度。
+  applicability:
+    include:
+    - 直接运算得不到结果,且图形方向在变(三角形尖角/十字方向变化)
+    - 选项中出现两个互为旋转90°或互为镜像的图→提示考点
+    - 图形为正方形/圆形/带尖角→优先想旋转
+    exclude:
+    - 直接运算规则成立→普通求异/求同
+    - 无方向变化的重复线条→普通运算
+  method_steps:
+  - 判断旋转还是翻转:线条从上方转到下方→旋转180°;位置不变但左右/上下颠倒→翻转
+  - 有斜线提示→先转45°再求异;无斜线→先求异(去同存异)再旋转/翻转
+  - 用关键点验证:取一个角,判断求异+旋转/翻转后该点的位置与颜色,排除选项
+  error_signatures:
+  - code: wrong_order
+    description: 先转再算还是先算再转分不清,两者结果不同
+  - code: rotate_flip_confuse
+    description: 把翻转当旋转或反之(翻转是镜像、旋转是转动)
+  - code: angle_error
+    description: 旋转角度判断错(45°vs90°),此类正确率仅44-53%
+  fix_action: 做5道求异+旋转/翻转复合题,限时50秒/题,先判断'旋转还是翻转'再动手
+  time_budget_sec: 50
+  accuracy_rule: 75%以上(复合题历年正确率44-75%)
+  pitfall: 考官常给的提示:有明显斜线→先旋转45°再求异;选项中互为旋转的图形就是旋转考点的提示
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-加减同异
+  - 位置规律-旋转
+  - 位置规律-翻转
+  knowledge_nodes:
+  - 行测/判断推理/样式规律-加减同异
+  - 行测/判断推理/位置规律-旋转
+  - 行测/判断推理/位置规律-翻转
+- id: mc_graph_jue14_one_change
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/相同位置有相同线条
+  title: 相同位置有相同线条-一次改变一点
+  recognition: 相邻图形整体框架相同、只差一个元素,看到'邻图几乎一样'就往一次改变一点想。识别特征:相同位置有重复的线条或小图形,相邻图形非常接近。
+  applicability:
+    include:
+    - 一组图,相邻图形非常接近,一次只变一个元素
+    - 每步新增一条线(夹角45°→90°→135°→180°递增)
+    - 每次互换两个元素位置,其余保持不变
+    exclude:
+    - 相邻图形变化明显→非此考点
+    - 相同位置线条重复且是运算关系→求异求同
+  method_steps:
+  - 邻图比较:相邻两图找出唯一变化的那一处(加线/换位/替换元素)
+  - 提炼变化规律(如新增线条夹角45°→90°→135°→180°递增)
+  - 应用到问号处;若是'去掉一个多余图形',删掉相邻变化数不为1的那个图
+  error_signatures:
+  - code: count_two_changes
+    description: 一次变几个元素没数清(该变1个实际变了2个)
+  - code: angle_not_counted
+    description: 新增线条夹角递增规律没算出来(正确率仅35%)
+  fix_action: 做3道一次改变一点题,限时40秒/题,每题用铅笔标出相邻图形的唯一差异
+  time_budget_sec: 40
+  accuracy_rule: 80%以上
+  pitfall: '''去掉一个多余图形''的考法:找相邻图形间变化数不是1的那一对,删掉其中一个'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-加减同异(渐变)
+  - 数量规律-线(逐条递增)
+  - 位置规律-平移(元素互换)
+  knowledge_nodes:
+  - 行测/判断推理/样式规律-加减同异
+- id: mc_graph_jue14_pyramid
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/相同位置有相同线条
+  title: 相同位置有相同线条-金字塔图形运算
+  recognition: 图形排列成金字塔(三行、每行图形数递减),下方两个图形运算得到上方一个。上海专属题型,占7%,本质仍是求异/叠加。
+  applicability:
+    include:
+    - 金字塔/倒三角排列的图形组
+    - 相同位置有相同线条或黑白块
+    exclude:
+    - 普通一行/九宫格排列→非此考点
+  method_steps:
+  - 定位目标:问号处图形由它正下方两个图形运算得到
+  - 在已知图形中推导运算规则(求异/求同/黑白叠加)
+  - 对问号下方的两个图做运算;若结果与上方位置不符(偏移),考虑再旋转45°
+  error_signatures:
+  - code: wrong_parents
+    description: 找错父图形(不是正下方相邻的两个图形)
+  - code: rotate_missed
+    description: 求异结果位置偏移,没想到要再旋转45°(正确率40%)
+  fix_action: 做2道金字塔运算题,限时45秒/题,先定位父图形再推运算规则
+  time_budget_sec: 45
+  accuracy_rule: 80%以上
+  pitfall: 金字塔本质仍是求异/求同/叠加,见过即送分;求异后位置不符→加一个旋转45°
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-加减同异
+  - 样式规律-叠加
+  knowledge_nodes:
+  - 行测/判断推理/样式规律-加减同异
+  - 行测/判断推理/样式规律-黑白运算
+- id: mc_graph_jue15_count
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/有提示图形
+  title: 有提示图形-识别与数数量
+  recognition: 每个图形里都有1-2个完全一样且数量少的小图形(黑点/圆圈/三角/黑块),这是考官给的'提示',先数数量。口诀:提示图形先看数量。
+  applicability:
+    include:
+    - 每个图都有相同小图形且黑块数量少(2-4个)
+    - 提示图形数量递增/递减/固定和
+    - 数量规律不够时,结合第二个特征(如线条数)双规律筛选
+    exclude:
+    - 黑块很多、九宫格规则网格→黑白运算
+    - 同一图内有多个重复小图形、不同图小图形不同→第十二诀'重复独立小图形'
+    - 黑点有明确移动轨迹→移动
+  method_steps:
+  - 先数提示图形数量,看递增/递减/固定和
+  - 只剩两个选项时对比差异找第二个规律(如线条数)
+  - 数量无规律→转'两个提示图形位置关系'或'单个标记特征'
+  error_signatures:
+  - code: black_white_misjudge
+    description: 一看黑点就套黑白运算(黑白运算前提是轮廓相同、格子一致,本题轮廓不同)
+  - code: move_misjudge
+    description: 黑块位置无规律硬套旋转/移动(正确率仅50%)
+  fix_action: 做3道提示图形数数题,限时30秒/题,先问'黑块多不多'
+  time_budget_sec: 30
+  accuracy_rule: 95%以上(数数量是送分题,正确率95%+)
+  pitfall: 提示图形数量相同时数量是障眼法(如都6个点),改看相对位置关系(是否首尾相接)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+- id: mc_graph_jue15_two_markers
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/有提示图形
+  title: 有提示图形-两个提示图形看位置关系
+  recognition: 每个图都有两个提示图形(两个黑点/黑块/黑点+阴影),看它们之间的相对位置关系。占提示图形考法的35%。口诀:多个提示图形看相互位置关系。
+  applicability:
+    include:
+    - 两个提示图形:观察相离/相交于点/相交于边
+    - 两个提示图形连线:看连线垂直/平行、间隔白块数、排列顺序
+    - 图形轮廓各不相同、不可能黑白运算时
+    exclude:
+    - 只有一个提示图形→看标记特征
+    - 提示图形数量不一致→只能看标记特征
+    - 有明确移动轨迹→移动
+  method_steps:
+  - 确认每个图的提示图形数量固定(如都是2个)
+  - 观察两个提示图形的关系:相离/相交于点/相交于边;或连线垂直/平行
+  - 分类题按关系分组,连续题按规律推下一项
+  error_signatures:
+  - code: only_shape_relation
+    description: 只停留在'连线是否穿过图形',没结合内部线条看平行/垂直
+  - code: point_edge_confuse
+    description: 混淆'相交于点'与'相交于边'(这是高频分组标准)
+  - code: black_white_fallback
+    description: 误以为黑白运算(正确率仅50-58%)
+  fix_action: 做5道两个提示图形位置关系题,限时40秒/题,固定'先排除黑白运算/移动'的流程
+  time_budget_sec: 40
+  accuracy_rule: 80%以上
+  pitfall: 两个提示图形之间没有明显位置关系时,改看它们各自所在图形的特征(边的长短/角的大小),不要只盯相对位置
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律(相对位置)
+  - 数量规律-点(相交于点/边)
+  knowledge_nodes:
+  - 行测/判断推理/特殊规律-功能元素
+  - 行测/判断推理/数量规律-点
+- id: mc_graph_jue15_single_marker
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/有提示图形
+  title: 有提示图形-单个提示图形看标记特征
+  recognition: 每个图只有一个提示图形(黑点/圆圈/字母/半圆),看它标记的位置特征。占提示图形考法的50%,是最主要的考法。口诀:单个提示图形看所在位置特征。
+  applicability:
+    include:
+    - 单个提示图形:看标记在线上还是交点上
+    - 看标记的边是长边/短边,标记的角是锐角/钝角(大角/小角)
+    - 看标记图形的曲直性、标记第几个折点(递增规律)
+    exclude:
+    - 两个提示图形→看位置关系
+    - 提示图形数量递增→数数量
+  method_steps:
+  - 确定只有一个提示图形,先看标记对象(线/交点/角/边)
+  - 观察该位置特征:交点→直线交还是直曲交;角→锐角/钝角;边→长/短;折线→第几个折点
+  - 按特征分类分组(分类题)或找递增规律(如标记第1、2、3...折点)
+  error_signatures:
+  - code: line_vs_point
+    description: 分不清标记在'线上'还是'交点上'(国考反复考的分类标准)
+  - code: ignored_attribute
+    description: 只盯提示图形位置(上下左右),不看标记对象本身的属性(曲直/长短)
+  - code: count_misuse
+    description: 提示图形数量不一致(有1个有3个)仍去数数量
+  fix_action: 做5道单个提示图形标记特征题,限时40秒/题,每题明确回答'标记在哪、标记对象什么特征'
+  time_budget_sec: 40
+  accuracy_rule: 90%以上(标记特征是送分点,正确率90%+)
+  pitfall: 标记特征的高频三套路:标记在线上vs交点上、标记长边vs短边、标记锐角vs钝角,锁定这三类即可秒杀
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-点(交点)
+  - 属性规律-曲直
+  - 属性规律-开闭
+  knowledge_nodes:
+  - 行测/判断推理/特殊规律-功能元素
+- id: mc_graph_jue16_same_contour
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/四个图形
+  title: 四个图形-子图形轮廓全同旋转交替
+  recognition: 每个图形由固定几个子图形组成且轮廓完全相同,优先想旋转和样式交替。口诀:若均有四个图形,全同旋转和交替。
+  applicability:
+    include:
+    - 子图形轮廓全同→整体旋转(顺时针/逆时针90°或右转一格)
+    - 内部填充样式(黑/白/阴影)在固定位置交替出现
+    - 颜色变化可能单独考或与旋转结合考
+    exclude:
+    - 子图形轮廓不相同→非全同旋转
+    - 单图内有重复子图形→看位置关系
+  method_steps:
+  - 确认所有子图形轮廓完全一致
+  - 看子图形整体旋转方向(顺时针/逆时针90°/右转一格)
+  - 单独看黑色/阴影块的交替位置,两个规律结合排选项
+  error_signatures:
+  - code: miss_style_alternate
+    description: 只看旋转漏了样式交替(黑块位置变化),正确率仅70%
+  - code: wrong_direction
+    description: 旋转方向判断错(顺时针/逆时针)
+  fix_action: 做4道轮廓全同旋转交替题,限时35秒/题
+  time_budget_sec: 35
+  accuracy_rule: 95%以上(送分题,应100%正确)
+  pitfall: 口诀'全同旋转和交替,验种类数莫忘记':轮廓全同时旋转+样式交替一起看,别漏黑白的交替位置
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律-旋转
+  - 样式规律-遍历/交替
+  knowledge_nodes:
+  - 行测/判断推理/位置规律-旋转
+  - 行测/判断推理/样式规律-遍历
+- id: mc_graph_jue16_duplicate_pos
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/四个图形
+  title: 四个图形-有相同子图形看位置
+  recognition: 每个图形内部有重复子图形(如两个相同),看相同子图形的位置排列关系。口诀:有相同图看位置。该考点2016-2026年反复出现。
+  applicability:
+    include:
+    - 单图有相同子图形:相同子图形斜向排列 vs 横向/相邻排列
+    - 相同子图形相邻 vs 不相邻(分组标准)
+    - 邻图有相同子图形:相邻图形之间存在相同元素
+    exclude:
+    - 子图形全部不同→无此特征
+    - 轮廓全同→旋转交替
+  method_steps:
+  - 先确认每个图都有'两个相同子图形'(不满足此特征则此解法不适用)
+  - 单图内:看相同子图形斜向/横向/对角/相邻排列
+  - 邻图关系:验证相邻图形有且仅1个相同元素,且规律贯穿所有图形
+  error_signatures:
+  - code: feature_not_universal
+    description: 没确认所有图形都满足'有两个相同子图形'就用此解法
+  - code: local_match
+    description: 邻图相同元素只在部分图形成立,没验证贯穿全部(正确率仅45%)
+  - code: wrong_arrangement
+    description: 斜向/横向排列判断错误(正确率60%)
+  fix_action: 做4道有相同子图形位置题,限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 90%以上(此类正确率可达92%,必拿分)
+  pitfall: '''邻图有相同子图形''题须验证规律贯穿所有图形;若有断点,可能是''交换相邻两图''的变形题'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素(种类数)
+  - 位置规律(元素排列)
+  knowledge_nodes:
+  - 行测/判断推理/位置规律-综合
+  - 行测/判断推理/特殊规律-图形间关系
+- id: mc_graph_jue16_kind_count
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/四个图形
+  title: 四个图形-子图无规律数种类
+  recognition: 每个图的子图形各不相同、邻图之间也无相同图形,开始数种类数。口诀:无规律图看特征。
+  applicability:
+    include:
+    - 单图无重复、邻图无相同→数种类数
+    - 种类数相同无法筛选→看曲直性(3直1曲)和开放封闭
+    - 特殊低频考法:全图子图形完全不重复(天津)
+    exclude:
+    - 有重复子图形→位置关系
+    - 轮廓全同→旋转交替
+  method_steps:
+  - 判断:单图无重复、邻图无相同
+  - 统计每个图形中子图形的种类数(如'1123'=3类),匹配选项
+  - 种类数无效→看曲直性(3直1曲)与开放封闭(4封闭5开放)
+  error_signatures:
+  - code: skip_kind_count
+    description: 跳过分种类数直接找复杂规律
+  - code: kind_same_not_differentiate
+    description: 种类数都一样,不会细化到曲直性/开放封闭(60%正确率的题)
+  fix_action: 做4道种类数题,限时35秒/题,按'种类数→曲直→开放封闭'顺序验证
+  time_budget_sec: 35
+  accuracy_rule: 85%以上
+  pitfall: 高频验证顺序:种类数>曲直性>开放封闭(笔画数目前未考过),按此顺序依次验证
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素(种类数)
+  - 属性规律-曲直
+  - 属性规律-开闭
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+  - 行测/判断推理/属性规律-曲直性
+  - 行测/判断推理/属性规律-开闭性
+- id: mc_graph_jue17_symmetry_edge
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/阴影
+  title: 阴影-先验对称与边数
+  recognition: 封闭多边形内有一个独立黑色区域(阴影),绝大多数只有一个阴影块,先验对称和边数。口诀:先验边与对称性。对称类占阴影考点的约10%。
+  applicability:
+    include:
+    - 阴影多边形边数递增(三角→四边→五边→六边)
+    - 阴影对称性(轴对称/中心对称)、对称轴方向旋转45°
+    - 无格子阴影优先看对称轴
+    exclude:
+    - 多个交替黑白块+轮廓相同→黑白运算
+    - 外框规则、面积可量化→面积题
+  method_steps:
+  - 先验对称(轴对称/中心对称)
+  - 不对称时数阴影边数(3/4/5/6递增或4/5交替)
+  - 对称时看对称轴方向(竖→斜→横循环)或对称轴数量
+  error_signatures:
+  - code: overthink
+    description: 忽视简单考点(边数/对称)过度想复杂规律
+  - code: symmetry_axis_direction
+    description: 没发现对称轴方向旋转规律(65%考生漏掉)
+  - code: edge_alternate_stuck
+    description: 边数4/5交替时仍硬找边数规律,应转其他特征
+  fix_action: 做5道阴影对称/边数题,限时35秒/题,固定'对称→边数'验证顺序
+  time_budget_sec: 35
+  accuracy_rule: 90%以上(对称轴方向旋转是送分题,同类题10秒内完成)
+  pitfall: '''对称加一转,方向要看清''指的是对称轴方向的旋转(竖→斜→横),不是图形整体旋转'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称
+  - 数量规律-线(边数)
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+  - 行测/判断推理/数量规律-线
+- id: mc_graph_jue17_intersection
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/阴影
+  title: 阴影-与外框/白块相交关系
+  recognition: 阴影对称/边数都无规律时,看阴影与外框、与相邻白块的相交关系。占阴影考点的50%以上,是近年国考/省考高频。口诀:再查外框/白块相交。
+  applicability:
+    include:
+    - 阴影与外框相交边数(1边/2边分组)或相交位置(下→右→上→左循环)
+    - 阴影与白块相交数量(固定3个/4个,或三一分布/二二分布)
+    - 分类分组题且结构完全相同时排除面积
+    exclude:
+    - 外框规则可算面积→面积题
+    - 阴影可对称、边数有规律→先看对称边数
+  method_steps:
+  - 排除对称、边数规律后,看阴影与外框相交:相交几条边/相交位置
+  - 再看阴影与相邻白块的相交数量(交3个还是4个)
+  - 按相交边数或'三一分布/二二分布'分类分组
+  error_signatures:
+  - code: forget_intersection
+    description: 只知道对称边数,不知道看相交关系(75%考生不会)
+  - code: miss_distribution
+    description: 没区分三一分布(3+1)与二二分布(2+2)
+  - code: repeat_edge
+    description: 没注意'相交于不同边'与重复相交同一边的区别(2026国考分组依据)
+  fix_action: 做6道阴影相交关系题,限时45秒/题,按'外框→交点→内部分布'三级验证
+  time_budget_sec: 45
+  accuracy_rule: 80%以上(相交关系题正确率68-75%)
+  pitfall: 近年国考偏好'阴影与白块相交数量/相交边'分组;三一分布常做干扰项,二二分布为正解
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-线(相交边数)
+  - 数量规律-面(白块数)
+  - 数量规律-点(交点)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-点
+  - 行测/判断推理/数量规律-面
+- id: mc_graph_jue17_area
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/阴影
+  title: 阴影-面积比例计算
+  recognition: 外框规则(正方形/正多边形/圆/三角形)且阴影占比可量化,算面积。口诀:有格算面积。正多边形阴影占比:六边形1/6、五边形1/5、四边形1/4。
+  applicability:
+    include:
+    - 规则外框+阴影占比固定(1/2、1/4、1/6、1/5)
+    - 显性网格(明确画出格子)→数格子/割补法算面积
+    - 图形均为完整格子且面积无规律→改数周长(2022联考,单一连通块适用)
+    exclude:
+    - 外框不规则、面积无法量化→相交/特征考点
+    - 无网格不规则阴影→部分数/特征
+  method_steps:
+  - 识别规则外框,判断是否面积考点
+  - 计算阴影占比:三角形用底×高÷2;圆形用半径关系(半径减半面积1/4);格子图用割补/移补法
+  - 与选项比例匹配;多个选项同比例时看阴影区域数量递增(1→2→3)
+  error_signatures:
+  - code: wrong_unit
+    description: 忽略半格三角形(0.5格)与4.5格直角三角形等特殊值
+  - code: same_area_diff_shape
+    description: 没发现面积相同但阴影分布不同的干扰项
+  - code: grid_vs_blackwhite
+    description: 带斜线阴影误判为黑白格题(黑白格均为正方形且无斜线)
+  fix_action: 做6道阴影面积题,限时40秒/题,三角形割补法形成肌肉记忆
+  time_budget_sec: 40
+  accuracy_rule: 85%以上(面积题正确率71-88%,方法固定)
+  pitfall: '''见格子→算面积''要建立条件反射;但占比计算含割补/移补移动,不能逐格硬数'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-面(面积占比)
+  - 数量规律-线(周长)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-面
+- id: mc_graph_jue17_no_grid
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/阴影
+  title: 阴影-无格子阴影部分数与黑白运算
+  recognition: 无边框无规则外框的阴影(墨点状/碎片化),优先数部分数;九宫格/两组图无格子阴影则验证黑白运算。口诀:无格看特征。
+  applicability:
+    include:
+    - 无相同元素的不规则阴影→数黑色/白色部分数(封闭区域数),阴影类90%考部分数
+    - 九宫格/两组图无格子阴影→黑白运算(黑+黑=白等)
+    - 隐形格子(网格存在但未画出)→看方块位置(中间/边缘)
+    exclude:
+    - 有规则外框可算面积→面积题
+    - 外框不同→排除黑白运算(黑白运算需轮廓相同)
+  method_steps:
+  - 无格子阴影先数部分数:黑色部分数、白色部分数分开数(如黑色1-2-3递增)
+  - 一色部分数无规律立即切换看另一色
+  - 九宫格无格子阴影→验证黑白运算横看,横看被破坏试竖看
+  error_signatures:
+  - code: one_color_only
+    description: 只数黑色部分数,漏数白色部分数(规律常藏在白色)
+  - code: confound_area_part
+    description: 部分数与面积混淆(部分数是区域个数,不是大小)
+  - code: blackwhite_direction
+    description: 黑白运算默认横看,没试竖看(国考陷阱,正确率仅30%)
+  fix_action: 做4道无格子阴影题,限时45秒/题,黑白部分数分别统计
+  time_budget_sec: 45
+  accuracy_rule: 85%以上(部分数正确率90%的题应30秒内完成)
+  pitfall: 黑白部分数要分开统计,一组不成立立即切换;阴影+黑白的题目优先验证'黑+黑=黑'等基础规则
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-面(部分数/封闭区域)
+  - 样式规律-叠加(黑白运算)
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+  - 行测/判断推理/样式规律-黑白运算
+- id: mc_hanzi_mianshu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/汉字
+  title: 汉字-面数量（口月日田）
+  recognition: 看到汉字题、题干出现口/月/日/田等封闭部件时优先数封闭区域——这是汉字题最大考点,占35%,70%以上汉字题可快速解决
+  applicability:
+    include:
+    - 含口/月/日/田/目等可明确区分1/2/3/4个面的部件
+    - 面数呈等差/递增/分组/相邻相加规律(0+2=2、2+2=4)
+    - 文字+抽象图形混合题(封闭区域特征两域通用)
+    exclude:
+    - 全部汉字都0个面且无控制部件时
+    - 立体图形混合时(立体图无法按平面数面)
+    - 选项面数无差异时
+  method_steps:
+  - 数每个字图形实际封闭区域数:口=1、月=2、日=3、田=4;月旁无封闭不算面
+  - 写出面数序列,查等差/递增/分组/相邻相加规律(如0+2=2、2+2=4、4+6=10)
+  - 用选项面数反选,复杂字逐个清点,不按汉字书写习惯而按图形实际闭合判
+  error_signatures:
+  - code: count_by_writing_habit
+    description: 按汉字书写习惯而非图形实际闭合判断,把月/目旁等不封闭区域算成面
+  - code: skip_sequence_rule
+    description: 只数单个字面数,漏看序列规律(如相邻相加0+2=2)
+  - code: hasty_count
+    description: 复杂字面数数漏,未逐格清点就下结论
+  fix_action: 做20道汉字面数量真题,限时35秒/题,重点练口/月/目/贝/日部件的图形实际封闭清点
+  time_budget_sec: 35
+  accuracy_rule: 90%以上(笔记称95%正确率的送分题)
+  pitfall: 面数量以图形实际闭合为准、不按汉字书写习惯:'月'旁无封闭不算面——这是高频丢分点
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-面（封闭区域计数）
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-面
+  - 行测/判断推理/文字/字母/数字类
+- id: mc_hanzi_zigraph
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/汉字
+  title: 汉字-相同子图形（共同部件）
+  recognition: 多个汉字反复出现相同偏旁/部件(日/口/心/贝/乂/立)或'撇、横竖'等简单笔画时,考虑共同子图形——占比25%,考官称'最有技术含量'
+  applicability:
+    include:
+    - 汉字含重复部件且结构复杂(日/口/心/贝/乂易识别)
+    - 问号在中间提示递增数列(如撇数3-?-5)
+    - 汉字与几何图形混合、所有图形含同一四边形结构
+    exclude:
+    - 选项都含同一部件时(如四选项全含'木'是干扰项)
+    - 部件特征在选项间无法区分时
+  method_steps:
+  - 先排除面数、笔画数(常无规律)
+  - 找题干所有图形共有的子图形部件:撇/横竖需计数(一撇两撇三撇递增),复杂结构看有无
+  - 选项选唯一含该部件或数量递增匹配的那项
+  - 若多项符合,结合结构/笔画二次筛选
+  error_signatures:
+  - code: count_only_existence
+    description: 对撇/横竖只看有无不看数量递增,导致多个选项符合
+  - code: fake_common_part
+    description: 被所有选项都有的'木'类干扰部件迷惑,以为找到了规律
+  - code: partial_misjudge
+    description: 把相似笔画误当完整部件(如'背'字部件识别错)
+  fix_action: 做15道汉字相同子图形真题,限时45秒/题,练'撇/横竖计数递增+复杂部件有无'双识别
+  time_budget_sec: 45
+  accuracy_rule: 85%以上
+  pitfall: 简单结构(撇/横竖)考的是数量递增(1横→2横→3横)而非'有没有';复杂结构(日/口/心/贝)才看有无
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-加减同异（共同子元素识别）
+  - 数量规律-素（重复部件计数）
+  knowledge_nodes:
+  - 行测/判断推理/样式规律-加减同异
+  - 行测/判断推理/数量规律-素
+- id: mc_hanzi_bihua
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/汉字
+  title: 汉字-笔画数
+  recognition: 汉字笔画较少(8画以内)且面数/子图形无规律时数笔画,按标准书写笔画计数(十=2笔、千=3笔)——占15%
+  applicability:
+    include:
+    - 笔画数≤8的汉字序列(如3-5-7-9奇数等差)
+    - 文字+符号混合题(按图形笔画计,XY=4画)
+    - 结构筛选后需二次确认(同为5画按包围结构区分)
+    exclude:
+    - 笔画过多(>8画)的字
+    - 汉字与立体图形混合(立体图无法数笔画)
+    - 已有明显面数/子图形规律时
+  method_steps:
+  - 排除面数(0-0-0无规律)和子图形(无共同部件)
+  - 按书写笔画逐字数笔画,写序列找等差/恒定/递增规律
+  - 笔画数>8画可直接放弃此考点
+  - 多选项同笔画时用结构(如包围结构)二次筛选
+  error_signatures:
+  - code: miscount_component
+    description: 易错部件误判:女字旁=3画、'转'=7画、'孑'=3画非2画
+  - code: ignore_mixed_stroke
+    description: 文字+抽象图形混合题里抽象图形的笔画没计入(如XY=4画)
+  - code: wrong_cutoff
+    description: 8画以上的字还在死磕笔画数浪费时间
+  fix_action: 做15道汉字笔画数真题,限时45秒/题,背熟女字旁/四点底等固定笔画部件
+  time_budget_sec: 45
+  accuracy_rule: 80%以上
+  pitfall: 笔画数与部分数易混:'冰'=2部分但6笔画、'八'=2笔但1部分——先确认考哪个再数
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-线（笔画计数）
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+- id: mc_hanzi_bufen
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/汉字
+  title: 汉字-部分数（不相连独立区域）
+  recognition: 汉字含三点水/四点底/三撇/心字底等固定部件或部件明显分离时,数不相连的独立部分数(只按连接关系,不看书写顺序)
+  applicability:
+    include:
+    - 含氵(3部分)/灬(4部分)/彡(3部分)等可控部件的字
+    - 部分数递增/递减序列(5→4→3→2→1)
+    - 特定部件提示优先验证部分数可节省其他验证时间
+    exclude:
+    - 字全连通(如'山')部分数恒为1时
+    - 有明显面数/笔画规律时
+  method_steps:
+  - 看到氵/灬/彡/心字底等部件优先数部分数
+  - 只按连接关系计数:不相连独立笔画团各算1部分('行'=2部分彳+亍,'虚'=3部分)
+  - 写序列找递增/递减规律
+  - 未连接的单点也计为1部分
+  error_signatures:
+  - code: confuse_stroke_part
+    description: 部分数与笔画数混淆,把'将'=4部分误按笔画数算
+  - code: miss_isolated_point
+    description: 未连接的单点漏计为独立部分
+  - code: biased_by_big_stroke
+    description: 被笔画数值过大干扰而放弃部分数规律
+  fix_action: 做12道汉字部分数真题,限时40秒/题,背熟三点水/四点底/三撇=3/4/3部分
+  time_budget_sec: 40
+  accuracy_rule: 80%以上
+  pitfall: 部分数只看'连接关系'不看书写顺序:三点水=3部分、两点水=2部分、四点底=4部分
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素（部分/连通域计数）
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+  - 行测/判断推理/文字/字母/数字类
+- id: mc_hanzi_jiegou
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/汉字
+  title: 汉字-结构（上下/左右/包围）
+  recognition: 题干出现多个包围结构字(国/凶)或结构交替(上下→左右→上下→左右)时,考虑汉字结构考点——占5%低频但识别即秒杀
+  applicability:
+    include:
+    - 结构交替规律(上下/左右交替)
+    - 多个字同为包围结构(三包围/全包围)
+    - 结构+笔画二次筛选(同为5画按包围结构区分)
+    exclude:
+    - 所有字结构相同无差异时
+    - 有明显面数/子图形规律时
+  method_steps:
+  - 排除笔画数(过多)和面数(无规律)
+  - 判断每字结构:上下/左右/半包围/全包围,以图形实际为准而非汉字常识
+  - 查交替/恒定规律
+  - 多选项同结构时结合笔画特征(如撇的有无)二次筛选
+  error_signatures:
+  - code: classify_by_common_sense
+    description: 按汉字常识而非图形实际判结构('闪'误判为三包围)
+  - code: miss_alternation
+    description: 没看出上下/左右交替规律
+  - code: miss_special_structure
+    description: 忽略三包围/上中下等非常规结构
+  fix_action: 做10道汉字结构真题,限时35秒/题,练'交替规律+结构笔画双筛选'
+  time_budget_sec: 35
+  accuracy_rule: 75%以上(该考点70%正确率,需练结构敏感度)
+  pitfall: 结构分类以图形实际排布为准,不按汉字常识;遇到特殊结构(三包围、上中下)要单独标注
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-结构（上下/左右/半包围/全包围部件排布）
+  - 位置规律（部件间静态相对位置）
+  knowledge_nodes:
+  - 行测/判断推理/文字/字母/数字类
+- id: mc_hanzi_kaibi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/汉字
+  title: 汉字-开闭性与低频特征（文字图形混合）
+  recognition: 六步口诀'数面子图笔画数,部分结构开闭性'走完后仍无解,且文字+图形混合时看两者共有的开闭特征(开放字'山' vs 封闭字'日')
+  applicability:
+    include:
+    - 文字+图形混合题(开闭性是交集特征)
+    - 开放/封闭交替序列或分类分组
+    - 开放字=0面、封闭字≥1面,与面数量结果可交叉验证
+    exclude:
+    - 全封闭或全开放、无法分组时
+    - 已有明显面数/子图形规律时
+  method_steps:
+  - 按顺序验证面数→子图→笔画→部分→结构后仍无效
+  - 判断每个字开闭:有完整封闭区域=封闭('日'),笔画未闭合=开放('山')
+  - 文字+图形混合时锁定两者共有的开闭特征分类
+  - 最后查低频考点:曲直性(全直线字vs含撇捺曲线)、横线数量(九宫格出现'一'字提示横线规律)、对称性(中/日/田)、拼音/脑洞(仅个别真题,可跳过)
+  error_signatures:
+  - code: confusing_open_with_zero_face
+    description: 把开放字=0面与开闭性考点当成两条矛盾路径,没做交叉验证
+  - code: moon_part_misjudge
+    description: '''月''旁开放、''目''旁封闭属性判断错'
+  - code: give_up_midway
+    description: 前几个特征无效就放弃继续验证,没走完六步口诀
+  fix_action: 做10道文字/图形混合开闭性真题,限时40秒/题,强化'开放=0面交叉验证+六步口诀顺序'
+  time_budget_sec: 40
+  accuracy_rule: 75%以上
+  pitfall: 开闭性与面数量是'双视角同一答案':文字+图形混合题优先用开闭性快速分类,与面数交叉验证
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-开闭（开放/封闭分类）
+  - 属性规律-曲直（全直线/含曲线）
+  - 数量规律-线（横竖线数量）
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-开闭性
+  - 行测/判断推理/属性规律-曲直性
+  - 行测/判断推理/文字/字母/数字类
+- id: mc_bw_duicheng_bufen
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/标准黑白球黑白格
+  title: 标准黑白球格-对称与部分数（先验两步）
+  recognition: 3×3/4×4/5×5填满格子的黑白球格图形,先做两步快验:黑白分开看对称轴、黑白分开数连通部分数(含一笔画),共解约27%题目
+  applicability:
+    include:
+    - 图形整体有明显对称结构(斜对称/竖对称/中心对称)
+    - 黑白区域明显分隔,部分数递增(白1→2→3→4→5)
+    - 单一连通黑白区域可考一笔画(奇点0或2)
+    exclude:
+    - 图形杂乱无对称且部分数超3个
+    - 已经能直接看出数量或平移规律时
+  method_steps:
+  - 对称性:黑白球/格分开各看对称轴,记对称类型(轴/中心)与轴方向(横/竖/斜),查45°旋转规律(斜左→水平→斜右→垂直)
+  - 部分数:黑白分开数不相连连通区域数(斜向连接是否算同一部分按出题规则),查递增/恒定规律
+  - 存在单一连通黑白区域时验证一笔画(全连通+能一笔不重复画完)
+  - 前两步无效再转数球/黑白运算/平移
+  error_signatures:
+  - code: no_separate_axis
+    description: 黑白混在一起看对称轴,漏掉黑白各自不同的对称性(占12%)
+  - code: slant_connect_miscount
+    description: 斜向连接该算同一部分却分开数或反之,部分数数错
+  - code: skip_order
+    description: 跳过对称直接数球浪费时间,或对称无效不转部分数
+  fix_action: 做20道标准黑白格对称/部分数真题,限时30秒/题,练'黑白分开看对称轴+斜向连接判断'
+  time_budget_sec: 30
+  accuracy_rule: 85%以上
+  pitfall: 对称轴方向(斜→水平→斜→垂直45°旋转)和黑白两部分的对称性都需单独验证;一笔画对斜向连接的处理规则与部分数不同
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称（黑白分别验证）
+  - 数量规律-素（部分/连通域计数）
+  - 数量规律-线（一笔画，奇点0或2）
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+  - 行测/判断推理/数量规律-素
+  - 行测/判断推理/黑白块类
+- id: mc_bw_yunsuan
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/标准黑白球黑白格
+  title: 标准黑白球格-黑白运算（叠加加减同异）
+  recognition: 九宫格或两图对比型、黑球/格数量不一致(排除平移)且对称/部分数无效时,考黑白叠加运算(黑+黑=白、白+白=白等)——占17%
+  applicability:
+    include:
+    - 九宫格(黑白运算最高频场景)
+    - 两幅图对比叠加型
+    - 数量差异明显(如黑球3、3、4无法加和)
+    exclude:
+    - 各图球总数一致(那是平移信号)
+    - 单组图形(非两图/九宫格)不适用
+  method_steps:
+  - 确认球数量不一致→排除平移/旋转
+  - 选两处相同位置验证运算规则是否一致:优先横看(横看80%正确率>竖看40%)
+  - 从选项差异部位入手(如右下角黑+黑=白先排除BD,再左上角白+白=白排除A)
+  - 九宫格验证3-4组确保一致;横看与竖看矛盾立即换方向
+  error_signatures:
+  - code: vertical_trap
+    description: 九宫格存在竖看规律干扰时正确率骤降40%,没试竖看方向
+  - code: verify_once_only
+    description: 只验证一处运算就下结论,被选项差异部位误导
+  - code: force_pingyi
+    description: 数量不一致仍硬套平移思路
+  fix_action: 做20道黑白运算真题,限时40秒/题(熟练者20秒),练'差异位置优先+横看优先+方向切换'
+  time_budget_sec: 40
+  accuracy_rule: 100%(笔记:掌握后应100%正确,事业单位/省考高频)
+  pitfall: 数量变化是判断黑白运算的金标准:球数不一致=必非平移/旋转;九宫格必须横看+竖看双方向验证
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-加减同异（黑白叠加运算）
+  knowledge_nodes:
+  - 行测/判断推理/样式规律-黑白运算
+  - 行测/判断推理/黑白块类
+- id: mc_bw_shuqiu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/标准黑白球黑白格
+  title: 标准黑白球格-数球数量（行列标注法）
+  recognition: 对称/部分数排除后,各图黑球总数呈递增/分组/数字替换规律(9→10→11→12→13),用行列标注法快速数黑格——占11%
+  applicability:
+    include:
+    - 黑格总数递增或分组恒定
+    - 数字串循环替换(二一二一二)
+    - 九宫格总数恒定但分布不同
+    exclude:
+    - 各图球数一致(那是平移信号)
+    - 图形有明显对称结构时
+  method_steps:
+  - 先排除对称(图形杂乱)和部分数(超过3部分)
+  - 用分组标注法逐行/逐列标数(如'3|2|3|1|0'),逐图累计总黑格
+  - 写总数序列找递增/分组/替换规律(9→13)
+  - 选项反向验算,优先验'看起来多'的选项;个位数加减练到条件反射
+  error_signatures:
+  - code: recount_error
+    description: 未系统标注导致重复/漏数,加法失误(67%错误率主因)
+  - code: wrong_gold_rule
+    description: 数量不同仍按平移思考,方向判断错
+  - code: skip_counting
+    description: 嫌数球麻烦直接猜
+  fix_action: 做15道数球真题,限时30秒/题,练'行列分组标注+个位数加法条件反射'
+  time_budget_sec: 30
+  accuracy_rule: 90%以上
+  pitfall: 数球要系统标注(行/列分组)避免重复计数;先判数量相同/不同再决定考平移还是数球
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素（黑/白球数量计数）
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+  - 行测/判断推理/黑白块类
+- id: mc_bw_pingyi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/标准黑白球黑白格
+  title: 标准黑白球格-平移（行列内外圈）
+  recognition: 各图黑白球总数相同(占40%)→考平移;3×3且黑球≤3用'位置不变是换球,少一个球是重叠';大格子内外圈分开看
+  applicability:
+    include:
+    - 各图球数完全一致
+    - 3×3格子黑球≤3(逐个对应追踪轨迹)
+    - 4×4及以上(内外圈分层:内圈恒定黑块旋转+外圈分组追踪)
+    - 每行/列球数相同(整行/列移动,穿透循环)
+    exclude:
+    - 球数不一致(是运算/数球信号)
+    - 图形轮廓不一致(排除移动考点)
+  method_steps:
+  - 确认球总数一致→考平移
+  - 3×3黑球≤3:给球编号逐个对应追踪移动轨迹(固定步数平移/换球/重叠)
+  - 大格子:内圈外圈分开验证(内圈黑块数恒定→规律旋转,外圈以2-3黑块为一组追踪)
+  - 每行/列球数相同:左侧标注每行球数('一二二二一'→'二二二一一'=首行移末行),逐行/列观察移动方向和穿透循环
+  error_signatures:
+  - code: no_inner_outer
+    description: 没验证内外圈独立运动,简单题正确率从90%掉到58%
+  - code: overall_confusion
+    description: 整体观察不看行列,漏掉整行/整列移动规律
+  - code: miss_cycle
+    description: 穿透/循环移动时移出界的球没算'从另一端出现'
+  fix_action: 做20道标准黑白格平移真题,限时45秒/题,练'内外圈分层+行列标数法'
+  time_budget_sec: 45
+  accuracy_rule: 85%以上
+  pitfall: '''位置不变是换球,少一个球是重叠'':球数突然减少必存在重叠;移出边界按穿透规则从另一端出现'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律-平移（行列移动/内外圈分层/穿透循环）
+  knowledge_nodes:
+  - 行测/判断推理/位置规律-平移
+  - 行测/判断推理/黑白块类
+- id: mc_bw_fuhepingyi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/标准黑白球黑白格
+  title: 标准黑白球格-复合平移（双维/序列位移）
+  recognition: 简单平移验证不完整、行列数量不完全对应(占5%),或横向+竖向两次移动复合时,用数字序列建模(数字串首尾位移)
+  applicability:
+    include:
+    - 横向验证失败立即转纵向(双重移动:先横后竖)
+    - 数字串首尾位移('12221'→'22211')
+    - 每行列数量不对应但数字串呈循环(3-2-1-2-3)
+    exclude:
+    - 图形移动明显可直接追踪时
+    - 球数量不一致时
+  method_steps:
+  - 记录每行/列球数数字串(如2-2-3-1-2),先看数字规律(末位移首位/循环)
+  - 横向验证不完整立即转纵向,注意数字轮换特征(一二二三→四一二二)
+  - 结合图形追踪确认(第二列黑球下移2格等路径)
+  - 数字规律+单行验证双重确认后选
+  error_signatures:
+  - code: stop_first_dimension
+    description: 单一方向验证失败就放弃,忽略第二次移动
+  - code: force_perfect_match
+    description: 强求行列完全对应,不懂首尾循环位移(正确率仅35%)
+  - code: skip_number_model
+    description: 没把图形转成数字序列建模,纯目测
+  fix_action: 做10道复合平移真题(辽宁/云南/浙江/江苏联考),限时60秒/题,练'数字序列+双维验证'
+  time_budget_sec: 60
+  accuracy_rule: 60%以上(该题型仅5%,做对即赚)
+  pitfall: 行列数字完全相同时(3-2-1-2-3)仍需验证具体移动方式,不能只看数字序列
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律-平移（行列双向复合/序列循环位移）
+  knowledge_nodes:
+  - 行测/判断推理/位置规律-平移
+  - 行测/判断推理/黑白块类
+- id: mc_fstd_lucheng_duicheng
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/非标准黑白球黑白格
+  title: 非标准黑白球格-流程与对称（黑白分开看轴）
+  recognition: 六边形格/空缺格/未填满等非标准黑白球格,解题流程与标准一致:先验对称→部分数→数球→平移或运算;对称是首要原则
+  applicability:
+    include:
+    - 六边形格、空缺格、特殊花纹格子等非标准排布
+    - 对称轴方向变化(横→斜→竖→斜45°旋转)
+    - 未填满图形仍先验对称
+    exclude:
+    - 图形明显不对称且部分数>3时(直接数球/运算)
+    - 数量差异巨大的两图/九宫格(直接黑白运算)
+  method_steps:
+  - 沿用标准黑白格同一套流程:先验对称,黑白分开看对称轴,记方向变化规律
+  - 排除中心对称干扰项(选项B中心对称但要的是轴对称)
+  - 黑白部分数分开同时数(黑1白3→黑1白2→黑1白1递减)
+  - 无效转数球数量/黑白运算/平移
+  error_signatures:
+  - code: skip_basic_nonstandard
+    description: 图形非标准就跳过对称/部分数基础考点
+  - code: center_vs_axis
+    description: 忽略中心对称与轴对称的区分
+  - code: no_separate_color
+    description: 黑白对称轴混着看,没分开验证
+  fix_action: 做15道非标准黑白格对称/部分数真题,限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 85%以上(对称+部分数近1/4题,笔记正确率83%偏低)
+  pitfall: 非标准图形更容易让考生忽略对称/部分数基础考点——解题流程与标准黑白格完全一致
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称（黑白分别验证，轴方向45°旋转）
+  - 数量规律-素（部分数）
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+  - 行测/判断推理/数量规律-素
+  - 行测/判断推理/黑白块类
+- id: mc_fstd_yunsuan
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/非标准黑白球黑白格
+  title: 非标准黑白球格-黑白运算与数量分布
+  recognition: 非标准黑白球/格球数量不一致→排除平移,不对称+部分数无效→100%确认黑白运算;或黑白球分布呈五五/四六分组
+  applicability:
+    include:
+    - 球数量变化(如7→6)时(金标准)
+    - 九宫格方向判断(横竖都验证)
+    - 分类分组题看黑白球数量分布(①③④五五分、②⑤⑥四六分)
+    exclude:
+    - 球数一致(平移信号)
+    - 轮廓清晰且非叠加构型的图形
+  method_steps:
+  - 球数量不一致→必非平移/旋转(金标准)
+  - 确认黑白运算:从选项差异部位入手(底部白+黑=白先排除)
+  - 九宫格横看+竖看都验证,白+空出现矛盾即换方向
+  - 分类题数黑白球数量分布分组(五五分/四六分);别被表面黑球数量迷惑
+  error_signatures:
+  - code: miscount_direction
+    description: 九宫格只验横不验竖,方向判断错误(55%正确率)
+  - code: three_black_trap
+    description: 被表面黑球数量误导漏验叠加规则(66%考生误选三黑项)
+  - code: wrong_ratio
+    description: 五五/四六黑白球分布没数出来
+  fix_action: 做12道非标准黑白格运算/数球真题,限时35秒/题(运算理想20秒内)
+  time_budget_sec: 35
+  accuracy_rule: 90%以上(运算类送分题)
+  pitfall: 数量变化是判断黑白运算的金标准;九宫格必须横看+竖看双方向验证,优先从选项差异处下手
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-加减同异（黑白叠加运算）
+  - 数量规律-素（黑白球数量分布）
+  knowledge_nodes:
+  - 行测/判断推理/样式规律-黑白运算
+  - 行测/判断推理/数量规律-素
+  - 行测/判断推理/黑白块类
+- id: mc_fstd_pingyi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/非标准黑白球黑白格
+  title: 非标准黑白球格-平移特殊（编号交替/局部/旋转）
+  recognition: 非标准黑白格球数一致时必考平移,但常规'编号固定平移'可能无解→考虑元素编号交替运动、内外圈分层、局部行列变化、整图旋转
+  applicability:
+    include:
+    - 内圈黑格数量恒为3等一致性提示(极可能内外圈分别运动)
+    - 预设规律无解时元素身份重新定义(奇数位顺转、偶数位逆转)
+    - 相邻图形存在完全相同行列(局部变化规律)
+    exclude:
+    - 球数量不一致时
+    - 图形轮廓不一致时
+  method_steps:
+  - 内圈外圈分开验证(内圈黑块数恒定→整体移动一格,外圈分组追踪),这是第一要务
+  - 简单题也先验内外圈,复杂题能节省大量时间
+  - 编号固定移动无解时试交替运动(奇数位顺时针、偶数位逆时针)
+  - 相邻图形比对找完全相同的行/列→仅部分行列变化,锁定不变部分再验变化部分
+  error_signatures:
+  - code: inner_outer_miss
+    description: 没发现内圈运动规律(63%正确率说明多数考生漏掉)
+  - code: fixed_id_fixation
+    description: 预设编号固定平移无解就放弃,不懂交替运动(50%正确率)
+  - code: partial_change_blind
+    description: 没识别相邻图形完全相同行列(60%正确率)
+  fix_action: 做12道非标准黑白格平移真题,限时50秒/题,练'内外圈分层+交替编号+局部行列'
+  time_budget_sec: 50
+  accuracy_rule: 75%以上
+  pitfall: 非标准格第一要务仍是验证内外圈;预设规律无解时考虑元素编号交替(奇偶方向相反)而非死磕固定平移
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律-平移（内外圈分层/编号交替/局部行列变化）
+  knowledge_nodes:
+  - 行测/判断推理/位置规律-平移
+  - 行测/判断推理/黑白块类
+- id: mc_fstd_yibihua
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/非标准黑白球黑白格
+  title: 非标准黑白球格-一笔画与特殊考法
+  recognition: 黑球全连通、能一笔不重复画完→考一笔画;另有大块分离/相邻、S形旋转、特殊格子图形等非典型考法
+  applicability:
+    include:
+    - 2×n格子任意相邻出头均可一笔画
+    - 3×3格子出头必须在四角(中间出头不行)
+    - 黑白格旋转分类(S形元素、三连图形旋转90°分组)
+    exclude:
+    - 黑球非全连通(多部分)时
+    - 常规平移/运算规律明显时
+  method_steps:
+  - 判断黑球是否全部连通(一部分)且能一笔不重复画完(奇点0或2)
+  - 2×n格子:任意相邻出头可一笔画;3×3格子:出头须在四角,中心出头必不能一笔画
+  - 分类题用'大块分离/相邻'分组(①③④分离、②⑤⑥相邻)
+  - 旋转类找三连图形/大特征图形旋转90°分组
+  error_signatures:
+  - code: center_exit_miss
+    description: 没记住3×3中心出头不能一笔画(正确率仅20%)
+  - code: not_all_connected
+    description: 黑球未全连通仍当一笔画处理
+  - code: block_adjacency_miss
+    description: 大块分离/相邻关系没识别(正确率仅35%)
+  fix_action: 做8道非标准黑白格一笔画真题,限时45秒/题(深圳/广州特色低频考点,了解即可)
+  time_budget_sec: 45
+  accuracy_rule: 60%以上(低频考点)
+  pitfall: 一笔画与部分数对斜向连接规则不同(一笔画按连通计算);3×3格子出头位置有四角限制
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-线（一笔画，奇点判断）
+  - 位置规律-旋转（整图/局部旋转分组）
+  - 数量规律-素（大块分离/相邻）
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-线
+  - 行测/判断推理/黑白块类
+  - 行测/判断推理/位置规律-旋转
+- id: mc_lianxian_wujiaodian
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/连线图形
+  title: 连线图形-无交点（看连线两端与数量）
+  recognition: 图形中有明显连线且线条之间没有交叉点时,考点=①连接图形特征 ②部分数 ③球数量(口诀:连线不相交→看连接图形特征、部分数、球数量)
+  applicability:
+    include:
+    - 连线两端连相同图形(圆+圆)vs不同图形(圆+三角)
+    - 连线连接'两黑一白'vs'两黑'的组合特征
+    - 部分数=黑球数且每部分恰有一个黑球
+    - 数连着的球数(12→13→14递增)
+    exclude:
+    - 连线有交叉点时(转交点考点)
+    - 连线覆盖所有格子的全图覆盖题
+  method_steps:
+  - 确认连线无交点
+  - 看连线两端连接的是什么(相同/不同图形、两黑一白/两黑)
+  - 无效则数部分数(被连线分割的区域)和球数量,查'部分数=黑球数且每部分恰有一黑球'
+  - 还无效就数连着的球数量(递增/恒定)或连线两端元素特征
+  error_signatures:
+  - code: partial_ball_mixup
+    description: 部分数与球数量混淆,没分开数
+  - code: zero_or_two_ball_part
+    description: 某部分0个或2个黑球也当作符合'每部分一个黑球'
+  - code: corner_ball_miss
+    description: 数连着的球时漏掉角落或单独小球
+  fix_action: 做12道无交点连线图形真题,限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: 75%以上
+  pitfall: 当部分数=黑球数时,还必须检查是否每一部分都恰好一个黑球(出现0球/2球部分即排除)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素（球/元素数量、部分数）
+  - 样式规律-加减同异（连接元素异同）
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+  - 行测/判断推理/特殊规律-图形间关系
+- id: mc_lianxian_youjiaodian
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/连线图形
+  title: 连线图形-有交点（看交点位置与移动）
+  recognition: 连线之间存在交叉点时,考点=交点位置特征(交点位于球边上/球之间/圈内/圈外)或交点位置移动轨迹
+  applicability:
+    include:
+    - 分类题按交点位置分组(①④⑤交点球边上、②③⑥交点球中间)
+    - 交点是否在圈内/圈外
+    - 交点沿内圈顺时针移动/沿直线移动(九宫格)
+    exclude:
+    - 连线无交点时
+    - 交点数量相同无法区分时(转全图覆盖)
+  method_steps:
+  - 确认连线有交点
+  - 分类题:看交点落在哪(球边上vs球中间、圈内vs圈外)
+  - 序列题:追踪交点位置移动(内圈顺时针、直线右移一格)
+  - 九宫格:交点按规律移动到指定位置
+  error_signatures:
+  - code: intersection_location_blind
+    description: 只数交点数量不看位置,无法排除选项
+  - code: move_rule_miss
+    description: 交点位置移动规律遗漏(内外圈旋转)
+  - code: circle_inout_miss
+    description: 没区分交点在圈内/圈外
+  fix_action: 做8道有交点连线图形真题,限时45秒/题
+  time_budget_sec: 45
+  accuracy_rule: 70%以上
+  pitfall: 有交点优先看'交点位置'而非数量;交点位置本身可沿内圈/直线规律移动
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-点（交点位置/数量）
+  - 位置规律-平移（交点移动轨迹）
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-点
+  - 行测/判断推理/位置规律-平移
+- id: mc_lianxian_quanfugai
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/连线图形
+  title: 连线图形-全图覆盖（小众考点）
+  recognition: 连线覆盖所有格子/点且线条本身不相交,或交点数量相同无法排除时,考虑'全图覆盖'(仅考过2道)
+  applicability:
+    include:
+    - 所有图形连线且交点数量相同(如4个)无法排除
+    - 九宫格三图合起来所有点都被连线覆盖
+    - 数连线连接的点的数量(4→5→6递增)
+    exclude:
+    - 能通过交点/连线两端特征直接解题时
+  method_steps:
+  - 当常规特征(交点数量相同)无法排除时,检查全图覆盖:连线覆盖所有格子/点且线条不相交
+  - 排除未覆盖全部格子的选项
+  - 结合连线点数(4→5→6递增)和覆盖缺口的选项筛选
+  error_signatures:
+  - code: cover_vs_intersect
+    description: 区分不了'覆盖但相交'与'覆盖且不相交'
+  - code: point_count_miss
+    description: 连线点数数错(4→5→6递增漏数)
+  fix_action: 做4道全图覆盖真题(2019公安部等),限时50秒/题(仅考过2道,了解思路即可)
+  time_budget_sec: 50
+  accuracy_rule: 60%以上(小众考点)
+  pitfall: 全图覆盖需同时满足'覆盖所有格子'和'线条不相交'两个条件
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-加减同异（线型覆盖关系）
+  - 数量规律-点（连线点数）
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-点
+  - 行测/判断推理/特殊规律-图形间关系
+- id: mc_cx_jincheng_duicheng
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/抽象生活图形
+  title: 抽象生活图形-流程与对称优先
+  recognition: 图形抽象且生活化(音乐符号/弹簧/轮船/垃圾桶),按口诀'对称部分面数量,开闭曲直子图形'顺序验证;对称性在抽象图形中占比最高
+  applicability:
+    include:
+    - 任何抽象图形先验对称(占比最高考点)
+    - 组合图形混合考查对称类型(中心对称+轴对称叠加)
+    - 图形整体有明显对称结构
+    exclude:
+    - 一组图中有一个图形不对称(对称规律即排除)
+    - 四个图形都对称时(考官对称陷阱,改验其他规律)
+  method_steps:
+  - 第一优先级验对称:轴对称两侧完全重合/中心对称旋转180°重合(奇数角图形如三角、五角星不中心对称)
+  - 若一组图中有一个不对称→对称排除
+  - 四个图全对称→对称不能作分类依据,转部分数/面数量
+  - 注意'既轴对称又中心对称'的叠加特征(组合图形混合考法)
+  error_signatures:
+  - code: odd_angle_symmetry
+    description: 把三角形/五角星当中心对称(77%正确率说明不熟练)
+  - code: all_symmetry_trap
+    description: 四个图都对称仍硬考对称,该转部分数
+  - code: mixed_symmetry_type
+    description: 分不清仅轴对称/仅中心对称/两者兼有
+  fix_action: 做15道抽象图形对称真题,限时30秒/题,练'奇数角不中心对称+全对称陷阱'
+  time_budget_sec: 30
+  accuracy_rule: 80%以上
+  pitfall: 四个图形都对称时不能考对称(考官陷阱);奇数角图形(三角/五角星)只轴对称、不中心对称
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称（轴/中心/双对称）
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+- id: mc_cx_bufenshu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/抽象生活图形
+  title: 抽象生活图形-部分数（核心考点65%）
+  recognition: 抽象图形中占比65%的核心考点;涂黑区域/笑脸/内外分离的图形优先数独立不连通的组成部分
+  applicability:
+    include:
+    - 涂黑或线条复杂图形(优先部分数)
+    - 笑脸图标类(常见考点)
+    - 内外分离图形(邮件/磁带)
+    - 部分数递增(1→2→3→4→5)或分组(4/7、单部分/多部分)
+    exclude:
+    - 清晰封闭区域居多的图形(考面数量)
+    - 图形全连通恒为1部分时
+  method_steps:
+  - 涂黑/笑脸/内外分离图形优先数部分数(独立不连通区域每块算1部分)
+  - 写部分数序列找递增/分组规律
+  - 与面数量对比验证(面数无规律时果断切部分数)
+  - 秒杀题10-20秒内完成
+  error_signatures:
+  - code: count_only_faces
+    description: 看到封闭区域就数面,忽略部分数考点
+  - code: miss_inner_outer
+    description: 内外分离图形没识别为两部分
+  - code: disconnected_miss
+    description: 涂黑区域间微断开没算独立部分
+  fix_action: 做15道抽象图形部分数真题,限时35秒/题(秒杀类20秒内)
+  time_budget_sec: 35
+  accuracy_rule: 90%以上(送分题,笔记正确率60%需拉高)
+  pitfall: 部分数vs面数量:涂黑/复杂线条图形优先部分数,清晰封闭区域优先面数量;'糖葫芦'算一部分(连通)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-素（部分/连通域计数）
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+- id: mc_cx_mianshu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/抽象生活图形
+  title: 抽象生活图形-面数量
+  recognition: 抽象生活图形对称/部分数无效时,数封闭区域(面)找等差/递增规律;'遇事不决先数面'
+  applicability:
+    include:
+    - 弹簧等封闭区域可数的生活图形(0→1→2→3→4等差)
+    - 笑脸+箭头组合(面数1→2→3→4)
+    - 复合规律第一层(面+曲直性双验证)
+    exclude:
+    - 图形几乎无封闭区域(全0面)
+    - 有明显部分数规律时
+  method_steps:
+  - 按顺序验证对称→部分数后仍无规律
+  - 数每个图形封闭区域(含零面,零面也是有效数据)
+  - 写面数序列找等差/递增/分组规律
+  - 多选项同面数时找第二规律(如曲直性)复合验证
+  error_signatures:
+  - code: skip_verification_order
+    description: 跳过验证步骤直接判断(10%错误率主因)
+  - code: zero_face_ignored
+    description: 零面图形未计入数据
+  - code: multi_option_no_second
+    description: 面数相同多选项时没找第二规律复合验证
+  fix_action: 做12道抽象图形面数量真题,限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 85%以上
+  pitfall: 零面也是有效数据点;单一规律无法选唯一时用'面数量+曲直性'等复合规律
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-面（封闭区域计数）
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-面
+- id: mc_cx_kaibi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/抽象生活图形
+  title: 抽象生活图形-开闭性
+  recognition: 生活物品抽象变形(电灯泡/钥匙/眼镜/梳子)且常规考点失效后,看图形是否封闭/开放分类
+  applicability:
+    include:
+    - 生活图形开闭特征明显(①②⑥封闭、③④⑤开放)
+    - 文字+图形混合(开闭是交集特征)
+    - 开闭差异大的抽象图形(糖葫芦等)
+    exclude:
+    - 全封闭或全开放无法分组时
+    - 有明显对称/部分数规律时
+  method_steps:
+  - 排除对称(4个对称2个不对称不能分类)、面数、部分数
+  - 判断每个图形封闭(所有边界闭合)或开放(存在未闭合边界)
+  - 按开闭分组/交替
+  - 文字混合题用两者共有的开闭特征
+  error_signatures:
+  - code: give_up_after_three
+    description: 前三个常规特征无效就放弃继续验证(64%正确率主因)
+  - code: openness_judge_err
+    description: 边界是否闭合判断错
+  - code: mixed_feature_skip
+    description: 文字+图形混合题没找共有开闭特征
+  fix_action: 做8道抽象图形开闭性真题,限时35秒/题
+  time_budget_sec: 35
+  accuracy_rule: 75%以上
+  pitfall: 常规考点(对称/面/部分数)失效后优先开闭性;刷题形成'图形特征→考点优先级'的直觉
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-开闭（开放/封闭分类）
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-开闭性
+- id: mc_cx_quzhi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/抽象生活图形
+  title: 抽象生活图形-曲直性（数曲线/直线）
+  recognition: 开闭性失效后看曲直;纯曲/纯直/曲直混合交替,或需具体数曲线和直线数量(考官倾向考曲线数量)
+  applicability:
+    include:
+    - 明显曲直差异(垃圾桶/菠萝等)
+    - 纯曲-纯直-曲直交替规律
+    - 曲线数递增(1→2→3→4)
+    - 面+曲直复合验证
+    exclude:
+    - 所有图形都曲直混合且选项无法直接排除时(需数数)
+    - 有明显部分数规律时
+  method_steps:
+  - 抽象图形直接看曲直性:纯曲/纯直/曲直混合分类或交替
+  - 需数数时把曲线和直线数量分开统计(曲线数递增1→2→3→4)
+  - 曲线计数规则:沿一条弧线顺滑画下来算1条,中间有折点/拐点算2条(Z字形=2条)
+  - 选曲线数匹配的选项
+  error_signatures:
+  - code: fold_line_miscount
+    description: 折线误算为一条曲线(正确率66%)
+  - code: curve_straight_mix_only
+    description: 只看曲直混合不看数量,选项无法排除
+  - code: no_separate_count
+    description: 曲线直线混在一起数
+  fix_action: 做10道抽象图形曲直性真题,限时45秒/题,练'折线算两条曲线'计数
+  time_budget_sec: 45
+  accuracy_rule: 75%以上
+  pitfall: 曲线必须沿弧线顺滑画下,中途有折点/拐点就算两条曲线(如Z形折线)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-曲直（纯曲/纯直/混合）
+  - 数量规律-线（曲线数计数）
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-曲直性
+  - 行测/判断推理/数量规律-线
+- id: mc_cx_zigraph
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/抽象生活图形
+  title: 抽象生活图形-子图形样式与复合规律
+  recognition: 抽象图形(爆炸/蹦/喜字/鱼)前三规律都无效后找共同子元素(矩形/三角形/大圆)或嵌套关系;或面数量+曲直性复合验证
+  applicability:
+    include:
+    - 所有图形含相同子图形(如矩形,注意区分长方形vs正方形)
+    - 嵌套关系(大圆包含小图 vs 小图嵌大图)
+    - 面数量+曲直性双规律复合
+    exclude:
+    - 子图形特征在选项间不唯一时
+    - 已有单一规律能唯一解题时
+  method_steps:
+  - 对称/部分数/面数量均无规律后找共同子图形
+  - 确认所有题干图形共有的子元素(矩形/三角形/圆)
+  - 高级考法看子图形位置关系(大圆包含 vs 被包含)
+  - 单一规律不唯一时叠加第二规律(先数面再验曲直/部分数)
+  error_signatures:
+  - code: square_vs_rect
+    description: 正方形当长方形干扰项(正确率50%)
+  - code: nesting_direction_miss
+    description: 大圆包含/被包含方向没区分
+  - code: single_rule_only
+    description: 只有一个规律解不唯一就放弃,没试复合规律
+  fix_action: 做10道抽象图形子图形/复合规律真题,限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 75%以上
+  pitfall: '''长方形''是干扰项陷阱(正方形在此题语境不算长方形);复杂题可能''走两步''双规律验证'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-加减同异（共同子元素识别）
+  - 位置规律（元素嵌套包含关系）
+  knowledge_nodes:
+  - 行测/判断推理/样式规律-加减同异
+  - 行测/判断推理/位置规律-综合
+- id: mc_zm_dc
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/英文字母或数字
+  title: 字母数字-对称性（轴/中心）
+  recognition: 字母/数字题先验对称:26字母中20个对称、6个不对称;Z纯中心对称、X既轴又中心对称;对称类型交替规律
+  applicability:
+    include:
+    - 对称类型交替(轴对称→中心对称→轴对称)
+    - 分类题按对称性分组
+    - 数字对称性需单独验证
+    exclude:
+    - 题干字母都不对称时
+    - 有明显面数量规律时
+  method_steps:
+  - 判断每个字母/数字对称类型:轴对称(对折重合)/中心对称(旋转180°重合)/双对称/不对称
+  - 写对称类型序列找交替规律
+  - 匹配选项对称类型(中心对称选Z/S,双对称选X/O等)
+  error_signatures:
+  - code: z_center_miss
+    description: 不记得Z/S是纯中心对称
+  - code: x_double_miss
+    description: 不记得X既轴对称又中心对称
+  - code: ignore_number_sym
+    description: 数字对称性没单独验证
+  fix_action: 做10道字母对称真题,限时30秒/题,背熟对称字母表(20对称6不对称)
+  time_budget_sec: 30
+  accuracy_rule: 85%以上
+  pitfall: 26字母中20个对称、6个不对称;对称优先级最高但注意字体曲直会影响字母判断(窄体A可能不含曲线)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-对称（轴/中心/双对称）
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-对称性
+  - 行测/判断推理/文字/字母/数字类
+- id: mc_zm_ms
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/英文字母或数字
+  title: 字母数字-面数量（封闭区域）
+  recognition: 数字/字母的封闭区域计数:6/9=1面、8=2面、1/7=0面;数字组合算面总数,或数字运算反映面数差
+  applicability:
+    include:
+    - 单个数字面数序列(2,3,2,3交替)
+    - 数字组合面总数(2074含2个面)
+    - 数字相减=面数量差(8-5=3对应3面-0面=3)
+    - 多字母组合面总数恒定(3+3+3=9)
+    exclude:
+    - 开放程度判定标准模糊的争议题(优先面数量法)
+    - 明显对称规律时
+  method_steps:
+  - 数每个字母/数字封闭区域(6/9=1、8=2、0=1;开放不计)
+  - 单字符写序列找规律;多字符算面总数或面数差
+  - 选项出现唯一面数量时直接选
+  - '''4''统一视为开放图形避免争议'
+  error_signatures:
+  - code: half_open_over_split
+    description: 半开放/全开放过度区分,判定标准模糊
+  - code: sum_miscount
+    description: 多数字组合面总数加错
+  - code: skip_math_relation
+    description: 没看出数字相减=面数量差
+  fix_action: 做10道字母数字面数量真题,限时35秒/题
+  time_budget_sec: 35
+  accuracy_rule: 80%以上
+  pitfall: 数字运算可能隐藏面数量差(如8-5=3对应面数差3);开放程度判定模糊时统一按面数量解
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-面（封闭区域计数）
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-面
+  - 行测/判断推理/文字/字母/数字类
+- id: mc_zm_qz_kb
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/英文字母或数字
+  title: 字母数字-曲直性与开闭性
+  recognition: 对称、面数量无规律时验曲直(纯直A/K、纯曲S/O、混合B/D)与开闭(A封闭、W尖角仍开放)
+  applicability:
+    include:
+    - 曲直交替规律(纯直→曲直→纯曲)
+    - 分类题按曲线条数(2条vs1条)或曲直组合类型
+    - 选项出现唯一全开放图形时
+    exclude:
+    - 已能按面数解题时
+    - 曲直特征选项间无差异时
+  method_steps:
+  - 对称/面数量无效后验曲直:分类纯直/纯曲/曲直混合,查交替规律
+  - 需数数时数曲线条数(分类题高频)
+  - 开放封闭:仅当选项有唯一全开放图形且题干全开放时适用
+  - 多字母组合逐个字母看曲直特征
+  error_signatures:
+  - code: font_curve_miss
+    description: 窄体A等字体变化导致曲直误判
+  - code: half_open_over
+    description: 半开放/全开放过度区分
+  - code: ignore_curve_count
+    description: 分类题没数曲线数量(2016国考53%考生忽略)
+  fix_action: 做10道字母曲直开闭真题,限时40秒/题
+  time_budget_sec: 40
+  accuracy_rule: 75%以上
+  pitfall: 尖角结构仍属开放图形(W);不要过度区分半开放/全开放;分类题优先数曲线条数
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 属性规律-曲直（纯直/纯曲/混合）
+  - 属性规律-开闭（开放/封闭）
+  knowledge_nodes:
+  - 行测/判断推理/属性规律-曲直性
+  - 行测/判断推理/属性规律-开闭性
+  - 行测/判断推理/文字/字母/数字类
+- id: mc_zm_jd_bh
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/英文字母或数字
+  title: 字母数字-交点与笔画数
+  recognition: 常规考点(对称/面/曲直/开闭)都无效时,数字母交点数量(N=1/A=1/L=1/H=2/K=2)或按图形规则数笔画(口=1笔画/F=2笔画/6=1笔画)
+  applicability:
+    include:
+    - 常规规律验证无效时考虑隐藏交点规律
+    - 图形笔画数(按图形连续线条计,非汉字笔画)
+    - 复杂图形简化(外框与点相交去外框、内部独立图形单独计)
+    exclude:
+    - 有明显对称/面数量规律时
+    - 笔画过多无法计数时
+  method_steps:
+  - 常规规律(对称/数面/开闭/曲直)验证无效
+  - 数交点数量(字母线条相交处),写序列找规律
+  - 或按图形规则数笔画(连续线条算1笔:口=1、F=2、6/0=1)
+  - 复杂图形简化后单独计内部
+  error_signatures:
+  - code: hanzi_stroke_mix
+    description: 把汉字笔画习惯带入图形笔画,口按4笔数
+  - code: intersection_miss
+    description: 忽略字母也可能考交点数量
+  - code: overcomplicate
+    description: 常规规律能解还硬找冷门考点
+  fix_action: 做6道字母交点/笔画真题,限时45秒/题(非常规考点,了解即可)
+  time_budget_sec: 45
+  accuracy_rule: 70%以上(低频考点)
+  pitfall: 图形笔画按'连续线条'计(口=1笔),与汉字书写笔画完全不同;字母顺序/平行线等更冷考点最后考虑
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 数量规律-点（交点数量）
+  - 数量规律-线（图形笔画/连续线条）
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-点
+  - 行测/判断推理/数量规律-线
+  - 行测/判断推理/文字/字母/数字类
+- id: mc_zm_ts
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/英文字母或数字
+  title: 字母数字-特殊规律（顺序间隔/平行线/缺数）
+  recognition: 常规考点全无效且题干含字母顺序/平行线/长数字串时,考虑:字母转数字序号找间隔、平行线组数(N/M/F/H/Z单组)、数字遍历缺数
+  applicability:
+    include:
+    - 字母排列成行(间隔递增1→2→3→4)
+    - 所有字母/图形都含平行线(N/M/F/H/Z单组平行线)
+    - 长数字串统计0-9缺失数字
+    exclude:
+    - 常规考点仍可解时
+    - 平行线特征在选项不唯一时
+  method_steps:
+  - 字母序列题:字母转序号(A=1...)找间隔规律(行间间隔1→2→3→4递增)
+  - 全含平行线题:数每组平行线(同方向多条线算1组),题干N/M/F/H/Z均单组
+  - 数字便利题:统计各数字段0-9出现频率,找缺的数字(缺0/5/8),选含全的选项
+  - 长串中重复数字不计
+  error_signatures:
+  - code: stuck_conventional
+    description: 陷入对称/笔画常规思路,忽略字母数字本质
+  - code: parallel_group_miscount
+    description: 同方向多条平行线算成多组
+  - code: repeat_count_error
+    description: 长数字串重复数字重复计
+  fix_action: 做6道字母数字特殊规律真题,限时60秒/题(极端罕见,掌握思路即可)
+  time_budget_sec: 60
+  accuracy_rule: 60%以上(非常规考点,近年仅个别省份考过)
+  pitfall: 平行线/字母顺序/缺数均为极冷考点(字母顺序近年仅2题、缺数千题一见),常规考点先走完再考虑
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律（字母表序号映射间隔）
+  - 数量规律-线（平行线组数）
+  - 数量规律-素（数字遍历0-9）
+  knowledge_nodes:
+  - 行测/判断推理/数量规律-素
+  - 行测/判断推理/数量规律-线
+  - 行测/判断推理/文字/字母/数字类
+- id: mc_pm_5dingli
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/平面拼合
+  title: 平面拼合-5大秒杀定理（线段抵消）
+  recognition: 平面拼合题(给若干碎片选拼成整体)不要硬拼,用边缘线'平行+位置对应+等长'抵消分析:唯一线必现、同侧线叠加、无中生有线排除、等长成对消、长线被短线抵消
+  applicability:
+    include:
+    - 只能平移的拼合题(碎片含清晰边缘线)
+    - 线段特征明显的拼合题
+    - 选项外框差异在线段构成上的题
+    exclude:
+    - 俄罗斯方块/纯格子类(无边线,用格子数法)
+    - 翻转黑白面题(颜色参与判断)
+  method_steps:
+  - 先找最长横线/竖线(最不易被完全抵消)
+  - 再看最长斜线及其平行线
+  - 定理筛选:①唯一无平行线线段必现外框(定理1) ②同侧平行线只能叠加/独立(定理2) ③题干没有的线型选项禁止出现(定理3) ④等长平行线成对抵消、余下奇数条必现外框(定理4)
+    ⑤长线可被两条短线拼合抵消(L长=L短1+L短2)(定理5)
+  - 未被抵消的最长线必须体现在正确选项外框
+  error_signatures:
+  - code: brute_force_assembly
+    description: 执着还原完整拼合过程,传统1分钟/题 vs 秒杀10秒/题
+  - code: same_side_ignore
+    description: 两条图右线平行等长也硬抵消,其实同侧不能拼合
+  - code: fabricated_line
+    description: 选项出现题干没有的线型没排除(定理3)
+  fix_action: 做15道平面拼合真题,限时40秒/题(熟练后10秒/题),练'先长线→再斜线→抵消验证'三步
+  time_budget_sec: 40
+  accuracy_rule: 85%以上(秒杀熟练后)
+  pitfall: 拼合必要三要素=平行+等长+位置对应(图左+图右或图上+图下);同侧平行线即使等长也不能抵消
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 样式规律-加减同异（线段拼合/抵消合并）
+  knowledge_nodes:
+  - 行测/判断推理/特殊规律-平面拼合
+- id: mc_pm_pingyi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/平面拼合
+  title: 平面拼合-只能平移（横竖线抵消/凸起匹配）
+  recognition: 题干明确'只能通过上下左右平移'(全国除江苏45%、江苏80%占比),只做平移不做旋转翻转,用横竖线抵消+凸起特征+斜线数量匹配快速选
+  applicability:
+    include:
+    - 明确标注'只能平移'的题
+    - 横线/竖线/斜线特征明显的拼合题
+    - 无线条方块图形(看凸起匹配)
+    exclude:
+    - 题干未限制平移且平移无解时(考虑旋转)
+    - 翻转黑白面题
+  method_steps:
+  - 确认只能平移(不能旋转/翻转,无需考虑方向变化)
+  - 横线判断:唯一横线(图上/图下)必须体现在最终图形;多条横线看叠加/抵消(3:1抵消后剩两条下横线)
+  - 竖线抵消:相同位置竖线可相互抵消,剩余竖线必现
+  - 无线条图形数凸起:拼合后凸起数量与位置匹配;斜线题比数量与方向(右斜2左斜4→右斜叠加)和角度(45°vs60°);曲线不可抵消必须完整出现
+  error_signatures:
+  - code: rotate_anyway
+    description: 明确只能平移还尝试旋转,浪费时间
+  - code: side_condition_ignored
+    description: 横线上长下短、同侧线叠加等条件漏看
+  - code: length_qualitative
+    description: 只定性看方向不看长度,线段长度要量化匹配
+  fix_action: 做15道只能平移拼合真题,限时45秒/题,练'唯一特征线+抵消+凸起'三步
+  time_budget_sec: 45
+  accuracy_rule: 85%以上(江苏80%占比必拿)
+  pitfall: 拼合题考'元素叠加的拓扑关系'而非具体拼接方式;线段长度要量化(不同长度横线不能相互抵消)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律-平移（禁止旋转翻转）
+  - 样式规律-加减同异（线段叠加/抵消）
+  knowledge_nodes:
+  - 行测/判断推理/特殊规律-平面拼合
+- id: mc_pm_eluosi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/平面拼合
+  title: 平面拼合-俄罗斯方块（格子数法/最大块定位）
+  recognition: 拼图碎片由标准小方块(四格块)组成、只能平移不能旋转时,先数格子总数用'20+4n'排除,再优先定位最长/最特殊方块
+  applicability:
+    include:
+    - 标准俄罗斯方块拼合(4格方块×n个)
+    - '''最少需要用到几种方块''(从最少种类试起)'
+    - 五竖格/特殊凸起方块(位置固定最左/最右/最上/最下)
+    exclude:
+    - 碎片不是规整小方块时
+    - 题干允许旋转时(用旋转拼合验证)
+  method_steps:
+  - 识别拼合考点(正确率仅55%说明常被忽略)
+  - 数字解法:总格数=n个方块×4格,拼合结果须满足20+4n(5块×4=20格,选项格数不满足直接排除)
+  - 优先固定最长/最宽块(放置位置最少:四格长条放最右、L型放最下、五竖格固定最左/最右)
+  - 每选项验证≤10秒,验证到正确选项即停,三错即选剩余
+  error_signatures:
+  - code: fail_to_recognize
+    description: 没识别出这是拼合题(正确率仅55%)
+  - code: hard_assembly
+    description: 硬拼复杂选项浪费时间
+  - code: grid_number_skip
+    description: 忽略格子总数数字规律(正确率仅35%)
+  fix_action: 做12道俄罗斯方块拼合真题,限时40秒/题(熟练后每块验证5-10秒)
+  time_budget_sec: 40
+  accuracy_rule: 85%以上
+  pitfall: 数字特征优先于拼合:总格数不满足'块数×4格+4n'直接排除选项,避免硬拼
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律-平移（只平移不旋转）
+  - 数量规律-素（格子数/方块数）
+  knowledge_nodes:
+  - 行测/判断推理/特殊规律-平面拼合
+- id: mc_pm_xuanzhuan
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/平面拼合
+  title: 平面拼合-可以旋转（锚定方向法）
+  recognition: 题干未明确'只能平移'且平移拼合无解时考虑旋转(除江苏外占35%);用边缘锚定方向法找匹配凹凸边,斜线/曲线成对抵消
+  applicability:
+    include:
+    - 半圆配半圆拼整圆(圆弧完整性)
+    - 左凸右凹边匹配
+    - 题干未限制平移、平移拼不上时
+    - 45°斜线旋转与另一斜线抵消
+    exclude:
+    - 题干明确'只能平移'时
+    - 江苏翻转黑白面题
+  method_steps:
+  - 题干未说明只能平移→考虑旋转(无法平移一步拼合时必旋转)
+  - 锚定方向法:统一观察方向(从内向外/沿弧往里看),确定左右凹凸特征(左凸右凹、左短右长)
+  - 对称性原则:等腰直角三角形的斜线必须成对出现或抵消(直角梯形不可能,斜线无法成对)
+  - 旋转时边角度特征不变,长线条需被相同长度线条抵消
+  error_signatures:
+  - code: direction_trap
+    description: 观察角度不一致,选项方向反转没发现
+  - code: slant_pair_miss
+    description: 斜线没成对抵消,误选直角梯形
+  - code: curve_arc_miscount
+    description: 曲线弧度方向/数量看错
+  fix_action: 做10道可旋转拼合真题,限时50秒/题,练'锚定方向+斜线成对'
+  time_budget_sec: 50
+  accuracy_rule: 80%以上
+  pitfall: 旋转时'边的角度特征保持不变';考官常设方向陷阱,观察角度必须全程一致
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律-旋转（碎片旋转后拼合）
+  - 位置规律-平移（拼合位移）
+  - 属性规律-对称（斜线成对/等腰三角）
+  knowledge_nodes:
+  - 行测/判断推理/特殊规律-平面拼合
+- id: mc_pm_fanzhuan
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/图形推理/平面拼合
+  title: 平面拼合-翻转黑白面（锚定方向+颜色反转）
+  recognition: 江苏特色题(2017-2025不到10题):纸片正反面黑白两色,允许平移/旋转/翻转;用锚定方向法判原图/翻转图,非轴对称图形翻转后颜色取反
+  applicability:
+    include:
+    - 江苏考生必做(他省可不关注)
+    - 题干纸片有黑白双面
+    - 选项颜色与原图/翻转图矛盾(平移不变色、翻转必变色)
+    exclude:
+    - 轴对称图形(等腰三角形/正方形/长方形翻转后颜色不影响)
+    - 题干未涉及翻转的纯平移拼合题
+  method_steps:
+  - 锚定方向法:选定最显著特征边(最长边/直角边/最不对称边),沿边看左右长短关系,'原图左短右长,翻转左长右短'
+  - 判对称性:轴对称图形翻转后可通过旋转重合→颜色可忽略;非轴对称图形翻转后颜色取反(黑↔白)
+  - 平移不变色、翻转必变色——选项出现'平移部分变色'即矛盾排除
+  - 颜色与方向双重验证,发现一处错误即可排除整个选项
+  error_signatures:
+  - code: flip_color_miss
+    description: 非对称图形翻转后颜色没取反(高频错误)
+  - code: rotate_flip_confuse
+    description: 混淆旋转与翻转,旋转180°可重合则颜色不变
+  - code: symmetric_color_violation
+    description: 对称部件同色组合必错(如选项两黑)
+  fix_action: 做8道翻转黑白面真题(江苏2022 ABC卷),限时50秒/题,练'锚定方向+颜色反转'双验证
+  time_budget_sec: 50
+  accuracy_rule: 70%以上(江苏特有,笔记正确率仅45%需加强)
+  pitfall: 对称图形翻转后形态相同但颜色必须相反;出现同色对称组合(两黑)必错——先排除结构不符,再验颜色
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_tree_mapping:
+  - 位置规律-翻转（镜像翻转）
+  - 属性规律-对称（轴对称图形颜色豁免）
+  - 位置规律-旋转（180°旋转等效）
+  knowledge_nodes:
+  - 行测/判断推理/特殊规律-平面拼合
