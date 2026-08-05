@@ -171,6 +171,7 @@ def _validate_card(data: dict[str, Any], *, source: str) -> MethodCardRecord:
         validation=validation,
         priority=_priority(data, source),
         status=status,
+        knowledge_nodes=_knowledge_nodes(data, source),
     )
 
 
@@ -188,6 +189,22 @@ def _optional_string(data: dict[str, Any], field: str, source: str) -> str | Non
     if not isinstance(value, str) or not value.strip():
         raise MethodCardImportError(f"{source}: {field} must be null or a non-empty string")
     return value.strip()
+
+
+def _knowledge_nodes(data: dict[str, Any], source: str) -> list[str]:
+    value = data.get("knowledge_nodes")
+    if value is None:
+        return []
+    if not isinstance(value, list):
+        raise MethodCardImportError(f"{source}: knowledge_nodes must be a list or null")
+    result: list[str] = []
+    for index, item in enumerate(value, start=1):
+        if not isinstance(item, str) or not item.strip():
+            raise MethodCardImportError(
+                f"{source}: knowledge_nodes[{index}] must be a non-empty string"
+            )
+        result.append(item.strip())
+    return result
 
 
 def _positive_int(data: dict[str, Any], field: str, source: str) -> int:

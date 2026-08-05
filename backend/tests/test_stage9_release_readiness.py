@@ -801,7 +801,7 @@ def _seed_knowledge_release(
     db_session_factory: sessionmaker[Session],
     *,
     release_version: str = "knowledge-map@ready-test-v1",
-    generator_version: str = "refresh_knowledge_map_nodes_v3",
+    generator_version: str = "refresh_knowledge_map_nodes_v4",
     fresh_until: datetime | None = None,
     activated_at: datetime | None = None,
     near5_occurrence_count: int = 3,

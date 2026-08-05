@@ -77,6 +77,7 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
         "migrations.versions.20260804_96_central_brain_strategy_directive"
     )
     revision97 = import_module("migrations.versions.20260805_97_login_terms_consent")
+    revision98 = import_module("migrations.versions.20260806_98_method_card_knowledge_nodes")
     script = ScriptDirectory.from_config(Config(str(BACKEND_ROOT / "alembic.ini")))
 
     assert revision71.down_revision == "20260728_70"
@@ -106,7 +107,8 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     assert revision95.down_revision == "20260802_94"
     assert revision96.down_revision == "20260804_95"
     assert revision97.down_revision == "20260804_96"
-    assert script.get_heads() == ["20260805_97"]
+    assert revision98.down_revision == "20260805_97"
+    assert script.get_heads() == ["20260806_98"]
     with pytest.raises(RuntimeError, match="forward-only"):
         revision77.downgrade()
     with pytest.raises(RuntimeError, match="forward-only"):

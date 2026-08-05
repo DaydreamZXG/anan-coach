@@ -269,7 +269,7 @@ def _run_knowledge_map_refresh_sql(session: Session) -> None:
                     """
                 select count(*)
                 from product.knowledge_map_releases
-                where generator_version = 'refresh_knowledge_map_nodes_v3'
+                where generator_version = 'refresh_knowledge_map_nodes_v4'
                 """
                 )
             ).scalar_one()

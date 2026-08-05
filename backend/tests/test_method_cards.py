@@ -70,7 +70,8 @@ def test_import_method_cards_is_idempotent_and_updates_existing_row(
     row = db_session.execute(
         text(
             """
-            select count(*) as row_count, max(title) as title
+            select count(*) as row_count, max(title) as title,
+                   max(knowledge_nodes::text)::jsonb as knowledge_nodes
             from product.method_cards
             where id = 'mc_ziliao_jiqiliang_01'
             """
@@ -81,6 +82,7 @@ def test_import_method_cards_is_idempotent_and_updates_existing_row(
     assert second.card_count == 1
     assert int(row["row_count"]) == 1
     assert row["title"] == "基期量计算：化除为乘更新版"
+    assert row["knowledge_nodes"] == ["行测/资料分析/增长率/一般增长率/基期计算"]
 
 
 def test_data_method_card_files_are_importable_drafts(db_session: Session) -> None:
