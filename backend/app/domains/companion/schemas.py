@@ -6,7 +6,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from app.domains.essay.schemas import AIQuotaState
-from app.domains.ai.governance.contracts import GlobalAskContext
+from app.domains.ai.governance.contracts import GlobalAskContext, SemanticState
 
 
 class CompanionBaseModel(BaseModel):
@@ -43,6 +43,7 @@ class CompanionAllowedAction(CompanionBaseModel):
         "open_training",
         "open_position_workspace",
         "refresh_context",
+        "add_reflection",
     ]
     label: str = Field(min_length=1, max_length=80)
     target_ref: str | None = Field(default=None, alias="targetRef", max_length=1024)
@@ -69,13 +70,7 @@ class CompanionHighImpactDecision(CompanionBaseModel):
 
 class CompanionAskResponse(CompanionBaseModel):
     answer_id: str = Field(alias="answerId")
-    semantic_state: Literal[
-        "ready",
-        "evidence_insufficient",
-        "permission_denied",
-        "security_blocked",
-        "failed",
-    ] = Field(alias="semanticState")
+    semantic_state: SemanticState = Field(alias="semanticState")
     scenario_key: str = Field(alias="scenarioKey")
     responding_agent: Literal["position", "tutor", "planner"] = Field(alias="respondingAgent")
     answer_type: str = Field(alias="answerType")
