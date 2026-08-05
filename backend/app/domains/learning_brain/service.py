@@ -32,6 +32,8 @@ from app.domains.learning_brain.schemas import (
     StrategyDecisionCommand,
     StrategyDecisionResult,
     StrategyDecisionVersion,
+    StrategyDirective,
+    StrategyDirectiveEntry,
 )
 from app.domains.xingce_learning.cause_agent.tools import CAUSES as XINGCE_CAUSE_TAXONOMY
 from app.platform.outbox import OutboxRepository
@@ -468,6 +470,39 @@ class LearningBrainService:
             decision=_decision_from_row(decision),
         )
 
+    def current_strategy_directive(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        now: datetime | None = None,
+    ) -> StrategyDirective | None:
+        """读当前已生效策略 + 待确认候选（只读投影），供岸岸引用 rationale。
+
+        纯读不写：不锁用户、不重建画像、不进入 input_fingerprint，因此
+        不会因查看而扰动版本化 profile。active 优先于 pending 返回；两者
+        皆无时返回 None（岸岸据此直说数据不足）。
+        """
+        generated_at = _as_utc(now or datetime.now(UTC))
+        repository = LearningBrainRepository(session)
+        directive = repository.current_strategy_directive(
+            user_id=user_id,
+            now=generated_at,
+        )
+        active = (
+            _active_strategy_entry(directive["activeStrategy"])
+            if directive["activeStrategy"] is not None
+            else None
+        )
+        pending = (
+            _pending_strategy_entry(directive["pendingCandidate"])
+            if directive["pendingCandidate"] is not None
+            else None
+        )
+        if active is None and pending is None:
+            return None
+        return StrategyDirective(active=active, pending=pending)
+
 
 def _knowledge_point_weaknesses(
     session: Session,
@@ -814,6 +849,34 @@ def _decision_from_row(row: RowMapping) -> StrategyDecisionVersion:
         reviewAt=row["review_at"],
         inputFingerprint=str(row["input_fingerprint"]),
         createdAt=row["created_at"],
+    )
+
+
+def _active_strategy_entry(row: RowMapping) -> StrategyDirectiveEntry:
+    return StrategyDirectiveEntry(
+        status="active",
+        decisionType=str(row["decision_type"]),
+        scopeType=str(row["scope_type"]),
+        scopeKey=str(row["scope_key"]),
+        rationale=str(row["rationale"]),
+        effectiveUntil=_as_utc(row["effective_until"]),
+        generatedAt=_as_utc(row["created_at"]),
+    )
+
+
+def _pending_strategy_entry(row: RowMapping) -> StrategyDirectiveEntry | None:
+    value = dict(row["value"])
+    required = ("decisionType", "scopeType", "scopeKey", "rationale")
+    if not all(isinstance(value.get(key), str) and value.get(key) for key in required):
+        return None
+    return StrategyDirectiveEntry(
+        status="awaiting_confirmation",
+        decisionType=str(value["decisionType"]),
+        scopeType=str(value["scopeType"]),
+        scopeKey=str(value["scopeKey"]),
+        rationale=str(value["rationale"]),
+        expiresAt=_as_utc(row["expires_at"]),
+        generatedAt=_as_utc(row["created_at"]),
     )
 
 

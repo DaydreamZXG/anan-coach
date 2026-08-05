@@ -272,3 +272,31 @@ class StrategyCandidateResult(LearningBrainModel):
 class StrategyDecisionResult(LearningBrainModel):
     candidate: InferenceCandidateVersion
     decision: StrategyDecisionVersion
+
+
+class StrategyDirectiveEntry(LearningBrainModel):
+    """一条策略指令快照：active 已生效 / awaiting_confirmation 待确认。
+
+    供岸岸引用 rationale 解释「为什么这样排」。字段只带用户可理解的
+    决策方向与理由，不暴露内部版本号。
+    """
+
+    status: Literal["active", "awaiting_confirmation"]
+    decision_type: StrategyDecisionType = Field(alias="decisionType")
+    scope_type: StrategyScopeType = Field(alias="scopeType")
+    scope_key: str = Field(alias="scopeKey", min_length=1, max_length=160)
+    rationale: str = Field(min_length=1, max_length=1000)
+    effective_until: datetime | None = Field(default=None, alias="effectiveUntil")
+    expires_at: datetime | None = Field(default=None, alias="expiresAt")
+    generated_at: datetime = Field(alias="generatedAt")
+
+
+class StrategyDirective(LearningBrainModel):
+    """岸岸可引用的当前策略投影：已生效策略 + 待确认候选。
+
+    由 learning_brain 的只读方法 ``current_strategy_directive`` 返回，
+    不落库、不进 profile fingerprint。
+    """
+
+    active: StrategyDirectiveEntry | None = None
+    pending: StrategyDirectiveEntry | None = None

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from datetime import date
+from datetime import date, datetime
 from typing import Any
 
 from sqlalchemy import text
@@ -853,6 +853,78 @@ class LearningBrainRepository:
             .mappings()
             .one()
         )
+
+    def current_strategy_directive(
+        self,
+        *,
+        user_id: str,
+        now: datetime,
+    ) -> dict[str, object]:
+        """读当前 active 策略决定 + 待确认策略候选（纯只读，供岸岸引用）。
+
+        语义对齐 ``input_state`` 的 active_strategy_count / candidate 计数：
+        active 决定需在有效窗口内且未被后继决定取代；待确认候选取最新的
+        ``strategy_directive``（中控大脑产物），未过期且未被后继候选取代。
+        """
+        active_row = (
+            self._session.execute(
+                text(
+                    """
+                    select decision.decision_type, decision.scope_type,
+                           decision.scope_key, decision.rationale,
+                           decision.effective_until, decision.review_at,
+                           decision.created_at
+                    from learning.strategy_decision_versions decision
+                    where decision.user_id = cast(:user_id as uuid)
+                      and decision.status = 'active'
+                      and decision.effective_from <= :now
+                      and decision.effective_until > :now
+                      and decision.review_at > :now
+                      and not exists (
+                        select 1
+                        from learning.strategy_decision_versions successor
+                        where successor.supersedes_decision_version_id =
+                              decision.decision_version_id
+                      )
+                    order by decision.created_at desc, decision.decision_version_id desc
+                    limit 1
+                    """
+                ),
+                {"user_id": user_id, "now": now},
+            )
+            .mappings()
+            .one_or_none()
+        )
+        pending_row = (
+            self._session.execute(
+                text(
+                    """
+                    select candidate.value, candidate.expires_at,
+                           candidate.created_at
+                    from learning.inference_candidate_versions candidate
+                    where candidate.user_id = cast(:user_id as uuid)
+                      and candidate.status = 'awaiting_confirmation'
+                      and candidate.inference_type = 'strategy_directive'
+                      and candidate.expires_at > :now
+                      and not exists (
+                        select 1
+                        from learning.inference_candidate_versions successor
+                        where successor.supersedes_candidate_version_id =
+                              candidate.candidate_version_id
+                      )
+                    order by candidate.created_at desc, candidate.version_no desc
+                    limit 1
+                    """
+                ),
+                {"user_id": user_id, "now": now},
+            )
+            .mappings()
+            .one_or_none()
+        )
+        return {
+            "activeStrategy": active_row,
+            "pendingCandidate": pending_row,
+        }
 
     def insert_strategy_decision(self, values: dict[str, Any]) -> RowMapping:
         return (
