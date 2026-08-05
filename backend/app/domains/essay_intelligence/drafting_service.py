@@ -2,8 +2,6 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from datetime import UTC, datetime
-from hashlib import sha256
-import json
 from uuid import UUID
 
 from sqlalchemy.engine import RowMapping
@@ -18,6 +16,7 @@ from app.domains.essay_intelligence.learning_schemas import (
     EssayLearningArtifactCommand,
 )
 from app.domains.essay_intelligence.learning_service import EssayLearningArtifactService
+from app.domains.essay_intelligence.review_contracts import _fingerprint
 from app.domains.essay_intelligence.schemas import EssayAnswerVersion, EssayAttempt
 from app.domains.essay_intelligence.workflow_repository import (
     EssayReviewWorkflowRepository,
@@ -369,16 +368,6 @@ class EssayDraftingCompletionService:
             raise EssayWorkflowContractError(
                 "Attempt, answer, task, material, and rubric versions must match exactly"
             )
-
-
-def _fingerprint(value: object) -> str:
-    encoded = json.dumps(
-        value,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-    ).encode("utf-8")
-    return sha256(encoded).hexdigest()
 
 
 def _as_utc(value: datetime) -> datetime:

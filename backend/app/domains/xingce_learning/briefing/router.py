@@ -61,5 +61,5 @@ def get_xingce_task_briefing(
             request=request,
             status_code=409,
             code="xingce_briefing_unavailable",
-            message="当前行测任务不存在、已过期或证据版本已经变化。",
+            message="这个行测任务已经过期或内容有变化啦，回今日安排重新开始就好。",
         )

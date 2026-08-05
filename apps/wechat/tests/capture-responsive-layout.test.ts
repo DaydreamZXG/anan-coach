@@ -123,7 +123,7 @@ describe("capture camera responsive error layout", () => {
   it("keeps permission recovery and its privacy explanation in the scrollable safe area", () => {
     expect(captureTemplate).toContain("capture-page--permission");
     expect(captureTemplate).toContain('class="permission-privacy"');
-    expect(captureTemplate).toContain("不进入公共题库，也不用于训练基础模型");
+    expect(captureTemplate).toContain("不会进公共题库，也不会拿去训练模型");
     expect(ruleFor(".capture-page--permission")).toMatch(/overflow-y:\s*auto;/u);
     expect(ruleFor(".capture-page--permission .permission-screen")).toContain(
       "env(safe-area-inset-bottom)",

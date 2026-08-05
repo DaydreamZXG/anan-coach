@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db_session
+from app.domains.ability_estimation.service import AbilityEstimateService
 from app.domains.auth.deps import get_current_user
 from app.domains.auth.repository import AuthenticatedUser
 from app.domains.knowledge.router import get_knowledge_service
@@ -78,6 +79,7 @@ def get_mock_exam_service(
         repository=MockExamRepository(session),
         knowledge_service=knowledge_service,
         progression_service=progression_service,
+        ability_service=AbilityEstimateService(),
     )
 
 

@@ -1006,7 +1006,7 @@ def test_targeted_start_freezes_selection_context_and_submit_lineage(
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
     task = _targeted_task(client, auth)
-    assert task["title"] == "行测针对训练：国考高频模块"
+    assert task["title"] == "行测提分练习：国考高频模块"
     started = _start(client, auth, task, key="targeted-lineage-start")
     assert "selectionContext" not in started
     assert "selectionContext" not in started["bundle"]

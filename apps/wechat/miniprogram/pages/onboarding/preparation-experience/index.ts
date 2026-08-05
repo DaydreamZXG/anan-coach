@@ -184,7 +184,7 @@ async function loadAccountProfile(page: PreparationExperiencePage): Promise<void
   } catch {
     page.setData({
       accountLoading: false,
-      profileError: "微信昵称没有读取成功，请重新读取。",
+      profileError: "哎，昵称没读出来，再试一次。",
     });
   }
 }
@@ -195,7 +195,7 @@ async function saveIdentityAndExperience(page: PreparationExperiencePage): Promi
   const displayName = page.data.displayName.trim().replace(/\s+/gu, " ");
   if (!session || !controller || page.data.profileSaving || page.data.state?.saving) return;
   if (!displayName || Array.from(displayName).length > 24) {
-    page.setData({ profileError: "昵称请填写 1–24 个字。" });
+    page.setData({ profileError: "昵称 1–24 个字就好。" });
     return;
   }
   page.setData({ profileSaving: true, profileError: "" });
@@ -220,7 +220,7 @@ async function saveIdentityAndExperience(page: PreparationExperiencePage): Promi
   } catch {
     page.setData({
       profileSaving: false,
-      profileError: "身份资料没有保存成功，请重试。",
+      profileError: "哎，没保存上，别急，再点一次。",
     });
   }
 }

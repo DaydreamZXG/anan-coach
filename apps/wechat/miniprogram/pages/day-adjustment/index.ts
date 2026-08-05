@@ -20,10 +20,18 @@ import {
   type OperationAttemptRecord,
 } from "../../platform/operation-attempt-store";
 import { formatCapacityDuration, prepareCapacityCommand } from "../today/capacity";
+import { XINGCE_MODULE_BASELINE } from "../../domain/module-baselines";
 
 interface EnergyOption {
   label: string;
   value: number;
+}
+
+type XingceModule = NonNullable<DailyCapacityCommand["preferredXingceModule"]>;
+
+interface FocusOption {
+  label: string;
+  value: XingceModule | "";
 }
 
 const ENERGY_OPTIONS: readonly EnergyOption[] = [
@@ -39,16 +47,33 @@ const TIME_PRESETS = [
   { label: "今天不学", minutes: 0 },
 ] as const;
 
+const FOCUS_LABELS: Readonly<Record<XingceModule, string>> = {
+  言语理解与表达: "言语",
+  数量关系: "数量",
+  判断推理: "判断",
+  资料分析: "资料分析",
+  常识判断: "常识",
+  政治理论: "政治理论",
+};
+
+const FOCUS_OPTIONS: readonly FocusOption[] = [
+  { label: "综合安排", value: "" },
+  ...XINGCE_MODULE_BASELINE.map<FocusOption>((item) => ({
+    label: FOCUS_LABELS[item.moduleKey as XingceModule],
+    value: item.moduleKey as XingceModule,
+  })),
+];
+
 const MINUTES_STEP = 30;
 const MAX_VISIBLE_MINUTES = 720;
 const OPERATION_ATTEMPT_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 const CAPACITY_ATTEMPT_SCOPE = "today-capacity:update@v1";
 const UNKNOWN_OUTCOME_MESSAGE =
-  "保存请求已经发出，但结果还在确认中。请再次确认，系统会复用同一次请求，不会重复调整。";
+  "保存已经发出去了，结果还在确认中。别急，再点一次确认就行，不会重复调整。";
 const OLD_DAY_ATTEMPT_MESSAGE =
-  "上一个学习日的调整结果已无法继续确认，请按今天的状态重新生成预览。";
+  "昨天调的计划已经过期啦，没关系，按你现在的状态重新定一份就好。";
 const INVALID_ATTEMPT_MESSAGE =
-  "上一次调整的恢复信息无法校验，已停止自动重试。请按当前状态重新生成预览。";
+  "上一次调整没记录好，已经自动停下啦，别担心，重新生成一份就行。";
 
 interface CapacityCanonicalInput {
   localDate: string;
@@ -89,6 +114,9 @@ Page({
     confidenceLevel: 3,
     energyOptions: ENERGY_OPTIONS,
     timePresets: TIME_PRESETS,
+    focusOptions: FOCUS_OPTIONS,
+    preferredXingceModule: "",
+    xingceOnly: false,
     minutesStep: MINUTES_STEP,
     preview: null as DailyCapacityPreview | null,
     previewChanges: [] as CapacityChangeView[],
@@ -98,6 +126,8 @@ Page({
     previewing: false,
     submitting: false,
     agentPrefillMinutes: null as number | null,
+    agentPrefillModule: null as XingceModule | null,
+    agentPrefillXingceOnly: false,
   },
 
   onLoad(options: Record<string, string | undefined> = {}) {
@@ -105,7 +135,12 @@ Page({
     runtime.visible = true;
     runtime.disposed = false;
     runtime.lifecycleGeneration += 1;
-    this.setData({ agentPrefillMinutes: parseAgentPrefillMinutes(options) });
+    const focus = parseAgentPrefillFocus(options);
+    this.setData({
+      agentPrefillMinutes: parseAgentPrefillMinutes(options),
+      agentPrefillModule: focus?.module ?? null,
+      agentPrefillXingceOnly: focus?.xingceOnly ?? false,
+    });
     void this.loadToday();
   },
 
@@ -154,6 +189,8 @@ Page({
       const unfinished = store.load(CAPACITY_ATTEMPT_SCOPE, Date.now());
       if (!unfinished || !isUnfinishedAttempt(unfinished)) {
         const agentPrefillMinutes = this.data.agentPrefillMinutes;
+        const agentPrefillModule = this.data.agentPrefillModule;
+        const hasAgentPrefill = agentPrefillMinutes !== null || agentPrefillModule !== null;
         this.setData(
           {
             status: "ready",
@@ -166,9 +203,17 @@ Page({
                   selectedDurationLabel: formatCapacityDuration(agentPrefillMinutes),
                   agentPrefillMinutes: null,
                 }),
+            ...(agentPrefillModule === null
+              ? {}
+              : {
+                  preferredXingceModule: agentPrefillModule,
+                  xingceOnly: this.data.agentPrefillXingceOnly,
+                  agentPrefillModule: null,
+                  agentPrefillXingceOnly: false,
+                }),
           },
           () => {
-            if (agentPrefillMinutes !== null) void this.generatePreview();
+            if (hasAgentPrefill) void this.generatePreview();
           },
         );
         return;
@@ -273,8 +318,8 @@ Page({
       const view = errorView(
         requestError,
         authoritative?.state === "terminal"
-          ? "今天的安排没有保存成功，请重新载入后再试。"
-          : "这次调整已由另一页面处理，请重新载入确认。",
+          ? "哎，刚才没存上，别急，再点一次就好。"
+          : "这次调整已经在别的页面处理好啦，刷新一下看看最新安排。",
       );
       this.setData({
         status: authoritative?.state === "terminal" ? "ready" : "error",
@@ -287,7 +332,7 @@ Page({
       if (!ownsLoadResponse(runtime, lifecycleGeneration, loadGeneration, originSession)) {
         return;
       }
-      const view = errorView(error, "今天的安排没有加载成功，请重试。");
+      const view = errorView(error, "今天的安排没加载出来，别急，再试一次。");
       this.setData({
         status: "error",
         submitting: false,
@@ -342,6 +387,34 @@ Page({
     });
   },
 
+  chooseFocus(event: WechatMiniprogram.BaseEvent) {
+    if (this.data.previewing || this.data.submitting) return;
+    const preferredXingceModule = String(event.currentTarget.dataset.value ?? "") as
+      XingceModule | "";
+    if (!FOCUS_OPTIONS.some((item) => item.value === preferredXingceModule)) return;
+    attemptRuntime(this).editBoundary = true;
+    this.setData({
+      preferredXingceModule,
+      xingceOnly: preferredXingceModule ? this.data.xingceOnly : false,
+      preview: null,
+      errorMessage: "",
+      requestId: "",
+    });
+  },
+
+  toggleXingceOnly() {
+    if (!this.data.preferredXingceModule || this.data.previewing || this.data.submitting) {
+      return;
+    }
+    attemptRuntime(this).editBoundary = true;
+    this.setData({
+      xingceOnly: !this.data.xingceOnly,
+      preview: null,
+      errorMessage: "",
+      requestId: "",
+    });
+  },
+
   commandFromDraft(): DailyCapacityCommand | null {
     const dashboard = this.data.dashboard;
     if (!dashboard) return null;
@@ -351,6 +424,8 @@ Page({
         energy: this.data.energy,
         stress: this.data.stress,
         confidenceLevel: this.data.confidenceLevel,
+        preferredXingceModule: selectedFocusModule(this.data.preferredXingceModule),
+        xingceOnly: this.data.xingceOnly,
       },
       dashboard.capacity.capacityVersionId,
     );
@@ -374,9 +449,14 @@ Page({
       const capacityDuration = formatCapacityDuration(proposed.capacity.availableMinutes);
       const capacityImpact =
         proposed.capacity.availableMinutes === 0
-          ? "今天已设为休息，不安排学习任务。"
-          : `今天可用 ${capacityDuration}。`;
+          ? "今天设为休息啦，不安排任务，好好放松。"
+          : `今天有 ${capacityDuration} 可用。`;
       const goalEvidence = proposed.goalGap.evidenceSummary.trim();
+      const focusImpact = proposed.capacity.preferredXingceModule
+        ? proposed.capacity.xingceOnly
+          ? `今天只练${proposed.capacity.preferredXingceModule}。`
+          : `今天优先练${proposed.capacity.preferredXingceModule}。`
+        : "今天行测申论一起安排。";
       this.setData({
         previewing: false,
         step: "preview",
@@ -385,14 +465,15 @@ Page({
         previewHeadline: proposed.headline,
         previewRationale: proposed.rationale,
         previewImpact: [
-          `调整后安排 ${String(proposed.tasks.length)} 项任务，共 ${taskDuration}；${capacityImpact}`,
+          `调整后共 ${String(proposed.tasks.length)} 项任务，${taskDuration}；${capacityImpact}`,
+          focusImpact,
           goalEvidence ? `目标依据：${goalEvidence}` : "",
         ]
           .filter(Boolean)
           .join(" "),
       });
     } catch (error) {
-      const view = errorView(error, "调整预览没有生成成功，请重新载入后再试。");
+      const view = errorView(error, "预览没生成好，别急，再试一次。");
       this.setData({
         previewing: false,
         errorMessage: view.message,
@@ -459,7 +540,7 @@ Page({
       runtime.editBoundary = false;
     } catch (error) {
       if (!ownsPageLifecycle(runtime, lifecycleGeneration, session)) return;
-      const view = errorView(error, "今天的安排没有保存成功，请重新载入后再试。");
+      const view = errorView(error, "哎，刚才没存上，别急，再点一次就好。");
       this.setData({
         submitting: false,
         errorMessage: view.message,
@@ -504,8 +585,8 @@ Page({
       const view = errorView(
         error,
         authoritative?.state === "terminal"
-          ? "今天的安排没有保存成功，请重新载入后再试。"
-          : "这次调整已由另一页面处理，请重新载入确认。",
+          ? "哎，刚才没存上，别急，再点一次就好。"
+          : "这次调整已经在别的页面处理好啦，刷新一下看看最新安排。",
       );
       this.setData({
         submitting: false,
@@ -520,7 +601,7 @@ Page({
     if (authoritative?.state !== "succeeded") {
       this.setData({
         submitting: false,
-        errorMessage: "这次调整已由另一页面处理，请重新载入确认。",
+        errorMessage: "这次调整已经在别的页面处理好啦，刷新一下看看最新安排。",
         requestId: "",
       });
       return;
@@ -541,6 +622,23 @@ export function parseAgentPrefillMinutes(
   if (!/^\d{1,4}$/.test(raw)) return null;
   const minutes = Number(raw);
   return Number.isSafeInteger(minutes) && minutes >= 0 && minutes <= 1440 ? minutes : null;
+}
+
+export function parseAgentPrefillFocus(
+  options: Record<string, string | undefined>,
+): { module: XingceModule; xingceOnly: boolean } | null {
+  if (options.source !== "anan") return null;
+  const module = options.preferredXingceModule ?? "";
+  if (!FOCUS_OPTIONS.some((item) => item.value === module && item.value !== "")) return null;
+  return {
+    module: module as XingceModule,
+    xingceOnly: options.xingceOnly === "1",
+  };
+}
+
+function selectedFocusModule(value: string): XingceModule | null {
+  const matched = FOCUS_OPTIONS.find((item) => item.value === value && item.value !== "");
+  return matched?.value || null;
 }
 
 function normalizedEnergy(value: number): number {
@@ -565,6 +663,8 @@ function dashboardPresentation(dashboard: TodayDashboard) {
     energy: normalizedEnergy(dashboard.capacity.energy),
     stress: dashboard.capacity.stress,
     confidenceLevel: dashboard.capacity.confidenceLevel,
+    preferredXingceModule: dashboard.capacity.preferredXingceModule ?? "",
+    xingceOnly: dashboard.capacity.xingceOnly ?? false,
     errorMessage: "",
     requestId: "",
   };
@@ -765,7 +865,9 @@ function isCapacityCanonicalInput(value: unknown): value is CapacityCanonicalInp
       "basedOnCapacityVersionId",
       "confidenceLevel",
       "energy",
+      "preferredXingceModule",
       "stress",
+      "xingceOnly",
     ])
   ) {
     return false;
@@ -778,7 +880,12 @@ function isCapacityCanonicalInput(value: unknown): value is CapacityCanonicalInp
     isBoundedInteger(command.availableMinutes, 0, 1440) &&
     isBoundedInteger(command.energy, 1, 5) &&
     isBoundedInteger(command.stress, 1, 5) &&
-    isBoundedInteger(command.confidenceLevel, 1, 5)
+    isBoundedInteger(command.confidenceLevel, 1, 5) &&
+    (command.preferredXingceModule === null ||
+      (typeof command.preferredXingceModule === "string" &&
+        FOCUS_OPTIONS.some((item) => item.value === command.preferredXingceModule))) &&
+    typeof command.xingceOnly === "boolean" &&
+    (!command.xingceOnly || command.preferredXingceModule !== null)
   );
 }
 

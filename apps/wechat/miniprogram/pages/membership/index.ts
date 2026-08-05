@@ -71,7 +71,7 @@ Page({
     coreRatioLabel: "尚无到期任务",
     clientPlatform: "",
     freeColdStart: true,
-    paymentDisclosure: "冷启动期间不会创建支付订单",
+    paymentDisclosure: "现在是免费开放阶段，不会产生任何扣费。",
     paymentEnabled: false,
     commercialModeLabel: "当前全功能免费",
     refundBlockingLabel: "",
@@ -141,7 +141,7 @@ Page({
         refundPolicyTitle: refundPolicy?.title ?? "退款规则",
         refundPolicyLabel: refundPolicy?.contentLabel ?? "",
         entitlementLabel: freeColdStart
-          ? "冷启动免费"
+          ? "免费开放阶段"
           : dashboard.entitlement.tier === "pro"
             ? "陪练会员"
             : "免费版",
@@ -149,7 +149,7 @@ Page({
           ? "所有注册用户开放"
           : dashboard.entitlement.subscriptionEnd
             ? `有效至 ${dashboard.entitlement.subscriptionEnd.slice(0, 10)}`
-            : "当前无付费权益",
+            : "当前没有开通会员",
         effectiveDays: dashboard.rewardProgress?.effectiveDays ?? 0,
         effectiveDaysRequired: dashboard.rewardProgress?.effectiveDaysRequired ?? 0,
         weeklyReflections: dashboard.rewardProgress?.weeklyReflections ?? 0,
@@ -160,19 +160,19 @@ Page({
             : `${String(Math.round(ratio * 100))}%`,
         clientPlatform: platform,
         paymentEnabled: dashboard.catalog.orderingEnabled && environment.virtualPaymentEnabled,
-        commercialModeLabel: freeColdStart ? "当前全功能免费" : "按购买权益开放",
+        commercialModeLabel: freeColdStart ? "当前全功能免费" : "开通了哪些，就能用哪些",
         refundBlockingLabel: refundBlockingLabel(dashboard.refundEligibility?.blockingCode ?? null),
         paymentDisclosure: freeColdStart
-          ? "冷启动期间不会创建支付订单"
+          ? "现在是免费开放阶段，不会产生任何扣费。"
           : !environment.virtualPaymentEnabled
-            ? "当前不提供会员购买，也不会创建支付订单"
-            : "微信虚拟支付 · 单次购买 · 不自动续费",
+            ? "现在还不能开通会员，也不会扣任何费用。"
+            : "通过微信支付 · 一次付费 · 不自动续费",
       });
     } catch (error) {
       const apiError = error instanceof ApiClientError ? error : undefined;
       this.setData({
         status: "error",
-        errorMessage: apiError?.message ?? "会员信息加载失败，请重试。",
+        errorMessage: apiError?.message ?? "会员信息没加载出来，再试一次吧。",
         requestId: apiError?.requestId ?? "",
       });
     }
@@ -191,11 +191,11 @@ Page({
     const offer = this.data.offer;
     if (!token || !offer || this.data.paying) return;
     if (!this.data.accepted) {
-      void wx.showToast({ title: "请先确认四项规则", icon: "none" });
+      void wx.showToast({ title: "先看完并确认这四项规则哦", icon: "none" });
       return;
     }
     if (offer.recruitmentState !== "open" && offer.recruitmentState !== "review_required") {
-      void wx.showToast({ title: "当前暂不开放购买", icon: "none" });
+      void wx.showToast({ title: "现在还不能开通，稍后再来吧", icon: "none" });
       return;
     }
     const byKind = new Map(offer.policies.map((item) => [item.policyKind, item.policyVersion]));
@@ -221,7 +221,7 @@ Page({
       const order = created.data.order;
       if (isSettled(order)) {
         if (order.state === "closed" || order.state === "refunded") {
-          throw new Error("这笔订单已关闭，未产生新的会员权益。请重新下单。");
+          throw new Error("这笔已经关闭，没有产生新的会员，重新开通就好。");
         }
         await this.loadDashboard(false);
         return;
@@ -236,17 +236,17 @@ Page({
       const reconciled = await reconcileUntilSettled(api, order.orderId);
       if (!["paid", "partially_refunded", "refund_processing"].includes(reconciled.state)) {
         if (invocationError instanceof VirtualPaymentInvocationError && invocationError.canceled) {
-          throw new Error("支付已取消，订单没有到账。");
+          throw new Error("付款取消了，没有扣费。");
         }
-        throw new Error("支付结果仍在核对，请稍后回到本页自动恢复订单。");
+        throw new Error("付款结果还在核对，稍后回到这一页就会自动恢复。");
       }
       await this.loadDashboard();
-      void wx.showToast({ title: "支付已核验", icon: "success" });
+      void wx.showToast({ title: "付款已确认", icon: "success" });
     } catch (error) {
       const apiError = error instanceof ApiClientError ? error : undefined;
       const message =
         apiError?.message ??
-        (error instanceof Error ? error.message : "支付结果未确认，请刷新订单状态。");
+        (error instanceof Error ? error.message : "付款结果还没确认，稍后刷新看看。");
       await this.loadDashboard(false);
       this.setData({ errorMessage: message });
     } finally {
@@ -260,7 +260,7 @@ Page({
     if (!eligibility?.eligible || !order || this.data.refunding) return;
     wx.showModal({
       title: "确认申请退款？",
-      content: `将按微信虚拟支付路径申请退回 ${amountLabel(eligibility.remainingRefundableMinor)}，无需提交成绩证明。`,
+      content: `会通过微信把 ${amountLabel(eligibility.remainingRefundableMinor)} 退回来，不用交成绩证明。`,
       confirmText: "申请退款",
       confirmColor: "#C83F56",
       success: (result) => {
@@ -288,7 +288,7 @@ Page({
         wx.showModal({
           title: "退款需人工处理",
           content:
-            action.providerActionMessage ?? "这笔历史订单无法由小程序自动退款，请联系客服处理。",
+            action.providerActionMessage ?? "这笔是以前的订单，小程序里退不了，麻烦联系客服处理。",
           confirmText: "复制信息",
           cancelText: "知道了",
           success: (modal) => {
@@ -298,11 +298,11 @@ Page({
           },
         });
       } else {
-        void wx.showToast({ title: "退款已受理", icon: "success" });
+        void wx.showToast({ title: "退款申请已提交", icon: "success" });
       }
     } catch (error) {
       const apiError = error instanceof ApiClientError ? error : undefined;
-      this.setData({ errorMessage: apiError?.message ?? "退款申请失败，请重试。" });
+      this.setData({ errorMessage: apiError?.message ?? "退款没申请上，再试一次吧。" });
     } finally {
       this.setData({ refunding: false });
     }
@@ -310,13 +310,13 @@ Page({
 });
 
 function refundBlockingLabel(code: string | null): string {
-  if (!code) return "当前订单不符合退款条件";
+  if (!code) return "这笔订单还不能退款";
   const labels: Record<string, string> = {
-    order_not_paid: "订单尚未支付",
-    refund_window_expired: "已经超过退款申请期限",
+    order_not_paid: "这笔还没有付款",
+    refund_window_expired: "已经过了可以退款的时间",
     refund_already_processing: "退款正在处理中",
-    already_fully_refunded: "这笔订单已经全部退款",
-    order_state_ineligible: "当前订单状态不能申请退款",
+    already_fully_refunded: "这笔已经全额退过了",
+    order_state_ineligible: "这笔订单现在的状态还退不了",
   };
-  return labels[code] ?? "当前订单暂时不能申请退款";
+  return labels[code] ?? "这笔订单暂时还退不了";
 }

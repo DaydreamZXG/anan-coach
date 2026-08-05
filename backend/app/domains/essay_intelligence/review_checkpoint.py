@@ -19,8 +19,21 @@ from app.core.config import Settings
 
 
 CHECKPOINT_CONTRACT_VERSION = "essay-review-checkpoint-v1"
+# Review checkpoint phases, ordered as they occur in the review lifecycle. This is
+# the single source of truth for the phase table shared by the review worker and
+# the checkpoint contract. "candidate:grok" is retired as a live slot but is kept
+# so legacy checkpoints written before the grok slot was replaced can still be read.
+REVIEW_CHECKPOINT_PHASES = (
+    "initial",
+    "repair",
+    "candidate:gemini",
+    "candidate:grok",
+    "candidate:tokenrhythm",
+    "candidate:hunyuan",
+    "adjudication",
+)
 _CHECKPOINT_PHASE_PATTERN = re.compile(
-    r"^(?:initial|repair|candidate:(?:gemini|grok|tokenrhythm|hunyuan)|adjudication)$"
+    r"^(?:" + "|".join(re.escape(phase) for phase in REVIEW_CHECKPOINT_PHASES) + r")$"
 )
 
 

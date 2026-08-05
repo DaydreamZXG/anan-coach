@@ -261,23 +261,23 @@ function emptyStateView(dashboard: TodayDashboard, dayState: TodayDayState) {
       return {
         emptyStateTitle: "今天已经设为休息",
         emptyStateCopy:
-          "今天不安排学习任务，也不会把未完成内容累积成明日欠账。想恢复学习时，可以随时调整今天。",
+          "今天设为休息，不安排学习任务。没完成的内容不会留到明天，想学的时候随时调整就好。",
       };
     }
     return {
       emptyStateTitle: "今天没有必做任务",
-      emptyStateCopy: `${dashboard.rationale} 今天有 ${formatCapacityDuration(dashboard.capacity.availableMinutes)} 可用，不代表必须排满。`,
+      emptyStateCopy: `${dashboard.rationale} 今天有 ${formatCapacityDuration(dashboard.capacity.availableMinutes)} 可用，不代表必须排满，按自己状态来。`,
     };
   }
   if (dayState === "complete") {
     return {
       emptyStateTitle: "今天的任务已经完成",
-      emptyStateCopy: "学习记录已经保存，可以结束今天并完成复盘。",
+      emptyStateCopy: "今天的任务都完成啦，记录已经存好，可以去做复盘了。",
     };
   }
   return {
     emptyStateTitle: dashboard.headline || "今天还没有可执行任务",
-    emptyStateCopy: dashboard.rationale || "先确认目标岗位和今天可用时间，岸岸才能生成真实安排。",
+    emptyStateCopy: dashboard.rationale || "先定好目标岗位和今天的可用时间，岸岸才好帮你安排。",
   };
 }
 
@@ -313,7 +313,7 @@ function presentTodayTrack(
       track,
       label: trackLabels[track],
       summary: `${String(completed.length)} 项已完成`,
-      detail: track === "xingce" ? "今天的行测记录已归档。" : "今天的申论记录已归档。",
+      detail: track === "xingce" ? "今天的行测任务都完成啦。" : "今天的申论任务都完成啦。",
       actionLabel: track === "xingce" ? "查看复测" : "调整安排",
       taskId: "",
       tone: "complete",
@@ -326,8 +326,8 @@ function presentTodayTrack(
     detail:
       omittedReason ??
       (track === "xingce"
-        ? "可查看已有错题与到期复测。"
-        : "申论仍保留在双轨计划中，可调整今天重新核对。"),
+        ? "可以看看错题和到期的复测。"
+        : "申论还在你的计划里，调整今天的时间就能排进来。"),
     actionLabel: track === "xingce" ? "查看复测" : "调整安排",
     taskId: "",
     tone: "idle",
@@ -336,12 +336,12 @@ function presentTodayTrack(
 
 function presentObjectiveClosureSummary(dashboard: TodayDashboard): string {
   if (dashboard.dueReflectionCount === null || dashboard.dueVerificationCount === null) {
-    return "复盘与间隔验证正在整理";
+    return "复盘和复测正在整理";
   }
   if (dashboard.dueReflectionCount === 0 && dashboard.dueVerificationCount === 0) {
-    return "目前没有到期复盘或验证";
+    return "现在没有到期的复盘和复测";
   }
-  return `${String(dashboard.dueReflectionCount)} 项待复盘 · ${String(dashboard.dueVerificationCount)} 项待验证`;
+  return `${String(dashboard.dueReflectionCount)} 项待复盘 · ${String(dashboard.dueVerificationCount)} 项待复测`;
 }
 
 function presentGoalGap(dashboard: TodayDashboard) {
@@ -362,28 +362,28 @@ function presentGoalGap(dashboard: TodayDashboard) {
       scoreGap: baselineGap,
       confidence: evidenceLabel(currentScore.confidence),
       gapStateLabel: "目标分差可用",
-      gapGuidance: "历史同类岗位目标与当前两科成绩来自可比口径，可以用于安排学习。",
+      gapGuidance: "同岗位往年的目标和你的两科成绩来自同一口径，可以用来帮你规划。",
     };
   }
 
   if (!goalId) {
     return unavailableGoalGap(
       "目标分待生成",
-      "完善专业、学历和目标地区后，岸岸会用最近完整年度的同类岗位生成目标分；学习任务不受阻断。",
+      "把专业、学历和目标地区填好，岸岸就会用近年同类岗位帮你定目标分，学习照常。",
     );
   }
   if (!targetScore) {
-    return unavailableGoalGap("目标分依据不足", "目标参照已建立，但还缺少可比较的双科分数记录。");
+    return unavailableGoalGap("目标分依据不足", "目标参照已经建立，还差一份可对得上的行测、申论成绩。");
   }
   if (readiness === "stale") {
     return unavailableGoalGap(
       "总分记录已过期",
-      "过期成绩不继续计算岗位分差，请补充近期行测和申论成绩。",
+      "这份成绩有点久了，补一下最近的行测和申论成绩，分差才算得准。",
     );
   }
   return unavailableGoalGap(
     readiness === "partial" ? "两科成绩还不完整" : "暂无可用总分记录",
-    "需要补齐同一考试口径的行测和申论成绩，才能计算可靠分差。",
+    "补上同一场考试的行测和申论成绩，分差才算得准。",
   );
 }
 
@@ -435,8 +435,8 @@ function presentTask(task: TodayTask): TaskView {
     disabledReason: navigation
       ? ""
       : terminal
-        ? "这项任务已经结束，不需要重复开始。"
-        : "任务入口生成失败，请刷新今日安排；若仍未恢复，请联系岸岸并提供问题编号。",
+        ? "这项任务已经完成，不用再点一遍。"
+        : "任务入口没生成好，刷新一下今日安排；还不行就找岸岸，把问题编号发过来。",
   };
 }
 

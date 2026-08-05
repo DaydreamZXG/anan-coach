@@ -56,8 +56,6 @@ from app.domains.companion.agent import (
     COMPANION_AGENT_DEFINITION_RELEASE,
     default_companion_actions,
     execute_companion_actions,
-    format_requested_minutes,
-    requested_plan_minutes,
 )
 from app.domains.companion.repository import (
     CompanionContextRecord,
@@ -85,8 +83,10 @@ MIN_EXTRACTION_CONFIDENCE = 0.70
 MIN_NODE_CONFIDENCE = 0.75
 COMPANION_ASK_REQUEST_CONTRACT = "global-ask-command@v2"
 COMPANION_ASK_RESPONSE_CONTRACT = "grounded-answer@v2"
+COMPANION_ASK_EXECUTION_CONTRACT = "companion-ask-execution@v2"
 EXTERNAL_RESOLVE_REQUEST_CONTRACT = "external-question-resolve-command-v2"
 EXTERNAL_RESOLVE_RESPONSE_CONTRACT = "external-question-resolve-response-v1"
+EXTERNAL_RESOLVE_EXECUTION_CONTRACT = "external-question-resolve-execution-v2"
 
 
 class ExternalQuestionIntakeNotFoundError(LookupError):
@@ -229,7 +229,7 @@ class CompanionService:
                     decision=decision,
                     retrieval=retrieval,
                 )
-            persona = _build_persona_prompt(context)
+            persona = _build_persona_prompt()
             provider_request = self._ai_provider.prepare_companion_question(
                 route_decision=decision.model_dump(by_alias=True, mode="json"),
                 question_text=request.question_text,
@@ -238,7 +238,7 @@ class CompanionService:
                 persona=persona,
             )
             execution_payload = {
-                "contractVersion": "companion-ask-execution@v2",
+                "contractVersion": COMPANION_ASK_EXECUTION_CONTRACT,
                 "request": request_payload,
                 "routeDecision": decision.model_dump(by_alias=True, mode="json"),
                 "providerRequest": provider_request,
@@ -406,16 +406,17 @@ class CompanionService:
             command.execution_payload["retrievalBundle"],
             result.source_refs,
         )
+        fallback_actions = _allowed_actions(
+            decision=route_decision,
+            question_text=request.question_text,
+        )
         agent_outcome = execute_companion_actions(
             # Provider actions are advisory output and are deliberately not an
             # execution authority. The server derives navigation/preview
             # actions from the classified intent and the user's own text.
             requests=(),
             question_text=request.question_text,
-            fallback_actions=_allowed_actions(
-                decision=route_decision,
-                question_text=request.question_text,
-            ),
+            fallback_actions=fallback_actions,
         )
         self._audit_repository.log_interaction(
             log_id=f"companion_command_{command.command_id.hex}",
@@ -434,22 +435,10 @@ class CompanionService:
                 "learnerStateVersion": command.execution_payload["learnerStateVersion"],
                 "commandId": str(command.command_id),
                 "agentDefinitionReleaseId": COMPANION_AGENT_DEFINITION_RELEASE,
-                "agentRequestedToolCount": agent_outcome.requested_count,
-                "agentSucceededToolCount": agent_outcome.succeeded_count,
-                "agentToolEvents": [
-                    {
-                        key: event[key]
-                        for key in (
-                            "eventType",
-                            "toolName",
-                            "sequenceNo",
-                            "errorCode",
-                            "inputFingerprint",
-                            "outputFingerprint",
-                        )
-                        if key in event
-                    }
-                    for event in agent_outcome.events
+                "fallbackActionCount": len(fallback_actions),
+                "fallbackActions": [
+                    action.model_dump(by_alias=True, mode="json")
+                    for action in agent_outcome.actions
                 ],
             },
             commit=False,
@@ -668,7 +657,7 @@ class CompanionService:
                     selected_confidence = selected.confidence
                     answer_preview = _answer_preview(selected)
             execution_payload = {
-                "contractVersion": "external-question-resolve-execution-v2",
+                "contractVersion": EXTERNAL_RESOLVE_EXECUTION_CONTRACT,
                 "request": request_payload,
                 "resolution": {
                     "status": status,
@@ -1327,7 +1316,7 @@ def _companion_provider_request(
     execution = command.execution_payload
     provider_request = execution.get("providerRequest")
     if (
-        execution.get("contractVersion") != "companion-ask-execution@v2"
+        execution.get("contractVersion") != COMPANION_ASK_EXECUTION_CONTRACT
         or not isinstance(execution.get("request"), dict)
         or not isinstance(execution.get("context"), dict)
         or not isinstance(execution.get("routeDecision"), dict)
@@ -1416,15 +1405,17 @@ def _context_state_version(
     return str(context.learning_brain_profile["profileVersionId"])
 
 
-def _build_persona_prompt(context: CompanionContextRecord) -> str:
+def _build_persona_prompt() -> str:
     """Return the product-owned 岸岸 persona without legacy role-play prompts."""
-    del context
     return (
         "你是公考学习搭子岸岸，表达直接、亲切、克制，不使用官场角色扮演、古风称呼或夸张鼓励。"
         "一切建言必须且只能基于传入的 learner_context，"
         "不得编造课程、分数、岗位、错题或方法卡；若 learner_context 数据不足，须直说数据不足并给出采集动作。"
         "learningBrain 中的能力、模块、错误模式与计划结论都带内部版本；版本只用于系统追溯，"
         "对用户只说明可理解的事实和证据，不得输出 JSON、英文键名、枚举值、UUID、算法名、版本号或内部来源标识。"
+        "learningBrain 的 strategyDirective 记录本周策略：active 为已生效安排，pending 为待确认候选；"
+        "用户问及「为什么这样排」等排期原因时，引用对应 rationale 解释；pending 存在且用户询问学习安排时，"
+        "可主动请其确认，确认前不得当作已生效，也不得把候选写成新的能力事实。"
         "不得把本次回答、用户情绪或未确认候选写成新的能力事实。"
         "你同时负责行测和申论：申论建议必须优先引用 grounded review、结构化复盘和今日申论计划；"
         "system_compiled/unverified 评分规程下的单题分数只能称为低置信 AI 训练估分，"
@@ -1702,18 +1693,6 @@ def _allowed_actions(
         answer_type=decision.answer_type,
         question_text=question_text or "",
     )
-
-
-def _requested_plan_minutes(question_text: str) -> int | None:
-    """Compatibility shim for callers of the original plan-control helper."""
-
-    return requested_plan_minutes(question_text)
-
-
-def _format_requested_minutes(value: int) -> str:
-    """Compatibility shim for existing presentation tests."""
-
-    return format_requested_minutes(value)
 
 
 def _information_action(decision: IntentDecision) -> CompanionAllowedAction:

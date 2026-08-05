@@ -1,10 +1,10 @@
 <view class="s9-page workbench-page">
-  <view class="workbench-hero"><view class="workbench-kicker">申论改写对照</view><view class="workbench-title">笔还在你手里，岸岸只把改法摆给你看</view><view class="workbench-copy">原句、问题、改写与理由并排保留，接受或撤销都由你决定。</view></view>
+  <view class="workbench-hero"><view class="workbench-kicker">申论改写对照</view><view class="workbench-title">笔还在你手里，岸岸只把改法摆给你看</view><view class="workbench-copy">原句、改法和理由都摆在一起，要不要采纳，你说了算。</view></view>
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
-  <state-view wx:elif="{{status === 'error'}}" state="error" title="改写对照没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="{{retryAllowed ? '重新加载' : ''}}" bind:action="retryLoad" />
+  <state-view wx:elif="{{status === 'error'}}" state="error" title="改写对照没加载出来" description="{{errorMessage}}" request-id="{{requestId}}" action-text="{{retryAllowed ? '重新加载' : ''}}" bind:action="retryLoad" />
   <block wx:elif="{{comparison && view}}">
     <view class="workbench-card"><view class="workbench-pill">{{view.statusLabel}}</view><view class="workbench-grid"><view class="workbench-metric"><view class="workbench-meta">原答案</view><text class="workbench-metric__value">{{view.originalWords}} 字</text></view><view class="workbench-metric"><view class="workbench-meta">改写后</view><text class="workbench-metric__value">{{view.rewrittenWords}} 字</text></view></view></view>
-    <view class="workbench-card"><view class="workbench-section-title">逐字差异</view><view class="diff-legend"><text class="diff-delete">删除</text><text class="diff-insert">新增</text><text>保留</text></view><view class="diff-body"><text wx:for="{{view.segments}}" wx:key="key" class="diff-{{item.operation}}">{{item.text}}</text></view></view>
-    <view class="workbench-card"><view class="workbench-section-title">能力边界</view><view class="workbench-note">这张对照只证明你完成了本题改写；只有在新材料、新题目上仍然做到，才能进入稳定掌握。</view><button hover-class="item--hover" class="control-center workbench-action" bindtap="goVerify">去下一次训练验证</button></view>
+    <view class="workbench-card"><view class="workbench-section-title">改动了哪里</view><view class="diff-legend"><text class="diff-delete">删除</text><text class="diff-insert">新增</text><text>保留</text></view><view class="diff-body"><text wx:for="{{view.segments}}" wx:key="key" class="diff-{{item.operation}}">{{item.text}}</text></view></view>
+    <view class="workbench-card"><view class="workbench-section-title">先别急着说稳</view><view class="workbench-note">这次能看出来，你把这一题改明白了；等换到新材料、新题目也照样做到，才算真的稳。</view><button hover-class="item--hover" class="control-center workbench-action" bindtap="goVerify">换道新题再试试</button></view>
   </block>
 </view>

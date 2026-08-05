@@ -482,7 +482,7 @@ describe("reflection page voice binding", () => {
 
     expect(runtime.requests.some((request) => request.url.includes("/reflection"))).toBe(false);
     expect(runtime.showToast).toHaveBeenCalledWith({
-      title: "请先上传或删除未就绪录音",
+      title: "有段录音还没准备好，先上传或删掉它",
       icon: "none",
     });
   });

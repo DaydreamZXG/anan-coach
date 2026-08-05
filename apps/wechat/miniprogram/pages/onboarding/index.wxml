@@ -7,11 +7,11 @@
   />
 
   <view wx:if="{{loadingProfile}}" class="eligibility-state">
-    <state-view state="loading" title="正在恢复报考资料" description="会读取你已经确认过的学历、专业和经历。" />
+    <state-view state="loading" title="正在找回报考资料" description="别急，你之前确认过的学历、专业、经历都帮你记着呢。" />
   </view>
 
   <view wx:elif="{{loadFailed}}" class="eligibility-state">
-    <state-view state="error" title="报考资料没有恢复完成" description="{{error}}" actionText="重新读取" bindaction="retryLoad" />
+    <state-view state="error" title="哎，报考资料没找回来" description="{{error}}" actionText="再试一次" bindaction="retryLoad" />
     <view wx:if="{{requestId}}" class="request-id">问题编号 · {{requestId}}</view>
   </view>
 
@@ -20,12 +20,12 @@
       <view class="eligibility-content onboarding-scroll-content fade-slide-in fade-slide-in--2">
         <view class="boundary-notice">
           <image class="notice-icon" src="/assets/icons/onboarding/notice-warning.svg" mode="aspectFit" />
-          <view class="notice-copy">这部分信息将决定你能否跨过岗位的硬性门槛。不确定的可以先标记“稍后确认”。</view>
+          <view class="notice-copy">这部分决定了你能不能报上心仪的岗位，先填确定的，拿不准的先跳过。</view>
         </view>
 
         <view class="form-card">
           <view class="card-title">专业与学历</view>
-          <view class="card-copy">专业是国考岗位的核心门槛，匹配度优先于地区偏好。</view>
+          <view class="card-copy">专业是岗位最看重的，先按专业挑，再看想考哪。</view>
 
           <view class="major-field {{majorCategory ? 'major-field--selected' : ''}}">
             <image class="search-icon" src="/assets/icons/onboarding/search-muted.svg" mode="aspectFit" />
@@ -33,15 +33,15 @@
               class="major-input"
               value="{{major}}"
               maxlength="80"
-              placeholder="搜索具体专业名称..."
+              placeholder="搜一下你的专业名，比如：会计"
               disabled="{{catalogLoading || !!catalogError}}"
               bindinput="inputMajor"
             />
           </view>
-          <view wx:if="{{catalogLoading}}" class="catalog-status">正在读取国考专业目录…</view>
+          <view wx:if="{{catalogLoading}}" class="catalog-status">正在帮你找专业…</view>
           <view wx:if="{{catalogError}}" class="catalog-error">
             <text>{{catalogError}}</text>
-            <button hover-class="item--hover" class="catalog-retry" bindtap="retryCatalog">重新读取</button>
+            <button hover-class="item--hover" class="catalog-retry" bindtap="retryCatalog">再试一次</button>
           </view>
           <view wx:if="{{majorSuggestions.length}}" class="major-results">
             <button hover-class="item--hover"
@@ -91,7 +91,7 @@
 
         <view class="form-card experience-card">
           <view class="card-title">身份条件</view>
-          <view class="card-copy">性别和政治面貌只用于核验招录表中的明确限制条件。</view>
+          <view class="card-copy">性别、政治面貌只用来核对岗位的明确要求，别的不看。</view>
 
           <view class="picker-label">性别</view>
           <view class="work-options">
@@ -131,7 +131,7 @@
 
         <view class="form-card experience-card">
           <view class="card-title">服务基层项目经历</view>
-          <view class="card-copy">包含大学生村官、三支一扶、特岗教师等。此项能为你解锁大量定向招录的特殊岗位，与普通工作经历严格区分。</view>
+          <view class="card-copy">大学生村官、三支一扶、特岗教师这些，能多报不少定向岗位，跟普通工作经历不一样，有就勾上。</view>
 
           <view class="service-options">
             <button hover-class="item--hover"
@@ -183,7 +183,7 @@
           </view>
 
           <view class="divider"></view>
-          <view class="picker-label">户籍或生源地（选填）</view>
+          <view class="picker-label">户籍或生源地（不填也行）</view>
           <view class="hukou-field {{hukou ? 'hukou-field--filled' : ''}}">
             <input
               class="hukou-input"
@@ -195,7 +195,7 @@
           </view>
         </view>
 
-        <button hover-class="item--hover" class="mark-later" loading="{{savingDraft}}" bindtap="markLater">稍后确认这页的缺失信息</button>
+        <button hover-class="item--hover" class="mark-later" loading="{{savingDraft}}" bindtap="markLater">先跳过，回头再补</button>
 
         <view wx:if="{{error}}" class="error-banner">{{error}}</view>
         <view wx:if="{{requestId}}" class="request-id">问题编号 · {{requestId}}</view>
@@ -215,7 +215,7 @@
         loading="{{savingDraft}}"
         disabled="{{saving || savingDraft}}"
         bindtap="saveAndExit"
-      >暂存并退出</button>
+      >先存起来，回头再填</button>
     </view>
   </block>
 </view>

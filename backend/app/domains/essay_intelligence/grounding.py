@@ -3,7 +3,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from hashlib import sha256
 import hmac
-import json
 from uuid import UUID
 
 from app.domains.essay_intelligence.normalization import (
@@ -16,6 +15,7 @@ from app.domains.essay_intelligence.review_contracts import (
     GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
     REVIEW_CONTRACT_VERSION,
     RUBRIC_CONTRACT_VERSION,
+    _fingerprint,
 )
 from app.domains.essay_intelligence.schemas import (
     AnswerEvidenceRef,
@@ -437,13 +437,3 @@ def review_input_fingerprint(
 
 def review_output_fingerprint(output: EssayProviderReviewPayload) -> str:
     return _fingerprint(output.model_dump(by_alias=True, mode="json"))
-
-
-def _fingerprint(value: object) -> str:
-    encoded = json.dumps(
-        value,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-    ).encode("utf-8")
-    return sha256(encoded).hexdigest()

@@ -12,8 +12,25 @@ from app.domains.ai.agent_runtime.runtime import BoundedToolRuntime
 from app.domains.companion.schemas import CompanionAllowedAction
 
 
-COMPANION_AGENT_DEFINITION_RELEASE = "companion-action-agent-2026-08-04.1"
+COMPANION_AGENT_DEFINITION_RELEASE = "companion-action-agent-2026-08-04.2"
 COMPANION_ACTION_POLICY_VERSION = "companion-action-proposal@v2"
+
+XingceModule = Literal[
+    "言语理解与表达",
+    "数量关系",
+    "判断推理",
+    "资料分析",
+    "常识判断",
+    "政治理论",
+]
+XINGCE_MODULES: tuple[XingceModule, ...] = (
+    "言语理解与表达",
+    "数量关系",
+    "判断推理",
+    "资料分析",
+    "常识判断",
+    "政治理论",
+)
 
 Weekday = Literal[
     "monday",
@@ -102,7 +119,7 @@ class CompanionActionOutcome:
 
 
 class _CapacityArguments(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True)
+    model_config = ConfigDict(populate_by_name=True, extra="forbid", frozen=True)
 
     available_minutes: int | None = Field(
         default=None,
@@ -110,6 +127,11 @@ class _CapacityArguments(BaseModel):
         ge=0,
         le=1440,
     )
+    preferred_xingce_module: XingceModule | None = Field(
+        default=None,
+        alias="preferredXingceModule",
+    )
+    xingce_only: bool = Field(default=False, alias="xingceOnly")
 
 
 class _EmptyArguments(BaseModel):
@@ -140,6 +162,12 @@ class WeeklyScheduleRequest:
     mock_exam_day: Weekday | None = None
 
 
+@dataclass(frozen=True)
+class PlanFocusRequest:
+    module: XingceModule
+    xingce_only: bool = False
+
+
 def execute_companion_actions(
     *,
     requests: list[CompanionActionRequest] | tuple[CompanionActionRequest, ...],
@@ -155,6 +183,7 @@ def execute_companion_actions(
 
     events: list[dict[str, Any]] = []
     explicit_minutes = requested_plan_minutes(question_text)
+    explicit_focus = requested_plan_focus(question_text)
     explicit_weekly_schedule = requested_weekly_schedule(question_text)
 
     def preview_capacity(arguments: dict[str, Any]) -> dict[str, Any]:
@@ -163,14 +192,17 @@ def execute_companion_actions(
         # learner did not ask for that duration. Keep the useful navigation
         # proposal, but strip the invented value so the preview opens in manual
         # mode. An explicit learner-provided value must still match exactly.
-        if explicit_minutes is None:
-            return _capacity_action(None).model_dump(
-                by_alias=True,
-                mode="json",
-            )
-        if parsed.available_minutes != explicit_minutes:
+        if explicit_minutes is not None and parsed.available_minutes not in (
+            None,
+            explicit_minutes,
+        ):
             raise PermissionError("capacity proposal does not match the explicit user request")
-        return _capacity_action(parsed.available_minutes).model_dump(
+        if explicit_focus is not None:
+            if parsed.preferred_xingce_module not in (None, explicit_focus.module):
+                raise PermissionError("focus proposal does not match the explicit user request")
+            if parsed.xingce_only and not explicit_focus.xingce_only:
+                raise PermissionError("exclusive focus was not requested by the learner")
+        return _capacity_action(explicit_minutes, explicit_focus).model_dump(
             by_alias=True,
             mode="json",
         )
@@ -389,7 +421,12 @@ def default_companion_actions(
             )
         ]
     if answer_type in {"plan_explanation", "strategic_deprioritization"}:
-        return [_capacity_action(requested_plan_minutes(question_text))]
+        return [
+            _capacity_action(
+                requested_plan_minutes(question_text),
+                requested_plan_focus(question_text),
+            )
+        ]
     return [
         CompanionAllowedAction(
             kind="open_training",
@@ -460,6 +497,28 @@ def requested_plan_minutes(question_text: str) -> int | None:
         if phrase in normalized:
             return minutes
     return None
+
+
+def requested_plan_focus(question_text: str) -> PlanFocusRequest | None:
+    """Extract an explicit same-day Xingce module preference from learner language."""
+
+    normalized = "".join(question_text.lower().split())
+    if not normalized or not any(scope in normalized for scope in ("今天", "今晚", "今日")):
+        return None
+    module = next((item for item in XINGCE_MODULES if item in normalized), None)
+    if module is None:
+        return None
+    exclusive = any(
+        token in normalized
+        for token in (
+            f"只学{module}",
+            f"只做{module}",
+            f"只练{module}",
+            f"专门学{module}",
+            f"专练{module}",
+        )
+    )
+    return PlanFocusRequest(module=module, xingce_only=exclusive)
 
 
 def requested_weekly_schedule(question_text: str) -> WeeklyScheduleRequest | None:
@@ -537,8 +596,11 @@ def is_capacity_change_request(question_text: str) -> bool:
         return False
     if normalized.startswith(("为什么", "怎么会", "是不是", "为啥")):
         return False
-    if requested_plan_minutes(normalized) is None:
+    focus = requested_plan_focus(normalized)
+    if requested_plan_minutes(normalized) is None and focus is None:
         return False
+    if focus is not None:
+        return True
     return any(
         token in normalized
         for token in (
@@ -564,17 +626,38 @@ def format_requested_minutes(value: int) -> str:
     return f"{value} 分钟"
 
 
-def _capacity_action(value: int | None) -> CompanionAllowedAction:
+def _capacity_action(
+    value: int | None,
+    focus: PlanFocusRequest | None = None,
+) -> CompanionAllowedAction:
     target_ref = "/pages/day-adjustment/index"
+    params: dict[str, str | int] = {}
+    if value is not None or focus is not None:
+        params["source"] = "anan"
     if value is not None:
-        target_ref = f"{target_ref}?{urlencode({'source': 'anan', 'availableMinutes': value})}"
-    return CompanionAllowedAction(
-        kind="adjust_plan_preview",
-        label=(
+        params["availableMinutes"] = value
+    if focus is not None:
+        params["preferredXingceModule"] = focus.module
+        params["xingceOnly"] = "1" if focus.xingce_only else "0"
+    if params:
+        target_ref = f"{target_ref}?{urlencode(params)}"
+    if focus is not None:
+        label = (
+            f"预览今天只练{focus.module}"
+            if focus.xingce_only
+            else f"预览今天重点练{focus.module}"
+        )
+        if value is not None:
+            label = f"{label} · {format_requested_minutes(value)}"
+    else:
+        label = (
             f"预览调整为 {format_requested_minutes(value)}"
             if value is not None
             else "预览今日计划调整"
-        ),
+        )
+    return CompanionAllowedAction(
+        kind="adjust_plan_preview",
+        label=label,
         targetRef=target_ref,
         requiresConfirmation=True,
     )

@@ -101,7 +101,7 @@ Page<PositionGoalPageData, PositionGoalPageCustom>({
     };
     this.setData({ state: controller.snapshot() });
     if (!positionId) {
-      void wx.showToast({ title: "目标岗位信息不完整，请返回重新选择", icon: "none" });
+      void wx.showToast({ title: "岗位信息不全，回去重选一个就好", icon: "none" });
       return;
     }
     void controller.load();
@@ -195,7 +195,7 @@ async function resolvePostGoalAction(
     if (!runtimes.owns(page, runtime)) return;
     page.setData({
       resolvingPostGoalAction: false,
-      postGoalError: "主目标已经确认，但首日入口没有读取完成，请重新进入该岗位。",
+      postGoalError: "主目标已经定好啦，但下一步没准备好，重新进一下这个岗位就行。",
     });
   }
 }

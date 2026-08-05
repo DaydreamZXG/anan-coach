@@ -2076,7 +2076,7 @@ export type CompanionAllowedAction = {
     /**
      * Kind
      */
-    kind: 'view_evidence' | 'add_reflection' | 'adjust_plan_preview' | 'supply_information' | 'open_training' | 'open_position_workspace' | 'refresh_context';
+    kind: 'view_evidence' | 'adjust_plan_preview' | 'supply_information' | 'open_training' | 'open_position_workspace' | 'refresh_context';
     /**
      * Label
      */
@@ -2159,7 +2159,7 @@ export type CompanionAskResponse = {
     /**
      * Semanticstate
      */
-    semanticState: 'ready' | 'evidence_insufficient' | 'permission_denied' | 'security_blocked' | 'quota_exhausted' | 'provider_pending' | 'failed';
+    semanticState: 'ready' | 'evidence_insufficient' | 'permission_denied' | 'security_blocked' | 'failed';
 };
 
 /**
@@ -2662,9 +2662,17 @@ export type DailyCapacityCommand = {
      */
     energy: number;
     /**
+     * Preferredxingcemodule
+     */
+    preferredXingceModule?: '言语理解与表达' | '数量关系' | '判断推理' | '资料分析' | '常识判断' | '政治理论' | null;
+    /**
      * Stress
      */
     stress: number;
+    /**
+     * Xingceonly
+     */
+    xingceOnly?: boolean;
 };
 
 /**
@@ -6700,7 +6708,7 @@ export type InferenceCandidateVersion = {
     /**
      * Inferencetype
      */
-    inferenceType: 'error_pattern' | 'module_interpretation' | 'strategy_recommendation' | 'planning_explanation';
+    inferenceType: 'error_pattern' | 'module_interpretation' | 'strategy_recommendation' | 'strategy_directive' | 'planning_explanation';
     /**
      * Inputfingerprint
      */
@@ -17564,6 +17572,10 @@ export type TodayCapacity = {
      */
     localDate: string;
     /**
+     * Preferredxingcemodule
+     */
+    preferredXingceModule?: '言语理解与表达' | '数量关系' | '判断推理' | '资料分析' | '常识判断' | '政治理论' | null;
+    /**
      * Sourcetype
      */
     sourceType: 'weekly_preference' | 'user_override';
@@ -17575,6 +17587,10 @@ export type TodayCapacity = {
      * Versionno
      */
     versionNo: number;
+    /**
+     * Xingceonly
+     */
+    xingceOnly?: boolean;
 };
 
 /**
@@ -18293,6 +18309,10 @@ export type WechatLoginRequest = {
      * Deviceid
      */
     deviceId: string;
+    /**
+     * Legalaccepted
+     */
+    legalAccepted?: boolean;
 };
 
 /**

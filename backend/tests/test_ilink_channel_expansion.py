@@ -505,11 +505,11 @@ def seed_today_plan(session: Session, *, user_id: UUID, minutes: int = 55) -> No
               capacity_version_id, command_id, user_id, local_date, version_no,
               available_minutes, energy_level, stress_level, confidence_level,
               confirmed, source_type, weekly_preference_version_id,
-              input_fingerprint, recorded_at
+              input_fingerprint, recorded_at, xingce_only
             ) values (
               :capacity_id, :command_id, :user_id, :day, 1,
               90, 3, 3, 3, true, 'user_override', :preference_id,
-              :fingerprint, :now
+              :fingerprint, :now, false
             )
             """
         ),

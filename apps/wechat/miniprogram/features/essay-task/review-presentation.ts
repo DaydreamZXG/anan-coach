@@ -43,46 +43,46 @@ export function presentReviewIntent(intent: EssayReviewIntentView): ReviewDispla
     if (!intent.retryAfter || !intent.quota) {
       return safeTerminal(
         "failed",
-        "评阅额度状态不完整",
-        "评阅次数暂时用完了，恢复时间没拿到，请重新加载看看。",
+        "今天的评阅次数用完了",
+        "评阅次数暂时用完了，恢复时间还没算出来，重新加载看看。",
       );
     }
     if (intent.quota.accessMode !== "entitlement_quota" || intent.quota.limit === null) {
-      return safeTerminal("failed", "评阅次数没有同步", "请重新加载后再试。");
+      return safeTerminal("failed", "评阅次数没有同步", "重新加载后再试一次就好。");
     }
     const retryLabel = formatRetryAfter(intent.retryAfter);
     if (!retryLabel) {
-      return safeTerminal("failed", "评阅额度状态不完整", "恢复时间没读出来，请重新加载看看。");
+      return safeTerminal("failed", "今天的评阅次数用完了", "恢复时间没读出来，重新加载看看。");
     }
-    const quotaLabel = `今日已使用 ${String(intent.quota.used)}/${String(intent.quota.limit)} 次。`;
+    const quotaLabel = `今天已经用了 ${String(intent.quota.used)}/${String(intent.quota.limit)} 次。`;
     return {
       state: "waiting_quota",
-      title: "答案已保存，评阅额度待恢复",
-      message: `${quotaLabel}预计 ${retryLabel} 后可继续建立评阅；答案、复盘和评阅意图都已保存在你的账户中。`,
+      title: "答案已存好，评阅次数明天恢复",
+      message: `${quotaLabel}预计 ${retryLabel} 后就能再评；答案、复盘都替你收好了，别担心。`,
       result: null,
     };
   }
   if (intent.status === "pending") {
-    return pendingDisplay("queued", "正在准备本次评阅", "答案和复盘已保存，岸岸正在开始完整评阅。");
+    return pendingDisplay("queued", "正在准备这次评阅", "答案和复盘已存好，岸岸正在开始给你评。");
   }
   if (intent.jobStatus === "failed") {
     return safeTerminal(
       "failed",
-      "这次评阅没有完成",
-      "本次没有形成完整评阅，因此不展示部分分数。答案已保存，可以重新评阅。",
+      "这次评阅没完成",
+      "这次没评出完整结果，所以先不给部分分。答案已存好，可以重新评。",
     );
   }
   if (intent.jobStatus === "running") {
     return pendingDisplay(
       "running",
-      "AI 正在逐项核对",
-      "正在逐项核对答案原句、材料原句和评分点，请保持页面打开。",
+      "岸岸正在逐句核对",
+      "正在逐句对答案和材料，别急，马上就好，页面先别关。",
     );
   }
   return pendingDisplay(
     "queued",
-    intent.jobStatus === "succeeded" ? "评阅已完成，正在同步" : "评阅已排队",
-    "评阅正在处理这份答案，完成前不会展示不完整分数。",
+    intent.jobStatus === "succeeded" ? "评阅已完成，正在整理" : "评阅已排队",
+    "评阅正在处理这份答案，出完整结果前不会先给部分分。",
   );
 }
 
@@ -91,28 +91,28 @@ export function presentReviewJob(job: EssayReviewJobView): ReviewDisplay {
     return pendingDisplay(
       "queued",
       "评阅已排队",
-      "这份答案正在等待完整评阅，完成前不会展示不完整分数。",
+      "这份答案正在排队等完整评阅，出结果前不会先给部分分。",
     );
   }
   if (job.status === "running") {
     return pendingDisplay(
       "running",
-      "AI 正在逐项核对",
-      "正在逐项核对答案原句、材料原句和评分点，请保持页面打开。",
+      "岸岸正在逐句核对",
+      "正在逐句对答案和材料，别急，马上就好，页面先别关。",
     );
   }
   if (job.status === "failed") {
     return safeTerminal(
       "failed",
-      "这次评阅没有完成",
-      "本次没有形成完整评阅，因此不显示部分分数。答案已保存，可以重新加载或重评。",
+      "这次评阅没完成",
+      "这次没评出完整结果，所以先不给部分分。答案已存好，重新加载或重评都行。",
     );
   }
   if (!job.review) {
     return safeTerminal(
       "failed",
       "评阅结果不完整",
-      "这次没有返回完整评阅，页面不会猜测或拼接分数。",
+      "这次没返回完整评阅，页面不会乱凑分数。",
     );
   }
   return presentGroundedReview(job.review);
@@ -123,29 +123,29 @@ export function presentGroundedReview(review: EssayReviewResponse): ReviewDispla
     const codes = review.readiness.blockingCodes.join("、");
     return safeTerminal(
       "blocked",
-      "本版无法可靠估分",
+      "这次暂时没法估分",
       codes
-        ? `还差一些材料没补全，部分分数暂时看不了。请先补全材料、题干或答案确认。`
+        ? `还差一些材料没补全，部分分数暂时看不了。先把材料、题干或答案补全就好。`
         : "还差一些材料没补全，部分分数暂时看不了。",
     );
   }
   if (review.status === "failed") {
-    return safeTerminal("failed", "评阅未形成", "这次评阅内容不完整，因此不展示任何部分分数。");
+    return safeTerminal("failed", "评阅没评出来", "这次评阅内容不完整，因此不展示任何部分分数。");
   }
   if (!review.score || !review.audit) {
-    return safeTerminal("failed", "评阅结果不完整", "这次缺少完整分数区间，因此不展示不完整结果。");
+    return safeTerminal("failed", "评阅结果不完整", "这次缺少完整分数区间，不展示不完整结果。");
   }
   const score = review.score;
   return {
     state: "completed",
     title: "完整评阅已完成",
-    message: "以下为 AI 训练估分区间，不等同于人工阅卷或正式考试成绩。",
+    message: "以下是 AI 的大致估分，不是正式成绩，心里有个数就行。",
     result: {
       reviewVersionId: review.reviewVersionId,
       trainingEstimateLabel: formatRange(score.scoreRange),
       recommendedLabel: formatScore(score.scoreRange.recommended),
       maximumLabel: formatScore(score.maximum),
-      confidenceLabel: score.confidence === "low" ? "低置信度" : "中等置信度",
+      confidenceLabel: score.confidence === "low" ? "把握还不大" : "把握还可以",
       confidenceLow: score.confidence === "low",
       confidenceReasons: score.confidenceReasons,
       dimensions: review.dimensions.map((dimension) => ({

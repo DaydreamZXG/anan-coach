@@ -40,6 +40,8 @@ describe("today capacity command", () => {
         energy: 2,
         stress: 4,
         confidenceLevel: 3,
+        preferredXingceModule: null,
+        xingceOnly: false,
       },
       error: "",
     });
@@ -66,7 +68,7 @@ describe("today capacity command", () => {
     const draft = capacityDraftFromVersion(prototypeToday.capacity);
 
     expect(prepareCapacityCommand({ ...draft, energy: 0 }, "capacity-v1").error).toContain("精力");
-    expect(prepareCapacityCommand(draft, "").error).toContain("重新载入");
+    expect(prepareCapacityCommand(draft, "").error).toContain("重新生成");
   });
 
   it("enables writes only for an authenticated account", () => {
@@ -291,7 +293,7 @@ describe("day adjustment capacity operation attempt", () => {
 
     expect(capacityWrites(scenario.requests)).toHaveLength(0);
     expect(storedAttempts(scenario.storage)).toMatchObject([{ state: "terminal" }]);
-    expect(reenteredPage.data.errorMessage).toContain("上一个学习日");
+    expect(reenteredPage.data.errorMessage).toContain("昨天调的计划已经过期啦");
     expect(reenteredPage.data.status).toBe("ready");
 
     reenteredPage.data.preview = {};
@@ -331,7 +333,7 @@ describe("day adjustment capacity operation attempt", () => {
 
     expect(capacityWrites(scenario.requests)).toHaveLength(0);
     expect(storedAttempts(scenario.storage)).toMatchObject([{ state: "terminal" }]);
-    expect(reenteredPage.data.errorMessage).toContain("恢复信息无法校验");
+    expect(reenteredPage.data.errorMessage).toContain("没记录好");
   });
 
   it("persists only the fixed scope and strict canonical payload without session secrets", async () => {
@@ -365,7 +367,9 @@ describe("day adjustment capacity operation attempt", () => {
       "basedOnCapacityVersionId",
       "confidenceLevel",
       "energy",
+      "preferredXingceModule",
       "stress",
+      "xingceOnly",
     ]);
     expect(JSON.stringify(attempt)).not.toContain("token-a");
   });
@@ -875,6 +879,8 @@ function expectedCapacityCommand(
     energy: 2,
     stress: 4,
     confidenceLevel: 3,
+    preferredXingceModule: null,
+    xingceOnly: false,
   };
 }
 

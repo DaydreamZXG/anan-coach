@@ -1,14 +1,14 @@
 <view class="s9-screen position-screen position-screen--compare">
-  <workbench-nav id="runtime-workbench-nav" title="岗位综合对比" back-behavior="emit" bind:back="goBack" />
+  <workbench-nav id="runtime-workbench-nav" title="岗位对比" back-behavior="emit" bind:back="goBack" />
 
   <view class="position-content position-content--compare">
     <state-view wx:if="{{!state || state.status === 'idle' || state.status === 'loading'}}" state="loading" />
     <state-view
       wx:elif="{{state.status === 'needsProfile'}}"
       state="empty"
-      title="先完成资格建档"
-      description="岗位对比会按同一份档案重新核验。"
-      action-text="去建档"
+      title="先把报考资料补全"
+      description="对比时，会用同一份资料重新核对。"
+      action-text="去补资料"
       bind:action="openQualificationProfile"
     />
     <state-view
@@ -25,7 +25,7 @@
       title="{{state.error.title}}"
       description="{{state.error.message}}"
       request-id="{{state.error.requestId}}"
-      action-text="{{state.error.retryable ? '重新对齐' : ''}}"
+      action-text="{{state.error.retryable ? '再试一次' : ''}}"
       bind:action="retry"
     />
 
@@ -47,7 +47,7 @@
             </view>
 
             <view class="comparison-section">
-              <view class="comparison-section__label">安全线与当前差距</view>
+              <view class="comparison-section__label">参考分数和你差多少</view>
               <view class="comparison-score-box">
                 <text class="comparison-score-box__value">{{item.scoreLabel}}</text>
                 <text class="comparison-score-box__gap">{{item.fitView.scoreGapRecommendedLabel}}</text>
@@ -55,7 +55,7 @@
             </view>
 
             <view class="comparison-section">
-              <view class="comparison-section__label">资格匹配</view>
+              <view class="comparison-section__label">资格条件</view>
               <view class="comparison-section__value">{{item.conditionSummary}}</view>
               <view class="comparison-section__sub">{{item.fitView.requirementsBurdenLabel}}</view>
             </view>
@@ -79,7 +79,7 @@
         </view>
       </scroll-view>
 
-      <view class="comparison-footnote">分带描述同年度能力区间与岗位目标区间的关系，不代表录取概率。</view>
+      <view class="comparison-footnote">这里的分带，是拿你的能力和岗位目标放在一起看，不代表录取概率。</view>
     </block>
   </view>
 </view>

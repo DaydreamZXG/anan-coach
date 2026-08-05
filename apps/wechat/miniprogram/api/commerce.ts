@@ -5,8 +5,13 @@ import type {
   WechatRefundResponse,
 } from "./generated/types.gen";
 import type { ApiClient } from "./client";
+import {
+  resolveWechatClientPlatform,
+  supportsVirtualPayment,
+  type WechatClientPlatform,
+} from "../platform/payment-platform";
 
-export type WechatClientPlatform = "ios" | "android" | "harmony" | "windows";
+export type { WechatClientPlatform } from "../platform/payment-platform";
 
 export interface WechatVirtualPaymentParameters {
   signData: string;
@@ -97,18 +102,15 @@ export function freshWechatLoginCode(): Promise<string> {
 }
 
 export function currentWechatPaymentPlatform(): WechatClientPlatform {
-  const platform = wx.getDeviceInfo().platform.toLowerCase();
-  if (platform === "ios") return "ios";
-  if (platform === "android") return "android";
-  if (platform === "windows") return "windows";
-  if (platform === "ohos" || platform === "harmony") return "harmony";
+  const platform = resolveWechatClientPlatform();
+  if (platform) return platform;
   throw new Error("当前设备不支持微信虚拟支付，请在受支持的微信客户端内购买。 ");
 }
 
 export function requestWechatVirtualPayment(
   payment: WechatVirtualPaymentParameters,
 ): Promise<void> {
-  if (!wx.canIUse("requestVirtualPayment")) {
+  if (!supportsVirtualPayment()) {
     return Promise.reject(
       new VirtualPaymentInvocationError(
         "当前微信版本不支持虚拟支付，请升级微信后重试。",

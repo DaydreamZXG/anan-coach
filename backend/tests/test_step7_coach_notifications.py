@@ -801,11 +801,11 @@ def _seed_plan_task(session: Session, *, user_id: str) -> None:
               capacity_version_id, command_id, user_id, local_date, version_no,
               available_minutes, energy_level, stress_level, confidence_level,
               confirmed, source_type, weekly_preference_version_id,
-              input_fingerprint, recorded_at
+              input_fingerprint, recorded_at, xingce_only
             ) values (
               cast(:capacity_id as uuid), :command_id, cast(:user_id as uuid),
               :local_date, 1, 120, 4, 2, 4, true, 'user_override',
-              cast(:preference_id as uuid), :fingerprint, :now
+              cast(:preference_id as uuid), :fingerprint, :now, false
             )
             """
         ),

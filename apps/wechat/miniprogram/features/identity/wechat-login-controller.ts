@@ -15,6 +15,7 @@ export interface WechatLoginState {
 export interface WechatLoginDependencies {
   requestCode(): Promise<string>;
   deviceId(): string;
+  legalAccepted(): boolean;
   authenticate(request: WechatLoginRequest): Promise<WechatAuthSessionData>;
   restoreProgress(): Promise<OnboardingProgress | null>;
   commitSession(session: WechatAuthSessionData): void;
@@ -78,6 +79,7 @@ export class WechatLoginController {
       const request: WechatLoginRequest = {
         code: await this.dependencies.requestCode(),
         deviceId: this.dependencies.deviceId(),
+        legalAccepted: this.dependencies.legalAccepted(),
       };
       if (!this.isCurrent(attempt)) return;
       const session = await this.dependencies.authenticate(request);

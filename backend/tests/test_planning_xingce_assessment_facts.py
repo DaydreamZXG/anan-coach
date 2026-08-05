@@ -33,6 +33,13 @@ def test_next_targeted_plan_uses_user_isolated_assessment_weakest_module(
     planning = PlanningService()
 
     with db_session_factory.begin() as session:
+        session.execute(
+            text(
+                "update learner.profiles set daily_minutes = 180 "
+                "where user_id in (cast(:user_id as uuid), cast(:other_user_id as uuid))"
+            ),
+            {"user_id": user_id, "other_user_id": other_user_id},
+        )
         quantity_ids = _insert_objective_questions(
             session,
             prefix="assessment-quantity",
@@ -122,9 +129,69 @@ def test_next_targeted_plan_uses_user_isolated_assessment_weakest_module(
         )
 
     targeted = next(task for task in plan.tasks if task.stage == "objective_practice")
-    assert targeted.title == "行测针对训练：言语理解与表达"
+    assert targeted.title == "行测提分练习：言语理解与表达"
     assert "言语理解与表达" in targeted.reason
     assert "资料分析" not in targeted.title
+
+
+def test_completed_question_group_stops_repeating_baseline_without_formal_dual_track_estimate(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id = _seed_learner_and_published_essay_content(
+        db_session_factory,
+        include_objective_questions=False,
+    )
+    planning = PlanningService()
+
+    with db_session_factory.begin() as session:
+        session.execute(
+            text(
+                "update learner.profiles set daily_minutes = 180 "
+                "where user_id = cast(:user_id as uuid)"
+            ),
+            {"user_id": user_id},
+        )
+        question_ids = _insert_objective_questions(
+            session,
+            prefix="completed-baseline-language",
+            module_name="言语理解与表达",
+            count=36,
+        )
+        _insert_active_knowledge_node(
+            session,
+            module_name="言语理解与表达",
+            tag_value="中心理解",
+            question_ids=question_ids,
+            now=NOW,
+        )
+        initial = planning.get_or_create_today(
+            session,
+            user_id=user_id,
+            now=NOW,
+            local_date=NOW.date(),
+        )
+        assert any(task.stage == "objective_baseline" for task in initial.tasks)
+        _insert_assessment_facts(
+            session,
+            user_id=user_id,
+            plan=initial,
+            question_results=[
+                (question_id, index % 4 != 0) for index, question_id in enumerate(question_ids[:30])
+            ],
+        )
+
+    next_day = NOW + timedelta(days=1)
+    with db_session_factory.begin() as session:
+        next_plan = planning.get_or_create_today(
+            session,
+            user_id=user_id,
+            now=next_day,
+            local_date=next_day.date(),
+        )
+
+    assert all(task.stage != "objective_baseline" for task in next_plan.tasks)
+    assert any(task.stage == "objective_practice" for task in next_plan.tasks)
+    assert next_plan.input_versions["abilityEstimate"] == "unavailable"
 
 
 def _insert_objective_questions(
@@ -371,9 +438,7 @@ def _insert_assessment(
             "question_id": question_id,
             "answer_version_id": answer_version_id,
             "content_version_id": _digest(f"content:{question_id}"),
-            "assessment_key_hash": _digest(
-                f"assessment:{user_id}:{session_id}:{question_id}"
-            ),
+            "assessment_key_hash": _digest(f"assessment:{user_id}:{session_id}:{question_id}"),
             "result_code": verdict,
             "correct": correct,
             "result_snapshot": json.dumps(

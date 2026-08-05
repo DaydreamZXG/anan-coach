@@ -14,6 +14,7 @@ import { PageControllerRegistry } from "../../app/runtime/controller-registry";
 import { clearAuthSession, currentAccessToken, currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
 import { consumeLatestTodayDashboard } from "../../features/planning/runtime-state";
+import { suppressNativeTabBar } from "../../platform/tab-bar";
 import {
   openWeatherLocationSetting,
   readWeatherLocation,
@@ -135,6 +136,7 @@ Page<TodayPageData, TodayPageCustom>({
   },
 
   onShow() {
+    suppressNativeTabBar();
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({ active: "today" });
     }
@@ -275,7 +277,7 @@ Page<TodayPageData, TodayPageCustom>({
     if (!startUrl) return;
     const target = registeredNavigationTarget(startUrl);
     if (!target) {
-      this.setData({ openingError: "学习入口暂时不可用，请稍后再试。" });
+      this.setData({ openingError: "学习入口暂时打不开，稍后再试试。" });
       return;
     }
     this.setData({ openingError: "" });
@@ -295,7 +297,7 @@ Page<TodayPageData, TodayPageCustom>({
     };
     const fail = (result: WechatMiniprogram.GeneralCallbackResult) => {
       console.warn("opening navigation failed", result.errMsg);
-      this.setData({ openingError: "学习页面没有打开，请重试。" });
+      this.setData({ openingError: "页面没打开，别急，再试一次。" });
     };
     if (target.mode === "switchTab") {
       wx.switchTab({ url: target.url, success, fail });
@@ -341,7 +343,7 @@ function openTodayTask(page: TodayPageInstance, taskId: string): void {
     console.warn("task navigation failed", result.errMsg);
     page.setData({
       taskOpeningId: "",
-      taskNavigationError: "任务页面没有打开，请重试。",
+      taskNavigationError: "任务页面没打开，再试一次就好。",
     });
   };
   if (task.navigationMode === "switchTab") {

@@ -135,7 +135,7 @@ def test_atomic_drafting_completion_is_owned_versioned_and_strongly_idempotent(
     assert result["completion"]["execution"]["status"] == "complete"
     assert not any(item["track"] == "essay" for item in result["completion"]["plan"]["tasks"])
     assert (
-        "AI 评阅仍在生成"
+        "评阅还在路上"
         in result["completion"]["plan"]["dualTrackExplanation"]["omittedTrackReasons"]["essay"]
     )
     assert {item["entityType"] for item in result["completion"]["execution"]["evidenceRefs"]} == {

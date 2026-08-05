@@ -1,25 +1,25 @@
 <view class="identity-page">
   <workbench-nav
     id="runtime-workbench-nav"
-    title="1/5 身份与状态"
+    title="1/5 先认识一下你"
     back-behavior="emit"
     bind:back="back"
   />
 
   <view wx:if="{{!state || state.status === 'loading' || accountLoading}}" class="identity-state">
-    <state-view state="loading" title="正在恢复身份资料" description="会核对昵称和上一次保存的备考经历。" />
+    <state-view state="loading" title="正在找回你的资料" description="别急，昵称和上次填的备考情况都还在。" />
   </view>
 
   <view wx:elif="{{state.status === 'error'}}" class="identity-state">
-    <state-view state="error" title="身份资料没有恢复完成" description="{{state.error.message}}" actionText="重新读取" bindaction="retry" />
+    <state-view state="error" title="哎，没找回来" description="{{state.error.message}}" actionText="再试一次" bindaction="retry" />
     <view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
   </view>
 
   <block wx:else>
     <scroll-view scroll-y class="identity-scroll" enhanced show-scrollbar="{{false}}">
       <view class="identity-content onboarding-scroll-content fade-slide-in fade-slide-in--2">
-        <view class="identity-heading">了解你的基本状态</view>
-        <view class="identity-intro">目前只做国考这一件事。考过没考过，节奏不一样。</view>
+        <view class="identity-heading">先聊聊你的情况</view>
+        <view class="identity-intro">咱们就专心国考这一件事。考过没考过，节奏不一样，岸岸会按你的情况来。</view>
 
         <view class="profile-field">
           <view class="profile-avatar profile-avatar--{{avatarStyle}}">{{avatarInitial}}</view>
@@ -45,7 +45,7 @@
               <text>首次备考</text>
               <view wx:if="{{state.draft.firstSystematic}}" class="selected-check">✓</view>
             </view>
-            <view class="exam-card__copy">从零开始建立基础</view>
+            <view class="exam-card__copy">从零开始，把基础打牢</view>
           </button>
           <button hover-class="item--hover"
             class="exam-card {{state.draft.retake ? 'exam-card--selected' : ''}}"
@@ -56,18 +56,18 @@
               <text>二战/多战</text>
               <view wx:if="{{state.draft.retake}}" class="selected-check">✓</view>
             </view>
-            <view class="exam-card__copy">重点突破弱项短板</view>
+            <view class="exam-card__copy">主要补之前的弱项</view>
           </button>
         </view>
 
-        <view class="field-title field-title--status">当前身份状态</view>
+        <view class="field-title field-title--status">你现在是啥状态</view>
         <view class="status-list">
           <button hover-class="item--hover"
             class="status-card {{state.draft.currentStatus === 'parttime' ? 'status-card--selected' : ''}}"
             data-status="parttime"
             bindtap="selectCurrentStatus"
           >
-            <view><view class="status-name">在职备考</view><view class="status-copy">时间碎片化，需要极高效率</view></view>
+            <view><view class="status-name">在职备考</view><view class="status-copy">时间比较碎，咱们就抓效率</view></view>
             <view class="radio-ring"><view wx:if="{{state.draft.currentStatus === 'parttime'}}" class="radio-dot"></view></view>
           </button>
           <button hover-class="item--hover"
@@ -75,7 +75,7 @@
             data-status="fulltime"
             bindtap="selectCurrentStatus"
           >
-            <view><view class="status-name">全职备考</view><view class="status-copy">时间充足，需要系统性拉练</view></view>
+            <view><view class="status-name">全职备考</view><view class="status-copy">时间多，正好把基础打扎实</view></view>
             <view class="radio-ring"><view wx:if="{{state.draft.currentStatus === 'fulltime'}}" class="radio-dot"></view></view>
           </button>
           <button hover-class="item--hover"
@@ -83,7 +83,7 @@
             data-status="student"
             bindtap="selectCurrentStatus"
           >
-            <view><view class="status-name">在校生</view><view class="status-copy">兼顾学业，弹性安排进度</view></view>
+            <view><view class="status-name">在校生</view><view class="status-copy">还得忙学业，灵活着来</view></view>
             <view class="radio-ring"><view wx:if="{{state.draft.currentStatus === 'student'}}" class="radio-dot"></view></view>
           </button>
         </view>
@@ -104,7 +104,7 @@
         disabled="{{state.saving || profileSaving}}"
         bindtap="submit"
       >
-        继续：填写报考资格
+        继续：报考资格
       </button>
       <button
         hover-class="item--hover"
@@ -112,7 +112,7 @@
         loading="{{state.saving || profileSaving}}"
         disabled="{{state.saving || profileSaving}}"
         bindtap="saveAndExit"
-      >暂存并退出</button>
+      >先存起来，回头再填</button>
     </view>
   </block>
 </view>

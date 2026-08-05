@@ -7,11 +7,11 @@
   />
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="time-state">
-    <state-view state="loading" title="正在读取学习时间" description="岸岸会恢复你已经保存的工作日和周末安排。" />
+    <state-view state="loading" title="正在找回学习安排" description="别急，你工作日和周末的安排都记得。" />
   </view>
 
   <view wx:elif="{{state.status === 'error'}}" class="time-state">
-    <state-view state="error" title="学习时间没有读取成功" description="{{state.error.message}}" actionText="重新读取" bindaction="retry" />
+    <state-view state="error" title="哎，没找回来" description="{{state.error.message}}" actionText="再试一次" bindaction="retry" />
     <view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
   </view>
 
@@ -19,11 +19,11 @@
     <scroll-view scroll-y class="time-scroll" enhanced show-scrollbar="{{false}}">
       <view class="time-content onboarding-scroll-content fade-slide-in fade-slide-in--2">
         <view class="time-card">
-          <view class="time-intro">合理的排期比虚高的计划更有效。每天最少 0.5 小时，最高 12 小时。岸岸将据此分配每天的任务容量。</view>
+          <view class="time-intro">排得下才坚持得久，别一上来就定太高。每天最少 0.5 小时、最多 12 小时，岸岸照这个帮你安排每天的任务。</view>
 
           <view class="time-section">
             <view class="time-section__head">
-              <view class="time-label">工作日 (周一至周五) 日均可学</view>
+              <view class="time-label">工作日（周一到周五）每天能学</view>
               <view class="time-value">{{weekdayHoursLabel}} <text class="time-unit">小时</text></view>
             </view>
             <view class="time-control">
@@ -37,7 +37,7 @@
 
           <view class="time-section">
             <view class="time-section__head">
-              <view class="time-label">周末及节假日 日均可学</view>
+              <view class="time-label">周末和节假日 每天能学</view>
               <view class="time-value">{{weekendHoursLabel}} <text class="time-unit">小时</text></view>
             </view>
             <view class="time-control">
@@ -53,7 +53,7 @@
           </view>
         </view>
 
-        <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">上一次保存结果还不确定，本次只会查询原保存结果。</view>
+        <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">上次的结果还没存稳，这次只帮你查一下，不重复存。</view>
         <view wx:if="{{state.validationError}}" class="error-banner">{{state.validationError}}</view>
         <view wx:if="{{state.error}}" class="error-banner">{{state.error.message}}</view>
         <view wx:if="{{state.error && state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
@@ -61,14 +61,14 @@
     </scroll-view>
 
     <view class="time-dock onboarding-action-dock">
-      <button hover-class="item--hover" class="time-primary {{state.saving ? 'time-primary--disabled' : ''}} tap-tactile" loading="{{state.saving}}" disabled="{{state.saving}}" bindtap="submit">{{state.pendingRecovery ? '查询原保存结果' : '继续：能力基础'}}</button>
+      <button hover-class="item--hover" class="time-primary {{state.saving ? 'time-primary--disabled' : ''}} tap-tactile" loading="{{state.saving}}" disabled="{{state.saving}}" bindtap="submit">{{state.pendingRecovery ? '看看上次的结果' : '继续：现在的水平'}}</button>
       <button
         hover-class="item--hover"
         class="onboarding-save-action"
         loading="{{state.saving}}"
         disabled="{{state.saving}}"
         bindtap="saveAndExit"
-      >暂存并退出</button>
+      >先存起来，回头再填</button>
     </view>
   </block>
 </view>

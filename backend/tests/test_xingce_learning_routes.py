@@ -7,11 +7,11 @@ from fastapi.testclient import TestClient
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
-from app.domains.xingce_learning.real_attempt.service import (
-    _published_explanation,
-    _public_question_asset_url,
-    _safe_rich_html,
+from app.domains.task_content.service import (
+    public_question_asset_url,
+    safe_rich_html,
 )
+from app.domains.xingce_learning.real_attempt.service import _published_explanation
 from app.domains.xingce_learning.explanation_policy import stored_explanation
 from app.main import create_app
 from tests.test_planning_routes import (
@@ -90,14 +90,14 @@ def test_xingce_question_asset_policy_only_accepts_owned_public_https() -> None:
         "fenbi-final-analysis-v1-20260613-assets/questions/q-1.png"
     )
 
-    assert _public_question_asset_url(owned) == owned
-    assert _public_question_asset_url("questions/private/q-1.png") is None
-    assert _public_question_asset_url(owned.replace("https://", "http://")) is None
-    assert _public_question_asset_url("https://img.xingguoxian.cn/private/q-1.png") is None
+    assert public_question_asset_url(owned) == owned
+    assert public_question_asset_url("questions/private/q-1.png") is None
+    assert public_question_asset_url(owned.replace("https://", "http://")) is None
+    assert public_question_asset_url("https://img.xingguoxian.cn/private/q-1.png") is None
 
 
 def test_xingce_rich_text_is_sanitized_and_every_stored_explanation_is_visible() -> None:
-    sanitized = _safe_rich_html(
+    sanitized = safe_rich_html(
         '<p style="color:red">材料<strong>重点</strong>'
         '<script>alert(1)</script><table><tr><td colspan="2" onclick="x()">1</td>'
         '</tr></table><img src="https://evil.example/x.png"></p>'
@@ -138,9 +138,9 @@ def test_xingce_rich_text_is_sanitized_and_every_stored_explanation_is_visible()
             "analysis_needs_review": True,
         }
     ) == ("待审核 AI 解析", "ai_rewrite")
-    assert _public_question_asset_url("https://evil.example/assets/q-1.png") is None
+    assert public_question_asset_url("https://evil.example/assets/q-1.png") is None
     assert (
-        _public_question_asset_url("https://gongkao-dazi-prod.tos-cn-guangzhou.volces.com/q-1.png")
+        public_question_asset_url("https://gongkao-dazi-prod.tos-cn-guangzhou.volces.com/q-1.png")
         is None
     )
 
@@ -168,7 +168,7 @@ def test_visual_question_without_owned_public_image_is_not_planned(
     plan = response.json()["data"]
     assert all(task["track"] != "xingce" for task in plan["tasks"])
     assert plan["dualTrackExplanation"]["omittedTrackReasons"]["xingce"] == (
-        "当前没有满足内容与证据门禁的行测任务。"
+        "今天暂时没有合适的行测任务，别急，随时回来看看。"
     )
     with db_session_factory() as session:
         assert (

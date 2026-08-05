@@ -330,8 +330,8 @@ Page<MockExamPageData, MockExamPageCustom>({
     ) {
       this.setData({
         status: "unavailable",
-        errorTitle: "无法确认本次模考任务",
-        errorMessage: "请从今日计划或报告中心重新进入。",
+        errorTitle: "没找到这场模考",
+        errorMessage: "从今日计划或报告中心再进一次就好。",
       });
       return;
     }
@@ -421,7 +421,7 @@ Page<MockExamPageData, MockExamPageCustom>({
           );
       if (runtimes.get(this) !== runtime) return;
       if (runtime.requestedPlanTaskId && !session.planTaskId) {
-        throw new Error("本场模考没有绑定今日任务，请返回今日计划后重新进入。");
+        throw new Error("这场模考没对上今天的任务，回今日计划再进一次就好。");
       }
       if (session.status !== "assigned") {
         convergeToTerminalSession(this, runtime, session);
@@ -488,12 +488,12 @@ Page<MockExamPageData, MockExamPageCustom>({
       if (error instanceof TaskEditTakeoverDeclined) {
         this.setData({
           status: "unavailable",
-          errorTitle: "此设备没有编辑权",
-          errorMessage: "模考仍由另一台设备作答。计时不会暂停；需要继续时请重新进入并确认接管。",
+          errorTitle: "另一台设备正在作答",
+          errorMessage: "计时不会暂停；想在这台设备继续的话，重新进入并确认接管就行。",
         });
         return;
       }
-      failPage(this, error, "整卷恢复失败");
+      failPage(this, error, "这卷没恢复成功");
     }
   },
 
@@ -527,8 +527,8 @@ Page<MockExamPageData, MockExamPageCustom>({
       return;
     }
     const result = await wx.showModal({
-      title: "模考计时仍会继续",
-      content: "离开页面不会暂停计时；回来后会按统一结束时间恢复。",
+      title: "计时不会停",
+      content: "离开页面计时不会停；回来后会按整场统一时间接着算。",
       confirmText: "仍要离开",
       cancelText: "继续作答",
     });
@@ -536,7 +536,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     const saved = await saveCheckpoint(this, runtime);
     if (runtimes.get(this) !== runtime) return;
     if (!saved) {
-      void wx.showToast({ title: "进度已保存在本机，稍后继续同步", icon: "none" });
+      void wx.showToast({ title: "进度已存在本机，别急，稍后会接着保存", icon: "none" });
     }
     leaveMockPage();
   },
@@ -814,7 +814,7 @@ Page<MockExamPageData, MockExamPageCustom>({
 
   async submitHelp(event) {
     const runtime = requiredRuntime(this);
-    this.setData({ helpStatus: "submitting", helpMessage: "正在提交操作环境信息……" });
+    this.setData({ helpStatus: "submitting", helpMessage: "正在整理刚才的操作现场……" });
     try {
       const response = await runtime.helpApi.submit(
         event.detail,
@@ -830,7 +830,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       if (enterMockAuthRequired(this, runtime, error)) return;
       this.setData({
         helpStatus: "error",
-        helpMessage: errorMessage(error, "帮助请求未提交成功，请保留当前页面后重试。"),
+        helpMessage: errorMessage(error, "帮助没提交上，别走开，再试一次就好。"),
       });
     }
   },
@@ -893,7 +893,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     const question = this.data.question;
     const description = this.data.disputeDescription.trim();
     if (!question || description.length < 2) {
-      this.setData({ disputeStatus: "error", disputeMessage: "请用至少两个字说明争议。" });
+      this.setData({ disputeStatus: "error", disputeMessage: "先写两句具体问题，至少两个字哦。" });
       return;
     }
     this.setData({ disputeStatus: "submitting", disputeMessage: "正在提交这道题的问题……" });
@@ -911,7 +911,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       if (runtimes.get(this) !== runtime) return;
       this.setData({
         disputeStatus: "resolved",
-        disputeMessage: "已收到，我们会按本场题目内容核查。",
+        disputeMessage: "收到啦，我们会去核对这道题。",
         disputeReceipt: receipt,
       });
     } catch (error) {
@@ -919,7 +919,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       if (enterMockAuthRequired(this, runtime, error)) return;
       this.setData({
         disputeStatus: "error",
-        disputeMessage: errorMessage(error, "争议没有提交成功，请保留当前页面后重试。"),
+        disputeMessage: errorMessage(error, "问题没提交上，别走开，再试一次就好。"),
       });
     }
   },
@@ -1294,7 +1294,7 @@ async function performCheckpointSave(
       page.setData({
         interactionLocked: true,
         syncLabel: "另一台设备已接管",
-        errorMessage: "本机草稿仍保留；重新进入并确认接管后，系统会让你选择本机或云端进度。",
+        errorMessage: "别担心，本机的草稿都还在；重新进入并确认接管后，你可以选用哪一份进度。",
       });
       return false;
     }
@@ -1311,7 +1311,7 @@ async function performCheckpointSave(
     });
     page.setData({
       syncLabel: "保存失败",
-      errorMessage: errorMessage(error, "进度没有保存成功，请重试后再离开。"),
+      errorMessage: errorMessage(error, "哎，这次没存上，别急，再试一次就好。"),
     });
     return false;
   }
@@ -1345,8 +1345,8 @@ async function resumePendingCheckpoint(
       if (runtimes.get(page) !== runtime) return false;
       if (enterMockAuthRequired(page, runtime, error)) return false;
       page.setData({
-        syncLabel: "上次进度待确认",
-        errorMessage: errorMessage(error, "上次保存结果未知，将继续确认刚才那次保存。"),
+        syncLabel: "还在核对上次进度",
+        errorMessage: errorMessage(error, "上次保存的结果还没确定，我们会接着把那次确认完，别担心。"),
       });
       return false;
     }
@@ -1375,7 +1375,7 @@ async function executeSubmit(
     return;
   }
   runtime.submitInFlight = true;
-  page.setData({ interactionLocked: true, syncLabel: "正在交卷" });
+  page.setData({ interactionLocked: true, syncLabel: "正在提交" });
   try {
     if (skipCheckpoint) {
       clearAutosave(runtime);
@@ -1392,7 +1392,7 @@ async function executeSubmit(
     }
     if (runtimes.get(page) !== runtime) return;
     if (!(await flushTrajectory(runtime))) {
-      throw new Error("作答过程还没确认成功，请保持网络后重试交卷。");
+      throw new Error("作答过程还没确认完，请保持网络后重试提交。");
     }
     if (pending)
       runtime.task = runtimeWithPendingMockSubmit(requiredTask(runtime), pending.command);
@@ -1433,7 +1433,7 @@ async function executeSubmit(
       annotationOpen: false,
       toolsOpen: false,
       helpOpen: false,
-      syncLabel: "已交卷",
+      syncLabel: "已提交",
       receipt,
       reportSessionId: committedSession.sessionId,
       toolPolicy: taskToolPolicy("mock", "submitted"),
@@ -1460,10 +1460,10 @@ async function executeSubmit(
     }
     page.setData({
       interactionLocked: lostEditing,
-      syncLabel: lostEditing ? "另一台设备已接管" : "交卷结果待确认",
+      syncLabel: lostEditing ? "另一台设备已接管" : "提交结果待确认",
       errorMessage: lostEditing
-        ? "本机交卷命令仍保留；重新进入并确认接管后再提交。"
-        : errorMessage(error, "交卷结果未知，已保留同一命令供恢复时继续确认。"),
+        ? "别担心，本机的提交还保留着；重新进入并确认接管后再交一次就行。"
+        : errorMessage(error, "提交结果暂时未知，已原样保留，恢复后会接着确认。"),
     });
   } finally {
     runtime.submitInFlight = false;
@@ -1765,7 +1765,7 @@ async function resolveMockCheckpointConflict(
     if (resolved.conflictChoice === "use_server") {
       runtime.task = runtimeFromMockSession(latest, Date.now(), runtime.task);
       runtime.dirtyQuestionIds.clear();
-      applyRuntimeToPage(page, runtime, "已使用云端进度");
+      applyRuntimeToPage(page, runtime, "已采用云端那份进度");
       return true;
     }
     const localCommand = buildMockCheckpointCommand(localTask);
@@ -1808,8 +1808,8 @@ async function resolveMockCheckpointConflict(
       requestId: error instanceof ApiClientError ? error.requestId : "mock-conflict-failed",
     });
     page.setData({
-      syncLabel: "冲突尚未解决",
-      errorMessage: errorMessage(error, "你的选择没有确认成功，请保持当前页面后重试。"),
+      syncLabel: "进度还没对上",
+      errorMessage: errorMessage(error, "刚才的选择没确认上，别走开，再试一次就好。"),
     });
     return false;
   }
@@ -1894,14 +1894,14 @@ function convergeToTerminalSession(
   page.setData({
     status: "submitted",
     title: session.title,
-    errorTitle: reviewed ? "本场模考已完成" : "本场模考已经交卷",
+    errorTitle: reviewed ? "本场模考已完成" : "本场模考已经提交",
     errorMessage: reviewed
-      ? "服务端已确认交卷，正式模考报告可继续查看。"
-      : "服务端已确认交卷，正式模考报告可进入查看。",
+      ? "已确认提交成功，模考报告可以接着看啦。"
+      : "已确认提交成功，可以进模考报告看了。",
     showLoginAction: false,
     question: null,
     interactionLocked: true,
-    syncLabel: reviewed ? "评阅已完成" : "交卷已确认",
+    syncLabel: reviewed ? "批改已完成" : "提交已确认",
     answerSheetOpen: false,
     draftOpen: false,
     annotationOpen: false,
@@ -1938,7 +1938,7 @@ function failPage(page: MockExamPageInstance, error: unknown, title: string): vo
   page.setData({
     status: "error",
     errorTitle: title,
-    errorMessage: errorMessage(error, "没有找到可继续作答的整卷。"),
+    errorMessage: errorMessage(error, "没找到能继续做的整套卷。"),
   });
 }
 
@@ -2017,14 +2017,14 @@ function showMockLoginRequired(
 ): void {
   page.setData({
     status: "unavailable",
-    errorTitle: expired ? "登录状态已过期" : "登录后才能开始整卷模考",
+    errorTitle: expired ? "登录状态已过期" : "登录后就能开始模考啦",
     errorMessage: expired
-      ? `本机作答进度已保留，请重新登录后继续。${requestId ? `（请求 ${requestId}）` : ""}`
-      : "模考时间、作答进度和交卷记录必须绑定你的账号。",
+      ? `别担心，本机的进度都还在，重新登录就能继续。${requestId ? `（请求 ${requestId}）` : ""}`
+      : "模考进度和提交记录要跟着账号走，先登录一下哦。",
     showLoginAction: true,
     question: null,
     interactionLocked: true,
-    syncLabel: expired ? "等待重新登录" : "尚未登录",
+    syncLabel: expired ? "等你重新登录" : "还没登录",
     answerSheetOpen: false,
     annotationOpen: false,
     materialOpen: false,

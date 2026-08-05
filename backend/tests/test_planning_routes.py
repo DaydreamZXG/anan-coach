@@ -207,15 +207,15 @@ def test_dual_track_plan_persists_one_idempotent_xingce_and_essay_budget(
     assert first.goal_gap.baseline_gap is None
     assert first.capacity.available_minutes == 45
     assert first.capacity.confirmed is False
-    assert sum(task.estimated_minutes for task in first.tasks) == 37
+    assert sum(task.estimated_minutes for task in first.tasks) == 27
     assert {task.track for task in first.tasks} == {"xingce", "essay"}
     assert {task.stage for task in first.tasks} == {
         "objective_baseline",
-        "essay_drafting",
+        "essay_material_reading",
     }
     assert first.dual_track_explanation.dual_track_constraint_applied is True
     assert first.dual_track_explanation.xingce_minutes == 12
-    assert first.dual_track_explanation.essay_minutes == 25
+    assert first.dual_track_explanation.essay_minutes == 15
     assert all(task.evidence_refs for task in first.tasks)
     xingce_task = next(task for task in first.tasks if task.track == "xingce")
     xingce_query = parse_qs(urlsplit(xingce_task.start_url).query)
@@ -272,7 +272,7 @@ def test_plan_omits_xingce_when_the_start_contract_has_no_three_question_bundle(
 
     assert all(task.track != "xingce" for task in plan.tasks)
     assert plan.dual_track_explanation.omitted_track_reasons["xingce"] == (
-        "当前没有满足内容与证据门禁的行测任务。"
+        "今天暂时没有合适的行测任务，别急，随时回来看看。"
     )
 
 
@@ -462,7 +462,7 @@ def test_published_material_without_rubric_is_omitted_instead_of_faking_prerequi
         )
 
     assert not any(task.track == "essay" for task in plan.tasks)
-    assert "评分规程尚未发布" in plan.dual_track_explanation.omitted_track_reasons[
+    assert "评分标准还没准备好" in plan.dual_track_explanation.omitted_track_reasons[
         "essay"
     ]
     assert plan.input_versions["essayRubric"] == "unavailable"
@@ -626,6 +626,43 @@ def test_capacity_preview_uses_the_real_planner_without_persisting_the_proposal(
             ).scalar_one(),
         }
     assert counts_after == counts_before
+
+
+def test_capacity_preview_can_make_today_an_explicit_single_module_day(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    token = "planning-module-focus-preview-token"
+    _seed_learner_and_published_essay_content(
+        db_session_factory,
+        access_token=token,
+        objective_canonical_module="资料分析",
+        objective_raw_module="资料分析",
+    )
+    client = _client(db_session_factory)
+    auth = {"Authorization": f"Bearer {token}"}
+    initial = client.get("/api/v2/plans/today", headers=auth).json()["data"]
+
+    response = client.post(
+        "/api/v2/plans/today/capacity/preview",
+        headers=auth,
+        json={
+            "basedOnCapacityVersionId": initial["capacity"]["capacityVersionId"],
+            "availableMinutes": 120,
+            "energy": 3,
+            "stress": 3,
+            "confidenceLevel": 3,
+            "preferredXingceModule": "资料分析",
+            "xingceOnly": True,
+        },
+    )
+
+    assert response.status_code == 200, response.text
+    proposed = response.json()["data"]["proposedPlan"]
+    assert proposed["capacity"]["preferredXingceModule"] == "资料分析"
+    assert proposed["capacity"]["xingceOnly"] is True
+    assert proposed["tasks"]
+    assert all(task["track"] == "xingce" for task in proposed["tasks"])
+    assert all("资料分析" in task["title"] for task in proposed["tasks"])
 
 
 def test_positive_capacity_override_turns_scheduled_rest_day_into_normal_plan(
@@ -1027,8 +1064,7 @@ def test_expired_essay_artifact_completion_uses_same_conflict_and_rolls_back(
             now=NOW,
             local_date=NOW.date(),
         )
-    task = next(item for item in plan.tasks if item.stage == "essay_drafting")
-    _make_material_reading_plan_task(db_session_factory, task_id=str(task.id))
+    task = next(item for item in plan.tasks if item.stage == "essay_material_reading")
     task_version_id = next(
         item.entity_id for item in task.evidence_refs if item.entity_type == "essay_task_version"
     )
@@ -1283,7 +1319,8 @@ def test_material_reading_completion_accepts_owned_canonical_artifact_and_replan
     result = response.json()["data"]
     assert result["completion"]["execution"]["status"] == "complete"
     assert result["artifact"]["artifactType"] == "material_annotation"
-    assert any(task["stage"] == "essay_drafting" for task in result["completion"]["plan"]["tasks"])
+    # 首次流程：材料阅读完成后，下一次推进是「要点提取」。
+    assert any(task["stage"] == "essay_point_extraction" for task in result["completion"]["plan"]["tasks"])
     replay = client.post(
         "/api/v2/essay-intelligence/artifacts/complete-plan-task",
         headers={**auth, "Idempotency-Key": "material-atomic-complete"},
@@ -1738,7 +1775,7 @@ def test_essay_planning_consumes_canonical_mastery_heads_and_distinct_transfer(
         )
     assert stable.next_stage == "content_unavailable"
     assert stable.mastery_state == "stable_mastered"
-    assert "不重复生成复写或迁移训练" in str(stable.pending_reason)
+    assert "不重复练同样的内容" in str(stable.pending_reason)
 
 
 def _seed_learner_and_published_essay_content(
@@ -1748,6 +1785,8 @@ def _seed_learner_and_published_essay_content(
     include_rubric: bool = True,
     material_version_no: int = 1,
     include_objective_questions: bool = True,
+    objective_canonical_module: str = "言语理解与表达",
+    objective_raw_module: str = "言语理解",
 ) -> str:
     user_id = str(uuid4())
     task_version_id = str(uuid4())
@@ -1762,7 +1801,11 @@ def _seed_learner_and_published_essay_content(
             {"user_id": user_id},
         )
         if include_objective_questions:
-            _seed_shared_objective_question_bank(session)
+            _seed_shared_objective_question_bank(
+                session,
+                canonical_module=objective_canonical_module,
+                raw_module=objective_raw_module,
+            )
         if access_token:
             session.execute(
                 text(
@@ -1936,8 +1979,15 @@ def _seed_shared_objective_question_bank(
     session: Session,
     *,
     count: int = 6,
+    canonical_module: str = "言语理解与表达",
+    raw_module: str = "言语理解",
 ) -> None:
-    seed_planning_shared_frozen_release(session, count=count)
+    seed_planning_shared_frozen_release(
+        session,
+        count=count,
+        canonical_module=canonical_module,
+        raw_module=raw_module,
+    )
 
 
 def _seed_planning_learner(factory: sessionmaker[Session]) -> str:

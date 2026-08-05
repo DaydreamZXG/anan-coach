@@ -11,8 +11,8 @@
     "directlyMappedRouteCount": 31,
     "unmappedRouteCount": 29,
     "reuseExistingDesignCount": 9,
-    "mergeIntoDesignedFlowCount": 8,
-    "hideUntilProductActivationCount": 6,
+    "mergeIntoDesignedFlowCount": 9,
+    "hideUntilProductActivationCount": 5,
     "newDesignRequiredCount": 6
   },
   "dispositions": [
@@ -110,10 +110,12 @@
     {
       "routeName": "support",
       "route": "/pages/support/index",
-      "disposition": "hide_until_product_activation",
-      "targetFigmaNodeIds": [],
-      "targetFlow": null,
-      "reason": "真实客服群二维码尚未准备好，不能展示占位页。"
+      "disposition": "merge_into_designed_flow",
+      "targetFigmaNodeIds": [
+        "7:2"
+      ],
+      "targetFlow": "profile.support",
+      "reason": "真实微信客服二维码已经提供，客服入口作为“我的”服务支持子流程正式启用。"
     },
     {
       "routeName": "xingceTaskIntro",

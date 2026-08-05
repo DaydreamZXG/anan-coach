@@ -2,17 +2,17 @@
 <view class="preference-page">
   <workbench-nav
     id="runtime-workbench-nav"
-    title="3/5 岗位偏好"
+    title="3/5 想考哪里"
     back-behavior="emit"
     bind:back="back"
   />
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="preference-state">
-    <state-view state="loading" title="正在读取岗位偏好" description="会恢复首选地区和已经接受的岗位层级。" />
+    <state-view state="loading" title="正在找回你想考的地方" description="别急，你选过的地区和层级都还记得。" />
   </view>
 
   <view wx:elif="{{state.status === 'error'}}" class="preference-state">
-    <state-view state="error" title="岗位偏好没有恢复完成" description="{{state.error.message}}" actionText="重新读取" bindaction="retry" />
+    <state-view state="error" title="哎，没找回来" description="{{state.error.message}}" actionText="再试一次" bindaction="retry" />
     <view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
   </view>
 
@@ -20,13 +20,13 @@
     <scroll-view scroll-y class="preference-scroll" enhanced show-scrollbar="{{false}}">
       <view class="preference-content onboarding-scroll-content fade-slide-in fade-slide-in--2">
         <view class="preference-card">
-          <view class="card-title">首选工作地区</view>
-          <view class="card-copy">如果首选地区未匹配到理想岗位，岸岸将为你寻找周边或相似分数段区域。</view>
+          <view class="card-title">想考的地区</view>
+          <view class="card-copy">要是最想去的地方没有合适的岗位，岸岸会帮你看看周边、分数差不多的地区。</view>
 
-          <view wx:if="{{catalogLoading}}" class="catalog-state">正在读取国考岗位地区…</view>
+          <view wx:if="{{catalogLoading}}" class="catalog-state">正在帮你找地区…</view>
           <view wx:elif="{{catalogError}}" class="catalog-error">
             <text>{{catalogError}}</text>
-            <button hover-class="item--hover" class="catalog-retry" bindtap="retryCatalog">重新读取</button>
+            <button hover-class="item--hover" class="catalog-retry" bindtap="retryCatalog">再试一次</button>
           </view>
           <view wx:else class="region-picker">
             <view wx:if="{{!regionsExpanded}}" class="region-list">
@@ -62,7 +62,7 @@
           <button hover-class="item--hover" class="relocation-row" bindtap="toggleRelocation">
             <view>
               <view class="relocation-title">接受调剂或异地岗位</view>
-              <view class="relocation-copy">大幅增加符合条件的岗位基数</view>
+              <view class="relocation-copy">能多出一大堆岗位可选</view>
             </view>
             <view class="switch {{state.draft.acceptsRelocation ? 'switch--on' : ''}}">
               <view class="switch-dot"></view>
@@ -71,7 +71,7 @@
         </view>
 
         <view class="preference-card level-card">
-          <view class="card-title">岗位层级接受度</view>
+          <view class="card-title">能接受哪些岗位层级</view>
           <view class="level-list">
             <button hover-class="item--hover"
               wx:for="{{levels}}"
@@ -86,7 +86,7 @@
           </view>
         </view>
 
-        <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">上一次保存结果还不确定，本次只会查询原结果。</view>
+        <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">上次的结果还没存稳，这次只帮你查一下，不重复存。</view>
         <view wx:if="{{state.validationError}}" class="error-banner">{{state.validationError}}</view>
         <view wx:if="{{state.error}}" class="error-banner">{{state.error.message}}</view>
         <view wx:if="{{state.error && state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
@@ -99,14 +99,14 @@
         loading="{{state.saving}}"
         disabled="{{state.saving || !hasRequiredSelection || catalogLoading || catalogError}}"
         bindtap="submit"
-      >{{state.pendingRecovery ? '查询原保存结果' : '继续：填写学习时间'}}</button>
+      >{{state.pendingRecovery ? '看看上次的结果' : '继续：定学习时间'}}</button>
       <button
         hover-class="item--hover"
         class="onboarding-save-action"
         loading="{{state.saving}}"
         disabled="{{state.saving}}"
         bindtap="saveAndExit"
-      >暂存并退出</button>
+      >先存起来，回头再填</button>
     </view>
   </block>
 </view>

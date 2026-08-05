@@ -2,19 +2,14 @@
   <view class="support-hero">
     <view class="s9-card-kicker">岸岸帮助与客服</view>
     <view class="support-title">遇到问题，直接告诉我们</view>
-    <view class="support-copy">客服用于使用答疑和问题反馈。我们不会承诺提分或上岸，也不会要求你发送身份证、准考证等敏感信息。</view>
+    <view class="support-copy">客服就是用来解答使用问题、收反馈的。我们不会承诺提分或上岸，也不会让你发身份证、准考证这些敏感信息。</view>
   </view>
 
-  <view wx:if="{{qrAvailable}}" class="s9-card qr-card">
-    <view class="s9-card-title">加入岸岸备考群</view>
-    <view class="s9-card-copy">用于产品通知、使用答疑和备考交流。</view>
-    <image class="group-qr" src="{{groupQrImageUrl}}" mode="aspectFit" bindtap="previewGroupQr" />
+  <view class="s9-card qr-card">
+    <view class="s9-card-title">添加微信客服</view>
+    <view class="s9-card-copy">长按识别二维码加好友。遇到问题时，告诉我们你在哪个页面、发生了什么；如果页面上显示有问题编号，也一起发过来。</view>
+    <image class="support-qr" src="{{supportQrImageUrl}}" mode="widthFix" show-menu-by-longpress bindtap="previewGroupQr" />
+    <view class="qr-hint">长按识别二维码，或点击图片放大</view>
     <button hover-class="item--hover" class="s9-primary-button qr-action tap-tactile" bindtap="previewGroupQr">放大二维码</button>
-  </view>
-
-  <view class="s9-card support-note">
-    <view class="s9-card-title">微信客服</view>
-    <view class="s9-card-copy">提交问题时请说明所在页面和遇到的情况；如页面显示问题编号，也请一并发送。</view>
-    <button hover-class="item--hover" class="s9-primary-button support-contact tap-tactile" open-type="contact" session-from="pages/support/index">联系微信客服</button>
   </view>
 </view>

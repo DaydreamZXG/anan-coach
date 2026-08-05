@@ -85,15 +85,15 @@ def test_mandatory_mock_keeps_priority_but_does_not_discard_remaining_capacity()
 def test_fulltime_capacity_scales_to_ten_hour_work_blocks() -> None:
     selection = select_daily_tasks(
         [
-            _candidate(f"xingce-{index}", "xingce", "objective_practice", 60, 0.80 - index / 100)
-            for index in range(10)
+            _candidate(f"xingce-{index}", "xingce", "objective_practice", 30, 0.80 - index / 100)
+            for index in range(16)
         ]
-        + [_candidate("essay", "essay", "essay_drafting", 60, 0.84)],
+        + [_candidate("essay", "essay", "essay_drafting", 30, 0.84)],
         available_minutes=600,
     )
 
-    assert len(selection.tasks) == 10
-    assert selection.scheduled_minutes == 600
+    assert len(selection.tasks) == 16
+    assert selection.scheduled_minutes == 480
     assert {item.candidate.track for item in selection.tasks} == {"xingce", "essay"}
 
 

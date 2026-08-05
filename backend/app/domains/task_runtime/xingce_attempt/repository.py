@@ -302,9 +302,7 @@ class XingceTaskRuntimeRepository:
             .all()
         )
 
-    def insert_answer_version(
-        self, session: Session, *, values: dict[str, Any]
-    ) -> None:
+    def insert_answer_version(self, session: Session, *, values: dict[str, Any]) -> None:
         session.execute(
             text(
                 """
@@ -462,7 +460,9 @@ class XingceTaskRuntimeRepository:
                 select command.response_payload->'completion'
                 from learning.xingce_commands command
                 where command.user_id = cast(:user_id as uuid)
-                  and command.command_type in ('reflection_submit', 'cause_decision')
+                  and command.command_type in (
+                    'attempt_submit', 'reflection_submit', 'cause_decision'
+                  )
                   and command.response_payload->>'sessionId' = :session_id
                   and command.response_payload->'completion' <> 'null'::jsonb
                 order by command.created_at desc

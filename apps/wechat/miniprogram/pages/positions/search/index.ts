@@ -175,7 +175,7 @@ Page<PositionSearchPageData, PositionSearchPageCustom>({
     const positionId = String(event.currentTarget.dataset.id ?? "");
     const result = runtimes.get(this)?.controller?.discovery.toggleComparison(positionId);
     if (result?.reason === "limit") {
-      void wx.showToast({ title: "最多同时对比 3 个岗位", icon: "none" });
+      void wx.showToast({ title: "一次最多对比 3 个岗位", icon: "none" });
     }
   },
 

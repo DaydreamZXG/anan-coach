@@ -69,7 +69,7 @@ describe("capture import native camera", () => {
     const cropTemplate = captureTemplate.slice(cropStart, cropEnd);
 
     expect(captureLogic).not.toMatch(/await (?:this|page)\.editPendingImage\(\);/u);
-    expect(captureLogic).toContain("裁剪工具没有打开，可直接确认原图");
+    expect(captureLogic).toContain("裁剪没打开，直接用原图也行");
     expect(externalLearningPlatform).toContain('typeof wx.cropImage === "function"');
     expect(externalLearningPlatform).toContain("wx.cropImage({");
     expect(externalLearningPlatform).toContain('cropScale: "9:16"');
@@ -77,7 +77,7 @@ describe("capture import native camera", () => {
       externalLearningPlatform.indexOf("wx.editImage({"),
     );
     expect(cropTemplate).toContain('bindtap="editPendingImage"');
-    expect(cropTemplate).toContain("点按图片可重新裁剪");
+    expect(cropTemplate).toContain("点一下图片就能重新裁剪");
     expect(cropTemplate).not.toContain("crop-frame");
     expect(cropTemplate).not.toContain("crop-corner");
     expect(cropTemplate).not.toContain("touchmove");

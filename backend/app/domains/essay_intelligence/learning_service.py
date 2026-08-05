@@ -2,9 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from datetime import UTC, datetime
-from hashlib import sha256
 import json
-from typing import Any
 from uuid import UUID, uuid4
 
 from sqlalchemy.engine import RowMapping
@@ -39,6 +37,7 @@ from app.domains.essay_intelligence.learning_schemas import (
 )
 from app.domains.essay_intelligence.material_scope import resolve_material_scope
 from app.domains.essay_intelligence.mastery.service import EssayMasteryService
+from app.domains.essay_intelligence.review_contracts import _fingerprint
 from app.domains.essay_intelligence.schemas import (
     EssayAnswerVersion,
     EssayFinding,
@@ -747,11 +746,4 @@ def _scoped_material_segments(
     }
 
 
-def _fingerprint(value: Any) -> str:
-    encoded = json.dumps(
-        value,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-    ).encode("utf-8")
-    return sha256(encoded).hexdigest()
+

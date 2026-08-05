@@ -19,6 +19,7 @@ from app.domains.onboarding.progress_repository import OnboardingProgressError
 from app.domains.onboarding.progress_service import OnboardingProgressService
 from app.domains.companion.agent import (
     is_capacity_change_request,
+    requested_plan_focus,
     requested_plan_minutes,
 )
 from app.domains.planning.errors import PlanningContractError
@@ -139,13 +140,14 @@ class ILinkControlPlane:
         natural_minutes = (
             requested_plan_minutes(command) if is_capacity_change_request(command) else None
         )
-        if capacity is not None or natural_minutes is not None:
+        natural_focus = requested_plan_focus(command) if is_capacity_change_request(command) else None
+        if capacity is not None or natural_minutes is not None or natural_focus is not None:
             minutes = (
                 _capacity_minutes(capacity.group(1), capacity.group(2))
                 if capacity is not None
                 else natural_minutes
             )
-            if minutes is None:
+            if capacity is not None and minutes is None:
                 return ControlPlaneResult(
                     "今天可学时间需在 0 到 24 小时之间，例如「调整今天 10小时」。"
                 )
@@ -159,15 +161,38 @@ class ILinkControlPlane:
                 command_id=f"ilink-capacity:{source_message_id}",
                 command=DailyCapacityCommand(
                     basedOnCapacityVersionId=str(current.capacity.capacity_version_id),
-                    availableMinutes=minutes,
+                    availableMinutes=(
+                        minutes if minutes is not None else current.capacity.available_minutes
+                    ),
                     energy=current.capacity.energy,
                     stress=current.capacity.stress,
                     confidenceLevel=current.capacity.confidence_level,
+                    preferredXingceModule=(
+                        natural_focus.module
+                        if natural_focus is not None
+                        else current.capacity.preferred_xingce_module
+                    ),
+                    xingceOnly=(
+                        natural_focus.xingce_only
+                        if natural_focus is not None
+                        else current.capacity.xingce_only
+                    ),
                 ),
                 now=self._clock(),
             )
+            changes: list[str] = []
+            if minutes is not None:
+                changes.append(f"可学时间调整为 {_minutes_label(minutes)}")
+            if natural_focus is not None:
+                changes.append(
+                    (
+                        f"今天只练{natural_focus.module}"
+                        if natural_focus.xingce_only
+                        else f"今天优先练{natural_focus.module}"
+                    )
+                )
             return ControlPlaneResult(
-                f"已把今天可学时间调整为 {_minutes_label(minutes)}。\n{_plan_reply(result.plan)}",
+                f"已{'，'.join(changes)}。\n{_plan_reply(result.plan)}",
                 mutation_applied=True,
             )
         if command in MATERIAL_LIST_COMMANDS:

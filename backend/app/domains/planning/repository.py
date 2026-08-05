@@ -21,6 +21,11 @@ from app.domains.planning.candidates import (
     EssayPlanningSnapshot,
     ObjectivePlanningSnapshot,
 )
+from app.domains.planning.cause_training import (
+    ConfirmedCauseDirection,
+    direction_from_codes,
+    leading_confirmed_cause_index,
+)
 from app.domains.planning.errors import PlanningContractError
 from app.domains.xingce_learning.contracts import XINGCE_MAX_QUESTION_BUNDLE_SIZE
 from app.domains.xingce_learning.real_attempt.repository import XingceAttemptRepository
@@ -56,6 +61,8 @@ class CapacitySnapshot:
     energy: int
     stress: int
     confidence_level: int
+    preferred_xingce_module: str | None
+    xingce_only: bool
     confirmed: bool
     source_type: str
     input_fingerprint: str
@@ -358,12 +365,13 @@ class PlanningRepository:
                   capacity_version_id, command_id, user_id, local_date, version_no,
                   available_minutes, energy_level, stress_level, confidence_level,
                   confirmed, source_type, weekly_preference_version_id,
+                  preferred_xingce_module, xingce_only,
                   input_fingerprint, supersedes_capacity_version_id, recorded_at
                 ) values (
                   cast(:capacity_version_id as uuid), :command_id,
                   cast(:user_id as uuid), :local_date, :version_no,
                   :available_minutes, 3, 3, 3, false, 'weekly_preference',
-                  cast(:preference_version_id as uuid), :input_fingerprint,
+                  cast(:preference_version_id as uuid), null, false, :input_fingerprint,
                   cast(:supersedes_id as uuid), :recorded_at
                 ) returning *
                 """
@@ -458,12 +466,14 @@ class PlanningRepository:
                   capacity_version_id, command_id, user_id, local_date, version_no,
                   available_minutes, energy_level, stress_level, confidence_level,
                   confirmed, source_type, weekly_preference_version_id,
+                  preferred_xingce_module, xingce_only,
                   input_fingerprint, supersedes_capacity_version_id, recorded_at
                 ) values (
                   cast(:capacity_version_id as uuid), :command_id,
                   cast(:user_id as uuid), :local_date, :version_no,
                   :available_minutes, :energy, :stress, :confidence_level,
                   true, 'user_override', cast(:weekly_preference_version_id as uuid),
+                  :preferred_xingce_module, :xingce_only,
                   :input_fingerprint,
                   cast(:supersedes_capacity_version_id as uuid), :recorded_at
                 ) returning *
@@ -631,6 +641,113 @@ class PlanningRepository:
             for row in rows
         ]
 
+    def _recent_confirmed_cause_direction(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        now: datetime,
+        vocabulary: ReleasedModuleVocabulary | None,
+    ) -> tuple[ConfirmedCauseDirection | None, str | None]:
+        """读取近期已确认错因，解析出主导训练方向与对应的 canonical 模块。
+
+        窗口为近 14 天（对齐复测到期节奏），只取 current head 且未被
+        后继决定收回的确认错因。主导错因按 :func:`pick_leading_confirmed_cause`
+        排序选出；主导错因所在题目的模块（canonical 化）作为针对性训练的
+        模块。没有可识别方向或无法定位模块时，返回 (None, None)，
+        由调用方回退到统计最弱模块。
+        """
+
+        causes = list(
+            session.execute(
+                text(
+                    """
+                    select cause.cause_code, cause.replacement_code,
+                           cause.session_id
+                    from learning.xingce_confirmed_cause_versions cause
+                    where cause.user_id = cast(:user_id as uuid)
+                      and cause.created_at >= :now - interval '14 days'
+                      and not exists (
+                        select 1
+                        from learning.xingce_confirmed_cause_versions successor
+                        where successor.supersedes_confirmed_cause_version_id =
+                              cause.confirmed_cause_version_id
+                      )
+                      and not exists (
+                        select 1
+                        from learning.xingce_cause_decision_versions revoked_by
+                        where revoked_by.supersedes_decision_version_id =
+                              cause.decision_version_id
+                      )
+                    order by cause.created_at asc,
+                             cause.confirmed_cause_version_id asc
+                    """
+                ),
+                {"user_id": user_id, "now": now},
+            )
+            .mappings()
+            .all()
+        )
+        if not causes:
+            return None, None
+        cause_pairs = [
+            (_optional_str(row["cause_code"]), _optional_str(row["replacement_code"]))
+            for row in causes
+        ]
+        leading_index = leading_confirmed_cause_index(cause_pairs)
+        if leading_index is None:
+            return None, None
+        direction = direction_from_codes(*cause_pairs[leading_index])
+        if direction is None:
+            return None, None
+        module = self._cause_session_module(
+            session,
+            session_id=str(causes[leading_index]["session_id"]),
+            vocabulary=vocabulary,
+        )
+        return direction, module
+
+    def _cause_session_module(
+        self,
+        session: Session,
+        *,
+        session_id: str,
+        vocabulary: ReleasedModuleVocabulary | None,
+    ) -> str | None:
+        """把错因所在作答 session 的题目模块解析成 canonical 模块名。
+
+        同一 session 内多题跨模块时取出现次数最多的模块；无法 canonical
+        化或没有任何题目时返回 None。
+        """
+
+        rows = list(
+            session.execute(
+                text(
+                    """
+                    select question.module_name
+                    from learning.xingce_assessments assessment
+                    join product.questions question
+                      on question.question_id = assessment.question_id
+                    where assessment.session_id = cast(:session_id as uuid)
+                      and question.module_name is not null
+                    """
+                ),
+                {"session_id": session_id},
+            )
+            .mappings()
+            .all()
+        )
+        counts: dict[str, int] = {}
+        for row in rows:
+            module_name = str(row["module_name"])
+            canonical = vocabulary.canonicalize(module_name) if vocabulary is not None else None
+            if canonical is None:
+                continue
+            counts[canonical] = counts.get(canonical, 0) + 1
+        if not counts:
+            return None
+        return max(counts.items(), key=lambda item: (item[1], item[0]))[0]
+
     def objective_snapshot(
         self,
         session: Session,
@@ -638,6 +755,7 @@ class PlanningRepository:
         user_id: str,
         goal: GoalAbilitySnapshot,
         now: datetime,
+        preferred_xingce_module: str | None = None,
     ) -> ObjectivePlanningSnapshot:
         module_assessments = (
             session.execute(
@@ -667,9 +785,34 @@ class PlanningRepository:
             track="xingce",
             now=now,
         )
-        weakest = _weakest_canonical_module(
+        weakest = preferred_xingce_module or _weakest_canonical_module(
             module_assessments,
             vocabulary=module_vocabulary,
+        )
+        cause_direction, cause_module = self._recent_confirmed_cause_direction(
+            session,
+            user_id=user_id,
+            now=now,
+            vocabulary=module_vocabulary,
+        )
+        if (
+            cause_direction is not None
+            and preferred_xingce_module is None
+            and cause_module is not None
+        ):
+            weakest = cause_module
+        recent_assessment_count = int(
+            session.execute(
+                text(
+                    """
+                    select count(*)
+                    from learning.xingce_assessments assessment
+                    where assessment.user_id = cast(:user_id as uuid)
+                      and assessment.created_at >= :now - interval '60 days'
+                    """
+                ),
+                {"user_id": user_id, "now": now},
+            ).scalar_one()
         )
         due_reflections = list(
             session.execute(
@@ -746,11 +889,19 @@ class PlanningRepository:
         ).scalar_one_or_none()
         first_reflection = due_reflections[0] if due_reflections else None
         first_mastery = due_mastery[0] if due_mastery else None
-        baseline_required = (
+        formal_xingce_estimate_unavailable = (
             goal.estimate_version_id is None
             or goal.xingce_recommended is None
             or goal.estimate_valid_until is None
             or _as_utc(goal.estimate_valid_until) <= _as_utc(now)
+        )
+        # 岗位分差仍只认正式双科 ability estimate；但日常行测训练
+        # 不能因申论估分尚缺失而无限重复摸底。一个完整受控题组的
+        # 真实 assessments 已足以让规划转入复盘和针对训练。
+        baseline_required = (
+            formal_xingce_estimate_unavailable
+            and recent_assessment_count < XINGCE_MAX_QUESTION_BUNDLE_SIZE
+            and preferred_xingce_module is None
         )
         baseline_question_count = 0
         targeted_question_count = 0
@@ -846,6 +997,7 @@ class PlanningRepository:
             due_reflection_state=(
                 str(first_reflection["state"]) if first_reflection is not None else None
             ),
+            caused_training_direction=cause_direction,
         )
 
     def essay_snapshot(
@@ -1046,12 +1198,8 @@ class PlanningRepository:
                   and artifact.task_version_id = cast(:task_version_id as uuid)
                   and artifact.material_bundle_version_id =
                       cast(:material_bundle_version_id as uuid)
-                  and (
-                    artifact.artifact_type = 'material_annotation'
-                    or (
-                      artifact.artifact_type in ('point_extraction', 'outline')
-                      and artifact.rubric_version_id = cast(:rubric_version_id as uuid)
-                    )
+                  and artifact.artifact_type in (
+                    'material_annotation', 'point_extraction', 'outline'
                   )
                   and not exists (
                     select 1 from learning.essay_learning_artifact_versions successor
@@ -1066,7 +1214,6 @@ class PlanningRepository:
                     "user_id": user_id,
                     "task_version_id": str(published["task_version_id"]),
                     "material_bundle_version_id": str(published["material_bundle_version_id"]),
-                    "rubric_version_id": _optional_str(published["rubric_version_id"]),
                 },
             )
             .mappings()
@@ -1083,9 +1230,20 @@ class PlanningRepository:
             if rubric_id is None:
                 next_stage = "evaluation_pending"
                 pending_reason = (
-                    "当前题目的可审计评分规程尚未发布；规划不会把材料地图、"
-                    "找点或提纲伪装成可完成的申论主任务，并会优先选择可直接作答的题目。"
+                    "这道题的评分标准还没准备好，先不硬排；岸岸会优先挑可以直接作答的题，"
+                    "等标准就绪马上给你安排上。"
                 )
+            elif material_annotation_id is None:
+                # 首次接触申论：先完整学一遍「材料阅读 → 要点提取 → 提纲 → 作答」，
+                # 之后的推进才以「作答 → 评阅」为主、薄弱环节按需补。
+                next_stage = "baseline_due"
+                pending_reason = None
+            elif point_extraction_id is None:
+                next_stage = "point_extraction_due"
+                pending_reason = None
+            elif outline_id is None:
+                next_stage = "outline_due"
+                pending_reason = None
             else:
                 next_stage = "drafting_due"
                 pending_reason = None
@@ -1140,14 +1298,13 @@ class PlanningRepository:
         elif latest["review_version_id"] is None:
             stage = "evaluation_pending"
             pending_reason = (
-                "申论原稿已提交，证据化 AI 评阅仍在生成；评阅完成前不生成“用户查看评阅”任务。"
+                "你的申论原稿已经交上去啦，评阅还在路上；等评阅出来，岸岸马上提醒你查看。"
             )
         elif not _review_is_learning_eligible(latest):
             stage = "evaluation_pending"
             pending_reason = (
-                "本次申论评阅未完成或被证据门禁阻断（未通过 essay-grounding-v2）；"
-                "系统不会让 legacy、未验真或不可学习的 finding 进入后续规划，"
-                "需等待重新评阅。"
+                "这次的申论评阅还没通过，先不进入下一步；你的作答都还在，"
+                "等重新评阅完，岸岸马上接着帮你排。"
             )
         elif review_acknowledgement_id is None:
             stage = "review_due"
@@ -1313,8 +1470,7 @@ class PlanningRepository:
                     "content_unavailable",
                     None,
                     pending_reason=(
-                        "申论闭环已有 canonical head，但尚未到复写或迁移验证时间；"
-                        "规划不会提前制造重复训练。"
+                        "这篇申论刚到稳定掌握，还没到重写或迁移验证的时候，先不急着重复练。"
                     ),
                     mastery_state=str(earliest["state"]),  # type: ignore[arg-type]
                     mastery_version_ids=tuple(
@@ -1349,8 +1505,7 @@ class PlanningRepository:
                 "content_unavailable",
                 None,
                 pending_reason=(
-                    "当前申论 finding 已通过独立迁移验证并稳定掌握；"
-                    "在出现新的真实作答或未解决证据前，不重复生成复写或迁移训练。"
+                    "这篇申论已经稳定掌握啦，在出现新的作答之前，先不重复练同样的内容。"
                 ),
                 mastery_state="stable_mastered",
                 mastery_version_ids=tuple(str(item["mastery_version_id"]) for item in heads),
@@ -2659,6 +2814,12 @@ def _capacity_snapshot(row: RowMapping) -> CapacitySnapshot:
         energy=int(row["energy_level"]),
         stress=int(row["stress_level"]),
         confidence_level=int(row["confidence_level"]),
+        preferred_xingce_module=(
+            str(row["preferred_xingce_module"])
+            if row["preferred_xingce_module"] is not None
+            else None
+        ),
+        xingce_only=bool(row["xingce_only"]),
         confirmed=bool(row["confirmed"]),
         source_type=str(row["source_type"]),
         input_fingerprint=str(row["input_fingerprint"]),

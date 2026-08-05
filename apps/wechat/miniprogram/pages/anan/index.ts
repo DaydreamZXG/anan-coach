@@ -20,6 +20,7 @@ import { resolveCompanionAction } from "../../features/learning-brain/companion-
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
 import { ApiClientError, type ApiClient } from "../../api/client";
 import { stableFingerprint } from "../../platform/command-id";
+import { suppressNativeTabBar } from "../../platform/tab-bar";
 import { OperationAttemptStore } from "../../platform/operation-attempt-store";
 import {
   consumeCompanionLaunchContext,
@@ -28,18 +29,18 @@ import {
 import { currentAuthSession, sameSessionOwner, type ActiveAuthSession } from "../../auth/session";
 
 const stateLabels: Record<CompanionAskResponse["semanticState"], string> = {
-  ready: "已根据当前证据回答",
-  evidence_insufficient: "依据不足",
-  permission_denied: "当前页面无权回答",
-  security_blocked: "已阻断不安全请求",
-  quota_exhausted: "今日额度已用完",
-  provider_pending: "回答结果待安全确认",
-  failed: "本次回答未完成",
+  ready: "已经根据手头的信息回答啦",
+  evidence_insufficient: "手头信息还不够",
+  permission_denied: "这个页面暂时答不了",
+  security_blocked: "这个问题不太对劲,先不回答",
+  quota_exhausted: "今天的提问次数用完啦,明天再来",
+  provider_pending: "回答还在路上,稍等一下",
+  failed: "这次没回答成,别急",
 };
 
 const companionAskScope = "companion-ask";
 const companionAttemptTtlMs = 7 * 24 * 60 * 60 * 1000;
-const companionPendingMessage = "本次问题结果待确认，再试会继续确认。";
+const companionPendingMessage = "哎,刚才的回答还没到,别急,再发一次就好。";
 
 interface CompanionContextRuntime {
   ownerSession: ActiveAuthSession | undefined;
@@ -127,31 +128,31 @@ Page({
     errorMessage: "",
     requestId: "",
     semanticState: "ready",
-    stateLabel: "正在读取学习记录",
+    stateLabel: "正在看看你的学习情况",
     companionIntent: "companion",
     answer: null as CompanionAnswerView | null,
-    contextCoreCopy: "正在同步你的学习档案和今日计划。",
-    contextGoalLabel: "正在读取",
-    contextTaskLabel: "正在读取",
-    contextReviewLabel: "正在读取",
-    contextCapacityLabel: "正在读取",
+    contextCoreCopy: "正在把今天的学习情况给你整理好。",
+    contextGoalLabel: "正在整理",
+    contextTaskLabel: "正在整理",
+    contextReviewLabel: "正在整理",
+    contextCapacityLabel: "正在整理",
     contextEvidenceLabel: "0 条学习记录",
     contextNoticeVisible: false,
     contextNoticeTitle: "",
     contextNoticeCopy: "",
     profileIssueVisible: false,
-    profileSourceLabel: "学习档案 · 正在读取",
+    profileSourceLabel: "学习档案 · 正在整理",
     profileSourceMessage: "",
     profileSourceRequestId: "",
     todayIssueVisible: false,
-    todaySourceLabel: "今日计划 · 正在读取",
+    todaySourceLabel: "今日计划 · 正在整理",
     todaySourceMessage: "",
     todaySourceRequestId: "",
     retryProfileVisible: false,
     retryTodayVisible: false,
     insightVisible: false,
-    insightTitle: "正在同步你的备考状态",
-    insightCopy: "岗位、能力和今天的计划会在这里汇合。",
+    insightTitle: "正在看看你的备考状态",
+    insightCopy: "你的岗位、现在的水平和今天的安排,岸岸都帮你串在一起看。",
     insightActionLabel: "查看今天",
     insightAction: "today",
     insightDismissed: false,
@@ -174,6 +175,7 @@ Page({
   },
 
   onShow() {
+    suppressNativeTabBar();
     if (!currentAuthSession()) {
       void wx.reLaunch({ url: routes.login });
       return;
@@ -309,7 +311,7 @@ Page({
       runtime.profileSource = settledContextSource(
         profileResult,
         previousProfile,
-        "学习档案没有加载成功，暂时不能提交问题。",
+        "学习档案没读出来,先别急,点下面再读一次。",
       );
       refreshingPatch.profileRefreshing = false;
       acceptedResult = true;
@@ -318,7 +320,7 @@ Page({
       runtime.todaySource = settledTodayContextSource(
         todayResult,
         previousToday,
-        "今日计划没有加载成功，请稍后单独重试。",
+        "今日计划没读出来,先别急,再点一次。",
       );
       refreshingPatch.todayRefreshing = false;
       acceptedResult = true;
@@ -351,7 +353,7 @@ Page({
     runtime.profileSource = settledContextSource(
       profileResult,
       previousProfile,
-      "学习档案没有加载成功，暂时不能提交问题。",
+      "学习档案没读出来,先别急,点下面再读一次。",
     );
     this.applyContextProjection({ profileRefreshing: false });
   },
@@ -379,7 +381,7 @@ Page({
     runtime.todaySource = settledTodayContextSource(
       todayResult,
       previousToday,
-      "今日计划没有加载成功，请稍后单独重试。",
+      "今日计划没读出来,先别急,再点一次。",
     );
     this.applyContextProjection({ todayRefreshing: false });
   },
@@ -397,7 +399,7 @@ Page({
     const learnerStateVersion =
       recoveryCommand?.context.learnerStateVersion ?? projection.learnerStateVersion;
     const contextNoticeCopy = recoveryAskAvailable
-      ? `${projection.contextNoticeCopy} 已有待确认的原问题仍会沿用发送时的上下文继续确认。`.trim()
+      ? `${projection.contextNoticeCopy} 之前的问题还在等结果,再发一次就会接着确认。`.trim()
       : projection.contextNoticeCopy;
     this.setData({
       ...projection,
@@ -413,10 +415,10 @@ Page({
       ...(recoveryAskAvailable
         ? { stateLabel: stateLabels.provider_pending }
         : projection.contextStatus === "loading"
-          ? { stateLabel: "正在读取学习记录" }
+          ? { stateLabel: "正在看看你的学习情况" }
           : projection.askAvailable
-            ? { stateLabel: "可以问当前学习、计划或岗位问题" }
-            : { stateLabel: "学习记录同步失败" }),
+            ? { stateLabel: "可以接着问学习、计划或岗位的事" }
+            : { stateLabel: "学习记录没读出来" }),
       insightDismissed: false,
     });
   },
@@ -440,7 +442,7 @@ Page({
       learnerStateVersion:
         recoveryCommand?.context.learnerStateVersion ?? this.data.profileLearnerStateVersion,
       contextNoticeCopy: recoveryAskAvailable
-        ? `${projection.contextNoticeCopy} 已有待确认的原问题仍会沿用发送时的上下文继续确认。`.trim()
+        ? `${projection.contextNoticeCopy} 之前的问题还在等结果,再发一次就会接着确认。`.trim()
         : projection.contextNoticeCopy,
     });
   },
@@ -502,7 +504,7 @@ Page({
       requestId: "",
       answer: null,
       companionIntent: "thinking",
-      stateLabel: "正在检查权限并检索当前依据",
+      stateLabel: "马上就好,别急",
     });
     // 聊天语义：问题气泡滚动到视口顶部，回答在其下方展开。
     void wx
@@ -574,7 +576,7 @@ Page({
       errorMessage: "",
       requestId: "",
       semanticState: "ready",
-      stateLabel: "可以修改问题后重新发送",
+      stateLabel: "改改再发一次就好",
       companionIntent: "companion",
     });
     this.syncAskAvailability();
@@ -636,7 +638,7 @@ Page({
     if (!action) return;
     const resolution = resolveCompanionAction(action);
     if (resolution.kind === "show_evidence") {
-      void wx.showToast({ title: "依据已列在回答下方", icon: "none" });
+      void wx.showToast({ title: "理由都写在回答下面啦", icon: "none" });
       return;
     }
     if (resolution.kind === "refresh_context") {
@@ -645,7 +647,7 @@ Page({
       return;
     }
     if (resolution.kind === "unavailable") {
-      void wx.showToast({ title: "这个操作暂时不可用，请刷新后重试", icon: "none" });
+      void wx.showToast({ title: "这个操作暂时用不了,过会儿再试", icon: "none" });
       return;
     }
     const navigate = () => {
@@ -657,8 +659,8 @@ Page({
     };
     if (resolution.requiresConfirmation) {
       wx.showModal({
-        title: "打开操作预览",
-        content: "岸岸的建议不会自动修改计划，需要你在下一页再次确认。",
+        title: "先确认一下",
+        content: "岸岸的建议不会自己改你的计划,需要你在下一页再确认一次。",
         success: ({ confirm }) => {
           if (confirm) navigate();
         },
@@ -733,7 +735,7 @@ function settledTodayContextSource(
       ? { status: "ready", value: result.value }
       : {
           status: "unavailable",
-          message: "完成学习时间设置后，岸岸会自动读取今日计划。",
+          message: "先把每天的学习时间定下来,岸岸就能帮你安排今天的计划啦。",
           requestId: "",
         };
   }

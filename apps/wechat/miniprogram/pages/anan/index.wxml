@@ -4,7 +4,7 @@
   <view class="coach-content">
     <view class="coach-header fade-slide-in">
       <view class="coach-title">岸岸</view>
-      <view class="coach-subtitle">你的备考总控台</view>
+      <view class="coach-subtitle">你的备考大本营</view>
     </view>
 
     <view class="coach-scroll">
@@ -67,7 +67,7 @@
             loading="{{profileRefreshing}}"
             disabled="{{profileRefreshing}}"
             bindtap="retryProfileContext"
-          >重新读取学习档案</button>
+          >再读一次学习档案</button>
           <button
             wx:if="{{retryTodayVisible}}"
             hover-class="item--hover"
@@ -75,7 +75,7 @@
             loading="{{todayRefreshing}}"
             disabled="{{todayRefreshing}}"
             bindtap="retryTodayContext"
-          >重新读取今日计划</button>
+          >再读一次今日计划</button>
         </view>
       </view>
       <view wx:if="{{contextStatus !== 'loading' && insightVisible && !insightDismissed}}" class="coach-card insight-card" aria-label="{{insightTitle}}">
@@ -91,7 +91,7 @@
       </view>
 
       <view class="suggestion-section fade-slide-in fade-slide-in--3">
-        <view class="section-label">建议操作</view>
+        <view class="section-label">你可以这样问</view>
         <view class="suggestion-list">
           <button hover-class="item--hover" class="suggestion-pill" data-question="今晚只能学 1 小时，帮我重新安排今天" bindtap="choosePrompt">今晚只能学 1 小时，重新安排</button>
           <button hover-class="item--hover" class="suggestion-pill" data-question="根据我的错题和复测记录，生成一组数量关系复测" bindtap="choosePrompt">生成一组数量关系复测</button>
@@ -102,7 +102,7 @@
       </view>
 
       <view class="progress-section fade-slide-in fade-slide-in--4">
-        <view class="section-label">正在推进</view>
+        <view class="section-label">最近进度</view>
         <button hover-class="item--hover" class="progress-row" bindtap="openToday"><text>今日计划</text><text class="progress-row__meta">{{contextTaskLabel}} ›</text></button>
         <button hover-class="item--hover" class="progress-row" bindtap="openMastery"><text>复盘与复测</text><text class="progress-row__meta">{{contextReviewLabel}} ›</text></button>
         <button hover-class="item--hover" class="progress-row" bindtap="openWeeklyPlan"><text>本周安排</text><text class="progress-row__meta">查看周计划 ›</text></button>
@@ -115,8 +115,8 @@
       <view wx:if="{{submitting}}" class="coach-card thinking-card">
         <view class="thinking-mark">✦</view>
         <view>
-          <view class="coach-card__title">正在核对你的资料与当前任务</view>
-          <view class="coach-card__copy">岸岸会先确认哪些信息可以使用，再给出能说明理由的建议。</view>
+          <view class="coach-card__title">正在看看你的资料和今天的任务</view>
+          <view class="coach-card__copy">岸岸先看看手头的信息够不够,再给你讲清楚理由。</view>
         </view>
       </view>
 
@@ -124,7 +124,7 @@
         wx:if="{{contextStatus !== 'loading' && errorMessage && !submitting && !answer}}"
         class="coach-card coach-error ask-error-card"
       >
-        <view class="coach-card__title">这次没有收到岸岸的回答</view>
+        <view class="coach-card__title">这次没等到岸岸的回答</view>
         <view class="coach-card__copy">{{errorMessage}}</view>
         <view wx:if="{{requestId}}" class="request-id">问题编号 · {{requestId}}</view>
         <button
@@ -132,13 +132,13 @@
           hover-class="item--hover"
           class="secondary-action"
           bindtap="restoreAskedQuestion"
-        >编辑后重试</button>
+        >改一下再发</button>
       </view>
 
       <view wx:if="{{answer}}" class="answer-card">
         <view class="answer-header">
           <view>
-            <view class="answer-title">岸岸结论</view>
+            <view class="answer-title">岸岸说</view>
             <view class="answer-meta">{{answer.agentLabel}} · {{answer.confidenceLabel}} · {{answer.stateLabel}}</view>
           </view>
           <view class="answer-type">{{answer.answerTypeLabel}}</view>
@@ -146,11 +146,11 @@
         <view class="answer-copy">{{answer.answer}}</view>
 
         <view wx:if="{{answer.highImpactDecision}}" class="decision-boundary">
-          这次只做解释，不会直接修改报考资格、主目标或学习策略；采用前仍需你确认。
+          这次岸岸只做解释,不会直接改你的报考资格、主目标或学习策略,用不用还是你来定。
         </view>
 
         <view class="answer-section-head">
-          <view class="answer-section-title">回答依据</view>
+          <view class="answer-section-title">岸岸的理由</view>
           <view class="answer-section-count">{{answer.citations.length}} 条</view>
         </view>
         <view wx:for="{{answer.citations}}" wx:key="sourceId" class="citation-row">
@@ -160,7 +160,7 @@
         </view>
 
         <view wx:if="{{answer.limitations.length}}" class="limitations">
-          <view class="answer-section-title">这次回答还缺什么</view>
+          <view class="answer-section-title">这次还没讲到的</view>
           <view wx:for="{{answer.limitations}}" wx:key="*this" class="limitation-item">· {{item}}</view>
         </view>
 

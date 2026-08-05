@@ -328,34 +328,6 @@ class CommunityCandidateHttpProvider:
         )
 
 
-class CandidateProviderUnavailable:
-    """Explicit production-safe state used when no approved provider is configured."""
-
-    def __init__(self, *, prompt_version: str, model_policy_version: str) -> None:
-        self._prompt_version = prompt_version
-        self._model_policy_version = model_policy_version
-
-    @property
-    def prompt_version(self) -> str:
-        return self._prompt_version
-
-    @property
-    def model_policy_version(self) -> str:
-        return self._model_policy_version
-
-    @property
-    def provider_release_id(self) -> str:
-        return "local-unreleased"
-
-    @property
-    def provider_endpoint_fingerprint(self) -> str:
-        return sha256(b"community-candidate-unavailable").hexdigest()
-
-    def generate(self, context: CandidateContext) -> CandidateContent:
-        del context
-        raise CandidateProviderError("provider_failed")
-
-
 def _validate_source_spans(
     refs: list[str], *, source_version_id: str, source_length: int
 ) -> None:

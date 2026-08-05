@@ -76,9 +76,7 @@ describe("tablet responsive layout contract", () => {
     expect(responsiveStyles).toContain("--rpx: 0.5px");
     expect(tabBarStyles).toContain("@media (min-width: 600px)");
     expect(tabBarStyles).toContain("border-radius: 999px");
-    expect(tabBarStyles).toContain(
-      "@media (min-width: 600px) and (orientation: portrait)",
-    );
+    expect(tabBarStyles).toContain("@media (min-width: 600px) and (orientation: portrait)");
     expect(tabBarStyles).toContain("width: min(320px, calc(100vw - 48px))");
     expect(responsiveStyles).toContain("--layout-readable-max");
     expect(responsiveStyles).toContain("font-size: 16px");
@@ -103,7 +101,7 @@ describe("tablet responsive layout contract", () => {
     expect(practiceTemplate).toContain(
       "footerAvailable=\"{{status === 'ready' && sessionState === 'answering' && view && view.current === view.total}}\"",
     );
-    expect(practiceTemplate).toContain("左右滑动切题，点顶部题号可打开答题卡");
+    expect(practiceTemplate).toContain("左右滑动切题，点顶部题号可打开题号面板");
     expect(practiceTemplate).not.toContain("footer-previous");
     expect(practiceTemplate).not.toContain("? '下一题'");
     // Figma 2:2：材料与题目各自滚动，宽屏由等高双栏承载，不再依赖 sticky。
@@ -117,9 +115,7 @@ describe("tablet responsive layout contract", () => {
       /\.material-reader__inline-scroll--answering \{[^}]*max-height:\s*none/,
     );
     expect(practiceStyles).toMatch(/\.practice-question-pane \{[^}]*padding:\s*0;/u);
-    expect(practiceStyles).toMatch(
-      /\.practice-question-body \{[^}]*padding:\s*24px 24px 112px;/u,
-    );
+    expect(practiceStyles).toMatch(/\.practice-question-body \{[^}]*padding:\s*24px 24px 112px;/u);
     expect(taskShellStyles).toMatch(
       /\.task-shell--xingce \.task-footer \{[^}]*width:\s*100%;[^}]*max-width:\s*none;[^}]*transform:\s*none;/u,
     );

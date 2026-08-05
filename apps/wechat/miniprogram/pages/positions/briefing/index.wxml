@@ -1,17 +1,17 @@
 <view class="s9-page position-page briefing-page">
   <view class="s9-hero briefing-intro">
     <view>
-      <view class="s9-kicker">岸岸 · 新手考情</view>
+      <view class="s9-kicker">岸岸 · 第一次备考</view>
       <view class="s9-title">第一次考？先把这场考试讲明白</view>
-      <view class="s9-subtitle">只讲确定的岗位信息，不预测录取结果。</view>
+      <view class="s9-subtitle">咱们只讲确定的信息，不猜录取结果。</view>
     </view>
   </view>
 
   <state-view
     wx:if="{{!state || state.status === 'idle' || state.status === 'loading'}}"
     state="loading"
-    title="正在读取岗位考情"
-    description="按最新考试年度、岗位和目标分对齐。"
+    title="正在给你准备考情"
+    description="按最新的考试年份、这个岗位和你的目标分对好。"
   />
   <state-view
     wx:elif="{{state.status !== 'ready'}}"
@@ -19,7 +19,7 @@
     title="{{state.error.title}}"
     description="{{state.error.message}}"
     request-id="{{state.error.requestId}}"
-    action-text="{{state.error.retryable ? '重新读取' : ''}}"
+    action-text="{{state.error.retryable ? '再试一次' : ''}}"
     bind:action="retry"
   />
 
@@ -48,26 +48,26 @@
         <view class="briefing-score type-data">{{state.view.targetScoreLabel}}</view>
         <view class="briefing-evidence">{{state.view.targetEvidenceLabel}}</view>
         <view class="briefing-copy">{{state.view.targetValidityLabel}}</view>
-        <view class="briefing-warning">这是备考目标区间，不是官方进面线，也不是录取概率。</view>
+        <view class="briefing-warning">这是给你的备考目标，不是官方进面线，也不是录取概率。</view>
       </view>
     </view>
 
     <view class="briefing-section">
       <view class="briefing-section__number">03</view>
       <view class="briefing-section__body">
-        <view class="briefing-section__title">当前判断依据有多少</view>
+        <view class="briefing-section__title">现在能参考的信息有多少</view>
         <view class="briefing-fact">{{state.view.abilityStatusLabel}}</view>
         <view class="briefing-copy">{{state.view.abilityNextStepLabel}}</view>
       </view>
     </view>
 
     <view class="briefing-boundary">
-      <view class="briefing-boundary__title">你已有外部备考经验？</view>
-      <view class="briefing-boundary__copy">外部成绩、错题和报告都可以补充你的学习记录，不会因为刚注册就被忽略；只有你确认过的内容才会影响能力判断和计划。</view>
+      <view class="briefing-boundary__title">以前备考过吗？</view>
+      <view class="briefing-boundary__copy">以前考的分、做过的题都能补进来，不会因为你刚注册就被忽略。只有你确认过的内容，才会影响后面的计划和判断。</view>
     </view>
 
     <view class="briefing-actions">
-      <ui-button label="查看岗位资格依据" variant="secondary" bind:action="openPositionEvidence" />
+      <ui-button label="看看岗位资格要求" variant="secondary" bind:action="openPositionEvidence" />
       <ui-button label="我明白了，进入今日" bind:action="enterToday" />
     </view>
   </block>

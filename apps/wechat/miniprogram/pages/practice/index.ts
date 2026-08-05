@@ -363,15 +363,15 @@ Page<PracticePageData, PracticePageCustom>({
     runtime.requestedMode = parseXingceTaskMode(options.mode);
     runtime.planTaskId = isValidPlanTaskId(options.planTaskId) ? options.planTaskId.trim() : "";
     if (!runtime.requestedMode) {
-      failPage(this, "任务地址不完整", "缺少明确的行测训练模式，页面不会猜测要执行的任务。");
+      failPage(this, "没认出这次任务", "地址里缺了训练方式，没法判断要练什么。");
       return;
     }
     const auth = currentAuthSession();
     if (!auth) {
       this.setData({
         status: "unavailable",
-        errorTitle: "登录后才能开始行测任务",
-        errorMessage: "作答进度和复盘记录必须绑定你的账号。",
+        errorTitle: "登录后就能开始训练啦",
+        errorMessage: "做题进度和复盘要跟着账号走，先登录一下哦。",
         showLoginAction: true,
         showTodayAction: false,
       });
@@ -490,8 +490,8 @@ Page<PracticePageData, PracticePageCustom>({
       if (error instanceof TaskEditTakeoverDeclined) {
         this.setData({
           status: "unavailable",
-          errorTitle: "此设备没有编辑权",
-          errorMessage: "任务仍由另一台设备作答。需要在此设备继续时，请重新进入并确认接管。",
+          errorTitle: "另一台设备正在作答",
+          errorMessage: "想在这台设备继续的话，重新进入并确认接管就行。",
         });
         return;
       }
@@ -501,14 +501,14 @@ Page<PracticePageData, PracticePageCustom>({
       ) {
         this.setData({
           status: "unavailable",
-          errorTitle: "今天没有匹配的行测任务",
-          errorMessage: "回到今日计划选择一项可执行的行测任务，再从任务卡进入。",
+          errorTitle: "今天没有合适的行测任务",
+          errorMessage: "回到今日计划，从任务卡进一项能做的就行。",
           showLoginAction: false,
           showTodayAction: true,
         });
         return;
       }
-      handlePageError(this, error, "真实行测任务尚未载入");
+      handlePageError(this, error, "这次训练还没准备好");
     }
   },
 
@@ -531,7 +531,7 @@ Page<PracticePageData, PracticePageCustom>({
     if (decision.action === "blocked") {
       const result = await wx.showModal({
         title: decision.title,
-        content: `${decision.message} 你可以稍后从今日计划继续。`,
+        content: `${decision.message} 别担心，回头可以从今日计划继续。`,
         confirmText: "仍要退出",
       });
       if (!result.confirm) return;
@@ -823,7 +823,7 @@ Page<PracticePageData, PracticePageCustom>({
         // 120 笔上限含墓碑；满员时先物理删除最旧的已擦除笔画腾位。
         const strokes = appendStrokeWithinLimit(view.question.annotations, stroke);
         if (!strokes) {
-          void wx.showToast({ title: "草稿笔画已达上限", icon: "none" });
+          void wx.showToast({ title: "草稿笔画画满了", icon: "none" });
           return;
         }
         runtime.task = reduceTaskRuntime(runtime.task, {
@@ -1012,7 +1012,7 @@ Page<PracticePageData, PracticePageCustom>({
         await createIdempotencyKey("xingce-dispute"),
       );
       this.setData({
-        disputeReceipt: "已记录，我们会按这道题继续核对。",
+        disputeReceipt: "记下啦，我们会去核对这道题。",
         disputeDescription: "",
       });
       if (runtime.session.state !== "answering") {
@@ -1021,7 +1021,7 @@ Page<PracticePageData, PracticePageCustom>({
         applySession(this, runtime, refreshed.data);
         this.setData({
           disputeOpen: true,
-          disputeReceipt: "已记录；这次复测结果已暂停参与能力判断。",
+          disputeReceipt: "记下啦；这次复测的结果先不计入水平判断。",
         });
       }
     } catch (error) {
@@ -1241,8 +1241,8 @@ Page<PracticePageData, PracticePageCustom>({
           desiredState: "",
           message:
             outcome.favoriteState === "favorited"
-              ? "已收藏，可在“收藏题目”中找回。"
-              : "已取消收藏；本次存疑状态不受影响。",
+              ? "收藏好啦，去“收藏题目”里就能找到。"
+              : "已取消收藏，这道题的存疑标记还在。",
           requestId: outcome.requestId,
         });
         void wx.showToast({
@@ -1281,7 +1281,7 @@ Page<PracticePageData, PracticePageCustom>({
         favoriteState: this.data.favoriteState,
         questionId: originQuestionId,
         desiredState: "",
-        message: error instanceof Error ? error.message : "收藏状态没有改变，请重新读取。",
+        message: error instanceof Error ? error.message : "收藏没变成功，再试一次就好。",
         requestId: error instanceof ApiClientError ? error.requestId : "",
       });
     } finally {
@@ -1366,7 +1366,7 @@ Page<PracticePageData, PracticePageCustom>({
       if (result.state !== "candidate" || !result.formula) {
         this.setData({
           mathInkRecognizing: false,
-          mathInkError: "这次没有形成可确认公式，请清空后重新书写。",
+          mathInkError: "这次没认出完整公式，清空重写一遍试试。",
         });
         return;
       }
@@ -1538,11 +1538,11 @@ Page<PracticePageData, PracticePageCustom>({
         runtime.editOwnership = null;
         stopTimer(runtime);
         this.setData({
-          errorMessage: "另一台设备已接管本任务。本机交卷命令仍保留；重新进入并确认接管后再提交。",
+          errorMessage: "另一台设备正在作答。别担心，本机的提交还保留着；重新进入并确认接管后再交一次就行。",
         });
         return;
       }
-      handleInlineError(this, runtime, error, "交卷结果尚未确认，请重试同一命令。");
+      handleInlineError(this, runtime, error, "提交结果还没确认，再试一次就好。");
     } finally {
       runtime.submitInFlight = false;
       if (runtimes.owns(this, runtime)) {
@@ -1601,7 +1601,7 @@ function applySession(
   page.setData({
     hasPendingCheckpoint: retryablePending !== null,
     pendingCheckpointMessage: retryablePending
-      ? "检测到一次结果未知的进度保存，已恢复当时的本地草稿；请重试刚才那次保存。"
+      ? "有一次保存没确认，已把当时的草稿找回来；再点一次重试就好。"
       : "",
     interactionLocked: retryablePending !== null,
   });
@@ -1622,7 +1622,7 @@ function redirectToReflection(
   const session = runtime.session;
   const reviewId = session?.review?.reviewId;
   if (!session || !reviewId) {
-    failPage(page, "复盘记录尚未生成", "交卷已经完成，但复盘记录还不可用。请重新读取本次训练。");
+    failPage(page, "复盘还没生成好", "提交已经完成，但复盘还要等一等。重新进一次这次训练就好。");
     return;
   }
   if (runtime.reflectionNavigationStarted) return;
@@ -1643,7 +1643,7 @@ function redirectToReflection(
   void wx.redirectTo({ url }).catch(() => {
     if (!runtimes.owns(page, runtime)) return;
     runtime.reflectionNavigationStarted = false;
-    failPage(page, "复盘页面没有打开", "请重新读取本次训练，再进入训练总结与错因复盘。");
+    failPage(page, "复盘页没打开", "重新进一次这次训练，再进总结和复盘就行。");
   });
 }
 
@@ -1790,7 +1790,7 @@ async function loadCurrentQuestionFavorite(
       page.setData({
         status: "unavailable",
         errorTitle: "登录状态已失效",
-        errorMessage: "当前作答仍保留在本机；重新登录后请从今日计划继续。",
+        errorMessage: "别担心，当前进度都还在本机；重新登录后从今日计划接着做就行。",
         showLoginAction: true,
         interactionLocked: true,
       });
@@ -1801,7 +1801,7 @@ async function loadCurrentQuestionFavorite(
       favoriteState: page.data.favoriteState,
       questionId,
       desiredState: "",
-      message: "收藏状态没有读到；存疑和作答仍可正常使用。",
+      message: "收藏状态没读出来，不影响做题和存疑，先练着。",
       requestId: error instanceof ApiClientError ? error.requestId : "",
     });
   }
@@ -2085,8 +2085,8 @@ async function saveCheckpoint(
     if (commandConfirmed) {
       page.setData({
         status: "error",
-        errorTitle: "进度已保存，但页面更新失败",
-        errorMessage: "刚才的保存已确认；请重新进入当前作答后再继续。",
+        errorTitle: "保存成功了，页面没跟上",
+        errorMessage: "刚才的保存已经确认，别担心；重新进一下当前作答就能继续。",
         hasPendingCheckpoint: false,
         pendingCheckpointMessage: "",
         interactionLocked: true,
@@ -2135,11 +2135,11 @@ async function saveCheckpoint(
       page,
       runtime,
       error,
-      "进度还没确认成功，本机会保留刚才那次保存，方便你重试。",
+      "哎，这次没保存上，别急，本机留着呢，再点一次就好。",
     );
     page.setData({
       hasPendingCheckpoint: true,
-      pendingCheckpointMessage: "这次保存还没确认成功，需要重试后才能继续修改。",
+      pendingCheckpointMessage: "这次保存还没确认，重试后才能继续改，别急。",
       interactionLocked: true,
     });
   } finally {
@@ -2326,7 +2326,7 @@ function handleInlineError(
     page.setData({
       status: "unavailable",
       errorTitle: "登录状态已失效",
-      errorMessage: "本地待提交命令仍按原账号隔离保存，重新登录后可以继续。",
+      errorMessage: "别担心，待提交的内容还按原账号存着，重新登录后就能继续。",
       showLoginAction: true,
     });
     stopTimer(runtime);
@@ -2341,7 +2341,7 @@ function failPage(page: PracticePageInstance, title: string, message: string): v
 }
 
 function errorMessage(error: unknown): string {
-  return error instanceof Error ? error.message : "没有拿到可确认的最新状态。";
+  return error instanceof Error ? error.message : "没读到最新状态，稍后再试。";
 }
 
 function currentAccountOwns(runtime: NonNullable<ReturnType<typeof runtimes.get>>): boolean {
@@ -2360,7 +2360,7 @@ function invalidateForAccountChange(
   page.setData({
     status: "unavailable",
     errorTitle: "账号已经变更",
-    errorMessage: "旧账号的题目和进度已从当前页面清除，请以当前账号重新进入今日计划。",
+    errorMessage: "旧账号的题目和进度已从本页清除；用当前账号重新进今日计划就行。",
     showLoginAction: true,
     view: null,
     favoriteStatus: "idle",

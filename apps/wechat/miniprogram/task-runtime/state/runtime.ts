@@ -249,8 +249,13 @@ export function reduceTaskRuntime(
       );
     case "UNANSWERED_FINALIZED": {
       assertAnswering(state);
+      const hasUnanswered = state.questionOrder.some((questionId) => {
+        const attempt = state.attempts[questionId];
+        if (!attempt) throw new TaskTransitionError("Attempt question does not exist");
+        return !attempt.skipped && attempt.selectedOptionIds.length === 0;
+      });
+      if (!hasUnanswered) return state;
       const atMs = sessionElapsedMs(state);
-      let finalized = false;
       const attempts = Object.fromEntries(
         state.questionOrder.map((questionId) => {
           const attempt = state.attempts[questionId];
@@ -258,19 +263,15 @@ export function reduceTaskRuntime(
           if (attempt.skipped || attempt.selectedOptionIds.length > 0) {
             return [questionId, attempt];
           }
-          finalized = true;
           return [
             questionId,
-            withActionEvent(
-              { ...attempt, skipped: true },
-              "skipped",
-              atMs,
-              { detail: "submit_with_unanswered" },
-            ),
+            withActionEvent({ ...attempt, skipped: true }, "skipped", atMs, {
+              detail: "submit_with_unanswered",
+            }),
           ];
         }),
       );
-      return finalized ? changed(state, { attempts }) : state;
+      return changed(state, { attempts });
     }
     case "DRAFT_CHANGED":
       assertAnswering(state);

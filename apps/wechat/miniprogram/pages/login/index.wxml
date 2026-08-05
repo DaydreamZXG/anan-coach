@@ -40,7 +40,7 @@
             aria-hidden="true"
           />
         </view>
-        <text wx:else>{{restoring ? '正在恢复登录…' : '正在登录…'}}</text>
+        <text wx:else>{{restoring ? '正在找回登录…' : '正在登录…'}}</text>
       </button>
       <view class="legal">
         <checkbox-group class="legal-consent" bindchange="toggleLegalConsent">

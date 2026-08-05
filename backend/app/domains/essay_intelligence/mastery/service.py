@@ -1,9 +1,8 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
-from hashlib import sha256
 import json
-from typing import Any, Literal
+from typing import Literal
 from uuid import uuid4
 
 from sqlalchemy.engine import RowMapping
@@ -19,6 +18,7 @@ from app.domains.essay_intelligence.mastery.schemas import (
     EssayMasteryProjection,
     EssayMasteryStateVersion,
 )
+from app.domains.essay_intelligence.review_contracts import _fingerprint
 from app.platform.outbox import OutboxRepository
 
 
@@ -400,13 +400,3 @@ def _from_row(row: RowMapping) -> EssayMasteryStateVersion:
         supersedes_mastery_version_id=row["supersedes_mastery_version_id"],
         created_at=row["created_at"],
     )
-
-
-def _fingerprint(value: Any) -> str:
-    encoded = json.dumps(
-        value,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-    ).encode("utf-8")
-    return sha256(encoded).hexdigest()

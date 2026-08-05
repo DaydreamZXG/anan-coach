@@ -328,8 +328,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     moreEvidenceOpen: false,
     completionClosure: {
       acceptedCorrection: null,
-      statusTitle: "这次没有形成确认纠偏",
-      statusDescription: "当前没有完整的结算记录，不会把候选判断当成已确认结论。",
+      statusTitle: "这次没确定纠偏结论",
+      statusDescription: "记录还不完整，先不把候选判断当成定论。",
     },
     hasImmediateVerification: false,
     verificationNavigationLocked: false,
@@ -350,8 +350,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     if (!sessionId || !reviewId) {
       this.setData({
         status: "error",
-        errorTitle: "复盘地址不完整",
-        errorMessage: "缺少作答会话或复盘记录，不能单独提交复盘。",
+        errorTitle: "复盘链接不完整",
+        errorMessage: "没找到对应的作答记录，没法单独提交复盘。",
       });
       return;
     }
@@ -359,8 +359,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     if (!auth) {
       this.setData({
         status: "unavailable",
-        errorTitle: "登录后才能继续复盘",
-        errorMessage: "复盘是个人学习档案，当前没有可用登录会话。",
+        errorTitle: "登录后就能继续复盘啦",
+        errorMessage: "复盘跟着你的账号走，先登录一下哦。",
         showLoginAction: true,
       });
       return;
@@ -474,7 +474,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     if (this.data.phase !== "completed") {
       const result = await wx.showModal({
         title: "本次复盘还没完成",
-        content: "退出后，这项任务仍会保留在待复盘列表中，可以稍后继续。",
+        content: "别担心，退出后这项任务还会留在待复盘里，回头接着做就行。",
         confirmText: "仍要退出",
       });
       if (!result.confirm) return;
@@ -807,7 +807,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     }
     runtime.mediaBusy = true;
     const epoch = ++runtime.mediaEpoch;
-    this.setData({ voiceBusy: true, voiceMessage: "岸岸正在核对录音完整性…" });
+    this.setData({ voiceBusy: true, voiceMessage: "岸岸正在检查录音…" });
     try {
       const segments = await runtime.mediaUploader.uploadAll(
         runtime.mediaDraft.voiceSegments,
@@ -825,8 +825,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       const allAvailable = segments.every((segment) => segment.state === "available");
       this.setData({
         voiceMessage: allAvailable
-          ? "录音已通过安全检查，会随这次复盘提交。"
-          : "有录音尚未就绪，本地草稿已保留。",
+          ? "录音没问题啦，会随这次复盘一起提交。"
+          : "有段录音还没准备好，本地草稿已留着。",
       });
     } catch (error) {
       if (error instanceof LearningMediaOperationCancelled) return;
@@ -883,18 +883,18 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       });
       if (!runtimeIsActive(this, runtime)) return;
       const transcript = result.transcript.trim();
-      if (!transcript) throw new Error("这段录音没有识别出清晰文字，可以重录或直接手写。");
+      if (!transcript) throw new Error("这段录音没转出清楚的字，可以重录，也可以直接手写。");
       const rawText = [runtime.mediaDraft.rawText.trim(), transcript].filter(Boolean).join("\n");
       runtime.mediaDraft.rawText = rawText;
       persistDraft(runtime);
       this.setData({
         rawText,
-        voiceMessage: "听写已放进上方文字，你可以继续修改后再提交。",
+        voiceMessage: "转出的文字已放到上方，你可以改好再提交。",
       });
     } catch (error) {
       if (runtimeIsActive(this, runtime)) {
         this.setData({
-          voiceMessage: error instanceof Error ? error.message : "这段录音暂时无法听写。",
+          voiceMessage: error instanceof Error ? error.message : "这段录音暂时转不了文字。",
         });
       }
     } finally {
@@ -956,7 +956,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       (segment) => segment.state !== "available",
     );
     if (!pending && unreadyVoice) {
-      void wx.showToast({ title: "请先上传或删除未就绪录音", icon: "none" });
+      void wx.showToast({ title: "有段录音还没准备好，先上传或删掉它", icon: "none" });
       return;
     }
     runtime.submitting = true;
@@ -1054,7 +1054,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       const candidateVersionId = review.aiCandidate.candidateVersionId;
       const answer = this.data.followupAnswer.trim();
       if (review.aiCandidate.state !== "followup_required" || !candidateVersionId) {
-        void wx.showToast({ title: "这条追问已经更新，请刷新", icon: "none" });
+        void wx.showToast({ title: "这条追问已经更新，刷新一下", icon: "none" });
         return;
       }
       if (!answer) {
@@ -1218,7 +1218,7 @@ async function beginVoiceRecording(
   if (permission === "denied") {
     page.setData({
       recordPermission: "denied",
-      voiceMessage: "麦克风权限已被拒绝。岸岸不会生成假录音，请到设置中明确开启。",
+      voiceMessage: "麦克风权限被拒绝了。岸岸不会帮你编录音，去系统设置里打开权限就行。",
     });
     return;
   }
@@ -1340,7 +1340,7 @@ async function removeVoiceSegment(
   if (confirm) {
     const decision = await wx.showModal({
       title: "删除这段录音？",
-      content: "删除后不会随这次复盘提交，本地录音也会一并清理。",
+      content: "删除后这次复盘就不会带上它，本地录音也会一起清掉。",
       confirmText: "确认删除",
     });
     if (!decision.confirm || !currentAccountOwns(runtime)) return;
@@ -1434,7 +1434,7 @@ async function submitCauseFollowup(
       await reloadAfterConflict(page, runtime);
       return;
     }
-    handleWriteError(page, error, "追问回答尚未确认，请重试同一命令。");
+    handleWriteError(page, error, "追问回答还没确认，再试一次就好。");
   } finally {
     runtime.submitting = false;
   }
@@ -1451,11 +1451,11 @@ async function prepareCauseDecision(
   if (!review) return;
   const candidate = presentXingceCauseCandidate(review.aiCandidate);
   if (!candidate.candidateVersionId || !candidate.canDecide) {
-    void wx.showToast({ title: "这条错因建议已经更新，请刷新", icon: "none" });
+    void wx.showToast({ title: "这条错因建议已更新，刷新一下", icon: "none" });
     return;
   }
   if (decision === "confirm" && !candidate.canConfirm) {
-    void wx.showToast({ title: "当前证据不支持确认该错因", icon: "none" });
+    void wx.showToast({ title: "现有证据还不足以确认这个错因", icon: "none" });
     return;
   }
   const idempotencyKey = await createIdempotencyKey("xingce-cause");
@@ -1486,7 +1486,7 @@ async function pollCauseCandidate(
   if (!runtimeIsActive(page, runtime) || runtime.submitting) return;
   clearCausePoll(runtime);
   const epoch = ++runtime.requestEpoch;
-  if (userInitiated) page.setData({ pendingMessage: "正在刷新错因证据…" });
+  if (userInitiated) page.setData({ pendingMessage: "正在重新核对错因线索…" });
   try {
     const response = await runtime.api.getSession(runtime.sessionId);
     if (!isCurrent(page, runtime, epoch) || !currentAccountOwns(runtime)) return;
@@ -1494,7 +1494,7 @@ async function pollCauseCandidate(
   } catch (error) {
     if (!isCurrent(page, runtime, epoch)) return;
     page.setData({
-      pendingMessage: error instanceof Error ? error.message : "错因状态刷新失败。",
+      pendingMessage: error instanceof Error ? error.message : "错因状态没刷新成功。",
     });
     if (runtime.session?.review?.state === "cause_candidate_pending") {
       scheduleCausePoll(page, runtime);
@@ -1510,7 +1510,7 @@ function scheduleCausePoll(page: ReflectionPageInstance, runtime: ReflectionRunt
   if (runtime.causePollCount >= 140) {
     runtime.causePollCount = 0;
     page.setData({
-      pendingMessage: "错因分析暂时没有完成，你的原话已保存，可稍后在今日计划继续。",
+      pendingMessage: "错因分析还要等一等，你的原话已经存好，稍后从今日计划继续就行。",
     });
     return;
   }
@@ -1550,7 +1550,7 @@ async function decideCause(
   const pending = loadPendingXingceCauseDecision(runtime.ownerUserId, runtime.reviewId);
   if (!pending) return;
   runtime.submitting = true;
-  page.setData({ interactionLocked: true, pendingMessage: "正在结算复盘与今日任务…" });
+  page.setData({ interactionLocked: true, pendingMessage: "正在整理复盘和今日任务…" });
   try {
     const response = await runtime.api.decideCause(
       pending.reviewId,
@@ -1570,7 +1570,7 @@ async function decideCause(
       await reloadAfterConflict(page, runtime);
       return;
     }
-    handleWriteError(page, error, "错因决定尚未确认，请重试同一命令。");
+    handleWriteError(page, error, "错因的决定还没确认，再试一次就好。");
   } finally {
     runtime.submitting = false;
   }
@@ -1588,11 +1588,11 @@ async function reloadAfterConflict(
     }
     applySession(page, runtime, current.data);
     page.setData({
-      errorMessage: "复盘内容已更新；未确认的本地文字仍保留在输入框中。",
+      errorMessage: "复盘内容更新了；你没确认的文字还留在输入框里，别担心。",
       interactionLocked: false,
     });
   } catch (error) {
-    handleWriteError(page, error, "无法重新加载最新复盘状态。");
+    handleWriteError(page, error, "没刷新到最新复盘，稍后再试。");
   }
 }
 
@@ -1707,7 +1707,7 @@ function applySession(
         selectedReplacementCode(page.data.replacementCodeOptions),
     ),
     interactionLocked: hasPendingWrite,
-    pendingMessage: hasPendingWrite ? "检测到一次结果未知的保存，需要重试刚才那次操作。" : "",
+    pendingMessage: hasPendingWrite ? "有一次保存没确认，需要把刚才那次操作再试一次。" : "",
     hasPendingWrite,
   });
   syncVoiceView(page, runtime);
@@ -1800,7 +1800,7 @@ function handleWriteError(page: ReflectionPageInstance, error: unknown, fallback
     page.setData({
       status: "unavailable",
       errorTitle: "登录状态已失效",
-      errorMessage: "待提交内容仍按原账号隔离保存，重新登录后可以继续。",
+      errorMessage: "别担心，待提交的内容还按原账号存着，重新登录后就能继续。",
       showLoginAction: true,
       pendingMessage: "",
       hasPendingWrite: true,
@@ -1809,7 +1809,7 @@ function handleWriteError(page: ReflectionPageInstance, error: unknown, fallback
   }
   page.setData({
     status: "error",
-    errorTitle: "本次保存尚未确认",
+    errorTitle: "这次保存还没确认",
     errorMessage: error instanceof Error ? error.message : fallback,
     interactionLocked: true,
     pendingMessage: fallback,
@@ -1822,7 +1822,7 @@ function handleError(page: ReflectionPageInstance, error: unknown, title: string
   page.setData({
     status: expired ? "unavailable" : "error",
     errorTitle: expired ? "登录状态已失效" : title,
-    errorMessage: error instanceof Error ? error.message : "没有拿到可确认状态。",
+    errorMessage: error instanceof Error ? error.message : "没读到最新状态，稍后再试。",
     showLoginAction: expired,
   });
 }
@@ -1859,7 +1859,7 @@ function invalidateForAccountChange(
   page.setData({
     status: "unavailable",
     errorTitle: "账号已经变更",
-    errorMessage: "旧账号的复盘内容已从当前页面清除，请以当前账号重新进入今日计划。",
+    errorMessage: "旧账号的复盘已从本页清除；用当前账号重新进今日计划就行。",
     showLoginAction: true,
     result: null,
     rawText: "",

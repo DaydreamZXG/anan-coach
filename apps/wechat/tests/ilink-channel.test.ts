@@ -106,8 +106,8 @@ describe("official iLink photo channel", () => {
     expect(botSheetLogic).toContain(".revokeHubBot(key)");
     expect(botSheetLogic).toContain("stopPolling(this)");
     expect(captureTemplate).toContain("<ilink-bot-sheet");
-    expect(captureTemplate).toContain("不进入公共题库");
-    expect(captureTemplate).toContain("不用于训练基础模型");
+    expect(captureTemplate).toContain("不会进公共题库");
+    expect(captureTemplate).toContain("也不会拿去训练模型");
   });
 
   it("passes through missing, null, and full generated TypeScript fixtures", async () => {

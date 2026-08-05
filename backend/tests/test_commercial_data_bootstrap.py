@@ -270,7 +270,7 @@ def test_revision_76_external_transaction_bootstrap_is_atomic_and_resumable(
         candidate_commit=CANDIDATE_COMMIT,
         rollback_commit=ROLLBACK_COMMIT,
         environment="preproduction",
-        expected_revision="20260802_94",
+        expected_revision="20260804_95",
         position_exam_code="guokao",
         position_exam_year=2026,
         position_rule_set_version="rules@candidate-v2",
@@ -363,7 +363,7 @@ publication.bootstrap_upgrade_and_begin(
     with db_engine.connect() as connection:
         assert (
             connection.execute(text("select version_num from public.alembic_version")).scalar_one()
-            == "20260802_94"
+            == "20260804_95"
         )
         assert (
             connection.execute(

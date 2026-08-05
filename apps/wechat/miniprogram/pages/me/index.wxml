@@ -6,10 +6,10 @@
     <state-view
       wx:elif="{{status === 'error'}}"
       state="error"
-      title="账户档案没有加载成功"
+      title="档案没加载出来"
       description="{{errorMessage}}"
       request-id="{{requestId}}"
-      action-text="重新加载"
+      action-text="再试一次"
       bind:action="retry"
     />
 
@@ -39,10 +39,10 @@
           </button>
         </view>
         <view wx:if="{{qualificationContextStatus === 'error'}}" class="context-error-card">
-          <view class="context-error-card__title">报考资料没有同步完成</view>
+          <view class="context-error-card__title">报考资料没同步好</view>
           <view class="context-error-card__copy">{{qualificationContextError}}</view>
           <view wx:if="{{qualificationContextRequestId}}" class="context-error-card__request">问题编号 · {{qualificationContextRequestId}}</view>
-          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">重新读取</button>
+          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">再试一次</button>
         </view>
         <view wx:else class="archive-grid">
           <view class="archive-item"><view class="archive-label">学历与专业</view><view class="archive-value">{{educationMajorLabel}}</view></view>
@@ -57,10 +57,10 @@
 
       <view class="profile-card target-card fade-slide-in fade-slide-in--3">
         <view wx:if="{{targetContextStatus === 'error'}}" class="context-error-card">
-          <view class="context-error-card__title">目标岗位没有同步完成</view>
+          <view class="context-error-card__title">目标岗位没同步好</view>
           <view class="context-error-card__copy">{{targetContextError}}</view>
           <view wx:if="{{targetContextRequestId}}" class="context-error-card__request">问题编号 · {{targetContextRequestId}}</view>
-          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">重新读取</button>
+          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">再试一次</button>
         </view>
         <block wx:else>
           <view class="target-status">{{targetPositionStatusLabel}}</view>
@@ -75,10 +75,10 @@
 
       <view class="profile-card study-card fade-slide-in fade-slide-in--4">
         <view wx:if="{{studyContextStatus === 'error'}}" class="context-error-card">
-          <view class="context-error-card__title">学习时间没有同步完成</view>
+          <view class="context-error-card__title">学习时间没同步好</view>
           <view class="context-error-card__copy">{{studyContextError}}</view>
           <view wx:if="{{studyContextRequestId}}" class="context-error-card__request">问题编号 · {{studyContextRequestId}}</view>
-          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">重新读取</button>
+          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">再试一次</button>
         </view>
         <block wx:else>
           <view class="card-head">
@@ -124,7 +124,7 @@
           <button hover-class="item--hover" class="service-row profile-menu-row" bindtap="openPrivacy"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/privacy.svg" mode="aspectFit" /></view><text>数据与隐私</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
           <button hover-class="item--hover" class="service-row profile-menu-row" bindtap="openWechatChannel"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/authorization.svg" mode="aspectFit" /></view><text>微信发题给岸岸</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
           <button hover-class="item--hover" class="service-row profile-menu-row" bindtap="openAuthorizationSettings"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/authorization.svg" mode="aspectFit" /></view><text>授权管理</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
-          <button hover-class="item--hover" class="service-row profile-menu-row" open-type="contact" session-from="pages/me/index"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/support.svg" mode="aspectFit" /></view><text>联系客服</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
+          <button hover-class="item--hover" class="service-row profile-menu-row" bindtap="openSupport"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/support.svg" mode="aspectFit" /></view><text>联系客服</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
           <button hover-class="item--hover" class="service-row profile-menu-row" bindtap="showAbout"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/about.svg" mode="aspectFit" /></view><text>关于岸岸</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
           <button hover-class="item--hover" class="service-row profile-menu-row service-row--logout" loading="{{loggingOut}}" disabled="{{loggingOut || loggingOutAll}}" bindtap="requestLogout"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/logout.svg" mode="aspectFit" /></view><text>退出登录</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
         </view>

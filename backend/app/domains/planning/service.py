@@ -183,6 +183,8 @@ class PlanningService:
                 "energy": command.energy,
                 "stress": command.stress,
                 "confidence_level": command.confidence_level,
+                "preferred_xingce_module": command.preferred_xingce_module,
+                "xingce_only": command.xingce_only,
                 "weekly_preference_version_id": str(current["weekly_preference_version_id"]),
                 "input_fingerprint": input_fingerprint,
                 "supersedes_capacity_version_id": str(current["capacity_version_id"]),
@@ -200,6 +202,8 @@ class PlanningService:
                 "userId": user_id,
                 "localDate": day.isoformat(),
                 "availableMinutes": command.available_minutes,
+                "preferredXingceModule": command.preferred_xingce_module,
+                "xingceOnly": command.xingce_only,
                 "inputFingerprint": input_fingerprint,
             },
         )
@@ -520,10 +524,10 @@ class PlanningService:
             user_id=user_id,
             snapshot=goal_ability,
         )
-        goal_gap = _goal_gap(goal_ability, generated_at)
+        gap = goal_gap(goal_ability, generated_at)
         planning_goal = GoalPlanningSnapshot(
-            readiness=goal_gap.readiness,
-            positive_gap=(goal_gap.baseline_gap or 0) > 0,
+            readiness=gap.readiness,
+            positive_gap=(gap.baseline_gap or 0) > 0,
             goal_version_id=goal_ability.goal_version_id,
             ability_estimate_version_id=goal_ability.estimate_version_id,
             target_owner=goal_ability.target_owner,
@@ -534,6 +538,7 @@ class PlanningService:
             user_id=user_id,
             goal=goal_ability,
             now=generated_at,
+            preferred_xingce_module=capacity.preferred_xingce_module,
         )
         essay = self._repository.essay_snapshot(
             session,
@@ -545,6 +550,8 @@ class PlanningService:
             objective=objective,
             essay=essay,
             available_minutes=remaining_minutes,
+            preferred_xingce_module=capacity.preferred_xingce_module,
+            xingce_only=capacity.xingce_only,
         )
         strategy_decisions = self._repository.active_strategy_decisions(
             session,
@@ -726,7 +733,7 @@ class PlanningService:
             "algorithmVersion": PLAN_ALGORITHM_VERSION,
             "date": day.isoformat(),
             "inputVersions": input_versions,
-            "goalGap": goal_gap.model_dump(by_alias=True, mode="json"),
+            "goalGap": gap.model_dump(by_alias=True, mode="json"),
             "objective": asdict(objective),
             "essay": asdict(essay),
             "capacity": asdict(capacity),
@@ -776,7 +783,7 @@ class PlanningService:
             day_mode=day_mode,
             tasks=selection.tasks,
             capacity=capacity,
-            goal_gap=goal_gap,
+            goal_gap=gap,
             essay_available=essay.next_stage != "content_unavailable",
         )
         invalidation_conditions = [
@@ -819,7 +826,7 @@ class PlanningService:
                 "day_mode": day_mode,
                 "headline": headline,
                 "rationale": rationale,
-                "goal_gap": _json(goal_gap.model_dump(by_alias=True, mode="json")),
+                "goal_gap": _json(gap.model_dump(by_alias=True, mode="json")),
                 "scheduled_minutes": selection.scheduled_minutes,
                 "due_reflection_count": candidates.due_reflection_count,
                 "due_verification_count": candidates.due_verification_count,
@@ -1040,8 +1047,8 @@ def _apply_strategy_decisions(
     for track in removed_tracks:
         if not any(candidate.track == track for candidate in adjusted):
             omissions[track] = (
-                "该轨道当前唯一的新练习命中已确认的战略放弃范围；"
-                "到期复盘、验证和重写仍会按证据门禁保留。"
+                "这条轨道当前唯一的新练习落在你已确认先放下的范围里；"
+                "到期的复盘、复测和重写还是会照常安排。"
             )
     return adjusted, omissions, list(dict.fromkeys(reason_codes))
 
@@ -1067,6 +1074,12 @@ def _capacity_from_row(row: RowMapping) -> CapacitySnapshot:
         energy=int(row["energy_level"]),
         stress=int(row["stress_level"]),
         confidence_level=int(row["confidence_level"]),
+        preferred_xingce_module=(
+            str(row["preferred_xingce_module"])
+            if row["preferred_xingce_module"] is not None
+            else None
+        ),
+        xingce_only=bool(row["xingce_only"]),
         confirmed=bool(row["confirmed"]),
         source_type=str(row["source_type"]),
         input_fingerprint=str(row["input_fingerprint"]),
@@ -1082,6 +1095,8 @@ def _today_capacity(capacity: CapacitySnapshot, local_date: date) -> TodayCapaci
         energy=capacity.energy,
         stress=capacity.stress,
         confidence_level=capacity.confidence_level,
+        preferred_xingce_module=capacity.preferred_xingce_module,
+        xingce_only=capacity.xingce_only,
         confirmed=capacity.confirmed,
         source_type=capacity.source_type,
     )
@@ -1117,7 +1132,7 @@ def _execution_from_row(row: RowMapping, *, prefixed: bool = False) -> TaskExecu
     )
 
 
-def _goal_gap(snapshot: GoalAbilitySnapshot, now: datetime) -> GoalGap:
+def goal_gap(snapshot: GoalAbilitySnapshot, now: datetime) -> GoalGap:
     target = (
         ScoreRange(
             lower=snapshot.target_lower,

@@ -7,7 +7,6 @@ import { materialTextParagraphs } from "../../features/essay-task/material-parag
 
 type MaterialParagraph = EssayTaskWorkspace["material"]["segments"][number] & {
   anchorId: string;
-  paragraphNumber: number;
   displayParagraphId: string;
   showAnnotation: boolean;
 };
@@ -45,7 +44,7 @@ Page({
     if (!taskVersionId) {
       this.setData({
         status: "error",
-        errorMessage: "页面地址不完整，请从申论作答页重新进入。",
+        errorMessage: "这个地址好像不对，回申论作答页再进一次就行。",
         retryAllowed: false,
       });
       return;
@@ -66,18 +65,15 @@ Page({
               evidenceQuote: item.evidenceQuote ?? "",
             }))
           : [];
-      let paragraphNumber = 0;
       const materialAnchors = new Set<number>();
       const segments = workspace.material.segments.flatMap((segment) => {
         const paragraphs = materialTextParagraphs(segment.text, segment.segmentId);
         return paragraphs.map((paragraph, index) => {
-          paragraphNumber += 1;
           const firstForMaterial = !materialAnchors.has(segment.materialOrder);
           if (firstForMaterial) materialAnchors.add(segment.materialOrder);
           return {
             ...segment,
             text: paragraph.text,
-            paragraphNumber,
             displayParagraphId: paragraph.paragraphId,
             showAnnotation: index === paragraphs.length - 1,
             anchorId: firstForMaterial
@@ -102,7 +98,7 @@ Page({
         activeMaterialLabel:
           targetMaterialOrder === undefined
             ? "材料"
-            : `材料 ${String(targetMaterialOrder)} / ${String(directory.length)}`,
+            : materialReaderTitle(targetMaterialOrder, directory),
         retryAllowed: false,
       });
       if (this.data.targetAnchor) {
@@ -111,7 +107,7 @@ Page({
         });
       }
     } catch (error) {
-      const view = errorView(error, "材料没有加载成功，请重试。");
+      const view = errorView(error, "材料没加载出来，别急，再试一次。");
       this.setData({
         status: "error",
         errorMessage: view.message,
@@ -130,7 +126,7 @@ Page({
     const materialOrder = Number(event.currentTarget.dataset.materialOrder ?? 0);
     if (!anchor) return;
     this.setData({
-      activeMaterialLabel: `材料 ${String(materialOrder)} / ${String(this.data.directory.length)}`,
+      activeMaterialLabel: materialReaderTitle(materialOrder, this.data.directory),
       selectedSegmentId: "",
       selectedParagraphId: "",
       selectedText: "",
@@ -148,7 +144,7 @@ Page({
       selectedSegmentId: segmentId,
       selectedParagraphId: displayParagraphId,
       selectedText: text,
-      activeMaterialLabel: `材料 ${String(materialOrder)} / ${String(this.data.directory.length)}`,
+      activeMaterialLabel: materialReaderTitle(materialOrder, this.data.directory),
     });
   },
 
@@ -176,7 +172,7 @@ Page({
     const eventChannel = this.getOpenerEventChannel();
     if (!eventChannel.emit) {
       void wx.showToast({
-        title: "请返回作答页后重新打开材料",
+        title: "回作答页再打开一次材料就行",
         icon: "none",
       });
       return;
@@ -195,4 +191,15 @@ function parseMaterialOrder(anchor: string): number | null {
   if (!match?.[1]) return null;
   const value = Number(match[1]);
   return Number.isInteger(value) && value > 0 ? value : null;
+}
+
+function materialReaderTitle(
+  materialOrder: number,
+  directory: Array<{ materialOrder: number }>,
+): string {
+  if (directory.length <= 1) return `材料 ${String(materialOrder)}`;
+  const position = directory.findIndex((item) => item.materialOrder === materialOrder);
+  return position < 0
+    ? `材料 ${String(materialOrder)}`
+    : `材料 ${String(materialOrder)} · ${String(position + 1)}/${String(directory.length)}`;
 }

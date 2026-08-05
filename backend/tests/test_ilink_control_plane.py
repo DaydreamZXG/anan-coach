@@ -31,6 +31,8 @@ def _dashboard(*, minutes: int = 600):
             energy=4,
             stress=2,
             confidence_level=3,
+            preferred_xingce_module=None,
+            xingce_only=False,
         ),
         tasks=[
             _task(1, "资料分析专项", "complete", 60),
@@ -245,6 +247,25 @@ def test_natural_capacity_request_uses_the_same_idempotent_planning_command() ->
     call = planning.capacity_calls[0]
     assert call["command_id"] == "ilink-capacity:capacity-natural-1"
     assert call["command"].available_minutes == 90
+
+
+def test_natural_module_focus_changes_today_without_waiting_for_the_ai_provider() -> None:
+    control, planning, _knowledge, _receipts = _control()
+
+    result = control.handle(
+        None,
+        user_id=USER_ID,
+        source_message_id="focus-natural-1",
+        text="今天我可以只学资料分析吗",
+    )
+
+    assert result is not None and result.mutation_applied
+    call = planning.capacity_calls[0]
+    assert call["command_id"] == "ilink-capacity:focus-natural-1"
+    assert call["command"].available_minutes == 600
+    assert call["command"].preferred_xingce_module == "资料分析"
+    assert call["command"].xingce_only is True
+    assert "今天只练资料分析" in result.reply
 
 
 def test_capacity_explanation_question_does_not_mutate_the_plan() -> None:

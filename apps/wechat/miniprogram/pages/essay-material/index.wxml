@@ -10,7 +10,7 @@
   <state-view
     wx:elif="{{status === 'error'}}"
     state="error"
-    title="材料没有加载成功"
+    title="材料没加载出来"
     description="{{errorMessage}}"
     request-id="{{requestId}}"
     action-text="{{retryAllowed ? '重新加载' : ''}}"
@@ -34,7 +34,7 @@
       </view>
     </scroll-view>
 
-    <view class="material-instruction">轻点段落可划线，再选择加入提纲、引用或复制。</view>
+    <view class="material-instruction">轻点段落就能划线，加进提纲、引用或复制都行。</view>
 
     <view class="material-reader">
       <view
@@ -49,12 +49,11 @@
         data-text="{{item.text}}"
         bindtap="selectSegment"
       >
-        <view class="material-paragraph__number">{{item.paragraphNumber}}</view>
         <view class="material-paragraph__body">
           <text class="material-paragraph__text" user-select>{{item.text}}</text>
           <block wx:for="{{annotations}}" wx:for-item="annotation" wx:key="segmentId">
             <view wx:if="{{item.showAnnotation && annotation.segmentId === item.segmentId}}" class="material-annotation">
-              <view class="material-annotation__label">已有材料标注</view>
+              <view class="material-annotation__label">岸岸帮你标过重点</view>
               <view>{{annotation.summary}}</view>
               <view wx:if="{{annotation.evidenceQuote}}" class="material-annotation__quote">
                 “{{annotation.evidenceQuote}}”

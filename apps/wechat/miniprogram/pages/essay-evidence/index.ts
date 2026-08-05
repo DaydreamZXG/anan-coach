@@ -25,7 +25,7 @@ Page({
     if (!taskVersionId) {
       this.setData({
         status: "error",
-        errorMessage: "页面地址不完整，请从申论评阅重新进入。",
+        errorMessage: "这个地址好像不对，回申论评阅再进一次就行。",
         retryAllowed: false,
       });
       return;
@@ -37,11 +37,11 @@ Page({
       const api = new EssayIntelligenceApi(client);
       const workspace = (await api.getWorkspace(taskVersionId)).data;
       const reviewVersionId = this.data.reviewVersionId || workspace.progression.reviewVersionId;
-      if (!reviewVersionId) throw new Error("当前题目还没有可审计评阅证据。");
+      if (!reviewVersionId) throw new Error("这道题还没有评阅依据呢。");
       const review = (await api.getGroundedReview(reviewVersionId)).data;
       this.setData({ status: "ready", review, view: reviewView(review), retryAllowed: false });
     } catch (error) {
-      const view = errorView(error, "评阅证据加载失败，请重试。");
+      const view = errorView(error, "评阅依据没加载出来，别急，再试一次。");
       this.setData({
         status: "error",
         errorMessage: view.message,

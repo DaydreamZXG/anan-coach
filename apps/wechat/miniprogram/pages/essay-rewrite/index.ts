@@ -26,7 +26,7 @@ Page({
     if (!taskVersionId) {
       this.setData({
         status: "error",
-        errorMessage: "页面地址不完整，请从申论工作台重新进入。",
+        errorMessage: "这个地址好像不对，回申论工作台再进一次就行。",
         retryAllowed: false,
       });
       return;
@@ -38,7 +38,7 @@ Page({
       const api = new EssayIntelligenceApi(client);
       const workspace = (await api.getWorkspace(taskVersionId)).data;
       const rewriteVersionId = this.data.rewriteVersionId || workspace.progression.rewriteVersionId;
-      if (!rewriteVersionId) throw new Error("当前题目还没有完成改写。");
+      if (!rewriteVersionId) throw new Error("这道题还没改写呢。");
       const comparison = (await api.getRewriteComparison(rewriteVersionId)).data;
       this.setData({
         status: "ready",
@@ -47,7 +47,7 @@ Page({
         retryAllowed: false,
       });
     } catch (error) {
-      const view = errorView(error, "改写对照加载失败，请重试。");
+      const view = errorView(error, "改写对照没加载出来，别急，再试一次。");
       this.setData({
         status: "error",
         errorMessage: view.message,

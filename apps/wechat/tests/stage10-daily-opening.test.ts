@@ -179,7 +179,7 @@ describe("today page start action", () => {
     page.startDailyOpening.call(page);
 
     expect(page.data.openingCollapsed).toBe(false);
-    expect(page.data.openingError).toBe("学习入口暂时不可用，请稍后再试。");
+    expect(page.data.openingError).toBe("学习入口暂时打不开，稍后再试试。");
     expect(navigateTo).not.toHaveBeenCalled();
     expect(switchTab).not.toHaveBeenCalled();
     expect(pageScrollTo).not.toHaveBeenCalled();
@@ -197,7 +197,7 @@ describe("today page start action", () => {
       expect.objectContaining({ url: "/pages/practice/index?task=task-1" }),
     );
     expect(page.data.openingCollapsed).toBe(false);
-    expect(page.data.openingError).toBe("学习页面没有打开，请重试。");
+    expect(page.data.openingError).toBe("页面没打开，别急，再试一次。");
 
     navigateTo.mockImplementation((options: WechatMiniprogram.NavigateToOption) => {
       options.success?.({ errMsg: "navigateTo:ok", eventChannel: {} as never });

@@ -37,7 +37,7 @@ Page({
     if (!taskVersionId) {
       this.setData({
         status: "error",
-        errorMessage: "页面地址不完整，请从申论工作台重新进入。",
+        errorMessage: "这个地址好像不对，回申论工作台再进一次就行。",
         retryAllowed: false,
       });
       return;
@@ -61,7 +61,7 @@ Page({
         retryAllowed: false,
       });
     } catch (error) {
-      const view = errorView(error, "申论作答工作台加载失败，请重试。");
+      const view = errorView(error, "申论工作台没加载出来，别急，再试一次。");
       this.setData({
         status: "error",
         errorMessage: view.message,
@@ -88,7 +88,7 @@ Page({
       const access = await new EssayHandwritingApi(client).getArtifactAccess(artifactVersionId);
       await wx.previewImage({ current: access.imageUrl, urls: [access.imageUrl] });
     } catch (error) {
-      const view = errorView(error, "申论手写原图暂时无法打开，请重试。");
+      const view = errorView(error, "手写原图这会儿打不开，别急，再试一次。");
       void wx.showToast({ title: view.message, icon: "none", duration: 3000 });
     } finally {
       this.setData({ openingOriginal: false });

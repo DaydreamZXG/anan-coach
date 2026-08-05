@@ -61,7 +61,7 @@ def _request(*, candidate: str = CANDIDATE_COMMIT, data_version: str = "position
         candidate_commit=candidate,
         rollback_commit=ROLLBACK_COMMIT,
         environment="preproduction",
-        expected_revision="20260802_94",
+        expected_revision="20260805_97",
         position_exam_code="guokao",
         position_exam_year=2026,
         position_rule_set_version="rules-v1",
@@ -976,7 +976,7 @@ def test_runtime_role_cannot_forge_publication_despite_default_grants_and_guc(
             ) values (
               true, gen_random_uuid(), 'active', repeat('a', 64),
               '{}'::jsonb, repeat('b', 64), repeat('c', 64),
-              repeat('d', 64), '20260802_94', '[]'::jsonb,
+              repeat('d', 64), '20260804_95', '[]'::jsonb,
               now(), now(), now()
             )
             """,

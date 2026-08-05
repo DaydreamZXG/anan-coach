@@ -37,6 +37,7 @@ class AuthSessionResponse(AuthBaseModel):
 class WechatLoginRequest(AuthBaseModel):
     code: str = Field(min_length=1, max_length=256)
     device_id: str = Field(alias="deviceId", min_length=8, max_length=160)
+    legal_accepted: bool = Field(default=False, alias="legalAccepted")
 
 
 class WechatAuthSessionData(AuthSessionResponse):

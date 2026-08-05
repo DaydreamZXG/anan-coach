@@ -19,10 +19,10 @@
     <view class="permission-screen">
       <view class="permission-icon"><text class="camera-glyph"></text></view>
       <view class="permission-title">需要相机权限</view>
-      <view class="permission-copy">岸岸需要使用相机拍摄你选择的题目和材料，请在系统设置中允许授权。</view>
+      <view class="permission-copy">岸岸要用相机拍你选的题和材料，去系统设置里把相机权限打开就行。</view>
       <button hover-class="item--hover" class="capture-cyan-button" bindtap="retryCameraPermission">去开启相机权限</button>
       <button hover-class="item--hover" class="capture-dark-quiet" bindtap="goBack">返回</button>
-      <view class="permission-privacy">只有你主动选择的题图会用于本次识别和个人检索，不进入公共题库，也不用于训练基础模型。</view>
+      <view class="permission-privacy">只有你主动选的题图，会用来做这次的搜索并存进你的个人记录；不会进公共题库，也不会拿去训练模型。</view>
     </view>
   </block>
 
@@ -39,9 +39,9 @@
       <view class="receipt-card">
         <view class="receipt-row"><text>记录位置</text><text>仅本次查看</text></view>
         <view class="receipt-divider"></view>
-        <view class="receipt-row"><text>画像影响</text><text class="receipt-row__muted">未计入能力画像</text></view>
+        <view class="receipt-row"><text>能力评估</text><text class="receipt-row__muted">本次不计入</text></view>
         <view class="receipt-divider"></view>
-        <view class="receipt-row"><text>检索记录</text><text>已保留在你的账户</text></view>
+        <view class="receipt-row"><text>搜索记录</text><text>已保留在你的账户</text></view>
       </view>
       <button hover-class="item--hover" class="capture-primary-button tap-tactile" bindtap="goBack">返回解析</button>
       <button hover-class="item--hover" class="capture-secondary-button" bindtap="restart">继续搜题</button>
@@ -63,7 +63,7 @@
         mode="aspectFit"
         bindtap="editPendingImage"
       />
-      <view class="crop-edit-hint">点按图片可重新裁剪</view>
+      <view class="crop-edit-hint">点一下图片就能重新裁剪</view>
     </view>
     <view class="crop-actions">
       <button hover-class="item--hover" class="control-center crop-actions__quiet" bindtap="discardPendingImage">重拍</button>
@@ -106,8 +106,8 @@
         <view class="camera-corner camera-corner--bl"></view>
         <view class="camera-corner camera-corner--br"></view>
         <view class="camera-frame__copy">
-          <view class="camera-frame__title">{{mode === 'search' ? '请将题干与选项完整对齐' : '请拍摄完整共享材料或导入 PDF'}}</view>
-          <view wx:if="{{mode === 'import'}}" class="camera-frame__hint">支持多页材料与多题拆分</view>
+          <view class="camera-frame__title">{{mode === 'search' ? '把题干和选项都拍全' : '拍完整的共享材料，或导入 PDF'}}</view>
+          <view wx:if="{{mode === 'import'}}" class="camera-frame__hint">可以多页材料，也能一页多题</view>
         </view>
       </view>
       <view class="camera-track">
@@ -131,7 +131,7 @@
         <button hover-class="item--hover" class="control-center material-action" bindtap="chooseAlbum">相册</button>
         <button hover-class="item--hover" class="control-center material-action material-action--primary tap-tactile" bindtap="choosePdf">导入 PDF</button>
       </view>
-      <view class="camera-privacy">题图只用于本次识别与个人检索，不进入公共题库，不用于训练基础模型。</view>
+      <view class="camera-privacy">题图只用来做这次的搜索并存进你的个人记录，不会进公共题库，也不会拿去训练模型。</view>
     </view>
   </block>
 
@@ -158,8 +158,8 @@
     <view class="capture-state-wrap">
       <state-view
         state="{{state.status === 'expired' ? 'stale' : 'error'}}"
-        title="{{state.status === 'expired' ? '这次识别已过期' : (state.status === 'quarantined' ? '文件没有通过安全检查' : (state.error ? state.error.title : '处理没有完成'))}}"
-        description="{{state.status === 'expired' ? '过期结果不能继续确认，请重新拍摄原题。' : (state.status === 'quarantined' ? '这份文件不会继续识别，也不会写入你的学习记录。' : (state.error ? state.error.message : '请重新拍摄，或恢复刚才的操作。'))}}"
+        title="{{state.status === 'expired' ? '这次拍的内容过期了' : (state.status === 'quarantined' ? '这份文件没通过安全检查' : (state.error ? state.error.title : '处理没有完成'))}}"
+        description="{{state.status === 'expired' ? '过期的内容不能再确认了，重新拍一下原题就好。' : (state.status === 'quarantined' ? '这份文件不会再处理，也不会写进你的学习记录。' : (state.error ? state.error.message : '请重新拍摄，或恢复刚才的操作。'))}}"
         request-id="{{state.error ? state.error.requestId : (state.workspace ? state.workspace.requestId : '')}}"
         action-text="{{state.pendingRecovery || state.workspace && state.status === 'error' ? '恢复当前操作' : '重新选择题目'}}"
         bind:action="handleErrorAction"
@@ -170,7 +170,7 @@
   <block wx:elif="{{state && state.status === 'review' && state.reviewStep === 'recognition'}}">
     <workbench-nav
       id="runtime-workbench-nav"
-      title="核对识别内容"
+      title="检查一下识别结果"
       back-behavior="emit"
       bind:back="restart"
     />
@@ -195,7 +195,7 @@
 
       <view wx:for="{{state.segments}}" wx:key="segmentId" class="ocr-card">
         <view class="ocr-card__header">
-          <text>{{item.ordinal === 1 ? '题干与材料' : '识别片段 ' + item.ordinal}}</text>
+          <text>{{item.ordinal === 1 ? '题干与材料' : '第 ' + item.ordinal + ' 段'}}</text>
           <text class="ocr-card__confidence ocr-card__confidence--{{item.tone}}">{{item.confidenceLabel}}</text>
         </view>
         <textarea
@@ -204,12 +204,12 @@
           value="{{item.text}}"
           disabled="{{state.submitting}}"
           data-id="{{item.segmentId}}"
-          aria-label="第 {{item.ordinal}} 段识别文字"
+          aria-label="第 {{item.ordinal}} 段文字"
           bindinput="inputSegment"
         />
-        <view wx:if="{{item.requiresCorrection}}" class="ocr-card__warning">! 这段文字需要你确认或修改</view>
+        <view wx:if="{{item.requiresCorrection}}" class="ocr-card__warning">! 这段文字需要你确认或改一下</view>
       </view>
-      <view class="ocr-completeness">✓ 请确认题干、材料和选项都已识别完整</view>
+      <view class="ocr-completeness">✓ 确认一下题干、材料和选项都完整</view>
       <view wx:if="{{state.validationError}}" class="capture-inline-error">{{state.validationError}}</view>
       <view class="ocr-bottom-spacer"></view>
     </view>
@@ -242,7 +242,7 @@
       <state-view
         state="error"
         title="这次 AI 解析没有完成"
-        description="请重新申请解析；如果仍然失败，请重新拍摄更清晰、完整的题目。"
+        description="重新申请一次解析吧；如果还是不行，就重新拍一张更清楚、更完整的题目。"
         request-id="{{state.workspace ? state.workspace.requestId : ''}}"
         action-text="重新申请 AI 解析"
         bind:action="requestAIAnswer"
@@ -260,8 +260,8 @@
     <view class="capture-state-wrap">
       <state-view
         state="empty"
-        title="没有识别出可核对的题目"
-        description="请重新拍摄，并确保题干、材料和选项完整进入画面。"
+        title="没有识别到可以核对的题目"
+        description="重新拍一张吧，把题干、材料和选项都拍进画面里。"
         request-id="{{state.workspace ? state.workspace.requestId : ''}}"
         action-text="重新拍摄"
         bind:action="restart"
@@ -278,8 +278,8 @@
     />
     <view class="no-hit-screen">
       <view class="no-hit-icon"><text class="search-glyph"></text></view>
-      <view class="no-hit-title">未在题库中找到完全一致的题目</view>
-      <view class="no-hit-copy">这可能是一道新题或小众考卷题。岸岸可以独立进行 AI 推理，但不会冒充题库标准答案。</view>
+      <view class="no-hit-title">题库里没找到一模一样的题目</view>
+      <view class="no-hit-copy">这可能是道新题或小众卷子。岸岸可以自己推理，但不会假装是题库标准答案。</view>
       <button hover-class="item--hover" class="capture-ai-button" loading="{{state.submitting}}" bindtap="requestAIAnswer">使用 AI 独立解题</button>
       <button hover-class="item--hover" class="capture-secondary-button" bindtap="restart">重新拍摄</button>
     </view>
@@ -294,7 +294,7 @@
     />
     <view class="match-content">
       <view class="match-title">{{state.activeQuestionUnit.match.candidates.length > 1 ? '找到相似题目' : '找到匹配题目'}}</view>
-      <view class="match-copy">{{state.activeQuestionUnit.match.candidates.length > 1 ? '题库中存在多道相似考题，请确认你要找的是哪一道。' : '请核对题面，确认是否为同一道题。'}}</view>
+      <view class="match-copy">{{state.activeQuestionUnit.match.candidates.length > 1 ? '题库里找到几道很像的，你看看要找的是哪一道。' : '对一下题面，看看是不是同一道。'}}</view>
       <view class="question-unit-tabs" wx:if="{{state.workspace.questionUnits.length > 1}}">
         <button hover-class="item--hover" wx:for="{{state.workspace.questionUnits}}" wx:key="questionUnitId" class="control-center question-unit-tab {{index === state.activeQuestionUnitIndex ? 'question-unit-tab--active' : ''}}" data-index="{{index}}" bindtap="selectQuestionUnit">{{item.ordinal}}</button>
       </view>
@@ -308,7 +308,7 @@
         >
           <view class="match-card__badge">{{item.matchKind === 'exact' ? '原题精确匹配' : '相似题目'}}</view>
           <view class="match-card__score">匹配度 {{item.scoreLabel}}</view>
-          <view class="match-card__copy">点击选择并核对这条题库记录</view>
+          <view class="match-card__copy">点一下选这条，再对一下题面</view>
           <view class="match-card__evidence">
             <view wx:for="{{item.evidenceSummaries}}" wx:for-item="evidence" wx:key="*this" class="match-card__evidence-line">{{evidence}}</view>
           </view>
@@ -342,7 +342,7 @@
         <text class="ai-solution-banner__mark">✦</text>
         <view>
           <view class="ai-solution-banner__title">AI 根据图片独立推理</view>
-          <view class="ai-solution-banner__copy">这不是题库标准答案，请结合推理过程自行判断。</view>
+          <view class="ai-solution-banner__copy">这不是题库标准答案，你自己结合过程判断一下。</view>
         </view>
       </view>
 
@@ -382,12 +382,12 @@
       <view wx:if="{{state.activeQuestionUnit.referenceAnswer}}" class="solution-explanation">
         <view class="solution-section-title">题库解析</view>
         <view wx:if="{{state.activeQuestionUnit.matchedContent && state.activeQuestionUnit.matchedContent.solutionExplanation}}" class="solution-explanation__copy">{{state.activeQuestionUnit.matchedContent.solutionExplanation}}</view>
-        <view wx:else class="solution-explanation__copy">这道题的题库版本暂未收录解析。</view>
+        <view wx:else class="solution-explanation__copy">这道题题库里暂时没有解析。</view>
         <button hover-class="item--hover" class="solution-inline-action" bindtap="openLearningPackets">生成这道题的学习包 ›</button>
       </view>
 
       <button hover-class="item--hover" class="anan-solution-action" bindtap="askAnan"><text>✦</text><text>继续追问岸岸</text><text>›</text></button>
-      <view class="solution-boundary">查看参考答案不会自动改变能力画像；只有你确认的真实作答才会成为学习证据。</view>
+      <view class="solution-boundary">看参考答案不会改变你的能力评估；只有你确认的真实作答才算数。</view>
       <view class="solution-bottom-spacer"></view>
     </view>
 
@@ -401,13 +401,13 @@
   <view wx:if="{{recordSheetOpen}}" class="capture-sheet motion-sheet">
     <view class="capture-sheet__handle"></view>
     <view class="capture-sheet__header">
-      <view class="capture-sheet__title">收录与个人画像边界</view>
+      <view class="capture-sheet__title">这道题要不要记下来</view>
       <button hover-class="item--hover" class="capture-sheet__close" bindtap="closeRecordSheet">×</button>
     </view>
-    <view class="capture-sheet__copy">拍照搜题不能证明你会做或不会做，请明确选择这次如何处理。</view>
+    <view class="capture-sheet__copy">光拍题不能说明你会不会做，这次就按真实情况选一个吧。</view>
     <button hover-class="item--hover" class="record-option" bindtap="finishViewing">
       <view class="record-option__title">仅本次查看</view>
-      <view class="record-option__copy">不进入学习证据，不改变能力画像。</view>
+      <view class="record-option__copy">不记入学习记录，不影响能力评估。</view>
     </button>
     <button hover-class="item--hover" wx:if="{{state.activeQuestionUnit.referenceAnswer}}" class="record-option" bindtap="openLearningPackets">
       <view class="record-option__title">生成错题学习包</view>
@@ -415,11 +415,11 @@
     </button>
     <button hover-class="item--hover" wx:if="{{state.activeQuestionUnit.referenceAnswer}}" class="record-option record-option--primary tap-tactile" bindtap="openAnswerIngestion">
       <view class="record-option__title">记录我的真实作答</view>
-      <view class="record-option__copy">先选择个人学习包，再录入答案，确认后才计入画像。</view>
+      <view class="record-option__copy">先选个人学习包，再填答案，确认后才会算进能力评估。</view>
     </button>
     <view wx:else class="record-option record-option--disabled">
-      <view class="record-option__title">AI 解析暂不能直接计入画像</view>
-      <view class="record-option__copy">请在正式练习或答题卡导入中完成真实作答。</view>
+      <view class="record-option__title">AI 解析暂时不能直接算进能力评估</view>
+      <view class="record-option__copy">请去正式练习里做真实作答，或用答题卡记录。</view>
     </view>
   </view>
 

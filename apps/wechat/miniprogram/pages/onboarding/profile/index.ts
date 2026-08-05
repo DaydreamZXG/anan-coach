@@ -136,7 +136,7 @@ const partialSaveKeys = new WeakMap<QualificationProfilePage, string>();
 Page<QualificationProfilePageData, QualificationProfilePageCustom>({
   data: {
     ...emptyQualificationDraft,
-    pageTitle: "报考资格档案",
+    pageTitle: "我的报考信息",
     educationOptions,
     degreeOptions,
     graduationOptions,
@@ -159,7 +159,7 @@ Page<QualificationProfilePageData, QualificationProfilePageCustom>({
     catalogError: "",
     pendingRecovery: false,
     primaryDisabled: true,
-    primaryActionLabel: "保存并重新核验岗位",
+    primaryActionLabel: "保存，重新匹配岗位",
   },
 
   onLoad() {
@@ -355,7 +355,7 @@ function pageState(state: QualificationProfileEditorState): Partial<Qualificatio
         !draft.serviceProject ||
         (draft.serviceProject !== "无" && draft.grassrootsYears < 0) ||
         draft.workYears < 0),
-    primaryActionLabel: state.pendingRecovery ? "查询原保存结果" : "保存并重新核验岗位",
+    primaryActionLabel: state.pendingRecovery ? "看看上次的结果" : "保存，重新匹配岗位",
   };
 }
 
@@ -380,7 +380,7 @@ async function loadMajorCatalog(page: QualificationProfilePage): Promise<void> {
     catalogs.delete(page);
     page.setData({
       catalogLoading: false,
-      catalogError: "专业目录没有读取成功，请重新读取后再选择专业。",
+      catalogError: "哎，专业列表没加载出来，再试一次就好。",
       majorSuggestions: [],
     });
   }
@@ -469,7 +469,7 @@ async function savePartialProfile(page: QualificationProfilePage): Promise<void>
   } catch (error) {
     page.setData({
       savingDraft: false,
-      error: error instanceof Error ? error.message : "报考资料暂存失败，请重试。",
+      error: error instanceof Error ? error.message : "哎，没保存上，别急，再点一次就好。",
     });
   }
 }

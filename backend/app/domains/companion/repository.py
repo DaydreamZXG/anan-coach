@@ -13,6 +13,7 @@ from app.domains.knowledge.module_vocabulary import (
     ReleasedModuleVocabulary,
     load_current_module_vocabulary,
 )
+from app.domains.learning_brain.service import LearningBrainService
 
 
 @dataclass(frozen=True)
@@ -543,6 +544,10 @@ class CompanionRepository:
             .mappings()
             .one_or_none()
         )
+        strategy_directive = LearningBrainService().current_strategy_directive(
+            self._session,
+            user_id=user_id,
+        )
         return CompanionContextRecord(
             target_exam=profile["target_exam"] if profile else None,
             position_group=profile["position_group"] if profile else None,
@@ -617,6 +622,11 @@ class CompanionRepository:
                     "inputFingerprint": str(learning_brain["input_fingerprint"]),
                     "generatedAt": learning_brain["generated_at"].isoformat(),
                     "validUntil": learning_brain["valid_until"].isoformat(),
+                    "strategyDirective": (
+                        strategy_directive.model_dump(by_alias=True, mode="json")
+                        if strategy_directive is not None
+                        else None
+                    ),
                 }
                 if learning_brain is not None
                 else None

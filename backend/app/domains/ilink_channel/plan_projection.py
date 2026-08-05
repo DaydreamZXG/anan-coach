@@ -13,7 +13,7 @@ from uuid import UUID
 from sqlalchemy.orm import Session
 
 from app.domains.planning.repository import PlanningRepository
-from app.domains.planning.service import SHANGHAI, _goal_gap
+from app.domains.planning.service import SHANGHAI, goal_gap
 
 
 PLAN_QUERY_COMMANDS = frozenset({"今天练什么", "今天学什么", "今日安排"})
@@ -39,14 +39,14 @@ def today_plan_reply(session: Session, *, user_id: UUID, now: datetime) -> str:
         else:
             summary = headline
         return f"{summary}\n{OPEN_MINI_PROGRAM_HINT}"
-    goal_gap = _goal_gap(
+    gap = goal_gap(
         repository.goal_and_ability(session, user_id=str(user_id)), now
     )
     capacity = repository.current_capacity(
         session, user_id=str(user_id), local_date=day
     )
     return empty_plan_reply(
-        goal_ready=goal_gap.readiness == "complete",
+        goal_ready=gap.readiness == "complete",
         capacity_confirmed=bool(capacity["confirmed"]) if capacity is not None else False,
     )
 

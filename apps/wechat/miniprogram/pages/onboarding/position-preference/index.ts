@@ -205,7 +205,7 @@ async function loadRegions(page: PositionPreferencePage): Promise<void> {
     page.setData({
       regions: [],
       catalogLoading: false,
-      catalogError: "国考岗位地区目录没有读取成功，请重新读取。",
+      catalogError: "哎，地区列表没加载出来，再试一次就好。",
     });
   }
 }

@@ -7,7 +7,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.planning.repository import GoalAbilitySnapshot
-from app.domains.planning.service import PlanningService, _goal_gap
+from app.domains.planning.service import PlanningService, goal_gap
 from app.domains.position_decision.learner_target_schemas import (
     LearnerTargetScoreProjection,
     LearnerTargetScoreRange,
@@ -102,7 +102,7 @@ def test_planning_uses_historical_target_without_primary_position_goal() -> None
         user_id=str(uuid4()),
         snapshot=snapshot,
     )
-    gap = _goal_gap(enriched, now)
+    gap = goal_gap(enriched, now)
 
     assert enriched.target_owner == "learner_target_score"
     assert enriched.department_name is None

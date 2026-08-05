@@ -4,6 +4,7 @@ import {
   routes,
   type RegisteredNavigationTarget,
 } from "../../app/navigation/routes";
+import { XINGCE_MODULE_BASELINE } from "../../domain/module-baselines";
 
 export type CompanionActionResolution =
   | { kind: "show_evidence" }
@@ -67,14 +68,37 @@ function validPlanAdjustmentTarget(url: string): boolean {
   const query = url.split("?", 2)[1];
   if (query === undefined) return true;
   const params = query.split("&").map((part) => part.split("=", 2));
-  if (params.some(([key]) => key !== "source" && key !== "availableMinutes")) return false;
-  const source = params.find(([key]) => key === "source")?.[1];
-  const minutesText = params.find(([key]) => key === "availableMinutes")?.[1];
-  if (source !== "anan" || minutesText === undefined || !/^\d{1,4}$/.test(minutesText)) {
+  const allowedKeys = new Set([
+    "source",
+    "availableMinutes",
+    "preferredXingceModule",
+    "xingceOnly",
+  ]);
+  if (
+    params.some(([key]) => !allowedKeys.has(key ?? "")) ||
+    new Set(params.map(([key]) => key)).size !== params.length
+  ) {
     return false;
   }
-  const minutes = Number(minutesText);
-  return Number.isSafeInteger(minutes) && minutes >= 0 && minutes <= 1440;
+  const source = params.find(([key]) => key === "source")?.[1];
+  const minutesText = params.find(([key]) => key === "availableMinutes")?.[1];
+  const moduleText = params.find(([key]) => key === "preferredXingceModule")?.[1];
+  const onlyText = params.find(([key]) => key === "xingceOnly")?.[1];
+  if (source !== "anan" || (minutesText === undefined && moduleText === undefined)) return false;
+  if (minutesText !== undefined) {
+    if (!/^\d{1,4}$/.test(minutesText)) return false;
+    const minutes = Number(minutesText);
+    if (!Number.isSafeInteger(minutes) || minutes < 0 || minutes > 1440) return false;
+  }
+  if (moduleText === undefined) return onlyText === undefined;
+  if (onlyText !== "0" && onlyText !== "1") return false;
+  let module: string;
+  try {
+    module = decodeURIComponent(moduleText);
+  } catch {
+    return false;
+  }
+  return XINGCE_MODULE_BASELINE.some((item) => item.moduleKey === module);
 }
 
 function validWeeklyPreferenceTarget(url: string): boolean {

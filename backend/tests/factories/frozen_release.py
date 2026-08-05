@@ -159,12 +159,17 @@ def seed_planning_shared_frozen_release(
     session: Session,
     *,
     count: int = 6,
+    canonical_module: str = _DEFAULT_CANONICAL_MODULE,
+    raw_module: str = _DEFAULT_RAW_MODULE,
 ) -> CanonicalFrozenRelease:
+    node_id = f"canonical-{sha256(canonical_module.encode('utf-8')).hexdigest()[:12]}-practice"
     questions = tuple(
         FrozenQuestionSeed(
             question_id=f"planning-shared-question-{index}",
             stem=f"计划供给验收题 {index}",
             answer=_OPTION_LABELS[(index - 1) % len(_OPTION_LABELS)],
+            node_id=node_id,
+            module_name=raw_module,
             occurrence_count=100 - index,
             latest_year=2025,
         )
@@ -174,6 +179,13 @@ def seed_planning_shared_frozen_release(
         session,
         release_key="planning-shared",
         questions=questions,
+        nodes=(
+            FrozenKnowledgeNodeSeed(
+                node_id=node_id,
+                module_name=canonical_module,
+                tag_value=f"{canonical_module}基础",
+            ),
+        ),
     )
 
 

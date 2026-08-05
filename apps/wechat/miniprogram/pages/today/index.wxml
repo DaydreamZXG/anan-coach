@@ -17,9 +17,9 @@
     <state-view
       wx:elif="{{status === 'error'}}"
       state="error"
-      title="今天的计划没有加载成功"
+      title="今天的计划没加载出来"
       description="{{errorMessage}}"
-      action-text="重新加载"
+      action-text="再试一次"
       bind:action="retry"
     />
 
@@ -88,7 +88,7 @@
         class="capacity-notice capacity-notice--{{capacitySubmission}}"
       >
         <text class="capacity-notice__copy">{{capacityMessage}}</text>
-        <button hover-class="item--hover" class="capacity-notice__action" bindtap="retry">重新载入</button>
+        <button hover-class="item--hover" class="capacity-notice__action" bindtap="retry">再试一次</button>
       </view>
 
       <view class="task-heading">

@@ -38,7 +38,6 @@ class CompanionCitation(CompanionBaseModel):
 class CompanionAllowedAction(CompanionBaseModel):
     kind: Literal[
         "view_evidence",
-        "add_reflection",
         "adjust_plan_preview",
         "supply_information",
         "open_training",
@@ -75,8 +74,6 @@ class CompanionAskResponse(CompanionBaseModel):
         "evidence_insufficient",
         "permission_denied",
         "security_blocked",
-        "quota_exhausted",
-        "provider_pending",
         "failed",
     ] = Field(alias="semanticState")
     scenario_key: str = Field(alias="scenarioKey")

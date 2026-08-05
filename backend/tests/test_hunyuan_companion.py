@@ -102,7 +102,10 @@ def test_hunyuan_companion_uses_closed_cloud_function_contract() -> None:
     assert prepared["providerReplayRetentionSeconds"] == 0
 
 
-def test_hunyuan_companion_accepts_the_optional_action_protocol() -> None:
+def test_hunyuan_companion_ignores_the_advisory_action_protocol() -> None:
+    # The model may still emit requestedActions in its output. Provider-side
+    # parsing deliberately drops the field: action output is not an execution
+    # authority and the server derives actions from the classified intent.
     content = (
         '{"answer":"已识别为今晚 90 分钟。","nextActions":["预览调整"],'
         '"sourceRefs":["source-1"],"confidence":"high","limitations":[],'
@@ -116,11 +119,11 @@ def test_hunyuan_companion_accepts_the_optional_action_protocol() -> None:
         idempotency_key="companion-command-action-1",
     )
 
-    assert result.requested_actions[0].name == "preview_daily_capacity"
-    assert result.requested_actions[0].arguments == {"availableMinutes": 90}
+    assert result.answer == "已识别为今晚 90 分钟。"
+    assert result.source_refs == ["source-1"]
 
 
-def test_hunyuan_companion_drops_unknown_advisory_actions_without_losing_answer() -> None:
+def test_hunyuan_companion_ignores_unknown_advisory_actions_without_losing_answer() -> None:
     content = (
         '{"answer":"可以开始资料分析。","nextActions":["进入训练"],'
         '"sourceRefs":["source-1"],"confidence":"high","limitations":[],'
@@ -136,7 +139,7 @@ def test_hunyuan_companion_drops_unknown_advisory_actions_without_losing_answer(
     )
 
     assert result.answer == "可以开始资料分析。"
-    assert [action.name for action in result.requested_actions] == ["open_today_training"]
+    assert result.source_refs == ["source-1"]
 
 
 def test_hunyuan_companion_keeps_grounding_strict_but_tolerates_advisory_shape_drift() -> None:
@@ -152,7 +155,6 @@ def test_hunyuan_companion_keeps_grounding_strict_but_tolerates_advisory_shape_d
 
     assert result.answer == "可以开始资料分析。"
     assert result.source_refs == ["source-1"]
-    assert result.next_actions == []
     assert result.limitations == []
 
 
@@ -171,7 +173,7 @@ def test_hunyuan_companion_accepts_legacy_actions_without_advertising_tools() ->
         idempotency_key="companion-command-action-v2",
     )
 
-    assert result.requested_actions[0].name == "preview_weekly_schedule"
+    assert result.answer == "已准备周节奏预览。"
     body = prepared["body"]
     assert isinstance(body, dict)
     messages = body["messages"]
@@ -179,6 +181,7 @@ def test_hunyuan_companion_accepts_legacy_actions_without_advertising_tools() ->
     payload = json.loads(messages[1]["content"])
     assert "available_action_tools" not in payload
     assert "requestedActions" not in payload["required_schema"]
+    assert "nextActions" not in payload["required_schema"]
 
 
 def test_hunyuan_companion_validates_without_openai_gateway_credentials() -> None:

@@ -6,6 +6,8 @@ import abilityLogic from "../miniprogram/pages/ability/index.ts?raw";
 import abilityTemplate from "../miniprogram/pages/ability/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program component logic through its raw asset loader.
 import radarLogic from "../miniprogram/design-system/reporting/ability-radar/index.ts?raw";
+// @ts-expect-error Vite exposes the shared module baseline through its raw asset loader.
+import baselinesSource from "../miniprogram/domain/module-baselines.ts?raw";
 
 describe("ability zero baseline", () => {
   it("keeps the six canonical xingce axes visible before evidence exists", () => {
@@ -17,8 +19,9 @@ describe("ability zero baseline", () => {
       "判断推理",
       "资料分析",
     ]) {
-      expect(abilityLogic).toContain(`displayName: "${moduleName}"`);
+      expect(baselinesSource).toContain(`moduleKey: "${moduleName}"`);
     }
+    expect(abilityLogic).toContain("XINGCE_MODULE_BASELINE");
     expect(abilityLogic).toContain('metricLabel: "0% · 0 次作答"');
     expect(abilityLogic).toContain('readinessLabel: "待采样"');
     expect(abilityTemplate).toContain('<ability-radar points="{{radarPoints}}" />');
@@ -40,9 +43,9 @@ describe("ability zero baseline", () => {
       "格式规范",
       "材料依据",
     ]) {
-      expect(abilityLogic).toContain(`displayName: "${dimensionName}"`);
+      expect(baselinesSource).toContain(`displayName: "${dimensionName}"`);
     }
-    expect(abilityLogic).toContain("const EMPTY_ESSAY_MODULES");
+    expect(abilityLogic).toContain("ESSAY_MODULE_BASELINE");
     expect(abilityTemplate).toContain('disabled="{{!item.hasEvidence}}"');
     expect(abilityTemplate).not.toContain("写下第一篇申论，这里就开始认识你");
   });
