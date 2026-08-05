@@ -1686,3 +1686,125 @@
     reviewed_at: null
   priority: 4
   status: draft
+- id: mc_yanyu_binglie_jinyi
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/并列关系/近义并列
+  title: 逻辑填空-近义并列(顿号/逗号/和引导)
+  recognition: 空格前后由顿号"、"、逗号","或"和"连接两个词,形成双并列结构;若空格前后均为成语且用逗号隔开,也按并列处理
+  applicability:
+    include:
+    - 顿号、逗号或"和"引导的双并列(仅两个词)
+    - 逗号前后均为成语的情况(此时逗号表并列)
+    - 空格处与已知词需构成"语义相近、感情色彩相近"的近义关系
+    exclude:
+    - 逗号表解释说明而非并列的单空结构
+    - 由"不是...而是..."等引导的反义并列
+    - 三词及以上的多并列(三并列)
+  method_steps:
+  - 识别并列标志:先找顿号/逗号/"和"连接的并列结构,确定空格与哪个词构成并列
+  - 判断关系类型:近义并列要求语义相近、感情色彩相近,但语义接近不等于重复
+  - 选词标准:选与已知词语义相近且角度有别的词(如"广开言路"→"集思广益"含"广"义),排除与已知词完全同义的选项
+  - 验证:代回原句读,确认并列词间不重复(避免"美丽的漂亮""精挑细选的挑选"这类重复修饰)
+  error_signatures:
+  - code: synonym_repetition
+    description: 选了与并列已知词语义重复的词,忽略近义并列"接近但不重复"的要求
+  - code: comma_no_parallel
+    description: 看到逗号就默认并列,忽略逗号仅当前后均为成语时才表并列的特殊规则
+  - code: key_char_ignored
+    description: 忽略已知词的核心程度字(如"广开言路"的"广"),选了不体现该语义侧的词
+  fix_action: 做8道近义并列真题,每题先圈出并列标志和已知词的核心字,再选词并检查是否重复
+  time_budget_sec: 55
+  accuracy_rule: 近义并列题正确率≥85%
+  pitfall: 近义并列是逻辑填空最高频考法,但"语义重复"在考试中很少作为正确项;近义并列要求语义接近且不重复,机械记搭配不如抓住已知词的语义核心(广/少/度/主动等)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_binglie_fanyi
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/并列关系/反义并列
+  title: 逻辑填空-反义并列与相同句式
+  recognition: 出现"不是...而是...""多一些...少一些...""既不能...也不能...""要...不要..."等反义引导词,或排比式相同句式("讲...不讲...""代表...代表...")
+  applicability:
+    include:
+    - 由"并非/不是...而是...""要...不要..."等引导的反义并列
+    - 相同句式(排比)构成的并列,需结合全文判断近义或反义
+    - 空格处需与对应词构成相反相对的语义
+    exclude:
+    - 顿号/"和"引导的近义并列
+    - 无任何并列标志、靠语境推断的单空题
+  method_steps:
+  - 圈出反义引导词(不是...而是...等),确定空格须与对应词意思相反
+  - 若为相同句式排比,先看全文感情基调:感情一致则选近义词,文段有明显对比则选反义词
+  - 选词时注意感情色彩与全文一致:中性/学术语境选含中性义的选项(如"按图索骥"),排除贬义过强项
+  - 多空题用重复句式逐空定位(如"讲X不讲Y"式,第一空对应"无自主思考"、第二空对应"无病呻吟"),再整体验证
+  error_signatures:
+  - code: reverse_direction_miss
+    description: 忽略"并非...而是..."结构,选了与对照词同向(如与"意外之喜"同表偶然)的选项
+  - code: idiom_polarity_only
+    description: 只记成语贬义,忽略多义成语的中性义(如"按图索骥"亦可表依计划行事)
+  - code: parallel_forcing_progression
+    description: 在相同句式并列下强加递进关系,或只看局部句式忽略全文感情基调
+  fix_action: 做8道反义并列真题,每题圈出反义引导词并标出对照词,再选相反相对的词
+  time_budget_sec: 60
+  accuracy_rule: 反义并列题正确率≥80%
+  pitfall: 反义并列考频低于近义并列但稳定出现;最大的坑是成语多义性——同一个词(如"按图索骥""守株待兔")既有消极义也有中性义,要结合动作场景(主动研究≠被动等待)和感情色彩选,不能只按字面惯性选
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_binglie_sanlie
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/并列关系/三并列
+  title: 逻辑填空-三并列与或/且/并引导
+  recognition: 题干给"甲、__、丙"形式的三个词语填空,或由"或、且、并"引导的并列结构;空格与前后词构成多角度并列
+  applicability:
+    include:
+    - 甲、__、丙形式的三并列,需据前两词关系推断第三词
+    - 由"或/且/并"引导、语义绝对不重复的并列结构
+    - 并字引导时语义递进强于词语重复呼应(如"贯穿"后接"至关重要")
+    exclude:
+    - 仅两词的近义/反义双并列
+    - 由"不是...而是..."引导的反义并列
+  method_steps:
+  - 判断三并列类型:三个词可语义一致(如"脚踏实地、__、真抓实干"都体现"实"),也可仅词性一致角度不同(如"高、__、帅"),先根据前两个词的关系推断
+  - 三并列不必然递进:"可感知、可显示、可对话"只需保持逻辑关联,勿强建"感知→操作→对话"的递进链条
+  - 遇"或/且/并"引导的并列,语义绝对不重复,选与已知词不同方面的词(痛并快乐/东方或西方/有且只有)
+  - 遇"并"字引导且需递进时,优先按关联词选递进义(如与"贯穿"递进的"至关重要"),关联词优先于词语重复呼应
+  - 策略:三并列关系灵活复杂,优先从其他空入手解题,最后再处理三并列部分
+  error_signatures:
+  - code: forced_progression
+    description: 在三并列中强行构建递进层级(感知→操作→对话),导致解题偏差
+  - code: repeated_semantics
+    description: 或/且/并结构中选了与已知词同义重复的词("痛并疼着""东方或东方")
+  - code: conjunction_over_repeat
+    description: 只看词语呼应(贯穿→一以贯之),忽略"并"等关联词提示的递进/并列关系
+  fix_action: 做6道三并列与特殊连词并列真题,先标并列类型(三并列/或且并)再选词,三并列题训练先跳过策略
+  time_budget_sec: 60
+  accuracy_rule: 三并列/特殊并列题正确率≥80%
+  pitfall: 并列关系先辨类型再整体把握,口诀"遇到并列不要急,结合前后看仔细";三并列可能同义也可能仅词性一致,或/且/并则绝对不重复,切勿机械记忆词语搭配或孤立即看单空
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
