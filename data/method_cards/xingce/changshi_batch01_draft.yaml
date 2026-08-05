@@ -1146,7 +1146,7 @@
     description: 《史记》纪传体通史与《资治通鉴》编年体通史记混
   - code: hanshu_houshuhan_hun
     description: 《汉书》（班固，西汉史）与《后汉书》（范晔，东汉史）记混
-  - code: guoyu_zhan'guoce_zuozhe
+  - code: guoyu_zhan_guoce_zuozhe
     description: 《国语》作者记成他人，实为左丘明
   fix_action: 做{8}道史书体例真题，限时{25}秒/题；做完复述一次体例-代表作-第一部称号对照表
   time_budget_sec: 25

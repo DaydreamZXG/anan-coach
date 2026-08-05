@@ -1855,7 +1855,7 @@
   status: draft
   knowledge_nodes:
   - 行测/判断推理/组合排列-材料
-- id: mc_ytw_mixed_queue_group
+- id: mc_ytw_mixed_queue_group_v2
   exam_scope: guokao
   track: xingce
   module_name: 判断推理

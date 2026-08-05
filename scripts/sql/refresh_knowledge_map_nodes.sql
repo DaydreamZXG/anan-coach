@@ -1236,7 +1236,7 @@ select
     (
       select jsonb_agg(mc.id order by mc.priority desc, mc.id)
       from product.method_cards mc
-      where mc.status = 'published'
+      where mc.status in ('published', 'draft')
         and mc.exam_scope = e.exam_scope
         and mc.track = e.track
         and mc.module_name = e.module_name
