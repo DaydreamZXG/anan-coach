@@ -118,7 +118,7 @@ with release_input as (
     ) as source_data_version,
     current_setting('app.knowledge_map_fresh_until')::timestamptz as fresh_until,
     'vocab@v1'::text as vocab_version,
-    'refresh_knowledge_map_nodes_v3'::text as generator_version,
+    'refresh_knowledge_map_nodes_v4'::text as generator_version,
     coalesce(
       nullif(
         current_setting('app.knowledge_map_collapse_threshold', true),
@@ -234,7 +234,8 @@ with release_input as (
                   method_card.track,
                   coalesce(method_card.module_name, ''),
                   coalesce(method_card.tag_path, ''),
-                  method_card.priority::text
+                  method_card.priority::text,
+                  coalesce(method_card.knowledge_nodes::text, '')
                 ),
                 E'\x1e'
                 order by method_card.id
@@ -1240,10 +1241,22 @@ select
         and mc.track = e.track
         and mc.module_name = e.module_name
         and (
+          -- 教学讲法 tag_path 直连考点（基础匹配）
           mc.tag_path = e.tag_value
           or mc.tag_path like e.tag_value || '/%'
           or mc.tag_path like '%/' || e.tag_value
           or mc.tag_path like '%/' || e.tag_value || '/%'
+          -- AI 语义映射：方法卡 knowledge_nodes 里的 display_path 命中本节点，
+          -- 或映射路径的末尾片段命中本节点 tag_value（兼容树折叠后父节点挂卡）
+          or (
+            mc.knowledge_nodes is not null
+            and exists (
+              select 1
+              from jsonb_array_elements_text(mc.knowledge_nodes) kn
+              where kn = e.display_path
+                 or split_part(kn, '/', array_length(string_to_array(kn, '/'), 1)) = e.tag_value
+            )
+          )
         )
     ),
     '[]'::jsonb

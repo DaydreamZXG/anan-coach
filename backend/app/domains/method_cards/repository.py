@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import json
 from typing import Any
 
@@ -28,6 +28,7 @@ class MethodCardRecord:
     validation: dict[str, Any]
     priority: int
     status: str
+    knowledge_nodes: list[str] = field(default_factory=list)
 
 
 class MethodCardRepository:
@@ -96,6 +97,7 @@ class MethodCardRepository:
                       validation,
                       priority,
                       status,
+                      knowledge_nodes,
                       created_at,
                       updated_at
                     ) values (
@@ -117,6 +119,7 @@ class MethodCardRepository:
                       cast(:validation as jsonb),
                       :priority,
                       :status,
+                      cast(:knowledge_nodes as jsonb),
                       now(),
                       now()
                     )
@@ -138,6 +141,7 @@ class MethodCardRepository:
                       validation = excluded.validation,
                       priority = excluded.priority,
                       status = excluded.status,
+                      knowledge_nodes = excluded.knowledge_nodes,
                       updated_at = now()
                     where (
                       product.method_cards.exam_scope,
@@ -156,7 +160,8 @@ class MethodCardRepository:
                       product.method_cards.author_note,
                       product.method_cards.validation,
                       product.method_cards.priority,
-                      product.method_cards.status
+                      product.method_cards.status,
+                      product.method_cards.knowledge_nodes
                     ) is distinct from (
                       excluded.exam_scope,
                       excluded.track,
@@ -174,7 +179,8 @@ class MethodCardRepository:
                       excluded.author_note,
                       excluded.validation,
                       excluded.priority,
-                      excluded.status
+                      excluded.status,
+                      excluded.knowledge_nodes
                     )
                     """
                 ),
@@ -197,6 +203,7 @@ class MethodCardRepository:
                     "validation": _json(card.validation),
                     "priority": card.priority,
                     "status": card.status,
+                    "knowledge_nodes": _json(card.knowledge_nodes),
                 },
             )
         self._session.commit()

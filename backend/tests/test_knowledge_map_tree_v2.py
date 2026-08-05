@@ -490,7 +490,7 @@ def _fetch_nodes(session: Session) -> list[dict[str, Any]]:
               node_id, node.exam_scope, node.track, module_name, node_type, tag_type,
               tag_value, display_path, parent_node_id, aliases, support_status,
               near5_window_start_year, near5_window_end_year, near5_weight,
-              near5_occurrence_count, stable_for_old_questions, evidence,
+              near5_occurrence_count, stable_for_old_questions, method_card_ids, evidence,
               node.status
             from product.knowledge_map_nodes node
             join product.knowledge_map_releases release
@@ -659,6 +659,74 @@ def test_v2_image_unsupported_inherits_down_parent_chain(db_session: Session) ->
     assert point["parent_node_id"] == family["node_id"]
 
 
+def test_v2_ai_knowledge_nodes_attach_cards_when_tag_path_does_not_match(
+    db_session: Session,
+) -> None:
+    """AI knowledge_nodes mapping attaches method cards to exam-point nodes.
+
+    A method card whose tag_path describes a teaching approach
+    (``判断推理/逻辑判断/因果推理``) never matches the tree tag_value for an
+    exam point (``对称性``/``一般增长率``). The card's AI-mapped
+    ``knowledge_nodes`` display_path list is the fallback: exact display_path
+    match OR last-segment == node tag_value must attach the card.
+    """
+    seed_vocabulary_tables(db_session)
+    insert_tree_fixture(db_session)
+    insert_guokao_occurrences_for_near5(db_session)
+    run_exam_weight_refresh(db_session)
+
+    db_session.execute(
+        text(
+            """
+            insert into product.method_cards (
+              id, exam_scope, track, module_name, tag_path, title,
+              recognition, applicability, method_steps, error_signatures,
+              fix_action, time_budget_sec, accuracy_rule, pitfall,
+              author_note, validation, priority, status, knowledge_nodes
+            ) values (
+              'mc_ai_mapped', 'guokao', 'xingce', '判断推理',
+              '判断推理/逻辑判断/因果推理', 'AI 映射方法卡', '识别因果推理',
+              '{}'::jsonb, '["步骤"]'::jsonb, '[]'::jsonb,
+              '执行步骤', 60, '答案正确', null, 'test',
+              '{}'::jsonb, 4, 'published',
+              '["行测/判断推理/图形推理/对称性"]'::jsonb
+            )
+            """
+        )
+    )
+    db_session.execute(
+        text(
+            """
+            insert into product.method_cards (
+              id, exam_scope, track, module_name, tag_path, title,
+              recognition, applicability, method_steps, error_signatures,
+              fix_action, time_budget_sec, accuracy_rule, pitfall,
+              author_note, validation, priority, status, knowledge_nodes
+            ) values (
+              'mc_ai_last_segment', 'guokao', 'xingce', '资料分析',
+              '资料分析/速算/估算技巧', '末段匹配方法卡', '识别估算',
+              '{}'::jsonb, '["步骤"]'::jsonb, '[]'::jsonb,
+              '执行步骤', 60, '答案正确', null, 'test',
+              '{}'::jsonb, 3, 'published',
+              '["行测/资料分析/增长率"]'::jsonb
+            )
+            """
+        )
+    )
+    db_session.commit()
+
+    run_knowledge_map_refresh(db_session)
+    index = _node_index(_fetch_nodes(db_session))
+
+    point = index[("判断推理", "knowledge_point", "对称性")]
+    family = index[("资料分析", "knowledge_family", "增长率")]
+
+    # 精确 display_path 命中：knowledge_nodes 里是 行测/判断推理/图形推理/对称性
+    assert point["method_card_ids"] == ["mc_ai_mapped"]
+    # 末段 == tag_value 命中：knowledge_nodes 末段「增长率」== 节点 tag_value
+    assert "mc_ai_last_segment" in family["method_card_ids"]
+
+
 def test_v2_near5_weights_propagate_to_micro_skill_nodes(db_session: Session) -> None:
     seed_vocabulary_tables(db_session)
     insert_tree_fixture(db_session)
@@ -730,7 +798,7 @@ def test_release_publication_keeps_two_versions_and_only_newest_active(
                 """
                 select *
                 from product.knowledge_map_releases
-                where generator_version = 'refresh_knowledge_map_nodes_v3'
+                where generator_version = 'refresh_knowledge_map_nodes_v4'
                 order by release_version
                 """
             )
@@ -1244,7 +1312,7 @@ def test_release_publication_without_required_parameter_fails_closed(
                 """
                 select count(*)
                 from product.knowledge_map_releases
-                where generator_version = 'refresh_knowledge_map_nodes_v3'
+                where generator_version = 'refresh_knowledge_map_nodes_v4'
                 """
             )
         ).scalar_one()

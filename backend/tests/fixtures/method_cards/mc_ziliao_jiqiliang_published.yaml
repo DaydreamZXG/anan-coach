@@ -36,3 +36,5 @@ validation:
   reviewed_at: 2026-07-03
 priority: 5
 status: published
+knowledge_nodes:
+- 行测/资料分析/增长率/一般增长率/基期计算
