@@ -60,7 +60,7 @@ Page({
     targetScoreLabel: "待建立",
     currentScoreLabel: "待建立",
     scoreGapLabel: "待建立",
-    goalBoundaryLabel: "先确认主目标岗位并补齐同口径双科成绩。",
+    goalBoundaryLabel: "先定好主目标岗位，再补一份同口径的双科成绩。",
   },
 
   onShow() {
@@ -140,7 +140,7 @@ Page({
         ...goalView(dashboardResult?.data ?? null),
       });
     } catch (error) {
-      const view = errorView(error, "学习档案没有加载成功，请重试。");
+      const view = errorView(error, "档案没加载出来，别急，再试一次。");
       // 静默刷新失败时保留旧数据，只用行内提示说明刷新未成功。
       this.setData({
         status: silentRefresh ? "ready" : "error",
@@ -301,11 +301,11 @@ function goalView(dashboard: TodayDashboard | null) {
   if (!gap) {
     return {
       goalAvailable: false,
-      goalName: "岗位信息暂未载入",
+      goalName: "岗位信息还没载入",
       targetScoreLabel: "待建立",
       currentScoreLabel: "待建立",
       scoreGapLabel: "待建立",
-      goalBoundaryLabel: "能力档案可用；岗位对照本次没有加载成功。",
+      goalBoundaryLabel: "能力档案是好的，岗位对照这次没加载出来，别急，稍后再看看。",
     };
   }
   const targetScore = gap.targetScore;
@@ -328,7 +328,7 @@ function goalView(dashboard: TodayDashboard | null) {
         ? scoreRangeLabel(gap.currentScore.lower, gap.currentScore.upper)
         : "待建立",
       scoreGapLabel: "待建立",
-      goalBoundaryLabel: gap.evidenceSummary || "还需主目标岗位和同一考试口径的行测、申论成绩。",
+      goalBoundaryLabel: gap.evidenceSummary || "还差主目标岗位，和同一场考试的行测、申论成绩。",
     };
   }
   return {

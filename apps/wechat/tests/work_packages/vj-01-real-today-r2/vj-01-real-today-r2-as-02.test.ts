@@ -76,7 +76,7 @@ describe("VJ-01 real Today R2 AS-02", () => {
       capacitySubmission: "idle",
       capacityConflictLocked: false,
     });
-    expect(latestState(harness.states).errorMessage).toContain("今日计划仍保持锁定");
+    expect(latestState(harness.states).errorMessage).toContain("今日计划先保持锁定");
   });
 
   it("still performs real authentication before following an incomplete next step", async () => {

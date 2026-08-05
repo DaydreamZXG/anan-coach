@@ -36,7 +36,7 @@ def _context() -> CompanionContextRecord:
                 "taskId": str(uuid4()),
                 "track": "xingce",
                 "stage": "objective_practice",
-                "title": "行测针对训练：言语理解与表达",
+                "title": "行测提分练习：言语理解与表达",
                 "reason": "当前模块需要继续训练",
                 "estimatedMinutes": 60,
                 "status": "pending",
@@ -113,7 +113,7 @@ def test_context_sources_separate_model_payload_from_public_summary() -> None:
         "本次判断汇总了 2 条已记录学习证据；当前没有待复测项目。"
     )
     assert summaries["daily_plan"] == (
-        "今日共 2 项任务：行测「行测针对训练：言语理解与表达」，60 分钟；"
+        "今日共 2 项任务：行测「行测提分练习：言语理解与表达」，60 分钟；"
         "申论「建立申论材料地图」，15 分钟。"
     )
     assert summaries["target_position"] == "国考：尚未确认具体主目标岗位，目标总分为 131.8 分。"

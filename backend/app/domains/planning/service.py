@@ -1047,8 +1047,8 @@ def _apply_strategy_decisions(
     for track in removed_tracks:
         if not any(candidate.track == track for candidate in adjusted):
             omissions[track] = (
-                "该轨道当前唯一的新练习命中已确认的战略放弃范围；"
-                "到期复盘、验证和重写仍会按证据门禁保留。"
+                "这条轨道当前唯一的新练习落在你已确认先放下的范围里；"
+                "到期的复盘、复测和重写还是会照常安排。"
             )
     return adjusted, omissions, list(dict.fromkeys(reason_codes))
 

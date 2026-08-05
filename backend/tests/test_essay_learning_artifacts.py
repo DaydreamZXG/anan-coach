@@ -481,7 +481,7 @@ def test_optional_material_training_does_not_fake_drafting_without_a_rubric(
             local_date=NOW.date(),
         )
     assert not any(item.track == "essay" for item in initial.tasks)
-    assert "评分规程尚未发布" in initial.dual_track_explanation.omitted_track_reasons[
+    assert "评分标准还没准备好" in initial.dual_track_explanation.omitted_track_reasons[
         "essay"
     ]
 
@@ -499,7 +499,7 @@ def test_optional_material_training_does_not_fake_drafting_without_a_rubric(
             local_date=NOW.date(),
         )
     assert not any(item.track == "essay" for item in pending.tasks)
-    assert "评分规程尚未发布" in pending.dual_track_explanation.omitted_track_reasons[
+    assert "评分标准还没准备好" in pending.dual_track_explanation.omitted_track_reasons[
         "essay"
     ]
     workspace = client.get(
@@ -559,7 +559,7 @@ def test_first_time_essay_progresses_material_to_point_to_outline_to_drafting(
             local_date=NOW.date(),
         )
     assert not any(item.track == "essay" for item in pending.tasks)
-    assert "AI 评阅仍在生成" in pending.dual_track_explanation.omitted_track_reasons[
+    assert "评阅还在路上" in pending.dual_track_explanation.omitted_track_reasons[
         "essay"
     ]
 
@@ -608,7 +608,7 @@ def test_noncompleted_ai_review_never_creates_user_review_task(
         )
 
     assert not any(item.stage == "essay_review" for item in plan.tasks)
-    assert "未完成或被证据门禁阻断" in plan.dual_track_explanation.omitted_track_reasons[
+    assert "申论评阅还没通过" in plan.dual_track_explanation.omitted_track_reasons[
         "essay"
     ]
 

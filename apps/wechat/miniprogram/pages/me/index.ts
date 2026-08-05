@@ -197,7 +197,7 @@ Page({
       // 静默刷新失败时保留旧数据，只用行内提示说明刷新未成功。
       this.setData({
         status: silentRefresh ? "ready" : "error",
-        errorMessage: apiError?.message ?? "账户档案加载失败，请重试。",
+        errorMessage: apiError?.message ?? "档案没加载出来，别急，再试一次。",
         requestId: apiError?.requestId ?? "",
       });
     }
@@ -246,7 +246,7 @@ Page({
         qualificationContextRequestId: "",
       });
     } else {
-      const failure = profileContextFailure(qualification.reason, "报考资料没有同步完成，请重试。");
+      const failure = profileContextFailure(qualification.reason, "报考资料没同步好，再试一次。");
       Object.assign(changes, {
         qualificationContextStatus: "error",
         qualificationContextError: failure.message,
@@ -255,7 +255,7 @@ Page({
     }
 
     if (progress.status === "rejected") {
-      const failure = profileContextFailure(progress.reason, "建档进度没有同步完成，请重试。");
+      const failure = profileContextFailure(progress.reason, "建档进度没同步好，再试一次。");
       Object.assign(changes, {
         studyContextStatus: "error",
         studyContextError: failure.message,
@@ -311,7 +311,7 @@ Page({
         studyContextRequestId: "",
       });
     } else {
-      const failure = profileContextFailure(preference.reason, "学习时间没有同步完成，请重试。");
+      const failure = profileContextFailure(preference.reason, "学习时间没同步好，再试一次。");
       Object.assign(changes, {
         studyContextStatus: "error",
         studyContextError: failure.message,
@@ -331,7 +331,7 @@ Page({
         targetContextRequestId: "",
       });
     } else {
-      const failure = profileContextFailure(dashboard.reason, "目标岗位没有同步完成，请重试。");
+      const failure = profileContextFailure(dashboard.reason, "目标岗位没同步好，再试一次。");
       Object.assign(changes, {
         targetContextStatus: "error",
         targetContextError: failure.message,
@@ -414,7 +414,7 @@ Page({
       const apiError = error instanceof ApiClientError ? error : undefined;
       this.setData({
         profileSaving: false,
-        profileEditorError: apiError?.message ?? "个人资料没有保存成功，请重试。",
+        profileEditorError: apiError?.message ?? "资料没存上，别急，再试一次。",
       });
     }
   },
@@ -490,7 +490,7 @@ Page({
     try {
       await wx.openSetting();
     } catch {
-      void wx.showToast({ title: "授权设置没有打开，请重试", icon: "none" });
+      void wx.showToast({ title: "授权设置没打开，再试一次", icon: "none" });
     }
   },
 
@@ -498,7 +498,7 @@ Page({
     void wx.showModal({
       title: "关于岸岸",
       content:
-        "岸岸是围绕国考目标岗位、能力变化和每日行动工作的 AI 备考伙伴。\n\n会游泳的人，自己就是岸。",
+        "岸岸是你的备考搭子，和你一起盯目标、看进步、安排每天的学习节奏。\n\n你只管一步步往前走，岸岸一直在旁边。",
       showCancel: false,
       confirmText: "知道了",
     });
@@ -530,7 +530,7 @@ Page({
       const apiError = error instanceof ApiClientError ? error : undefined;
       this.setData({
         revokingSessionId: "",
-        errorMessage: apiError?.message ?? "设备退出失败，请重试。",
+        errorMessage: apiError?.message ?? "设备没退出来，别急，再试一次。",
       });
     }
   },
@@ -558,7 +558,7 @@ Page({
       const apiError = error instanceof ApiClientError ? error : undefined;
       this.setData({
         loggingOut: false,
-        errorMessage: apiError?.message ?? "退出失败，请重试。",
+        errorMessage: apiError?.message ?? "没退成功，别急，再试一次。",
       });
     }
   },
@@ -587,7 +587,7 @@ Page({
       const apiError = error instanceof ApiClientError ? error : undefined;
       this.setData({
         loggingOutAll: false,
-        errorMessage: apiError?.message ?? "全部设备退出失败，请重试。",
+        errorMessage: apiError?.message ?? "全部退出没成功，别急，再试一次。",
       });
     }
   },

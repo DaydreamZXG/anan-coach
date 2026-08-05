@@ -129,7 +129,7 @@ def test_next_targeted_plan_uses_user_isolated_assessment_weakest_module(
         )
 
     targeted = next(task for task in plan.tasks if task.stage == "objective_practice")
-    assert targeted.title == "行测针对训练：言语理解与表达"
+    assert targeted.title == "行测提分练习：言语理解与表达"
     assert "言语理解与表达" in targeted.reason
     assert "资料分析" not in targeted.title
 

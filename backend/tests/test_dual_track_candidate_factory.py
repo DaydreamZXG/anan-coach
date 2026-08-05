@@ -151,7 +151,7 @@ def test_missing_component_evidence_creates_both_baseline_tracks() -> None:
     assert all(item.evidence_refs for item in candidates.candidates)
     essay = next(item for item in candidates.candidates if item.track == "essay")
     assert essay.stage == "essay_material_reading"
-    assert "首次接触申论" in essay.reason
+    assert "第一次正式学申论" in essay.reason
     assert {
         ref["entityType"] for ref in essay.evidence_refs
     } >= {"essay_task_version", "essay_material_bundle_version", "essay_rubric_version"}
@@ -224,8 +224,8 @@ def test_returning_essay_learner_defaults_to_direct_drafting_not_prerequisites()
     essay = next(item for item in candidates.candidates if item.track == "essay")
     assert essay.stage == "essay_drafting"
     # 非首次直接作答：材料地图、找点、提纲只按需使用，不是主流程。
-    assert "直接完成真实作答" in essay.reason
-    assert "材料地图、找点和提纲按需使用" in essay.reason
+    assert "直接动笔写" in essay.reason
+    assert "材料地图、找点和提纲按需用" in essay.reason
 
 
 
@@ -298,7 +298,7 @@ def test_unresolved_essay_review_becomes_rewrite_instead_of_fixed_daily_prompt()
     essay = next(item for item in candidates.candidates if item.track == "essay")
     assert essay.stage == "essay_rewrite"
     assert essay.estimated_minutes == 20
-    assert "未解决 finding" in essay.reason
+    assert "这篇还有几个问题没改" in essay.reason
     assert any(ref["entityType"] == "essay_review_version" for ref in essay.evidence_refs)
     assert "stage=essay_rewrite" in essay.start_url
     assert "attemptId=attempt-1" in essay.start_url
@@ -349,7 +349,7 @@ def test_finished_rewrite_requires_fresh_material_transfer() -> None:
 
     essay = next(item for item in candidates.candidates if item.track == "essay")
     assert essay.stage == "essay_transfer"
-    assert "不能证明能力稳定" in essay.reason
+    assert "还不敢说就稳了" in essay.reason
     assert "taskVersionId=essay-target-task-v3" in essay.start_url
     assert "sourceRewriteVersionId=rewrite-2" in essay.start_url
     assert any(
@@ -450,7 +450,7 @@ def test_missing_published_essay_content_is_explicitly_omitted() -> None:
     )
 
     assert all(item.track != "essay" for item in candidates.candidates)
-    assert "不生成不可执行任务" in candidates.omitted_track_reasons["essay"]
+    assert "先不硬排" in candidates.omitted_track_reasons["essay"]
 
 
 def test_fresh_essay_task_enters_first_time_material_reading_even_when_capacity_is_short() -> None:
@@ -472,7 +472,7 @@ def test_fresh_essay_task_enters_first_time_material_reading_even_when_capacity_
     essay = next(item for item in candidates.candidates if item.track == "essay")
     assert essay.stage == "essay_material_reading"
     assert essay.estimated_minutes == 15
-    assert "首次接触申论" in essay.reason
+    assert "第一次正式学申论" in essay.reason
 
 
 def test_unpublished_rubric_omits_essay_instead_of_faking_a_prerequisite() -> None:
@@ -494,7 +494,7 @@ def test_unpublished_rubric_omits_essay_instead_of_faking_a_prerequisite() -> No
     )
 
     assert not any(item.track == "essay" for item in candidates.candidates)
-    assert "评分规程尚未发布" in candidates.omitted_track_reasons["essay"]
+    assert "评分标准还没准备好" in candidates.omitted_track_reasons["essay"]
 
 
 def test_unavailable_objective_closure_has_no_synthetic_counts_or_candidates() -> None:

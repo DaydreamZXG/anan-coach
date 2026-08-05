@@ -72,14 +72,14 @@ export function prepareCapacityCommand(
 ): PreparedCapacityCommand {
   const minutesText = draft.availableMinutes.trim();
   if (!/^\d{1,4}$/.test(minutesText)) {
-    return { command: null, error: "请输入 0–1440 之间的完整分钟数。" };
+    return { command: null, error: "请输入 0–1440 之间的分钟数。" };
   }
   const availableMinutes = Number(minutesText);
   if (!Number.isInteger(availableMinutes) || availableMinutes < 0 || availableMinutes > 1440) {
-    return { command: null, error: "今日可用时间必须在 0–1440 分钟之间。" };
+    return { command: null, error: "今日可用时间要在 0–1440 分钟之间哦。" };
   }
   if (!basedOnCapacityVersionId.trim()) {
-    return { command: null, error: "今日计划已更新，请重新载入后再保存。" };
+    return { command: null, error: "今天的计划更新过啦，重新生成一下再保存就好。" };
   }
   for (const [label, value] of [
     ["精力", draft.energy],
@@ -87,7 +87,7 @@ export function prepareCapacityCommand(
     ["时间把握", draft.confidenceLevel],
   ] as const) {
     if (!Number.isInteger(value) || value < 1 || value > 5) {
-      return { command: null, error: `${label}必须选择 1–5 级。` };
+      return { command: null, error: `${label}要选 1–5 级哦。` };
     }
   }
 

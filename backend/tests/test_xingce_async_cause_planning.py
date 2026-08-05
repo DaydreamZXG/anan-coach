@@ -19,11 +19,11 @@ def test_processing_state_is_not_an_actionable_today_task() -> None:
 @pytest.mark.parametrize(
     ("state", "expected_title"),
     (
-        ("reflection_due", "复盘高价值行测错题"),
+        ("reflection_due", "复盘这组错题"),
         ("cause_followup_due", "回答岸岸的一次追问"),
-        ("cause_decision_due", "查看岸岸整理结果"),
-        ("cause_evidence_insufficient", "查看岸岸整理结果"),
-        ("cause_agent_terminated", "处理未完成的错因整理"),
+        ("cause_decision_due", "看看岸岸整理的错因"),
+        ("cause_evidence_insufficient", "看看岸岸整理的错因"),
+        ("cause_agent_terminated", "补一下没整理完的错因"),
     ),
 )
 def test_actionable_cause_state_returns_to_today_with_precise_copy(

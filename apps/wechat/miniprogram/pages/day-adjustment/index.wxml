@@ -6,10 +6,10 @@
     <state-view
       wx:elif="{{status === 'error'}}"
       state="error"
-      title="今天的安排没有加载成功"
+      title="今天的安排没加载出来"
       description="{{errorMessage}}"
       request-id="{{requestId}}"
-      action-text="重新加载"
+      action-text="再试一次"
       bind:action="retry"
     />
 
@@ -28,7 +28,7 @@
               <view class="current-chip">{{currentTaskCount > 0 ? currentTaskCount + ' 项任务' : '暂无任务'}}</view>
             </view>
             <view wx:if="{{currentTaskCount > 0}}" class="current-card__focus">当前重点：<text class="current-card__focus-value">{{currentFocus}}</text></view>
-            <view wx:else class="current-card__focus">当前没有待完成任务；修改可用时间后，岸岸会重新核对今天的安排。</view>
+            <view wx:else class="current-card__focus">当前没有待完成任务；修改可用时间后，岸岸会重新给你安排。</view>
           </view>
         </view>
 
@@ -165,7 +165,7 @@
 
           <view class="adjustment-note">
             <view class="adjustment-note__icon">i</view>
-            <view>没完成的内容不会自动变成学习欠账。确认后，岸岸会按你现在的时间重新安排今天。</view>
+            <view>没完成的内容不会硬留到明天。确认后，岸岸会按你现在的时间重新排今天。</view>
           </view>
         </view>
       </block>

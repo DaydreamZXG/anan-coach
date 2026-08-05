@@ -62,7 +62,7 @@ describe("today dual-track planning", () => {
       hasTasks: false,
       hasExecutionActivity: false,
       emptyStateTitle: "今天没有必做任务",
-      dueSummary: "目前没有到期复盘或验证",
+      dueSummary: "现在没有到期的复盘和复测",
     });
     expect(view.emptyStateCopy).toContain("不代表必须排满");
     expect(view.trackViews.map((item) => [item.track, item.summary, item.actionLabel])).toEqual([
@@ -137,7 +137,7 @@ describe("today dual-track planning", () => {
       },
     });
 
-    expect(view.dueSummary).toBe("复盘与间隔验证正在整理");
+    expect(view.dueSummary).toBe("复盘和复测正在整理");
     expect(view.dueSummary).not.toContain("null 项");
     expect(view.dueSummary).not.toContain("0 项");
   });
@@ -221,7 +221,7 @@ describe("today dual-track planning", () => {
       navigationMode: null,
       navigationUrl: null,
     });
-    expect(task?.disabledReason).toContain("任务入口生成失败");
+    expect(task?.disabledReason).toContain("任务入口没生成好");
     expect(task?.disabledReason).not.toContain("所需资料齐全");
   });
 
@@ -238,7 +238,7 @@ describe("today dual-track planning", () => {
       navigationMode: null,
       navigationUrl: null,
     });
-    expect(prototypeOnly?.disabledReason).toContain("任务入口生成失败");
+    expect(prototypeOnly?.disabledReason).toContain("任务入口没生成好");
   });
 
   it("presents execution status and elapsed time without exposing raw status roles", () => {

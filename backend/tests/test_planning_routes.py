@@ -272,7 +272,7 @@ def test_plan_omits_xingce_when_the_start_contract_has_no_three_question_bundle(
 
     assert all(task.track != "xingce" for task in plan.tasks)
     assert plan.dual_track_explanation.omitted_track_reasons["xingce"] == (
-        "当前没有满足内容与证据门禁的行测任务。"
+        "今天暂时没有合适的行测任务，别急，随时回来看看。"
     )
 
 
@@ -462,7 +462,7 @@ def test_published_material_without_rubric_is_omitted_instead_of_faking_prerequi
         )
 
     assert not any(task.track == "essay" for task in plan.tasks)
-    assert "评分规程尚未发布" in plan.dual_track_explanation.omitted_track_reasons[
+    assert "评分标准还没准备好" in plan.dual_track_explanation.omitted_track_reasons[
         "essay"
     ]
     assert plan.input_versions["essayRubric"] == "unavailable"
@@ -1775,7 +1775,7 @@ def test_essay_planning_consumes_canonical_mastery_heads_and_distinct_transfer(
         )
     assert stable.next_stage == "content_unavailable"
     assert stable.mastery_state == "stable_mastered"
-    assert "不重复生成复写或迁移训练" in str(stable.pending_reason)
+    assert "不重复练同样的内容" in str(stable.pending_reason)
 
 
 def _seed_learner_and_published_essay_content(

@@ -109,7 +109,7 @@ export class TodayController {
         status: ownedDashboard ? this.state.status : "loading",
         dashboard: ownedDashboard,
         capacitySubmission: "error",
-        capacityMessage: "今天的安排刚刚有变化，请重新载入后再确认时间。",
+        capacityMessage: "今天的安排刚刚变过，别急，重新生成一份再确认。",
       });
       return;
     }
@@ -132,7 +132,7 @@ export class TodayController {
           this.publish({
             ...this.state,
             capacitySubmission: "error",
-            capacityMessage: "这次调整还没保存成功，请重试。",
+            capacityMessage: "这次调整还没存上，别急，再试一次。",
           });
         }
         return;
@@ -161,7 +161,7 @@ export class TodayController {
         dashboard: result.plan,
         errorMessage: "",
         capacitySubmission: "success",
-        capacityMessage: "可用时间已确认，今天的任务已经重新安排。",
+        capacityMessage: "可用时间定好啦，今天的任务已经重新排好。",
         capacityConflictLocked: false,
       });
     } catch (error) {
@@ -178,7 +178,7 @@ export class TodayController {
           status: "ready",
           dashboard,
           capacitySubmission: "conflict",
-          capacityMessage: "今天的安排已在别处更新，请重新载入后再修改。",
+          capacityMessage: "今天的安排刚在别的地方更新过，刷新一下再改就好。",
           capacityConflictLocked: true,
         });
         return;
@@ -191,7 +191,7 @@ export class TodayController {
         capacityMessage:
           error instanceof ApiClientError
             ? `${error.message}（问题编号 ${error.requestId}）`
-            : "这次调整还没保存成功，请重试。",
+            : "这次调整还没存上，别急，再试一次。",
         capacityConflictLocked: false,
       });
     }
@@ -222,7 +222,7 @@ export class TodayController {
       dashboard,
       errorMessage: "",
       capacitySubmission: conflictResolved ? "idle" : "conflict",
-      capacityMessage: conflictResolved ? "" : "这份计划刚在别处改过，请刷新后再编辑。",
+      capacityMessage: conflictResolved ? "" : "这份计划刚在别处改过，刷新一下再编辑。",
       capacityConflictLocked: !conflictResolved,
     });
   }
@@ -248,7 +248,7 @@ export class TodayController {
         this.publish({
           ...initialState,
           status: "error",
-          errorMessage: "建档进度状态不一致，今日计划未读取，请重新登录后再试。",
+          errorMessage: "建档信息还没对上，今日计划先不读取，重新登录一下就好。",
         });
         return;
       }
@@ -266,7 +266,7 @@ export class TodayController {
             this.publish({
               ...initialState,
               status: "error",
-              errorMessage: "建档页面暂时无法打开，今日计划仍保持锁定，请重试。",
+              errorMessage: "建档页面没打开，今日计划先保持锁定，别急，再试一次。",
             });
           }
         }
@@ -289,7 +289,7 @@ export class TodayController {
         dashboard,
         errorMessage: "",
         capacitySubmission: conflictResolved ? "idle" : "conflict",
-        capacityMessage: conflictResolved ? "" : "这份计划刚在别处改过，请稍后刷新再编辑。",
+        capacityMessage: conflictResolved ? "" : "这份计划刚在别处改过，稍后刷新一下再编辑。",
         capacityConflictLocked: !conflictResolved,
       });
     } catch (error) {
@@ -302,7 +302,7 @@ export class TodayController {
         ...this.state,
         status: previous ? "ready" : "error",
         dashboard: previous,
-        errorMessage: previous ? "" : "今日计划暂时无法读取，请稍后重新加载。",
+        errorMessage: previous ? "" : "今日计划暂时没读出来，稍后再试一次。",
         capacitySubmission: previous
           ? this.state.capacitySubmission === "conflict"
             ? "conflict"
@@ -310,8 +310,8 @@ export class TodayController {
           : "idle",
         capacityMessage: previous
           ? error instanceof ApiClientError
-            ? `重新载入失败，仍显示上次确认的计划（问题编号 ${error.requestId}）。`
-            : "重新载入失败，仍显示上次确认的计划。"
+            ? `刚才刷新没成功，先给你看上次确认的计划（问题编号 ${error.requestId}）。`
+            : "刚才刷新没成功，先给你看上次确认的计划。"
           : "",
       });
     }
@@ -338,7 +338,7 @@ export class TodayController {
         this.publish({
           ...initialState,
           status: "error",
-          errorMessage: "登录页面暂时无法打开，请点击重新加载并重新登录。",
+          errorMessage: "登录页面没打开，点一下再试一次，重新登录就好。",
         });
       }
     }

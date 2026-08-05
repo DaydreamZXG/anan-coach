@@ -168,7 +168,7 @@ def test_visual_question_without_owned_public_image_is_not_planned(
     plan = response.json()["data"]
     assert all(task["track"] != "xingce" for task in plan["tasks"])
     assert plan["dualTrackExplanation"]["omittedTrackReasons"]["xingce"] == (
-        "当前没有满足内容与证据门禁的行测任务。"
+        "今天暂时没有合适的行测任务，别急，随时回来看看。"
     )
     with db_session_factory() as session:
         assert (

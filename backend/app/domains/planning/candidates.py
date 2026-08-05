@@ -241,10 +241,10 @@ def build_dual_track_candidates(
         candidates.append(essay_candidate)
     elif not xingce_only:
         omitted["essay"] = essay.pending_reason or (
-            "申论正式材料包与评分规程尚未发布，规划 Agent 不生成不可执行任务。"
+            "申论的材料和评分标准还没准备好，先不硬排，准备好了马上给你安排上。"
         )
     if not any(item.track == "xingce" for item in candidates):
-        omitted["xingce"] = "当前没有满足内容与证据门禁的行测任务。"
+        omitted["xingce"] = "今天暂时没有合适的行测任务，别急，随时回来看看。"
     capability_gaps: dict[str, str] = {}
     if objective.closure_readiness == "unavailable":
         assert objective.closure_unavailable_reason is not None
@@ -337,10 +337,10 @@ def _objective_candidates(
                 track="xingce",
                 stage="objective_verification",
                 kind="verification",
-                title="验证到期的行测错因",
-                reason=f"有 {snapshot.due_verification_count} 项已到验证时间，继续拖延会降低结论可信度。",
+                title="这几道错题该回炉啦",
+                reason=f"有 {snapshot.due_verification_count} 道错题到了复测时间，趁还记得，再打一仗，赢了它们就是你的。",
                 estimated_minutes=15,
-                completion_rule="完成独立变式题并说明判断依据，验证结果写回掌握状态。",
+                completion_rule="答完这几道题，说说你的判断，结果会自动存好。",
                 start_url="/pages/xingce-task-intro/index?mode=verification",
                 evidence_refs=tuple(evidence),
                 priority=PriorityBreakdown(
@@ -408,9 +408,9 @@ def _objective_candidates(
     for block_index in range(block_count):
         block_number = block_index + 1
         base_title = (
-            f"行测针对训练：{module}（{cause_direction.display}）"
+            f"行测提分练习：{module}（{cause_direction.display}）"
             if cause_direction is not None and cause_direction.display
-            else f"行测针对训练：{module}"
+            else f"行测提分练习：{module}"
         )
         candidates.append(
             TaskCandidate(
@@ -429,16 +429,15 @@ def _objective_candidates(
                 ),
                 reason=(
                     f"你最近确认的错因方向是「{cause_direction.display}」，"
-                    "本次针对训练按该方向选题，"
-                    f"并聚焦「{module}」模块。"
+                    f"这块是你的提分宝地，咱们按这个方向练，重点放在「{module}」模块。"
                     if cause_direction is not None
                     else (
-                        f"当前证据中「{module}」的改善收益最高；"
-                        "按独立题组分段训练，每组完成后都可以重新规划后续时间。"
+                        f"「{module}」这块是你的提分宝地，今天多练练，提分最快。"
+                        "练完一组随时可以接着安排后面的时间。"
                     )
                 ),
                 estimated_minutes=block_minutes,
-                completion_rule="完成题组并记录答案、用时、修改、跳题和信心。",
+                completion_rule="做完这组题，把答案、用时和做题时的感觉记一下就行。",
                 start_url="/pages/xingce-task-intro/index?mode=targeted",
                 evidence_refs=tuple(evidence),
                 priority=PriorityBreakdown(
@@ -464,25 +463,25 @@ def _reflection_candidate_copy(
     if state == "cause_followup_due":
         return (
             "回答岸岸的一次追问",
-            f"有 {count} 项错因还差一条关键信息，补充后岸岸会继续整理。",
-            "回答当前追问，让后台继续形成可核对的错因判断。",
+            f"有 {count} 个错因还差一句关键信息，岸岸想再问你一句——别怕说错，把思路讲给我听。",
+            "回答这轮追问就行，剩下的岸岸接着整理。",
         )
     if state in ("cause_decision_due", "cause_evidence_insufficient"):
         return (
-            "查看岸岸整理结果",
-            f"岸岸已整理好 {count} 项错因结果，可以直接查看或调整。",
-            "查看岸岸的判断；需要时再补充或调整，不强制逐项确认。",
+            "看看岸岸整理的错因",
+            f"岸岸帮你整理好了 {count} 个错因，来瞅一眼，想改随时改。",
+            "看完岸岸的判断就行，想补充、想调整都顺手改一下。",
         )
     if state == "cause_agent_terminated":
         return (
-            "处理未完成的错因整理",
-            f"有 {count} 项后台整理没有完成，可以重试、补充或暂时跳过。",
-            "选择重试、补充证据或跳过本次整理。",
+            "补一下没整理完的错因",
+            f"有 {count} 个错因刚才没整理完，没关系，重试、补充或先跳过都行。",
+            "重试一次、补充一下，或者这次先跳过。",
         )
     return (
-        "复盘高价值行测错题",
-        f"有 {count} 项错误尚未形成可验证的修复动作。",
-        "写下原始思路后即可离开，岸岸会在后台继续整理。",
+        "复盘这组错题",
+        f"有 {count} 道错题还没弄明白错在哪，别急，复盘一次就能找到方向。",
+        "写下你当时的思路就可以离开，岸岸会接着帮你整理。",
     )
 
 
@@ -497,10 +496,10 @@ def _baseline_candidate(
         track="xingce",
         stage="objective_baseline",
         kind="practice",
-        title="完成一组行测受控基线",
-        reason="当前行测能力证据缺失或已过期，先补可比较基线，再决定模块投入。",
+        title="先来摸个底",
+        reason="咱们先摸个底，不急着赶进度。答一组题，让我看看你现在的水平，后面才好帮你规划。",
         estimated_minutes=estimated_minutes,
-        completion_rule="完成固定题组、记录用时与信心，并形成新的行测证据版本。",
+        completion_rule="按真实水平答完这组题就行，用时和做题的感觉顺手记一下。",
         start_url="/pages/xingce-task-intro/index?mode=baseline",
         evidence_refs=tuple(evidence),
         priority=PriorityBreakdown(
@@ -613,50 +612,50 @@ def _essay_candidate(
         "baseline_due": _baseline_definition(snapshot, available_minutes),
         "point_extraction_due": (
             "essay_point_extraction",
-            "从材料地图提炼申论要点",
-            "材料已逐段读完，评分规程也已发布；先把材料证据提炼为可作答要点。",
+            "把材料里的要点找出来",
+            "材料你已经逐段读完了，评分标准也备好了，接下来把里面的要点捞出来，答题时用得上。",
             20,
-            "每个要点引用材料段落，并保存结构化找点版本。",
+            "每个要点标出它出自哪一段，存成找点记录。",
             "point-extraction",
             0.90,
             0.82,
         ),
         "outline_due": (
             "essay_outlining",
-            "把申论要点组织成提纲",
-            "找点证据已完整，下一步先确定层次与篇幅分配，再进入正式作答。",
+            "把要点组织成提纲",
+            "要点都找齐了，接下来排个顺序、定好篇幅，写起来会顺很多。",
             20,
-            "每个提纲段落引用已提炼要点，并记录预计字数。",
+            "每个提纲段落引用对应的要点，并记下预计字数。",
             "outline",
             0.92,
             0.84,
         ),
         "drafting_due": (
             "essay_drafting",
-            "依据题目与材料完成申论作答",
-            "题目、指定材料与评分规程均已就绪；直接完成真实作答，材料地图、找点和提纲按需使用。",
+            "完成申论作答",
+            "题目、材料和评分标准都齐了，直接动笔写就行。材料地图、找点和提纲按需用，不用一次全做完。",
             _essay_drafting_minutes(snapshot.question_type, snapshot.word_limit),
-            "提交答案版本，并记录作答后的即时复盘。",
+            "提交你的答案，写完顺手记一下当时的想法。",
             "baseline",
             0.95,
             0.88,
         ),
         "review_due": (
             "essay_review",
-            "查看并确认申论证据化评阅",
-            "原稿已提交但评阅闭环未完成，先确认材料锚点、原句问题和重写重点。",
+            "看看评阅结果",
+            "答案交上去，评阅也出来了，来看一下哪里要改、重写重点是什么。",
             15,
-            "逐条查看 finding，并确定本次重写的 1–3 个优先问题。",
+            "逐条看看评阅意见，挑出 1–3 个这次最该改的问题。",
             "review",
             0.82,
             0.92,
         ),
         "rewrite_due": (
             "essay_rewrite",
-            "按评阅证据完成申论重写",
-            "本篇已有未解决 finding；重写比继续开新题更能形成完整学习证据。",
+            "按评阅意见改写一遍",
+            "这篇还有几个问题没改，别急着开新题，先把这篇改扎实，收获更大。",
             20,
-            "解决指定 finding、保留材料依据，并提交新的答案版本。",
+            "改掉评阅点出的问题、引用材料作依据，再提交一版新答案。",
             "rewrite",
             0.88,
             0.96,
@@ -715,11 +714,11 @@ def _baseline_definition(
     reading_minutes = min(15, max(10, _available_minutes)) if _available_minutes else 15
     return (
         "essay_material_reading",
-        "先建立申论材料地图",
-        "首次接触申论：先完整学一遍「材料阅读 → 要点提取 → 提纲 → 作答」，"
-        "之后才以「作答 → 评阅」为主、薄弱环节按需补。",
+        "先读懂申论材料",
+        "第一次正式学申论，别紧张。咱们按「读材料 → 找要点 → 列提纲 → 作答」"
+        "先完整走一遍，之后再以「作答 → 评阅」为主，哪里弱补哪里。",
         reading_minutes,
-        "完成材料分段标注，为每段保留主旨、对象与可引用证据。",
+        "给材料分段标注，把每段的主旨、对象和能引用的句子标出来。",
         "material-reading",
         0.86,
         0.68,
@@ -811,10 +810,10 @@ def _transfer_definition(
 ) -> tuple[str, str, str, int, str, str, float, float]:
     return (
         "essay_transfer",
-        "用新材料验证申论迁移",
-        "本篇重写已完成，但还不能证明能力稳定；需要用未见材料做独立验证。",
+        "用新题检验一下",
+        "这篇改写已经完成，但还不敢说就稳了，用一篇没见过的材料检验一下最放心。",
         _essay_drafting_minutes(snapshot.question_type, snapshot.word_limit),
-        "在不同题目与材料中验证同一评分维度，形成迁移结论。",
+        "用新题目、新材料验证同一个评分维度，看能不能稳定发挥。",
         "transfer",
         0.92,
         0.90,
@@ -838,9 +837,9 @@ def _practice_definition(
     return (
         stage,
         f"申论专项：{dimension}",
-        f"最近申论证据显示「{dimension}」仍是主要改善点。",
+        f"最近申论练习里，「{dimension}」是你的提分重点，今天多练练。",
         minutes,
-        "完成对应材料标注、作答和证据化复盘。",
+        "完成材料标注和作答，再简单复盘一下就好。",
         "practice",
         0.80,
         0.62,

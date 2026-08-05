@@ -1230,8 +1230,8 @@ class PlanningRepository:
             if rubric_id is None:
                 next_stage = "evaluation_pending"
                 pending_reason = (
-                    "当前题目的可审计评分规程尚未发布；规划不会把材料地图、"
-                    "找点或提纲伪装成可完成的申论主任务，并会优先选择可直接作答的题目。"
+                    "这道题的评分标准还没准备好，先不硬排；岸岸会优先挑可以直接作答的题，"
+                    "等标准就绪马上给你安排上。"
                 )
             elif material_annotation_id is None:
                 # 首次接触申论：先完整学一遍「材料阅读 → 要点提取 → 提纲 → 作答」，
@@ -1298,14 +1298,13 @@ class PlanningRepository:
         elif latest["review_version_id"] is None:
             stage = "evaluation_pending"
             pending_reason = (
-                "申论原稿已提交，证据化 AI 评阅仍在生成；评阅完成前不生成“用户查看评阅”任务。"
+                "你的申论原稿已经交上去啦，评阅还在路上；等评阅出来，岸岸马上提醒你查看。"
             )
         elif not _review_is_learning_eligible(latest):
             stage = "evaluation_pending"
             pending_reason = (
-                "本次申论评阅未完成或被证据门禁阻断（未通过 essay-grounding-v2）；"
-                "系统不会让 legacy、未验真或不可学习的 finding 进入后续规划，"
-                "需等待重新评阅。"
+                "这次的申论评阅还没通过，先不进入下一步；你的作答都还在，"
+                "等重新评阅完，岸岸马上接着帮你排。"
             )
         elif review_acknowledgement_id is None:
             stage = "review_due"
@@ -1471,8 +1470,7 @@ class PlanningRepository:
                     "content_unavailable",
                     None,
                     pending_reason=(
-                        "申论闭环已有 canonical head，但尚未到复写或迁移验证时间；"
-                        "规划不会提前制造重复训练。"
+                        "这篇申论刚到稳定掌握，还没到重写或迁移验证的时候，先不急着重复练。"
                     ),
                     mastery_state=str(earliest["state"]),  # type: ignore[arg-type]
                     mastery_version_ids=tuple(
@@ -1507,8 +1505,7 @@ class PlanningRepository:
                 "content_unavailable",
                 None,
                 pending_reason=(
-                    "当前申论 finding 已通过独立迁移验证并稳定掌握；"
-                    "在出现新的真实作答或未解决证据前，不重复生成复写或迁移训练。"
+                    "这篇申论已经稳定掌握啦，在出现新的作答之前，先不重复练同样的内容。"
                 ),
                 mastery_state="stable_mastered",
                 mastery_version_ids=tuple(str(item["mastery_version_id"]) for item in heads),

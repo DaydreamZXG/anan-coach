@@ -87,7 +87,7 @@ describe("VJ-01 real Today R2 AS-06", () => {
 
     expect(latestState(harness.states).dashboard).toEqual(committedPlan);
     expect(latestState(harness.states).capacitySubmission).not.toBe("success");
-    expect(latestState(harness.states).capacityMessage).toContain("仍显示上次确认的计划");
+    expect(latestState(harness.states).capacityMessage).toContain("上次确认的计划");
   });
 
   it("keeps capacity writes out of the Today page after adjustment moved to its own route", () => {

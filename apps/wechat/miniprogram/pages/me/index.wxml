@@ -6,10 +6,10 @@
     <state-view
       wx:elif="{{status === 'error'}}"
       state="error"
-      title="账户档案没有加载成功"
+      title="档案没加载出来"
       description="{{errorMessage}}"
       request-id="{{requestId}}"
-      action-text="重新加载"
+      action-text="再试一次"
       bind:action="retry"
     />
 
@@ -39,10 +39,10 @@
           </button>
         </view>
         <view wx:if="{{qualificationContextStatus === 'error'}}" class="context-error-card">
-          <view class="context-error-card__title">报考资料没有同步完成</view>
+          <view class="context-error-card__title">报考资料没同步好</view>
           <view class="context-error-card__copy">{{qualificationContextError}}</view>
           <view wx:if="{{qualificationContextRequestId}}" class="context-error-card__request">问题编号 · {{qualificationContextRequestId}}</view>
-          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">重新读取</button>
+          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">再试一次</button>
         </view>
         <view wx:else class="archive-grid">
           <view class="archive-item"><view class="archive-label">学历与专业</view><view class="archive-value">{{educationMajorLabel}}</view></view>
@@ -57,10 +57,10 @@
 
       <view class="profile-card target-card fade-slide-in fade-slide-in--3">
         <view wx:if="{{targetContextStatus === 'error'}}" class="context-error-card">
-          <view class="context-error-card__title">目标岗位没有同步完成</view>
+          <view class="context-error-card__title">目标岗位没同步好</view>
           <view class="context-error-card__copy">{{targetContextError}}</view>
           <view wx:if="{{targetContextRequestId}}" class="context-error-card__request">问题编号 · {{targetContextRequestId}}</view>
-          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">重新读取</button>
+          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">再试一次</button>
         </view>
         <block wx:else>
           <view class="target-status">{{targetPositionStatusLabel}}</view>
@@ -75,10 +75,10 @@
 
       <view class="profile-card study-card fade-slide-in fade-slide-in--4">
         <view wx:if="{{studyContextStatus === 'error'}}" class="context-error-card">
-          <view class="context-error-card__title">学习时间没有同步完成</view>
+          <view class="context-error-card__title">学习时间没同步好</view>
           <view class="context-error-card__copy">{{studyContextError}}</view>
           <view wx:if="{{studyContextRequestId}}" class="context-error-card__request">问题编号 · {{studyContextRequestId}}</view>
-          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">重新读取</button>
+          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">再试一次</button>
         </view>
         <block wx:else>
           <view class="card-head">

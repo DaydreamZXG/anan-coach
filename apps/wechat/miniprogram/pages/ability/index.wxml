@@ -12,10 +12,10 @@
     <state-view
       wx:elif="{{status === 'error'}}"
       state="error"
-      title="学习档案没有加载成功"
+      title="档案没加载出来"
       description="{{errorMessage}}"
       request-id="{{requestId}}"
-      action-text="重新加载"
+      action-text="再试一次"
       bind:action="retry"
     />
 
@@ -157,7 +157,7 @@
       </view>
 
       <view wx:if="{{profile.decisionSummary.reviewDueCount}}" class="review-warning">
-        {{profile.decisionSummary.reviewDueCount}} 个学习取舍已经到复评时间，需要重新确认。
+        {{profile.decisionSummary.reviewDueCount}} 个学习决定到了复查时间，重新看一下就好。
       </view>
 
       <view class="ability-card coach-action">
