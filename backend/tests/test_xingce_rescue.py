@@ -94,11 +94,12 @@ def _seed_rescue_learner(
     *,
     token: str,
 ) -> str:
-    """Seed 学习者并把每日时长压到 20 分钟，得到 10 题的小组。
+    """Seed 学习者并把每日时长设为 45 分钟，排出行测基线任务。
 
-    组大小 = min(30, 题库供给, max(3, 20//2)) = 10，证据引用数（每题的
-    assessment + content-version 两条）约 20，低于 governance 的 50 上限；
-    同时保留题库里的同类题余量用于救场选取。
+    当前主基线新增了 `_cap_xingce_block`（申论地板 25 分钟），20 分钟容量
+    排不出行测任务。45 分钟时计划产出 objective_baseline（约 20 分钟 /
+    10 题），证据引用数（每题 assessment + content-version 两条）约 20，
+    低于 governance 的 50 上限；同时保留题库里的同类题余量供救场选取。
     """
     user_id = _seed_learner_and_published_essay_content(
         factory,
@@ -110,8 +111,8 @@ def _seed_rescue_learner(
             text(
                 """
                 update learning.weekly_study_preference_versions
-                set weekday_minutes = 20, weekend_minutes = 20,
-                    long_block_minutes = 20, fragment_minutes = 10
+                set weekday_minutes = 45, weekend_minutes = 45,
+                    long_block_minutes = 45, fragment_minutes = 20
                 where user_id = cast(:user_id as uuid)
                 """
             ),
