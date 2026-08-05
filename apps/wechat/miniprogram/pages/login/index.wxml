@@ -16,7 +16,7 @@
       </view>
 
       <view class="login-tagline">
-        <text>如果你暂时看不清方向，</text>
+        <text>如果你暂时看不清方向</text>
         <text>那就先把方向盘交给我</text>
       </view>
     </view>
