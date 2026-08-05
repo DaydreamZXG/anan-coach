@@ -428,13 +428,13 @@ def _seed_xingce_assessments(
                       version_no, available_minutes, energy_level,
                       stress_level, confidence_level, confirmed, source_type,
                       weekly_preference_version_id, input_fingerprint,
-                      supersedes_capacity_version_id, recorded_at
+                      supersedes_capacity_version_id, recorded_at, xingce_only
                     ) values (
                       cast(:capacity_id as uuid), :command_id,
                       cast(:user_id as uuid), :local_date, 1, 120, 3, 3, 3,
                       false, 'weekly_preference',
                       cast(:preference_id as uuid), :input_fingerprint,
-                      null, :recorded_at
+                      null, :recorded_at, false
                     )
                     """
                 ),

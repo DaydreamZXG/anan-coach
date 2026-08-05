@@ -76,9 +76,6 @@ def test_real_nested_timing_evidence_populates_average_and_is_user_isolated(
             12,
             24,
             36,
-            12,
-            24,
-            36,
         ]
         assert all("questionElapsedSeconds" not in item for item in snapshots)
 
@@ -124,15 +121,14 @@ def test_missing_and_invalid_nested_timing_does_not_fabricate_an_average(
                 "resultCode": "correct",
                 "timingEvidence": {"elapsedSeconds": 86_401},
             },
-        )
-        * 2,
+        ),
     )
 
     with db_session_factory() as session:
         modules = LearningBrainRepository(session).xingce_modules(user_id=user_id)
 
     assert len(modules) == 1
-    assert modules[0]["attempt_count"] == 6
+    assert modules[0]["attempt_count"] == 3
     assert modules[0]["average_seconds"] is None
 
 

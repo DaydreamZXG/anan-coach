@@ -49,8 +49,8 @@ def _seed_manual_requirement(
                 ) values (
                   :position_id, 'manual-position', 2026, '300110001999',
                   '一级行政执法员', '国家税务总局测试局', 'tax', '江西',
-                  'administrativeLaw', 2, '本科', '法学类', '不限', 0,
-                  '须持有法律职业资格证书A证', '{}'::jsonb
+                  'administrativeLaw', 2, '本科', '相关专业', '不限', 0,
+                  '须为中共党员', '{}'::jsonb
                 )
                 """
             ),

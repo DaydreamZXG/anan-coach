@@ -62,6 +62,21 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     revision88 = import_module(
         "migrations.versions.20260730_88_recognition_reconciliation_outcomes"
     )
+    revision89 = import_module("migrations.versions.20260731_89_major_catalog_tables")
+    revision90 = import_module("migrations.versions.20260801_90_visual_fingerprint_hashes")
+    revision91 = import_module(
+        "migrations.versions.20260801_91_question_bank_import_authority"
+    )
+    revision92 = import_module("migrations.versions.20260802_92_optional_reflection_tags")
+    revision93 = import_module(
+        "migrations.versions.20260802_93_tokenrhythm_essay_candidate"
+    )
+    revision94 = import_module("migrations.versions.20260802_94_gender_qualification_fact")
+    revision95 = import_module("migrations.versions.20260804_95_daily_focus_override")
+    revision96 = import_module(
+        "migrations.versions.20260804_96_central_brain_strategy_directive"
+    )
+    revision97 = import_module("migrations.versions.20260805_97_login_terms_consent")
     script = ScriptDirectory.from_config(Config(str(BACKEND_ROOT / "alembic.ini")))
 
     assert revision71.down_revision == "20260728_70"
@@ -82,7 +97,16 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     assert revision86.down_revision == "20260730_85"
     assert revision87.down_revision == "20260730_86"
     assert revision88.down_revision == "20260730_87"
-    assert script.get_heads() == ["20260804_95"]
+    assert revision89.down_revision == "20260730_88"
+    assert revision90.down_revision == "20260731_89"
+    assert revision91.down_revision == "20260801_90"
+    assert revision92.down_revision == "20260801_91"
+    assert revision93.down_revision == "20260802_92"
+    assert revision94.down_revision == "20260802_93"
+    assert revision95.down_revision == "20260802_94"
+    assert revision96.down_revision == "20260804_95"
+    assert revision97.down_revision == "20260804_96"
+    assert script.get_heads() == ["20260805_97"]
     with pytest.raises(RuntimeError, match="forward-only"):
         revision77.downgrade()
     with pytest.raises(RuntimeError, match="forward-only"):
