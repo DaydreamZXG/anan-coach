@@ -2076,7 +2076,7 @@ export type CompanionAllowedAction = {
     /**
      * Kind
      */
-    kind: 'view_evidence' | 'add_reflection' | 'adjust_plan_preview' | 'supply_information' | 'open_training' | 'open_position_workspace' | 'refresh_context';
+    kind: 'view_evidence' | 'adjust_plan_preview' | 'supply_information' | 'open_training' | 'open_position_workspace' | 'refresh_context';
     /**
      * Label
      */
@@ -2159,7 +2159,7 @@ export type CompanionAskResponse = {
     /**
      * Semanticstate
      */
-    semanticState: 'ready' | 'evidence_insufficient' | 'permission_denied' | 'security_blocked' | 'quota_exhausted' | 'provider_pending' | 'failed';
+    semanticState: 'ready' | 'evidence_insufficient' | 'permission_denied' | 'security_blocked' | 'failed';
 };
 
 /**
@@ -6708,7 +6708,7 @@ export type InferenceCandidateVersion = {
     /**
      * Inferencetype
      */
-    inferenceType: 'error_pattern' | 'module_interpretation' | 'strategy_recommendation' | 'planning_explanation';
+    inferenceType: 'error_pattern' | 'module_interpretation' | 'strategy_recommendation' | 'strategy_directive' | 'planning_explanation';
     /**
      * Inputfingerprint
      */
@@ -18178,6 +18178,10 @@ export type WechatLoginRequest = {
      * Deviceid
      */
     deviceId: string;
+    /**
+     * Legalaccepted
+     */
+    legalAccepted?: boolean;
 };
 
 /**

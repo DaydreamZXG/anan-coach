@@ -87,6 +87,7 @@ describe("VJ-01 real Today R2 AS-02", () => {
     const controller = new WechatLoginController({
       requestCode,
       deviceId: () => "wechat-device",
+      legalAccepted: () => true,
       authenticate,
       restoreProgress: () => Promise.resolve(null),
       commitSession,
@@ -101,6 +102,7 @@ describe("VJ-01 real Today R2 AS-02", () => {
     expect(authenticate).toHaveBeenCalledWith({
       code: "real-wechat-code",
       deviceId: "wechat-device",
+      legalAccepted: true,
     });
     expect(commitSession).toHaveBeenCalledOnce();
     expect(navigate).toHaveBeenCalledWith("qualification");

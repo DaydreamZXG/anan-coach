@@ -17,6 +17,9 @@ from app.domains.onboarding.v2_schemas import OnboardingProgress
 
 SESSION_TTL_DAYS = 30
 
+LOGIN_TERMS_POLICY_VERSION = "login-terms@v1"
+LOGIN_CONSENT_SURFACE = "wechat_miniprogram_login"
+
 
 @dataclass(frozen=True)
 class AuthenticatedUser:
@@ -399,6 +402,49 @@ class AuthRepository:
         )
         self._session.commit()
         return CreatedSession(access_token=access_token, expires_at=expires_at, user=user)
+
+    def record_terms_acceptance(
+        self,
+        *,
+        user_id: str,
+        policy_version: str = LOGIN_TERMS_POLICY_VERSION,
+    ) -> None:
+        """Record that the user accepted the login terms, once per policy version.
+
+        Idempotency: ``request_id`` is derived deterministically from the
+        consent key (user, policy, action) instead of the HTTP request id, so
+        the table's unique constraint on
+        ``(user_id, policy_version, action, request_id)`` turns repeated or
+        concurrent logins into no-ops. Publishing a newer policy version (a
+        future ``login-terms@vN``) produces a new key, so a terms update can
+        require a fresh acceptance.
+        """
+        request_id = sha256(
+            f"{user_id}:{policy_version}:accepted".encode("utf-8")
+        ).hexdigest()
+        self._session.execute(
+            text(
+                """
+                insert into privacy.consent_events (
+                  consent_event_id, user_id, policy_version, action,
+                  surface, request_id, created_at
+                ) values (
+                  cast(:consent_event_id as uuid), cast(:user_id as uuid),
+                  :policy_version, 'accepted', :surface, :request_id, now()
+                )
+                on conflict (user_id, policy_version, action, request_id)
+                  do nothing
+                """
+            ),
+            {
+                "consent_event_id": str(uuid4()),
+                "user_id": user_id,
+                "policy_version": policy_version,
+                "surface": LOGIN_CONSENT_SURFACE,
+                "request_id": request_id,
+            },
+        )
+        self._session.commit()
 
     def get_user_by_access_token(self, access_token: str) -> AuthenticatedUser | None:
         row = self._session.execute(

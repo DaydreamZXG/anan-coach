@@ -19,6 +19,7 @@ describe("wechat login controller", () => {
     expect(harness.spies.authenticate).toHaveBeenCalledWith({
       code: "wechat-code",
       deviceId: "device-1",
+      legalAccepted: true,
     });
     expect(harness.spies.commitSession).toHaveBeenCalledWith(session());
     expect(harness.spies.navigate).toHaveBeenCalledWith("preparation_experience");
@@ -227,6 +228,7 @@ function createHarness(changes: Partial<WechatLoginDependencies> = {}) {
   const states: WechatLoginState[] = [];
   const requestCode = changes.requestCode ?? vi.fn(() => Promise.resolve("wechat-code"));
   const deviceId = changes.deviceId ?? vi.fn(() => "device-1");
+  const legalAccepted = changes.legalAccepted ?? vi.fn(() => true);
   const authenticate = changes.authenticate ?? vi.fn(() => Promise.resolve(session()));
   const restoreProgress = changes.restoreProgress ?? vi.fn(() => Promise.resolve(null));
   const commitSession = changes.commitSession ?? vi.fn();
@@ -236,6 +238,7 @@ function createHarness(changes: Partial<WechatLoginDependencies> = {}) {
   const dependencies: WechatLoginDependencies = {
     requestCode,
     deviceId,
+    legalAccepted,
     authenticate,
     restoreProgress,
     commitSession,
@@ -251,6 +254,7 @@ function createHarness(changes: Partial<WechatLoginDependencies> = {}) {
     spies: {
       requestCode,
       deviceId,
+      legalAccepted,
       authenticate,
       restoreProgress,
       commitSession,

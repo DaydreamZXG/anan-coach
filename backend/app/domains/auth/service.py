@@ -38,7 +38,10 @@ class AuthService:
     def login_with_wechat(self, request: WechatLoginRequest) -> CreatedSession:
         claims = self._wechat_exchange.exchange(code=request.code)
         user = self._repository.upsert_wechat_user(claims=claims)
-        return self._repository.create_session(
+        session = self._repository.create_session(
             user=user,
             device_id=request.device_id,
         )
+        if request.legal_accepted:
+            self._repository.record_terms_acceptance(user_id=user.user_id)
+        return session

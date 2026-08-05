@@ -83,13 +83,17 @@ Page({
 });
 
 function createController(
-  page: { setData(state: Partial<WechatLoginState>): void },
+  page: {
+    setData(state: Partial<WechatLoginState>): void;
+    data: { legalAccepted: boolean };
+  },
   requestedReturn: RegisteredNavigationTarget | null,
 ) {
   const client = new ApiClient();
   return new WechatLoginController({
     requestCode: loginCode,
     deviceId: currentDeviceId,
+    legalAccepted: () => page.data.legalAccepted,
     authenticate: async (request) =>
       (await client.post<WechatAuthSessionData>("/api/v2/auth/wechat", request)).data,
     restoreProgress: async () => {
