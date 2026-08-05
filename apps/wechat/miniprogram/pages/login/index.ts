@@ -59,7 +59,7 @@ Page({
 
   login() {
     if (!this.data.legalAccepted) {
-      void wx.showToast({ title: "请先阅读并同意用户协议与隐私保护指引", icon: "none" });
+      void wx.showToast({ title: "先勾选同意用户协议和隐私指引哦", icon: "none" });
       return;
     }
     void controllers.get(this)?.controller?.login();
@@ -76,7 +76,7 @@ Page({
   openPrivacy() {
     wx.openPrivacyContract({
       fail: () => {
-        void wx.showToast({ title: "隐私保护指引暂时无法打开，请稍后重试", icon: "none" });
+        void wx.showToast({ title: "哎，隐私指引暂时打不开，稍后再试哦", icon: "none" });
       },
     });
   },

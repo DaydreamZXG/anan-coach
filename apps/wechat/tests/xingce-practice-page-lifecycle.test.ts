@@ -316,7 +316,7 @@ describe("xingce practice favorite ownership and idempotency", () => {
 
     expect(runtime.page.data.favoriteStatus).toBe("ready");
     expect(runtime.page.data.favoriteState).toBe("favorited");
-    expect(runtime.page.data.favoriteMessage).toContain("已收藏");
+    expect(runtime.page.data.favoriteMessage).toContain("收藏好啦");
     runtime.page.onUnload.call(runtime.page);
   });
 

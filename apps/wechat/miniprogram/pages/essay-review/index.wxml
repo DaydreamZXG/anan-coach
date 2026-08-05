@@ -5,7 +5,7 @@
   <state-view
     wx:elif="{{status === 'error'}}"
     state="error"
-    title="评阅没有加载成功"
+    title="评阅没加载出来"
     description="{{errorMessage}}"
     request-id="{{requestId}}"
     action-text="{{retryAllowed ? '重新加载' : ''}}"
@@ -24,11 +24,11 @@
       <view wx:for="{{view.confidenceReasons}}" wx:key="*this" class="review-confidence-reason">
         {{item}}
       </view>
-      <view class="review-disclaimer">本评分用于训练反馈，不等同于官方阅卷结果。</view>
+      <view class="review-disclaimer">这个分数是帮你找问题用的，不代表官方阅卷结果。</view>
     </view>
 
     <view class="review-section">
-      <view class="review-section__title">得分维度</view>
+      <view class="review-section__title">各块得分</view>
       <view class="dimension-card">
         <view wx:for="{{view.dimensions}}" wx:key="criterionCode" class="dimension-row">
           <view class="dimension-row__label">{{item.label}}</view>
@@ -42,10 +42,10 @@
     </view>
 
     <view class="review-section">
-      <view class="review-section__title">证据反馈</view>
+      <view class="review-section__title">这次的问题</view>
       <view class="evidence-chips">
         <view class="evidence-chip evidence-chip--covered">
-          命中要点 {{view.coveredPoints}} / {{view.totalPoints}}
+          踩中要点 {{view.coveredPoints}} / {{view.totalPoints}}
         </view>
         <view class="evidence-chip">发现问题 {{view.findings.length}} 个</view>
       </view>
@@ -62,19 +62,19 @@
             <view>{{item.answerQuote}}</view>
           </view>
           <view class="finding-card__quote finding-card__quote--material">
-            <view class="finding-card__quote-label">材料依据</view>
+            <view class="finding-card__quote-label">材料原文</view>
             <view>{{item.materialQuote}}</view>
           </view>
         </view>
       </view>
       <view wx:else class="review-empty">
-        <view class="review-empty__title">本次没有定位到具体问题</view>
-        <view class="review-empty__copy">可以带着本题问岸岸，继续核对答案与材料依据。</view>
+        <view class="review-empty__title">这次没发现明显的问题</view>
+        <view class="review-empty__copy">可以带着这道题去问岸岸，再帮你看看答案和材料。</view>
       </view>
     </view>
 
     <view class="review-section">
-      <view class="review-section__title">表达升格</view>
+      <view class="review-section__title">表达还能更好</view>
       <view wx:if="{{view.expressionFindings.length}}" class="expression-card">
         <view wx:for="{{view.expressionFindings}}" wx:key="findingId" class="expression-item">
           <view class="expression-item__label">原句</view>
@@ -84,8 +84,8 @@
         </view>
       </view>
       <view wx:else class="review-empty">
-        <view class="review-empty__title">本次没有单独的表达问题</view>
-        <view class="review-empty__copy">不生成虚构示例；需要时可让岸岸结合原句继续解释。</view>
+        <view class="review-empty__title">这次表达没什么大问题</view>
+        <view class="review-empty__copy">这里不编虚构示例；想听仔细点，就让岸岸对着你的原句再讲讲。</view>
       </view>
     </view>
   </view>
@@ -93,7 +93,7 @@
   <view wx:if="{{review && view}}" class="review-dock">
     <view class="review-dock__inner">
       <button hover-class="item--hover" class="review-rewrite" bindtap="rewriteAgain">再写一次</button>
-      <button hover-class="item--hover" class="review-anan tap-tactile" bindtap="askAnan">✦　带着本题问岸岸</button>
+      <button hover-class="item--hover" class="review-anan tap-tactile" bindtap="askAnan">✦　带着这道题问岸岸</button>
     </view>
   </view>
 </view>

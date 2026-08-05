@@ -1,7 +1,7 @@
 <view class="s9-screen position-screen position-screen--dock">
   <workbench-nav
     id="runtime-workbench-nav"
-    title="全部可选岗位{{state && state.status === 'ready' ? ' (' + state.items.length + ')' : ''}}"
+    title="全部岗位{{state && state.status === 'ready' ? ' (' + state.items.length + ')' : ''}}"
     back-behavior="emit"
     bind:back="goBack"
   />
@@ -31,7 +31,7 @@
         <text>城市</text>
         <input class="filter-pill__input" value="{{state.filters.city}}" placeholder="不限" bindinput="inputCity" />
       </label>
-      <button hover-class="item--hover" class="filter-pill filter-pill--action" bindtap="search">筛选</button>
+      <button hover-class="item--hover" class="filter-pill filter-pill--action" bindtap="search">搜</button>
       <button hover-class="item--hover" class="filter-pill filter-pill--quiet" bindtap="clearFilters">清除</button>
     </scroll-view>
     <view wx:if="{{state.validationError}}" class="position-inline-alert">{{state.validationError}}</view>
@@ -42,9 +42,9 @@
     <state-view
       wx:elif="{{state.status === 'needsProfile'}}"
       state="empty"
-      title="先完成资格建档"
-      description="建档后，才能按你的真实条件筛选岗位。"
-      action-text="去建档"
+      title="先把报考资料补全"
+      description="资料补全了，才能按你的真实情况找岗位。"
+      action-text="去补资料"
       bind:action="openQualificationProfile"
     />
     <state-view
@@ -61,15 +61,15 @@
       title="{{state.error.title}}"
       description="{{state.error.message}}"
       request-id="{{state.error.requestId}}"
-      action-text="重新加载"
+      action-text="再试一次"
       bind:action="retry"
     />
     <state-view
       wx:elif="{{state.status === 'empty'}}"
       state="empty"
-      title="没有匹配的岗位"
+      title="没找到这样的岗位"
       description="换个地区或关键词再试试。"
-      action-text="清除筛选"
+      action-text="清空条件"
       bind:action="clearFilters"
     />
 
@@ -108,7 +108,7 @@
             class="compare-corner {{item.comparisonSelected ? 'compare-corner--selected' : ''}}"
             data-id="{{item.positionId}}"
             catchtap="toggleComparison"
-          >{{item.comparisonSelected ? '✓ 已选' : '＋ 对比'}}</button>
+          >{{item.comparisonSelected ? '✓ 已加入' : '＋ 对比'}}</button>
         </view>
       </view>
 
@@ -118,14 +118,14 @@
       </view>
       <view wx:elif="{{state.paginationStatus === 'loading'}}" class="list-status">正在加载下一页…</view>
       <button wx:elif="{{state.hasMore}}" hover-class="item--hover" class="list-status list-status--button" bindtap="loadMore">加载更多</button>
-      <view wx:else class="list-status">已展示当前条件下的全部岗位</view>
+      <view wx:else class="list-status">当前条件下就这些啦</view>
     </block>
   </view>
 
   <view wx:if="{{state && state.selectedIds.length > 0}}" class="comparison-dock">
     <view class="comparison-dock__summary">
-      <text class="comparison-dock__title">已选 {{state.selectedIds.length}} / 3</text>
-      <text class="comparison-dock__note">{{state.selectedIds.length < 2 ? '再选 1 个开始对比' : '可以横向比较资格和分差'}}</text>
+      <text class="comparison-dock__title">选了 {{state.selectedIds.length}} / 3</text>
+      <text class="comparison-dock__note">{{state.selectedIds.length < 2 ? '再挑 1 个就能对比' : '资格、分数差距一眼看清'}}</text>
     </view>
     <button hover-class="item--hover" class="comparison-dock__clear" bindtap="clearComparison">清空</button>
     <button hover-class="item--hover" class="comparison-dock__action {{state.selectedIds.length < 2 ? 'comparison-dock__action--disabled' : ''}}" disabled="{{state.selectedIds.length < 2}}" bindtap="openComparison">对比</button>

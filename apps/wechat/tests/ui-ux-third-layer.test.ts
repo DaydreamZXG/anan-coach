@@ -63,7 +63,7 @@ describe("third-layer UI and UX contracts", () => {
     expect(todayTemplate).toContain("openingStatus === 'error'");
     expect(todayTemplate).toContain('bindtap="loadDailyOpening"');
     expect(ananTemplate).toContain("state-{{semanticState}}");
-    expect(ananLogic).toContain('stateLabel: "学习记录同步失败"');
+    expect(ananLogic).toContain('stateLabel: "学习记录没读出来"');
   });
 
   it("keeps empty training and settings actions routed to real destinations", () => {

@@ -397,7 +397,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       this.setData({
         status: "error",
         errorTitle: "任务地址不完整",
-        errorMessage: "页面地址不完整，请从今日计划或申论工作台重新进入。",
+        errorMessage: "这个地址好像不对，回今日计划或申论工作台再进一次就行。",
       });
       return;
     }
@@ -406,7 +406,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (!capability.writable) {
       this.setData({
         status: "unavailable",
-        errorTitle: `${capability.title}当前不能开始`,
+        errorTitle: `${capability.title}现在还不能开始`,
         errorMessage: capability.unavailableReason,
       });
       return;
@@ -415,8 +415,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (!session) {
       this.setData({
         status: "unavailable",
-        errorTitle: "登录后才能开始申论任务",
-        errorMessage: "学习记录必须绑定你的账号，请重新登录后再进入。",
+        errorTitle: "登录后就能开始申论啦",
+        errorMessage: "学习记录要跟着账号走，先登录一下哦。",
         showLoginAction: true,
       });
       return;
@@ -574,7 +574,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           runtime.pendingCompletion || runtime.pendingDraftingSubmission ? "error" : "idle",
         submissionMessage:
           runtime.pendingCompletion || runtime.pendingDraftingSubmission
-            ? "上次保存结果还不确定，本次会恢复原操作继续确认。"
+            ? "哎，上次的保存结果还没确认好，别急，会接着帮你确认。"
             : "",
         drafting,
         reflectionCauseOptions: reflectionCauseOptions(drafting.reflectionCauseCodes),
@@ -622,8 +622,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       const apiError = error instanceof ApiClientError ? error : null;
       this.setData({
         status: "error",
-        errorTitle: apiError?.statusCode === 404 ? "题目内容不可用" : "申论任务加载失败",
-        errorMessage: apiError ? apiError.message : "当前申论任务没有成功加载，请稍后重试。",
+        errorTitle: apiError?.statusCode === 404 ? "这道题暂时看不了" : "申论任务没加载出来",
+        errorMessage: apiError ? apiError.message : "申论任务没加载出来，别急，再试一次就好。",
       });
     }
   },
@@ -1025,7 +1025,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
             handwriting: {
               ...this.data.handwriting,
               phase: "review" as const,
-              message: "正文已改动，请重新逐段核对识别文字。",
+              message: "正文改动过了，手写的字要重新逐段核对一遍。",
             },
           }
         : {}),
@@ -1103,7 +1103,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           ...emptyHandwritingState(),
           phase: "uploading",
           localImagePath: file.localPath,
-          message: "正在安全上传原图并执行手写识别…",
+          message: "正在安全上传原图、认手写的字…",
         },
       });
       const idempotencyKey = await createIdempotencyKey("essay-handwriting");
@@ -1162,7 +1162,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         handwriting: {
           ...this.data.handwriting,
           phase: "confirming",
-          message: "正在保存你核对后的手写文字…",
+          message: "正在存你核对好的手写文字…",
         },
       });
       let candidate = sourceRevision;
@@ -1216,10 +1216,10 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           ...this.data.handwriting,
           revision: confirmed,
           phase: "confirmed",
-          message: "原图、机器识别、你的修订和确认内容已经保存完整。",
+          message: "原图、认出的字、你改的和确认的内容，都存好了。",
         },
         submissionStatus: "idle",
-        submissionMessage: "已将核对后的手写文字填入当前答案。",
+        submissionMessage: "核对好的手写文字已经填进当前答案。",
       });
     } catch (error) {
       if (!pageRuntimes.owns(this, runtime)) return;
@@ -1286,9 +1286,9 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           draftLocked: Boolean(stored?.atomicCommand),
           submissionStatus: stored?.idempotencyKey ? "error" : "idle",
           submissionMessage: stored?.terminalConflict
-            ? "这次改写所依据的计划或评阅已更新，请从今日计划重新进入。"
+            ? "这次改写所依据的计划或评阅刚更新过，回今日计划重新进一次就好。"
             : stored?.idempotencyKey
-              ? "上次改写结果还不确定，将恢复原操作继续确认。"
+              ? "上次改写的结果还没确认好，别急，会接着帮你确认。"
               : "",
         });
         if (stored?.atomicCommand && !stored.terminalConflict) void this.submitRewrite();
@@ -1347,9 +1347,9 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         submissionStatus: stored ? "error" : "idle",
         submissionMessage:
           transferDraft.phase === "context_invalid"
-            ? "这次迁移练习所依据的计划或评阅已更新，请从今日计划重新进入。"
+            ? "这次换题练习的依据刚更新过，回今日计划重新进一次就好。"
             : stored
-              ? "已恢复这个账号上次保存的新题练习进度。"
+              ? "上次的新题练习进度帮你找回来了。"
               : "",
       });
       if (["attempt_saved", "answer_saved", "decision_saved"].includes(transferDraft.phase)) {
@@ -1562,7 +1562,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       }
       this.setData({
         submissionStatus: "submitting",
-        submissionMessage: "正在保存新答案、修正记录和学习状态…",
+        submissionMessage: "正在存新答案、修正记录和这次的状态…",
         draftLocked: true,
         canSubmit: false,
       });
@@ -1584,13 +1584,13 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       this.setData({
         submissionStatus: "error",
         submissionMessage: terminalConflict
-          ? "这次改写所依据的内容已更新，本次没有保存任何不完整内容。请从今日计划重新进入。"
+          ? "这次改写所依据的内容刚更新过，本次没有保存任何不完整内容。回今日计划重新进一次就好。"
           : closureErrorMessage(error),
         draftLocked:
           runtime.closureDraft?.kind === "rewrite" && Boolean(runtime.closureDraft.atomicCommand),
         canSubmit: !terminalConflict,
         ...(terminalConflict
-          ? { blockingReason: "当前改写上下文已失效，不会循环重试旧命令。" }
+          ? { blockingReason: "这次的改写依据已经更新，不会反复重试旧命令。" }
           : {}),
       });
     }
@@ -1644,7 +1644,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         this.setData({
           transferDraft: draft,
           submissionStatus: "submitting",
-          submissionMessage: "新题答案已保存，完整评阅正在排队。",
+          submissionMessage: "新题答案已存好，评阅正在排队。",
         });
         scheduleTransferPoll(this, runtime, 0);
         return;
@@ -1669,12 +1669,12 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         transferDraft: draft,
         submissionStatus: "error",
         submissionMessage: terminalConflict
-          ? "这次迁移练习所依据的内容已更新，本次没有保存任何不完整内容。请从今日计划重新进入。"
+          ? "这次换题练习的依据刚更新过，本次没有保存任何不完整内容。回今日计划重新进一次就好。"
           : closureErrorMessage(error),
         draftLocked: !["drafting", "review_ready"].includes(draft.phase),
         canSubmit: ["drafting", "review_ready", "decision_saved"].includes(draft.phase),
         ...(terminalConflict
-          ? { blockingReason: "当前迁移上下文已失效，不会循环重试旧命令。" }
+          ? { blockingReason: "这次的换题依据已经更新，不会反复重试旧命令。" }
           : {}),
       });
     }
@@ -1707,7 +1707,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           submissionMessage:
             poll.job.status === "queued"
               ? "新题评阅正在排队。"
-              : "新题评阅正在核对答案与材料证据。",
+              : "新题评阅正在核对答案和材料。",
         });
         scheduleTransferPoll(this, runtime, 2_000);
         return;
@@ -1719,7 +1719,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         closureReview: poll.review,
         criterionOptions: poll.criterionOptions,
         submissionStatus: "idle",
-        submissionMessage: "新题评阅已完成，请逐条做决定并明确选择本次验证维度。",
+        submissionMessage: "新题评阅好了，逐条做决定、选好要对照的维度就行。",
         draftLocked: false,
         canSubmit: true,
       });
@@ -1747,7 +1747,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (permission !== "granted") {
       this.setData({
         submissionStatus: "error",
-        submissionMessage: "未获得麦克风权限，没有建立任何假录音。",
+        submissionMessage: "没拿到麦克风权限，所以没有录到声音。去系统设置里打开麦克风就行。",
       });
       return;
     }
@@ -1776,7 +1776,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
             this.setData({
               voiceRecording: false,
               submissionStatus: "idle",
-              submissionMessage: "录音已保存为本地草稿，提交前需上传并通过安全检查。",
+              submissionMessage: "录音已存成本地草稿，提交前要先上传、等检查通过。",
             });
           } catch (error) {
             if (!pageRuntimes.owns(this, runtime)) return;
@@ -1809,7 +1809,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const requestEpoch = pageRuntimes.beginRequest(runtime);
     this.setData({
       submissionStatus: "submitting",
-      submissionMessage: "正在上传复盘录音并等待安全检查…",
+      submissionMessage: "正在上传复盘录音，等检查通过…",
     });
     try {
       const segments = await runtime.voiceUploadCoordinator.uploadAll(
@@ -1828,8 +1828,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       this.setData({
         submissionStatus: failed ? "error" : "idle",
         submissionMessage: failed
-          ? "有录音尚未上传完成，本地草稿和上传进度已保留。"
-          : "所有录音已通过安全检查，可随结构化复盘提交。",
+          ? "有段录音还没上传完，草稿和进度都给你留着。"
+          : "录音都通过检查了，可以随复盘一起提交。",
       });
     } catch (error) {
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
@@ -1869,7 +1869,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       return;
     const confirm = await wx.showModal({
       title: "删除这段录音？",
-      content: "删除后不会随本次申论提交，本地录音也会一并清理。",
+      content: "删掉后这次申论就不会带上它，本机的录音也会一起清掉。",
       confirmText: "确认删除",
     });
     if (!confirm.confirm || !pageRuntimes.owns(this, runtime)) return;
@@ -1917,7 +1917,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       if (!runtime.pendingDraftingSubmission) {
         if (this.data.voiceSegments.some((segment) => segment.state !== "available")) {
           throw new EssayDraftingError(
-            "请先上传或删除未就绪录音；上传失败时作答和录音草稿都会保留。",
+            "有段录音还没准备好，先上传或删掉它；就算上传没成功，作答和草稿也都留着。",
           );
         }
         const voiceArtifactVersionIds = this.data.voiceSegments.map((segment) => {
@@ -2026,8 +2026,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
             }
           : {}),
         hasSavedEvidence: true,
-        submissionMessage: "答案和复盘已保存，正在启动 AI 评阅…",
-        blockingReason: "本次申论任务已经完成；AI 评阅会在后台继续，不影响已保存的作答。",
+        submissionMessage: "答案和复盘已存好，正在开始评阅…",
+        blockingReason: "这道申论题已经完成了；评阅在后台继续，不影响你已存的内容。",
       });
       await this.resumeCurrentReview();
     } catch (error) {
@@ -2044,7 +2044,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (!intent) {
       this.setData({
         submissionStatus: "error",
-        submissionMessage: "这版答案还没有对应的评阅结果，请重新加载后核对。",
+        submissionMessage: "这一版答案还没评出结果，重新加载看看。",
       });
       return;
     }
@@ -2068,7 +2068,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       }
       this.setData({
         submissionStatus: "submitting",
-        submissionMessage: "答案和复盘已保存，正在确认唯一评阅任务…",
+        submissionMessage: "答案和复盘已存好，正在确认评阅…",
         draftLocked: true,
         canSubmit: false,
       });
@@ -2081,7 +2081,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
       if (result.intent.status === "queued" && !result.job) {
         throw new EssayDraftingError(
-          "评阅任务已排队，但没有拿到对应处理记录。请重新加载核对状态。",
+          "评阅任务已排队，但没拿到处理记录，重新加载看看。",
         );
       }
       runtime.activeReviewIntent = result.intent;
@@ -2158,8 +2158,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       this.setData({
         submissionStatus: "error",
         submissionMessage: apiError
-          ? `评阅状态暂未同步：${apiError.message}。进度已保留，将继续查询。`
-          : "评阅状态暂未同步，进度已保留，将继续查询。",
+          ? `评阅进度还没跟上：${apiError.message}。内容都留着，会继续查。`
+          : "评阅进度还没跟上，内容都留着，会继续查。",
         submissionRequestId: apiError?.requestId ?? "",
       });
       scheduleReviewPoll(this, runtime, 5_000);
@@ -2184,7 +2184,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     stopReviewPoll(runtime);
     this.setData({
       submissionStatus: "submitting",
-      submissionMessage: "正在重新开始一次完整评阅…",
+      submissionMessage: "正在重新评一次…",
       canRegenerateReview: false,
     });
     try {
@@ -2212,8 +2212,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       this.setData({
         submissionStatus: "error",
         submissionMessage: apiError
-          ? `${apiError.message}。原评阅进度已保留，可以直接重试。`
-          : "刚才的重评结果还不确定，原评阅进度已保留，可以直接重试。",
+          ? `${apiError.message}。原评阅进度还留着，直接再试就行。`
+          : "刚才的重评结果还没确认，原评阅进度还留着，直接再试就行。",
         canRegenerateReview: true,
       });
     }
@@ -2246,8 +2246,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       this.setData({
         submissionStatus: "error",
         submissionMessage: apiError
-          ? `完整评阅没有加载成功：${apiError.message}`
-          : "完整评阅没有加载成功。",
+          ? `评阅没加载出来：${apiError.message}`
+          : "评阅没加载出来。",
       });
     }
   },
@@ -2299,7 +2299,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       }
       this.setData({
         submissionStatus: "submitting",
-        submissionMessage: "正在保存复盘并完成今日任务…",
+        submissionMessage: "正在存复盘、完成今天的任务…",
         draftLocked: true,
       });
       const result = (
@@ -2332,8 +2332,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         draftLocked: false,
         canSubmit: false,
         hasSavedEvidence: true,
-        blockingReason: "本阶段学习记录和今日任务已经保存，请返回今日页继续。",
-        submissionMessage: "本次学习记录已保存，今日任务已完成。",
+        blockingReason: "这一步的学习和今天的任务都存好了，回今日页接着学吧。",
+        submissionMessage: "这次的学习记录已存好，今天的任务完成了。",
       });
     } catch (error) {
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
@@ -2349,17 +2349,17 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         error instanceof EssayFormError
           ? error.message
           : taskExpired
-            ? "任务已经过期，本次没有写入不完整记录。请从今日页重新进入。"
+            ? "任务已经过期，这次没有写入不完整记录。回今日页重新进一次就好。"
             : apiError
-              ? `${apiError.message} 当前填写内容仍然保留，可以修改后直接重试。`
-              : "答案、复盘和任务完成状态还没有完全确认，请直接重试。";
+              ? `${apiError.message} 你填的内容都还留着，改一下再试就行。`
+              : "答案、复盘和任务状态还没完全确认，别急，直接再试一次。";
       this.setData({
         submissionStatus: "error",
         submissionMessage: message,
         draftLocked: runtime.pendingCompletion !== null,
         canSubmit: taskExpired ? false : this.data.canSubmit,
         blockingReason: taskExpired
-          ? "当前任务确实已经过期，请从今日页重新进入；已填写内容仍保留在本机。"
+          ? "任务确实已经过期啦，回今日页重新进一次；你填的内容都在本机留着。"
           : this.data.blockingReason,
       });
     }
@@ -2464,13 +2464,13 @@ function enterEssayAuthRequired(
   runtime.voiceUploadCoordinator = null;
   page.setData({
     status: "unavailable",
-    errorTitle: apiError ? "登录状态已过期" : "登录后才能继续申论任务",
+    errorTitle: apiError ? "登录状态已过期" : "登录后就能继续申论啦",
     errorMessage: apiError
-      ? `本页进度已保留，请重新登录后继续。`
-      : "学习记录必须绑定你的账号，请重新登录后继续。",
+      ? `本页的进度都留着，重新登录就能继续。`
+      : "学习记录要跟着账号走，先重新登录一下哦。",
     showLoginAction: true,
     submissionStatus: "error",
-    submissionMessage: "本页进度已保留，重新登录后会从服务器和本机记录恢复。",
+    submissionMessage: "本页的进度都留着，重新登录后会自动接着存。",
     draftLocked: true,
     canSubmit: false,
   });
@@ -2572,17 +2572,17 @@ function applyRewriteCompletion(
   const passed = result.status === "passed";
   page.setData({
     closureResult: {
-      statusLabel: passed ? "改写通过" : "仍需修正",
+      statusLabel: passed ? "这轮改写过了" : "还得再改改",
       statusTone: passed ? "success" : "warning",
       versionId: result.versionId,
       masteryLabel: result.masteryLabel,
-      planningMessage: "本次改写和掌握变化已保存，后续计划会据此安排迁移练习。",
+      planningMessage: "这轮改写已存好，计划会根据它给你排换题练习。",
     },
     hasSavedEvidence: true,
     submissionStatus: "saved",
     submissionMessage: passed
-      ? "新答案和逐条修正记录已保存，下一步可以做迁移练习。"
-      : "新答案已保存，未解决问题仍保持待改写。",
+      ? "新答案和每条修正都存好了，下一步可以换题练手。"
+      : "新答案已存好，还没解决的问题先留着，回头再改。",
     draftLocked: true,
     canSubmit: false,
   });
@@ -2603,9 +2603,9 @@ function applyTransferCompletion(
         ? "danger"
         : "warning";
   const label = {
-    verified: "迁移已验证",
-    not_verified: "迁移未验证",
-    inconclusive: "迁移证据不充分",
+    verified: "这次验证过了",
+    not_verified: "这次没验证上",
+    inconclusive: "验证的证据还不够",
   }[result.status];
   page.setData({
     closureResult: {
@@ -2613,12 +2613,12 @@ function applyTransferCompletion(
       statusTone: tone,
       versionId: result.versionId,
       masteryLabel: result.masteryLabel,
-      planningMessage: "本次迁移结果和掌握变化已保存，后续计划会据此继续复测。",
+      planningMessage: "这次换题结果已存好，计划会根据它继续安排。",
     },
     transferDraft: { ...page.data.transferDraft, phase: "completed" },
     hasSavedEvidence: true,
     submissionStatus: "saved",
-    submissionMessage: `迁移验证已保存：${label}。`,
+    submissionMessage: `换题验证已存好：${label}。`,
     draftLocked: true,
     canSubmit: false,
   });
@@ -2823,10 +2823,10 @@ function currentElapsedSeconds(runtime: EssayTaskPageRuntime): number {
 
 function pendingDraftingStatusMessage(pending: PendingEssayDraftingSubmission): string {
   if (pending.phase === "completion_pending") {
-    return "正在保存答案和复盘，并完成今天的申论任务…";
+    return "正在存答案和复盘，并完成今天的申论任务…";
   }
-  if (!pending.ensure?.jobId) return "答案已保存，正在确认完整评阅…";
-  return "评阅已开始，正在等待完整结果…";
+  if (!pending.ensure?.jobId) return "答案已存好，正在确认评阅…";
+  return "评阅已开始，正在等完整结果…";
 }
 
 function buildReviewEnsureCommand(intent: EssayReviewIntentView): EssayCurrentReviewEnsureCommand {
@@ -2925,11 +2925,11 @@ function handleDraftingRequestError(
       ? error.message
       : taskExpired
         ? completionPending
-          ? "任务已经过期，本次没有写入不完整记录。请从今日页重新进入。"
-          : "作答和计划已经保存，但任务已经过期。请返回今日页重新进入。"
+          ? "任务已经过期，这次没有写入不完整记录。回今日页重新进一次就好。"
+          : "作答和计划都存好了，但任务已经过期。回今日页重新进一次就好。"
         : apiError
-          ? `${apiError.message}。${completionPending ? "刚才的提交内容已保留" : "评阅任务已保存在账户中"}，可以直接重试。`
-          : `请求没有获得完整响应。${completionPending ? "刚才的提交内容已保留" : "评阅任务已保存在账户中"}，可以直接重试。`;
+          ? `${apiError.message}。${completionPending ? "刚才的提交内容还留着" : "评阅任务已经存进你的账户"}，直接再试就行。`
+          : `请求没拿到完整响应。${completionPending ? "刚才的提交内容还留着" : "评阅任务已经存进你的账户"}，直接再试就行。`;
   page.setData({
     submissionStatus: "error",
     submissionMessage: message,
@@ -2941,7 +2941,7 @@ function handleDraftingRequestError(
       runtime.activeReviewIntent !== null,
     blockingReason:
       taskExpired && completionPending
-        ? "当前作答上下文已过期，必须从最新今日计划重新进入。"
+        ? "这次作答的依据已经过期，回最新今日计划重新进一次就好。"
         : page.data.blockingReason,
   });
 }

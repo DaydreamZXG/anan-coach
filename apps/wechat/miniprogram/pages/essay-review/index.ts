@@ -31,7 +31,7 @@ Page({
     if (!taskVersionId) {
       this.setData({
         status: "error",
-        errorMessage: "页面地址不完整，请从申论作答页重新进入。",
+        errorMessage: "这个地址好像不对，回申论作答页再进一次就行。",
         retryAllowed: false,
       });
       return;
@@ -43,7 +43,7 @@ Page({
       const api = new EssayIntelligenceApi(client);
       const workspace = (await api.getWorkspace(taskVersionId)).data;
       const reviewVersionId = this.data.reviewVersionId || workspace.progression.reviewVersionId;
-      if (!reviewVersionId) throw new Error("当前题目还没有完成评阅。");
+      if (!reviewVersionId) throw new Error("这道题还没评完呢。");
       const review = (await api.getGroundedReview(reviewVersionId)).data;
       this.setData({
         status: "ready",
@@ -52,7 +52,7 @@ Page({
         retryAllowed: false,
       });
     } catch (error) {
-      const view = errorView(error, "申论评阅没有加载成功，请重试。");
+      const view = errorView(error, "评阅没加载出来，别急，再试一次。");
       this.setData({
         status: "error",
         errorMessage: view.message,
@@ -72,7 +72,7 @@ Page({
 
   rewriteAgain() {
     void wx.showToast({
-      title: "请从今日计划进入改写任务",
+      title: "改写要从今日计划进，马上带你过去。",
       icon: "none",
     });
     void wx.switchTab({ url: routes.today });

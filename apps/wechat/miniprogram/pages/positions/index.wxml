@@ -1,12 +1,12 @@
 <view class="s9-screen position-screen position-screen--dock">
-  <workbench-nav id="runtime-workbench-nav" title="岗位决策台" back-behavior="emit" bind:back="goBack" />
+  <workbench-nav id="runtime-workbench-nav" title="我的岗位" back-behavior="emit" bind:back="goBack" />
 
   <view class="position-content position-content--workspace">
     <state-view wx:if="{{!workspace || workspace.status === 'idle' || workspace.status === 'loading'}}" state="loading" />
     <state-view
       wx:elif="{{workspace.status === 'needsProfile'}}"
       state="empty"
-      title="先补完整报考资料"
+      title="先把报考资料补全"
       description="填好学历、专业和经历，岸岸才能筛出真正能报的岗位。"
       action-text="去补资料"
       bind:action="openQualificationProfile"
@@ -25,7 +25,7 @@
       title="{{workspace.error.title}}"
       description="{{workspace.error.message}}"
       request-id="{{workspace.error.requestId}}"
-      action-text="重新加载"
+      action-text="再试一次"
       bind:action="retryPositions"
     />
 
@@ -33,7 +33,7 @@
       <view class="profile-context-card">
         <view class="context-orb"></view>
         <view class="context-card__body">
-          <view class="context-card__kicker">岸岸已载入你的报考档案</view>
+          <view class="context-card__kicker">岸岸已把你的报考档案准备好了</view>
           <view class="context-chips">
             <text class="context-chip">{{workspace.examYear}} 国考</text>
             <text class="context-chip">{{workspace.qualificationComplete ? '资料已完整' : '资料待确认'}}</text>
@@ -43,7 +43,7 @@
           <view class="context-card__summary">
             <view class="context-card__count">
               <text class="sparkle-mark">✦</text>
-              <text>已筛出 <text class="context-card__number">{{workspace.eligibleCount}}</text> 个资格已确认岗位</text>
+              <text>已为你筛出 <text class="context-card__number">{{workspace.eligibleCount}}</text> 个能报的岗位</text>
             </view>
             <button hover-class="item--hover" class="context-card__link" bindtap="openSearch">查看全部 <text class="tiny-chevron">›</text></button>
           </view>
@@ -51,8 +51,8 @@
       </view>
 
       <view wx:if="{{workspace.refreshError}}" class="position-inline-alert">
-        岗位信息暂时没有更新成功。
-        <button hover-class="item--hover" class="text-action" bindtap="retryPositions">重新加载</button>
+        岗位信息刚才没更新好，别急，再试一次就好。
+        <button hover-class="item--hover" class="text-action" bindtap="retryPositions">再试一次</button>
       </view>
       <view wx:if="{{workspace.delivery && (workspace.delivery.partial || workspace.delivery.stale)}}" class="position-inline-alert">
         {{workspace.delivery.partial ? workspace.delivery.partialLabel : workspace.delivery.staleLabel}}
@@ -76,7 +76,7 @@
         </view>
       </block>
 
-      <view wx:if="{{workspace.candidateItems.length}}" class="position-section-title">{{workspace.primaryGoal ? '其他优势推荐' : '为你筛出的优势岗位'}} ({{workspace.candidateItems.length}})</view>
+      <view wx:if="{{workspace.candidateItems.length}}" class="position-section-title">{{workspace.primaryGoal ? '其他值得看看的岗位' : '为你挑出的岗位'}} ({{workspace.candidateItems.length}})</view>
       <view wx:if="{{workspace.candidateItems.length}}" class="discovery-list position-card-grid">
         <view
           wx:for="{{workspace.candidateItems}}"
@@ -111,13 +111,13 @@
       </view>
 
       <view wx:if="{{!workspace.candidateItems.length && !workspace.primaryGoal}}" class="position-empty-card">
-        <view class="position-empty-card__title">暂时没有优势推荐</view>
-        <view class="position-empty-card__copy">暂时没有同时具备资格依据和历年目标分依据的岗位；这不会阻断今日学习。</view>
+        <view class="position-empty-card__title">暂时还没有特别推荐的岗位</view>
+        <view class="position-empty-card__copy">现在还没有同时符合你条件、又有往年分数参考的岗位。别急，这不耽误今天的备考。</view>
         <button hover-class="item--hover" class="secondary-pill" bindtap="openSearch">查看全部岗位</button>
       </view>
 
       <block wx:if="{{workspace.evidencePendingItems.length}}">
-        <view class="position-section-title">资格已确认，待补推荐证据 ({{workspace.evidencePendingItems.length}})</view>
+        <view class="position-section-title">资格没问题，还差分数参考 ({{workspace.evidencePendingItems.length}})</view>
         <view class="discovery-list position-card-grid">
           <view
             wx:for="{{workspace.evidencePendingItems}}"
@@ -145,7 +145,7 @@
                 data-id="{{item.positionId}}"
                 catchtap="toggleComparison"
               >{{item.comparisonSelected ? '✓ 已加入对比' : '＋ 加入对比'}}</button>
-              <text class="position-card__open">查看证据 ›</text>
+              <text class="position-card__open">看看推荐理由 ›</text>
             </view>
           </view>
         </view>
@@ -153,7 +153,7 @@
 
       <block wx:if="{{workspace.needsConfirmationItems.length}}">
         <view class="position-section-title">待确认岗位 ({{workspace.needsConfirmationItems.length}})</view>
-        <view class="position-inline-alert">这些岗位尚未通过全部硬条件核验，不会进入优势推荐。</view>
+        <view class="position-inline-alert">这些岗位还有些条件没核对完，先不放进推荐。有空把条件核一核就行。</view>
         <view class="discovery-list position-card-grid">
           <view
             wx:for="{{workspace.needsConfirmationItems}}"
@@ -196,7 +196,7 @@
       </view>
 
       <view class="quiet-actions">
-        <button hover-class="item--hover" class="quiet-action" bindtap="openScoreSheet">记录成绩，计算分差</button>
+        <button hover-class="item--hover" class="quiet-action" bindtap="openScoreSheet">记一下成绩，看看离目标差多少</button>
         <button hover-class="item--hover" class="quiet-action" bindtap="openQualificationProfile">修改报考资料</button>
       </view>
     </block>
@@ -204,8 +204,8 @@
 
   <view wx:if="{{workspace && workspace.selectedIds.length > 0}}" class="comparison-dock">
     <view class="comparison-dock__summary">
-      <text class="comparison-dock__title">已选 {{workspace.selectedIds.length}} / 3</text>
-      <text class="comparison-dock__note">{{workspace.selectedIds.length < 2 ? '再选 1 个开始对比' : '可以横向比较资格和分差'}}</text>
+      <text class="comparison-dock__title">选了 {{workspace.selectedIds.length}} / 3</text>
+      <text class="comparison-dock__note">{{workspace.selectedIds.length < 2 ? '再挑 1 个就能对比' : '资格、分数差距一眼看清'}}</text>
     </view>
     <button hover-class="item--hover" class="comparison-dock__clear" bindtap="clearComparison">清空</button>
     <button hover-class="item--hover" class="comparison-dock__action {{workspace.selectedIds.length < 2 ? 'comparison-dock__action--disabled' : ''}}" disabled="{{workspace.selectedIds.length < 2}}" bindtap="openComparison">对比</button>
@@ -217,20 +217,20 @@
     <view class="sheet-header">
       <view>
         <view class="sheet-kicker">成绩记录</view>
-        <view class="sheet-title">{{score.supersedesEvidenceId ? '修正这条成绩' : '记录真实单科分'}}</view>
+        <view class="sheet-title">{{score.supersedesEvidenceId ? '修正这条成绩' : '记一笔真实成绩'}}</view>
       </view>
       <button hover-class="item--hover" class="control-center sheet-close" bindtap="closeScoreSheet">×</button>
     </view>
-    <view class="sheet-copy">行测与申论分别记录；只有同一口径下两科都完整时，才计算总分与岗位分差。</view>
+    <view class="sheet-copy">行测、申论分开记。得是同一场考试的两科，才能一起算总分、看和岗位差多少。</view>
 
     <view class="sheet-subhead">
       <text>历史记录</text>
       <button wx:if="{{score.supersedesEvidenceId}}" hover-class="item--hover" class="text-action" bindtap="startNewScoreEvidence">改为新增</button>
     </view>
-    <view wx:if="{{score.historyStatus === 'loading'}}" class="sheet-empty">正在读取历史成绩…</view>
+    <view wx:if="{{score.historyStatus === 'loading'}}" class="sheet-empty">正在翻历史成绩…</view>
     <view wx:elif="{{score.historyStatus === 'error'}}" class="sheet-error">
       <text>{{score.historyError.message}}</text>
-      <button hover-class="item--hover" class="text-action" bindtap="retryScoreHistory">重试</button>
+      <button hover-class="item--hover" class="text-action" bindtap="retryScoreHistory">再试一次</button>
     </view>
     <view wx:elif="{{!score.history.length}}" class="sheet-empty">还没有成绩记录，这次是第一条。</view>
     <scroll-view wx:else class="history-scroll" scroll-y>
@@ -253,7 +253,7 @@
       <label class="score-input"><text>行测</text><input class="score-input__control" type="digit" value="{{score.xingceScore}}" disabled="{{score.saving || score.submissionUncertain}}" placeholder="0–100" bindinput="inputXingceScore" /></label>
       <label class="score-input"><text>申论</text><input class="score-input__control" type="digit" value="{{score.shenlunScore}}" disabled="{{score.saving || score.submissionUncertain}}" placeholder="0–100" bindinput="inputShenlunScore" /></label>
     </view>
-    <view class="form-label">是否按规定限时完成</view>
+    <view class="form-label">是限时完成的吗</view>
     <view class="choice-row">
       <button hover-class="item--hover" class="control-center choice {{score.scoreTimedStatus === 'timed' ? 'choice--active' : ''}}" data-value="timed" bindtap="chooseTimedStatus">是</button>
       <button hover-class="item--hover" class="control-center choice {{score.scoreTimedStatus === 'untimed' ? 'choice--active' : ''}}" data-value="untimed" bindtap="chooseTimedStatus">否</button>
@@ -265,12 +265,12 @@
     <view wx:if="{{score.validationError}}" class="sheet-error">{{score.validationError}}</view>
     <view wx:if="{{score.error}}" class="sheet-error">
       <view>{{score.error.message}}</view>
-      <view wx:if="{{score.submissionUncertain}}">请确认刚才的保存结果，内容不会重复写入。</view>
+      <view wx:if="{{score.submissionUncertain}}">看看刚才有没有存上，放心，不会记重复的。</view>
       <view wx:if="{{score.error.requestId}}">问题编号 · {{score.error.requestId}}</view>
     </view>
     <view class="sheet-actions">
       <button hover-class="item--hover" class="control-center sheet-button sheet-button--secondary" disabled="{{score.submissionUncertain}}" bindtap="closeScoreSheet">取消</button>
-      <button hover-class="item--hover" class="control-center sheet-button sheet-button--primary tap-tactile" bindtap="submitScoreEvidence">{{score.submissionUncertain ? '确认刚才结果' : (score.supersedesEvidenceId ? '保存修正' : '确认记录')}}</button>
+      <button hover-class="item--hover" class="control-center sheet-button sheet-button--primary tap-tactile" bindtap="submitScoreEvidence">{{score.submissionUncertain ? '确认刚才结果' : (score.supersedesEvidenceId ? '保存修正' : '保存成绩')}}</button>
     </view>
   </view>
 </view>

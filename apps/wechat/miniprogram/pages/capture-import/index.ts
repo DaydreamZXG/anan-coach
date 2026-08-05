@@ -249,7 +249,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     }
     this.setData({
       cameraReady: false,
-      cameraError: "相机没有启动成功，请检查系统相机权限后重试。",
+      cameraError: "相机没启动成功，检查一下系统相机权限再试一次吧。",
     });
   },
 
@@ -264,7 +264,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
       if (file && controller) await controller.startImport(file);
     } catch {
       void wx.showToast({
-        title: "裁剪工具没有打开，可直接确认原图",
+        title: "裁剪没打开，直接用原图也行",
         icon: "none",
       });
     }
@@ -388,7 +388,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     const contentVersionId =
       this.data.state?.activeQuestionUnit?.match?.confirmedContentVersionId?.trim() ?? "";
     if (!contentVersionId) {
-      void wx.showToast({ title: "请先确认匹配的题目", icon: "none" });
+      void wx.showToast({ title: "先确认一下匹配的题目吧", icon: "none" });
       return;
     }
     void wx.navigateTo({ url: learningPacketsUrl({ contentVersionId }) });

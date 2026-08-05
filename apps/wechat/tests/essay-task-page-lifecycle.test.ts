@@ -126,7 +126,7 @@ describe("essay task page lifecycle", () => {
     expect(requests).toHaveLength(1);
     expect(page.data.reviewDisplay).toMatchObject({
       state: "waiting_quota",
-      title: "答案已保存，评阅额度待恢复",
+      title: "答案已存好，评阅次数明天恢复",
     });
     expect(page.data.submissionStatus).toBe("saved");
     page.onUnload.call(page);

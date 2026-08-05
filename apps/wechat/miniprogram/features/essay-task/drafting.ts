@@ -7,11 +7,11 @@ import type {
 } from "../../api/essay-intelligence";
 
 export const sourceContextValues = ["in_program", "paper", "external"] as const;
-export const sourceContextLabels = ["小程序内作答", "纸质作答", "其他平台作答"];
+export const sourceContextLabels = ["直接在手机上写", "写在纸上", "在别的地方写的"];
 export const timedStatusValues = ["timed", "untimed", "unknown"] as const;
-export const timedStatusLabels = ["严格计时", "不限时练习", "用时不确定"];
+export const timedStatusLabels = ["按考试时间写", "不卡时间", "没记时间"];
 export const answerSourceTypeValues = ["typed", "ocr_confirmed"] as const;
-export const answerSourceTypeLabels = ["键盘录入", "手写识别已逐段核对"];
+export const answerSourceTypeLabels = ["键盘打字", "手写拍照核对过"];
 export const reflectionCauseValues = [
   "missed_material",
   "wrong_abstraction",
@@ -22,13 +22,13 @@ export const reflectionCauseValues = [
   "format",
 ] as const satisfies ReflectionPayload["causeCodes"];
 export const reflectionCauseLabels: Record<ReflectionCauseCode, string> = {
-  missed_material: "漏看材料",
-  wrong_abstraction: "概括层级不准",
-  weak_structure: "结构组织薄弱",
-  unsupported_claim: "观点缺少材料支撑",
-  expression: "表达不够规范",
-  time_management: "时间分配失衡",
-  format: "格式或题型要求",
+  missed_material: "有材料没看到",
+  wrong_abstraction: "概括得偏高或偏低",
+  weak_structure: "段落结构没排好",
+  unsupported_claim: "观点没材料撑住",
+  expression: "话没写到位",
+  time_management: "时间没分配好",
+  format: "格式不符合要求",
 };
 
 export type ReflectionCauseCode = ReflectionPayload["causeCodes"][number];
@@ -123,7 +123,7 @@ export function buildDraftingCompletionCommand(
 ): EssayDraftingCompletionCommandV2 {
   const rubricVersionId = workspace.rubricAvailability.rubric?.rubricVersionId;
   if (!rubricVersionId || workspace.rubricAvailability.status !== "published") {
-    throw new EssayDraftingError("这道题还没有可用的评分规则，暂时不能提交。");
+    throw new EssayDraftingError("这道题的评分依据还没备好，先别急着交，等一下就绪。");
   }
   const planTaskId = required(context.planTaskId, "本次作答没有绑定今日计划任务。");
   const existingAttemptId = workspace.progression.attemptId ?? undefined;
@@ -141,10 +141,10 @@ export function buildDraftingCompletionCommand(
   const whatIWillChange = required(draft.whatIWillChange, "请写下下一次作答要具体改变什么。");
   const verificationPlan = required(draft.verificationPlan, "请写下你会怎样验证这次改法是否有效。");
   if (draft.reflectionCauseCodes.length === 0) {
-    throw new EssayDraftingError("请至少选择一个本次作答的主要问题来源。");
+    throw new EssayDraftingError("先勾一个这次主要卡在哪，我们好对症下药。");
   }
   if (new Set(draft.reflectionCauseCodes).size !== draft.reflectionCauseCodes.length) {
-    throw new EssayDraftingError("复盘问题来源不能重复。");
+    throw new EssayDraftingError("别勾重复的，选不同的原因就行。");
   }
 
   const voiceArtifactVersionIds = context.voiceArtifactVersionIds ?? [];
@@ -153,7 +153,7 @@ export function buildDraftingCompletionCommand(
     new Set(voiceArtifactVersionIds).size !== voiceArtifactVersionIds.length ||
     voiceArtifactVersionIds.some((value) => !value.trim())
   ) {
-    throw new EssayDraftingError("语音复盘必须选择最多 3 个不重复的已就绪录音。");
+    throw new EssayDraftingError("语音复盘最多选 3 段不同的录音。");
   }
 
   const attempt: EssayDraftingCompletionCommandV2["attempt"] = existingAttemptId
@@ -301,13 +301,13 @@ function resolveElapsedSeconds(
   if (!manualMinutes) return Math.max(1, Math.floor(pageElapsedSeconds));
   const minutes = Number(manualMinutes);
   if (!Number.isInteger(minutes) || minutes <= 0 || minutes > 1_440) {
-    throw new EssayDraftingError("严格计时需填写 1–1440 的整数分钟，或留空使用本页计时。");
+    throw new EssayDraftingError("按考试时间写的话，填 1–1440 之间的整数分钟，不填就用本页计时。");
   }
   return minutes * 60;
 }
 
 function answerText(value: string): string {
-  if (!value.trim()) throw new EssayDraftingError("请先完成申论答案再提交。");
+  if (!value.trim()) throw new EssayDraftingError("先把答案写完再交。");
   if (value.length > 10_000) {
     throw new EssayDraftingError("答案不能超过 10000 字。");
   }
@@ -316,7 +316,7 @@ function answerText(value: string): string {
 
 function ocrBinding(sourceArtifactVersionId: string, recognitionRevisionId: string) {
   if (!sourceArtifactVersionId.trim() || !recognitionRevisionId.trim()) {
-    throw new EssayDraftingError("手写答案必须先逐段核对识别文字。");
+    throw new EssayDraftingError("拍的手写要先逐段核对一遍。");
   }
   return { sourceArtifactVersionId, recognitionRevisionId };
 }

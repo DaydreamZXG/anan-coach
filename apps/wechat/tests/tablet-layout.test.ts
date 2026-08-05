@@ -101,7 +101,7 @@ describe("tablet responsive layout contract", () => {
     expect(practiceTemplate).toContain(
       "footerAvailable=\"{{status === 'ready' && sessionState === 'answering' && view && view.current === view.total}}\"",
     );
-    expect(practiceTemplate).toContain("左右滑动切题，点顶部题号可打开答题卡");
+    expect(practiceTemplate).toContain("左右滑动切题，点顶部题号可打开题号面板");
     expect(practiceTemplate).not.toContain("footer-previous");
     expect(practiceTemplate).not.toContain("? '下一题'");
     // Figma 2:2：材料与题目各自滚动，宽屏由等高双栏承载，不再依赖 sticky。

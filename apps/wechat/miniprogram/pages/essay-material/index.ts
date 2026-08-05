@@ -44,7 +44,7 @@ Page({
     if (!taskVersionId) {
       this.setData({
         status: "error",
-        errorMessage: "页面地址不完整，请从申论作答页重新进入。",
+        errorMessage: "这个地址好像不对，回申论作答页再进一次就行。",
         retryAllowed: false,
       });
       return;
@@ -107,7 +107,7 @@ Page({
         });
       }
     } catch (error) {
-      const view = errorView(error, "材料没有加载成功，请重试。");
+      const view = errorView(error, "材料没加载出来，别急，再试一次。");
       this.setData({
         status: "error",
         errorMessage: view.message,
@@ -172,7 +172,7 @@ Page({
     const eventChannel = this.getOpenerEventChannel();
     if (!eventChannel.emit) {
       void wx.showToast({
-        title: "请返回作答页后重新打开材料",
+        title: "回作答页再打开一次材料就行",
         icon: "none",
       });
       return;

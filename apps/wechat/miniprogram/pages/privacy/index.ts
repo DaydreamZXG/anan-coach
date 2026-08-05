@@ -51,14 +51,14 @@ function exportPresentation(value: DataExportView): ExportPresentation {
       };
     case "failed":
       return {
-        stateLabel: "这次没有生成成功，请重新生成",
+        stateLabel: "这次没生成成功，重新来一次吧",
         canRefresh: false,
         canOpen: false,
         canRestart: true,
       };
     case "expired":
       return {
-        stateLabel: "这份导出文件已过期，请重新生成",
+        stateLabel: "这份文件已经过期，重新生成一份吧",
         canRefresh: false,
         canOpen: false,
         canRestart: true,
@@ -120,7 +120,7 @@ Page({
       const apiError = error instanceof ApiClientError ? error : undefined;
       this.setData({
         status: "error",
-        errorMessage: apiError?.message ?? "数据清单加载失败，请重试。",
+        errorMessage: apiError?.message ?? "数据清单没加载出来，再试一次吧。",
         requestId: apiError?.requestId ?? "",
       });
     }
@@ -151,7 +151,7 @@ Page({
       if (apiError && apiError.statusCode >= 400 && apiError.statusCode < 500) {
         clearPendingDataExport(session.userId);
       }
-      this.setData({ errorMessage: apiError?.message ?? "数据导出状态没有恢复成功。" });
+      this.setData({ errorMessage: apiError?.message ?? "数据导出状态没恢复，再试一次吧。" });
     } finally {
       this.setData({ restoringExport: false });
     }
@@ -185,7 +185,7 @@ Page({
       if (!uncertain) clearPendingDataExport(session.userId);
       this.setData({
         errorMessage: uncertain
-          ? "刚才的请求结果还不确定，已保留进度，可以直接重试。"
+          ? "刚才的结果还不确定，进度帮你留着，直接再试一次就好。"
           : apiError.message,
       });
     } finally {
@@ -212,7 +212,7 @@ Page({
       this.setData({ errorMessage: "" });
     } catch (error) {
       const apiError = error instanceof ApiClientError ? error : undefined;
-      this.setData({ errorMessage: apiError?.message ?? "生成状态没有更新成功。" });
+      this.setData({ errorMessage: apiError?.message ?? "生成状态还没更新，再试一次吧。" });
     }
   },
 
@@ -254,7 +254,7 @@ Page({
       });
     } catch (error) {
       const apiError = error instanceof ApiClientError ? error : undefined;
-      this.setData({ errorMessage: apiError?.message ?? "导出文件保存失败。" });
+      this.setData({ errorMessage: apiError?.message ?? "文件没保存成功，再试一次吧。" });
     } finally {
       this.setData({ openingExport: false });
     }
@@ -293,7 +293,7 @@ Page({
     if (this.data.deletionPhrase !== confirmationPhrase || this.data.deleting) return;
     wx.showModal({
       title: "账户删除后无法恢复",
-      content: "会立即退出全部设备，删除身份映射和私有上传原件。建议先导出数据。",
+      content: "会马上退出所有设备，删除你的身份信息和上传的原件。建议先把数据导出来。",
       confirmText: "确认删除",
       confirmColor: "#C83F56",
       success: (result) => {
@@ -333,7 +333,7 @@ Page({
       this.setData({
         deleting: false,
         errorMessage: uncertain
-          ? "刚才的删除请求结果还不确定，已保留操作，重新进入后会继续确认。"
+          ? "刚才的删除结果还不确定，操作帮你留着，下次进来会接着确认。"
           : apiError.message,
       });
     }

@@ -57,7 +57,7 @@ const questionTypeLabels: Record<EssayTaskWorkspace["task"]["questionType"], str
 };
 
 const artifactLabels: Record<EssayArtifactType, string> = {
-  material_annotation: "材料标注",
+  material_annotation: "材料地图",
   point_extraction: "要点提炼",
   outline: "结构提纲",
   review_acknowledgement: "评阅确认",
@@ -126,20 +126,20 @@ export function presentEssayWorkspace(
     wordLimit: workspace.task.wordLimit,
     maximumScore: workspace.task.maximumScore,
     materialSourceLabel: {
-      own_bank: "自有题库",
+      own_bank: "自研题库",
       official: "官方材料",
-      external_confirmed: "已确认外部材料",
+      external_confirmed: "外部材料(已核对)",
     }[workspace.material.sourceKind],
     segments,
     materialParagraphCount: segments.reduce((total, item) => total + item.paragraphCount, 0),
     directory,
-    rubricStatusLabel: rubric ? "评分规则已就绪" : "评分规则待补充",
+    rubricStatusLabel: rubric ? "评分依据已备好" : "评分依据还没备好",
     rubricStatusDetail: rubric
-      ? `${rubric.sourceKind === "official" ? "官方" : "AI 编制·未人工核验"} · ${String(rubric.totalMaximum)} 分`
-      : "当前只开放不依赖评分点的材料标注，不会伪造标准答案。",
+      ? `${rubric.sourceKind === "official" ? "官方" : "AI 初拟·还没人工核对"} · ${String(rubric.totalMaximum)} 分`
+      : "现在只能先做不依赖评分依据的步骤，不会硬编标准答案。",
     currentVersionLabel: current
-      ? `${artifactLabels[current.artifactType]} · 第 ${String(current.versionNo)} 次保存`
-      : "本阶段还没有保存",
+      ? `${artifactLabels[current.artifactType]} · 已保存 ${String(current.versionNo)} 次`
+      : "这一步还没存过",
     findings: (workspace.progression.currentReview?.findings ?? []).map(presentFinding),
     pointOptions: points.map((point, index) => ({
       pointId: point.pointId,
@@ -150,33 +150,33 @@ export function presentEssayWorkspace(
 
 export function stageBlockingReason(stage: EssayTaskStage, workspace: EssayTaskWorkspace): string {
   if (stage === "essay_drafting" && workspace.rubricAvailability.status !== "published") {
-    return "这道题的评分规则还未就绪，暂时不能提交评阅。";
+    return "这道题的评分依据还没备好，先别急着交，等一下就绪。";
   }
   if (stage === "essay_point_extraction") {
     if (workspace.rubricAvailability.status !== "published") {
-      return "评分规则还未就绪，暂时不能开始要点提炼。";
+      return "评分依据还没备好，稍微等等再提炼要点。";
     }
     if (!workspace.currentArtifacts.material_annotation) {
-      return "请先完成材料地图，并为每个要点选择对应材料段落。";
+      return "材料地图还没做完，先去读材料、给每段划个重点。";
     }
   }
   if (stage === "essay_outlining") {
     if (workspace.rubricAvailability.status !== "published") {
-      return "评分规则还未就绪，暂时不能开始提纲练习。";
+      return "评分依据还没备好，稍微等等再排提纲。";
     }
     if (!workspace.currentArtifacts.point_extraction) {
-      return "请先完成要点提炼，并为每个提纲段落选择支撑要点。";
+      return "要点还没提炼完，先把要点定下来再排提纲。";
     }
   }
   if (stage === "essay_review") {
     if (workspace.rubricAvailability.status !== "published") {
-      return "评分规则还未就绪，暂时不能确认评阅。";
+      return "评分依据还没备好，先等等再确认评阅。";
     }
     if (
       workspace.progression.currentReview?.status !== "completed" ||
       workspace.progression.currentReview.findings.length === 0
     ) {
-      return "当前还没有可逐条确认的完整评阅。";
+      return "现在还没有完整的评阅可以逐条确认，再等等。";
     }
   }
   return "";

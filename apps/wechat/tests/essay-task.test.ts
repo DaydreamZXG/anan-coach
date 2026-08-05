@@ -273,7 +273,7 @@ describe("essay drafting workflow", () => {
       trainingEstimateLabel: "12–15",
       recommendedLabel: "14",
       maximumLabel: "20",
-      confidenceLabel: "低置信度",
+      confidenceLabel: "把握还不大",
       confidenceLow: true,
     });
     expect(display.result?.dimensions[0]).toMatchObject({
@@ -328,7 +328,7 @@ describe("essay drafting workflow", () => {
 
     expect(display).toMatchObject({
       state: "waiting_quota",
-      title: "答案已保存，评阅额度待恢复",
+      title: "答案已存好，评阅次数明天恢复",
       result: null,
     });
     expect(display.message).toContain("20/20");
@@ -417,7 +417,7 @@ describe("essay artifact forms", () => {
       learnerUnderstanding: "我把现象误写成原因，下一版要回到材料关系。",
     };
     expect(() => buildArtifactCommand("essay_review", workspace, drafts)).toThrow(
-      "评阅内容刚刚有更新",
+      "评阅内容刚更新过",
     );
 
     drafts.review.decisions.push({

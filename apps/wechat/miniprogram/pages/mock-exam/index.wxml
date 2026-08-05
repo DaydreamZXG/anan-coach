@@ -2,7 +2,7 @@
   id="runtime-task-shell"
   layoutVariant="xingce"
   title="{{title}}"
-  modeLabel="正式整卷 · 限时计时"
+  modeLabel="整卷模考 · 限时计时"
   current="{{current}}"
   total="{{total || 1}}"
   elapsedLabel="{{remainingLabel}}"
@@ -22,7 +22,7 @@
   bindtools="toggleTools"
 >
   <view wx:if="{{status === 'loading'}}" class="page-state">
-    <state-view state="loading" title="正在恢复整卷" description="正在准备试卷，恢复你上次的进度。" />
+    <state-view state="loading" title="正在准备这次模考" description="正在找回你上次的进度，别急。" />
   </view>
 
   <view wx:elif="{{status === 'error'}}" class="page-state">
@@ -30,7 +30,7 @@
   </view>
 
   <view wx:elif="{{status === 'unavailable'}}" class="capability-state card">
-    <view class="capability-mark">先确认整卷条件</view>
+    <view class="capability-mark">先确认一下状态</view>
     <view class="capability-title">{{errorTitle}}</view>
     <view class="capability-copy">{{errorMessage}}</view>
     <button hover-class="item--hover" wx:if="{{showLoginAction}}" class="secondary-button capability-action" bindtap="goLogin">去登录</button>
@@ -38,32 +38,32 @@
 
   <view wx:elif="{{status === 'submitted' && receipt}}" class="submitted-workspace">
     <view class="submitted-hero">
-      <view class="submitted-mark">交卷了。深呼吸，成绩不会跑</view>
+      <view class="submitted-mark">这套卷做完了。深呼吸，成绩不会跑</view>
       <view class="submitted-score"><text class="submitted-score__value">{{receipt.review.performanceIndex}}</text> 表现点</view>
-      <view class="submitted-source">样本区间 {{receipt.review.performanceRange.lower}}–{{receipt.review.performanceRange.upper}} 表现点</view>
+      <view class="submitted-source">参考区间 {{receipt.review.performanceRange.lower}}–{{receipt.review.performanceRange.upper}} 表现点</view>
       <view class="submitted-source">{{receipt.review.metricDefinition}}</view>
     </view>
     <view class="submitted-note card">
-      <view class="submitted-note-title">交卷前未提供解析、公式卡或解题 AI</view>
-      <view class="submitted-note-copy">本页先看整卷结果。逐题解析和方法总结会收进正式模考报告。</view>
+      <view class="submitted-note-title">做这套卷时，没给你答案详解、公式卡或解题助手</view>
+      <view class="submitted-note-copy">先看这场的整体结果。每道题的详解和方法总结，都收在正式模考报告里。</view>
     </view>
     <view class="module-result card" wx:for="{{receipt.review.modules}}" wx:key="moduleName">
       <view>{{item.moduleName}}</view>
-      <view class="module-result-data type-data">{{item.correct}} / {{item.total}} · 正确率 {{item.accuracy * 100}}%</view>
+      <view class="module-result-data type-data">做对 {{item.correct}} / {{item.total}} · {{item.accuracy * 100}}%</view>
     </view>
     <view class="next-week card">{{receipt.review.nextWeekReason}}</view>
-    <button hover-class="item--hover" class="primary-button" bindtap="openMockReport">查看正式模考报告</button>
+    <button hover-class="item--hover" class="primary-button" bindtap="openMockReport">查看模考报告</button>
     <button hover-class="item--hover" class="secondary-button" bindtap="returnToday">返回今日计划</button>
   </view>
 
   <view wx:elif="{{status === 'submitted'}}" class="page-state">
     <state-view
       state="empty"
-      title="{{errorTitle || '本场模考已经交卷'}}"
-      description="{{errorMessage || '答案解析只在正式报告页按权限展示。'}}"
+      title="{{errorTitle || '本场模考已经提交'}}"
+      description="{{errorMessage || '答案详解都收在模考报告里。'}}"
     />
-    <button hover-class="item--hover" wx:if="{{reportSessionId}}" class="primary-button" bindtap="openMockReport">查看正式模考报告</button>
-    <view wx:else class="inline-warning">找不到这场模考的记录，请从报告中心重新进入。</view>
+    <button hover-class="item--hover" wx:if="{{reportSessionId}}" class="primary-button" bindtap="openMockReport">查看模考报告</button>
+    <view wx:else class="inline-warning">没找到这场模考的记录，回报告中心再进一次就好。</view>
     <button hover-class="item--hover" class="secondary-button" bindtap="returnToday">返回今日计划</button>
   </view>
 
@@ -193,9 +193,9 @@
     marked="{{marked}}"
     subtitle="{{question.moduleName}} · 共 {{total}} 题"
     moduleName="{{question.moduleName}}"
-    moduleCounts="{{answered}} 已答 · {{unanswered}} 未答 · 1 当前"
+    moduleCounts="{{answered}} 已答 · {{unanswered}} 未答 · 1 正在答"
     hint="点题号即可直接切换，存疑题会保留标记"
-    submitLabel="检查并交卷"
+    submitLabel="检查后提交"
     bindclose="toggleAnswerSheet"
     bindselect="selectQuestionFromSheet"
     bindsubmit="submitExam"
@@ -236,7 +236,7 @@
 
   <ui-sheet
     visible="{{disputeOpen && question}}"
-    title="题面异常 / 争议上报"
+    title="这题有点问题？"
     copy="报错只带题目信息，不带你的答案。"
     show-close
     level="overlay"
@@ -266,12 +266,12 @@
         class="primary-button"
         disabled="{{disputeDescription.length < 2 || disputeStatus === 'submitting' || disputeStatus === 'resolved'}}"
         bindtap="submitDispute"
-      >{{disputeStatus === 'submitting' ? '正在提交' : disputeStatus === 'resolved' ? '已提交' : '提交争议'}}</button>
+      >{{disputeStatus === 'submitting' ? '正在提交' : disputeStatus === 'resolved' ? '已提交' : '提交问题'}}</button>
     </view>
   </ui-sheet>
 
   <view slot="footer" wx:if="{{status === 'ready' && current === total}}" class="footer-actions">
-    <button hover-class="item--hover" class="primary-button" disabled="{{interactionLocked}}" bindtap="submitExam">检查并交卷</button>
+    <button hover-class="item--hover" class="primary-button" disabled="{{interactionLocked}}" bindtap="submitExam">检查后提交</button>
   </view>
 
   <!-- Figma 98:173-98:203：模考交卷底部确认面板。 -->
@@ -280,18 +280,18 @@
     <view class="mock-submit__sheet">
       <view class="mock-submit__grabber" aria-hidden="true"></view>
       <view class="mock-submit__head">
-        <view class="mock-submit__title">准备交卷</view>
+        <view class="mock-submit__title">这套卷准备好了吗</view>
         <view class="mock-submit__soul">模考就是拿来疼的，考场就轻了。</view>
         <view class="mock-submit__time">已用时 {{submitElapsedLabel}}</view>
       </view>
 
       <view wx:if="{{unanswered > 0}}" class="mock-submit__warning">
         <view class="mock-submit__warning-dot" aria-hidden="true"></view>
-        <text>还有 {{unanswered}} 题未作答，交卷后不能继续修改</text>
+        <text>还有 {{unanswered}} 题没答，提交后就不能再改了</text>
       </view>
       <view wx:else class="mock-submit__warning mock-submit__warning--ready">
         <view class="mock-submit__warning-dot mock-submit__warning-dot--ready" aria-hidden="true"></view>
-        <text>全部题目已作答，交卷后不能继续修改</text>
+        <text>题都答完了，提交后就不能再改了</text>
       </view>
 
       <view class="mock-submit__stats">
@@ -325,7 +325,7 @@
 
       <view class="mock-submit__actions">
         <button hover-class="item--hover" class="mock-submit__back" bindtap="closeSubmitConfirm">返回检查</button>
-        <button hover-class="item--hover" class="mock-submit__confirm" disabled="{{interactionLocked}}" bindtap="confirmSubmitExam">确认交卷</button>
+        <button hover-class="item--hover" class="mock-submit__confirm" disabled="{{interactionLocked}}" bindtap="confirmSubmitExam">确认提交</button>
       </view>
     </view>
   </view>

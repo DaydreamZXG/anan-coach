@@ -28,7 +28,7 @@
   bindcompanion="openAnanContext"
 >
   <view wx:if="{{status === 'loading'}}" class="page-state">
-    <state-view state="loading" title="正在恢复真实作答" description="正在恢复你上次的作答进度。" />
+    <state-view state="loading" title="正在准备这次训练" description="正在找回你上次的进度，别急。" />
   </view>
 
   <view wx:elif="{{status === 'error'}}" class="page-state">
@@ -36,7 +36,7 @@
   </view>
 
   <view wx:elif="{{status === 'unavailable'}}" class="capability-state card">
-    <view class="capability-mark">先完成前置学习</view>
+    <view class="capability-mark">先学完前置内容</view>
     <view class="capability-title">{{errorTitle}}</view>
     <view class="capability-copy">{{errorMessage}}</view>
     <button hover-class="item--hover" wx:if="{{showLoginAction}}" class="secondary-button capability-action" bindtap="goLogin">重新登录</button>
@@ -207,7 +207,7 @@
           </view>
           <view wx:if="{{view.current < view.total}}" class="question-swipe-hint">
             <text>←</text>
-            <text>左右滑动切题，点顶部题号可打开答题卡</text>
+            <text>左右滑动切题，点顶部题号可打开题号面板</text>
             <text>→</text>
           </view>
         </view>
@@ -318,8 +318,8 @@
         moduleName="{{answerSheetModuleName}}"
         moduleCounts="{{answerSheetModuleCounts}}"
         insightAvailable="{{true}}"
-        hint="{{answerSheetLegend.unanswered > 0 ? '未答题将按未作答记录，可直接交卷' : '点题号即可直接切换，存疑题会优先复盘'}}"
-        submitLabel="{{answerSheetLegend.unanswered > 0 ? '保留未答并交卷' : '确认交卷并查看结果'}}"
+        hint="{{answerSheetLegend.unanswered > 0 ? '没答的题按未作答算，直接提交就行' : '点题号直接切换，存疑的题复盘优先'}}"
+        submitLabel="{{answerSheetLegend.unanswered > 0 ? '保留未答并提交' : '提交并查看结果'}}"
         bindclose="toggleAnswerSheet"
         bindselect="selectQuestionFromSheet"
         bindsubmit="submitAttempt"
@@ -334,12 +334,12 @@
       >
         <button hover-class="item--hover" slot="action" class="mark-action {{view.question.marked ? 'mark-action--active' : ''}}" bindtap="toggleMarked">{{view.question.marked ? '已存疑' : '存疑'}}</button>
         <textarea cursor-spacing="24" class="draft-input draft-input--sheet" value="{{view.question.draftText}}" maxlength="4000" placeholder="写下公式、排除理由或仍不确定的点……" bindinput="inputDraft"></textarea>
-        <button hover-class="item--hover" class="math-ink-entry" bindtap="toggleMathInk">{{mathInkOpen ? '收起手写公式' : '手写公式识别'}}</button>
+        <button hover-class="item--hover" class="math-ink-entry" bindtap="toggleMathInk">{{mathInkOpen ? '收起手写公式' : '手写公式'}}</button>
         <view wx:if="{{mathInkOpen}}" class="math-ink-panel">
-          <view class="math-ink-tip">先手写，识别成公式后核对一下，确认再放进草稿。</view>
+          <view class="math-ink-tip">先手写，认出公式后核对一下，没问题再放进草稿。</view>
           <math-ink-pad recognizing="{{mathInkRecognizing}}" bind:recognize="recognizeMathInk" />
           <view wx:if="{{mathInkCandidate}}" class="math-ink-review">
-            <view class="confidence-label">识别候选</view>
+            <view class="confidence-label">认出的公式</view>
             <textarea cursor-spacing="24" class="math-ink-latex" value="{{mathInkLatex}}" maxlength="4000" bindinput="inputMathInkLatex"></textarea>
             <button hover-class="item--hover" class="primary-button" loading="{{mathInkRecognizing}}" bindtap="confirmMathInk">确认并写入草稿</button>
           </view>
@@ -367,7 +367,7 @@
           </view>
           <view class="pause-title">训练已暂停</view>
           <view class="pause-time type-data">{{view.elapsedLabel}}</view>
-          <view class="pause-copy">先把气喘匀，题就在原地等你。\n暂停期间不计入作答用时。\n材料位置、答案与草稿均已保留。</view>
+          <view class="pause-copy">先把气喘匀，题就在原地等你。\n暂停期间不计入作答用时。\n材料位置、答案和草稿都给你留着，不会丢。</view>
           <button hover-class="item--hover" class="pause-resume" bindtap="toggleTaskPause">继续作答</button>
           <button hover-class="item--hover" class="control-center pause-exit" bindtap="exit">结束本次训练</button>
         </view>
@@ -375,7 +375,7 @@
     </block>
 
     <view wx:else class="page-state">
-      <state-view state="loading" title="正在打开训练总结" description="交卷已完成，正在进入可回看的总结与复盘。" />
+      <state-view state="loading" title="正在打开训练总结" description="提交已完成，正在进入能回看的总结和复盘。" />
     </view>
   </block>
 
@@ -406,14 +406,14 @@
       bindsubmit="submitTaskHelp"
       bindclose="closeTaskOverlay"
     />
-    <view wx:if="{{helpSubmitting}}" class="overlay-result">正在查询确定性帮助……</view>
+    <view wx:if="{{helpSubmitting}}" class="overlay-result">正在查解决办法……</view>
     <view wx:elif="{{helpGuidance}}" class="overlay-result">{{helpGuidance}}</view>
   </ui-sheet>
 
   <ui-sheet
     visible="{{disputeOpen}}"
-    title="题目异常或争议"
-    copy="报错不影响继续做题，我们会定位到这道题。"
+    title="这题有点问题？"
+    copy="报错不影响继续做题，我们会去核这道题。"
     show-close
     level="overlay"
     max-height="86vh"
@@ -428,12 +428,12 @@
         bindtap="selectDisputeCategory"
       >{{item.label}}</button>
     </view>
-    <textarea cursor-spacing="24" class="dispute-description" value="{{disputeDescription}}" maxlength="2000" placeholder="请描述具体问题；不要填写个人敏感信息。" bindinput="inputDisputeDescription"></textarea>
-    <button hover-class="item--hover" class="primary-button" loading="{{disputeSubmitting}}" disabled="{{disputeSubmitting}}" bindtap="submitDispute">提交争议记录</button>
+    <textarea cursor-spacing="24" class="dispute-description" value="{{disputeDescription}}" maxlength="2000" placeholder="请描述具体问题；别写手机号、身份证这类隐私。" bindinput="inputDisputeDescription"></textarea>
+    <button hover-class="item--hover" class="primary-button" loading="{{disputeSubmitting}}" disabled="{{disputeSubmitting}}" bindtap="submitDispute">提交问题</button>
     <view wx:if="{{disputeReceipt}}" class="overlay-result">{{disputeReceipt}}</view>
   </ui-sheet>
 
   <view slot="footer" class="task-footer-actions" wx:if="{{status === 'ready' && sessionState === 'answering' && view && view.current === view.total}}">
-    <button hover-class="item--hover" class="primary-button submit-button" disabled="{{interactionLocked}}" bindtap="footerAction">{{canSubmit ? '交卷并查看结果' : '查看未完成题目'}}</button>
+    <button hover-class="item--hover" class="primary-button submit-button" disabled="{{interactionLocked}}" bindtap="footerAction">{{canSubmit ? '提交并查看结果' : '查看未完成题目'}}</button>
   </view>
 </task-shell>

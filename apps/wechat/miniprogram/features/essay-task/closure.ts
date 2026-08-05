@@ -14,9 +14,9 @@ import type {
 import type { EssayRewriteWriterContext, EssayTransferWriterContext } from "./capabilities";
 
 export const closureSourceTypeValues = ["typed", "ocr_confirmed"] as const;
-export const closureSourceTypeLabels = ["键盘录入", "手写识别已逐段核对"];
+export const closureSourceTypeLabels = ["键盘打字", "手写拍照核对过"];
 export const findingResolutionValues = ["", "resolved", "unresolved"] as const;
-export const findingResolutionLabels = ["请选择", "已修正", "仍未解决"];
+export const findingResolutionLabels = ["请选择", "这次改好了", "还没改到"];
 export const findingDecisionValues = ["", "accepted", "rejected", "uncertain"] as const;
 export const findingDecisionLabels = ["请选择", "认可", "不认可", "存疑"];
 
@@ -250,14 +250,14 @@ export function buildRewriteCommand(
   }
   const resolutions = draft.resolutions.map((item) => {
     if (item.status !== "resolved" && item.status !== "unresolved") {
-      throw new EssayClosureError("请逐条选择“已修正”或“仍未解决”。");
+      throw new EssayClosureError("给每条问题都选一下：这次改好了还是没改到。");
     }
     return {
       findingId: item.findingId,
       status: item.status,
       learnerEvidence: required(
         item.learnerEvidence,
-        "每个问题都要写明新答案中的修正证据。",
+        "每个问题都要写一下新答案里改在哪。",
         2_000,
       ),
     };
@@ -289,7 +289,7 @@ export function buildTransferAttemptCommand(
 ): EssayAttemptCreateCommand {
   const rubricVersionId = workspace.rubricAvailability.rubric?.rubricVersionId;
   if (workspace.rubricAvailability.status !== "published" || !rubricVersionId) {
-    throw new EssayClosureError("迁移作答必须绑定已发布的评分规程。");
+    throw new EssayClosureError("这道题要先有可用的评分依据，才能做换题练习。");
   }
   const manualMinutes = draft.elapsedMinutesText.trim();
   const elapsedSeconds = manualMinutes
@@ -344,14 +344,14 @@ export function buildTransferDecisionArtifact(
     throw new EssayClosureError("必须逐条决定新题评阅的所有问题。");
   }
   const decisions = draft.decisions.map((item): EssayFindingDecisionV1 => {
-    if (!item.decision) throw new EssayClosureError("请逐条选择认可、不认可或存疑。");
+    if (!item.decision) throw new EssayClosureError("每条都选一下：认可、不认可还是存疑。");
     const learnerReason = item.learnerReason.trim();
     const followUpQuestion = item.followUpQuestion.trim();
     if (item.decision === "rejected" && !learnerReason) {
-      throw new EssayClosureError("不认可某个问题时必须写明理由。");
+      throw new EssayClosureError("不认可的话，记得写下你的理由。");
     }
     if (item.decision === "uncertain" && (!learnerReason || !followUpQuestion)) {
-      throw new EssayClosureError("存疑问题必须写明理由和待追问内容。");
+      throw new EssayClosureError("存疑的话，理由和想问的都写上。");
     }
     return {
       findingId: item.findingId,
@@ -406,13 +406,13 @@ export function buildTransferCommand(
   allowedCriterionCodes: readonly string[],
 ): EssayTransferCommandV2 {
   if (!draft.selectedCriterionCodes.length) {
-    throw new EssayClosureError("请至少选择一个源评阅与新评阅共有的验证维度。");
+    throw new EssayClosureError("至少选一个两题都评过的维度来对照。");
   }
   if (
     new Set(draft.selectedCriterionCodes).size !== draft.selectedCriterionCodes.length ||
     draft.selectedCriterionCodes.some((code) => !allowedCriterionCodes.includes(code))
   ) {
-    throw new EssayClosureError("迁移验证维度必须来自源评阅与新评阅的明确交集。");
+    throw new EssayClosureError("对照的维度得是两题都评过的，别选错。");
   }
   return {
     sourceRewriteVersionId: context.sourceRewriteVersionId,
@@ -435,10 +435,10 @@ export function masterySummary(items: readonly EssayMasteryStateVersion[]): stri
   const counts = new Map<EssayMasteryStateVersion["state"], number>();
   for (const item of items) counts.set(item.state, (counts.get(item.state) ?? 0) + 1);
   const labels: Array<[EssayMasteryStateVersion["state"], string]> = [
-    ["rewrite_due", "待改写"],
-    ["transfer_due", "待迁移"],
-    ["stable_mastered", "稳定掌握"],
-    ["withdrawn", "已撤销"],
+    ["rewrite_due", "该再写一遍"],
+    ["transfer_due", "该换题练手"],
+    ["stable_mastered", "稳了"],
+    ["withdrawn", "已跳过"],
   ];
   return labels
     .filter(([state]) => counts.has(state))

@@ -137,7 +137,7 @@ describe("essay closure capability and commands", () => {
         draft,
         options.map((item) => item.criterionCode),
       ),
-    ).toThrow("明确交集");
+    ).toThrow("对照的维度得是两题都评过的");
   });
 
   it("wraps each closure writer with the frozen plan completion context", () => {

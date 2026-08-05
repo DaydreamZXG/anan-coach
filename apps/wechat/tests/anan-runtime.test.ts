@@ -216,7 +216,7 @@ describe("岸岸小程序运行时", () => {
       todaySourceStatus: "unavailable",
       todaySourceRequestId: "",
     });
-    expect(harness.page.data.todaySourceMessage).toContain("完成学习时间设置后");
+    expect(harness.page.data.todaySourceMessage).toContain("先把每天的学习时间定下来");
   });
 
   it("profile 失败而 today 成功时展示 today 事实但禁发，并可单独重试 profile", async () => {
@@ -555,7 +555,7 @@ describe("岸岸小程序运行时", () => {
 
     expect(attempt(harness, "user-a")?.state).toBe("unknown");
     expect(harness.page.data.askedQuestion).toBe("资料分析增长率怎么补？");
-    expect(harness.page.data.errorMessage).toBe("本次问题结果待确认，再试会继续确认。");
+    expect(harness.page.data.errorMessage).toBe("哎,刚才的回答还没到,别急,再发一次就好。");
 
     harness.page.restoreAskedQuestion();
     const second = harness.page.ask();
@@ -612,9 +612,9 @@ describe("岸岸小程序运行时", () => {
     expect(restarted.page.data).toMatchObject({
       contextStatus: "ready",
       question: "原岗位上下文里的问题",
-      errorMessage: "本次问题结果待确认，再试会继续确认。",
+      errorMessage: "哎,刚才的回答还没到,别急,再发一次就好。",
       semanticState: "provider_pending",
-      stateLabel: "回答结果待安全确认",
+      stateLabel: "回答还在路上,稍等一下",
       askRouteId: "pages/positions/detail",
       askWorkspace: "position",
       askObjectRefs: [{ type: "position", id: "position-1", version: "position-v1" }],
@@ -676,10 +676,10 @@ describe("岸岸小程序运行时", () => {
       profileSourceStatus: "unavailable",
       todaySourceStatus: "ready",
       learnerStateVersion: "learner-state-frozen",
-      stateLabel: "回答结果待安全确认",
+      stateLabel: "回答还在路上,稍等一下",
     });
     expect(restarted.page.data.contextNoticeCopy).toContain(
-      "已有待确认的原问题仍会沿用发送时的上下文继续确认",
+      "之前的问题还在等结果,再发一次就会接着确认。",
     );
 
     const retry = restarted.page.ask();
@@ -800,7 +800,7 @@ describe("岸岸小程序运行时", () => {
       await request;
 
       expect(attempt(harness, "user-a")?.state).toBe("terminal");
-      expect(harness.page.data.errorMessage).not.toBe("本次问题结果待确认，再试会继续确认。");
+      expect(harness.page.data.errorMessage).not.toBe("哎,刚才的回答还没到,别急,再发一次就好。");
     },
   );
 
@@ -821,7 +821,7 @@ describe("岸岸小程序运行时", () => {
     expect(harness.page.data).toMatchObject({
       errorMessage: "",
       semanticState: "ready",
-      stateLabel: "已根据当前证据回答",
+      stateLabel: "已经根据手头的信息回答啦",
     });
   });
 

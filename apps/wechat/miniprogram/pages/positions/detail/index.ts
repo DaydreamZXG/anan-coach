@@ -97,7 +97,7 @@ Page<PositionDetailPageData, PositionDetailPageCustom>({
       comparisonCount: comparisonIds.length,
     });
     if (!positionId) {
-      void wx.showToast({ title: "岗位信息不完整，请返回重新选择", icon: "none" });
+      void wx.showToast({ title: "岗位信息不全，回去重选一个就好", icon: "none" });
       return;
     }
     void controller.load();
@@ -160,7 +160,7 @@ Page<PositionDetailPageData, PositionDetailPageCustom>({
     const current = runtime.store.loadComparison();
     const selected = current.includes(positionId);
     if (!selected && current.length >= 3) {
-      void wx.showToast({ title: "最多同时对比 3 个岗位", icon: "none" });
+      void wx.showToast({ title: "一次最多对比 3 个岗位", icon: "none" });
       return;
     }
     const next = selected

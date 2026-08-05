@@ -14,8 +14,8 @@ import {
 
 const coachPreferenceAttemptScope = "coach-preference:update@v1";
 const coachPreferenceAttemptExpiryMs = 7 * 24 * 60 * 60 * 1_000;
-const coachPreferencePendingMessage = "保存结果待确认，请再次保存以确认结果。";
-const coachPreferenceRecoveredMessage = "已确认上次保存成功，并恢复最新督学偏好。";
+const coachPreferencePendingMessage = "刚才的保存结果还没确认，再保存一次确认一下。";
+const coachPreferenceRecoveredMessage = "已经确认上次保存成功了，也帮你恢复了最新的提醒设置。";
 
 type CoachPreferenceRecovery =
   { kind: "continue"; message?: string } | { kind: "unknown"; message: string; requestId: string };
@@ -115,7 +115,7 @@ Page({
     templateId: "",
     templateReleaseId: "",
     availableGrants: 0,
-    lastResultLabel: "尚未向微信申请",
+    lastResultLabel: "还没向微信申请过",
     history: [] as HistoryView[],
     deliveryFactNote: "",
   },
@@ -175,7 +175,7 @@ Page({
       const apiError = error instanceof ApiClientError ? error : undefined;
       this.setData({
         status: "error",
-        errorMessage: apiError?.message ?? "督学设置没有加载成功，请重试。",
+        errorMessage: apiError?.message ?? "督学设置没加载出来，再试一次吧。",
         requestId: apiError?.requestId ?? "",
         saving: false,
         authorizing: false,
@@ -210,7 +210,7 @@ Page({
       const apiError = error instanceof ApiClientError ? error : undefined;
       this.setData({
         status: "error",
-        errorMessage: apiError?.message ?? "督学设置没有加载成功，请重试。",
+        errorMessage: apiError?.message ?? "督学设置没加载出来，再试一次吧。",
         requestId: apiError?.requestId ?? "",
         saving: false,
         authorizing: false,
@@ -381,7 +381,7 @@ Page({
       releaseCoachMutation(this, lease);
       this.setData({
         saving: false,
-        message: "督学偏好已保存。微信提醒仍按可用单次授权发送。",
+        message: "设置已保存。微信提醒会按你剩余的发送次数来。",
       });
       await this.loadSettings();
       return;
@@ -413,7 +413,7 @@ Page({
   requestWechatAuthorization() {
     if (isCoachPageBusy(this) || !this.data.templateConfigured || !this.data.templateId) return;
     if (!wx.canIUse("requestSubscribeMessage")) {
-      this.setData({ message: "当前微信版本不支持订阅消息，请升级微信后再试。" });
+      this.setData({ message: "你的微信版本还不支持订阅消息，升级一下微信再试吧。" });
       return;
     }
     const session = currentAuthSession();
@@ -434,7 +434,7 @@ Page({
         const value = (result as unknown as Record<string, unknown>)[lease.templateId ?? ""];
         if (!isSubscriptionResult(value)) {
           releaseCoachMutation(this, lease);
-          this.setData({ authorizing: false, message: "微信没有返回可识别的订阅结果。" });
+          this.setData({ authorizing: false, message: "微信没有返回可以识别的结果，再试一次吧。" });
           return;
         }
         void this.persistSubscription("request_prompt", value, true, lease);
@@ -445,7 +445,7 @@ Page({
           return;
         }
         releaseCoachMutation(this, lease);
-        this.setData({ authorizing: false, message: "没有完成微信订阅授权，请稍后再试。" });
+        this.setData({ authorizing: false, message: "微信那边没有同意订阅，等会儿再试吧。" });
       },
     });
   },
@@ -474,7 +474,7 @@ Page({
           releaseCoachMutation(this, lease);
           this.setData({
             syncing: false,
-            message: "微信设置页没有保存这条模板的固定选择。",
+            message: "微信设置页里没有保存这条提醒的选择。",
           });
           return;
         }
@@ -486,7 +486,7 @@ Page({
           return;
         }
         releaseCoachMutation(this, lease);
-        this.setData({ syncing: false, message: "微信订阅设置没有打开。" });
+        this.setData({ syncing: false, message: "微信的设置没打开成功。" });
       },
     });
   },
@@ -553,7 +553,7 @@ Page({
         syncing: false,
         message:
           result === "accept" && source === "request_prompt"
-            ? `已增加 1 次微信提醒授权，当前可发送 ${String(response.data.availableGrants)} 次。`
+            ? `微信提醒机会加了一次，现在还能发 ${String(response.data.availableGrants)} 次。`
             : subscriptionResultLabel(result, source),
       });
       await this.loadSettings();
@@ -566,7 +566,7 @@ Page({
       this.setData({
         authorizing: false,
         syncing: false,
-        message: error instanceof ApiClientError ? error.message : "订阅结果同步失败。",
+        message: error instanceof ApiClientError ? error.message : "订阅结果没同步上，再试一次吧。",
       });
     }
   },
@@ -583,7 +583,7 @@ Page({
     this.setData({ disabling: true, message: "" });
     wx.showModal({
       title: "关闭全部 AI 督学提醒？",
-      content: "未发送的消息会取消，剩余单次授权会作废；小程序内今日任务不受影响。",
+      content: "还没发的消息会取消，剩下的发送次数会作废；小程序里的今日任务不受影响。",
       confirmText: "关闭提醒",
       confirmColor: "#C83F56",
       success: (result) => {
@@ -604,7 +604,7 @@ Page({
           return;
         }
         releaseCoachMutation(this, lease);
-        this.setData({ disabling: false, message: "关闭提醒确认框没有打开。" });
+        this.setData({ disabling: false, message: "关闭提醒的确认框没弹出来。" });
       },
     });
   },
@@ -647,7 +647,7 @@ Page({
         return;
       }
       releaseCoachMutation(this, lease);
-      this.setData({ disabling: false, message: "全部 AI 督学提醒已关闭。" });
+      this.setData({ disabling: false, message: "已经关掉全部 AI 督学提醒了。" });
       await this.loadSettings();
     } catch (error) {
       if (!isCurrentCoachMutation(this, lease)) {
@@ -656,7 +656,7 @@ Page({
       }
       releaseCoachMutation(this, lease);
       const conflict = error instanceof ApiClientError && error.statusCode === 409;
-      const message = error instanceof ApiClientError ? error.message : "关闭提醒失败。";
+      const message = error instanceof ApiClientError ? error.message : "提醒没关掉，再试一次吧。";
       this.setData({ disabling: false, message });
       if (conflict) {
         await this.loadSettings();
@@ -784,7 +784,7 @@ async function recoverCoachPreferenceAttempt(
     transitionCoachPreferenceAttempt(attempts, attempt, "terminal");
     return {
       kind: "continue",
-      message: "旧恢复记录无法校验，已停止重试。",
+      message: "之前的恢复记录没法确认，先不重试了。",
     };
   }
 
@@ -974,13 +974,13 @@ function clockTime(value: string | null): string {
 function preferenceCommand(draft: SettingsDraft): UpdateCoachPreferenceCommand | string {
   const dailyLimit = Number(draft.dailyLimit);
   if (!Number.isInteger(dailyLimit) || dailyLimit < 1 || dailyLimit > 24) {
-    return "每日频率上限请输入 1–24 的整数。";
+    return "每日频率上限要填 1 到 24 的整数。";
   }
   if (draft.enabled && (!draft.receiveStart || !draft.receiveEnd)) {
-    return "开启督学前，请先设置完整接收时段。";
+    return "开通督学之前，先把接收时段设置完整哦。";
   }
   if (draft.enabled && draft.receiveStart === draft.receiveEnd) {
-    return "接收开始和结束时间不能相同。";
+    return "接收开始和结束时间别设成一样。";
   }
   const categories = [
     draft.taskRemindersEnabled,
@@ -989,12 +989,12 @@ function preferenceCommand(draft: SettingsDraft): UpdateCoachPreferenceCommand |
     draft.mockRemindersEnabled,
     draft.weeklySummaryEnabled,
   ];
-  if (draft.enabled && !categories.some(Boolean)) return "请至少保留一类督学提醒。";
+  if (draft.enabled && !categories.some(Boolean)) return "至少保留一类提醒吧。";
   if (draft.quietEnabled && (!draft.quietStart || !draft.quietEnd)) {
-    return "开启免打扰前，请先设置完整时间。";
+    return "开免打扰之前，先把时间设置完整。";
   }
   if (draft.quietEnabled && draft.quietStart === draft.quietEnd) {
-    return "免打扰开始和结束时间不能相同。";
+    return "免打扰开始和结束时间别设成一样。";
   }
   return {
     basedOnPreferenceVersionId: draft.preferenceVersionId,
@@ -1037,13 +1037,13 @@ function subscriptionResultLabel(
   result: "accept" | "reject" | "ban" | "filter" | null,
   source: "request_prompt" | "settings_snapshot" | null,
 ): string {
-  if (result === null) return "尚未向微信申请";
+  if (result === null) return "还没向微信申请过";
   if (result === "accept") {
-    return source === "request_prompt" ? "最近一次已授权" : "微信侧保持允许";
+    return source === "request_prompt" ? "最近一次已允许" : "微信那边保持允许";
   }
-  if (result === "reject") return "微信侧已拒绝";
-  if (result === "ban") return "该模板被微信限制";
-  return "模板被微信过滤";
+  if (result === "reject") return "微信那边拒绝了";
+  if (result === "ban") return "这条模板被微信限制了";
+  return "这条模板被微信过滤了";
 }
 
 function historyView(item: CoachNotificationHistoryItem): HistoryView {
@@ -1051,9 +1051,9 @@ function historyView(item: CoachNotificationHistoryItem): HistoryView {
     queued: "等待发送",
     sending: "正在请求微信",
     platform_accepted: "微信已受理",
-    platform_rejected: "微信未受理",
+    platform_rejected: "微信没受理",
     failed: "发送失败",
-    outcome_unknown: "发送结果待核对",
+    outcome_unknown: "发送结果待确认",
     canceled: "已取消",
   }[item.state];
   const categoryLabel = {

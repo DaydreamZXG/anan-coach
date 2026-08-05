@@ -439,9 +439,9 @@ describe("stage 2 F02 mock exam", () => {
     expect(harness.requests.some((request) => request.url.endsWith("/resolve"))).toBe(true);
     expect(harness.page.data).toMatchObject({
       status: "submitted",
-      errorTitle: "本场模考已经交卷",
-      errorMessage: "服务端已确认交卷，正式模考报告可进入查看。",
-      syncLabel: "交卷已确认",
+      errorTitle: "本场模考已经提交",
+      errorMessage: "已确认提交成功，可以进模考报告看了。",
+      syncLabel: "提交已确认",
       interactionLocked: true,
       question: null,
       receipt: null,
@@ -494,8 +494,8 @@ describe("stage 2 F02 mock exam", () => {
     expect(harness.page.data).toMatchObject({
       status: "submitted",
       errorTitle: "本场模考已完成",
-      errorMessage: "服务端已确认交卷，正式模考报告可继续查看。",
-      syncLabel: "评阅已完成",
+      errorMessage: "已确认提交成功，模考报告可以接着看啦。",
+      syncLabel: "批改已完成",
       interactionLocked: true,
       reportSessionId: "mock-session-1",
     });
@@ -512,7 +512,7 @@ describe("stage 2 F02 mock exam", () => {
 
     expect(harness.page.data).toMatchObject({
       status: "submitted",
-      syncLabel: "交卷已确认",
+      syncLabel: "提交已确认",
       interactionLocked: true,
       reportSessionId: "mock-session-1",
     });
@@ -716,7 +716,7 @@ describe("stage 2 F02 mock exam", () => {
       status: "unavailable",
       showLoginAction: true,
       interactionLocked: true,
-      syncLabel: "等待重新登录",
+      syncLabel: "等你重新登录",
     });
     expect(vi.getTimerCount()).toBe(0);
     expect(

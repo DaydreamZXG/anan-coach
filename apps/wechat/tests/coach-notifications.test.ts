@@ -170,7 +170,7 @@ describe("coach notifications", () => {
     const replayKey = headerValue(requests[0], "Idempotency-Key");
     expect(replayKey).toMatch(/^coach-preference-/u);
     expect(headerValue(requests[1], "Idempotency-Key")).toBe(replayKey);
-    expect(page.data.message).toBe("保存结果待确认，请再次保存以确认结果。");
+    expect(page.data.message).toBe("刚才的保存结果还没确认，再保存一次确认一下。");
     const attempt = new OperationAttemptStore("user-a").load(coachPreferenceAttemptScope);
     expect(attempt?.state).toBe("unknown");
     expect(attempt?.canonicalInput).toEqual(requests[0]?.data);
@@ -325,7 +325,7 @@ describe("coach notifications", () => {
       "succeeded",
     );
     expect(recoveredPage.data.status).toBe("ready");
-    expect(recoveredPage.data.message).toBe("已确认上次保存成功，并恢复最新督学偏好。");
+    expect(recoveredPage.data.message).toBe("已经确认上次保存成功了，也帮你恢复了最新的提醒设置。");
   });
 
   it("keeps an HTTP 500 recovery unknown and does not load over the unresolved result", async () => {
@@ -358,7 +358,7 @@ describe("coach notifications", () => {
     expect(new OperationAttemptStore("user-a").load(coachPreferenceAttemptScope)?.state).toBe(
       "unknown",
     );
-    expect(recoveredPage.data.message).toBe("保存结果待确认，请再次保存以确认结果。");
+    expect(recoveredPage.data.message).toBe("刚才的保存结果还没确认，再保存一次确认一下。");
     expect(requests.some((request) => request.method === "GET")).toBe(false);
   });
 
@@ -382,7 +382,7 @@ describe("coach notifications", () => {
     expect(new OperationAttemptStore("user-a").load(coachPreferenceAttemptScope)?.state).toBe(
       "unknown",
     );
-    expect(page.data.message).toBe("保存结果待确认，请再次保存以确认结果。");
+    expect(page.data.message).toBe("刚才的保存结果还没确认，再保存一次确认一下。");
   });
 
   it("keeps a recovery HTTP 408 unknown without loading settings", async () => {
@@ -414,7 +414,7 @@ describe("coach notifications", () => {
     expect(recoveredPage.data).toMatchObject({
       status: "error",
       requestId: "coach-request-error",
-      message: "保存结果待确认，请再次保存以确认结果。",
+      message: "刚才的保存结果还没确认，再保存一次确认一下。",
     });
   });
 
@@ -471,7 +471,7 @@ describe("coach notifications", () => {
     await page.loadSettings();
     expect(attempts.load(coachPreferenceAttemptScope)?.state).toBe("terminal");
     expect(page.data.status).toBe("ready");
-    expect(page.data.message).toBe("旧恢复记录无法校验，已停止重试。");
+    expect(page.data.message).toBe("之前的恢复记录没法确认，先不重试了。");
     await page.loadSettings();
 
     expect(requests.map((request) => request.method)).toEqual(["GET", "GET"]);
@@ -503,7 +503,7 @@ describe("coach notifications", () => {
     await page.save();
     const succeeded = new OperationAttemptStore("user-a").load(coachPreferenceAttemptScope);
     expect(succeeded?.state).toBe("succeeded");
-    expect(page.data.message).toBe("督学偏好已保存。微信提醒仍按可用单次授权发送。");
+    expect(page.data.message).toBe("设置已保存。微信提醒会按你剩余的发送次数来。");
 
     await page.save();
     const terminal = new OperationAttemptStore("user-a").load(coachPreferenceAttemptScope);

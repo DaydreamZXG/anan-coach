@@ -7,7 +7,7 @@
   />
 
   <view wx:if="{{status === 'loading'}}" class="reflection-state">
-    <state-view state="loading" title="正在恢复你的复盘" description="作答事实、原话和错因会对应起来。" />
+    <state-view state="loading" title="正在恢复你的复盘" description="别急，正在把你的作答、原话和错因对上号。" />
   </view>
 
   <view wx:elif="{{status === 'error'}}" class="reflection-state">
@@ -21,7 +21,7 @@
 
   <block wx:elif="{{status === 'ready'}}">
     <view wx:if="{{hasPendingWrite}}" class="pending-write">
-      <view class="pending-write__title">上次提交还没有得到确定结果</view>
+      <view class="pending-write__title">上次提交的结果还没确认</view>
       <view class="pending-write__copy">{{pendingMessage}}</view>
       <button hover-class="item--hover" class="pending-write__action" bindtap="retry">继续确认上次提交</button>
     </view>
@@ -31,7 +31,7 @@
         <view class="summary-title">这组做完了</view>
         <!-- Figma 13:20：错题数用真实数据填充。 -->
         <view wx:if="{{result.totalCount - result.correctCount > 0}}" class="summary-copy">{{result.correctCount}}/{{result.totalCount}}。让你上岸的从来是错题——先把丢掉的 {{result.totalCount - result.correctCount}} 题问明白。</view>
-        <view wx:else class="summary-copy">比起 {{result.correctCount}}/{{result.totalCount}}，更重要的是把这组的作答证据留下来。</view>
+        <view wx:else class="summary-copy">比起 {{result.correctCount}}/{{result.totalCount}}，把这组的作答过程留下来才更要紧。</view>
       </view>
 
       <view class="summary-card">
@@ -42,7 +42,7 @@
           </view>
         </view>
         <view wx:if="{{result.confidenceCalibration.length}}" class="summary-confidence">
-          <view class="summary-confidence__title">信心校准</view>
+          <view class="summary-confidence__title">信心准不准</view>
           <view class="summary-confidence__list">
             <view wx:for="{{result.confidenceCalibration}}" wx:key="code" class="summary-confidence__row">
               <view class="summary-confidence__label">
@@ -66,11 +66,11 @@
           <view class="summary-insight__next">{{result.group.nextActionLabel}}</view>
           <view wx:if="{{result.verification}}" class="summary-insight__verification">{{result.verification.stageLabel}} · {{result.verification.evidenceLabel}} · {{result.verification.evidenceDescription}}</view>
         </view>
-        <button hover-class="item--hover" class="summary-insight__toggle" bindtap="toggleSummaryBasis">{{summaryBasisOpen ? '收起结论依据' : '查看结论依据'}}⌄</button>
+        <button hover-class="item--hover" class="summary-insight__toggle" bindtap="toggleSummaryBasis">{{summaryBasisOpen ? '收起依据' : '看看依据'}}⌄</button>
       </view>
       <view wx:elif="{{result.availability === 'legacy_result_unavailable'}}" class="summary-legacy">
-        <view class="summary-legacy__title">这份是旧版结果</view>
-        <view class="summary-legacy__copy">只保留当时的成绩，不再重新推断缺失的作答过程。</view>
+        <view class="summary-legacy__title">这是旧版的结果</view>
+        <view class="summary-legacy__copy">只保留当时的成绩，不再重新推测缺失的作答过程。</view>
       </view>
 
       <!-- 题号一览按客观结果分色：答错红、猜对/计算失误橙、稳定答对绿、证据未记录灰。 -->
@@ -87,7 +87,7 @@
           <button hover-class="item--hover" class="summary-anan" bindtap="askAnanAboutGroup">带着本组问岸岸</button>
         </view>
       </view>
-      <view class="summary-boundary">本组新增 {{result.totalCount}} 条真实作答证据。一次练习不会直接变成稳定能力，完成复测后再确认。</view>
+      <view class="summary-boundary">这组新增了 {{result.totalCount}} 条真实作答。一次练习成不了稳定水平，做完复测再确认也不迟。</view>
       <view class="reflection-bottom-spacer"></view>
     </view>
 
@@ -100,8 +100,8 @@
       bindtouchcancel="onReviewTouchEnd"
     >
       <view wx:if="{{result && result.availability === 'legacy_result_unavailable'}}" class="legacy-notice">
-        <view class="legacy-notice__title">这是一份旧版结果</view>
-        <view class="legacy-notice__copy">缺少逐题过程记录，因此只保留原始成绩，不追溯猜测用时、信心或计算过程。</view>
+        <view class="legacy-notice__title">这是旧版的结果</view>
+        <view class="legacy-notice__copy">没有逐题过程记录，只保留原始成绩，不再追溯当时的用时、信心或计算过程。</view>
       </view>
 
       <view wx:if="{{reviewItems.length > 1}}" class="review-tabs">
@@ -175,7 +175,7 @@
 
       <!-- Figma 14:70：岸岸结构化解析，层级：正确结论 → 最短解题路径 → 你的具体错点。 -->
       <view wx:if="{{activeReviewItem}}" class="structured-review">
-        <view class="structured-review__head"><text class="structured-review__spark">✦</text><text>岸岸结构化解析</text></view>
+        <view class="structured-review__head"><text class="structured-review__spark">✦</text><text>岸岸讲解</text></view>
         <view class="structured-review__section structured-review__section--answer">
           <view class="structured-review__label">正确结论</view>
           <view class="structured-review__answer">{{activeReviewItem.correctLabel}} · {{activeReviewItem.correctAnswerText}}</view>
@@ -183,7 +183,7 @@
         <view class="structured-review__section">
           <view class="structured-review__label">最短解题路径</view>
           <view class="structured-review__copy">{{activeReviewItem.explanation}}</view>
-          <view class="structured-review__source">解析来源 · {{activeReviewItem.explanationSource}}</view>
+          <view class="structured-review__source">讲解来源 · {{activeReviewItem.explanationSource}}</view>
         </view>
         <view class="structured-review__section">
           <view class="structured-review__label">你的作答对照</view>
@@ -191,13 +191,13 @@
         </view>
         <view wx:if="{{activeReviewItem.timingExceeded}}" class="structured-review__errorpoint">
           <view class="structured-review__errorpoint-title">你的具体错点</view>
-          <view class="structured-review__errorpoint-copy">这题超过建议用时；这里只记录事实，不自动把“超时”判成错因。</view>
+          <view class="structured-review__errorpoint-copy">这题超过建议用时了；这里只记下事实，不自动把“超时”当成错因。</view>
         </view>
 
         <!-- Figma 75:2/78:2 的两个真实入口：只有会话真的留下轨迹时才出现。 -->
         <view wx:if="{{activeReviewItem.trajectoryAvailable}}" class="structured-review__trajectory">
-          <button hover-class="item--hover" class="structured-review__trajectory-link" bindtap="openReplay">原题轨迹回放</button>
-          <button hover-class="item--hover" class="structured-review__trajectory-link" bindtap="openActionAnalysis">岸岸动作分析</button>
+          <button hover-class="item--hover" class="structured-review__trajectory-link" bindtap="openReplay">回放我当时的作答</button>
+          <button hover-class="item--hover" class="structured-review__trajectory-link" bindtap="openActionAnalysis">岸岸看到的动作</button>
         </view>
       </view>
 
@@ -206,7 +206,7 @@
           <view class="reason-card__title">你也可以补充</view>
           <button hover-class="item--hover" class="reason-card__read" disabled="{{interactionLocked || speechBusy || !rawText}}" bindtap="readRawText">{{speechPlaying ? '朗读中' : '朗读文字'}}</button>
         </view>
-        <view class="reason-card__copy">标签和文字都是选填。不填也可以，岸岸会先根据用时、改选、排除、草稿和作答结果来判断。</view>
+        <view class="reason-card__copy">标签和文字都选填。不填也没关系，岸岸会先用你的用时、改选、排除、草稿和作答来判断。</view>
         <view class="tag-grid">
           <button hover-class="item--hover"
             wx:for="{{tagOptions}}"
@@ -230,7 +230,7 @@
 
       <view wx:if="{{interpretationOptions.length}}" class="method-card">
         <view class="method-card__title">哪些题是“方法正确，但计算错了”？</view>
-        <view class="method-card__copy">这是一条逐题事实，不会从“计算失误”标签自动推断。</view>
+        <view class="method-card__copy">这道题只记事实，不会因为选了“计算失误”就自动认定。</view>
         <button hover-class="item--hover"
           wx:for="{{interpretationOptions}}"
           wx:key="questionId"
@@ -248,14 +248,14 @@
       </view>
 
       <button hover-class="item--hover" class="more-evidence-toggle" bindtap="toggleMoreEvidence">
-        <text>补充语音、改进动作或仍未想通的点</text>
+        <text>补语音、写下步改进或没想通的点</text>
         <text>{{moreEvidenceOpen ? '收起' : '展开'}}⌄</text>
       </button>
 
       <view wx:if="{{moreEvidenceOpen}}" class="more-evidence-panel">
         <view class="voice-head">
           <view>
-            <view class="voice-head__title">语音复盘 <text class="voice-head__optional">选填</text></view>
+            <view class="voice-head__title">语音记录 <text class="voice-head__optional">选填</text></view>
             <view class="voice-head__copy">最多 3 段，单段最长 60 秒；录完可转成文字并继续修改。</view>
           </view>
           <view class="voice-head__count">{{voiceSummary.segmentCountLabel}}</view>
@@ -263,7 +263,7 @@
 
         <view wx:if="{{recordPermission === 'denied'}}" class="voice-permission">
           <view class="voice-permission__title">需要麦克风权限</view>
-          <view class="voice-permission__copy">在系统设置中开启后，才能录制语音复盘。</view>
+          <view class="voice-permission__copy">在系统设置里打开权限，才能录语音。</view>
           <button hover-class="item--hover" class="voice-permission__action" bindtap="openRecordPermission">去设置</button>
         </view>
 
@@ -285,7 +285,7 @@
         </view>
         <view class="voice-summary">{{voiceSummary.totalSizeLabel}}</view>
         <view wx:if="{{voiceMessage}}" class="voice-message">{{voiceMessage}}</view>
-        <button hover-class="item--hover" wx:if="{{voiceSegments.length && voiceSummary.hasUnready}}" class="control-center voice-upload" loading="{{voiceBusy}}" disabled="{{interactionLocked || voiceBusy || isRecording}}" bindtap="uploadVoiceSegments">上传并完成安全检查</button>
+        <button hover-class="item--hover" wx:if="{{voiceSegments.length && voiceSummary.hasUnready}}" class="control-center voice-upload" loading="{{voiceBusy}}" disabled="{{interactionLocked || voiceBusy || isRecording}}" bindtap="uploadVoiceSegments">上传并检查录音</button>
 
         <view class="evidence-field">
           <view class="evidence-field__label">下次准备怎么做 <text class="evidence-field__optional">选填</text></view>
@@ -297,7 +297,7 @@
         </view>
       </view>
 
-      <view class="reflection-boundary">你只需要留下真实作答，岸岸先做判断；有不对的地方再改。</view>
+      <view class="reflection-boundary">你只要留下真实的作答，岸岸先做判断；有不对的地方咱们再改。</view>
       <view class="reflection-bottom-spacer"></view>
     </view>
 
@@ -305,8 +305,8 @@
       <view class="cause-spinner"></view>
       <view class="cause-processing__title">{{causeCandidate.stateLabel}}</view>
       <view class="cause-processing__copy">{{causeCandidate.stateDescription}}</view>
-      <view class="cause-processing__boundary">你的作答证据已经保存，岸岸正在形成默认判断。</view>
-      <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="refreshCauseCandidate">重新检查学习记录</button>
+      <view class="cause-processing__boundary">你的作答已经存好，岸岸正在形成初步判断，别走开。</view>
+      <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="refreshCauseCandidate">重新检查一次</button>
     </view>
 
     <view wx:elif="{{phase === 'cause_followup'}}" class="cause-content">
@@ -336,7 +336,7 @@
 
       <view wx:if="{{causeCandidate.summary || causeCandidate.explanation || causeCandidate.improvement}}" class="candidate-card">
         <view wx:if="{{causeCandidate.summary}}" class="candidate-section">
-          <view class="candidate-section__label">候选错因</view>
+          <view class="candidate-section__label">可能的错因</view>
           <view class="candidate-section__copy">{{causeCandidate.summary}}</view>
         </view>
         <view wx:if="{{causeCandidate.explanation}}" class="candidate-section">
@@ -348,15 +348,15 @@
           <view class="candidate-section__copy">{{causeCandidate.improvement}}</view>
         </view>
         <view wx:if="{{causeCandidate.rationale}}" class="candidate-section">
-          <view class="candidate-section__label">推理依据</view>
+          <view class="candidate-section__label">判断理由</view>
           <view class="candidate-section__copy">{{causeCandidate.rationale}}</view>
         </view>
       </view>
 
       <!-- 逐题候选错因：错题卡 + 灰底 chip，纯展示不加交互；证据不足显式标注。 -->
       <view wx:if="{{causeCandidate.questionCandidates.length}}" class="question-cause-card">
-        <view class="question-cause-card__title">逐题候选错因</view>
-        <view class="question-cause-card__copy">按题给出岸岸的判断；你可以直接继续，也可以在下方纠正。</view>
+        <view class="question-cause-card__title">每题的候选错因</view>
+        <view class="question-cause-card__copy">按题给出岸岸的判断；可以直接继续，也可以在下面纠正。</view>
         <view wx:for="{{causeCandidate.questionCandidates}}" wx:key="questionId" class="question-cause-item">
           <view class="question-cause-item__head">
             <text class="question-cause-item__position">{{item.positionLabel}}</text>
@@ -391,7 +391,7 @@
         <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="replaceCause">采用我补充的错因</button>
         <button hover-class="item--hover" class="control-center cause-later" disabled="{{interactionLocked}}" bindtap="deferCause">稍后处理</button>
       </block>
-      <view wx:else class="legacy-notice">这是一条只读旧记录，当前没有可确认的候选错因。</view>
+      <view wx:else class="legacy-notice">这是一条旧记录，暂时没有可以确认的候选错因。</view>
       <view class="reflection-bottom-spacer"></view>
     </view>
 
@@ -406,7 +406,7 @@
         <view class="completed-correction-step">
           <view class="completed-correction-step__marker">1</view>
           <view class="completed-correction-step__content">
-            <view class="completed-correction-step__label">本次主要纠偏</view>
+            <view class="completed-correction-step__label">这次主要纠正的</view>
             <view class="completed-correction-step__copy">{{completionClosure.acceptedCorrection.correction}}</view>
           </view>
         </view>
@@ -532,11 +532,11 @@
             <text class="action-analysis__copy">{{item.text}}</text>
           </view>
         </view>
-        <view class="action-analysis__boundary">这里只描述可见轨迹，不直接判断“粗心”或“不会”。</view>
+        <view class="action-analysis__boundary">这里只描述看到的过程，不直接说“粗心”或“不会”。</view>
         <!-- 底部按钮不贴设备边缘：sheet padding-bottom 提供呼吸空间。 -->
         <view class="action-analysis__actions">
           <button hover-class="item--hover" class="action-analysis__ask" bindtap="askAnanAboutGroup">继续追问岸岸</button>
-          <button hover-class="item--hover" class="action-analysis__back" bindtap="closeActionAnalysis">回到错题复盘</button>
+          <button hover-class="item--hover" class="action-analysis__back" bindtap="closeActionAnalysis">回到复盘</button>
         </view>
       </view>
     </view>

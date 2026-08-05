@@ -1,7 +1,7 @@
 <view class="s9-screen position-screen position-screen--goal">
   <workbench-nav
     id="runtime-workbench-nav"
-    title="{{state && state.status === 'confirmed' ? '主目标已确认' : '设置主目标'}}"
+    title="{{state && state.status === 'confirmed' ? '主目标已确认' : '定主目标'}}"
     back-behavior="emit"
     bind:back="goBack"
   />
@@ -10,15 +10,15 @@
     <state-view
       wx:if="{{!state || state.status === 'idle' || state.status === 'loading' || state.status === 'previewing'}}"
       state="{{state && state.status === 'previewing' ? 'processing' : 'loading'}}"
-      title="正在生成影响预览"
-      description="重新核验资格、目标分和受影响的计划。"
+      title="正在看这步的影响"
+      description="会把资格、目标分和受影响的计划重新对一遍。"
     />
     <state-view
       wx:elif="{{state.status === 'needsProfile'}}"
       state="empty"
-      title="先完成资格建档"
-      description="定目标前，需要用最新档案核对一次。"
-      action-text="去建档"
+      title="先把报考资料补全"
+      description="定目标前，咱们用最新的资料对一遍。"
+      action-text="去补资料"
       bind:action="openQualificationProfile"
     />
     <state-view
@@ -35,24 +35,24 @@
       title="{{state.error.title}}"
       description="{{state.error.message}}"
       request-id="{{state.error.requestId}}"
-      action-text="{{state.status === 'versionConflict' ? '重新生成预览' : (state.error.retryable ? '恢复刚才操作' : '')}}"
+      action-text="{{state.status === 'versionConflict' ? '重新算一遍' : (state.error.retryable ? '再试一次' : '')}}"
       bind:action="retry"
     />
 
     <block wx:elif="{{state.status === 'ready' || state.status === 'confirming'}}">
       <view class="goal-preview">
-        <view class="goal-preview__title">目标变更预览</view>
+        <view class="goal-preview__title">改了目标会怎样</view>
         <view class="goal-preview__department">{{state.summary ? state.summary.departmentFull : ''}}</view>
 
         <view class="goal-preview-card">
-          <view class="goal-preview-card__heading">备考计划即将发生以下调整：</view>
+          <view class="goal-preview-card__heading">你的备考计划会这样变：</view>
 
           <view class="goal-impact-row">
             <view class="goal-impact-row__icon goal-impact-row__icon--blue"><text class="bar-icon">▥</text></view>
             <view class="goal-impact-row__main">
               <view class="goal-impact-row__title">新目标分：{{state.previewView.nextScoreLabel}}</view>
               <view class="goal-impact-row__copy">
-                {{state.previewView.previousScoreLabel === '尚未设置' ? '首次建立主目标' : '原目标 ' + state.previewView.previousScoreLabel + '，' + state.previewView.deltaLabel}}
+                {{state.previewView.previousScoreLabel === '尚未设置' ? '第一次定主目标' : '原目标 ' + state.previewView.previousScoreLabel + '，' + state.previewView.deltaLabel}}
               </view>
             </view>
           </view>
@@ -62,7 +62,7 @@
           <view class="goal-impact-row">
             <view class="goal-impact-row__icon goal-impact-row__icon--purple"><text class="briefcase-icon">▣</text></view>
             <view class="goal-impact-row__main">
-              <view class="goal-impact-row__title">训练计划会重新对齐</view>
+              <view class="goal-impact-row__title">训练计划会重新安排</view>
               <view class="goal-impact-row__copy">
                 <text wx:for="{{state.invalidations}}" wx:key="code">{{index ? '、' : ''}}{{item.label}}</text>
               </view>
@@ -70,13 +70,13 @@
           </view>
 
           <view class="goal-evidence-line">
-            目标区间 {{state.preview.targetScore.lowerBound}}–{{state.preview.targetScore.upperBound}} · {{state.preview.targetScore.sampleCount}} 个真实样本
+            目标分数 {{state.preview.targetScore.lowerBound}}–{{state.preview.targetScore.upperBound}} · 按 {{state.preview.targetScore.sampleCount}} 个真实分数算的
           </view>
         </view>
 
-        <view wx:if="{{state.restoredPreview}}" class="position-inline-alert">已恢复仍在有效期内的预览，确认时会再次核对。</view>
+        <view wx:if="{{state.restoredPreview}}" class="position-inline-alert">上次算的还在，确认时会再对一遍。</view>
         <view wx:if="{{!state.targetValidity.available || state.targetValidity.expired}}" class="position-inline-alert">
-          {{state.targetValidity.expired ? '目标分依据已过期，请重新生成。' : '缺少目标分有效期，暂时不能确认。'}}
+          {{state.targetValidity.expired ? '目标分参考过期啦，重新生成一下就好。' : '还没拿到目标分参考，暂时定不了。'}}
         </view>
 
         <button
@@ -84,7 +84,7 @@
           class="control-center goal-primary-button {{!state.preview || !state.invalidations.length || state.targetValidity.expired || state.status === 'confirming' ? 'goal-primary-button--disabled' : ''}} tap-tactile"
           disabled="{{!state.preview || !state.invalidations.length || state.targetValidity.expired || state.status === 'confirming'}}"
           bindtap="confirmGoal"
-        >{{state.status === 'confirming' ? '正在确认…' : '确认变更，更新我的计划'}}</button>
+        >{{state.status === 'confirming' ? '正在确认…' : '就这么定，更新我的计划'}}</button>
         <button hover-class="item--hover" class="control-center goal-quiet-button" bindtap="openDetail">返回修改</button>
       </view>
     </block>
@@ -93,20 +93,20 @@
       <view class="goal-confirmed">
         <view class="goal-confirmed__icon"><text>✓</text></view>
         <view class="goal-confirmed__title">主目标已确认</view>
-        <view class="goal-confirmed__copy">训练计划和目标分数已经按新岗位更新。</view>
+        <view class="goal-confirmed__copy">训练计划和目标分数都换好啦，按新岗位来的。</view>
 
         <view wx:if="{{state.offerExamBriefing && resolvingPostGoalAction}}" class="goal-confirmed__status">正在准备下一步…</view>
         <view wx:if="{{state.offerExamBriefing && postGoalError}}" class="position-inline-alert">{{postGoalError}}</view>
 
         <block wx:if="{{state.offerExamBriefing && postGoalAction === 'review_exam_briefing'}}">
-          <button hover-class="item--hover" class="control-center goal-primary-button tap-tactile" bindtap="openBeginnerBriefing">先看基础考情</button>
+          <button hover-class="item--hover" class="control-center goal-primary-button tap-tactile" bindtap="openBeginnerBriefing">先了解这场考试</button>
           <button hover-class="item--hover" class="control-center goal-quiet-button" bindtap="finish">我已熟悉，直接开始</button>
         </block>
         <block wx:elif="{{state.offerExamBriefing && (postGoalAction === 'import_prior_evidence' || postGoalAction === 'start_retake_recovery')}}">
-          <button hover-class="item--hover" class="control-center goal-primary-button tap-tactile" bindtap="openRecommendedEntry">{{postGoalAction === 'import_prior_evidence' ? '导入已有成绩' : '建立失分回收计划'}}</button>
+          <button hover-class="item--hover" class="control-center goal-primary-button tap-tactile" bindtap="openRecommendedEntry">{{postGoalAction === 'import_prior_evidence' ? '补上以前的成绩' : '安排一份失分补救计划'}}</button>
           <button hover-class="item--hover" class="control-center goal-quiet-button" bindtap="finish">先进入今日计划</button>
         </block>
-        <button wx:else hover-class="item--hover" class="control-center goal-primary-button tap-tactile" bindtap="finish">{{state.offerExamBriefing ? '进入今日计划' : '回到岗位决策'}}</button>
+        <button wx:else hover-class="item--hover" class="control-center goal-primary-button tap-tactile" bindtap="finish">{{state.offerExamBriefing ? '进入今日计划' : '回去接着选岗'}}</button>
       </view>
     </block>
   </view>

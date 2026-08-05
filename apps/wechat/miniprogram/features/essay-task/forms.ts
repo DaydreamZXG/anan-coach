@@ -170,7 +170,7 @@ export function buildArtifactCommand(
     );
   }
   const rubricVersionId = workspace.rubricAvailability.rubric?.rubricVersionId;
-  if (!rubricVersionId) throw new EssayFormError("这道题还没有可用的评分规则。");
+  if (!rubricVersionId) throw new EssayFormError("这道题的评分依据还没备好，先等一下就绪。");
   if (stage === "essay_point_extraction") {
     const payload = pointPayload(workspace, drafts);
     return withBasedOn(
@@ -188,7 +188,7 @@ export function buildArtifactCommand(
   if (stage === "essay_review") {
     const reviewVersionId = workspace.progression.reviewVersionId;
     if (!reviewVersionId || workspace.progression.reviewStatus !== "completed") {
-      throw new EssayFormError("评阅尚未完整完成，暂时不能确认。");
+      throw new EssayFormError("评阅还没完全出来，先等等再确认。");
     }
     const payload = reviewPayload(workspace, drafts);
     return withBasedOn(
@@ -202,11 +202,11 @@ export function buildArtifactCommand(
       workspace.currentArtifacts.review_acknowledgement?.artifactVersionId,
     );
   }
-  throw new EssayFormError("当前阶段的信息还没有填写完整，暂时不能保存。");
+  throw new EssayFormError("这一步的信息还没填完整，先补一下再存。");
 }
 
 function materialPayload(drafts: EssayFormDrafts): MaterialAnnotationPayload {
-  const overallTheme = required(drafts.overallTheme, "请填写整组材料的核心主题。");
+  const overallTheme = required(drafts.overallTheme, "先写下整组材料围绕什么主题。");
   return {
     schemaType: "material_annotation",
     overallTheme,
@@ -214,7 +214,7 @@ function materialPayload(drafts: EssayFormDrafts): MaterialAnnotationPayload {
       const evidenceQuote = item.evidenceQuote.trim();
       return {
         segmentId: item.segmentId,
-        paragraphSummary: required(item.paragraphSummary, `请完成${item.label}的段落主旨。`),
+        paragraphSummary: required(item.paragraphSummary, `${item.label}的段落主旨还没写，补一下。`),
         subjects: splitLabels(item.subjectsText, `请填写${item.label}的对象或主体。`),
         ...(evidenceQuote ? { evidenceQuote } : {}),
       };
@@ -227,8 +227,8 @@ function pointPayload(
   drafts: EssayFormDrafts,
 ): PointExtractionPayload {
   const source = workspace.currentArtifacts.material_annotation;
-  if (!source) throw new EssayFormError("请先完成并保存材料分段标注。");
-  if (drafts.points.length === 0) throw new EssayFormError("至少提炼 1 个要点。");
+  if (!source) throw new EssayFormError("先完成并保存材料地图，再来提炼要点。");
+  if (drafts.points.length === 0) throw new EssayFormError("先提炼出至少 1 个要点。");
   return {
     schemaType: "point_extraction",
     sourceMaterialAnnotationVersionId: source.artifactVersionId,
@@ -246,8 +246,8 @@ function pointPayload(
 
 function outlinePayload(workspace: EssayTaskWorkspace, drafts: EssayFormDrafts): OutlinePayload {
   const source = workspace.currentArtifacts.point_extraction;
-  if (!source) throw new EssayFormError("请先完成并保存要点提炼。");
-  if (drafts.outlineSections.length === 0) throw new EssayFormError("至少创建 1 个提纲段落。");
+  if (!source) throw new EssayFormError("先完成并保存要点提炼，再来排提纲。");
+  if (drafts.outlineSections.length === 0) throw new EssayFormError("至少排 1 个提纲段落。");
   const thesis = drafts.thesis.trim();
   return {
     schemaType: "outline",
@@ -256,7 +256,7 @@ function outlinePayload(workspace: EssayTaskWorkspace, drafts: EssayFormDrafts):
     sections: drafts.outlineSections.map((section, index) => {
       const plannedWords = Number(section.plannedWordsText);
       if (!Number.isInteger(plannedWords) || plannedWords <= 0 || plannedWords > 5000) {
-        throw new EssayFormError(`请填写第 ${String(index + 1)} 段有效的预计字数。`);
+        throw new EssayFormError(`第 ${String(index + 1)} 段的预计字数填得不对，再看看。`);
       }
       return {
         sectionId: section.sectionId,
@@ -285,19 +285,19 @@ function reviewPayload(
     new Set(drafts.review.decisions.map((item) => item.findingId)).size !== findingIds.size ||
     drafts.review.decisions.some((item) => !findingIds.has(item.findingId))
   ) {
-    throw new EssayFormError("评阅内容刚刚有更新，请刷新后重新逐条决定。");
+    throw new EssayFormError("评阅内容刚更新过，刷新后再重新选一遍。");
   }
   const decisions = drafts.review.decisions.map((item) => {
     if (!item.decision) {
-      throw new EssayFormError("请对本版评阅的全部问题逐条选择认可、不认可或存疑。");
+      throw new EssayFormError("把这版评阅的问题都选一下：认可、不认可还是存疑。");
     }
     const learnerReason = item.learnerReason.trim();
     const followUpQuestion = item.followUpQuestion.trim();
     if (item.decision === "rejected" && !learnerReason) {
-      throw new EssayFormError("不认可评阅问题时必须写明理由。");
+      throw new EssayFormError("不认可的话，记得写下理由。");
     }
     if (item.decision === "uncertain" && (!learnerReason || !followUpQuestion)) {
-      throw new EssayFormError("对评阅问题存疑时必须写明理由和待追问内容。");
+      throw new EssayFormError("存疑的话，理由和想问的都写上。");
     }
     return {
       findingId: item.findingId,
@@ -308,15 +308,15 @@ function reviewPayload(
   });
   const priorities = requiredIds(
     drafts.review.priorityFindingIds,
-    "请选择 1–3 个本次优先修正问题。",
+    "从认可的问题里挑 1–3 个这次最想改的。",
   );
-  if (priorities.length > 3) throw new EssayFormError("优先修正问题最多选择 3 个。");
+  if (priorities.length > 3) throw new EssayFormError("最想改的别超过 3 个。");
   if (
     priorities.some(
       (id) => !decisions.some((item) => item.findingId === id && item.decision === "accepted"),
     )
   ) {
-    throw new EssayFormError("评阅内容刚刚有更新，请刷新后重新确认。");
+    throw new EssayFormError("评阅内容刚更新过，刷新后再确认一次。");
   }
   return {
     schemaType: "review_acknowledgement",
@@ -325,7 +325,7 @@ function reviewPayload(
     priorityFindingIds: priorities,
     learnerUnderstanding: required(
       drafts.review.learnerUnderstanding,
-      "请用自己的话写下对本次问题的理解。",
+      "用自己的话写下你对这次问题的理解。",
     ),
   };
 }
