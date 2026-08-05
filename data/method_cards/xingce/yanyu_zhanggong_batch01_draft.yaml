@@ -1,0 +1,1688 @@
+- id: mc_yanyu_zhongxin_zhaozhongdian
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/中心理解/找重点句
+  title: 中心理解-重点句定位(七大句子关系)
+  recognition: 问"这段文字意在强调/主要说明/主旨概括"的片段阅读题,需从众多句子中找出最关键的主旨句
+  applicability:
+    include:
+    - 问"意在强调/主要说明/主旨是"的中心理解题
+    - 标题填入题(本质是中心理解题的变型)
+    - 文段有明显的转折/因果/对策等句间关系标志
+    exclude:
+    - 问"下列说法正确/不正确"的细节判断题(考对错,不考找重点)
+    - 纯并列结构无主次之分的文段(需全面概括而非找一句)
+    - 逻辑填空题(考点在词语,不是找中心句)
+  method_steps:
+  - 通读文段,用七大句子关系判断句间逻辑并定位中心句:转折后>前、结论>原因、对策>问题、论点>论据、强调部分>非强调、新话题>旧话题,并列关系无主次
+  - 删除关联词验证句意是否变化:如"今天不舒服,(但是)我还是来了"删"但是"仍是转折,说明本质是转折关系
+  - 站在全文整体角度确认重点,警惕"局部重点≠全文重点"(前半的转折可能是铺垫,后文的结论/对策才是最终落脚点)
+  error_signatures:
+  - code: partial_focus_miss
+    description: 看到前半部分转折就匆忙定重点,忽略后文更重要的结论或对策
+  - code: overrely_conjunction
+    description: 把关联词当绝对真理,忽略同一关联词可表不同关系(如"而"表转折/顺承/并列/递进)
+  - code: ignore_overall_structure
+    description: 只看局部关系未通篇分析,把局部重点当全文重点
+  fix_action: 做15道中心理解真题,每题先给每句标注句子关系再定中心句,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 中心理解题正确率≥80%
+  pitfall: 转折/结论只是定位重点的"拐杖",删除关联词后句意不变的句子关系才是本质;前文有转折、后文又给结论/对策时,后文往往超越前文所有内容
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_zhongxin_zhutici
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/中心理解/主题词筛选
+  title: 中心理解-主题词判断与选项筛选
+  recognition: 中心理解题选答案阶段,用"正确答案必须包含主题词或其同义替换"快速锁定与排除选项
+  applicability:
+    include:
+    - 中心理解题同义替换选答案时
+    - 选项多且相近需要对比择优时
+    - 晦涩难懂的科技类文段(优先用高频词+首句定主题词)
+    exclude:
+    - 细节判断题(看对错不看主题词,片面选项在细节题可以选)
+    - 专业名词必须保留原词时(如"全国统一大市场"不可替换)
+    - 纯并列文段(无单一主题词,需全面概括)
+  method_steps:
+  - 用三种方法定主题词,以中心句提炼法最优先:中心句核心话题(抓核心动名词"谁+做什么")、每句高频词锁定、首句引出话题
+  - 确认选项包含主题词或其同义替换(允许适当扩大/缩小/替换,如文化→文明、技术→技艺,核心概念不能偏移)
+  - 排除"死罪项":与文意直接矛盾/文段完全未提及/无关对策;再排"慎选项":缺主题词/非重点内容/片面表述
+  - 抓大放小:先确保主题词匹配,再考虑细节表述
+  error_signatures:
+  - code: missing_theme_word
+    description: 选项缺少主题词仍误选,90%情况下缺主题词应排除
+  - code: theme_scope_overexpand
+    description: 主题词范围不当扩大,如"巴氏芽孢杆菌"扩大为"细菌/混凝土新材料"
+  - code: professional_term_replaced
+    description: 专业名词被替换,如"现代公共法律服务体系"不能省略"现代"
+  - code: non_emphasis_selected
+    description: 选转折前/结论前/程度词前的非重点内容
+  fix_action: 做12道中心理解题,每道先写出主题词再选答案,养成"无主题词不选"的习惯,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 主题词判断准确率≥85%
+  pitfall: 主题词不一定是高频词——当中心句明显(前有引入后有解释说明)时主题词频次可能很低,必须抓中心句的核心动名词
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_zhongxin_shouju
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/中心理解/首句话题
+  title: 中心理解-首句引出核心话题
+  recognition: 文段首句为引入式(下定义/背景/范畴限定),正确答案往往=后文重点内容+回扣首句引出的话题
+  applicability:
+    include:
+    - 首句引出话题、后文围绕该话题深入讨论(最高频情况,如"线上教学"后文提"引入社会力量")
+    - 国考正确答案"后文重点+回扣开头话题"规律题
+    - 选项纠结时用首句话题检验是否偏离讨论范畴
+    exclude:
+    - 首句即提出观点/中心句的文段(此时首句本身是重点,不叫引出话题)
+    - 后文完全反驳/推翻首句话题的情况(新话题更重要)
+    - 后文提出并列新话题且未反驳(所有话题都重要,需全面概括)
+  method_steps:
+  - 判断首句是"引出话题"还是"提出观点":读完全文若观点不在首句,则首句引出的核心话题词仍很重要(它规定探讨范畴)
+  - 定位后文真正重点(转折后/结论后/对策),牢记首句话题作为讨论范畴
+  - 选答案时同时保留"后文重点+回扣首句话题",如"在线教育健康发展需要引入社会力量"
+  - 尾句未出现主题词时,通过潜台词确认仍围绕首句话题(如县域对策未提"县域",但"疏解城市功能又助力乡村振兴"的主体就是县域)
+  error_signatures:
+  - code: forgot_opening_topic
+    description: 只看后文重点,忽略回扣首句引出的话题,如区块链题只看后文误选"提升公信力"
+  - code: first_sentence_as_view
+    description: 把引出话题句当成观点句,误选首句本身内容
+  - code: tail_without_theme
+    description: 尾句无主题词就以为脱离主题,机械寻找关键词而非理解内在逻辑
+  fix_action: 做8道"后文重点+回扣开头"型真题,标注每题的"首句话题词"和"后文重点",限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥80%
+  pitfall: 新话题>老话题与首句话题重要并不矛盾:只要后文没有全面反驳首句话题,首句引出的话题仍重要(它规定了探讨范畴),需分三种情况判断
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_zhongxin_lizi
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/中心理解/例子处理
+  title: 中心理解-例子与解释说明的处理
+  recognition: 文段出现"比如/例如"或对观点的具体展开,需区分例子/观点/对策,避免误选例子内容
+  applicability:
+    include:
+    - 文段出现"比如/例如"等明显举例标志
+    - 观点+解释说明的总分结构
+    - 观点拿捏不定时用例子反向推断观点侧重点
+    exclude:
+    - 通篇都在讲某个具体对象的文段(该对象是论述主体,不是例子,如"上海""长三角")
+    - 带对策表述的具体对象(如"古典名画需要跨界融合""京津冀要发展高精尖",是对策不是例子)
+    - 需要精确理解例子本身的细节判断题
+  method_steps:
+  - 识别举例标志(比如/例如),例子内容一般不作答案可快速略过,但需判断例子到哪里结束(看内容是否转为总结或观点转换)
+  - 无标志也判断例子:前后核心思想一致且是观点的具体化即为例子;越简短的句子越可能是观点,越长的越可能是解释或例子
+  - 区分例子与对策:完成时态是例子(已发生),将来时态(带"需要/应该/还必须"的对策)不是例子
+  - 纠结时用例子辅助理解观点:例子与观点意思一致,看例子在解释什么来确定观点侧重点
+  error_signatures:
+  - code: example_as_answer
+    description: 把例子中的具体内容当答案,如"青绿热""人在画中游"是例子非重点
+  - code: main_subject_as_example
+    description: 把通篇论述对象误当例子排除,通篇讲的对象本身就是论述主体
+  - code: countermeasure_as_example
+    description: 把带对策表述的具体对象当例子排除,对策对象是文段核心之一
+  - code: example_range_misread
+    description: 看到"比如"就跳过所有内容,未判断例子到何处结束
+  fix_action: 做8道含例子的中心理解真题,标出例子起止范围和观点句,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥80%
+  pitfall: '"比如"后不能直接跳过所有内容,要判断例子到哪里结束——后续内容转为总结或观点转换时例子结束,否则仍在例子范围内'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_duice_youxian
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/中心理解/对策文段
+  title: 中心理解-对策文段(对策优先)
+  recognition: 文段出现对策标志词("应该/需要/必须/势在必行")或反面论证/提出问题,问"意在强调"——对策类文段,优选对策
+  applicability:
+    include:
+    - 直接提对策(有"应该/需要/必须"等标志词,最高频考法)
+    - 反面提对策("如果不…则…"→将错误做法反过来即对策)
+    - 文段只提问题无对策(优先选针对性对策,无好对策则选概括问题项)
+    exclude:
+    - 文段既无问题也无对策(非对策类文段,不选对策)
+    - 选项对策无针对性或无法解决问题(如问题在"执法权限"却给"健全法律")
+    - 细节判断题("只有…才"可能表绝对,不当作对策)
+  method_steps:
+  - 识别对策:能表达"做/行动"的词(应该/需要/势在必行)或能解决当前问题的做法都是对策
+  - 正面提对策直接找;反面提对策则把错误做法反过来(如"互相指责、争论是错误且缺乏远见的"→"应用正确态度与方法面对")
+  - 只提问题无对策时:优选能针对性解决问题的对策;若选项无合适对策则退而求其次选概括问题的选项
+  - 对策与问题一体两面,纠结时从问题反推对策,验证选项针对性(如执法权限问题→精准赋权)
+  error_signatures:
+  - code: irrelevant_countermeasure
+    description: 选无关对策,对策未针对核心问题,如问题在"保护缺位"却选"加强宣传"
+  - code: reverse_negative_wrong
+    description: 反面论证不会转正,未把假设的错误做法反过来
+  - code: blind_pick_countermeasure
+    description: 非对策类文段也强行选对策,如没生病却建议去医院
+  - code: problem_over_countermeasure
+    description: 有针对性对策却不选,反而去选问题描述项
+  fix_action: 做12道对策类真题,每题先标注文段的对策标志词/问题所在再选,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥80%
+  pitfall: 在言语中心理解中"必要条件=对策=只有…才=要"三者全等(仅限该题型),但细节判断题中"只有…才"可能表绝对;对策必须针对核心问题,对策对象不对比没有对策更糟
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_duice_duixiang
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/中心理解/对策对象
+  title: 中心理解-对策与对象抓取
+  recognition: 对策类文段选答案时,选项需同时包含"对策(怎么做)+对象(谁做/为谁做)"两个核心主题词
+  applicability:
+    include:
+    - 对策类文段答案筛选(约80%答案含对策+对象)
+    - 题干已给出对象时(如"文博展陈应…"),只需在文段找具体对策
+    - 宏观对策后跟具体对策的辨析
+    exclude:
+    - 并列文段全面概括型(无单一对策)
+    - 纯细节判断题
+    - 对策后跟的意义效果部分(意义效果表述次于具体对策)
+  method_steps:
+  - 从文段分别抓两个核心主题词:对象=开头引出的大话题/谁去做,对策=具体怎么做(谓语动词)
+  - 选项同时包含对策+对象则优先;只给一个时,看另一个选项是否有明显瑕疵(主题词错误/表述不准确)来排除
+  - 宏观对策+多方面展开:宏观对策与后文具体概括均可能作答案,结合选项判断(出题人只给一个正确选项)
+  - 宏观对策+单一具体对策:后文有举例提示→宏观重要;后文有"关键/核心/更应该"→具体重要;都无→结合选项判断
+  error_signatures:
+  - code: missing_object
+    description: 选项丢对象,如高精尖产业题答案必须含"京津冀"和"高精尖"两个词
+  - code: missing_countermeasure
+    description: 只描述现状或意义,未体现对策,如"研究领域广阔"
+  - code: substitution_concept
+    description: 偷换概念,如把"从智能技术赋能到技术融合的转变"偷换成"智能技术赋能的路径"
+  fix_action: 做10道对策类真题,每题先写出"对象=?对策=?"再选答案,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 对策+对象双抓准确率≥80%
+  pitfall: 尾句对策未出现主题词时不要机械认为脱离主题——通过潜台词确认对策对象(如"主动对接…城市功能疏解…乡村全面振兴"的主体就是县域)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_duice_xuanze
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/中心理解/对策选择
+  title: 中心理解-对策选择原则(内容>形式)
+  recognition: 多个对策选项都"像"答案时,用"内容(主题词)>形式(对策标志词)"取舍,并识别不该选对策的情形
+  applicability:
+    include:
+    - 多个选项都含对策标志词、纠结时
+    - 意图判断题/标题题中的对策选择
+    - 文段有问题但选项对策不靠谱时
+    exclude:
+    - 文段中心句本身不是对策时
+    - 细节判断题
+    - 接语选择题(不存在"优选对策",谁衔接紧密选谁)
+  method_steps:
+  - 先验证选项是否含文段核心内容(主题词):内容正确是第一位的,即使形式上不是对策(如"努力对我们很重要"没有"应该"也可选)
+  - 内容都正确时,再优先形式上是对策的选项(如"亟待进一步深入研究"优于"研究领域广阔")
+  - 识别"不选对策"两种情形:①文段无问题无对策;②选项对策无针对性或无法解决问题(如"新农人"题"补短板"无中生有)
+  - 纠结时对比选项找差异点,回文段验证差异点匹配度
+  error_signatures:
+  - code: form_over_content
+    description: 选有"要/应该"但缺核心主题词的选项,如C项"法治建设"缺"公平正义"而选错
+  - code: countermeasure_no_target
+    description: 对策无针对性,乱提对策,如问题在执法管辖却选"健全法律"
+  - code: option_diff_ignored
+    description: 剩余两选项纠结时没对比差异点,如"传承人"是否出现在选项里
+  fix_action: 做8道意图判断题,每题标注各选项的"内容(主题词)"和"形式(对策词)"再择优,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥80%
+  pitfall: 对策不万能——看到对策就选是误区;文段有问题但选项无好对策时果断选问题本身,但"先看对策"的做题思路不能变
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_zhuanzhe
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/中心理解/转折文段
+  title: 中心理解-转折文段
+  recognition: 文段出现"虽然…但是/然而/不过/却/其实/事实上/实际上",考点是转折后是重点(但"事实上"不必然表转折)
+  applicability:
+    include:
+    - 有"但/然而/不过/却"等转折词
+    - 有"其实/事实上/实际上"且与前文构成矛盾关系时
+    - 转折后引出新话题/新结论时
+    exclude:
+    - '"事实上/实际上"只是引导事实、前后不矛盾时(如"都说老王是好人,实际上他确实如此")'
+    - 结论词(因此/所以)文段
+    - 无转折关系的并列文段
+  method_steps:
+  - 站在全文整体判断转折关系,不能只看某句有"但是"就认定其后是重点,转折是句与句之间的整体关系
+  - 判断"其实/事实上/实际上":只有引导的事实与前文构成矛盾关系才表转折,否则可能是举例论证(如用事实证明对策重要性)
+  - 转折文段答案两种形式:否定转折前观点 / 直接阐述转折后内容;若两选项都看似正确,优先选表述更明确直接的(阐述后文)
+  - 出题人通常不会同时给两个完美选项,会让其一有明显瑕疵(主题词改/逻辑不符)供排除
+  error_signatures:
+  - code: false_zhuanzhe
+    description: 看到"事实上"就断定转折,忽略前后一致时它只是陈述事实或举例论证
+  - code: before_zhuanzhe_selected
+    description: 选转折前内容,如饮酒题选"长期饮酒危害"而非转折后的偶尔喝酒也有害
+  - code: negation_not_mentioned
+    description: 答案说"纠正人们的错误认识"但文段只是"不知道",属于无中生有
+  fix_action: 做8道转折文段真题,标出转折词并判断"事实上/实际上"是否真表转折,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥80%
+  pitfall: '"其实/事实上/实际上"不是强转折词,必须先分析前后内容是否矛盾;转折关系是句子与句子之间的整体关系,不能只看单句'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_yinguo
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/中心理解/因果文段
+  title: 中心理解-因果文段(结论词)
+  recognition: 文段出现"因此/所以/故而/可见/总之/这意味着"等结论词,结论之后是重点
+  applicability:
+    include:
+    - 尾句有结论词(尾句结论作中心句概率80%以上)
+    - 大量原因/意义论述的因果文段
+    - 过程复杂的文段(层层递进,首尾兼顾抓结果)
+    exclude:
+    - 转折文段
+    - 需要结合上下文才能判断褒贬/范围的尾句(不能只看尾句)
+    - 纯对策文段
+  method_steps:
+  - 定位结论词,结论之后是重点、结论之前(原因/过程)是铺垫
+  - 答案常为"果+因"结构:核心必须体现"果"(结论/对策),原因可带可不带(如"废墟何以是美的"重点在"废墟是美的")
+  - 过程复杂时层层递进抓结果:首尾兼顾,忽略中间过程(如"好成绩→好心态→好身体→好休息→好睡眠"核心是"好成绩需要好睡眠")
+  - 正常情况即使尾句有结论词也要结合上下文(前文核心话题/褒贬判断),只有完全看不懂才可退而只看尾句
+  error_signatures:
+  - code: cause_as_answer
+    description: 选原因/过程而非结果,如蜜蜂题选"花蜜与咖啡因"而非"蜜蜂离不开花蜜"
+  - code: tail_only_ignore_context
+    description: 只看尾句结论忽略前文核心话题,如"脑衰老"题尾句无"脑衰老"三字就误选
+  - code: middle_process_selected
+    description: 层层递进题选中间过程,如西风带题选"槽和脊如何波动"而非尾句结果
+  fix_action: 做10道因果文段真题,每题标出结论词和"果",再判断选项是否体现"果",限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥80%
+  pitfall: 因果文段有反套路设计:看到"原因"别直接当非重点排除——正确答案常以"结论+原因"形式出现,但选它的根本理由是体现了"果"
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_xijie_shunxu
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/细节判断/做题顺序
+  title: 细节判断-做题顺序与优先验证
+  recognition: 问"下列说法正确/不正确(与文意相符/不符)的一项",是细节判断题,看对错而非找重点
+  applicability:
+    include:
+    - 选是题(问"正确的是/最准确")
+    - 选非题(问"不符合/未提及/无法解释")
+    - 晦涩科技文段(先看选项再回文段比对)
+    exclude:
+    - 中心理解题(找重点)
+    - 需要理解文段结构的题
+    - 无选项的片段阅读
+  method_steps:
+  - 审题:判断选是/选非(选非题在答案处打叉防遗忘),判断选项内容文段是否提及
+  - 定顺序:文段晦涩(科技说明类)先看选项再回文段比对;文段通俗(人文社科选是题)先看文段;选项短/差异大/有验证点可先看选项
+  - 优先验证:选是题优先验证相对项(可能/也许/往往/之一)和符合常识项;选非题优先验证绝对项(一定/都/最/无法/最新)和对比项(高于/优于/比…更)
+  - 找"特殊":关注选项中只有某个选项才有的特殊字词,快速定位原文比对
+  error_signatures:
+  - code: absolute_overreach
+    description: 把"概念验证实验"当"已在临床验证",时间/程度偷换
+  - code: comparison_error
+    description: 对比项"超过三分之一"与原文"相当于三分之一"矛盾
+  - code: order_wrong
+    description: 难懂文段还先读文段,浪费时间
+  fix_action: 做15道细节判断题,标出选是/选非和优先验证项,限时50秒/题(细节题可快速定位)
+  time_budget_sec: 50
+  accuracy_rule: 正确率≥85%
+  pitfall: 优先验证只是提高概率、并非直接锁定答案;优先验证的选项都错时仍要回头验证其他选项,该看的文段一个都不能少
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_xijie_ganrao
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/细节判断/干扰项排除
+  title: 细节判断-干扰项识别与对比择优
+  recognition: 细节判断题选项辨析时,识别"与文意相悖/偷换概念/偷换逻辑/无中生有"等干扰项,并学会对比择优
+  applicability:
+    include:
+    - 细节判断题(选是/选非)
+    - 选项"片面/扩大缩小/适度联想"拿不准时
+    - 两个选项纠结时
+    exclude:
+    - 中心理解题(选项处理方式不同,需找重点而非查找)
+    - 需要精确阅读的例子本身
+    - 无中生有话题范畴判断以外的题
+  method_steps:
+  - 用判断思维(集合关系)判断扩大缩小:缩小到子集可对("言语老师了解学生心理"⊂"老师了解学生心理"),扩大到父集或反向不可对
+  - 识别四大干扰项:与文意相悖、偷换概念(概念替换/概念混搭)、偷换逻辑(强加因果/因果倒置/并列偷换)、无中生有
+  - 对比择优:选"正确"题选问题最不明显的;选"错误"题选问题最明显的(如"超过三分之一"与原文"相当于"矛盾,比"约半数"的过度推断更明显)
+  - 细节主旨化:当文段中心句清晰时优先判断选项是否与中心句匹配(人文社科选是题常见陷阱)
+  error_signatures:
+  - code: no_scratch_mention
+    description: 无中生有,选项内容文段未提及,如"农业保险预防天气灾害"违反常识(保险是事后补偿)
+  - code: concept_swap
+    description: 偷换概念张冠李戴,如"交感神经负责放松"实为"负责战斗"
+  - code: causal_inversion
+    description: 强加因果/因果倒置,把无因果事件强行建立因果
+  - code: parallel_substitution
+    description: 把并列关系偷换成主次等其他关系
+  fix_action: 做10道细节判断题,逐项标注干扰项类型(相悖/偷换概念/偷换逻辑/无中生有),限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率≥85%
+  pitfall: 片面≠错——细节题中"我爱言语"相对"我爱言语也爱数资"虽片面但正确可选;不要死记"扩大错缩小对",必须用集合包含关系判断
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_yuju_tiankong
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/语句表达/语句填空
+  title: 语句填空-话题一致与横线位置
+  recognition: 问"填入横线部分最恰当的一项是",核心原则是"话题一致、衔接得当"(本质是中心理解题)
+  applicability:
+    include:
+    - 横线在结尾(总结前文或提对策)
+    - 横线在开头(概括后文或话题引入)
+    - 横线在中间(承上启下)
+    exclude:
+    - 逻辑填空题(选词)
+    - 接语选择题(问接下来)
+    - 凭语感判断的题(语感陷阱)
+  method_steps:
+  - 横线在结尾:前文有问题则提对策,无问题则总结前文;承担功能的是横线所在的整句而非横线本身
+  - 横线在开头:优先选能概括后文全文的选项,无则退而求其次选能引出话题的(如"我想喝一杯奶茶"引出"喝东西"话题)
+  - 横线在中间:最优是"承上启下"(既承接上文又引出下文),次选侧重承上或侧重启下
+  - 抓"反复说"的核心词:对策要点多时,后文反复出现的词就是核心话题(如"循环"在"一是…二是…"中都出现)
+  error_signatures:
+  - code: topic_mismatch
+    description: 话题不一致,选项话题与文段核心话题无关,如立法题选"治国理政"而非"立法"
+  - code: one_side_only
+    description: 横线在中间只呼应一侧,如只看后文举例而忽略横线前的"质量"问题
+  - code: gut_feeling_trap
+    description: 凭语感选读起来最顺的选项,落入语感陷阱
+  - code: topic_wrong_vs_missing
+    description: 选话题错误的选项而放弃话题缺失但正确的选项,话题错比话题缺更严重
+  fix_action: 做12道语句填空题,先判横线位置再按功能选,每题标出文段核心话题,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥80%
+  pitfall: 横线不完整(逗号结尾/缺主语宾语)时不能只看横线本身,把横线所在整句当整体理解核心话题;不要被"即""两者"等字面词误导
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_jieyu
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/语句表达/接语选择
+  title: 接语选择-核心话题衔接
+  recognition: 问"作者接下来最可能讲述的是/这是一篇文章的开头(引言/序言/前言),这篇文章最可能介绍的是"
+  applicability:
+    include:
+    - 问"接下来最可能讲述"
+    - 问"接下来最不可能讲述"(反向思考)
+    - 文段尾句引出重点话题或提出问题
+    exclude:
+    - 语句填空题(选句)
+    - 中心理解题(问主旨)
+    - 文段已详细论述过的内容(不会重复讲述)
+  method_steps:
+  - 先做一遍中心理解,找出文段核心话题(重点关注尾句/转折后引出的重点)
+  - 按优先级排除:①不涉及核心话题的排除;②前文已具体论述过的排除;③衔接不紧密/跳跃的排除(三步有先后顺序)
+  - 只有一个选项含核心话题时直接锁定,无需考虑是否与上文重复
+  - 问"最不可能":优先排除话题不一致的(离题最严重),其次排除已论述过的;尾句"也"字并列两个问题时,下文先解决第一个问题
+  error_signatures:
+  - code: old_topic_repeat
+    description: 选文段已详细讲过的内容,如"百姓的关联性"第一句已讲
+  - code: topic_off
+    description: 选项偏离核心话题,如"产业链"题选"产业链"而非"产业链现代化"
+  - code: second_problem_ahead
+    description: 尾句"也"字并列两个问题,应先解决第一个问题(图像重建)而非第二个(数据获取)
+  fix_action: 做10道接语选择题,先写核心话题再按三优先级排除,限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率≥85%(最简单题型)
+  pitfall: 接语选择不存在"优选对策"——接下来可能分析问题也可能提对策,谁衔接更紧密选谁;核心话题优先于重复问题(只有两选项以上含核心话题才考虑重复)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_paixu_xiansuo
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/语句表达/语句排序/文段线索
+  title: 语句排序-文段线索解题法
+  recognition: 若干句子重新排列语序,文段线索多(指代词/关联词/举例/时间词/下定义)时,从文段线索入手
+  applicability:
+    include:
+    - 文段有下定义("XX是XX/称为/定义为/指的是")
+    - 有指代词(这/它/其)需要找指代对象
+    - 有转折/并列/举例关联词
+    - 剩余选项3个及以上
+    exclude:
+    - 剩余2个选项时(看选项差异更高效)
+    - 文段线索不明显时
+    - 纠结倒序可能性(排序题基本不会倒序,不要因噎废食)
+  method_steps:
+  - 下定义线索:下定义引出话题的句子(含"称为/定义为/指的是")必须在该话题所有提及句之前
+  - 指代词线索:含"这/那/它/其/这些/他们"等指代不清的句子向前找指代对象形成捆绑,且不能做首句(指代清楚可做首句)
+  - 关联词线索:转折前后语义相反且话题相关;并列话题强相关;举例(比如/例如/就像)通常跟在观点或解释之后
+  - 时间线索:按时间先后排列(如"20世纪"与"宋代"、"长期以来"与"目前")
+  error_signatures:
+  - code: definition_after_topic
+    description: 下定义句排在提到该概念的句子之后
+  - code: pronoun_misread
+    description: 指代词指代对象找错,没有向前文寻找(应向前找而非向后)
+  - code: example_first
+    description: 举例句放首句,例子通常跟在观点后
+  - code: time_order_wrong
+    description: 时间顺序颠倒,如"长期以来"(过去)排在"目前"(现在)之后
+  fix_action: 做10道语句排序题,先标注线索(下定义/指代词/关联词/时间)再排列,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥70%(排序题难度较大,允许较低正确率)
+  pitfall: 关联词是"可能性"不是"必然性"——配套关联词(虽然…但是)不必然紧密相连,排序靠排除法,必须证明其他选项不成立才能锁定
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_paixu_chayi
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/语句表达/语句排序/选项差异
+  title: 语句排序-选项差异解题法
+  recognition: 文段线索不明显或只剩两个选项时,从选项差异(首句/尾句/某两句子先后)入手,用排除法
+  applicability:
+    include:
+    - 剩余两个选项(差异点清晰,效率最高)
+    - 文段线索不明显(缺关联词/指代词)
+    - 需要快速排除首句时
+    exclude:
+    - 剩余3个及以上选项(差异太多显杂乱,先看文段线索)
+    - 文段线索丰富时(优先文段线索法)
+    - 直接选答案而不排除(排序本质是排除法)
+  method_steps:
+  - 第一步看首句:排除不适合做首句的句子——指代词指代不清、关联词后半部分(但/却/而且)、明确举例标志(例如/比如)
+  - 第二步选思路:剩余2个选项时对比选项差异(首句/尾句/某两句先后最常用),判断谁在前更合理
+  - 用行文逻辑判断先后:先观点后解释、先提问后回答、先问题后对策、时间先后
+  - 验证(酌情):验证句子的逻辑性而非读起来的通顺性;一步到位的题可酌情验证,一般不需要
+  error_signatures:
+  - code: pronoun_open
+    description: 首句"他们/那些人"指代不明仍做首句
+  - code: time_bucket_wrong
+    description: 首句时间排错,把"进入新时代/建设美丽中国"(今天)排到"中国古代"(古代)前
+  - code: tail_unsuitable
+    description: 对策/总结性句子不放尾句,违背"对策总结适合结尾"的逻辑
+  - code: forced_binding
+    description: 看到关联词(一方面…另一方面)就强行捆绑,此路不通要及时切换思路
+  fix_action: 做10道语句排序题,先排首句再对比选项差异,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥70%
+  pitfall: 首句"1:3"分布只是概率技巧不能绝对排除唯一首句;话题必须一致才能判断先后,不同主体不可比(如③④判断"更合适"而非绝对规则)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_luoji_yujing
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/语境分析
+  title: 逻辑填空-文段语境分析(中心理解化)
+  recognition: 逻辑填空(成语/实词选空),核心是理解文段意思,不能凭语感或固定搭配选词
+  applicability:
+    include:
+    - 逻辑填空所有题目(语境优先,文段意思是灵魂)
+    - 多空题找突破口
+    - 选项纠结时回归文段中心/主题
+    exclude:
+    - 只看词义、只背词典
+    - 凭语感选读起来顺的选项
+    - 只盯局部不看整体理解
+  method_steps:
+  - 整体语境优先:感受整个文段传递的感觉和氛围(积极/消极、程度轻重),再选词(如积极优美的语境排除"徘徊""闯入"等消极词)
+  - 句内呼应:横线后紧跟逗号时,逗号后内容往往是解题线索(如"堪称奇迹"→选程度同样重的"巧夺天工")
+  - 中心理解化:重视首句完整语句(可能提纲挈领)和文段主题词,优先选符合主题本质的选项(如"水到渠成"的集大成者题)
+  - 抓关键关系(转折/因果/并列/解释)找提示词,从提示信息明确的空入手,如"时多时少"对应"波动性"
+  error_signatures:
+  - code: gut_language
+    description: 凭语感选词,忽略文段逻辑关系,如"跨越鸿沟"顺口但第一空"共享"逻辑矛盾
+  - code: local_only
+    description: 只盯横线前后,忽略全文结构与主题,如水资源题只看"尺子"选"精确"而忽略制度本质"公平"
+  - code: feeling_color_mismatch
+    description: 感情色彩不符,积极语境选"徘徊/闯入"等消极词
+  - code: degree_mismatch
+    description: 程度轻重不匹配,语境极重却选程度轻的词
+  fix_action: 做15道逻辑填空题,每题先概括文段语境(情感基调+逻辑关系)再选词,限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率≥80%
+  pitfall: 逻辑填空做不好99%是词语积累不到位;语境分析与词语积累必须并重,采用"看一个空做一个空",卡住就跳过不要纠结一个空
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_luoji_bianxi
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/词义辨析
+  title: 逻辑填空-词语辨析角度(词义/搭配/程度/色彩)
+  recognition: 多词意思相近需要辨析时,从基本释义、搭配对象、程度轻重、感情色彩、使用语境、词义侧重多角度区分
+  applicability:
+    include:
+    - 近义成语/实词辨析
+    - 固定搭配辨析(摘取桂冠/弥合鸿沟/凝聚共识)
+    - 形近/音近词辨析(遏制vs遏止、保持vs维持)
+    exclude:
+    - 意思正确性明显不符时(意思为王优先)
+    - 广东等地方考试考"使用的合理性/规范性"时(此时看规范用法)
+    - 词典解释互相套用的词(光背词典没用)
+  method_steps:
+  - 基本释义优先:意思正确是基本条件,意思对即使搭配不够常见也可选;不能为追求搭配合理牺牲意思正确(如"消磨文化活力")
+  - 按辨析角度区分:搭配对象(人/物、真假,如骇人听闻搭真事/耸人听闻搭假事)、程度轻重(息息相关<休戚相关<唇亡齿寒)、感情色彩(蔚然成风褒/风靡一时中/大行其道贬)、使用语境(是否在现场)、词义侧重(拆字)
+  - 词语区别是相对的:选项与题干词"沾边"(有共性)即可保留,不能因细微区别直接排除(如"居安思危"想法vs"未雨绸缪"做法,核心共性是忧患意识)
+  - 纠结时相信热词/宠词/常见用法(应运而生、塑造、凝聚、诱发疾病/激发积极)
+  - 多空题由松到紧:先放宽条件保留沾边选项,再逐步收紧;从选项差异大的空、文段提示明确的空、成语入手
+  error_signatures:
+  - code: scope_mismatch
+    description: 搭配对象错误,如"淹没"不能用于土壤,"超然物外"形容人不能形容岛屿
+  - code: degree_off
+    description: 程度轻重不匹配,不确定轻重时选程度轻、适用范围广的"息息相关"更保险
+  - code: dictionary_reliance
+    description: 死记词典解释,词与词互相套用无法区分细微差别
+  - code: meaning_sacrificed
+    description: 为追求搭配合理牺牲意思正确,违背"意思为王"原则
+  fix_action: 建错题本,每道错词记"词义+搭配对象+程度轻重+感情色彩+使用语境"五要素;刷真题积累宠词(应运而生/凝聚/塑造/彰显),限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率≥80%
+  pitfall: 词义侧重点靠"拆字"猜:遏制(制约,程度轻)vs遏止(停止,程度重);保持(从容游刃)vs维持(艰难咬牙)——官方媒体用词讲究微言大义
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_luoji_jiunei
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/句内呼应
+  title: 逻辑填空-句内呼应(横逗结构)
+  recognition: 横线后紧跟逗号、顿号或提示词,逗号后内容往往解释/提示横线处意思
+  applicability:
+    include:
+    - 横线+逗号结构(逗号后是解释说明)
+    - 横线后有"堪称/遍布/声应气求"等提示词
+    - 横线后跟"短视行为"等概念需要找对应词
+    exclude:
+    - 无句内线索的题
+    - 需要看文段整体的题(只做局部会误判)
+    - 转折/因果等跨句关系题
+  method_steps:
+  - 看横线后紧跟的逗号内容,它往往直接解释横线处意思(如"可以说遍布于人生的各个时段"→"广泛")
+  - 前后构成解释/并列/转折关系时,选与提示语义最贴切的词(如"短视行为"→"急功近利")
+  - 优先选与文段核心概念最直接最明确的选项,沾边但不精准的"顾此失彼"不如"急功近利"
+  - 验证时不只验证一个空,多个空都匹配才选
+  error_signatures:
+  - code: loose_correspondence
+    description: 选含义沾边但不精准的词,如"顾此失彼"不如"急功近利"直接对应"短视"
+  - code: second_empty_miss
+    description: 只看第一空就选,未验证第二空是否匹配,如"娱乐性"第一空对但第二空"敬畏感"被故意重复设陷阱
+  - code: partial_hint
+    description: 忽略逗号后提示,凭前半句猜词
+  fix_action: 做10道句内呼应题,圈出横线后提示词再选,限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率≥80%
+  pitfall: 横逗结构类似语句填空,逗号后的内容几乎就是答案的"谜底";看到"两者"等词要回文段确认实际指代(如科技应用vs文物保护),避免被字面误导
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_luoji_kongji
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/空际关联
+  title: 逻辑填空-空际关联(多空关系)
+  recognition: 多空逻辑填空,横线之间可能存在相近/相反关系(转折/并列/祈使句文段)
+  applicability:
+    include:
+    - 多空题(2-3空)
+    - 转折文段(虽然…但是,前后空常呈反义)
+    - 并列文段(同向并列近义/对比并列反义)
+    - 祈使句/对策文段("要A…不能B"反义结构)
+    exclude:
+    - 无空际关联的题(需结合具体语境判断,不是所有题都有)
+    - 单空题
+    - 顿号引导的近义并列(允许语义重复,如"墨守成规、循规蹈矩")
+  method_steps:
+  - 先做常规横线-文段对应分析
+  - 再检查多空间语义关系:转折前后相反、同向并列相近、对比并列相反("等量齐观"与"因地制宜"反义对应)
+  - 注意双重否定变肯定:虽…但结构中前句含否定词"不"时两空实际相近(如"虽然不A,但不B"→A≈B)
+  - 综合两方面验证选项合理性
+  error_signatures:
+  - code: negation_logic_miss
+    description: 忽略双重否定变肯定,如"虽然不A但不B"误判两空为相反关系
+  - code: parallel_direction_wrong
+    description: 把同向并列当反义,或把反义并列当近义
+  - code: single_empty_only
+    description: 只看单空合理,忽略空际逻辑约束(如防空导弹两空都需含"单独"义)
+  fix_action: 做10道多空逻辑填空题,先标出句间关系(转折/并列/祈使)再选,限时55秒/题
+  time_budget_sec: 55
+  accuracy_rule: 正确率≥80%
+  pitfall: 多空题用"由松到紧":先放宽条件保留沾边的选项,再逐步收紧条件;从选项差异大的空入手,不被最难的空卡死
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_luoji_chutiren
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/出题人视角
+  title: 逻辑填空-出题人视角(选项分组/语义丰富)
+  recognition: 极度纠结时(两三个选项都合理),用选项设置规律辅助取舍:选项分组思维(13/22/211)和语义丰富原则
+  applicability:
+    include:
+    - 两选项纠结无法用常规方法区分时
+    - 选项分组规律明显(三一/二二/二一一模式)
+    - 语义可拆分组合的近义词
+    exclude:
+    - 正常能做的题(技巧不能代替语境分析+词语辨析,是辅助非万能)
+    - 无法判断选项之间关系的题
+    - 依赖主观感受而非选项规律的题
+  method_steps:
+  - 选项分组:三一模式(三同类一格格不入)答案多在"三"中;二二模式需辨析组内差异;二一一模式(两选项相似)答案大概率出自"2"部分
+  - 一正一邪:两个相似选项中一个明显错误("猪队友"),它往往暴露/掩护正确答案(如"荣归"搭配奇怪→暗示选结构相似的"回归")
+  - 语义丰富:纠结时选语义更丰富的词(语义可拆分组合,如"残存"="残留"+"保存","锚定"比"实现"多"为之努力"义),仅用于取舍
+  - 尊重出题人逻辑:干扰项必与正确答案/文段有关联(文段有对应/选项有共性),从出题角度反推答案
+  error_signatures:
+  - code: overuse_trick
+    description: 把辅助技巧当万能公式,放弃正常的语境分析和词语辨析
+  - code: subjective_choice
+    description: 凭自己怎么想做题,不尊重作者与出题人的逻辑
+  - code: ignore_option_relation
+    description: 忽略选项间的相似/对立关系,错过分组线索
+  fix_action: 做8道选项设置规律真题,标注每题的选项分组模式和一正一邪,限时55秒/题
+  time_budget_sec: 55
+  accuracy_rule: 正确率≥75%(辅助技巧正确率略低)
+  pitfall: 干扰项遵循"文段有对应、选项有共性"两大原则——选项与文段某词对应但不一定是横线要表达的意思(如"夜以继日"对应"悠长的夜晚"却是干扰项),要抓核心不抓细节
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_zhongxin_paichu
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/中心理解/排除干扰项
+  title: 中心理解-干扰项三级排除
+  recognition: 已定位中心句并初步匹配选项后,用三大类干扰项特征做最终筛选
+  applicability:
+    include:
+    - 选项数量多、表述相近难以取舍时
+    - 选项看起来都对需要对比择优时
+    exclude:
+    - 细节判断题(干扰项类型不同:偷换/无中生有/相悖)
+  method_steps:
+  - 绝对排除(三大死罪):与文意直接矛盾、文段完全未提及、无关对策(问题在保护缺位对策却是加强宣传)
+  - 相对排除(基本不选):缺主题词(90%排除)、非重点内容(转折前/结论前/程度词前)、片面表述
+  - 次选确认:主题词适当替换但核心一致、表述笼统但无原则错误
+  error_signatures:
+  - code: irrelevant_countermeasure
+    description: 无关对策——对策无针对性,问题在A却提B的对策
+  - code: non_key_content
+    description: 选项对应分述句/举例/数据/背景等非重点内容
+  - code: countermeasure_effect
+    description: 将对策的效果当重点(如"更好服务制造业"只是对策结果而非核心)
+  fix_action: 做20道中心理解题,每道先写出该题干扰项属于哪类再选
+  time_budget_sec: 55
+  accuracy_rule: 正确率≥85%
+  pitfall: 三大死罪是绝对排除,而缺主题词/片面/非重点是"基本不选"(有例外),不能一杆子打死
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_duice_xuanqu
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/中心理解/对策选取
+  title: 对策文段-内容优先与对策对象
+  recognition: 多个选项都像对策或都含主题词时判断选哪个;宏观对策后又出现具体对策时
+  applicability:
+    include:
+    - 选项形式上是/不是对策的对比
+    - 宏观对策+多方面展开(总分类)时
+    - 需要抓"对策+对象"两个主题词时
+    exclude:
+    - 后文明显举例(如"例如/比如")时——重点在宏观对策,具体对策是例子
+    - 选项只给对策或只给对象时,出题人通常会让另一选项有明显瑕疵
+  method_steps:
+  - 内容(主题词)>形式(对策标志词):先看选项是否含文段核心内容,二选一时优先选内容正确的
+  - 抓两大主题词:对策(怎么做/谓语)+对象(谁做/为谁做/主宾),80%对策题答案含两者
+  - 宏观对策后具体对策:有多方面展开→宏观与概括均可;有重点词(关键/核心/更应该)→后面具体对策更重要
+  error_signatures:
+  - code: form_over_content
+    description: 选形式上像对策但缺核心主题词的选项(如"要贯穿"却缺"公平正义")
+  - code: concrete_over_macro
+    description: 宏观+举例结构误选具体对策(例子非重点)
+  - code: switch_concept
+    description: 偷换概念(把"从智能赋能到技术融合的转变"偷换成"智能赋能的路径")
+  fix_action: 做12道意图判断/对策类题,每题写出"对策+对象"再选
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥80%
+  pitfall: 后文既无举例也无重点词时,前后对策重要性不确定,要结合选项判断,不能认死"后面的对策更重要"
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_xijie_youxian
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/细节判断/相对绝对项
+  title: 细节判断-相对绝对项与优先验证
+  recognition: 问法为"与文意相符/不相符/最准确"的细节判断题,选项表述有绝对或温和之分
+  applicability:
+    include:
+    - 选是题(选正确):优先验证表述温和(可能/也许/往往/之一)且符合常识的选项
+    - 选非题(选错误):优先验证绝对表述(一定/必定/都/只有...才/最新)、对比项(A高于B/比...更)、不符常识的选项
+    - 选项含特殊字词(数字/字母/专有名词)时
+    exclude:
+    - 优先验证不等于直接锁定,若优先选项均错仍需回头看其他选项
+    - 选项字数长、差异不明显的题(优先验证收益低)
+  method_steps:
+  - 审题:判断选是/选非,选非题在答案处打叉防遗忘
+  - 选是题优先验证相对项+符合常识项;选非题优先验证绝对项+对比项+不符常识项
+  - 找到"独一无二"的特殊字词快速定位,但永远要回文段对应验证
+  error_signatures:
+  - code: absolute_option
+    description: 绝对化表述(只有...才/无法/最新)当作正确项
+  - code: comparative_option
+    description: 对比项(A比B更/高于/优于)误选
+  - code: skip_verification
+    description: 优先验证后不再回文段比对,直接锁定
+  fix_action: 做20道细节判断题,每题先标出"绝对/相对/对比/特殊标志"再验证
+  time_budget_sec: 50
+  accuracy_rule: 正确率≥90%
+  pitfall: 细节判断题是唯一确定答案后无需再看其他选项的题型——一旦某选项验证确定即可省时
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_juzi_tiankong
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/语句表达/语句填空
+  title: 语句填空-话题一致定位
+  recognition: 问法"填入横线部分最恰当的一项是",横线位于开头/中间/结尾
+  applicability:
+    include:
+    - 横线在结尾:无问题则总结前文,前文有问题则提出对策(分总结构)
+    - 横线在开头:先看有无能概括全文的选项,有则优先;没有则选话题引入
+    - 横线在中间:承上启下最优,次选侧重承上或侧重启下
+    exclude:
+    - 不能凭语感选读起来最顺的选项(语感陷阱)
+    - 横线为分句(逗号结尾)时不能只看横线本身,要看横线所在整句话
+  method_steps:
+  - 抓核心话题(与中心理解找主题词方法一致),填入句子必须话题一致
+  - 按横线位置定功能:结尾→总结/对策,开头→概括/引入,中间→承上启下
+  - 中间位置优先选"上下兼顾"的选项(同时呼应前后文核心概念)
+  error_signatures:
+  - code: sense_vs_logic
+    description: 凭语感选最顺的选项,忽略话题一致
+  - code: only_after_text
+    description: 只看后文(如只盯举例就选"满足需求",漏掉前文"质量"问题)
+  - code: no_bridge
+    description: 中间横线选了只承上或只启下的选项,而非上下兼顾
+  - code: topic_wrong
+    description: 话题错误比话题缺失更严重——优先保话题一致(选"立法"而非"治国理政")
+  fix_action: 做15道语句填空真题,每题标出"横线位置+核心话题"再选
+  time_budget_sec: 55
+  accuracy_rule: 正确率≥80%
+  pitfall: 横线不完整时(缺主语/宾语),把横线所在整句话作为整体理解;横线后紧跟"即"字时,横线是对"边界"等前词的解释
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_paixu
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/语句表达/语句排序
+  title: 语句排序-线索排除法
+  recognition: 问法"将以下6个句子重新排列,语序正确的一项是"
+  applicability:
+    include:
+    - 文段含指代词、关联词、举例、时间词、下定义等明显线索时
+    - 只剩两个选项时看选项差异
+    exclude:
+    - 不能先读文段直接排答案——必须从选项出发用排除法
+    - 配套关联词(虽然...但是)只提供"可能性"非"必然性",不能仅凭它锁定紧密相连
+  method_steps:
+  - 看首句:排除指代不清(这/那/它/其)、关联词后半部分(但/却/而且)、明确举例(例如/比如)开头的句子
+  - 线索多或剩3个以上选项→从文段找线索:下定义(XX是XX)必须在该话题句之前、指代词向前找对象、转折/并列/举例捆绑、时间先后
+  - 线索不明显或剩2个选项→对比选项差异,判断某两句谁先谁后
+  error_signatures:
+  - code: pronoun_first
+    description: 指代不明的句子放首句(如"他们"无指代对象)
+  - code: wrong_define_order
+    description: 下定义句(首次引出概念,"称为/定义为")放在概念已出现之后
+  - code: force_bind_connector
+    description: 看到配套关联词就强制捆绑(可能隔句,其他句子在内容上也能衔接)
+  - code: subjective_order
+    description: 凭主观语感排序,忽略选项差异这个最直接线索
+  fix_action: 做15道排序题,每题先排除非首句,再标出1-2个关键捆绑线索(指代/下定义/时间)
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥75%
+  pitfall: 排序题基本不会倒序;验证的是逻辑性而非读起来通顺——二选一时比较哪个更合适,不必纠结"对策一定在尾句"这类绝对化说法
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_ciyi_bianxi
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/词义辨析
+  title: 逻辑填空-词语辨析多角度
+  recognition: 多个选项词义相近、难以取舍时,从多角度辨析
+  applicability:
+    include:
+    - 搭配对象(人/物、真假):骇人听闻配真事,耸人听闻配虚假
+    - 程度轻重:息息相关<休戚相关<唇亡齿寒
+    - 感情色彩:蔚然成风褒/风靡一时中性/大行其道贬
+    - 使用语境:取长补短须明说长短,水乳交融配党群关系
+    - 词义侧重:遏"制"轻 vs 遏"止"重;保持从容 vs 维持艰难
+    exclude:
+    - 不能只背词典释义(词典解释互相套用,无法区分细微差别)
+    - 词语区别是相对的,死记"某个词必须配某对象"会生搬硬套
+  method_steps:
+  - 基本释义优先满足(意思正确性>使用合理性)
+  - 词义相近时按顺序辨析:搭配对象→程度轻重→感情色彩→使用语境→词义侧重
+  - 形近词通过"不一样的字"猜侧重点(拆字组词法:遏"止"→停止更重)
+  error_signatures:
+  - code: object_mismatch
+    description: 搭配对象不符(眼花缭乱通常以人为主体,直接修饰"世界变局"不当)
+  - code: degree_mismatch
+    description: 程度轻重不符(不确定轻重时误选"休戚相关",应选范围广更保险的"息息相关")
+  - code: color_mismatch
+    description: 感情色彩不符(消极语境选了褒义词)
+  - code: fixed_collocation_unknown
+    description: 固定搭配不熟(摘取桂冠/弥合鸿沟/整合资源/凝聚共识)
+  fix_action: 用错题本积累近义词辨析(真题语境+官方媒体用词),做15道词义辨析题
+  time_budget_sec: 55
+  accuracy_rule: 正确率≥75%
+  pitfall: 积累途径优先级:刷真题(最权威)>听课>官方媒体(人民日报/新闻联播)>词典(最不关键)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_kongji
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/空际关联
+  title: 逻辑填空-空际关联与整体理解
+  recognition: 多空逻辑填空,各空之间或与文段中心存在逻辑关联
+  applicability:
+    include:
+    - 转折文段前后空反义;"虽然...但..."前句含否定词时双重否定表肯定,两空实际同义
+    - 并列文段同向并列空义近、对比并列空义反
+    - 祈使句对策段"要A...不能B"反义结构
+    - 首句是完整语句、文段为总分结构时
+    exclude:
+    - 并非所有题都存在空际关联,需结合具体语境判断
+    - 首句提示属于概率事件,不能作为唯一判断依据
+  method_steps:
+  - 先完成常规横线-文段对应分析
+  - 检查多空之间语义关联(相近/相反):转折/并列/对策祈使句
+  - 重视完整语句(尤其首句,可能提纲挈领)+主题词,优先选与主题对应的选项
+  error_signatures:
+  - code: ignore_double_negative
+    description: 忽略"虽然...但..."前句含否定词导致双重否定表肯定(两空实为同义近义)
+  - code: fragment_understanding
+    description: 只盯横线前后文,忽略全文结构(理解碎片化)
+  - code: miss_antonym_pair
+    description: 没看出空际反义对应(如"等量齐观"与"因地制宜"形成反义)
+  fix_action: 做15道多空逻辑填空题,每题写出"空与空的关系(近义/反义)"再选
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥75%
+  pitfall: 先完成常规对应分析,再检查空际关联——两者综合验证,空际关联只是辅助排除手段
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_duokong
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/多空题
+  title: 逻辑填空-多空题入手与宠词
+  recognition: 三空/多空逻辑填空,纠结从哪个空入手
+  applicability:
+    include:
+    - 选项差异大的空(意思差别明显易排除)
+    - 文段提示信息明确的空(有转折/并列/解释关联)
+    - 混搭填空优先从成语入手(成语辨析角度多相对容易)
+    exclude:
+    - 不能从意思相近、线索模糊的空入手(浪费时间)
+    - 宠词/热词只是纠结时的辅助,不能替代正常语境分析
+  method_steps:
+  - 从选项差异最大或文段线索最明确的空入手
+  - 用确定信息解决不确定信息:一个空能排除三个错误选项就直接锁定
+  - 纠结时相信"宠词"(高频正确答案:应运而生/塑造/重塑/凝聚/激发配积极/诱发配疾病)、"热词"和常见用法
+  error_signatures:
+  - code: stuck_on_hard_blank
+    description: 在第一空卡死,不换空分析
+  - code: wrong_priority
+    description: 不从差异大的空入手,硬啃相近选项
+  - code: misuse_conventional
+    description: 凭常识(如"石油一直是重要的")判断,不忠于文段时间对比("近年来"新能源汽车成为主要方向)
+  fix_action: 做15道多空逻辑填空题,每题先确定"从第几空入手"及理由
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥75%
+  pitfall: '"看一个空做一个空":阅读文段看到第一空就对应选项排除/保留,不好做就马上换下一个,不要卡住'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yanyu_xuanxiang_shezhi
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/选项设置
+  title: 逻辑填空-出题人选项设置
+  recognition: 多空逻辑填空难以抉择时,从出题人设置选项的角度反推
+  applicability:
+    include:
+    - 选项可分组(三一/二二/一一一)时
+    - 两个选项纠结且其中一个明显"奇怪"时(一正一邪/猪队友)
+    - 选项语义可拆分组合时
+    exclude:
+    - 这些技巧不能代替正常做题(语境分析+词语辨析是正路),仅在极度纠结时辅助
+    - 选项分组规律是概率不绝对(一一一模式:选项没设陷阱,重点找文段内部逻辑线索)
+  method_steps:
+  - 干扰项设置原理:文段有对应(干扰项对应非重点细节)或选项有共性(外形/意义/性质相似)——选答案必须抓核心而非某个词对应
+  - 选项分组:三一模式答案多在"三"中(但需文段验证);二二模式辨析组内差异;两个长得像的选项中答案大概率在其中
+  - 一正一邪(猪队友):纠结的两个选项中,若另一个明显错误的选项与其中一个字形/读音相似,该错误项"暴露"正确答案
+  - 语义丰富原则:纠结时选语义更丰富的词(残存=残留+保存)
+  error_signatures:
+  - code: detail_correspondence_trap
+    description: 干扰项与文段某细节对应(如"悠长的夜晚"→"夜以继日")却非核心
+  - code: weird_option_misread
+    description: 没利用"猪队友"暴露的正确答案(明显奇怪的词指向与之结构相似的答案)
+  - code: overrely_on_technique
+    description: 一开始就依赖技巧,解题思路走偏
+  - code: ignore_subject
+    description: 忽略主语主体(一以贯之配"我",一枝独秀需主语与技术本身可比)
+  fix_action: 做10道近年国考逻辑填空题,每题复盘"干扰项为何诱人+正确答案被什么暴露"
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥75%
+  pitfall: 做题三种境界:自己怎么想(80%考生)→作者怎么想(15%)→出题人怎么想(5%);技巧只在纠结时用,"路走对了才不怕遥远"
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_ljtk_zonggang_duibi_zhuoyou
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/解题总纲
+  title: 逻辑填空-文段意思为王+对比择优
+  recognition: 出现横线挖空、四个词语选项的逻辑填空题。
+  applicability:
+    include:
+    - 所有逻辑填空题
+    - 多空题中某空选项能直接排除三个错误项时
+    exclude:
+    - 需要概括全篇主旨的中心理解题
+  method_steps:
+  - 通读文段,弄清文段整体意思与横线处含义,抓句子内部逻辑关系(转折/因果/并列)与提示词,不看选项先想横线要什么词
+  - 看一个空做一个空,先按'意思正确'排除意思错误的词,再从选项差异大的空入手
+  - 剩余近义词再从搭配对象/程度轻重/感情色彩/使用语境等角度对比择优
+  - 用能确定的空去验证不确定的空,不纠结于单空复杂辨析
+  error_signatures:
+  - code: blind_feeling
+    description: 不分析文段逻辑凭语感选词
+  - code: partial_analysis
+    description: 只看一个空就选,忽视其他空逻辑矛盾(如'共享'与'差异'矛盾)
+  - code: sacrifice_meaning
+    description: 为求搭配合理牺牲意思正确
+  - code: single_word_focus
+    description: 只盯着某个词忽略文段整体氛围(积极/消极、程度轻重)
+  fix_action: 做15道逻辑填空真题,每道限时60秒,每题写清每个空排除的依据
+  time_budget_sec: 60
+  accuracy_rule: ≥80%
+  pitfall: 意思正确性优先于使用合理性:即使'释放'搭配更常见,只要'消磨'意思正确就选它,不能反过来。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_ljtk_ciyu_bianxi_duojiaodu
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/词语辨析
+  title: 逻辑填空-词语辨析多角度(搭配/程度/色彩/侧重)
+  recognition: 四个选项意思相近,无法直接按释义排除,需多角度区分。
+  applicability:
+    include:
+    - 近义词/形近词辨析
+    - 成语辨析
+    exclude:
+    - 选项意思差异很大的空(直接用意思排除)
+  method_steps:
+  - 先满足基本释义:优先排除意思与文段逻辑不符的选项
+  - 按搭配对象区分:看词配'人'还是'物'、配'真'还是'假'(骇人听闻配真事,耸人听闻/危言耸听配虚假;授予配奖励荣誉,给予范围广)
+  - 按程度轻重排序区分:息息相关<如影随形<情同手足<休戚相关<唇亡齿寒,语境分不清时选要求低范围广的轻词更保险
+  - 按感情色彩区分:蔚然成风(褒)风靡一时(中)大行其道(贬);按词义侧重拆字区分:遏制(制=制约轻)vs遏止(止=停止重),保持(从容)vs维持(艰难)
+  error_signatures:
+  - code: only_rough_meaning
+    description: 只记大意(如'让人惊异')忽略搭配对象
+  - code: ignore_sentiment
+    description: 忽略感情色彩选了贬义词如'徘徊'
+  - code: ignore_degree
+    description: 忽视程度轻重,语境要求重词却选轻词
+  - code: ignored_collocation
+    description: 不看固定搭配,如'淹没'误用于土壤地层
+  fix_action: 做10道近义词辨析题+把错词按搭配对象/感情色彩分类记入错题本
+  time_budget_sec: 60
+  accuracy_rule: ≥75%
+  pitfall: 词典解释互相套用(查'保持''维持'都是'使维持原状'),光背释义无法区分,必须靠真题和官方媒体积累每个词的使用场景与适用条件。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_ljtk_junei_huying
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/句内呼应
+  title: 逻辑填空-句内呼应(横线+逗号)
+  recognition: 横线所在句子有逗号或紧跟解释提示,通过横线前后内容推测横线含义(类似语句填空)。
+  applicability:
+    include:
+    - 横线+逗号结构,逗号后是解释说明
+    - 横线后有'可以说''如'等提示词
+    exclude:
+    - 横线句独立成句、前后无提示的情况
+  method_steps:
+  - 定位横线所在句子,把整个句子当整体理解
+  - 横线后紧跟逗号时,逗号后内容常是解题关键提示
+  - 用后文提示推测横线处的意思,再选词:提示程度重(如'堪称奇迹')则选程度重词(巧夺天工)
+  error_signatures:
+  - code: ignore_later_hint
+    description: 忽略逗号后解释直接凭词义选
+  - code: first_blank_only
+    description: 只看第一空就选,不验证第二空对应是否精准
+  fix_action: 做8道句内呼应专项题,每题圈出横线后的提示词再作答
+  time_budget_sec: 55
+  accuracy_rule: ≥85%
+  pitfall: 逗号后提示常限定程度或范围(如'遍布于人生的各个时段'→'广泛'),选词要与之精准对应,不是大致沾边。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_ljtk_kongji_guanlian
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/空际关联
+  title: 逻辑填空-空与空关联(近义/反义)
+  recognition: 多空题,空与空之间可能存在相近或相反的逻辑关系。
+  applicability:
+    include:
+    - 转折文段(虽然…但是…)
+    - 并列文段(同向并列近义、对比并列反义)
+    - 对策祈使句文段(要A…不能B…)
+    exclude:
+    - 不存在空际关联的题(需先结合语境判断)
+  method_steps:
+  - 先完成常规的横线-文段对应分析
+  - 检查多空间语义关联:转折前后空常反义,并列同向空相近,'要…不能…'结构反义,两空为完全同义组合的优先
+  - 警惕双重否定变肯定:'虽然不A,但不B'中A与B为近义关系
+  - 双空互为近义或反义、能完全对应(如孤掌难鸣+单打独斗均含'单独')的选项优先
+  error_signatures:
+  - code: miss_double_negative
+    description: 忽略'虽然…但…'中已含否定词导致两空实为近义
+  - code: wrong_pair_relation
+    description: 把空际近义关系判成反义或反义判成近义
+  - code: negation_contradiction
+    description: 转折前选了与后文事实矛盾的意思(如'寸草不生'却后有生物)
+  fix_action: 做10道多空逻辑填空,每题标注空际关系是近义还是反义
+  time_budget_sec: 65
+  accuracy_rule: ≥75%
+  pitfall: 转折关系允许'相反'但不允许'矛盾':前面说环境恶劣,后面说别有洞天有生物,能选'寸草不生'吗?不能,前后矛盾。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_ljtk_zhongxin_liyijiehua
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/中心理解化
+  title: 逻辑填空-中心理解化(首句+主题词)
+  recognition: 逻辑填空文段呈总分结构,首句有完整语句或需要抓主题词对应选项。
+  applicability:
+    include:
+    - 文段首句是完整语句可能提纲挈领
+    - 文段有高频出现的主题词
+    exclude:
+    - 横线分散、每句独立成题的简单对应题
+  method_steps:
+  - 读文段时重视完整语句(尤其首句),可能起到提纲挈领提示观点的作用
+  - 抓文段主题词,优先考虑与主题对应的选项
+  - 多个选项都合理时,选择最符合主题本质特征的词语
+  - 二选一纠结时结合中心句判断,不只看首句
+  error_signatures:
+  - code: ignore_first_sentence
+    description: 忽略首句完整语句的观点提示
+  - code: missing_topic_word
+    description: 选项缺主题词却误选
+  - code: fragmented_understanding
+    description: 只关注填空处前后文忽略全文结构,理解碎片化
+  fix_action: 做10道逻辑填空,先概括文段主旨再选词,核对选项是否含主题词
+  time_budget_sec: 60
+  accuracy_rule: ≥80%
+  pitfall: 首句提示是概率事件不是必然;首句不能代替中心句,必须找准中心句再结合首句或高频词判断主题词。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_ljtk_duokong_tu_ru
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/多空题策略
+  title: 逻辑填空-多空题入手顺序(由松到紧)
+  recognition: 三空及以上逻辑填空,需要决定从哪个空切入。
+  applicability:
+    include:
+    - 三空/四空逻辑填空
+    - 实词+成语混搭填空
+    exclude:
+    - 单空题(需严格辨析)
+  method_steps:
+  - 从选项差异大的空入手:优先看意思差别明显的空,容易排除
+  - 从文段提示信息明确的空入手:优先看有转折/因果/并列/解释说明的空
+  - 混搭填空优先从成语入手:成语辨析角度多、相对容易判断
+  - 由松到紧:先放宽条件,选项有一点合理就保留,逐步收紧到最合理
+  error_signatures:
+  - code: stuck_on_hard_blank
+    description: 在一个空上卡住纠结不切换
+  - code: strict_too_early
+    description: 一开始就死抠细微区别把正确项过早排除
+  - code: analyze_every_blank
+    description: 试图把每个空都分析透彻,浪费时间
+  fix_action: 做8道多空题,每题先标出'最容易突破的空'再从那里切入
+  time_budget_sec: 70
+  accuracy_rule: ≥75%
+  pitfall: 不需每空都辨析透彻:某空能直接排除三个错误选项时,无需纠结其他空的复杂辨析,直接用确定信息解决不确定信息。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_ljtk_xuanxiang_fenzu
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/选项设置规律
+  title: 逻辑填空-选项分组思维(出题人角度)
+  recognition: 在两个或三个选项间极度纠结、常规方法无法区分时的辅助判断技巧。
+  applicability:
+    include:
+    - 纠结在2-3个选项时
+    - 选项分布有明显分组特征时
+    exclude:
+    - 未纠结、正常按语境选词的题(技巧不能替代正常做题)
+  method_steps:
+  - 观察四个选项分布:一一一(差异大,重点找文段内部逻辑线索)/三一(三个同类+一个格格不入)/二二(两两一组)/二一一
+  - 一三模式:格格不入的'一'常优先排除,答案多在'三'中但必须结合文段验证
+  - 二一一'一正一邪':两个相似选项中有一个明显错误(猪队友)时,它常暴露另一个正确答案(如'关照'奇怪则答案可能是'观照')
+  - 语义丰富原则:纠结时优先语义更丰富的词(残存=残留+保存,感悟=感受+领悟)
+  error_signatures:
+  - code: overrely_tricks
+    description: 一开始就用技巧代替语境分析+词语辨析
+  - code: skip_context_verify
+    description: 分组后不结合文段验证直接选
+  - code: absolute_grouping
+    description: 把分组规律当绝对真理,如见猪队友必反推
+  fix_action: 做10道逻辑填空题,先正常做完,再复盘每道题的选项分布规律
+  time_budget_sec: 60
+  accuracy_rule: ≥75%
+  pitfall: 这些技巧只是考场上纠结时的辅助取舍,不是万能公式;老师slogan:路走对了才不怕遥远,切勿一开始就依赖技巧。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_ljtk_ganrao_xiang_shibie
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/干扰项识别
+  title: 逻辑填空-干扰项识别(文段有对应)
+  recognition: 某个选项与文段具体细节词形成对应,诱使你选它,但该细节并非横线所需核心。
+  applicability:
+    include:
+    - 选项与文段某词'撞词'的题
+    - 对策类逻辑填空
+    exclude:
+    - 无明显细节干扰的简单对应题
+  method_steps:
+  - 抓住文段真正强调的核心内容(主题/问题/对策),不看选项先定核心
+  - 识别干扰项:出题人常利用文段非重点内容(具体细节、次要信息)与选项形成表面对应
+  - 对策类题:对策必须针对文段核心问题,不能针对次要特征(如'知名度虽然有',问题不在知名度)
+  - 不能仅凭某词与文段对应就选,横线处意思优先
+  error_signatures:
+  - code: superficial_match
+    description: 见词与文段对应即选,忽略横线处真正想表达的意思(如'悠长的夜晚'对应'夜以继日'却非核心)
+  - code: miss_core_problem
+    description: 对策题选了针对次要问题而非核心问题的词
+  fix_action: 做10道逻辑填空题,每题标出各干扰项对应的是文段哪个非重点细节
+  time_budget_sec: 60
+  accuracy_rule: ≥80%
+  pitfall: 干扰项必然与正确答案或文段内容有关联,否则起不到干扰作用;看到'撞词'更要追问:这是核心还是次要信息?
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_ljtk_chongci_reci
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/高频词积累
+  title: 逻辑填空-宠词热词积累与运用
+  recognition: 平时积累高频正确答案词与陪跑词,考场纠结时向宠词倾斜。
+  applicability:
+    include:
+    - 多空题中的实词/成语
+    - 纠结时辅助取舍
+    exclude:
+    - 选项意思差异大、能直接按文段排除的题
+  method_steps:
+  - 记宠词(高频正确答案):应运而生(有原因有缘由)、塑造/重塑、凝聚、独善其身(大环境坏小个体难保)、相得益彰
+  - 记陪跑词(几乎不作答案):南辕北辙、无与伦比、首当其冲(消极色彩)、互为表里——它们使用范围太窄、语境要求太极端
+  - 通过真题积累固定搭配:弥合鸿沟、整合资源、化解风险、汲取经验、凝聚共识
+  - 通过人民日报/新华网/新闻联播积累官方用词,培养正确语感
+  error_signatures:
+  - code: run_word_wrong_context
+    description: 见宠词就选不看语境
+  - code: dictionary_only
+    description: 只背词典释义,忽略真题中的使用场景
+  - code: choose_paipao
+    description: 误选陪跑词如'首当其冲'
+  fix_action: 建立成语/实词积累本,每词记录搭配对象+感情色彩+一道真题语境,每周复习一次
+  time_budget_sec: 55
+  accuracy_rule: ≥80%
+  pitfall: 宠词也必须满足语境:如'应运而生'核心是'有原因、有缘由',不是看到词就选;纠结时倾斜,不纠结时按语境选。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_zxli_dcewen_dingwei
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/中心理解/找重点句
+  title: 中心理解-对策文段重点句定位
+  recognition: 问'意在强调/意在说明',文段出现'是…的必然要求''应该/必须'等对策表述,或呈分总分结构。
+  applicability:
+    include:
+    - 分(引出话题)→总(提出对策)→分(意义效果)结构文段
+    - 首句是'近年来…'等引入背景的文段
+    exclude:
+    - 首句直接提出观点的文段(此时首句是'提出观点'非'引出话题')
+  method_steps:
+  - 先划文段结构:引出话题/提出对策/意义效果三层,对策句即中心句
+  - 首句以'近年来'开头通常只是引入背景,属于非重点
+  - 选对策时内容大于形式:对策的具体对象(主题词)比抽象表述更重要
+  - 用主题词/高频词验证选项,缺主题词的选项排除
+  error_signatures:
+  - code: first_sentence_trap
+    description: 看到首句'民族文化复兴'就选对应项,忽略首句只是引出话题
+  - code: missing_topic_word
+    description: 选项缺高频主题词(如'文物')却误选
+  - code: form_over_content
+    description: 选抽象'途径/形式'而不选具体对象
+  fix_action: 做10道中心理解题,每题画出文段三层结构并标出中心句与主题词
+  time_budget_sec: 60
+  accuracy_rule: ≥85%
+  pitfall: '''引出话题''是老师起的名字,潜台词是这句话不重要;若读完发现观点就在第一句,那第一句叫''提出观点''不叫''引出话题''。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yjpx_guanlianci_paichu
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/语句排序/关联词定位
+  title: 语句排序-关联词定位+排除法
+  recognition: 语句排序题,句子中出现'但是''虽然…但是''因此'等关联词,或需要判断句子先后关系。
+  applicability:
+    include:
+    - 有明显关联词的排序题
+    - 题干句子间存在紧密逻辑关系的题
+    exclude:
+    - 无关联词、纯靠时间线/因果推理的题(仍需排除法)
+  method_steps:
+  - 从选项差入手,先看首句候选,排除不适合做首句的句子
+  - 用关联词找'可能紧密相连'的候选:看到'但是'往前看找可能的配对——关联词是寻找线索,不是锁定结果
+  - 配套关联词(虽然…但是)只证明两句可能挨着,还要检查其他句子是否也能与'但是'句构成合理逻辑
+  - 排序靠排除法:必须证明其他选项不成立,不能仅凭关联词就锁定
+  error_signatures:
+  - code: lock_paired_connective
+    description: 见'虽然…但是'配套就断定两句必挨着
+  - code: ignore_other_candidate
+    description: 忽略其他句子也能与'但是'句构成紧密相连
+  - code: assume_necessity
+    description: 把关联词的可能性当成必然性
+  fix_action: 做8道语句排序题,每题写出排除依据(首句特征/关联词候选/内容逻辑)
+  time_budget_sec: 65
+  accuracy_rule: ≥75%
+  pitfall: 关联词提供'可能性'不是'必然性':⑤'我吃了很多'和⑥'我(虽)吃了很多不饿'都能接④'但是我饿了',配套关联词无法排除⑤④的可能。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_xijie_fantuifa
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/细节判断/反推法
+  title: 细节判断-反推法验证无中生有
+  recognition: 细节判断/细节查找题,需判断选项表述是否有原文依据;尤其问'下列说法与文段不符的是'。
+  applicability:
+    include:
+    - 选非题(选出不符合/错误的选项)
+    - 选项较长的细节判断题
+    exclude:
+    - 直接能在原文找到原句的简单对应题
+  method_steps:
+  - 假设选项为真,反推文段应如何写
+  - 与原文对比,判断选项是否无中生有或偷换概念
+  - 选非题可找'格格不入'的选项:与其他三个选项方向(肯定/否定、范围)明显不同的那个优先检查
+  error_signatures:
+  - code: read_invented
+    description: 选了原文根本没写、纯属脑补的选项
+  - code: concept_switch
+    description: 把原文的表述偷换成另一个概念仍误判正确
+  fix_action: 做8道细节判断题,每题在原文标出与选项对应的句子,无对应的标记'无中生有'
+  time_budget_sec: 55
+  accuracy_rule: ≥80%
+  pitfall: 原文提及不代表选项正确:干扰项常把原文有的词重新排列组合成原文没说的意思,反推法专治这类无中生有。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+- id: mc_yjtk_hengxian_wanzhengxing
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/语句填空/横线位置判断
+  title: 语句填空-横线完整性判断
+  recognition: 语句填空题,横线位于句中或句首,需判断横线所在句子是否完整。
+  applicability:
+    include:
+    - 横线在中间、句子未以句号结尾的题
+    - 需按文段结构(问题/对策)填句的题
+    exclude:
+    - 横线句是完整独立句、只考前后呼应的题
+  method_steps:
+  - 判断横线完整性:横线所在句子只要不以句号结尾就叫'不完整'
+  - 横线不完整时,把横线所在整个句子当成整体理解,不能只看横线本身
+  - 划分文段结构不能只看标点:逗号不等于分界,要按语义划分(如'公务员考试很难,所以我们应该好好备考'中'很难'是问题、后半是对策)
+  error_signatures:
+  - code: punctuation_only
+    description: 仅凭逗号句号划分文段结构导致误判
+  - code: isolated_blank
+    description: 只看横线局部,忽略横线所在整句的意思
+  fix_action: 做8道语句填空题,先判断横线完整度再填句,并标出每句的结构角色
+  time_budget_sec: 60
+  accuracy_rule: ≥80%
+  pitfall: '''语句填空的标点符号不重要''是从文段结构角度说的:结构划分与标点没有必然关系,判断横线完整与否却要看句子是否以句号结尾——两个问题不矛盾。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft

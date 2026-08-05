@@ -14266,7 +14266,7 @@ export type QuestionOccurrence = {
     /**
      * Papertitle
      */
-    paperTitle?: string | null;
+    paperTitle: string | null;
     /**
      * Province
      */
@@ -14279,18 +14279,6 @@ export type QuestionOccurrence = {
      * Section
      */
     section?: string | null;
-    /**
-     * Sourcedatasetid
-     */
-    sourceDatasetId?: string | null;
-    /**
-     * Sourcepath
-     */
-    sourcePath?: string | null;
-    /**
-     * Sourcequestionid
-     */
-    sourceQuestionId?: string | null;
     /**
      * Year
      */

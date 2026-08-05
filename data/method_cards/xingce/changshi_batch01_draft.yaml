@@ -1,0 +1,1714 @@
+- id: mc_xizhou_zhidu_dongzhou
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/西周与东周
+  title: 西周制度与东周开篇
+  recognition: 题干出现分封/宗法/井田/礼乐/列鼎/牧野之战/烽火戏诸侯/平王东迁/镐京洛邑时
+  applicability:
+    include:
+    - 西周四大制度辨析与贵族等级类比推理
+    - 商周更替、西周末年事件与平王东迁的排序题
+    - '"封建"古义、九鼎/列鼎与礼乐制对应、都城别称(镐=长安)'
+    exclude:
+    - 春秋五霸的人物与典故
+    - 战国变法与七雄地理
+    - 具体战役过程类考法
+  method_steps:
+  - '制度四件套速记: 分封=封土建国(等级链天子→诸侯→卿→士; 分封对象三类: 同姓亲戚/商朝后裔武庚/异姓功臣姜子牙→齐国); 宗法=嫡长子继承(正妻所生长子);
+    井田=土地制度(井字形, 中间公田收归贵族); 礼乐=等级制度(列鼎: 天子九鼎八簋→诸侯七→卿五→士三/一), 周公制礼作乐'
+  - '牧野之战: 周武王姬发伐纣, 商军"临阵倒戈", 以少胜多(纣王号称70万); 二京制: 宗周=镐京(西安, 别称镐/长安), 成周=洛邑(洛阳)'
+  - '亡周链: 周幽王宠褒姒"烽火戏诸侯"→废申后→申侯联合犬戎破镐京→幽王死'
+  - 平王东迁(镐京→洛邑)=西周/东周分界线; 东周=春秋+战国; 此后周天子仅剩洛阳周边, 沦为"天下共主"吉祥物, 礼崩乐坏
+  error_signatures:
+  - code: fenfeng_object_mixup
+    description: '分封对象张冠李戴: 姜子牙=异姓功臣封齐; 鲁/晋/蔡=同姓诸侯国'
+  - code: chengzhou_vs_anyang
+    description: '成周与安阳混淆: 成周=洛阳; 安阳=商朝殷墟'
+  - code: dongxi_zhou_boundary_wrong
+    description: '东西周分界线记错: 平王东迁才是分界, 不是某次战役'
+  - code: liyue_jingtian_swap
+    description: '礼乐制与井田制功能错位: 礼乐管等级, 井田管土地'
+  fix_action: 复述时间轴"牧野之战→西周→烽火戏诸侯→犬戎破镐京→平王东迁→东周"; 做10道西周制度真题, 限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥80%
+  pitfall: '"封建"古义=分封诸侯(封土建国), 与郡县/监察/嫡长子继承都不沾边'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_chunqiu_wuba_renwu
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/春秋五霸
+  title: 春秋五霸-人选与人物典故
+  recognition: 题干出现"春秋五霸""霸主""会盟"或五霸人名及其标志成语/辅臣时
+  applicability:
+    include:
+    - 五霸人选判断、五霸vs七雄辨析
+    - 贤臣-君主对应(管仲/百里奚/文种/孙叔敖)
+    - 霸主标志事件/会盟/典故对应、称霸时间排序
+    exclude:
+    - 春秋成语朝代归属(另有卡)
+    - 战国人物与变法
+    - 春秋古籍著作
+  method_steps:
+  - '五霸是"五个人"不是国家: 可说"齐桓公是五霸", 不能说"齐国是五霸"; 七雄才是七个国家'
+  - '两种说法都正确: ①史记: 齐桓公、晋文公、秦穆公、楚庄王、宋襄公 ②荀子: 齐桓公、晋文公、楚庄王、吴王阖闾、越王勾践'
+  - '时间轴: 齐桓公称霸最早(春秋早期)→宋襄/晋文/秦穆/楚庄(中后期)→吴越最晚(春秋晚期); 战国起点=三家分晋(韩赵魏瓜分晋国)'
+  - '人物速记: 齐桓公(姜小白,姜子牙后代)=尊王攘夷/九合诸侯一匡天下/葵丘会盟+管仲; 晋文公(姬重耳)=城濮之战退避三舍/践土会盟(周天子亲临)/寒食节介子推;
+    楚庄王(芈旅)=一鸣惊人/问鼎中原/邲之战/饮马黄河+孙叔敖修芍陂; 秦穆公=独霸西戎/百里奚"五羖大夫"/秦晋之好; 宋襄公=泓水之战"宋襄之仁"(贬义);
+    勾践=卧薪尝胆/鸟尽弓藏兔死狗烹最早出处/范蠡(商圣)文种(被赐死)'
+  error_signatures:
+  - code: sushuao_aux_predict_wrong
+    description: '孙叔敖误配楚怀王: 应为楚庄王, 楚怀王是战国人物'
+  - code: yiming_jingren_wrong_king
+    description: '一鸣惊人误配齐威王: 考试重点考楚庄王'
+  - code: tuibi_sanshe_miles
+    description: '退避三舍里程记错: 一舍30里, 三舍共90里'
+  - code: wuba_qixiong_confuse
+    description: '五霸与七雄混淆: 勾践/阖闾是五霸人选, 不是战国七雄'
+  fix_action: 默写两种五霸说法并给每位霸主配2个关键词; 做10道人物对应真题, 限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: '贤臣-君主错配是最常见陷阱: 管仲-齐桓公、百里奚-秦穆公、文种-勾践、孙叔敖-楚庄王'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_chunqiu_chengyu
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/成语典故
+  title: 成语典故-春秋定位与朝代归属
+  recognition: 题干问"下列成语发生在春秋/战国/西汉/东汉/东晋……"或成语↔主人公对应时
+  applicability:
+    include:
+    - 成语所属朝代判断(尤其春秋vs战国vs秦汉)
+    - 成语-主人公对应关系(真题高频)
+    - 干扰项识别(马革裹尸/金屋藏娇/草木皆兵/投鞭断流等)
+    exclude:
+    - 五霸人选与辅臣组合
+    - 古籍著作考点
+    - 战役过程本身
+  method_steps:
+  - '春秋档: 管鲍之交(管仲鲍叔牙)、退避三舍(晋文公)、卧薪尝胆(勾践)、问鼎中原(楚庄王)、秦晋之好、一鸣惊人(楚庄王)'
+  - '战国档: 负荆请罪(廉颇蔺相如)、围魏救赵(孙膑)、纸上谈兵(赵括)、邯郸学步(赵都邯郸)、鸡鸣狗盗(孟尝君)'
+  - '非春秋干扰项: 马革裹尸(东汉马援)、金屋藏娇(西汉汉武帝陈阿娇)、草木皆兵/风声鹤唳/投鞭断流(东晋淝水之战, 前秦苻坚)、一字千金(吕不韦)、指鹿为马(赵高)、破釜沉舟(项羽巨鹿之战)'
+  - '兔死狗烹"双关陷阱": 既可指春秋勾践-文种, 也可指汉朝刘邦-韩信, 需结合选项判断出题人当它属哪朝'
+  error_signatures:
+  - code: tusi_goupeng_default_chunqiu
+    description: '兔死狗烹默认春秋: 也可能是汉朝刘邦韩信, 出题人常利用双关设陷阱'
+  - code: weizhao_jiuzhao_mis_author
+    description: '围魏救赵错配孙武: 是孙膑的计策(孙武著《孙子兵法》)'
+  - code: feishui_idioms_in_chunqiu
+    description: '草木皆兵/风声鹤唳/投鞭断流误入春秋: 出自东晋淝水之战'
+  - code: tuibi_sanshe_battle_break
+    description: '退避三舍与城濮之战断链: 二者必须捆绑记忆'
+  fix_action: 按"春秋-战国-秦汉-东晋"四栏默写成语; 做12道成语归属真题, 限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: 兔死狗烹是双关陷阱—不能看到就默认春秋, 要结合其他选项判断出题人立场
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_chunqiu_zhuzuo
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/古代典籍
+  title: 春秋典籍-《春秋》与诸子著作
+  recognition: 题干问古籍体裁/作者/体例/五经/诸子思想词云时
+  applicability:
+    include:
+    - 《春秋》体例与春秋三传辨析
+    - 著作-作者对应(论语/老子/孙子兵法/考工记/天工开物/吕氏春秋)
+    - 诸子百家思想匹配(儒家入世/道家出世/墨家兼爱非攻)
+    exclude:
+    - 成语典故朝代归属
+    - 历史人物事件
+    - 战国变法
+  method_steps:
+  - '《春秋》: 孔子编撰, 第一部编年体史书, 五经之一(诗书礼易春秋); "微言大义""春秋笔法"(寓褒贬于记事); 注解称"传"不称"序", 春秋三传=左传+公羊传+谷梁传(左丘明作《左传》叙事详备)'
+  - '作者陷阱: 《论语》=孔子弟子及再传弟子(非孔子); 《老子》=《道德经》"万经之王", "紫气东来"指老子出函谷关遇尹喜; 《孙子兵法》=孙武(兵圣,
+    中国现存最早兵书, 非孙膑); 《考工记》=最早手工业文献(对照明代宋应星《天工开物》"17世纪工艺百科全书")'
+  - '思想词云速配: 仁/礼→儒家(入世), 清静自然/无为→道家(出世), 兼爱/非攻→墨家, 以法治国→法家'
+  - 《吕氏春秋》=吕不韦组织门客编(杂家, "一字千金"); 《战国策》记纵横家谋略
+  error_signatures:
+  - code: lunyu_author_is_confucius
+    description: '《论语》作者误写孔子: 实为孔子弟子及再传弟子'
+  - code: sunzi_bingfa_author_mis
+    description: '《孙子兵法》误配孙膑: 作者是孙武(兵圣)'
+  - code: zhuan_vs_xu_mixup
+    description: '注解体裁"传"与"序"混淆: 补充阐发《春秋》的作品叫"传"'
+  - code: kaogongji_tiangongwu_dynasty
+    description: 《考工记》(战国齐)与《天工开物》(明代)朝代错位
+  fix_action: 默写五经与春秋三传; 做10道古籍著作真题, 限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: 《论语》作者是孔子弟子及再传弟子, 这是最高频的错误选项
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/文学常识
+  - 行测/常识判断/中国历史
+- id: mc_chunqiu_zhengyi_gongcheng
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/春秋战役工程
+  title: 春秋战役与水利工程
+  recognition: 题干出现战役-典故-人物三重对应, 或芍陂/邗沟/京杭大运河时
+  applicability:
+    include:
+    - 战役↔典故↔人物对应(长勺/城濮/邲/柏举/夫椒)
+    - 水利工程-修建者对应
+    - 京杭大运河"春秋→隋→元"发展链
+    exclude:
+    - 战国桂陵/马陵/长平之战
+    - 七雄地理
+    - 五霸人物总览
+  method_steps:
+  - '战役速记: 长勺之战=鲁国曹刿"一鼓作气再而衰三而竭"(齐桓公少有的败仗, 体现边际效用递减); 城濮之战=晋文公退避三舍; 邲之战=楚庄王称霸/饮马黄河;
+    柏举之战=吴阖闾破楚都(孙武伍子胥); 夫椒之战=吴夫差胜勾践→卧薪尝胆'
+  - '水利: 芍陂=楚相孙叔敖修(安徽寿县, 最早人工水库之一); 邗沟=吴王夫差开凿=中国第一条人工运河(连长江淮河, 京杭大运河最早部分)'
+  - '大运河链: 春秋开邗沟→隋炀帝以洛阳为中心扩建(通济渠/永济渠/江南河)→元朝弃弯取直(济州河/会通河/通惠河)→明清维护; 最早开凿于春秋而非隋朝'
+  - '秦国三大水利工程对照记忆: 郑国渠、都江堰(秦昭襄王李冰父子)、灵渠(秦朝)'
+  error_signatures:
+  - code: grand_canal_first_dynasty
+    description: '京杭大运河误记始凿于隋朝: 最早是春秋邗沟, 隋朝只是扩建'
+  - code: hangou_digger_wrong
+    description: '邗沟开凿者误配: 吴王夫差; 也勿与永济渠混淆'
+  - code: yigu_zuoqi_person
+    description: '一鼓作气人物记错: 曹刿, 鲁国'
+  - code: shaobei_builder_wrong
+    description: '芍陂修建者误配: 孙叔敖(楚国令尹)'
+  fix_action: 做10道战役-工程真题, 限时30秒/题; 复述大运河"春秋邗沟→隋扩建→元取直"三段
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥80%
+  pitfall: 京杭大运河最早开凿于春秋(邗沟), 隋朝只是以洛阳为中心扩建, 不是始凿
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+  - 行测/常识判断/中国地理
+- id: mc_zhanguo_jiexian_qixiong
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/战国/七雄
+  title: 战国-三家分晋与七雄方位
+  recognition: 题干出现"山东六国""七雄位置/纬度""三家分晋""都城"时
+  applicability:
+    include:
+    - 七雄方位与纬度/经度判断(楚国最南纬度最低)
+    - '"山东六国"含义与崤山定位'
+    - 战国起止时间与分界线事件
+    - 都城-国家对应(赵都邯郸/齐都临淄/燕都蓟)
+    exclude:
+    - 变法内容
+    - 春秋五霸人物
+    - 秦统一措施
+  method_steps:
+  - '战国起止: 始于三家分晋(韩赵魏瓜分晋国, 周天子被迫册封; 约前403/前453), 终于前221秦灭六国'
+  - '山东六国: "山"=崤山, 指崤山以东六国(齐楚燕韩赵魏)vs秦国; 与今天"山东=太行山以东"是两个概念'
+  - '七雄方位口诀: 西秦(陕西)、东齐(山东, 都临淄)、北燕(蓟, 北京天津)、南楚(湖北安徽, 纬度最低/最南)、中原韩魏+赵(赵都邯郸, 邯郸学步出处);
+    秦最西经度最小、齐最东经度最大'
+  - '秦出身链: 嬴姓部落养马→西周附庸→秦襄公护送平王东迁被封诸侯; 曾被中原称"秦戎/狄秦"不入会盟, 故立志东出'
+  error_signatures:
+  - code: shandong_six_states_mountain
+    description: '山东六国的"山"误为太行山: 战国时指崤山以东'
+  - code: chu_latitude_wrong
+    description: '楚国方位/纬度判断错: 楚国最南、纬度最低'
+  - code: zhanguo_end_time
+    description: '战国结束时间记错: 前221秦灭六国, 不是前311'
+  - code: sanjia_fenjin_wrong_states
+    description: '三家分晋记成"韩赵燕": 是韩、赵、魏三家'
+  fix_action: 手绘七雄方位图并标注都城; 做10道七雄地理真题, 限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: '"山东六国"指崤山以东六国(齐楚燕韩赵魏), 与今天的山东省完全是两个概念'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+  - 行测/常识判断/中国地理
+- id: mc_zhanguo_likui_weiguo
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/战国/变法战役
+  title: 战国-李悝变法与魏国兴衰
+  recognition: 题干出现尽地力/平籴法/法经/桂陵/马陵/孙膑/庞涓/围魏救赵/减灶诱敌时
+  applicability:
+    include:
+    - 变法-国家-人物-关键词对应(李悝/吴起/邹忌/申不害)
+    - 桂陵、马陵两战与孙膑庞涓
+    - 魏国由盛转衰→秦国崛起的时间线
+    - 平籴法的经济学原理(谷贱伤农/丰收悖论)
+    exclude:
+    - 商鞅变法细节(另有卡)
+    - 长平之战
+    - 七雄方位
+  method_steps:
+  - '李悝变法(魏国, 法家始祖): 《法经》=第一部较系统的成文法典; 两项核心经济措施="尽地力"+"平籴法"(丰年平价收/灾年平价售); 魏国成战国第一强国'
+  - 平籴法=国家宏观调控雏形; "谷贱伤农/丰收悖论"=粮食缺乏弹性(价格大跌需求只微增→农民收入反降)
+  - '桂陵之战: 孙膑"围魏救赵"(攻魏都大梁诱庞涓回救, 方式与目的关系可考类比); 马陵之战: "减灶诱敌"(十万灶→五万→三万造假象), 庞涓死马陵道'
+  - '魏衰→迁都大梁→秦趁势收复河西→商鞅变法后秦成第一强国; 解题钥匙: 变法"特性关键词"(尽地力/平籴法=李悝)才能区分, 通性(废世卿世禄/奖励军功)各国都有不能区分'
+  error_signatures:
+  - code: pingfa_fa_wrong_reformer
+    description: '平籴法/尽地力误配吴起或商鞅: 专属李悝魏国变法'
+  - code: weizhao_jiuzhao_sunwu
+    description: '围魏救赵错配孙武: 是孙膑(孙膑受膑刑得名, 孙武著《孙子兵法》)'
+  - code: jianzao_youdi_wrong_battle
+    description: '减灶诱敌与桂陵/马陵错位: 减灶诱敌在马陵之战'
+  - code: shangyang_weiguo_official
+    description: '商鞅误配魏国官员: 商鞅功绩在秦国, 效力秦孝公'
+  fix_action: 默写"变法-国家-人物-关键词"四列表格; 做10道变法+两战真题, 限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: 见到"尽地力/平籴法"直接锁定李悝魏国; 孙武(著兵书)与孙膑(围魏救赵)常被互换
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_zhanguo_shangyang
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/战国/商鞅变法
+  title: 商鞅变法-两次变法内容
+  recognition: 题干问商鞅变法内容/第一次或第二次归属/立木为信/最不可能发生的变法场景时
+  applicability:
+    include:
+    - 两次变法措施归属(高频)
+    - 变法支持者与商鞅结局
+    - 土地制度判断(允许自由买卖)
+    - 商鞅与李悝/吴起变法区分
+    exclude:
+    - 秦始皇统一措施
+    - 春秋霸主人物
+    - 七雄位置
+  method_steps:
+  - '背景: 秦孝公发求贤令(痛斥四代昏君)→卫鞅(公孙鞅, 卫国人)怀《法经》入秦任左庶长; 支持者=秦孝公(非秦穆公/秦景公/秦献公); 事前"徙木立信"(五十金)树立官府威信'
+  - '第一次(前356): 连坐法+轻罪重罚; 废除世卿世禄+奖励军功(军功爵制20级, 最高"彻侯"避汉武帝刘彻讳改"通侯"); 重农抑商/奖励耕织; 强制个体小家庭'
+  - '第二次(前350): 废井田开阡陌(土地私有、允许自由买卖); 统一度量衡(度=长度/量=容积/衡=重量); 迁都咸阳; 推行县制'
+  - '结局: 太子犯法→刑其傅公子虔(劓刑割鼻), "法之不行自上犯之"; 商鞅逃亡"作法自毙"(住店被自己定的实名登记法拒绝); 秦孝公死后被车裂; 秦惠文王"商君之法一字不易"→商君虽死秦法未亡'
+  error_signatures:
+  - code: first_vs_second_du_tl
+    description: '统一度量衡误入第一次: 属第二次变法'
+  - code: shiqing_shilu_wrong
+    description: '废除世卿世禄误入第二次: 属第一次变法'
+  - code: qinxiaogong_wrong_king
+    description: '秦穆公/秦景公误为变法支持者: 支持者是秦孝公'
+  - code: land_sale_forbidden
+    description: '误认为商鞅变法禁止土地买卖: 第二次变法废井田、允许自由买卖'
+  fix_action: 默写"一次=法治军事(连坐/军功/重农), 二次=经济政治(土地/度量衡/迁都/县制)"; 做12道商鞅变法真题, 限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥90%
+  pitfall: 两次变法内容混淆—"统一度量衡/迁都咸阳/县制"是第二次, "废除世卿世禄/奖励军功"是第一次
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_zhanguo_sigongzi
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/战国/四公子
+  title: 战国四公子与百家争鸣
+  recognition: 题干出现毛遂自荐/窃符救赵/鸡鸣狗盗/狡兔三窟/移花接木/黄金台/稷下学宫/胡服骑射时
+  applicability:
+    include:
+    - 四公子-国家-典故对应
+    - 燕昭王黄金台招贤
+    - 齐国稷下学宫与百家争鸣
+    - 赵武灵王胡服骑射(军事改革)
+    exclude:
+    - 春秋五霸人物
+    - 商鞅变法内容
+    - 秦统一措施
+  method_steps:
+  - '四公子口诀"信窃/平毛/孟鸡/春移": 信陵君魏无忌(魏)=窃符救赵; 平原君赵胜(赵)=毛遂自荐/利令智昏; 孟尝君田文(齐)=鸡鸣狗盗/狡兔三窟(冯谖);
+    春申君黄歇(楚)=移花接木'
+  - '燕昭王招贤: 郭隗讲"千金买骨"→筑黄金台(李贺"报君黄金台上意")→招来乐毅/邹衍→向齐复仇'
+  - '稷下学宫: 齐国(临淄)官方高等学府, 诸子百家辩论的"百家争鸣"主阵地, 荀子三任"祭酒"; 赵武灵王"胡服骑射"=学胡人短衣骑马射箭的军事改革, 赵国成北方强国'
+  - '出处辨析: 冯谖客孟尝君记于《战国策》(非《左传》); 《战国策》记纵横家谋略, 《左传》是左丘明著春秋编年史'
+  error_signatures:
+  - code: qiefu_jiuzhao_wrong_gongzi
+    description: '窃符救赵误配平原君或齐国: 是信陵君魏无忌(魏)'
+  - code: maosui_zijian_wrong
+    description: '毛遂自荐错配孟尝君: 出自平原君赵胜'
+  - code: fengxuan_source_wrong
+    description: '冯谖客孟尝君出处记错: 记于《战国策》而非《左传》'
+  - code: huangjintai_wrong_king
+    description: '黄金台误配齐威王: 是燕昭王筑台招贤'
+  fix_action: 用"信窃、平毛、孟鸡、春移"口诀复述四公子; 做10道四公子/招贤真题, 限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: '四公子-国家-典故最易错配: 窃符救赵=信陵君(魏), 毛遂自荐=平原君(赵)'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_qin_liushi_tongyi
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/秦朝
+  title: 秦-六世主线与统一措施
+  recognition: 题干出现某秦君在位期间的事件判断/秦统一六国/灭六国顺序/皇帝制度/郡县制时
+  applicability:
+    include:
+    - 秦历代君主↔核心人物↔事件(孝公→惠文王→武王→昭襄王→庄襄王→嬴政)
+    - 灭六国顺序与统一措施(文字/度量衡/货币/车轨)
+    - '"某王在位期间"时间判断'
+    - 秦朝制度(皇帝/三公九卿/郡县制)
+    exclude:
+    - 商鞅变法细节(另有卡)
+    - 长平之战过程(另有卡)
+    - 春秋五霸
+  method_steps:
+  - '六世链: 秦孝公(商鞅变法)→秦惠文王(张仪连横/司马错灭巴蜀/称王)→秦武王(拔宜阳/举鼎绝膑而亡)→秦昭襄王(白起/范雎/长平/迁九鼎/李冰修都江堰)→秦孝文王(在位3天)→秦庄襄王(吕不韦"奇货可居",
+    生嬴政)'
+  - '统一六国顺序"韩赵魏楚燕齐"(口诀: 喊赵薇去演戏); 灭赵用反间计杀李牧, 灭魏王贲水灌大梁, 灭楚王翦率60万大军'
+  - '统一措施速记: 皇帝称号(德兼三皇功过五帝, 废谥号称始皇帝, 传国玉玺"受命于天既寿永昌"); 三公九卿; 郡县制; 书同文(李斯小篆); 车同轨(驰道直道);
+    统一度量衡; 货币圆形方孔"秦半两"; 北击匈奴连长城/南征百越开灵渠/西南五尺道'
+  - 李斯《谏逐客书》("泰山不让土壤故能成其大"); 郑国渠=韩国"疲秦"计反成强秦; 荆轲刺秦王=图穷匕见(出自《战国策》)
+  error_signatures:
+  - code: wangui_gui_zhao_wrong_king
+    description: '完璧归赵误配秦始皇: 发生在秦昭襄王时期'
+  - code: mie_liuguo_order
+    description: '灭六国顺序记错: 韩赵魏楚燕齐, 最后一个被灭的是齐'
+  - code: qin_king_mixup
+    description: '秦穆公/秦孝公/秦昭王张冠李戴: 商鞅-孝公, 张仪-惠文王, 范雎-昭襄王'
+  - code: dujiangyan_lingqu_era
+    description: '都江堰/灵渠/郑国渠时代错配: 都江堰秦昭襄王, 郑国渠战国末, 灵渠秦朝'
+  fix_action: 画秦六世时间轴并标各代核心人物; 做10道秦朝统一真题, 限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: 蔺相如(完璧归赵/渑池之会)发生在秦昭襄王时代, 不能算秦始皇在位事件
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_qin_zhaoxiangwang_changping
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/秦/长平之战
+  title: 秦昭襄王-长平之战与远交近攻
+  recognition: 题干出现长平/白起/赵括/廉颇/范雎/远交近攻/纸上谈兵/迁九鼎时
+  applicability:
+    include:
+    - 长平之战前因后果与人物链
+    - 远交近攻策略与首个目标
+    - 白起/范雎人物与结局
+    - 九鼎迁秦与周室灭亡
+    exclude:
+    - 战国前期桂陵/马陵之战
+    - 秦始皇统一措施
+    - 七雄方位
+  method_steps:
+  - '长平之战(战国规模最大持续最久): 秦攻韩取野王→上党守将降赵→秦赵争上党; 廉颇"固守不出"→范雎反间计散布"秦只怕赵括"→赵王换赵括(纸上谈兵)→秦密换白起→围赵46天"阴相杀食"→赵括突围死→坑杀40余万降卒(仅放回240幼卒);
+    赵国丧师45万国力崩溃'
+  - 白起="杀神/人屠", 一生歼灭六国约165万(占战国战死一半以上); 因拒再攻邯郸被赐死, 自认坑杀降卒该死
+  - '范雎"远交近攻": 与远国(燕齐)交好、蚕食近国(韩赵魏楚), 首个目标=韩国; 助昭襄王废宣太后、逐舅舅穰侯夺回大权'
+  - '迁九鼎: 前256灭西周(小国), 周赧王降; 九鼎迁咸阳途中一鼎沉泗水仅得八鼎; 前255起史书改用秦昭王纪年, 周王室名存实亡'
+  error_signatures:
+  - code: changping_opponent_wrong
+    description: '长平之战对手记错: 白起对赵括, 不是孙膑或廉颇'
+  - code: fanjianji_target_wrong
+    description: '反间计对象记错: 让赵王换掉廉颇、启用赵括'
+  - code: yuanjiao_jingong_wrong_person
+    description: '远交近攻误配张仪/李斯: 是范雎为秦昭襄王提出'
+  - code: jiuding_count_detail
+    description: '迁九鼎细节记错: 一鼎沉泗水, 只得八鼎'
+  fix_action: 复述长平链"上党→廉颇→反间→赵括→白起→坑杀"; 做8道长平/白起真题, 限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: 长平之战主角是白起对赵括, "纸上谈兵"专指赵括, 不是孙膑也不是廉颇
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_zhanguo_hezong_lianheng
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/战国/合纵连横
+  title: 合纵连横与纵横家
+  recognition: 题干出现合纵/连横/苏秦/张仪/公孙衍/五国伐秦/张仪骗楚/商於之地时
+  applicability:
+    include:
+    - 合纵连横概念辨析(六国抗秦 vs 秦分化六国)
+    - 苏秦合纵、张仪连横人物对应
+    - 张仪欺楚"六百里变六里"事件
+    - 纵横家谋略类成语
+    exclude:
+    - 商鞅变法
+    - 长平之战
+    - 七雄方位
+  method_steps:
+  - '概念: 合纵=山东六国纵向联合攻秦(诸弱攻一强); 连横=秦国"横着走"分化六国联盟; 方式与目的关系常考类比推理'
+  - '人物: 苏秦(合纵, "锥刺股"发奋, 佩六国相印, 与孙敬"悬梁"并称类比考点)、张仪(连横)、公孙衍(联合五国伐秦=战国第一次合纵抗秦); 苏秦张仪互为对手'
+  - '张仪欺楚: 许楚怀王"商於之地六百里"诱其与齐绝交(屈原力劝无效)→改口只许"六里"→楚怒攻秦→丹阳/蓝田之战惨败→秦得汉中, 齐楚联盟破裂'
+  - '五国伐秦: 公孙衍联合魏楚韩赵燕, 秦惠文王派樗里疾迎击, 联军在函谷关四散而逃, 暴露山东六国离心离德'
+  error_signatures:
+  - code: suqin_zhangyi_swap
+    description: '苏秦/张仪策略互换: 苏秦主张合纵(六国抗秦), 张仪主张连横(秦分化六国)'
+  - code: liubaili_promiser_wrong
+    description: '六百里变六里的施骗主体记错: 张仪骗楚怀王'
+  - code: gongsunyan_vs_suqin
+    description: '公孙衍与苏秦混淆: 公孙衍联合五国伐秦, 苏秦佩六国相印'
+  - code: hezong_as_shangyang
+    description: '合纵连横误当商鞅变法内容: 是外交策略不是变法措施'
+  fix_action: 默写"苏秦合纵、张仪连横"; 做10道合纵连横真题, 限时30秒/题
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: 苏秦主张合纵(六国联合抗秦), 张仪主张连横(秦分化六国), 二者常被对调
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_qin_yingzheng_tongyi_zhidu
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/秦朝-秦始皇统一与制度
+  title: 秦始皇统一与制度创建(小篆/半两钱/郡县/三公九卿)
+  recognition: 题干出现秦始皇、统一文字货币度量衡、郡县制、三公九卿、书同文车同轨、焚书坑儒、半两钱等关键词即定位
+  applicability:
+    include:
+    - 直接考秦朝巩固统一的措施及对应内容
+    - 考古代水利工程(灵渠/都江堰/郑国渠)与修建时期、目的
+    - 考制度沿革排序(三公九卿制→中外朝制→三省六部制→内阁制→军机处)
+    exclude:
+    - 考秦末楚汉争霸人物与战役典故(属另一张卡)
+    - 考五行五德终始说与颜色对应(属单独卡)
+    - 考商鞅变法细节(战国时期,非秦朝)
+  method_steps:
+  - 统一措施四件套:政治=三公九卿制(丞相行政/太尉军事/御史大夫监察)+废分封行郡县;经济=半两钱+统一度量衡+车同轨(六尺);思想=书同文小篆+焚书坑儒;军事=北击匈奴修长城+南征百越开灵渠
+  - 三公速记:丞相=总理,太尉=国防部长,御史大夫=中纪委书记;地方层级郡(郡守/郡尉/监御史)→县(县令/县丞/县尉)→乡亭里;最初36郡后增至48郡
+  - 焚书坑儒真相:烧民间私藏《诗》《书》与他国史书,留医药占卜农书;坑的主要是方士(术士)460余人,西晋才出现坑儒说法,勿理解为杀尽儒生
+  - 三大水利工程辨:灵渠=秦朝秦始皇,沟通湘江漓江,军事运输;都江堰=战国李冰父子,至今仍用;郑国渠=战国韩国水工郑国主持,本意疲秦反使关中沃野
+  - 秦尺约23.1cm,秦始皇身高八尺六寸约1.98米,佩剑长七尺约1.62米;统一货币设计寓意天圆地方
+  error_signatures:
+  - code: lingqu_zhenghequ_purpose_confused
+    description: 把灵渠(军事运输)与郑国渠(灌溉)的修建目的和时期记混
+  - code: unified_writing_xiaozhuan_lishu
+    description: 误以为官方统一文字隶书,实为小篆,民间才流行秦隶
+  - code: sangong_functions_swap
+    description: 三公职能记错,把太尉(军事)与御史大夫(监察)搞混
+  - code: shaoshu_shushu_ru
+    description: 把焚书坑儒理解为杀尽儒生,实为主要坑方士460余人
+  fix_action: 做10道秦朝统一与制度真题,每道限时30秒,重点复盘三公九卿职能与水利工程目的
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥90%,三公九卿与焚书坑儒细节错题率降至0
+  pitfall: 官方文字与日常实际用字混淆——官方规定小篆,实际民间更多用隶书,题目常在这里设陷阱
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_qin_wude_shuide_heshiliu
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/秦朝-五德终始说与尚黑
+  title: 五德终始说(周火秦水/尚黑/以六为吉)
+  recognition: 题干出现朝代尚某色、属某德、五行相克、吉祥数字、五行与五色五方对应等考法即定位
+  applicability:
+    include:
+    - 考秦朝尚黑色属水德的缘由
+    - 考五行对应五色/五方/五季(木青东春/火赤南夏/土黄中/金白西秋/水黑北冬)
+    - 考36郡、车同轨六尺、天子驾六等秦朝数字背后的五德逻辑
+    exclude:
+    - 考朝代建立灭亡时间或人物事迹(不属此卡)
+    - 考中医五行的生克应用(超出本课范围)
+  method_steps:
+  - 五德终始说由阴阳家邹衍提出:朝代更替源于五行相克;周属火,秦灭周故水克火,秦属水德
+  - 水对应黑色(水深为渊),秦尚黑,皇帝袍服宫殿用黑;百姓黑巾裹头故称黔首
+  - 水对应数字1和6,6为成数,故六为秦吉数:符节六寸、车轨六尺、六尺一步、天子驾六、36郡=6x6、铸12金人=6x2
+  - 五行五色五方五季口诀:木青东春/火赤南夏/土黄中央/金白西秋/水黑北冬
+  error_signatures:
+  - code: zhou_huo_qin_shui_cause
+    description: 记错相克方向,应水克火故秦属水德,非火克水
+  - code: wu_se_wu_fang_mismatch
+    description: 五行与五色五方对应错位,如水对应南方(实为北方)
+  - code: ji_shu_liu_wrong_source
+    description: 把秦以六为吉误当成偶然,实际源于水对应数字1和6
+  fix_action: 复述五行-五色-五方-五季-数字对应表三遍,做5道五德终始说真题限时30秒
+  time_budget_sec: 25
+  accuracy_rule: 正确率≥90%,五行对应表须一次写对
+  pitfall: 把秦尚黑的理由答成纯审美,忘记根因是水克火的水德对应黑色
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+  - 行测/常识判断/文化常识
+- id: mc_qin_mo_chuhan_dianggu
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/秦朝-楚汉争霸与典故
+  title: 秦末楚汉争霸(陈胜起义/巨鹿/鸿门宴/垓下/乌江自刎)与典故
+  recognition: 题干出现陈胜吴广、项羽刘邦、破釜沉舟、鸿门宴、四面楚歌、约法三章、背水一战等成语典故即定位
+  applicability:
+    include:
+    - 考成语典故与人物、战役的对应关系(如破釜沉舟-巨鹿之战-项羽)
+    - 考楚汉争霸关键战役的时间轴与以少胜多战役
+    - 考秦汉成语辨析(一字千金-吕不韦/一饭千金-韩信/问鼎中原-楚庄王/指鹿为马-赵高)
+    exclude:
+    - 考秦始皇生前统一措施(属上一卡)
+    - 考岳飞/文天祥等宋元人物(另卡)
+  method_steps:
+  - 时间轴:前210沙丘病逝→前209大泽乡起义(王侯将相宁有种乎,建张楚)→前207巨鹿之战(破釜沉舟)→前206秦亡(前221-前206享国15年)+鸿门宴→前205彭城之战(项羽3万破刘邦56万)→前203鸿沟之盟(楚河汉界)→前202垓下(十面埋伏四面楚歌霸王别姬)+乌江自刎
+  - 两场以少胜多:巨鹿之战项羽5万破40万秦军;彭城之战项羽3万破56万联军(睢水为之不流);韩信背水一战在井陉
+  - 成语人物表:破釜沉舟/鸿沟之盟/四面楚歌/霸王别姬→项羽;明修栈道暗度陈仓/背水一战/十面埋伏/多多益善/胯下之辱→韩信;约法三章/楚河汉界→刘邦;项庄舞剑意在沛公→鸿门宴
+  - 人物关系辨析技巧:多人物成语先一级看人物相关,再二级看说话主体与对象(如多多益善=韩信对刘邦说)
+  error_signatures:
+  - code: battle_place_mingle
+    description: 把破釜沉舟(巨鹿)与背水一战(井陉)的战役地点记混
+  - code: chengyu_renwu_misattribution
+    description: 把一字千金(吕不韦)、问鼎中原(楚庄王)、纸上谈兵(赵括)张冠李戴到赵高等人
+  - code: qin_ming_year_wrong
+    description: 秦亡时间记错,前206年子婴投降,享国仅15年
+  - code: wujiang_liang_food_mixed
+    description: 把十面埋伏(琵琶曲)与霸王别姬(京剧)的曲艺门类记错
+  fix_action: 默画前210→前202楚汉时间轴,做8道成语人物对应真题限时25秒
+  time_budget_sec: 25
+  accuracy_rule: 正确率≥85%,核心成语-人物-战役三线对应
+  pitfall: 成语对应人物张冠李戴——破釜沉舟是项羽(巨鹿),背水一战是韩信(井陉),不是同一场战役
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_qin_shaqiu_zhaogao
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/秦朝-沙丘之谋与秦二世
+  title: 沙丘之谋与秦二世(赵高专权/指鹿为马/李斯之死)
+  recognition: 题干出现沙丘、赵高、胡亥、李斯、扶苏、指鹿为马、中车府令等关键词即定位
+  applicability:
+    include:
+    - 考秦始皇之死与遗诏被篡改的来龙去脉
+    - 考指鹿为马、东窗事发等成语出处
+    - 考赵高官职变化(中车府令→郎中令)与九卿概念
+    exclude:
+    - 考统一措施与制度(属秦始皇卡)
+    - 考楚汉争霸人物命运(属上卡)
+  method_steps:
+  - 沙丘之谋三知情人:丞相李斯、中车府令赵高(掌管玉玺)、第十八子胡亥;秦始皇生前未立太子,死讯封锁用鲍鱼咸鱼掩盖尸臭
+  - 篡诏链:赵高先劝胡亥(我太想进步了)→六次威逼利诱李斯(比才能谋略功勋人缘信任五不如蒙恬)→伪造诏书赐死扶苏(四大虚构罪名)与蒙恬
+  - 秦二世暴政:杀旧臣提新臣、杀十公子十二公主、大兴土木修阿房宫与骊山陵;赵高诬李斯谋反,假御史拷打至认罪,腰斩并夷三族,遗言牵犬东门
+  - 指鹿为马=赵高试探群臣、清除异己;前207赵高逼杀胡亥欲自立,因异象放弃,立子婴;子婴设计诛杀赵高并灭三族
+  error_signatures:
+  - code: shaqiu_insider_wrong
+    description: 把沙丘之谋知情人记成更多人,实仅李斯赵高胡亥三人
+  - code: zhihuwaima_purpose
+    description: 以为指鹿为马是辨认动物,实为测忠奸、除异己
+  - code: zhaogao_official_change
+    description: 赵高由中车府令升郎中令(九卿之一)的官职变化记不清
+  fix_action: 复述沙丘之谋三幕(劝胡亥/逼李斯/篡诏)与秦亡三年时间轴,做5道相关真题限时25秒
+  time_budget_sec: 25
+  accuracy_rule: 正确率≥85%,沙丘三知情人必对
+  pitfall: 误以为赐死扶苏是秦始皇遗愿,实为赵高李斯篡改的假诏
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_songbeisong_yanyun_liushizhou
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/燕云十六州-割让与收复
+  title: 燕云十六州(石敬瑭割让/柴荣北伐/北宋失机/明初收复)完整链
+  recognition: 题干出现燕云十六州、儿皇帝石敬瑭、契丹辽、澶渊之盟、高梁河、幽州云州等即定位
+  applicability:
+    include:
+    - 考燕云十六州被谁割让、割给谁、何时丢失
+    - 考澶渊之盟是否割让燕云十六州(易混陷阱)
+    - 考柴荣北伐、高梁河之战等收复尝试
+    exclude:
+    - 考辽金元与西夏的建国民族(属西夏卡)
+    - 考北宋城市经济与交子(属北宋经济卡)
+  method_steps:
+  - 一条链:936年后唐节度使石敬瑭为反叛向契丹称儿皇帝(尊耶律德光为父)并割让燕云十六州→后周世宗柴荣北伐连克关口将收复时39岁暴毙→北宋宋太宗高梁河之战大败丧失战略主动→澶渊之盟只赔岁币未割地→至明朱元璋才彻底收复,被辽金元统治400余年
+  - 地理:燕云十六州以幽州(今北京)、云州为中心,含燕山山脉与长城防线,是抵御北方骑兵的天然屏障,失去后华北平原门户大开
+  - 易混辨:澶渊之盟(1004,宋真宗,银10万绢20万,未割地)≠石敬瑭割让(936,五代,燕云十六州割给辽)
+  error_signatures:
+  - code: chanyuan_meng_cut_land
+    description: 误以为澶渊之盟割让燕云十六州,实为五代石敬瑭所割
+  - code: cut_person_wrong
+    description: 把割让人记成赵匡胤或宋真宗,实为后晋石敬瑭
+  - code: recover_time_wrong
+    description: 把收复时间记成宋代,实为明朝朱元璋时期收复
+  fix_action: 复述燕云十六州时间线:936割让→柴荣北伐将成→高梁河失利→澶渊未割→明初收复,做5道真题限时30秒
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥90%,割让人与澶渊之盟不割地必须记死
+  pitfall: 把割让燕云十六州嫁接到澶渊之盟上——澶渊之盟只赔岁币,割让是五代石敬瑭干的
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_songbeisong_kaiguo_guance
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/北宋-开国与重文轻武国策
+  title: 北宋开国(陈桥兵变/杯酒释兵权)与重文轻武
+  recognition: 题干出现赵匡胤、陈桥兵变、黄袍加身、杯酒释兵权、强干弱枝、崇文抑武、赵普等即定位
+  applicability:
+    include:
+    - 考陈桥兵变、杯酒释兵权的典故人物与性质
+    - 考重文轻武国策的积极与消极影响(三冗)
+    - 考半部论语治天下、宰相需用读书人等名言对应人物
+    exclude:
+    - 考燕云十六州时间线(属上卡)
+    - 考王安石变法具体措施(属变法卡)
+  method_steps:
+  - 陈桥兵变960年:后周假军情→赵匡胤率军至陈桥驿→弟赵光义与赵普策划黄袍加身→和平夺权定都开封(汴京/东京)→善待柴氏立太祖誓碑
+  - 杯酒释兵权:以宴饮温和收回石守信等禁军兵权,区别于刘邦杀韩信、勾践杀文种的兔死狗烹
+  - 国策=强干弱枝+崇文抑武:二府三司制(中书门下行政/枢密院军事/三司盐铁度支户部财政)拆分权力;更戍法致兵不识将将不专兵
+  - 三冗=冗官(官职拆分+科举一次录千百人)、冗兵(流民充军+精兵调中央)、冗费(财政入不敷出)→积贫积弱;赵普半部论语治天下,赵匡胤名言宰相需用读书人
+  error_signatures:
+  - code: chenqiao_yellow_robes_people
+    description: 把黄袍加身与杯酒释兵权的策划者记混(前者赵普赵光义,杯酒释兵权受赵普建议)
+  - code: erfu_sansi_mix
+    description: 二府三司分工记错,枢密院管军事非行政
+  - code: sanguo_root_cause
+    description: 三冗原因记不全,忘记官职拆分是根本原因
+  fix_action: 做6道北宋开国典故真题限时25秒,复述三冗-积贫积弱的因果链
+  time_budget_sec: 25
+  accuracy_rule: 正确率≥85%,陈桥兵变与杯酒释兵权人物对应必对
+  pitfall: 把开国功臣赵普(半部论语)与军师张良、丞相萧何的人物对应混淆——赵普是赵匡胤的宰相
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_songbeisong_zhenzong_renzong
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/北宋-真宗仁宗之治与和议
+  title: 宋真宗(咸平之治/澶渊之盟/泰山封禅)与宋仁宗(庆历新政/文化巅峰)
+  recognition: 题干出现宋真宗、澶渊之盟、寇准、咸平之治、占城稻、泰山封禅、范仲淹、庆历新政、狸猫换太子等即定位
+  applicability:
+    include:
+    - 考澶渊之盟内容(岁币数额/称兄弟/白沟河为界/约120年和平)
+    - 考泰山封禅六帝名单与宋真宗拉低标准
+    - 考庆历新政(范仲淹整顿吏治、一笔勾销)与宋夏战争庆历和议
+    - 考仁宗时期文化科技名人(唐宋八大家/毕昇/沈括/苏颂)
+    exclude:
+    - 考王安石变法具体条文(属变法卡)
+    - 考徽钦二帝靖康之变(属亡国卡)
+  method_steps:
+  - 咸平之治(真宗前期):引占城稻、人口400万户→近800万户,年收入为唐朝贞观之治7倍
+  - 澶渊之盟1004:真宗在寇准胁迫下渡黄河御驾亲征,宋军胜后却议和,岁币银10万绢20万(占财政收入1.5%),政治是城下之盟、经济是最优解;泰山封禅六帝=始皇/武帝/光武/唐高宗/唐玄宗/宋真宗(最后一个)
+  - 庆历新政(仁宗,范仲淹):废年限升迁改政绩考核,一笔勾销典故;因得罪权贵+朋党论(欧阳修)仅一年废止;范仲淹岳阳楼记先天下之忧而忧
+  - 仁宗文化圈:唐宋八大家宋6人全在仁宗朝(欧阳修/苏洵/苏轼/苏辙/曾巩/王安石);毕昇活字印刷、沈括梦溪笔谈、苏颂水运仪象台(国考考点:两汉不可能有)
+  error_signatures:
+  - code: chanyuan_suibi_amount
+    description: 澶渊之盟岁币数额记错,为银10万两绢20万匹而非25万
+  - code: keshen_jiang_sui_cut
+    description: 把科举制起始朝代记错,隋朝创立唐朝完善
+  - code: qingli_xinzheng_period
+    description: 把庆历新政与王安石变法混为同时,庆历在前神宗前,庆历新政只一年
+  fix_action: 默写泰山封禅六帝与澶渊之盟三要素(时间/岁币/边界),做6道真宗仁宗真题限时30秒
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%,澶渊之盟与封禅六帝必对
+  pitfall: 把宋真宗的澶渊之盟(未割地)错记成割让土地,与石敬瑭割燕云混淆
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_songbeisong_wanganshi_bianfa
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/北宋-王安石变法(熙宁变法)
+  title: 王安石变法(熙宁变法)措施与新旧党争
+  recognition: 题干出现青苗法/募役法/方田均税法/保甲法等变法名、王安石、司马光、积贫积弱即定位
+  applicability:
+    include:
+    - 考变法措施名称与其内容作用对应
+    - 考王安石(新党激进)与司马光(旧党保守)立场
+    - 考乌台诗案与苏轼贬谪路线(黄州/惠州/儋州)
+    exclude:
+    - 考庆历新政(范仲淹,属上卡)
+    - 考商鞅变法/张居正一条鞭法(跨朝代辨用)
+  method_steps:
+  - 经济措施六法速记:青苗法(青黄不接低息贷,打击高利贷)、募役法/免役法(钱代差役)、方田均税法(清丈土地分五等,打击逃税)、农田水利法(垦荒修水利)、市易法(官收滞销货平物价)、均输法(徙贵就贱用近易远)
+  - 军事:保甲法(农闲军训兵农合一)、裁兵法(50岁退役)、将兵法(废更戍法改专人训练)、保马法、军器监法
+  - 新旧党争:王安石激进主张民不加赋而国用饶,司马光保守认为财富不在民即在官,神宗支持变法,司马光退编《资治通鉴》;高太后废新法,哲宗亲政复新法;苏轼立场摇摆两头被贬
+  - 变法局限:青苗法强贷、免役钱压贫农、农田水利凑政绩,执行走样民怨大;永乐城惨败20万人死,神宗痛哭而亡
+  error_signatures:
+  - code: bianfa_measure_mix
+    description: 青苗法与免役法、方田均税法作用记混(打击高利贷vs打击逃税)
+  - code: liangzhe_sima_opposite
+    description: 把王安石与司马光立场记反,或误以为二人关系好(实为政敌)
+  - code: wutai_shian_wrong_period
+    description: 乌台诗案与贬黄州路线记混,苏轼贬谪为黄州→惠州→儋州纬度由高到低
+  fix_action: 做8道变法措施对应真题限时30秒,复述新旧党争三阶段(神宗变法→高太后废法→哲宗复法)
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%,六大经济法与作用一一对应
+  pitfall: 把青苗法安到张居正名下——青苗法是王安石变法内容,张居正核心是一条鞭法
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_songbeisong_songming_wangguo
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/北宋-徽宗艺术与靖康之变
+  title: 宋徽宗艺术(瘦金体/宣和画院/汝官哥钧定)与靖康之变
+  recognition: 题干出现宋徽宗、瘦金体、清明上河图、千里江山图、靖康之变、海上之盟、花石纲、六贼、牵羊礼等即定位
+  applicability:
+    include:
+    - 考宋徽宗艺术成就(瘦金体/瑞鹤图/大观茶论/宣和画院)
+    - 考宋代五大名窑特征(汝天青/官紫口铁足/钧窑变/哥开片)
+    - 考靖康之变时间、二帝被俘、北宋灭亡、赵构南渡
+    - 考海上之盟、花石纲、方腊起义的前因后果
+    exclude:
+    - 考北宋开国与重文轻武(属国策卡)
+    - 考南宋绍兴和议与岳飞(属岳飞卡)
+  method_steps:
+  - 徽宗两面:艺术=瘦金体、宣和画院培养王希孟(千里江山图)与张择端(清明上河图)、著大观茶论、定宋瓷美学;政治=重用六贼(蔡京/童贯/朱勔)、花石纲逼反方腊、联金灭辽引狼入室
+  - 靖康链:金灭辽→宋金接壤→1127年金破汴京→徽宗禅位钦宗→李纲守城胜后钦宗自毁长城(遣散勤王军贬李纲)→信郭京六甲神兵城破→二帝被俘牵羊礼→北宋亡,赵构南渡建南宋
+  - 五大名窑口诀:汝(天青色,雨过天青云破处,纵有家财万贯不及汝窑一片)、官(紫口铁足)、哥(开片裂纹)、钧(入窑一色出窑万彩窑变)、定
+  - 易混:花石纲=搜刮奇石运艮岳;海上之盟=与金海路结盟灭辽,岁币转付金朝
+  error_signatures:
+  - code: hua_shigang_issue
+    description: 把花石纲(搜刮奇石致方腊起义)与运河漕运纲混为一谈
+  - code: qianyang_li_place
+    description: 牵羊礼与五国城囚禁地点记混,徽宗被囚五国城(今黑龙江依兰)
+  - code: jingkang_duke_wrong
+    description: 靖康之变时间记错,为1127年;徽宗钦宗被俘
+  - code: nanyaote_guest_feature
+    description: 五大名窑特征记混,如把天青色记到钧窑头上
+  fix_action: 复述靖康之变因果链(海上之盟→灭辽→南侵→城破→南渡),做5道徽宗艺术+靖康真题限时30秒
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%,靖康之变1127年与瘦金体对应必对
+  pitfall: 把北宋灭亡时间或亡国政权记错——1127年金灭北宋(靖康之变),灭北宋的是金非蒙古
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+  - 行测/常识判断/文化常识
+- id: mc_songnan_songgaozong_yuefei
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/南宋-赵构南渡与岳飞抗金
+  title: 宋高宗赵构(南渡偏安)与岳飞抗金(绍兴和议/莫须有)
+  recognition: 题干出现赵构、赵跑跑、靖康之变南渡、岳飞、岳家军、郾城之战、直捣黄龙、莫须有、秦桧、绍兴和议等即定位
+  applicability:
+    include:
+    - 考赵构建南宋与南逃经历(维扬之变/苗刘兵变/下海皇帝)
+    - 考岳飞事迹与典故(精忠岳飞/郾城/十二道金牌/风波亭)
+    - 考绍兴和议内容(称臣/淮河大散关为界/岁贡银绢各25万)
+    - 考中兴四将(岳飞韩世忠高频)
+    exclude:
+    - 考辛弃疾陆游李清照文学(属文学卡)
+    - 考隆兴和议与宋孝宗(属孝宗卡)
+  method_steps:
+  - 赵构链:1127应天府(河南商丘)建炎即位→维扬之变吓失生育能力→苗刘兵变(苗傅刘正彦逼退位,韩世忠平叛)加深忌武→金兀术搜山捡海追捕下海近四月→定都临安(杭州,与临安全同)只求偏安
+  - 岳飞主线:岳家军冻死不拆屋饿死不掳掠→郾城之战破铁浮图拐子马(撼山易撼岳家军难)→直捣黄龙(迎二圣)→十二道金牌十年之功废于一旦→莫须有之罪风波亭遇害39岁
+  - 易混刺字:岳母刺字=尽忠报国,赵构赐旗=精忠岳飞,民间合流为精忠报国
+  - 绍兴和议1141:宋向金称臣、以淮河大散关为界、岁贡银绢各25万;金兀术附加条件必杀岳飞而后和可成;秦桧东窗事发(与王氏东窗密谋)
+  error_signatures:
+  - code: jincui_cizi_origin
+    description: 岳母刺字(尽忠报国)与御赐旗(精忠岳飞)搞混
+  - code: fubo_ting_place
+    description: 把大理寺当云南寺庙,实为最高司法机构,风波亭为其处死地
+  - code: shaoxing_heyi_gong
+    description: 绍兴和议岁贡额记错,银绢各25万(隆兴降到20万)
+  - code: shaoxing_daxian_guang
+    description: 边界记错,东以淮河中流西以大散关为界
+  fix_action: 复述岳飞事件链(郾城→直捣黄龙→十二道金牌→莫须有),做8道岳飞赵构真题限时30秒
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥90%,莫须有与绍兴和议内容必对
+  pitfall: 误以为杀岳飞是秦桧一人所为,真正主谋是宋高宗赵构,秦桧只是执行者
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_songnan_xiaozong_xinlin
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/南宋-孝宗北伐与隆兴和议
+  title: 宋孝宗隆兴北伐与隆兴和议(叔侄关系)
+  recognition: 题干出现宋孝宗、隆兴北伐、符离溃败、隆兴和议、叔侄、岁币20万即定位
+  applicability:
+    include:
+    - 考隆兴北伐失败原因(将帅不和)与和议内容
+    - 考绍兴和议vs隆兴和议对比
+    - 考孝宗为岳飞平反
+    exclude:
+    - 考绍兴和议细节(属岳飞卡)
+    - 考南宋灭亡与蒙古战争(属南宋亡国卡)
+  method_steps:
+  - 孝宗身份:赵匡胤第七世孙,赵构养子,皇位回归太祖一脉;即位即追复岳飞官爵平反,主战派
+  - 隆兴北伐1163:张浚主持,初期连克灵璧虹县收复宿州,因西路邵宏渊嫉妒东路李显忠消极不援,符离全线溃退
+  - 隆兴和议1164:君臣改叔侄(金为叔宋为侄)、改岁贡为岁币降为银绢各20万、割唐邓海泗商秦诸州;此后宋金维持约40年和平,南宋不再主动北伐
+  error_signatures:
+  - code: lixianzhong_shaohongyuan
+    description: 北伐失败原因记错,为将帅不和(李显忠邵宏渊)而非战力不足
+  - code: two_heyi_relation_mix
+    description: 绍兴(称臣)与隆兴(叔侄)的宋金关系记混
+  fix_action: 默写绍兴vs隆兴和议对比表(关系/岁贡/领土/时间),做4道真题限时25秒
+  time_budget_sec: 25
+  accuracy_rule: 正确率≥85%,隆兴和议称叔侄必对
+  pitfall: 把隆兴和议与绍兴和议的赔款额记反——隆兴降为20万,绍兴为25万
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_songnan_wenxue_jinaneran
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/南宋-辛弃疾陆游李清照(济南二安)
+  title: 南宋文学三大家(辛弃疾/陆游/李清照)与作品
+  recognition: 题干出现辛弃疾、稼轩、李清照、易安、陆游、示儿、满江红、过零丁洋、名句对应作者等即定位
+  applicability:
+    include:
+    - 考词人字号别称(幼安稼轩/词中之龙/易安居士/济南二安)
+    - 考名句-作者-词作对应(青玉案/破阵子/西江月/如梦令/夏日绝句)
+    - 考辛弃疾生平四阶段与壮词豪放/婉约并擅
+    - 考陆游示儿、李清照词风以靖康之变为界
+    exclude:
+    - 考岳飞抗金战役(属岳飞卡)
+    - 考文天祥过零丁洋正气歌(属文天祥卡)
+  method_steps:
+  - 辛弃疾:字幼安号稼轩居士,济南人词中之龙,豪放派代表,兼擅婉约;生平四段:青年22岁率50骑夜袭5万金营擒张安国→中年归正人遭猜忌闲居近20年→临终三呼杀贼;代表作青玉案元夕(众里寻他千百度)、破阵子(醉里挑灯看剑)、西江月夜行黄沙道中、永遇乐京口北固亭怀古
+  - 陆游:存诗9300余首最多,爱国诗;临终绝笔示儿(王师北定中原日,家祭无忘告乃翁)
+  - 李清照:号易安居士,济南人,婉约派,千古第一才女,与辛弃疾并称济南二安;与夫赵明诚著金石录;词风以靖康为界前清丽(如梦令/才下眉头却上心头)后凄婉(寻寻觅觅冷清凄惨戚戚)+夏日绝句(生当作人杰死亦为鬼雄,思项羽)
+  - 词人识辨速记:号稼轩=辛弃疾,号易安=李清照,号东坡=苏轼;辛弃疾豪放与李清照婉约同乡
+  error_signatures:
+  - code: zihao_author_mix
+    description: 字号别称对应错,稼轩=辛弃疾、易安=李清照
+  - code: mingju_author_misattribution
+    description: 把众里寻他千百度(辛弃疾青玉案)安到李清照或其他词人
+  - code: xia_ri_jueju_purpose
+    description: 夏日绝句借项羽讽刺赵明诚,被误解为单纯写项羽
+  fix_action: 做10道诗词名句-作者对应真题限时20秒,复述济南二安与三人代表作
+  time_budget_sec: 20
+  accuracy_rule: 正确率≥90%,稼轩易安与示儿名句必对
+  pitfall: 名句张冠李戴——众里寻他千百度是辛弃疾,不是李清照或苏轼
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/文学常识
+- id: mc_songnan_wentianxiang_yashan
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/南宋-蒙古崛起与南宋灭亡
+  title: 蒙古崛起(西夏/金)与南宋灭亡(钓鱼城/崖山海战/文天祥)
+  recognition: 题干出现成吉思汗、蒙古灭夏灭金、钓鱼城、蒙哥、崖山海战、陆秀夫、文天祥、过零丁洋、正气歌等即定位
+  applicability:
+    include:
+    - 考西夏(党项李元昊)与西夏王陵(贺兰山/2025世界遗产/国考已考)
+    - 考钓鱼城之战改变世界历史(蒙哥之死致蒙古全球撤军)
+    - 考崖山海战与南宋灭亡1279
+    - 考文天祥生平作品(过零丁洋/正气歌/衣带遗言)
+    exclude:
+    - 考南宋文学三大家(属上卡)
+    - 考金灭北宋靖康之变(属北宋亡国卡)
+  method_steps:
+  - 蒙古链:成吉思汗先灭西夏(党项族被屠城灭族,1227)→窝阔台灭金(女真消失)→蒙哥绕道云南大理攻四川,在钓鱼城(重庆合川)被守将王坚以火药震天雷轰死→蒙哥死致蒙古四大汗位争夺全球撤军(欧洲波兰匈牙利/埃及叙利亚免遭屠灭)→忽必烈建元→灭南宋
+  - 南宋覆亡:权臣贾似道(蟋蟀宰相)扣襄阳战报6年,丁家洲之战喊同生共死后率先逃跑主力全歼→1276临安破宋恭帝(5岁)投降辗转多地西藏出家→1279崖山海战陆秀夫背8岁赵昺投海,十余万军民投海无一降元,大宋320年国祚终结,中国首次被少数民族政权统一
+  - 文天祥:21岁状元(宋理宗赞此天之祥乃宋之瑞,字宋瑞)→五坡岭被俘写过零丁洋(人生自古谁无死留取丹心照汗青)→囚大都3年写正气歌,忽必烈劝降不从→面南跪拜就义,衣带遗言孔曰成仁孟曰取义
+  - 西夏要点:党项人李元昊建,贺兰山下西夏王陵称东方金字塔,2025年7月列入世界遗产,中国60项世界遗产居世界第二(意大利61)
+  error_signatures:
+  - code: west_xi_liao_mix
+    description: 西夏(党项李元昊)与辽(契丹)、金(女真)的建国民族记混
+  - code: fishing_city_impact
+    description: 忽视钓鱼城之战的全球意义,只当普通战役
+  - code: yashan_di_di
+    description: 崖山海战投海者记混,为陆秀夫背赵昺,非文天祥
+  - code: songgong_di_route
+    description: 宋恭帝被俘流放路线或出家结局记不清
+  fix_action: 复述蒙古灭夏灭金灭宋三级链条与钓鱼城-崖山两战,做6道南宋灭亡真题限时30秒
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%,西夏民族与崖山海战对应必对
+  pitfall: 把灭南宋的政权记成金——金早已被蒙古所灭,灭南宋的是忽必烈的元朝
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/中国历史
+- id: mc_mc_changshi_gdwx_shishu_01
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/历史人文/史书体例
+  title: 史书体例：编年/纪传/国别与第一部称号
+  recognition: 题干出现《史记》《汉书》《资治通鉴》《春秋》《国语》等史书名，考体例分类或第一部X史书的称号
+  applicability:
+    include:
+    - 考某部史书是什么体例或谁是第一部某体例史书
+    - 作品-作者对应题（如《汉书》作者班固）
+    - 通史与断代史的辨析
+    exclude:
+    - 只考史书具体内容或人物故事本身
+    - 考二十四史具体书目清单
+  method_steps:
+  - 编年体按年份记：孔子《春秋》最早编年体、左丘明《左传》最早叙事详备的编年体；纪传体以人物传记写历史：司马迁《史记》第一部纪传体通史、班固《汉书》第一部纪传体断代史（记西汉）、范晔《后汉书》记东汉；国别体按国家记：左丘明《国语》最早国别体、《战国策》亦国别体（战国策=国别体，战国国家多好记）
+  - 司马光《资治通鉴》是第一部编年体通史；《史记》是通史（黄帝→汉武帝太初四年，3000多年），《汉书》《后汉书》是断代史
+  - 体例记忆口诀：编年=按年份、纪传=按人物、国别=按国家；前四史=史记+汉书+后汉书+三国志，二十四史全部纪传体（乾隆钦定故无清史）
+  - 《史记》结构130卷：本纪记帝王、世家记诸侯、列传记一般人物、表=大事年表、书=典章制度；例外：项羽入本纪（司马迁推崇）、陈涉入世家（反秦首功）
+  error_signatures:
+  - code: tili_ji_chuan_hun
+    description: 把编年体和纪传体混淆，如误称《汉书》为编年体通史
+  - code: shiji_shuganji_hun
+    description: 《史记》纪传体通史与《资治通鉴》编年体通史记混
+  - code: hanshu_houshuhan_hun
+    description: 《汉书》（班固，西汉史）与《后汉书》（范晔，东汉史）记混
+  - code: guoyu_zhan'guoce_zuozhe
+    description: 《国语》作者记成他人，实为左丘明
+  fix_action: 做{8}道史书体例真题，限时{25}秒/题；做完复述一次体例-代表作-第一部称号对照表
+  time_budget_sec: 25
+  accuracy_rule: 正确率≥80%；看到史书名先定位体例再对第一部和作者
+  pitfall: 《汉书》是第一部纪传体断代史而《资治通鉴》是第一部编年体通史，最常被反着记
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/文学常识
+  - 行测/常识判断/中国历史
+- id: mc_wenzi_yanbian_shijianxian
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/人文历史/文字演变
+  title: 汉字演变时间线(甲骨→金→篆→隶→草楷行)
+  recognition: 题干出现书体名称(甲骨文/金文/隶书/篆书/楷书)、"文字演变顺序""书同文""古今汉字分水岭""六书"等词。
+  applicability:
+    include:
+    - 排序题:给若干书体按出现先后排序
+    - 判断某字体的时代、载体、别称(如"真书"指楷书)
+    - 类比推理考书体与载体/别称的全同、种属关系
+    exclude:
+    - 书法家称号类题(草圣/书圣归书法家卡)
+    - 书法作品与作者对应题
+    - 书法笔法风格赏析题
+  method_steps:
+  - 顺序口诀:甲骨文→金文→篆书(大篆/小篆)→隶书→草书/楷书/行书,总规律"从繁到简"
+  - 商代节点:甲骨文刻于龟甲兽骨用于占卜,称"契文""卜辞",最早系统文字;发现者王懿荣(甲骨文之父),殷墟在今河南安阳,商代始有信史
+  - 秦汉节点:秦"书同文"统一为小篆(笔画圆转、无方折、书写慢);隶书始创于秦、通行于汉(蚕头燕尾/一波三折),是"古今汉字分水岭";草楷行均由隶书演变而来
+  - 逻辑记忆:草书"写着爽看着不爽"、楷书"看着爽写着不爽"、行书"写着爽看着也爽";六书(象形指事会意形声转注假借)是造字法
+  error_signatures:
+  - code: dynasty_confusion
+    description: 朝代记混:甲骨文属商代,小篆隶书属秦,隶书汉朝巅峰,楷书汉末出现唐朝巅峰("汉隶唐楷")
+  - code: biecheng_mix
+    description: 别称混淆:真书/正书=楷书,契文/卜辞=甲骨文,铭文/钟鼎文=金文
+  - code: fenshuiling_wrong
+    description: 把"古今汉字分水岭"误记为楷书,实为隶书
+  - code: shu_vs_shufa
+    description: 文字与书法画等号:书法艺术始于东汉,东汉之前只有写字没有书法
+  fix_action: 复述一遍演变时间线"甲骨→金→篆→隶→草楷行"及各书体的时代与特征,做8道文字演变类真题,限时25秒/题。
+  time_budget_sec: 25
+  accuracy_rule: 正确率≥90%
+  pitfall: 隶书才是古今汉字的分水岭,常被误当成楷书。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/文化常识
+- id: mc_shufajia_chenghao
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/人文历史/书法家称号
+  title: 书法家称号与流派(四贤/二王/楷四家/宋四家/颠张醉素)
+  recognition: 题干出现"草圣""书圣""楷书之祖""楷书四大家""宋四家""二王""颜筋柳骨""瘦金体"等称号或流派名。
+  applicability:
+    include:
+    - 直接考书法家称号(如"草圣"是谁)
+    - 考书法家与朝代、书体的对应(如"书法:欧体"种属关系)
+    - 判断某书法家能否与某皇帝同时代(时间线题)
+    exclude:
+    - 只考文字演变/书体特征(甲骨金文隶书)
+    - 书法作品的"天下第一"排名
+    - 书法作品名与书体对应(归作品卡)
+  method_steps:
+  - 时间轴人物表:东汉张芝(草书之祖)+钟繇(楷书之祖)→东晋王羲之(书圣,别称王右军/王逸少,典故入木三分、东床快婿)+子王献之(小圣);"书法四贤"=张芝钟繇王羲之王献之,"二王"=羲献
+  - 楷书四大家"颜柳欧赵":颜真卿(唐·颜体·颜筋)、柳公权(唐·柳体·柳骨)、欧阳询(唐·欧体)、赵孟頫(元·赵体,唯一非唐朝人,重点记)
+  - 草书:唐代张旭(草圣,"颠张")与怀素("醉素")并称"颠张醉素";张旭狂草与李白诗、裴旻剑舞合称"三绝"
+  - 宋四家"苏黄米蔡"均北宋:苏轼、黄庭坚(苏轼学生,苏门四学士之一,二十四孝"涤亲溺器")、米芾、蔡襄(几乎不考);皇帝书法家宋徽宗赵佶创"瘦金体",关联靖康之变北宋灭亡
+  error_signatures:
+  - code: chenghao_swap
+    description: 称号张冠李戴:草圣是张旭,书圣是王羲之,草书之祖张芝,楷书之祖钟繇
+  - code: same_surname_mix
+    description: 同姓混淆:柳公权≠柳宗元(一书法家一文学家),欧阳询≠欧阳修(唐vs北宋),黄庭坚≠黄公望
+  - code: kaishu_sida_dynasty
+    description: 楷书四大家朝代记错:赵孟頫是元朝人,其余三人都在唐朝
+  - code: shufa_start_donghan
+    description: 书法艺术始于东汉,易把商周甲骨文、金文当书法艺术
+  fix_action: 默写"书法家-朝代-称号-代表作"四列对照表,做6道书法家称号真题,限时25秒/题。
+  time_budget_sec: 25
+  accuracy_rule: 正确率≥85%
+  pitfall: 草圣(张旭)与书圣(王羲之)称号互换是最常见错误。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/文化常识
+- id: mc_shufa_zuopin_paiming
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/人文历史/书法作品
+  title: 书法作品排名与三大行书
+  recognition: 题干出现"天下第一行书/楷书/草书""三大行书""兰亭集序""祭侄文稿""黄州寒食帖""曲水流觞"等作品名与评价。
+  applicability:
+    include:
+    - 考书法作品与作者、书体、排名的对应
+    - 考作品背后的历史背景(乌台诗案/安史之乱/曲水流觞)
+    - 判断某人能否见过/写过某作品(时代先后题)
+    exclude:
+    - 书法家称号类题
+    - 文字演变时间线题
+    - 篆隶楷行草书体特征题
+  method_steps:
+  - 三大行书排名:第一王羲之《兰亭集序》(东晋永和九年曲水流觞醉后而作,真迹随唐太宗入昭陵)、第二颜真卿《祭侄文稿》(安史之乱中侄颜季明殉难,悲愤而书)、第三苏轼《黄州寒食帖》(乌台诗案后被贬黄州,憋屈而作)
+  - '"天下第一"配套:欧阳询《九成宫醴泉铭》=天下第一楷书(魏征撰文、欧阳询书丹),怀素《自叙帖》=天下第一草书(狂草),米芾《蜀素帖》=第一美帖'
+  - 情绪记忆钩子:兰亭=开心时作、祭侄文稿=悲痛时作、寒食帖=憋屈时作(乌台诗案=御史台立案,背景是王安石变法、司马光反对)
+  - 高频作品速记:颜真卿《多宝塔碑》(口诀"盐放多")、柳公权《玄秘塔碑》(口诀"颜多柳玄");宋徽宗在位授意创作《千里江山图》《清明上河图》
+  error_signatures:
+  - code: work_author_mix
+    description: 作品张冠李戴:《兰亭集序》是王羲之不是王献之,《九成宫醴泉铭》书者是欧阳询不是柳宗元
+  - code: xingshu_rank_swap
+    description: 行书排名记混:第一兰亭、第二祭侄、第三寒食
+  - code: shuti_wrong
+    description: 书体记错:《兰亭集序》《祭侄文稿》《黄州寒食帖》是行书,《自叙帖》是草书,《九成宫醴泉铭》是楷书
+  - code: time_dynasty_confusion
+    description: 时代线混乱:宋徽宗(北宋末)鉴赏不到元代黄公望《富春山居图》;带真迹入昭陵的是唐太宗
+  fix_action: 背"作品-作者-书体-排名-创作背景"五列表并复述,做6道书法作品真题,限时30秒/题。
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: 把《兰亭集序》误记成王献之所书,它是王羲之的代表作。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/文化常识
+- id: mc_yuexiang_sixiang_guanche
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/科技地理/月相变化
+  title: 月相四相与观测时间(朔/上弦/望/下弦)
+  recognition: 题干出现"农历初几""月相""上弦月/下弦月/满月/朔""月出月落""上半夜/下半夜看到月亮"等。
+  applicability:
+    include:
+    - 由农历日期推月相或由月相推日期
+    - 判断诗句描述的月相(枫桥夜泊"月落夜半"=上弦月)
+    - 考月相可见时段、方位、亮面方向
+    exclude:
+    - 月食成因与分类(月全食/月偏食)
+    - 潮汐大潮小潮
+    - 月球物理特征与别称
+  method_steps:
+  - 核心四相时间表:朔/新月(初一,月球在日地之间,暗面朝地看不见)→上弦(初七初八,日月地成直角)→望/满月(十五十六,地球在日月之间,整圆)→下弦(廿二廿三,成直角)
+  - 升落时间:朔=同升同落(晨起昏落);上弦=中午升起午夜落下(上半夜可见);满月=黄昏升起清晨落下(整夜可见);下弦=午夜升起中午落下(下半夜可见)
+  - 口诀"上上上西西,下下下东东":上弦月=上半月+上半夜+西边天空+亮面朝西;下弦月=下半月+下半夜+东边天空+亮面朝东
+  - 诗词对应:中秋/元宵(正月十五)=满月,"杨柳岸晓风残月"的残月=下峨眉月(农历廿五之后)≠下弦月;峨眉月=初三初四(上)/月末(下)
+  error_signatures:
+  - code: yuexiang_date_mismatch
+    description: 农历日期对应错:上弦是初七初八不是初一,下弦是廿二廿三不是十五
+  - code: visible_time_wrong
+    description: 可见时段记反:上弦月在上半夜、下弦月在下半夜、满月整夜可见
+  - code: canyue_vs_xiaxian
+    description: 残月≠下弦月:残月是下峨眉月(月末),下弦月是半圆(廿二廿三)
+  - code: bright_side_direction
+    description: 亮面方向记反:上弦月亮面朝西(在西边天空),下弦月亮面朝东(在东边天空)
+  fix_action: 默写"初一朔→初七八上弦→十五六望→廿二三下弦"及各月相升落时间,做8道月相真题,限时30秒/题。
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥90%
+  pitfall: 上弦月(上半夜、西边、亮面朝西)与下弦月(下半夜、东边、亮面朝东)整组记反。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/科技常识
+  - 行测/常识判断/自然地理
+- id: mc_yueshi_chaoxi
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/科技地理/月相变化
+  title: 月食成因与潮汐大小潮
+  recognition: 题干出现"月食""红月亮""大潮小潮""朔望""引潮力""潮汐"等词。
+  applicability:
+    include:
+    - 月食发生时间与日地月位置关系
+    - 大潮小潮对应哪个月相
+    - '"红月亮"的光学原理'
+    exclude:
+    - 月相四相的时间与观测口诀
+    - 月球特征/别称
+    - 恒星行星卫星分类
+  method_steps:
+  - 月食=望(满月)+地球在日月之间三者一线;分月全食/月偏食/半影月食,不存在月环食(地球直径约为月球4倍,本影足够大)
+  - 并非每逢满月都月食:月球轨道与地球轨道不在同一平面
+  - 大潮小潮:大潮=朔和望(日月地一线,引力叠加潮差最大);小潮=上弦和下弦(成直角,引力部分抵消);每天两次涨潮两次退潮;引潮力主因是月球引力(距地近)
+  - 红月亮原理:太阳光经大气折射散射,蓝紫短波被散射掉,红光波长长穿透强照到月球再反射回来(与汽车尾灯用红色同理,红光不易被散射)
+  error_signatures:
+  - code: yueshi_time_wrong
+    description: 月食时间记错:月食只发生在望(满月),不是朔
+  - code: daychao_smallchao_mix
+    description: 大小潮记反:大潮=朔+望,小潮=上弦+下弦
+  - code: huan_yueshi_nonexist
+    description: 误以为有月环食:只有月全食、月偏食、半影月食,不存在月环食
+  - code: position_wrong
+    description: 位置关系错:满月(望)时地球在日月之间,朔时月球在日地之间
+  fix_action: 复述"月食=满月+地球居中""大潮=朔望、小潮=弦月"两个结论,做6道月食潮汐真题,限时30秒/题。
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: 把"朔(月球在日地之间)"当成月食时刻,月食实际发生在望。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/科技常识
+  - 行测/常识判断/自然地理
+- id: mc_yueqiu_texing_tianti
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/科技地理/天体常识
+  title: 月球特征与恒星行星卫星分类
+  recognition: 题干出现"月球""潮汐锁定""月球背面""环形山""没有大气""恒星/行星/卫星""八大行星""天狼星"等。
+  applicability:
+    include:
+    - 月球物理特征判断(自转公转/引力/大气/流星)
+    - 恒星行星卫星分类与别称类比(金乌=太阳、玉盘=满月)
+    - 八大行星顺序与核聚变核裂变应用
+    exclude:
+    - 月相四相时间与观测
+    - 月食/潮汐成因
+    - 月球别称的诗词对应细节
+  method_steps:
+  - 月球速记:地球唯一天然卫星,自转=公转≈27天且均自西向东(潮汐锁定→始终同一面朝地球,背面是嫦娥六号采样点);引力≈地球1/6;无大气(无流星、昼夜温差极大);表面环形山由陨石撞击形成;土壤含大量氦-3
+  - 天体三层:恒星(太阳/天狼星,靠核聚变自发光发热)、行星(绕恒星运行,清空轨道,冥王星2006年降级为矮行星)、卫星(绕行星运行,月球/木卫二);天狼星=除太阳外肉眼可见最亮恒星
+  - 八大行星"水晶(金)地火木土天海":水金地火(类地/固态),木土天海;金星自转与地球相反(太阳西升东落);哈雷彗星周期约76年
+  - 核能对照:核聚变=太阳/氢弹(小聚大,能量更大),核裂变=原子弹/核电站(大拆小)
+  error_signatures:
+  - code: moon_face_wrong
+    description: 误以为能看到月球背面:潮汐锁定导致月球始终同一面朝地球
+  - code: moon_meteor_wrong
+    description: 误以为月球有流星:无大气无法摩擦发光,只有陨石直接撞月面成陨石坑
+  - code: planet_order_mix
+    description: 八大行星顺序记错:水金地火木土天海,冥王星已降级
+  - code: jubin_liebian_swap
+    description: 聚变裂变应用记反:太阳/氢弹=核聚变,原子弹/核电站=核裂变
+  fix_action: 默写月球五大特征(潮汐锁定/引力1/6/无大气/环形山/氦-3)+八大行星顺序,做6道月球天体真题,限时25秒/题。
+  time_budget_sec: 25
+  accuracy_rule: 正确率≥85%
+  pitfall: 误把"月球看不到流星"记成"有流星",月球无大气故无流星现象。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/科技常识
+  - 行测/常识判断/自然地理
+- id: mc_shengyin_sanyaosu
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/科技物理/声音声波
+  title: 声音三要素与超声波次声波
+  recognition: 题干出现"音调/响度/音色""频率/振幅""超声波/次声波""蝙蝠回声定位""曲高和寡""闻其声知其人""B超/声呐/雷达"等。
+  applicability:
+    include:
+    - 判断成语/现象对应的声音要素(曲高和寡=音调高、震耳欲聋=响度大)
+    - 超声波次声波的应用与动物对应
+    - 机械波产生传播条件与声速大小
+    exclude:
+    - 光学现象(反射/折射/散射)
+    - 电磁波谱与波段应用
+    - 光色散与颜色
+  method_steps:
+  - 机械波=振动产生+介质传播,传递能量和振动形式,介质本身不随波迁移;真空不能传声(太空听不见说话但能看到光),声速固体>液体>气体,15℃空气约340m/s
+  - 三要素对照:音调=高低/频率Hz(波形图波峰密则音调高),响度=大小/振幅与距离(波峰到波谷距离大则响度大),音色=区分声源/材料结构(闻其声知其人)
+  - 超声波>20000Hz:蝙蝠回声定位、海豚、B超、声呐、碎石、零件探伤;次声波<20Hz:大象交流、预测地震海啸(水母感知异常次声波而迁徙)
+  - 易混设备:军用雷达=电磁波,汽车倒车雷达=超声波;"五音"宫商角徵羽指音调
+  error_signatures:
+  - code: shengyaosu_mix
+    description: 三要素张冠李戴:音调靠频率、响度靠振幅、音色靠材料结构
+  - code: vacuum_chuansheng
+    description: 误以为真空能传声:真空不能传声,但光能传播(太空看到爆炸)
+  - code: chaoci_swap
+    description: 超声次声记反:蝙蝠用超声波(>20000Hz),大象用次声波(<20Hz)
+  - code: radar_type_wrong
+    description: 雷达类型记错:军用雷达用电磁波,汽车倒车雷达用超声波
+  fix_action: 背"音调-频率、响度-振幅、音色-材料"并为每个要素想2个生活例子,做8道声音真题,限时30秒/题。
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥90%
+  pitfall: 音调(由频率决定)与响度(由振幅决定)的决定因素记反。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/声现象
+  - 行测/常识判断/物理常识
+- id: mc_diancibo_pu_yingyong
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/科技物理/电磁波
+  title: 电磁波谱排序与波段应用
+  recognition: 题干出现"电磁波""波长/频率""红外线/紫外线/X射线/伽马射线/无线电波/微波""穿透力""伦琴射线"等。
+  applicability:
+    include:
+    - 电磁波波长/频率/能量排序题
+    - 各波段特性与应用对应(红外热效应、紫外杀菌、X射线透视)
+    - 穿透能力与频率的关系(金属车厢内手机能通收音机不能)
+    exclude:
+    - 声音三要素
+    - 光学现象具体辨析(反射折射散射)
+    - 月相月食潮汐
+  method_steps:
+  - 波谱排序(波长长→短):无线电波→微波→红外线→可见光→紫外线→X射线→γ射线;波长越长衍射/绕障越强(广播覆盖远),频率越高能量越强、穿透越强
+  - 波段应用表:无线电波(广播电视)、微波(雷达/卫星通信/微波炉加热,方向性强)、红外线(热效应:遥控/夜视/热成像,蛇的颊窝感知红外线仿生,任何有温度物体都辐射)、可见光(400-700nm)、紫外线(杀菌消毒/荧光效应验钞)、X射线=伦琴射线(CT透视/安检)、γ射线(能量最强,肿瘤放疗)
+  - 光学本质:光=电磁波,真空中速度3×10⁸m/s,传播不需介质;同频率电磁波在不同介质中速度不同(c=λf)
+  - 电磁波易被金属反射(电梯里信号差);地震波是机械波不是电磁波
+  error_signatures:
+  - code: spectrum_order
+    description: 波谱排序记错:波长从长到短是无线电→微波→红外→可见→紫外→X→γ
+  - code: hongwai_ziwai_swap
+    description: 红外线紫外线应用记反:红外=热效应(遥控/夜视),紫外=杀菌/荧光
+  - code: lunqin_ray_mix
+    description: 伦琴射线=X射线(用于CT),不是伽马射线;伽马射线能量穿透最强
+  - code: wavelength_freq
+    description: 波长频率关系记反:波长越长频率越低能量越弱,波长越短频率越高穿透越强
+  fix_action: 默写波谱"无线→微→红→可见→紫→X→γ"及各波段一个典型应用,做8道电磁波真题,限时30秒/题。
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: 红外线(热效应)与紫外线(杀菌)的应用配对记反。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/物理常识
+- id: mc_guangxue_xianxiang_bianxi
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/科技物理/光学现象
+  title: 光学现象辨析(直线传播/反射/折射/散射/色散)
+  recognition: 题干出现"影/日食/月食/小孔成像""倒影/平面镜/后视镜""池水变浅/筷子弯折/海市蜃楼/星星眨眼""彩虹/天空蓝色/晚霞""近视远视镜"等。
+  applicability:
+    include:
+    - 判断诗句/生活现象对应哪种光现象
+    - 透镜/面镜与近视远视矫正
+    - 颜色成因与光三原色
+    exclude:
+    - 声学三要素
+    - 电磁波谱排序与应用
+    - 月相月食潮汐
+  method_steps:
+  - 现象对应表:直线传播(影子/日食月食/小孔成像/一叶障目)、反射(倒影/平面镜/凹面镜汇聚/凸面镜扩视野/后视镜/自行车尾灯全反射)、折射(池水变浅/筷子弯折/海市蜃楼/星星眨眼)、散射(天空蓝/晚霞红/丁达尔效应)、色散(彩虹,本质是折射)、干涉(肥皂泡/水面油膜彩色/增透膜)
+  - 透镜口诀:凸透镜会聚(放大镜/照相机/投影仪/远视老花镜),凹透镜发散(近视镜);面镜靠反射成像,透镜靠折射成像
+  - 颜色规律:物体颜色=它反射的光色(红衣服反射红光),黑色=吸收所有光;光三原色RGB红绿蓝(叠加成白),颜料三原色品红黄青(叠加成黑);可见光红光波长最长紫光最短
+  - 小孔成像成倒立实像(墨子最早记载于《墨经》,墨子称科圣);投影仪本身用凸透镜=折射,投影仪幕布粗糙=漫反射(审题看清问哪个)
+  error_signatures:
+  - code: reflect_refract_mix
+    description: 反射折射混:倒影是反射,池水变浅/筷子弯折是折射,彩虹是色散(本质折射)
+  - code: jinshi_yuanshi_swap
+    description: 近视远视镜记反:近视用凹透镜,远视(老花)用凸透镜
+  - code: xiaokong_image_wrong
+    description: 小孔成像成倒立实像不是虚像,属直线传播不是衍射
+  - code: guang_sanyuanshu_wrong
+    description: 光的三原色是红绿蓝(叠加成白),不是红黄蓝;颜料三原色才是品红黄青
+  fix_action: 背"现象-例子"对照表并自测10个生活现象归类,做10道光学真题,限时35秒/题。
+  time_budget_sec: 35
+  accuracy_rule: 正确率≥85%
+  pitfall: 倒影(反射)与池水变浅(折射)混为一谈,海市蜃楼被误归为反射。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/光现象
+  - 行测/常识判断/物理常识
+- id: mc_shengwu_jinhua_shixu
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/科技生物/生物进化
+  title: 生物进化顺序与分类层级(植物+动物两条线)
+  recognition: 题干出现"进化顺序""由低等到高等""离水越近""藻类→苔藓→蕨类→裸子→被子""界门纲目科属种""孢子植物/种子植物"等。
+  applicability:
+    include:
+    - 植物或动物的进化先后排序题
+    - 生物分类层级与种属/并列关系辨析(类比推理)
+    - 植物五大类群特征判断
+    exclude:
+    - 生态系统组成与能量流动
+    - 动物具体纲目特征(节肢/软体/鱼类)
+    - 变态发育与种间关系
+  method_steps:
+  - 植物线:藻类→苔藓→蕨类→裸子→被子(由低到高);划分依据=有无种子:孢子植物(藻苔藓蕨)vs种子植物(裸子+被子);蕨类是最高级的孢子植物
+  - 动物线:原生(单细胞草履虫)→腔肠/刺胞→扁形→线形→环节→软体→棘皮→节肢→鱼类→两栖→爬行→鸟类→哺乳;爬行动物是真正摆脱水生生殖的飞跃
+  - 总规律"离水越近越低等";排序题技巧"看首尾"(先确定第一个和最后一个,快速排除)
+  - 植物特征速记:藻类(无根茎叶,提供约80-90%氧气,海带紫菜也是藻类)、苔藓(假根无真根,监测空气污染,二氧化硫可杀死)、蕨类(有根茎叶,唯一木本蕨类=桫椤)、裸子(种子裸露无果皮,无花无果,口诀"松柏山银杏苏铁")、被子(六器官齐全,除裸子外其余都是被子植物)
+  error_signatures:
+  - code: plant_order_mix
+    description: 植物进化顺序记混:藻类→苔藓→蕨→裸子→被子,藻类最低等
+  - code: liangqi_paxing_order
+    description: 两栖爬行先后记反:两栖(蛙)在前,爬行动物在后且更高等
+  - code: luzi_baizi_swap
+    description: 裸子被子记反:裸子种子裸露无果皮(银杏/苏铁/松柏杉),被子有果皮(牡丹/竹/玉米)
+  - code: level_cross_compare
+    description: 分类层级跨级比较:节肢动物(门)不能与鱼类(纲)并列,藻类(门)可与被子植物(门)并列
+  fix_action: 默写植物线+动物线两条时间轴并为每级标一个代表生物,做8道进化顺序真题,限时30秒/题。
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: 把"两栖动物"排到爬行动物之后,实际爬行更高等(真正摆脱水的生殖)。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/生物常识
+  - 行测/常识判断/自然科学-生物
+- id: mc_shengtai_xitong_nengliang
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/科技生物/生态系统
+  title: 生态系统组成与能量流动
+  recognition: 题干出现"生产者/消费者/分解者""食物链""营养级""能量递减""生物富集""生物圈""一山不容二虎"等。
+  applicability:
+    include:
+    - 判断某生物在生态系统中的角色(消费者/分解者)
+    - 食物链起点与能量流动方向
+    - 抵抗力与恢复力稳定性关系
+    exclude:
+    - 进化顺序与生物分类
+    - 变态发育/种间关系
+    - 动物特征(鱼/爬行/哺乳)
+  method_steps:
+  - 三大角色口诀:生产者=植物(自养,无机物→有机物,是基石必需),消费者=动物(异养,非必需但加快物质循环),分解者=微生物(细菌真菌,蚯蚓屎壳郎也算,必需);食物链起点永远是生产者(植物)
+  - 营养级:第一营养级=生产者,第二=初级消费者(食草),第三=次级消费者...;能量沿食物链逐级递减且单向流动(一山不容二虎=能量有限)
+  - 生物圈=最大生态系统,范围=大气圈底部(约10km)+水圈大部+岩石圈表面(约10km);最复杂生态系统=热带雨林;抵抗力与恢复力一般呈负相关(雨林抵抗力强但恢复力弱)
+  - 生物富集:有害物质在营养级越高的生物体内越易富集
+  error_signatures:
+  - code: producer_consumer_swap
+    description: 生产者消费者记反:食物链起点是生产者(植物),不是食草动物
+  - code: consumer_not_necessary
+    description: 误以为消费者必需:消费者非必需(无它仍可循环),分解者必需
+  - code: energy_flow_direction
+    description: 能量流动记反:能量逐级递减而非递增,且单向不可逆
+  - code: resistance_resilience
+    description: 稳定性关系记反:抵抗力强则恢复力弱(负相关)
+  fix_action: 复述"生产者=基石、分解者=必需、消费者=加快循环"+食物链起点为生产者,做6道生态系统真题,限时30秒/题。
+  time_budget_sec: 30
+  accuracy_rule: 正确率≥85%
+  pitfall: 误把蚯蚓/土壤动物一律当分解者:判断角色要看行为描述(题干"同化建造自身+排泄"=消费者)。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/生态系统
+  - 行测/常识判断/生物常识
+- id: mc_dongwu_fenlei_biantai
+  exam_scope: guokao
+  track: xingce
+  module_name: 常识判断
+  tag_path: 常识判断/科技生物/动物分类
+  title: 动物分类与变态发育(恒温/昆虫/拟态)
+  recognition: 题干出现"是不是鱼/昆虫/哺乳动物""完全变态/不完全变态""有蛹""恒温动物""警戒色/保护色/拟态""共生/寄生""社会性昆虫"等。
+  applicability:
+    include:
+    - 判断"xx是不是鱼/昆虫/哺乳动物"
+    - 变态发育类型判断(孑孓:蚊子=完全变态,蝌蚪:青蛙=变态发育)
+    - 警戒色/保护色/拟态的诗句判断与种间关系
+    exclude:
+    - 进化顺序与分类层级
+    - 生态系统组成与能量流动
+    - 植物特征(裸子被子)
+  method_steps:
+  - '"是不是"速判表:昆虫=6条腿(蜘蛛8条腿属蛛形纲,蝎子/蜈蚣也都不是昆虫);章鱼乌贼=软体动物不是鱼;鲸/海豚=哺乳动物(肺呼吸)不是鱼;海马海龙鳗鱼=真鱼;企鹅=鸟类不是哺乳动物;鸭嘴兽=卵生哺乳动物(最古老现存)'
+  - 变态发育:有蛹=完全变态(卵→幼虫→蛹→成虫,蚊蝇蝶蜜蜂蚕),无蛹=不完全变态(卵→若虫→成虫,蝗虫蜻蜓蟋蟀螳螂);两栖只称"变态发育"(蝌蚪→蛙)不分完全不完全;蜕皮=外骨骼不会随身体长大
+  - 恒温动物=哺乳类+鸟类,变温动物=其余(爬行/两栖/鱼);鳄鱼、蜥蜴的性别由孵化温度决定
+  - 防御与关系:警戒色=鲜艳警告有毒(箭毒蛙/黄蜂条纹)、保护色=颜色融入环境(青蛙绿/黄蝶菜花)、拟态=形态模仿(尺蠖像树枝/竹节虫/枯叶蝶);种间四关系=共生(小丑鱼+海葵、寄居蟹+海葵、犀牛+犀牛鸟)/寄生(双盘吸虫控蜗牛、菟丝子寄生豆科、冬虫夏草是寄生不是共生)/竞争(牛羊争草)/捕食
+  error_signatures:
+  - code: insect_legs_wrong
+    description: 昆虫判断错:昆虫6条腿,蜘蛛8条腿不是昆虫,蜈蚣马陆是多足纲也不是
+  - code: fish_misclassify
+    description: 鱼的分类记错:鲸/海豚/章鱼/乌贼不是鱼,海马海龙鳗鱼是鱼
+  - code: biantai_type_confusion
+    description: 完全不完全变态记反:有蛹=完全(蚊蝶蜜蜂),无蛹=不完全(蝗蜻蟑螳)
+  - code: jingbao_baohu_nitai
+    description: 警戒色/保护色/拟态混淆:黄蜂条纹=警戒色,黄蝶飞入菜花=保护色,尺蠖像树枝=拟态
+  fix_action: 默写"昆虫/蛛形纲/软体/鱼/哺乳"分类判断表+完全与不完全变态代表例,做10道动物分类真题,限时35秒/题。
+  time_budget_sec: 35
+  accuracy_rule: 正确率≥80%
+  pitfall: 蜘蛛被误判为昆虫(6条腿才是昆虫),以及"黄蝶飞入菜花"被误判为拟态(实为保护色)。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/常识判断/生物常识
+  - 行测/常识判断/自然科学-生物

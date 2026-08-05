@@ -1,0 +1,3615 @@
+- id: mc_luoji_lunzheng_liubu_fa
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/解题总法
+  title: 论证推理解题总法-六步定位
+  recognition: 题干是"背景故事+结论引词+结论"的长文,提问为削弱/支持/假设等,需先剥离文字找推理骨架。
+  applicability:
+    include:
+    - 论证推理题(削弱/支持/假设/解释/评价),题干文字多、易读晕
+    - 需要快速定位论据与结论的题
+    - 训练"先想正确选项模板再看选项"的题
+    exclude:
+    - 形式逻辑题(翻译/真假/代入验证),无结论引词结构
+    - 分析推理(队列/分组/数独)等非论证题
+    - 一句式纯数据背景题(可直接支持结论,不按此六步)
+  method_steps:
+  - 看提问句,只区分"正着说"(支持/假设)还是"反着说"(削弱),不纠结提问词
+  - 从下往上找结论引词("因此/所以/据此认为/科学家认为"),引词后面就是结论
+  - 结论往前倒一句找论据;背景信息占7-8成,可直接略过
+  - 盖住选项先判断推理结构(共存因果/对比实验/两句式/一句式),预想正确选项模板后再开选项锁定
+  error_signatures:
+  - code: read_from_top
+    description: 从上往下通读,陷入背景故事,找不到结论和论据
+  - code: options_first
+    description: 先看选项再做阅读理解,被选项带偏开始脑补
+  - code: conclusion_only
+    description: 只盯结论对错,忽略论据在推理中的参与作用
+  - code: story_matching
+    description: 按选项文字故事匹配,而不是按推理结构匹配
+  fix_action: 做10道论证推理真题,每题盖住选项先写下"结论+论据+推理结构"再选,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥90%
+  pitfall: 不要依赖排除法——先盖住选项建立正确选项的预期模板,打开选项直接锁定,否则每题白白多花30秒-1分钟。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/削弱题型
+  - 行测/判断推理/加强题型
+- id: mc_luoji_youyintuiguo_jianli
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/由因推果
+  title: 由因推果-识别结构与支持削弱
+  recognition: 论据是"A与B同时存在"的相关数据或"有A有B、无A无B"的对比实验,结论是"A是B的原因"。
+  applicability:
+    include:
+    - 结论出现"是…的原因/导致/有助于预防/可治疗"等因果表述
+    - 论据为共存统计(如使用社交软件的人患病概率低)或对比实验(睡眠短患癌高、睡眠长患癌低)
+    - 支持/削弱/假设类提问均适用
+    exclude:
+    - 论据结论构成明确的A→B→C链条、需补中间环节的题(属补全逻辑)
+    - 论据结论主体完全不同的题(属指出不同)
+    - 论据为特征量、结论为结果量的"越多越"结构(属建立联系正相关)
+  method_steps:
+  - 锁定结论,确认因果方向:A是因、B是果
+  - 判断论据类型:共存相关 还是 对比实验(实验组/对照组有无A的差异)
+  - 支持:找说明"A通过某机制/作用导致B"的选项(如感染激活NK细胞杀死癌细胞、牙龈炎细菌入脑致神经损伤)
+  - 削弱:找"因果倒置"(方向反说)或"引入他因"(B取决于D而非A)或"实验对象不可推广"的选项
+  error_signatures:
+  - code: causal_reversal
+    description: 把因果倒置选项当成支持,或没认出"B是因A是果"的削弱(如老年痴呆导致忘记刷牙→牙龈炎)
+  - code: correlation_as_causation
+    description: 把A与B共存的相关性当成因果必然,忽略可能只是巧合
+  - code: mechanism_missing
+    description: 支持题选了只说A与B有关、没说A如何导致B的选项
+  - code: group_design_ignored
+    description: 忽略对比实验组的设置,没利用"有无A"的差异判断因果
+  fix_action: 做8道由因推果真题,每题先写出因果方向,再分别预想"支持选项长什么样、削弱选项长什么样"再选,限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥85%
+  pitfall: 考点是题干结构而不是提问形式:同一道题把提问从"支持"改成"削弱",正确答案会从"建立机制"变成"因果倒置/主体差异"。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/原因结果
+  - 行测/判断推理/加强题型
+  - 行测/判断推理/削弱题型
+- id: mc_luoji_liangjushi_buquan_luoji
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/两句式推理/补全逻辑
+  title: 两句式-补全逻辑链条
+  recognition: 论据和结论存在前一半或后一半的重复内容,中间有逻辑跳跃,需补全缺口推理才成立(论据+正确选项=结论)。
+  applicability:
+    include:
+    - 结构为"论据A→B,结论A→C"(前重复,补B→C)或"论据A→C,结论B→C"(后重复,补B→A)
+    - 支持/假设/前提类提问,多为科学考古论证(现象→本质)
+    - 选项出现"只要…就…""只有…才…"句式
+    exclude:
+    - 论据为纯数据背景、与结论无重复的题(一句式,不需补链条)
+    - 论据结论主体不同、需指出相同/不同的题
+    - 选项只是举例支持、无逻辑连词的题(仅一句式有效)
+  method_steps:
+  - 从下往上找结论引词,往前倒一句找论据,并把两者拆成A→B/A→C 或 A→C/B→C
+  - 找出重复部分,确定缺口:前重复补B→C,后重复补B→A
+  - 用"只要B就C"(充分)或"只有C才B"(必要/后推前,等价于B→C)构建设定,检验选项是否正好补上缺口
+  - 检查箭头方向:必须从论据要素指向结论要素,方向反了直接排除
+  error_signatures:
+  - code: arrow_reversed
+    description: 选项含论据结论两个关键词但推理方向反了(如"祭祀→牛角"而非"牛角→祭祀")
+  - code: correlation_as_link
+    description: 把只谈相关性的选项当补全链条(如"气候变暖与变绿正相关"而非"变暖→浮游植物增多")
+  - code: single_sentence_fallback
+    description: 两句式当一句式处理,选只支持结论、没让论据参与推理的选项
+  - code: necessity_direction
+    description: 混淆必要与充分条件方向("只有C才B"等价于B→C,方向反了即错)
+  fix_action: 做10道补全逻辑真题,每题先写下缺口方向再对照选项,特别标记含两关键词但方向相反的干扰项,限时80秒/题
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥80%
+  pitfall: 考官常同时给两个含相同关键词、但方向相反的选项,解题口诀"箭头指向结论处,方向反了全错误"——先定缺口方向再选,别被关键词数量骗到。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/搭桥
+  - 行测/判断推理/假设
+- id: mc_luoji_yijushi_zhijie_zhichi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/一句式推理/直接支持
+  title: 一句式-直接支持结论
+  recognition: 论据是调查数据/统计/背景信息,与结论无主语或效果重复,结论是独立的因果判断。
+  applicability:
+    include:
+    - 论据为纯数据(如调查显示绿地面积与孤独感数据),结论独立(绿地增加→孤独感降低)
+    - 结论自身是"A→B"关系,支持可直接针对结论
+    - 举例支持型(具体比例/案例数据)在此题型有效
+    exclude:
+    - 论据结论有重复要素、需补链条的题(两句式)
+    - 需论据参与推理才能成立的前提/假设型题
+    - 结论无因果结构、需"指出相同"来支持的题
+  method_steps:
+  - 确认论据是纯背景(与结论无重复要素),判定为一句式
+  - 支持:直接建立结论内部的因果链条(绿地面积增加→社交频率上升→孤独感降低)
+  - 举例支持有效:带具体数据/比例的选项(如47%受试者出现愤怒情绪)可支持"饥饿→愤怒"
+  - 排除只重复结论信息、无实质推进的选项
+  error_signatures:
+  - code: mistaken_as_double
+    description: 一句式当两句式处理,苛求"补链条"而误杀直接支持结论的正确项
+  - code: evidence_repeat_only
+    description: 选了只重复结论、没提供新支持信息的弱选项
+  - code: example_support_ignored
+    description: 忽视举例/数据型选项在本题型的支持效力
+  - code: option_outside_conclusion
+    description: 选了支持别的关系、没对准结论A→B的选项
+  fix_action: 做6道一句式真题,每题先判断"论据是否与结论重复"再决定支持方式,限时55秒/题
+  time_budget_sec: 55
+  accuracy_rule: 正确率≥90%
+  pitfall: '"重复找链条,独立看结论"——同一结论改成两句式结构后,正确答案会从"直接支持结论"变成"补中间环节",先分清结构再选。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/加强题型
+  - 行测/判断推理/补充论据
+- id: mc_luoji_jianli_lianxi_zhengxiangguan
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/建立联系
+  title: 建立联系-特征量与结果量
+  recognition: 题干"因为A特征多,所以具备B特点"(神经细胞多→更聪明),正确选项需建立特征与结果的正相关或作用机制。
+  applicability:
+    include:
+    - 论据为特征量(牙齿数量/离子流速/丁酸盐水平),结论为结果量(体长/抗旱性/大脑功能)
+    - 论据"有A有B、无A无B"(本质表达A导致B),需建立A与B的关联
+    - 支持/假设类提问
+    exclude:
+    - 论据结论能直接拼成A→B→C链条、需逻辑连词补全的题(补全逻辑)
+    - 论据结论主体完全不同、需指出相同的题
+    - 削弱类提问(本卡只覆盖正向建立联系模板)
+  method_steps:
+  - 提取论据特征A与结论结果C
+  - 支持:找建立"A→C"关系的选项——"A越多C越明显"(正相关)或"A带来的某作用/因素导致C"(机制)
+  - 区分"论据内部关系(a→b)"与"论据-结论关系(a→c)",只选后者
+  - 两句式结构(如久坐→颞叶缩小→记忆影响)时,正确项必须同时含论据与结论两个关键要素
+  error_signatures:
+  - code: internal_relation
+    description: 误选建立论据内部要素关系的选项(如论据内部因果),而非论据与结论的桥
+  - code: reversed_relation
+    description: 误选反向建立关系的逻辑倒置选项
+  - code: missing_bridge
+    description: 正确项缺一个关键要素(只含特征或只含结果)导致搭不上桥
+  - code: irrelevant_comparison
+    description: 被无关平行比较选项干扰(对比开花植物/讨论年龄差异)
+  fix_action: 做8道建立联系真题,每题先写"论据特征→结论结果",再核对选项是否同时含两个要素且方向正确,限时65秒/题
+  time_budget_sec: 65
+  accuracy_rule: 正确率≥85%
+  pitfall: 建立联系靠"相关性/机制"(B越多C越多),补全逻辑靠"逻辑连词直接搭链"(只要/只有式条件句)——两者都搭桥但模板不同,别混用。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/搭桥
+- id: mc_luoji_zhichu_xiangtong_butong
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/指出相同与不同
+  title: 指出相同(支持)/指出不同(削弱)
+  recognition: 论据与结论的主体或概念不一致(动物实验→人体、样本调查→全体、局部健康→整体健康),通过指出同/异来支持或削弱。
+  applicability:
+    include:
+    - 论据结论主体不同:动物实验→人、杂志读者→社会群众、网购场景→家庭控制权
+    - 概念发生转换:心脏健康→整体健康、死亡风险→健康状况、量变→质变
+    - 借鉴他国/他群体经验的论证(发达国家→我国)
+    exclude:
+    - 论据结论主体一致、无概念转换的题
+    - 论证缺陷是缺中间环节的题(应补全逻辑)
+    - 题干本身无"以偏概全"式差异的题
+  method_steps:
+  - 比对论据与结论的主体/概念是否一致,找出差异点
+  - 支持:找指出两者相同的选项(如"我国是发展中国家"、"规律适用于我国")
+  - 削弱:找"X≠Y"式的选项(如"心脏健康不等于身体健康""动物实验结果不能推广到人")
+  - 样本类题:给样本贴特殊标签(如读者更富有)削弱"以偏概全"
+  error_signatures:
+  - code: direction_reversed
+    description: 把指出不同当支持、指出相同当削弱,方向搞反
+  - code: concept_shift_missed
+    description: 没识别论据到结论的概念偷换(如死亡风险→健康状况、质变→量变)
+  - code: nitpick_weak
+    description: 选只挑小毛病(调查方式/需要时间/未全员参与)而非针对主体差异的弱选项
+  - code: absoluteness_trap
+    description: 被"难以准确评估"类绝对化表述迷惑,误当有效质疑("难以评估"≠"不能评估")
+  fix_action: 做8道指出同/异真题,每题先标"论据主体 vs 结论主体",再判断该题考的是相同支持还是不同削弱,限时65秒/题
+  time_budget_sec: 65
+  accuracy_rule: 正确率≥85%
+  pitfall: 支持=指出相同,削弱=指出不同,方向不能反;且"指出不同"要针对主体/概念的本质差异,不是针对论证细节的小瑕疵。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/主客体
+- id: mc_cause_effect_direction
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/方向判定
+  title: 区分由因推果与由果推因
+  recognition: 结论是'由原因预测未来结果'(预言家思维)还是'由结果反推过去原因'(刑侦思维), 标志词'因此/所以'对应'是由于/源自'
+  applicability:
+    include:
+    - 需要先定推理方向的所有因果推理削弱题
+    - 归因类题干(结果→原因)的第一步定位
+    exclude:
+    - 支持题(两种推理的支持逻辑相同, 无需区分方向)
+    - 形式逻辑的命题推导题
+  method_steps:
+  - '用''因此/所以''或''是由于/源自''定位结论, 判断时间方向: 结论指向未来结果→由因推果; 结论追溯过去原因→由果推因'
+  - '由因推果削弱: 引入反向他因让结果不成立(有A无B), 如''胃特别强健'''', 排除''其他方法也能达到结果''选项(高铁/飞机都能到北京)'
+  - '由果推因削弱: 引入替代原因解释结果(非A的C导致B), 如''食物中毒''替代''吃药''; 排除只削弱原原因强度的程度型、共存型选项'
+  - '口诀: 预言看结果断链条, 刑侦换凶手找解释; 替代不破因, 多因可破果'
+  error_signatures:
+  - code: direction_mixed
+    description: '把两种推理的削弱方式混用: 由因推果误用''其他原因也能达果'', 由果推因误用''其他方法'''
+  - code: alternative_route_as_weakener
+    description: 由因推果题误把'存在替代途径'当削弱(理疗也能治感冒不削弱吃药能治感冒)
+  - code: vague_possibility_selected
+    description: 由果推因题误选'可能影响'但未指明影响方向的选项
+  fix_action: 做15道因果方向判定专项题, 限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥90%
+  pitfall: 由果推因接受'多因一果', 替代原因是削弱; 由因推果的'替代途径'不破因。同一选项在不同结构中的作用可能相反(牛奶助眠题的C/D选项互换)。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/原因结果
+- id: mc_conclusion_from_effect_alt_cause
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/由果推因
+  title: 由果推因-引入替代原因削弱
+  recognition: 题干给出已发生的结果/现象, 结论把该结果归因于某个原因(果→因, 常含'解释''说明')
+  applicability:
+    include:
+    - '''解释/说明''某现象原因的削弱题(桃树套袋/文蛤红霉素/牛奶入睡)'
+    - 对归因类研究结论的质疑题
+    exclude:
+    - 由因推果题(该模式不通用)
+    - 支持题(支持需排除替代原因, 而非引入)
+  method_steps:
+  - '锁定归因: 结论为''Q是因P''(如小果占比75%是因套袋过早)'
+  - '找替代解释: 选项引入另一个与P无关、能解释Q的原因(R导致Q, 如未追施肥)'
+  - '三重验证: ①新原因与原原因互斥(不能与P同时成立) ②能解释结果Q ③该原因需确在研究样本中存在'
+  - '排除干扰: ''程度型''选项(承认P但说其作用慢/弱)与''共存型''选项(与P可同时成立)均不削弱'
+  error_signatures:
+  - code: coexist_with_original
+    description: 新原因与原原因可同时成立, 未排除原归因
+  - code: cannot_explain_result
+    description: 他因不能解释题干结果(与套袋无关却未解释小果现象)
+  - code: factor_not_in_sample
+    description: 他因未说明在研究样本中存在(观众案例的'其他选手关注'选项)
+  - code: weaken_but_not_negate
+    description: 只削弱P的强度(合成速度慢), 未否定'P是原因'的归因
+  fix_action: 做12道由果推因削弱题, 限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥85%
+  pitfall: '桃树套袋题: 他因必须同时满足''与套袋无关''+''能解释小果''两个条件; 只解释现象不谈归因的选项不算。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/他因削弱
+  - 行测/判断推理/原因结果
+- id: mc_sentence_structure_identification
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/句式判定
+  title: 判定一句式与两句式推理
+  recognition: 论据与结论是否前后一半重复, 是否存在概念跳跃/断点(车轱辘话还是桥断开)
+  applicability:
+    include:
+    - 论证推理读题第一步, 决定削弱/支持的操作对象
+    - 统计相关类推理(牛磺酸水平高→健康好, 属于一句式)
+    exclude:
+    - 形式逻辑充分/必要命题的推导题
+    - 已明确是建立联系或引入他因的题
+  method_steps:
+  - 用'因此/结果发现'定位结论, 检查论据是否重复结论的关键词
+  - '论据结论完全重复→一句式: 削弱/支持直接针对结论本身, 可自由引入他因(牛奶题不必针对色氨酸)'
+  - '前后半不同、存在概念断点→两句式: 支持必须补全''论据→结论''缺失链条(B与C的关系), 削弱可攻击任一推理环节'
+  - '口诀: 完全重复一句式, 概念断点两句式'
+  error_signatures:
+  - code: sentence_count_confusion
+    description: 按句子数量判断, 把'两句话'当成两句式
+  - code: missing_conclusion_keyword
+    description: 没发现论据已含结论关键词, 误判为两句式
+  - code: loose_weakening_two_sentence
+    description: 两句式支持题选了只支持结论、不补逻辑链条的选项
+  fix_action: 做8道句式判定辨析题, 限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥90%
+  pitfall: 所有由果推因都是一句式(论据是事实结果); 所有两句式都是因推果。删除论据中的结论关键词可把一句式改编成两句式(色氨酸→助眠 改为 色氨酸→穿过屏障)。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/论证结构
+- id: mc_build_link_support
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/由因推果
+  title: 由因推果-建立联系(支持/加强)
+  recognition: 题干'A与B相关/同时存在'或'有A有B无A无B', 结论'A导致B', 问支持/加强
+  applicability:
+    include:
+    - A→B因果支持题(睡眠与癌症/绿茶与心血管/站立与专注/废水与地震)
+    - 对比实验类研究结论支持题
+    exclude:
+    - '找前提/假设题(另卡: 前提是必要条件, 支持可非必要)'
+    - 削弱题(不需搭桥, 直接断桥)
+  method_steps:
+  - '主体定位: 选项主语必须与结论主体完全一致(防晒霜/站立听课/废水注入岩石), 无一致项再考虑引入他因'
+  - '效果聚焦: 选项效果必须指向结论的效果, 防止''全因死亡率''''抗癌''''健康''等效果泛化'
+  - '搭桥: 选建立''A→机制→B''完整作用链条的选项(乙醛附着DNA→癌变), 排除仅重复相关、时间重合、定义性描述选项'
+  - '力度排序: 机制解释 > 剂量反应 > 时序 > 统计显著性; 排除因果倒置(焦虑倾向)与第三方因素(吸烟)项'
+  error_signatures:
+  - code: correlation_as_causation
+    description: 选仅重复相关性或时间重合的选项(干旱与玛雅衰落时间重合)
+  - code: subject_shift
+    description: 主体偏移(讨论蜜蜂习性替代农田利用方式)
+  - code: effect_generalization
+    description: 效果泛化(全因死亡率≠心血管健康)
+  - code: causal_reversal
+    description: 因果倒置选项(焦虑倾向导致高应激和高疼痛, 实为削弱)
+  fix_action: 做15道建立联系支持题, 限时65秒/题
+  time_budget_sec: 65
+  accuracy_rule: 正确率≥85%
+  pitfall: '''时间重合/统计相关''≠因果; 支持必须说明作用机制。考官常用同义替换(长期应激=长期巨大压力)与科学术语隐藏因果链(甲状腺激素→脂肪代谢),
+    也常把''高发病率''与''发病率变高''偷换。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/原因结果
+  - 行测/判断推理/搭桥
+- id: mc_assumption_bridge
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/前提假设
+  title: 找前提/假设-建立论据与结论的联系
+  recognition: 题干'论据A→结论B'存在概念跳跃, 问'隐含假设/必要前提/基于哪一假设'
+  applicability:
+    include:
+    - 前提/假设型必选项题(区域治理/视网膜筛查/做笔记阅读效果)
+    - '''应做A因有B''式建议题的暗含前提(读红楼梦/提高收入)'
+    exclude:
+    - 支持题(前提必须必要, 支持可不必需)
+    - 削弱题
+  method_steps:
+  - 找出论据概念与结论概念, 定位中间断开的环节
+  - '两条搭桥路: ①A的作用/因素/影响导致B(交通运输是碳排放主要来源) ②A是衡量B的重要指标/主要因素/标志之一(民生服务水平是衡量治理能力重要指标)'
+  - '''应做A因有B''结构: 前提必说B是目标/重要(年轻人都该了解传统文化, 满意度是政府主要任务)'
+  - '验证: 选项须与题干论据结构匹配(不是见''重要指标''字眼就选), 且是结论成立的必要条件'
+  error_signatures:
+  - code: keyword_without_structure
+    description: 看到'重要指标'字眼就选, 忽略与题干论据结构是否匹配
+  - code: not_necessary
+    description: 选项只是加强项而非必要前提(仅说明相关性强弱)
+  - code: missing_target
+    description: '''应做A''题选了只谈A属性的选项, 未建立''B是目标''的联系'
+  fix_action: 做10道前提/假设题, 限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥85%
+  pitfall: '''视网膜扫描数据是预测心脏病的灵敏指标''正确, 是因为它搭上了''视网膜数据→心脏病筛查''的断点; 判断标准是选项是否建立论据与结论的联系,
+    而非句式模板。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/假设
+  - 行测/判断推理/大前提
+- id: mc_direct_pros_cons
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/引入他因
+  title: 引入他因-直接说利弊
+  recognition: 结论是'某措施/因素带来好(坏)结果', 题干主体单一, 问支持或削弱
+  applicability:
+    include:
+    - 政策/技术/材料可行性支持削弱题(水闸/儿童食品/黑匣子/环保材料)
+    - 措施效果评价题
+    exclude:
+    - A与B比较题(两者相比另卡)
+    - 需权衡多因利弊的题(利弊相权另卡)
+  method_steps:
+  - '死扣结论字面: 确认主体范围+具体效果, 不脑补延伸'
+  - '定方向: 支持=引入正向他因(让结论成立, 如''肥料有营养促生长''); 削弱=引入反向他因(让结论不成立)'
+  - '削弱直接否定核心要件: 选直接针对结论关键点的选项(成分与普通食品无差异/隔热耐久不足/信号受不可控因素影响)'
+  - '排除外围: 替代方案、成本效益、特殊人群过敏、''不能完全替代''(≠材料不成立)'
+  error_signatures:
+  - code: over_extension
+    description: 过度脑补, 把结论主体范围扩大或缩小
+  - code: peripheral_factor
+    description: 选成本/社会影响等外围因素(黑匣子题的投入产出比选项)
+  - code: sample_size_without_defect
+    description: 只说'样本量太少'却不配具体缺陷, 不构成削弱
+  - code: special_case_only
+    description: 选只针对特殊人群/场景的选项(过敏人群), 非本质缺陷
+  fix_action: 做12道直接说利弊题, 限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥85%
+  pitfall: '削弱=否定结论核心要件, 而非指出管理/标准缺陷(国家标准缺失≠不安全)或使用方式问题(过量进食≠不健康)。口诀: 削要害, 避外围, 特殊案例不算数。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/他因削弱
+  - 行测/判断推理/削弱论点
+- id: mc_comparison_two_sides
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/两者相比
+  title: 引入他因-两者相比(A与B比较)
+  recognition: 结论是'A比B好 / A将取代B / 首选A'这类比较句
+  applicability:
+    include:
+    - A与B比较类支持削弱题(海水养殖vs盐碱地/糖电池vs锂电池/纸质vs数字阅读)
+    - 多个竞争对象偏好题(一线vs二线vs三线城市)
+    exclude:
+    - 单主体利弊题
+    - 比较基准不明、只列数据的题
+  method_steps:
+  - 先明确结论偏好哪一方
+  - '支持''胜方''两条路: ①说胜方优点 ②说败方缺点; 削弱反之: 说胜方缺点/说败方优点'
+  - 多对象比较须覆盖全部竞争对象(首选二线城市须同时否定一线与三线)
+  - 按关键词与结论核心的匹配度选最强项(纸质深度阅读→系统思维/专注力, 优于泛谈'独特体验')
+  error_signatures:
+  - code: reverse_support
+    description: '选成反向: 说结论偏好方的优点, 实为削弱(结论''海水养殖难被替代'', 选盐碱地养殖优点)'
+  - code: hidden_evaluation
+    description: 没识别'不求甚解''未尝不可'等隐性贬义/褒义词
+  - code: incomplete_coverage
+    description: 只否定部分竞争对象, 支持不完整
+  fix_action: 做8道两者相比题, 限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥85%
+  pitfall: 选项中'说A的优点'不一定是支持, 必须先判断A是否是结论偏好方; 结论'海水养殖难以被盐碱地替代'时, 说盐碱地养殖'出口新加坡'看似积极,
+    实为反向支持替代可能性。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/他因削弱
+  - 行测/判断推理/加强题型
+- id: mc_pros_cons_balance
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/利弊相权
+  title: 引入他因-利弊相权(弊大于利)
+  recognition: 题干'因某优点而推广某措施/方案', 要求削弱/质疑/找最大难题
+  applicability:
+    include:
+    - 措施推广类削弱题(HOV车道/阔叶树降尘/蟑螂处理垃圾/太空种植)
+    - 方案评估质疑题(时间管理软件/神经刺激技术)
+    exclude:
+    - 支持题(支持=利大于弊)
+    - 直接说利弊的简单单因题
+  method_steps:
+  - 明确题干的核心益处(健康/效率/环保)
+  - '削弱=找''弊大于利''项: 引入更严重弊端, 优先含比较级''更大/超过/抵消并超过''的选项'
+  - '三重验证: 弊端实质有害(生态/安全/健康) + 主体与结论一致(航天员健康) + 直接否定核心益处'
+  - '排除: ''还需评估/意想不到''中性表述、''不完美≠有害''、成本高(除非限定预算)、''国际认可''权威表述'
+  error_signatures:
+  - code: neutral_wording
+    description: 选'需要进一步评估/意想不到'等中性表述选项
+  - code: imperfection_as_harm
+    description: 把'不能100%解决问题/不完美'当成弊端
+  - code: cost_as_harm
+    description: 把养护/投入成本当弊端(阔叶树D选项)
+  - code: subject_shift
+    description: 主体转移到别处(太空种植题讨论植物而非航天员健康)
+  fix_action: 做10道利弊相权题, 限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥85%
+  pitfall: '''好''≠''更好'': 存在无A仍好的情况, 不能据此否定A能带来更好结果(观众案例''打破纪录''选项)。口诀: 弊要实, 利要虚,
+    中立模糊皆可弃。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/他因削弱
+  - 行测/判断推理/削弱论点
+- id: mc_effort_futile
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/做了也白做
+  title: 引入他因-做了也白做(措施失效)
+  recognition: 题干'采取某措施→预期效果', 削弱=找使措施无效/效果被抵消的他因(虽然...但是...结构)
+  applicability:
+    include:
+    - 措施有效性削弱题(防沉迷/虚拟号码/张贴求助电话)
+    - 政策效果质疑题(遗产/早起不迟到)
+    - 食品安全类'吃了也白吃'题(猪蹄胶原蛋白/鱼油/牛蛙寄生虫)
+    exclude:
+    - 由果推因题
+    - 支持措施效果的题
+  method_steps:
+  - 定位结论的预期效果及其限定词('马上''一定'等)
+  - '找''实施障碍'': 引入阻碍/抵消原措施的他因, 证明''即使做了也无效''(堵车/轮胎被扎/外援腿伤)'
+  - '击穿措施成立的前提: 防沉迷系统→冒用身份无法识别; 虚拟号→下单环节信息已泄露'
+  - '排除: 部分有效≠完全无效、事后补救/后续影响(维权困难≠泄露发生)、无关比较项(考公与生活改变)'
+  error_signatures:
+  - code: scope_shift
+    description: 混淆结论限定范围('防网络游戏沉迷'≠'防所有游戏')
+  - code: partial_vs_total
+    description: 选'部分有效'选项当作完全无效(仍获得部分遗产)
+  - code: post_hoc_treatment
+    description: 选事后补救/后续影响选项(泄露后的维权困难)
+  - code: key_condition_not_broken
+    description: 未破坏措施成立的关键前提(身份识别这一前提)
+  fix_action: 做10道做了也白做题, 限时65秒/题
+  time_budget_sec: 65
+  accuracy_rule: 正确率≥85%
+  pitfall: '''运到≠用到'': 削弱输送有效性只需证明物质无法完好送达(彗星撞击高温高压破坏磷分子结构), 不关心后续利用; 正确选项直接切断''建议→效果''的联系(夜间无人接听)。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/他因削弱
+  - 行测/判断推理/削弱论点
+- id: mc_quantity_not_quality
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/量变质变
+  title: 引入他因-量变不等于质变(未达阈值)
+  recognition: 题干由'某指标的量变(增加/减少/优化)'推'必然发生质变(生病/变好)', 削弱=证明未达阈值
+  applicability:
+    include:
+    - 数值/比例论证的削弱(细菌致病/噪音影响/手机辐射致癌/塑料微粒)
+    - 食品安全/辐射/健康风险支持与削弱题
+    exclude:
+    - 纯逻辑形式推理
+    - 无数量/程度变化的因果题
+  method_steps:
+  - '识别量变指标与质变断言: ''细菌含量增加→市民生病人数一定增加'''
+  - '找阈值项: 引入中间变量证明量变未超承载限度(免疫系统可清除、噪音低于日常基准、含量远低于国标/安全标准)'
+  - '支持''量变→质变'': 引入影响结果的他因或展示相关因素的改变(做题量100→500道), 不能用绝对数值(95分)当''变好''证据'
+  - 安全类题优先找'未超标即安全'的量化标准选项
+  error_signatures:
+  - code: absolute_as_trend
+    description: 把绝对数值(95分)当成'变好'的证据, 忽略对比基准
+  - code: correlation_as_causality
+    description: 把相关(通话时长与脑瘤风险)当因果
+  - code: individual_counterexample
+    description: 个体反例否定比例趋势(有人用手机健康不削弱整体风险)
+  - code: dose_ignored
+    description: 抛开剂量谈毒性, 选'成分存在即有害'的选项
+  fix_action: 做10道量变≠质变题, 限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥85%
+  pitfall: '罗马铅管题: 正确选项(E水垢阻隔铅溶解)无需解释论据(遗骨铅含量异常), 只需反驳结论; 判断标准先统一(拿安全阈值/基准对比), 再谈是否致害。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/他因削弱
+  - 行测/判断推理/削弱论点
+- id: mc_sever_link_weaken
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/断桥削弱
+  title: 削弱-切断论据与结论的联系(断桥)
+  recognition: 题干'因A所以B', 削弱=简单粗暴指出A与B无关/无必然联系
+  applicability:
+    include:
+    - 削弱/质疑题(睡眠时长与失智/收视率与节目水准/第一场雪与冬季气温)
+    - 评价题型(关键问题决定支持或削弱)
+    exclude:
+    - 支持题(加强需搭桥)
+    - 需要引入他因的精细削弱题
+  method_steps:
+  - 定位论据A与结论B
+  - '断桥: 找''A与B无必然关联/无关''的直接否定项(失智是脑部疾病, 与睡眠时长无关)'
+  - '或举反例证普遍性不足: 指出其他群体不满足结论(黑碳暴露男孩相关女孩不相关)'
+  - '评价题: 找''决定A与B是否相关''的关键问题(交通事故数量与宣传工作有无直接关系)'
+  error_signatures:
+  - code: partial_negation
+    description: 只削弱A的强度(睡眠变短是年龄导致), 未切断A-B联系
+  - code: correlation_strength_only
+    description: 选仅说明相关性强弱(不断增强)的选项, 未断桥
+  - code: irrelevant_negation
+    description: 质疑角度与结论核心无关(睡眠过长的影响/其他风险因素)
+  fix_action: 做8道断桥削弱题, 限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥85%
+  pitfall: 口诀'削弱断桥, 加强搭桥'; 质疑(削弱)可以'简单粗暴指出无关', 这是最强削弱, 不必绕作用机制。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/拆桥
+  - 行测/判断推理/削弱题型
+- id: mc_dose_insufficient_quantity
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/由因推果/量变质变
+  title: 由因推果-量变不等于质变(剂量不可行)
+  recognition: 结论称某物质/行为"有好处/有效",削弱选项提到"需要达到XX剂量才有效"的数值表述
+  applicability:
+    include:
+    - 削弱"X有保健/治疗/助眠等效果"的结论
+    - 选项出现"需要摄入XX剂量才有效"的剂量表述
+    exclude:
+    - 题干未给出可量化的效果阈值
+    - 存在更强的逻辑断点选项(因果误判、概念偷换、比较对象错误)
+    - 选项剂量数值未达"极端不可行"程度(如"每天喝1斤")
+  method_steps:
+  - 1. 锁定结论中的"有效/有益"主张,标出剂量断点位置(实际摄入量 vs 有效剂量)
+  - 2. 检查"量不足"选项的数值是否极端离谱(如每天25罐饮料、1公斤干茶叶),不够离谱先排除
+  - 3. 优先排查其他逻辑断点:因果误判、概念偷换、比较对象错误等更直接的削弱
+  - 4. 仅当其他选项明显错误且数值绝对不可行时,才选"量不足"项
+  error_signatures:
+  - code: partial_valid_confused_as_invalid
+    description: 混淆"部分有效"与"完全无效"(仅对Ⅱ型有效仍算有效)
+  - code: mild_quantity_option
+    description: 接受缺乏极端数值的"量不足"选项(小份牛奶效果不足)
+  - code: missed_stronger_weaken
+    description: 选量不足项而忽略更直接的因果否定(被试服抗抑郁药)
+  fix_action: 做5道剂量/摄入量类削弱题,限时80秒/题
+  time_budget_sec: 80
+  accuracy_rule: 85%(低频考点,记住断点优先、数值要极端不可行)
+  pitfall: '"不足"不等于"无效";量不足选项必须含"极端不可行"的数值才算成立,多数题目中它是干扰项而非答案'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/他因削弱
+  - 行测/判断推理/原因结果
+- id: mc_introduce_alternative_cause
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/由因推果/引入他因
+  title: 引入他因-直接针对结论
+  recognition: 结论把结果/成败归因于单一原因或方案,正确选项直接针对结论引入另一个因素
+  applicability:
+    include:
+    - 方案对比支持题(支持"做浅"方案需其独有理由)
+    - 结论是"某计划难以实现/应更换某方法/某事物不可用"
+    - 论证"变化导致某结论"时需判断变化后结论是否仍成立
+    exclude:
+    - 题干是标准两句式推理(有更规范的反驳句式可用)
+    - 数据统计型由果推因题(归入由果推因卡)
+  method_steps:
+  - 1. 锁定结论主张并判断类型:归因型、可行性型、更换型
+  - 2. 支持某方案→找该方案独有的优势(订单不稳定→灵活模式);质疑计划→找制约前提
+  - 3. 论证"应更换方法/模式/人员"→必须证明原方法失效(如误差10-20倍),仅强调"重要/必要性"是陷阱
+  - 4. 排除主体不符、效果范围不符的边缘选项;带"可能"的无确定性选项不选
+  error_signatures:
+  - code: importance_instead_of_failure
+    description: 用"研究对象重要"代替"原方法失效"(太阳风题C项陷阱)
+  - code: subject_scope_mismatch
+    description: 选项主体与结论主体不一致(指纹题B项说DNA更可靠)
+  - code: modal_weak_option
+    description: 选带"可能"的弱表述(外星人"可能看不懂")
+  - code: no_plan_edge_option
+    description: 方案对比题误选未区分两方案优劣的选项(仅强调需自主培养)
+  fix_action: 做8道引入他因支持/削弱题,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 85%
+  pitfall: '"纳入/相关"不等于"解决冲突";支持方案必须给出该方案的独有理由,泛泛的"有利"不选'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/他因削弱
+  - 行测/判断推理/削弱论点
+- id: mc_inevitability_he_cause
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/削弱/必然性结论
+  title: 引入他因-必然性结论的正反向反驳
+  recognition: 结论含"必然/必定/才能/是最重要"等预测或必要性表述,从其他角度引入真实因素支持或反驳
+  applicability:
+    include:
+    - 反驳"必然灭绝/衰亡/亏损"→引入保护措施、环境改善、额外收入等正向因素
+    - 反驳"必然可行/有效/占领市场"→引入产能、成本等制约因素
+    - 必要条件类结论→指出必要条件缺失(缺硫磷等必需元素)
+    exclude:
+    - 结论无必然性程度表述
+    - 题干论据已充分覆盖其他因素
+  method_steps:
+  - 1. 判断结论的必然性程度(必然/必定/才是唯一)
+  - 2. 削弱"必然坏结果"→找正向因素(保护措施、浮游生物增长),注意数据小波动不能证明趋势逆转
+  - 3. 削弱"必然好结果"→找制约因素(产能仅满足1%需求)
+  - 4. 比较型结论→比较对象必须一致(白酒vs葡萄酒),可引入新评价维度(成功率指标)
+  error_signatures:
+  - code: trend_reversal_misread
+    description: 把数据小幅波动当趋势逆转(减少量0.4万→0.3万吨)
+  - code: internal_comparison_trap
+    description: 用对象内部比较代替题干跨对象比较(白酒内部含量对比)
+  - code: wrong_dimension
+    description: 引入与结论维度无关的因素(利润影响≠市场占有率)
+  - code: absolute_unverified
+    description: 不验证"必然"类选项的实际影响方向就接受
+  fix_action: 做8道必然性结论削弱/支持题,限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 85%
+  pitfall: 要证明"不灭绝"必须出现资源量增长的绝对数据,仅有减少量收窄不足以反转趋势
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/他因削弱
+  - 行测/判断推理/削弱论点
+- id: mc_fixed_total_zero_sum
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/削弱/固定总量分配
+  title: 固定总量-多变量分配(零和破解)
+  recognition: 题干限定总量/总利润固定(利润总额$2亿、玉米总产量定值),由一方增加推导另一方减少,问削弱
+  applicability:
+    include:
+    - 总量或总利润被题干固定为常数
+    - 结论含"某部分增加→另一部分必减少"的零和推理
+    exclude:
+    - 题干未限定总量
+  method_steps:
+  - 1. 写出总量恒等式(总量=各方之和),识别零和推理
+  - 2. 找第三方变量的动态变化:其他部分/参与者(肯德基、工业用途)的增减可抵消原推理
+  - 3. 排除只讨论局部对比、未进入总量分配的选项(价格差异、接受流程)
+  error_signatures:
+  - code: zero_sum_assumption
+    description: 默认总量固定就必然零和,忽略第三方变量可抵消
+  - code: local_comparison_only
+    description: 只比较局部数据(价格差异)而不涉及总量分配
+  - code: ignore_third_party
+    description: 忽略肯德基利润/其他用途等第三方参与者的动态变化
+  fix_action: 做4道固定总量分配削弱题,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 85%
+  pitfall: 总量固定不代表分配关系固定;只要第三方变量反向变化,原零和推理即可被削弱
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/削弱题型
+  - 行测/判断推理/削弱论点
+- id: mc_true_antecedent_false_consequent
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/削弱/前真后假
+  title: 前真后假/前假后真削弱
+  recognition: 题干为"如果A那么B""因为A所以B"或"只有A才B"的逻辑箭头关系,问削弱
+  applicability:
+    include:
+    - 削弱充分条件结论(有A必有B)
+    - 削弱必要条件结论("必不可少"→箭头指向条件)
+    - 结论含"必然/一定/只要就"的逻辑推断
+    exclude:
+    - 支持题(改找前假后假)
+    - 题干只有相关性而无箭头指向
+    - 选项只描述前件或后件单边状态
+  method_steps:
+  - 1. 写出逻辑箭头并确认方向:充分条件"A→B";必要条件"必要箭头指条件"(只有A才B = B→A)
+  - 2. 优先找"前真后假"反例(条件满足但结果不成立),是最强削弱
+  - 3. 无前真后假再找"前假后真"(条件不满足但结果成立),次强削弱
+  - 4. 确认选项同时包含前件和后件的状态,只说一边是迷惑项
+  error_signatures:
+  - code: one_sided_option
+    description: 选项只描述前件或后件单边状态而误选
+  - code: arrow_direction_reversed
+    description: 必要条件方向搞反("必不可少"指向条件而非结果)
+  - code: he_in_without_outcome
+    description: 只引入他因而未关联结果状态(语言题缺"精神健康"关键词)
+  - code: background_true_true
+    description: 把"前真后真"的题干背景信息当作有效选项
+  fix_action: 做8道前真后假/前假后真削弱题,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 85%
+  pitfall: 当选项出现"有些...但是..."句式,立即锁定前真后假/前假后真结构快速匹配;前真后真只是题干背景
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/削弱题型
+  - 行测/判断推理/推理形式
+- id: mc_absolute_conclusion_weaken
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/削弱/绝对化结论
+  title: 绝对化结论的削弱(只要就/复合条件)
+  recognition: 结论含"只要...就""必定""是...的最重要举措"等绝对化表述,问削弱
+  applicability:
+    include:
+    - 削弱"只要A就B"类充分条件结论
+    - 结论带"最重要/唯一/必定"程度词
+    exclude:
+    - 结论非绝对化(有"可能/有些"等程度限定)
+    - 支持题
+  method_steps:
+  - 1. 圈出绝对化连词(只要就/必定/最重要/一定)
+  - 2. 优先找"前真后假"反例(满足前提但结果不成立,如少吃仍不能减重)
+  - 3. 无直接反例时用"复合条件"削弱:指出结果还需其他协同条件(根毛+营养、菌群+生活环境)
+  - 4. 其他选项明显无关时,可接受表述不完全严谨的正确选项(不完美但唯一)
+  error_signatures:
+  - code: partial_related_not_weaken
+    description: 选项部分相关但未否定因果关系(技术未改变艺术面貌≠被淘汰)
+  - code: reject_imprecise_correct
+    description: 因正确选项表述不严谨(郁郁寡欢间接关联死亡风险)而不敢选
+  - code: better_method_distractor
+    description: 误选"有更好的方法"类干扰项(不算直接反驳)
+  fix_action: 做6道"只要就/必然"类削弱题,限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 85%
+  pitfall: '"只要就"的削弱=证明前提不是充分条件;复合条件削弱(需协同条件)与直接反例同样有效'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/削弱论点
+- id: mc_false_antecedent_false_consequent_support
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/支持/前假后假
+  title: 前假后假支持(无因无果)
+  recognition: 论据是"A与B同时存在或同增同减(相关)",结论是"A是B的原因(因果)",问支持
+  applicability:
+    include:
+    - 支持"X能降低/导致/治疗Y"的因果结论
+    - 题干给出A与B共变或同存的观察论据
+    exclude:
+    - 削弱题(改找前真后假/前假后真)
+    - 题干无比率或共变数据
+  method_steps:
+  - 1. 判定论据只是"相关"(A与B同存/共变)而结论是"因果"(A导致B)
+  - 2. 优先找"前假后假":没有A时B也不出现(没吃蘑菇→认知风险高),直接支持
+  - 3. 次选"建立联系":解释A通过什么机制导致B(茶多酚→基因表达改变)
+  - 4. 排除单边选项(只有A或只有B)与概念偷换(得病vs治病、增强减弱vs有无)
+  error_signatures:
+  - code: one_side_condition
+    description: 选项只含前真或后假单边,缺另一半(只论证A有/无)
+  - code: disease_vs_treatment
+    description: 混淆"得病率"与"治疗效果"(无刺激得病率低≠治疗无效)
+  - code: strength_vs_existence
+    description: 混淆"A增强减弱"与"A有无"(奖赏回路仍有活动≠活动强)
+  - code: middle_chain_support
+    description: 支持了中间链条而非题干核心(支持叶绿素与营养而非颜色与叶绿素)
+  fix_action: 做8道"无因无果"支持题,限时65秒/题
+  time_budget_sec: 65
+  accuracy_rule: 85%
+  pitfall: 前假后假必须同时包含"没A"和"没B"两部分,只给"没A"不给"没B"是迷惑项
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/加强题型
+  - 行测/判断推理/原因结果
+- id: mc_direct_example_support
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/支持/直接举例子
+  title: 直接举例子-陈述事实印证结论
+  recognition: 结论是某个事实/趋势主张(饥饿使人愤怒、中国是全球变绿重要力量),支持选项直接陈述一个与之相符的具体事实
+  applicability:
+    include:
+    - 支持类题目
+    - 结论为事实陈述或趋势判断(非严格逻辑推导)
+    - 其他选项比较离谱
+    exclude:
+    - 削弱题
+    - 结论需要"建立联系"才成立的两句式推理
+  method_steps:
+  - 1. 锁定结论的核心事实主张(主体+谓词,如"饥饿→愤怒")
+  - 2. 直接找"同义复现"选项:具体数据/案例直接印证结论(47%恼怒、44%愤怒)
+  - 3. 排除带"更"字比较(题干无比较)、相关性表述("有关"≠因果)、脑补信息
+  - 4. 敢选"太直接"的选项,这是考官"偷懒"套路
+  error_signatures:
+  - code: comparative_bias
+    description: 误选带"更"字比较的选项(题干无比较对象)
+  - code: correlation_instead_of_causality
+    description: 误选"有关/相关"类相关性表述而非因果支持
+  - code: overthink_direct_option
+    description: 觉得选项太直接而不敢选
+  - code: concept_swap
+    description: 偷换概念(宜居=有生命、健康≠死亡风险低)
+  fix_action: 做6道直接举例子支持题,限时55秒/题
+  time_budget_sec: 55
+  accuracy_rule: 90%(本考点题通常简单,正确率高)
+  pitfall: 直接举例子选项简短直接,不要过度推理;优先选有明确数据或事实的选项
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/补充论据
+  - 行测/判断推理/加强题型
+- id: mc_direct_example_comparison
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/支持/直接举例子
+  title: 直接举例子-比较型结论的同义复现
+  recognition: 结论含比较关系("更/优于/更能反映"),支持选项必须也包含两边的比较而非单边相关
+  applicability:
+    include:
+    - 结论含"更/最能/优于"等比较级
+    - 事实型结论需核心要素同义复现
+    exclude:
+    - 削弱题
+    - 结论无比较无事实主张
+  method_steps:
+  - 1. 判断结论是否含比较关系(生物学年龄vs时序年龄)
+  - 2. 比较型结论→正确选项必须两边都出现并含"更"(时序年龄大但生物年龄小者风险更低)
+  - 3. 事实型结论→找核心要素(权利绝对化/个人主义/社会责任)至少一项被事实印证的选项
+  - 4. 支持题排除中性/负面表述选项("无证据表明""原理不清楚""造成损伤")
+  error_signatures:
+  - code: one_side_no_comparison
+    description: 选项只证明单边相关,缺"更"字比较(只证生物学年龄相关)
+  - code: negative_statement_option
+    description: 误选"无证据表明"等无效表述
+  - code: subjective_authority
+    description: 误选"科学家认为"类主观判断
+  - code: cure_vs_cause
+    description: 混淆"治疗改善"与"病因证明"
+  fix_action: 做5道比较型支持题,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 85%
+  pitfall: 题干有"更"的结论必含比较;支持题中出现"无证据表明/未试验/造成损伤"等负面表述可直接排除
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/补充论据
+  - 行测/判断推理/加强题型
+- id: mc_directly_refute_conclusion
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/削弱/直接反驳结论
+  title: 直接反驳结论
+  recognition: 削弱题中正确选项直接否定结论本身(说结论不成立),不解释原因,往往"耿直"
+  applicability:
+    include:
+    - 非两句式推理的削弱题
+    - 其他选项明显离谱、与题干无关时
+    exclude:
+    - 支持题
+    - 两句式标准推理题(优先找标准反驳句式)
+  method_steps:
+  - 1. 找出结论,判断是否"两句式推理"(论据→结论直接推导)
+  - 2. 非两句式时,优先找直接否定结论本身的选项(植物无神经系统→植物无感情;传播不经空气→无需减少出门)
+  - 3. 其他选项明显离谱时敢选这种"耿直"选项,不要要求它给出完整逻辑
+  error_signatures:
+  - code: reject_without_reason
+    description: 觉得选项没给理由而不敢选
+  - code: attack_wrong_target
+    description: 误选仅驳论据或边缘因素而不否定结论的选项
+  - code: irrelevant_edge_option
+    description: 误选与结论无关的边缘选项
+  fix_action: 做5道直接反驳结论题,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 85%
+  pitfall: 直接反驳结论的选项通常直说结论不成立即可,不要求解释"为什么";敢选最重要
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/削弱论点
+- id: mc_directly_refute_premise
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证推理/削弱/直接反驳论据
+  title: 直接反驳论据(数据/前提)
+  recognition: 题干靠实验数据/统计比例/调查前提支撑结论,正确选项直接指出数据与整体矛盾或前提不成立
+  applicability:
+    include:
+    - 题干含实验数据(死亡率、毕业率、票数、占比)
+    - 结论靠统计数据或调查结果支撑,问削弱
+    - 其他选项明显离谱
+    exclude:
+    - 支持题
+    - 题干无比率数据
+  method_steps:
+  - 1. 定位核心论据(实验数据、统计比例、实验前提)
+  - 2. 找"整体否定"论据的选项:与整体数据矛盾(整体死亡率4.7%<实验组8.8%;整体毕业率60%>基因最高组50%)或否定前提(蚊子不分血型)
+  - 3. 排除"只解释部分现象"的选项(能解释O型多但不能解释B>A>AB顺序)
+  - 4. 排除诉诸权威/人身攻击类无关项(网站不可信、科学家是狂热支持者)
+  error_signatures:
+  - code: partial_explanation_only
+    description: 选项只能解释部分数据差异,不能解释整体顺序
+  - code: ignore_whole_data
+    description: 未对照整体数据就接受实验结论
+  - code: reject_plausible_option
+    description: 其他选项离谱时不敢选直接反驳论据项
+  - code: authority_fallacy
+    description: 误选诉诸权威/人身攻击类选项
+  fix_action: 做8道直接反驳论据题,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 85%
+  pitfall: 直接反驳论据=指出数据与整体矛盾或前提不成立;只能解释单一现象的选项不能选
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/削弱论据
+- id: mc_reverse_causality_he_cause
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/由果推因/他因削弱
+  title: 由果推因-引入真实他因削弱
+  recognition: 题干已知结果Y并归因于原因X(结论"X导致了Y"),削弱需引入真实发生在题干情境中的另一个原因Z
+  applicability:
+    include:
+    - 结论将结果归因于特定原因(由果推因)
+    - 生物/天文/社会现象类削弱题
+    - 国考特征:每年至少1道因果推理题
+    exclude:
+    - 由因推果(结论"X会导致Y",削弱方式不同)
+    - 支持题
+  method_steps:
+  - 1. 识别推理方向:已知结果Y→结论声称原因X
+  - 2. 削弱=引入真实发生在题干情境中的他因Z(雨林火灾←异常降雨;成绩差←游戏占用精力;产量差←土质不同)
+  - 3. 关键:他因必须"实际发生",理论可能性("自驾也可以去北京")无效
+  - 4. 排除仍在归因于X的选项(家庭教育改进仍说教育)和无关类比(北面地亩产、邻国情况)
+  error_signatures:
+  - code: theoretical_cause_only
+    description: 只列理论可能的他因,未说明实际发生
+  - code: repeat_original_cause
+    description: 选项仍归因于原原因方向(仍说家庭教育相关内容)
+  - code: post_result_change
+    description: 用结果发生后的变化削弱(时间晚于结果,无关)
+  - code: cross_object_analogy
+    description: 拿第三方对象类比(北面地亩产、邻国情况)
+  fix_action: 做8道由果推因削弱题,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 85%
+  pitfall: 由因推果削弱=引入使结果不成立的他因;由果推因削弱=引入真实发生的替代原因,方向不可混
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/他因削弱
+  - 行测/判断推理/原因结果
+- id: mc_reverse_causality_statistics
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/由果推因/统计陷阱
+  title: 由果推因-统计数据≠因果(基数/主语)
+  recognition: 结论由统计数据推出(借阅量、销量、感染率、订单量),削弱需找能解释数据差异的替代因素
+  applicability:
+    include:
+    - 由统计数据推出的因果结论(文学借阅量高→更受欢迎)
+    - 实验对象有明确群体(久坐青少年、不吃早餐男女)
+    exclude:
+    - 题干无比率/数量数据
+  method_steps:
+  - 1. 锁定"统计数据→因果结论"的跳跃点(借阅量→受欢迎)
+  - 2. 找替代解释:数量差异可由基数/占比解释(馆藏占比过半→借阅量大≠更受欢迎)
+  - 3. 他因必须匹配实验对象主语(久坐青少年→沉迷恐怖游戏;不吃早餐男女→睡懒觉)
+  - 4. 排除"偏好/支持原结论"类选项(乘客偏好餐车)
+  error_signatures:
+  - code: base_rate_ignored
+    description: 忽略基数/占比差异,把绝对数量当趋势
+  - code: subject_mismatch
+    description: 他因主语与实验对象不符("这些孩子中"未限定久坐群体)
+  - code: anachronism
+    description: 用不符合时代背景的他因(现代美容技术解释200万年前脸型变化)
+  - code: support_option_mistaken
+    description: 误选支持原结论的选项(乘客偏好餐车)
+  fix_action: 做6道数据型由果推因削弱题,限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 80%
+  pitfall: 借阅量大≠更受欢迎(可能馆藏占比高);他因必须真实发生在实验对象身上
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/原因结果
+  - 行测/判断推理/他因削弱
+- id: mc_logic_causal_link_third_party
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/由因推果
+  title: 由因推果-通过第三者建立联系
+  recognition: 题干存在两派观点,反对者明确否定初始原因A并主张B才是真正原因(典型表述如"与情绪无关""不是营养不均衡")
+  applicability:
+    include:
+    - 题目出现"有人反对/第二种观点认为",且反对者否定了某个初始原因
+    - 问"最能削弱/支持第一种(或反对者)观点"
+    - 题干可概括为A→B→C传递关系,反对者只承认B→C
+    exclude:
+    - 只问一般性削弱、无两派观点对立的题
+    - 题干是实验组对照组设计(改用起点比较法)
+    - 问解释型或评价型题目
+  method_steps:
+  - 标出反对者否定掉的初始原因(A)与反对者主张的直接原因(B),把争议锁定为"B是C的原因,A与C无关"
+  - 在选项中找"A导致B"的陈述,即承认A先导致B、再由B导致C的传导链
+  - 命中"从被否定因素指向反对者主张因素"的选项直接选
+  error_signatures:
+  - code: causal_reversal
+    description: 选了因果倒置项(颠倒A/C关系),未针对反对者的否定链
+  - code: irrelevant_third_factor
+    description: 选了无关第三方因素,没有把A与B联系起来
+  - code: support_opponent
+    description: 误选支持反对者观点的选项(如"催产素确实影响社交")
+  - code: misread_direction
+    description: 方向反了,选了"B导致A"而非"A导致B"
+  fix_action: 做10道"反对者观点"削弱题,每题先口头复述A→B→C链条再选,限时80秒/题
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥85%(本考点国考近五年出现三次,结构固定,识别后应秒杀)
+  pitfall: 容易被"其他原因也能导致结果"的选项迷惑(如四川真题B选项),它不构成对反对者否定链的反驳
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/原因结果
+  - 行测/判断推理/搭桥
+- id: mc_logic_necessary_condition_refute
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/削弱加强/必要条件
+  title: 反驳"不需要B"-证明B是A的必要条件
+  recognition: 观点隐含"有了A就能达成C,所以不需要B"(如上网能查词、电子书能满足阅读、人造肉能满足吃牛肉)
+  applicability:
+    include:
+    - 问"最能削弱/质疑"某个"某物将被取代/不再需要"的观点
+    - 底层逻辑是A(新方式)可直接达成C(目的),因此否定B(旧事物)
+    - 反驳方向是证明B是A得以成立的前提
+    exclude:
+    - 问支持,或直接比较A与B谁更好
+    - 题干只谈B自身有优点,未涉及A对B的依赖
+    - 双方都主张某物有用、只是路径不同
+  method_steps:
+  - 抽出底层逻辑:题干认为A能达到C,所以不需要B
+  - 扫选项,找"要达成A必须先有B"的必要条件表述
+  - 命中必要条件即反驳"不需要B",直接选
+  error_signatures:
+  - code: praise_b_unrelated
+    description: 被"B自身很好/有市场/有人用"迷惑,这些不构成对"被取代"的反驳
+  - code: quality_argument
+    description: 讨论A的缺陷(电子书伤眼、网上解释不准),未涉及A对B的依赖
+  - code: missing_necessary_condition
+    description: 找不到"必要条件"选项时被无关项带偏
+  fix_action: 做5道"取代/不需要"类削弱题,先写"A→C→不需B"框架再逐项核对,限时80秒/题
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥80%
+  pitfall: '"A不完美/有缺陷"不等于"需要B",考官常以A的瑕疵作干扰(如词典题D选项)'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/必要条件
+  - 行测/判断推理/削弱论点
+- id: mc_logic_experiment_baseline
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/实验评价/起点比较
+  title: 实验对照-比较之前起点必须相同
+  recognition: 题干为实验组(有A)与对照组(无A)对比,据结果差异推出"A有效/是原因"
+  applicability:
+    include:
+    - 实验组对照组对比,问支持/削弱/前提假设
+    - 比较类:两组人、两个城市做与不做某事,结果不同
+    - 问"结论成立的必要假设/前提"
+    exclude:
+    - 两派观点争议题(改用第三者建立联系)
+    - 题干没有明确分组对比
+    - 解释现象题
+  method_steps:
+  - 确认实验前两组条件,自问"起点是否相同"
+  - 支持/前提:找"实验前两组起点相同/无差异"或"实验组不比对照组好"的选项
+  - 削弱:找"实验组起点本身就更好/更差"的选项;比较维度必须对准关键变量(如叶酸题只比对叶酸水平)
+  error_signatures:
+  - code: baseline_keyword_miss
+    description: 选泛泛的"两组情况没有差异"项,未对准关键变量(叶酸题选健康情况相同不如叶酸水平相同)
+  - code: endpoint_compare
+    description: 拿"努力后的自己"与别人终点比,误用起点不同的比较
+  - code: vagueness_option
+    description: 选模糊项(如"大小城市事故率不同"未指明谁高谁低)
+  - code: support_as_weaken
+    description: 把"起点相同"(支持项)当成削弱项选
+  fix_action: 做8道实验对照削弱/支持题,先找"之前/本来/无差异"关键词判断起点,限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥85%
+  pitfall: '"并不完全相同"≠"不相同","有差异"要落到具体哪组更强,模糊表述不选'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/削弱-实验类
+  - 行测/判断推理/加强-实验类
+- id: mc_logic_experiment_other_cause
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/实验评价/引入他因
+  title: 实验结论-其他原因抓手(削弱引入他因,支持排除他因)
+  recognition: 实验对比后结论把结果差异全归因于唯一因素,问削弱/支持
+  applicability:
+    include:
+    - 削弱:实验组同时做了其他事、两组其他情况不同
+    - 支持:排除其他因素(两组其他情况都一样)
+    - 题干有"排除了某因素影响"的表述时尤其注意
+    exclude:
+    - 纯起点比较题(无其他行为线索)
+    - 两派观点争议题
+    - 问解释矛盾
+  method_steps:
+  - 削弱:找"实验组/对照组另有行为或条件差异导致结果"的选项
+  - 支持:找"除实验变量外两组其他情况一致/无其他原因"的选项
+  - 遇到"部分个体例外"一律排除——个体情况不影响平均值
+  error_signatures:
+  - code: individual_vs_average
+    description: 用个体反例(某个体减肥4公斤、某个体喝10杯咖啡)质疑整体平均值
+  - code: confound_ignored
+    description: 忽略选项指出的他因(步行组服药、咖啡组运动量小),选了无关项
+  - code: wrong_direction_age
+    description: 选方向说反的选项(步行组平均72岁、按摩组65岁,无法推出起点不同)
+  - code: scope_shift
+    description: 选项主体与题干不同(严重受损vs适度受损的中风幸存者)
+  fix_action: 做6道实验削弱/支持题,逐项问"这项制造了他因吗/排除了他因吗",限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: '"个别/部分"个体情况不能反驳基于平均值的整体结论,这是高频迷惑项'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/削弱-实验类
+  - 行测/判断推理/加强-实验类
+  - 行测/判断推理/他因削弱
+- id: mc_logic_counterfactual_compare
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/削弱加强/有无对比
+  title: 没有A会更好/更差-有无对比评价
+  recognition: 结论是"做了A没效果/没有A反而好",题干只看最终结果没看"做与不做"的差别
+  applicability:
+    include:
+    - 问"最能削弱/支持",结论包含"某措施没用/没变好"
+    - 问"评价/关键问题",需对比做与不做的差别
+    - 结论带绝对词("只有...才...""最佳途径")
+    exclude:
+    - 实验分组对比已给出完整数据的题
+    - 纯粹的两派观点争议
+    - 问解释
+  method_steps:
+  - 把结论转成"做了A与没做A结果是否有差别"的检验问题
+  - 削弱"某事物无效":找"没有A情况会更差"说明A有效;找"没有A结果不变或更好"说明A无效
+  - 评价题:找"若没有A(或让对照组尝试A)结果如何"这类正反答案分别支持/削弱的问题
+  error_signatures:
+  - code: quality_vs_quantity
+    description: 用"没及格"否定"分数提升了"(用质变否定量变)
+  - code: analogize_different_subject
+    description: 拿不同主体(乙公司、别人家孩子)类比,未保证起点相同
+  - code: he_cause_wrong_target
+    description: 削弱"B→A"时误选引入他因解释B的选项(行业形势好)
+  - code: daily_logic
+    description: 用日常理解代替题干"只有...才..."规定的逻辑方向
+  fix_action: 做6道有无对比削弱/支持题,每题先写"有A vs 无A"两列再对选项,限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: 结果没达到目标≠过程没效果(不及格≠成绩没提升),量变与质变要分开
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/削弱-实验类
+  - 行测/判断推理/加强-实验类
+- id: mc_logic_causal_reversal
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/因果倒置
+  title: 因果倒置-识别并秒选
+  recognition: 题干"具备A特征的人同时具备B特征(或实验组有A有B),所以A是B的原因",问削弱
+  applicability:
+    include:
+    - 现象共现:A与B同时存在,推出A导致B
+    - 实验对照:实验组有A→有B,对照组无A→无B,推出A导致B
+    - 结论含"改变A就能改变B"的因果作用
+    exclude:
+    - 结论已有明确时间先后或机制解释(不再仅凭共现)
+    - 问支持
+    - 题干不是共现结构
+  method_steps:
+  - 看到"A与B同时存在→A是B的原因"且问削弱,优先想因果倒置
+  - 找"具备B特征的人更倾向选择A"或"B是A的原因"的选项,直接选
+  - 无标准倒置项时,退而找"起点不同/他因"类次强削弱
+  error_signatures:
+  - code: concept_swap
+    description: 混淆相近概念(晚睡早睡vs睡多睡少、使用社交软件vs长时间用手机)
+  - code: brain_fill
+    description: 脑补选项与题干关联(居住条件好≠幸福、工作忙≠不幸福)
+  - code: incomplete_same
+    description: 选"两组并不完全相同"类模糊表述(不完全相同≠不相同)
+  - code: support_confused
+    description: 误把建立联系的支持项当削弱(门窗关紧→空气质量差→影响睡眠)
+  fix_action: 做8道因果倒置削弱题,看到共现结构先写"B→A?"再对选项,限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥90%(结构固定,识别即秒杀)
+  pitfall: 有标准因果倒置选项时不要被"起点不同/他因"的次强削弱带走(咖啡题C为准答案,E、F为备选)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/因果倒置
+- id: mc_logic_common_cause
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/引入共同原因
+  title: 共同原因C-同因异果削弱
+  recognition: A与B同时存在→A导致B,削弱选项中出现第三方C同时导致A和B
+  applicability:
+    include:
+    - 削弱共现因果,而因果倒置项不明显
+    - 选项出现"一个因素同时导致了两者""根本原因是C"
+    - 正相关数据推出的因果(应激高与疼痛慢性化正相关)
+    exclude:
+    - 问支持
+    - 题干已排除共同原因
+    - 选项只是解释A如何导致B(那是支持项)
+  method_steps:
+  - 看到"共现→因果",除因果倒置外同时找"C同时导致A和B"的表述
+  - 验证:该C确实分别解释了A与B两个现象
+  - 命中即削弱(A、B只是同因异果,无直接因果),直接选
+  error_signatures:
+  - code: mechanism_support
+    description: 把解释A→B机制的选项(建立联系=支持)当削弱(应激削弱疼痛抑制系统是支持项)
+  - code: partial_cause
+    description: 选项只与A或只与B相关,未同时涵盖两者
+  - code: data_reconfirm
+    description: 误选"再次证实A、B同时存在"的选项(只支持论据不证因果)
+  fix_action: 做6道共同原因削弱题,每题检查选项是否"一因双果",限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: '"A通过X影响B"是建立联系的支持项,与"X同时导致A和B"的削弱项要严格区分'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/他因削弱
+  - 行测/判断推理/削弱题型
+- id: mc_logic_support_causal_claim
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/削弱加强/支持方式
+  title: 支持因果关系结论三法
+  recognition: 结论为"A是B的原因/改变A可改变B",问支持或前提
+  applicability:
+    include:
+    - 支持"改变A就能改变B"的前提假设
+    - 实验结论的支持
+    - 题干为共现或正相关结构
+    exclude:
+    - 问削弱
+    - 解释现象题
+    - 结论并非因果关系
+  method_steps:
+  - 三选一:①排除因果倒置(不是B导致A,如"焦虑症不会让狗产生更多镁离子")②建立联系(解释A→B机制)③前假后假(无A则无B)
+  - 前提型优先找"排除因果倒置"项(否定B→A)
+  - 注意"有无"≠"高低":题干说含量高,选项说"没有"是概念错位
+  error_signatures:
+  - code: have_vs_high
+    description: 选项用"没有X"回应题干"X含量高"(有无≠高低)
+  - code: side_effect_irrelevant
+    description: 选"无副作用"类选项(与因果无关,任何药都有副作用)
+  - code: degree_mismatch
+    description: 程度词不匹配(题干"长期应激",选项"缓解应激"≠没有应激)
+  - code: dose_variation
+    description: 选"剂量因人而异"类个体差异项(不同阶段不同剂量)
+  fix_action: 做5道因果支持/前提题,每题把选项归到三法之一,限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: 支持前提题最优先找"排除因果倒置",不要被"建立联系"的机制选项抢先(铝题、狗镁离子题D项为标答)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/加强题型
+  - 行测/判断推理/原因结果
+- id: mc_logic_survivorship_bias
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/论证评价/样本代表性
+  title: 幸存者偏差-样本不能代表整体
+  recognition: 用"看得见的部分样本"推断整体属性("我见者即是所有")
+  applicability:
+    include:
+    - 调查/统计样本有选择偏差(跟帖者、受访者、就医者、现存遗迹)
+    - 问"最能削弱/解释"
+    - 由局部比例推断整体比例(85%跟帖赞同→85%民众赞同)
+    exclude:
+    - 样本已随机且具代表性
+    - 纯粹两派观点争议
+    - 问支持且选项是加强样本随机性
+  method_steps:
+  - 检查样本从哪来,自问"没被看见的那部分是什么"
+  - 削弱:找"样本是特定人群,不能代表整体"的选项(反对者不发声、成人受伤不就医、普通道观已消失)
+  - 注意样本量少≠无效,随机性和代表性才关键
+  error_signatures:
+  - code: over_infer_fatal
+    description: 由"就医被咬多"过度推到"致死/严重"等题干未提内容
+  - code: sample_amount_fallacy
+    description: 误以为样本量少可直接否定统计(有效性取决于随机代表性而非数量)
+  - code: stay_in_category
+    description: 选项偏离题干限定范畴(咬伤题扯家庭结构、致死)
+  fix_action: 做6道幸存者偏差削弱题,每题先写"样本=__,没被看见的是__",限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥80%
+  pitfall: 别纠缠观点对错,聚焦样本能否代表总体(博主跟帖题不要评观点正确与否)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/削弱论据
+  - 行测/判断推理/削弱题型
+- id: mc_logic_explain_contradiction
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/解释评价/解释矛盾
+  title: 解释矛盾-引入让结果成立的他因
+  recognition: 问"解释上述现象/看似矛盾",论据"按理说"推出的情况与实际结果相反
+  applicability:
+    include:
+    - 收费后晚接反而增多、政策降药价但药价上涨、装软件后员工更忙
+    - 按常理结果应怎样与实际结果矛盾
+    - 问"最能解释"
+    exclude:
+    - 论据与结果一致(那是解释现象)
+    - 问削弱/支持
+    - 选项只解释"没有减少"而非"增多"
+  method_steps:
+  - 写出对立:"按理说应→实际却是→"
+  - 找能解释"实际结果为何成立"的他因,方向必须对准结果
+  - 检验选项:必须让"增多/上涨/更忙"成立,只解释"没减少/没下降"的不选
+  error_signatures:
+  - code: explain_no_change
+    description: 选项只能解释"数量没减少",不能解释"数量增加"(收费标准低)
+  - code: individual_case
+    description: 用个别家长抗议、个别宠物猫解释整体数据变化
+  - code: ignore_quantity_word
+    description: 忽略"一些/部分"这类不确定数量词,不足以支撑大幅变化(流浪猫增1.5倍)
+  - code: one_sided_explain
+    description: 只解释矛盾的一半(麦子题只解释不愿种或只解释成主食)
+  fix_action: 做6道解释矛盾题,每题先写"按理/实际"两行再核对选项方向,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥80%
+  pitfall: 解释必须完整覆盖矛盾双方,半截解释(只解释一头)不选
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/原因解释
+- id: mc_logic_explain_phenomenon
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/解释评价/解释现象
+  title: 解释现象-指出蕴含的道理与影响
+  recognition: 问"解释上述现象",论据信息与结论方向一致,只需说明该结果为何成立
+  applicability:
+    include:
+    - 论据和结果一致,选能说明"结果为何成立"的选项
+    - 类似建立联系或引入他因的支持
+    - 问"解释"且无明显矛盾
+    exclude:
+    - 论据与结果相悖(那是解释矛盾)
+    - 问削弱/支持
+  method_steps:
+  - 先判断论据与结果是否一致
+  - 一致时找"指出题干蕴含的道理/影响"的选项(为何会有该结果)
+  - 对"最不能解释"型,找无关或反向项
+  error_signatures:
+  - code: off_topic_factor
+    description: 选与要解释现象无关的因素(中暑题选"抵抗力弱"、体温变化小)
+  - code: only_explain_one_side
+    description: 只解释了现象的一部分(麦子题只解释不愿种)
+  - code: reverse_or_weaken
+    description: 选项方向相反,把矛盾加深或与结论相悖
+  fix_action: 做4道解释现象题,紧扣"这个结果为什么成立",限时65秒/题
+  time_budget_sec: 65
+  accuracy_rule: 正确率≥75%
+  pitfall: 解释题与削弱/支持本质同源,可互换问法理解;要紧扣要解释的对象(中暑vs抵抗力)
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/原因解释
+- id: mc_logic_least_support
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/选非题型/最不能支持
+  title: 选非-最不能支持(找离谱项)
+  recognition: 问"最不能支持/除哪项外均能支持",选项结构为3个支持+1个无关或削弱
+  applicability:
+    include:
+    - 问法含"最不能支持""除哪项外均能支持"
+    - 找无关或削弱项即答案
+    - 正确项常为明显离谱项(方向相反或明显无关)
+    exclude:
+    - 问"最能支持"(单选支持)
+    - 问"最不能削弱"
+  method_steps:
+  - 圈出"不能"二字,定位结论的主体与效果
+  - 找最离谱的选项(方向相反或明显无关)直接选,其余支持项不必苛求严谨("大差不差"即可)
+  - 五种无关快速识别:他因导致结果/下定义/主体无关/宾语效果不同/不完美·副作用·因人而异·特殊个例
+  error_signatures:
+  - code: miss_not_word
+    description: 漏看"不能"二字,按正常支持题做(最大失分点)
+  - code: over_scrutiny
+    description: 过度纠结支持项严谨性(体温题B选项),忽略更明显的无关项(温度计精度)
+  - code: he_cause_selected
+    description: 由因推果结构中把"其他原因也能导致B"当支持(发烧题C其他压力),实为无关
+  - code: definition_option
+    description: 选"下定义/是什么"类选项(未讲作用影响),如素食定义
+  fix_action: 做10道最不能支持题,每题先圈"不能",再给每个选项标无关类型,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥85%(选非题近10年国考17道,占论证推理10%)
+  pitfall: '"不完美不是弊端""没有任何副作用"不能作为支持或削弱理由'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/加强选非题
+- id: mc_logic_least_support_p2
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/选非题型/最不能支持
+  title: 最不能支持-客观事实结论与干扰排除
+  recognition: 结论是客观事实陈述(如体温每十年降0.03℃),能解释该事实的即支持,其余为答案
+  applicability:
+    include:
+    - 结论为客观测量/事实描述,找解释原因的选项当支持
+    - 选项出现"尚不明确"类表述
+    - 考古/基因类推断(双关键词限定:高原+丹尼索瓦人)
+    exclude:
+    - 结论本身是推理过程的题
+    - 问"最能支持"
+  method_steps:
+  - 当结论是客观事实时,把"能解释原因"的选项当支持
+  - '"尚不明确"类表述通常无关(既非支持也非削弱),优先排除'
+  - 出现明显无关项(温度计精度/测量工具)直接选,不必纠结其他支持项严谨性
+  error_signatures:
+  - code: direction_reversed
+    description: 选因果方向反的选项(酪氨酸促进压力应对vs合成受阻)
+  - code: absolute_overreach
+    description: '"大多数简单"≠"全部简单",不能排除少数例外(真核生物题C)'
+  - code: keyword_partial
+    description: 选项只含"高原"或只含"丹尼索瓦人",缺双关键词(西伯利亚≠高原)
+  - code: brain_fill_degree
+    description: 脑补"距离不同=更远"等题干未说明程度的信息
+  fix_action: 做5道客观结论选非题,每题先划结论主体+效果,再扫"尚不明确/测量工具"类明显无关项,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥80%
+  pitfall: '"尚不明确/尚存争议"类模糊表述通常为无关项,不要当支持或削弱'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/加强选非题
+- id: mc_logic_pros_cons_direct
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/削弱加强/直接说利弊
+  title: 直接说利弊-结论"A比B好"
+  recognition: 结论是比较句"A(新方案)比B(传统方案)更好/更佳/更优"
+  applicability:
+    include:
+    - 结论为"A比B更佳/更好"
+    - 支持可说A好,也可说B不好(变相支持)
+    - 削弱可说A不好或B好
+    exclude:
+    - 结论不是比较优劣
+    - 问解释
+    - 两派观点争议链
+  method_steps:
+  - 写出"结论=A比B好"
+  - 支持:找说A好的,或说B不好的选项
+  - 削弱:找说A不好的,或说B好的选项
+  error_signatures:
+  - code: say_a_good_missing
+    description: 选项只说A在别领域好/科研投入扩大,未落到结论维度(污水处理更好)
+  - code: weaken_picked_for_support
+    description: 最不能支持题误选明显削弱项(材料不能与神经契合,无法精准抓取)
+  - code: praise_b_weakens
+    description: 选夸B的选项却忽略它会削弱"A比B好"
+  fix_action: 做5道直接说利弊题,每题先写"A好/B不好"两个支持方向再对选项,限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥85%
+  pitfall: 说B不好=支持A更好,方向容易反,先写两个方向再核对
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/削弱题型
+  - 行测/判断推理/加强题型
+- id: mc_logic_least_weaken
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/选非题型/最不能削弱
+  title: 选非-最不能削弱(找支持或无关)
+  recognition: 问"最不能削弱/最不能质疑",选项结构为3个削弱+1个支持或无关
+  applicability:
+    include:
+    - 问法含"最不能削弱""最不能质疑"
+    - 找支持或无关项即答案
+    - 结论带绝对化表述("最佳途径""必不可少")
+    exclude:
+    - 问"最能削弱"
+    - 问"最不能支持"
+  method_steps:
+  - 圈"不能",确认结论的主体与效果
+  - 找明显支持结论或完全无关的选项直接选,不必苛求削弱项严谨性
+  - 三步定位:确认主体效果→判断选项关联性→排除无关/反向项
+  error_signatures:
+  - code: absolute_word_miss
+    description: 没利用结论绝对词(质疑"最佳/唯一"即削弱),把"指出不同"当无关
+  - code: support_as_answer
+    description: 把支持结论的选项(芯片改善功能障碍)漏判为削弱
+  - code: new_concept_distract
+    description: 混淆"引入新概念"的无关项(皮层尺寸)与"不严谨削弱"项(饮食说)
+  - code: reverse_brain_fill
+    description: 脑补"距离不同=更远"等题干未说明程度的信息
+  fix_action: 做8道最不能削弱题,每题圈"不能"、写结论主体效果、找离谱项,限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥85%
+  pitfall: '"尚存争议/尚不明确"类模糊表述通常无关,不要当削弱;支持/削弱项不必苛求严谨'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/削弱选非题
+- id: mc_logic_effect_to_cause_weaken
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/因果推理/由果推因
+  title: 由果推因-三刀削弱
+  recognition: 观察到结果A并发现特征B,推断B是导致A的原因(如蛋感染率低+溶菌酶→抗感染关键)
+  applicability:
+    include:
+    - 现象(结果)+伴随特征→推断特征为原因
+    - 问"最不能削弱/最能削弱"
+    - 抗感染、耐旱、抗病类原因推断
+    exclude:
+    - 由因推果(题干已给原因找结果)
+    - 两派观点链
+    - 问支持
+  method_steps:
+  - 抽结构:结果A,特征B,结论"B是A的原因"
+  - 削弱强度排序:①引入他因(最强)②前假后真(无B却有A)③前真后假(有B却无A)
+  - 最不能削弱题:识别无关项(未触及因果链,如耐缺氧vs抗旱),而非选最弱削弱
+  error_signatures:
+  - code: new_cause_strongest
+    description: 没优先识别"他因"这个最强削弱(基因说、碳酸钙包裹说)
+  - code: irrelevant_picked
+    description: 把无关项(无氧气能活60天vs抗旱)当削弱
+  - code: reverse_support
+    description: 误把支持原结论的选项(战争导致男性死亡→支持战争致失调)当削弱
+  - code: scope_mismatch
+    description: 主体范围不同(身体严重受损vs适度受损)不能类比
+  fix_action: 做6道由果推因削弱题,每题先写"结果/特征/结论",再给选项排三刀强度,限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: 由果推因的最强削弱是"引入他因",别把精力耗在找弱削弱上;口诀"果推因,三刀破:他因来、前真后假、前假后真"
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/他因削弱
+  - 行测/判断推理/原因结果
+- id: mc_prem_assumption_negation_test
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/前提假设/取反验证
+  title: 引入前提-取反验证法
+  recognition: 问法出现"要得到上述结论，需要补充的前提假设/必须假设"，要选结论成立的必要条件，前提常来自题干外信息
+  applicability:
+    include:
+    - 问"需要补充的前提假设""必须假设"类题目
+    - 题干给论证结构、前提在题干外
+    - 支持题选项中出现"前提假设"表述
+    exclude:
+    - 问削弱/加强（不需要验证必要性）
+    - 题干结论已有充分支撑、问"最能支持"
+  method_steps:
+  - 划出题干论证链条：论据→结论
+  - 对每个选项取反（否定）后代入题干，判断结论是否"明显不成立"
+  - 取反后结论明显不成立的选项就是必要条件，当选
+  - 互检：若A是B的前提，则非A即削弱B——正确前提的否定应能削弱结论
+  error_signatures:
+  - code: chose_sufficient_condition
+    description: 把充分条件/一般支持项当成必要前提，取反后结论只是"可能不成立"而非"明显不成立"
+  - code: scope_expanded
+    description: 选项扩大了结论限定范围（如结论"判断佳酿"被扩为"判断一般酒/品质"）
+  - code: negated_wrong_link
+    description: 取反时对准了无关环节，没有作用于结论成立的必要条件上
+  fix_action: 做10道引入前提真题，每题手写"选项取反→结论是否明显不成立"两栏记录，限时80秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥85%
+  pitfall: 判断标准是"取反后结论明显不成立"而非"可能不成立"；结论有范围限定时，前提也必须锁定同一范围
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/假设
+  - 行测/判断推理/必要条件
+- id: mc_prem_policy_execution
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/前提假设/措施执行
+  title: 建议措施类-执行可行性前提
+  recognition: 题干是"建议某人做某事"或"政策/措施能解决问题"，问前提，核心是执行可行性
+  applicability:
+    include:
+    - 建议类（戒烟、报修、发展副业）有效的前提
+    - 政策落地类（设集中营业区、全球回收CO2）
+    - 措施能否见效的论证
+    exclude:
+    - 讨论措施本身利弊而非执行
+    - 问削弱措施效果
+  method_steps:
+  - 明确建议/措施内容，问"要它有效还缺什么"
+  - 依次检查三类前提：①此事尚未被做过 ②对方/各地有能力执行 ③大家会真的执行
+  - 对候选选项取反：不执行/无能力→措施失效，则是前提
+  error_signatures:
+  - code: ignored_will_to_execute
+    description: 只看到措施本身合理，忽略"是否真的会执行"（如全国每人给1元缺乏执行基础）
+  - code: confused_demand_and_effect
+    description: 把"防卫成功/执行效果"当前提，实际只需"存在威胁/需求"（土楼题A过度假设）
+  - code: feasibility_ignored
+    description: 没考虑执行成本与执行意愿（强制亲子鉴定谁付费）
+  fix_action: 做8道政策建议类前提题，每道先写"未做过/有能力/会执行"三栏再判断
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: 措施有效的前提是"大家愿意且有能力执行"，不是"措施本身没漏洞"
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/假设
+  - 行测/判断推理/大前提
+- id: mc_prem_exclude_other_cause
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/前提假设/排除他因
+  title: 因果推导-排除他因前提
+  recognition: 由单一原因推出结果（减产→涨价），前提常是"排除其他影响因素/旧因素已失效/机制唯一"
+  applicability:
+    include:
+    - 单一因→果论证需"单因素"前提（价格仅受产量影响）
+    - '"禁用X后仍发生Y"需排除X的延迟伤害'
+    - 技术机制类需确认唯一感知渠道（鲨鱼仅靠电信号）
+    exclude:
+    - 题干已提供对照组排除他因
+    - 只讨论相关性不涉及因果
+  method_steps:
+  - 找因果链条：因A→果B
+  - 列出推导成立必须排除的干扰：其他原因、延迟效应、其他渠道
+  - 优先选"明确排除其他因素/机制唯一"的选项，再取反验证
+  - 对比记忆：问削弱时选"结果还受其他因素影响/疾病多年后才显现"
+  error_signatures:
+  - code: assumed_single_cause
+    description: 默认只有题干一个原因，忽略"还受其他因素影响"的可能
+  - code: delayed_effect_ignored
+    description: 没考虑旧因素潜伏期，误判"当前正常=永远安全"
+  - code: overreach_assumption
+    description: 假设过强（要求"防卫成功"而非"存在威胁"）
+  fix_action: 做6道隐藏前提/假设题，每题先写"推导成立要排除什么"再对选项
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: '"当前没发现病例"≠"健康未受影响"——时间延迟能切断"当前正常=永远安全"，削弱选"疾病多年后才显现"'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/假设
+  - 行测/判断推理/原因结果
+- id: mc_conclusion_inference_five_rules
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/结论推出/排除五原则
+  title: 结论推出-排除法五原则
+  recognition: 问"由此可以推出/不能推出"，答案是题干能严格推出的信息，严禁脑补
+  applicability:
+    include:
+    - 结论推出类全部题目
+    - 选项含主观/绝对/程度/比较词时
+    - 题干信息多需快速排除
+    exclude:
+    - 削弱/支持/假设题（可结合常识推理）
+    - '"最能解释"类题目'
+  method_steps:
+  - 严守"不脑补"：题干没说的信息一律不选
+  - 遇五类词直接排除：①主体与题干不同 ②题干未提的比较 ③程度副词（急剧/最/过于）④绝对词（所有/一定/必然）⑤主观词（应该/惊讶）
+  - 用排除法锁定最严格、语气最弱的陈述句选项
+  - 核对选项与题干核心概念一一对应，防偷换概念
+  error_signatures:
+  - code: hallucinated_extra_info
+    description: 脑补"此前""市场占有度""口味"等题干未提信息
+  - code: invented_comparison
+    description: 题干没比，选项却比（苏格兰vs英国支持度、降温高vs低）
+  - code: forced_causality
+    description: 把相关/共现强加为因果（胆固醇降低导致甘油三酯降低）
+  fix_action: 做12道结论推出题，每题写出每个错误选项违反了哪条排除原则，限时60秒/题
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥90%
+  pitfall: 自己越熟的领域越容易做错——专业知识/常识最容易诱发脑补，必须只依据题干
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/日常结论
+- id: mc_eval_structure_anchor_therefore
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/评价结构/连锁推理
+  title: 评价结构-锚定"因此"对比首尾
+  recognition: 问"与上述推理结构形式最相似"，题干是"要A必须B，要B必须C，因此要A必须C"式连锁推理
+  applicability:
+    include:
+    - 一句话/两句话/三句话连锁推理结构
+    - '"只有...才""必须""最根本的是"表达的条件结构'
+    - 需把自然语言符号化为A→B的题目
+    exclude:
+    - 两人对话（看标准分歧）
+    - 评价论证缺陷（看概念错误）
+    - 内容起作用的削弱/支持题
+  method_steps:
+  - 只看逻辑连词，忽略具体内容，把每句写成A→B符号式
+  - 以"因此"为锚点："因此"前第一句主语=结论主语，"因此"前最后一句宾语=结论宾语，必须一致
+  - 注意连词方向："只有...才"是后推前（要A必须B=A→B），结论常写成A→C
+  - 先排除"因此"前后句子数量不符的选项，再比对首尾关键词
+  error_signatures:
+  - code: content_led_astray
+    description: 被具体话题内容带偏，忘了只看结构不看内容
+  - code: arrow_direction_flipped
+    description: '"只有...才"当成前推后处理，方向反了'
+  - code: anchor_head_tail_mismatch
+    description: 结论首尾与前提首尾对不上（A→C写成C→A）
+  fix_action: 做10道评价结构题，每题先把题干写成字母符号式再比对选项
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥85%
+  pitfall: '"A是B的基本要求/基础"=A→B（箭头指向必要条件）；结论方向一反转（C→A写成A→C）即为错项'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/推理形式
+  - 行测/判断推理/论证结构
+- id: mc_eval_structure_head_tail_anchor
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/评价结构/首尾锚点
+  title: 结构类比-首尾锚点法
+  recognition: 问"推理逻辑最相似"，题干句首与句尾是同一词的肯定与否定（如"古丝绸之路"vs"不可能重现辉煌"）
+  applicability:
+    include:
+    - 首尾构成A/非A否定关系的题干
+    - '"A靠B和C，只有B不能有A"结构'
+    - '"A不是B，所有B都要C，因此A不用C"结构'
+    exclude:
+    - 简单连锁推理（直接锚定"因此"首尾即可）
+    - 题干首尾不构成否定的题
+  method_steps:
+  - 先看题干句首与句尾关键词是否同一词的正反（A与非A）
+  - 选项句首句尾不是同一词正反的，直接排除
+  - 首尾匹配后再比对内部结构（前提数量、否定关系）
+  - 结构几乎一致但有细微调整（概念可等价替换）时先保留，其余全错则选它
+  error_signatures:
+  - code: no_head_tail_negation
+    description: 首尾没构成A/非A否定也当候选
+  - code: premise_count_wrong
+    description: 题干两个前提，选项只有一个前提就选
+  - code: second_premise_form_wrong
+    description: 前提2应为"许多X是A"，选项却写成其他关系
+  fix_action: 做8道结构类比题，只练"首尾锚点筛选→内部比对"两步，限时70秒/题
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥85%
+  pitfall: 选项结构"几乎一致但有细微调整"（如"自我要求不高"≈"不追求精益求精"）不要急着排除——其他选项全错时它就是答案
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/推理形式
+- id: mc_two_person_dialogue_standard
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/两人对话/标准一致
+  title: 两人对话-比较标准一致性
+  recognition: 甲乙争论"A与B谁重要/该选谁"，双方用不同衡量标准导致分歧（如增量大vs占比小）
+  applicability:
+    include:
+    - '"IQ与EQ谁重要"类争论'
+    - 二选一选"更受欢迎"的颜色/物品
+    - 折叠屏（增量大vs占比小）、AI技术（增长vs占比）类分歧
+    exclude:
+    - 对话双方无标准分歧、纯反驳
+    - 非比较型对话
+  method_steps:
+  - 拆出甲乙各自的评价标准（甲看销量增量、乙看占比）
+  - 正确选项必须同时体现双方标准，并在A与B之间直接比较数量
+  - 排除：只问单方、未对比数量、多选一结构、标准缺失的选项
+  error_signatures:
+  - code: compared_single_side
+    description: 只调查/比较单方数量，没在A与B之间对比
+  - code: binary_vs_multiple_choice
+    description: 题干二选一，选项做成了"选人多的"多选一结构
+  - code: one_side_standard_lost
+    description: 甲或乙的衡量标准在选项中缺失
+  fix_action: 做6道两人对话题（江苏真题优先），每题先写"甲标准/乙标准"两栏再选
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥75%
+  pitfall: 分歧的本质是评价标准不一致——正确选项必须同时还原双方标准，只还原一方观点即错
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/论证结构
+  - 行测/判断推理/推理形式
+- id: mc_eval_argument_logic_error
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/评价论证/逻辑错误
+  title: 评价论证-识别逻辑错误
+  recognition: 问"题干犯了/选项与题干犯了相同逻辑错误"，选项中也有错误论证
+  applicability:
+    include:
+    - 混淆概念（一词多义：幼稚/红字/占道经营的"道"）
+    - 偷换概念（工作时间vs工作行为）
+    - 转移话题（安装位置vs能否安装）
+    - 否定前件谬误（羽毛涨价→羽毛球涨价≠羽毛不涨→不涨）
+    exclude:
+    - 评价结构题（看结构不看内容）
+    - 只质疑论据而非推理过程的选项
+  method_steps:
+  - 先判断题干论证的错误类型：概念混用/偷换/转移话题/否定前件
+  - 优先对号入座三类高频错误：混淆概念、因果倒置、忽略他因
+  - 逐项找"犯同类错误"的选项，而非"反驳题干"的选项
+  - 选不出时回到题干，确认是推理过程错还是论据错
+  error_signatures:
+  - code: attacked_evidence_only
+    description: 选了质疑论据的干扰项，实际要选推理过程错误的
+  - code: polysemy_missed
+    description: 没识别出一词多义导致的概念混用
+  - code: moral_judgment_fallacy
+    description: 选了道德评价/权利归属讨论类选项，而非逻辑分析
+  fix_action: 做8道评价论证题，每题先写题干错误类型，再选犯同类错误的选项
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥80%
+  pitfall: 转移话题题的正确选项必须同样"换议题"；偷换概念高频是"时段概念（工作时间）"被偷成"动作状态（工作行为）"
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/论证缺陷
+  - 行测/判断推理/推理形式
+- id: mc_formal_connective_translation
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/形式逻辑/连词翻译/定方向
+  title: 逻辑连词翻译-定方向
+  recognition: 题干含"如果...那么""只要...就""只有...才""除非...否则""必须""基础"等连词，需转成A→B
+  applicability:
+    include:
+    - 所有形式逻辑翻译题的第一步
+    - 判断逻辑真假/代入事实真推理的题干
+    - 长句含多个连词需拆解
+    exclude:
+    - 无逻辑连词的纯事实题
+  method_steps:
+  - 只识别逻辑连词，其余内容抽象为字母
+  - 前推后：如果A那么B/只要A就B/所有A都是B → A→B
+  - 后推前：只有A才B/B是A的基础·必要·不可或缺 → 箭头指向"必须"方
+  - 特殊：除非A否则B → ¬A→B；"如果A即使B也会C" → A→C（"即使B"是干扰信息）
+  error_signatures:
+  - code: only_cai_as_if_ting
+    description: 把"只有才"当成"如果那么"前推后处理
+  - code: chufei_negation_dropped
+    description: 处理"除非否则"时丢了前件否定
+  - code: jishi_as_and
+    description: 把"即使B"当且关系带进推理
+  fix_action: 做15道连词翻译题，每题把题干整句符号化再对照答案，限时50秒/题
+  time_budget_sec: 50
+  accuracy_rule: 正确率≥90%
+  pitfall: '"必须"是必要条件标志，箭头指向"必须"方——"生命必须氧气"=生命→氧气，不是氧气→生命'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/翻译推理
+  - 行测/判断推理/常规翻译
+- id: mc_formal_demorgan_negation
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/形式逻辑/连词翻译/德摩根取非
+  title: 德摩根定律-或且取非互换
+  recognition: 题干含"并非""为假""不同意""论断不成立"，需对"或/且"整体取非
+  applicability:
+    include:
+    - 非(A或B)与非(A且B)的计算
+    - 复合结构(A或B)且非C的整体否定
+    - '"董事长不同意某意见"=否定其复合意见'
+    - '"所有都化验且没发现"为假→有的没化验或有发现'
+    exclude:
+    - 题干无否定词、直接顺推的题
+  method_steps:
+  - 写清括号内的或/且结构
+  - 或取非：非(A∨B)=非A∧非B（口诀"非乘进去，或变且"）
+  - 且取非：非(A∧B)=非A∨非B（否定同时成立=至少一个不成立）
+  - 嵌套结构逐层取非；且(∧)优先级高于或(∨)；否定"或"一边可推另一边
+  error_signatures:
+  - code: or_negation_one_branch
+    description: '"或"取非只否定了一支（把非A∨非B当成非A∧非B）'
+  - code: and_negation_both
+    description: '"且"取非错误推出"两者都不成立"'
+  - code: operator_not_swapped
+    description: 复合否定时内外层或/且运算符没互换
+  fix_action: 做10道德摩根题，每题先写符号式再展开，标出或且互换处，限时55秒/题
+  time_budget_sec: 55
+  accuracy_rule: 正确率≥90%
+  pitfall: 非(A且B)=非A或非B，不是"都不同意"——"没同时满足"只要求至少一个不满足；或为真时且不一定为真
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/翻译推理
+  - 行测/判断推理/真假推理
+- id: mc_formal_contrapositive_equiv
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/形式逻辑/连词翻译/逆否等价
+  title: 逆否命题与等价转换
+  recognition: 需要找与题干等价/最接近的表述，或题干含"或"要转成"如果"条件式
+  applicability:
+    include:
+    - A→B找逆否¬B→¬A
+    - A∨B转换¬A→B/¬B→A
+    - 复合逆否：A→(B∨C)的逆否=(¬B∧¬C)→¬A
+    - '"除非A否则B"三等价：¬A→B、¬B→A、A∨B'
+    exclude:
+    - 代入事实真推理（直接推理，非找等价）
+    - 判断逻辑真假里选项直接匹配题干
+  method_steps:
+  - 逆否：箭头反向+两边加非，A→B≡¬B→¬A
+  - 或转箭头：否定一边推另一边——¬A→B、¬B→A与A∨B三者等价；肯定一边不能推另一边
+  - 复合逆否逐层处理，先内后外
+  - 遇到"除非否则"可三式互换，选表述一致者
+  error_signatures:
+  - code: affirmative_or_inferred
+    description: '"或"里肯定一边就推另一边（你付了→我不用付），实际可能AA制'
+  - code: half_negation_contrapositive
+    description: 逆否只加了一半非或没反向
+  - code: equivalence_direction_reversed
+    description: ¬A∨B错写成¬A→¬B
+  fix_action: 做10道等价转换题，把原式与每个候选的符号式都写出再比较
+  time_budget_sec: 55
+  accuracy_rule: 正确率≥85%
+  pitfall: '"或"只能"否定一边推另一边"，肯定任一边都推不出结论'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/翻译推理
+  - 行测/判断推理/推理形式
+- id: mc_formal_fact_logic_four_cases
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/形式逻辑/推理规则/四情形代入
+  title: 事实真vs逻辑真-四种代入
+  recognition: 题干给逻辑关系A→B，再给一个事实（A真/¬A/B真/¬B），问能推出什么
+  applicability:
+    include:
+    - 判定"能推出/不能推出"
+    - 肯定前件得后件真（A→B + A真⇒B真）
+    - 否定后件得前件假（A→B + ¬B⇒¬A）
+    - 否定前件/肯定后件→无法确定
+    exclude:
+    - 判断逻辑真假（题干无事实真）
+    - 补条件推理
+  method_steps:
+  - 分清"逻辑真"（关系成立）与"事实真"（状态确定），逻辑真≠事实真
+  - 肯定前件：A→B + A真 ⇒ B真
+  - 否定后件：A→B + ¬B ⇒ ¬A
+  - 前件假/后件真→无法确定，选"无法确定/什么也推不出"
+  error_signatures:
+  - code: denied_antecedent_concluded
+    description: 由¬A硬推¬B（不赌博≠不破产）
+  - code: affirmed_consequent_concluded
+    description: 由B真硬推A真（收到房≠必中奖，可能继承）
+  - code: logic_real_as_fact
+    description: 把"如果中500万就送房"当成已中奖/已送房的事实
+  fix_action: 做12道"能推出/不能推出"题，每题标出应用的是哪条推理规则
+  time_budget_sec: 55
+  accuracy_rule: 正确率≥90%
+  pitfall: 现实中多因一果——A→B不意味¬A→¬B，禁止脑补唯一性（"没带钥匙"可能还有备用钥匙）
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/翻译推理
+- id: mc_formal_substitute_fact_forward
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/形式逻辑/推理规则/代入事实真
+  title: 代入事实真推理-先抓确定条件顺推
+  recognition: 题干有多个逻辑条件（如果/只要/除非）+一个明确事实真（小李没时间、刘老师必须选派）
+  applicability:
+    include:
+    - 翻译推理题的大多数
+    - 从事实真出发连续顺推/逆否
+    - 多个事实真依次代入
+    exclude:
+    - 题干无事实真——任何事实命题真假都无法确定
+  method_steps:
+  - 锁定题干的事实真（已知为真的条件）作为推理起点
+  - 顺推：事实真命中某条件前件→推出后件
+  - 逆推：命中某条件后件的否定→逆否推出前件为假
+  - '"或"否定一边推另一边；"且"两部分依次代入'
+  error_signatures:
+  - code: started_from_uncertain
+    description: 没从确定事实出发，先碰了无法确定的"或"关系
+  - code: denied_antecedent_jump
+    description: 从"非前件"妄下结论
+  - code: or_chain_stopped_early
+    description: '"或"推出一边后，没继续代入其他已知信息'
+  fix_action: 做15道翻译推理题，每题先在纸上写出完整逻辑链再代入，限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥85%
+  pitfall: '"且"两个条件必须同时成立才推结论；"或"只有否定一边才能推另一边——两者不能混用'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/翻译推理
+  - 行测/判断推理/常规翻译
+- id: mc_formal_supply_condition_reverse
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/形式逻辑/推理规则/补条件逆向
+  title: 补条件推理-从目标反向补链
+  recognition: 问"还需要补充什么条件/事实才能推出某结论"，已知部分逻辑与事实
+  applicability:
+    include:
+    - 已知部分逻辑+部分事实，问补什么能推出目标
+    - 要推出"或"的左边需否定右边
+    - 补"逻辑真"时可用其逆否命题
+    exclude:
+    - 已知事实可顺推直接出答案
+    - 判断逻辑真假
+  method_steps:
+  - 写出目标事实，反向找推出它的条件
+  - 逐步推导：要得"或"的某边→否定另一边；要得某事实→补前件或否定所在条件的后件
+  - 直到缺口对应到某个选项；补逻辑真时逆否等价（如补¬C→¬A等价于A→C）
+  - 检查是否需同时补两个条件（让"或"整体为真+否定它的一边）
+  error_signatures:
+  - code: reversed_logic_choice
+    description: 选了方向反的逻辑（需要A→C却选C→A）
+  - code: only_one_condition_half
+    description: 客机题只补了"无故障"，漏了让"故障∨劫持"为真的前提
+  - code: stopped_chain_early
+    description: 反向推导中途断了，没推到底就选
+  fix_action: 做8道补条件题，每题从目标倒推3步以上直到锁定选项，限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: 有的题需同时满足两个条件：既让"故障∨劫持"整体为真，又否定"故障"——只补一个是陷阱
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/翻译推理
+- id: mc_formal_no_reverse_inference
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/形式逻辑/推理规则/不能逆推
+  title: 逻辑不能逆推-否定前件/肯定后件坑
+  recognition: 题干给出A→B，已知¬A或已知B，问能推出什么——答案常是"无法确定/都推不出"
+  applicability:
+    include:
+    - '"否定前件"情形（没大嘴鲈鱼→鲦鱼/浮藻推不出）'
+    - '"肯定后件"情形（没被批准→具体原因推不出）'
+    - '"或"命题肯定一边推不出另一边（有红桶→不一定在商店）'
+    exclude:
+    - 顺推可确定的题（肯定前件/否定后件）
+  method_steps:
+  - 把题干第一句翻译成A→B
+  - 已知¬A（否定前件）→关于B什么也推不出
+  - 已知B（肯定后件）→关于A什么也推不出
+  - 秒杀：这类题正确项常是逆否命题（如"无垃圾桶→不在商店"），或直接选"都推不出"
+  error_signatures:
+  - code: concluded_from_neg_antecedent
+    description: ¬A仍推断A导致的具体情形（无鲈鱼→无鲦鱼/无浮藻）
+  - code: concluded_from_affirmed_consequent
+    description: B真仍推断具体前件（没被批准→是超龄/高血压/心脏病）
+  - code: picked_reversed_contrapositive
+    description: 把"有红桶→在商店"当逆否（实为肯定后件）
+  fix_action: 做10道"能推出/推不出"坑题，每题先标"前件/后件"再定规则，限时55秒/题
+  time_budget_sec: 55
+  accuracy_rule: 正确率≥90%
+  pitfall: '"否定前件""肯定后件"两个无效推理是考官挖坑重灾区——看到"无法确定"类选项优先考虑'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/翻译推理
+  - 行测/判断推理/真假推理
+- id: mc_formal_judge_single_contrapositive
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/形式逻辑/判断真假/逆否直选
+  title: 判断逻辑真假-单句找逆否直选
+  recognition: 题干只有一句带逻辑连词的话，选项全是逻辑命题（无事实）——福利题
+  applicability:
+    include:
+    - 题干1-2句逻辑、选项也是逻辑式
+    - 问"与题干意思相同/除了哪项不同"
+    - 正确选项大概率是逆否命题¬B→¬A
+    exclude:
+    - 3句以上逻辑链需串联
+    - 选项需代入验证的复杂题
+  method_steps:
+  - 把题干句子符号化（A→B）
+  - 直接找逆否¬B→¬A，或等价表述（¬A∨B、"只有...才"后推前）
+  - 排除方向反的（¬A→¬B、B→A）和纯事实陈述选项
+  - '"除了哪项"题选方向相反的那个'
+  error_signatures:
+  - code: picked_inverse_not_contrapositive
+    description: 选了逆命题（风险降低→坚持锻炼）而非逆否
+  - code: fact_statement_option
+    description: 选了无逻辑关系的事实陈述选项
+  - code: jishi_noise_misread
+    description: 把"即使B"当成推理条件带进去
+  fix_action: 做12道单句判断真假题，每题先写箭头再找逆否，30秒内完成
+  time_budget_sec: 50
+  accuracy_rule: 正确率≥90%
+  pitfall: '"如果A即使B也会C"固定句式——"即使B"是干扰信息，逻辑核心是A→C，别把B拉进推理'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/真假推理
+  - 行测/判断推理/翻译推理
+- id: mc_formal_judge_substitute_option
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/形式逻辑/判断真假/代入验证
+  title: 判断逻辑真假-选项前件代入验证
+  recognition: 题干3句以上逻辑链，选项是"如果...那么"逻辑式，需逐个代入验证
+  applicability:
+    include:
+    - 多逻辑链长题干（5-6条条件）
+    - 选项全为逻辑箭头
+    - 结合快速排除法使用
+    exclude:
+    - 题干1-2句可直接找逆否的简单题
+    - 题干有事实真的代入推理题
+  method_steps:
+  - 用字母标注题干重复概念，串联成逻辑链（A→B→C→D）
+  - 把选项前件代入题干逻辑
+  - 能推出后件→正确；推不出→排除
+  - 快速排除：选项前件是某条件前件的否定（否定前件）或正是某条件后件（肯定后件）→直接排除
+  error_signatures:
+  - code: option_denied_antecedent
+    description: 选项前件否定了题干前件还留着（如¬A→B）
+  - code: option_affirmed_consequent
+    description: 选项前件正是题干后件还留着（如¬C→B）
+  - code: cross_chain_linking
+    description: 把分属不同逻辑链的概念强行串联推理
+  fix_action: 做15道代入验证题，每题先字母标注串联再逐个代入选项，限时75秒/题
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥85%
+  pitfall: 判断逻辑真假是把"事实真"藏在选项前件里（最多试4次），与"代入事实真推理"同底——考官只是换了个藏法
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/真假推理
+- id: mc_formal_judge_nonstandard_connective
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/形式逻辑/判断真假/非标准连词
+  title: 判断逻辑真假-非标准连词试错定向
+  recognition: 题干有"是...的重要举措""必备战略思路""否则""并伴随"等非标准连词，方向不明
+  applicability:
+    include:
+    - 只转化标准连词（只有才/如果就/必须/只要就/除非否则），其余先跳过
+    - 用"两种理解都导致多选"的试错法定方向
+    - '"所有A都是B"=A→B'
+    exclude:
+    - 题干标准连词清晰可直译的题
+  method_steps:
+  - 先只画标准逻辑连词，非标准句先放一边
+  - 对非标准连词按一种方向理解，代入选项验证
+  - 若多个选项都正确（或都错误）→理解错了，调整箭头方向
+  - '"所有A都是B"=A→B；"并伴随""本质要求"不要强行当"且/推"关系'
+  error_signatures:
+  - code: forced_and_translation
+    description: 把"并伴随磁场增强"当"且"关系，导致所有选项全错
+  - code: over_translation
+    description: 强迫症式把每句话都转逻辑箭头，浪费在迷惑句上
+  - code: crucial_measure_direction
+    description: 把"是重要举措"当必要条件（方向反了），实际考官当充分条件
+  fix_action: 做8道含非标准连词真题，先标出哪些句子跳过再解题，限时65秒/题
+  time_budget_sec: 65
+  accuracy_rule: 正确率≥80%
+  pitfall: '"是...的重要举措"考官通常当充分条件（改造→改善民生）而非必要条件——先用"两解都多选"的试错法定位方向'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/翻译推理
+  - 行测/判断推理/真假推理
+- id: mc_tuimao_guiwufa
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/推矛盾/归谬法
+  title: 推矛盾-归谬法找隐藏事实真
+  recognition: 题干只有逻辑真(条件全是"如果…则…"等逻辑箭头),选项却都是确定的事实 → 必须假设某个前件为真,推出矛盾后反推隐藏事实真
+  applicability:
+    include:
+    - 题干给出多个逻辑命题,选项为"谁通过/谁去/买什么"等具体事实判断
+    - 多个条件的后件与前件能对接成链条(后件and中任一元素可触发另一条件的前件or)
+    - 要求推出"一定为真"的确定结论
+    exclude:
+    - 题干已给出事实真(直接代入推理即可,勿硬推矛盾)
+    - 选项也是逻辑箭头(应做前件验证,不是推矛盾)
+    - 问"一定为假/不可能为真"(用代入验证找前真后假)
+  method_steps:
+  - 把文字条件翻译成逻辑符号(A→B、A或B),记住"逆否等价、或的否定是且"
+  - 找连接点:某条件的后件(或后件and中的一支)正好是另一条件的前件(或前件or中的一支),串联成链
+  - 假设某个前件为真,沿链推导;若同时推出X与非X(或与题干事实冲突),则"谁产生矛盾,谁就不能为真"——该前件必假
+  - 把假命题(前件为"X或Y"时取"非X且非Y")代回原条件,继续推出其余确定事实
+  error_signatures:
+  - code: mistaken_logic_conflict
+    description: 误以为两个逻辑命题本身矛盾;实际是"加上某前件为真"才矛盾,两逻辑可同时为真
+  - code: wrong_conclusion_target
+    description: 把结论写成"某条件逻辑为假";正确结论是"某条件的前件这个事实为假"
+  - code: or_negation_error
+    description: 把"非(A或B)"错写成"非A或非B";应为"非A且非B",否则漏解
+  - code: missed_chain_link
+    description: 漏连链条(未发现后件and中一支能触发另一条件的前件),导致推不出矛盾
+  fix_action: 做5道推矛盾真题(2024国考预选赛、2023广东橱柜卫浴),每题先在纸上写出逻辑符号和串联链条再选答案
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥80%,低于则重做链条连接专项
+  pitfall: '"不去丹麦和冰岛"翻译为"不去丹麦 且 不去冰岛"(否定整个合取);"或"前件只要一支为真即触发后件,要否定"或"必须两支全否'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/真假推理-其他
+- id: mc_shutu_tonggui
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/推矛盾/殊途同归
+  title: 殊途同归-正反两路夹逼必真
+  recognition: 对同一对象,无论它为真还是为假都推出同一结论(如"想学乐器→学电吉他"与"不学乐器→学电吉他")→ 该结论必然为真
+  applicability:
+    include:
+    - 题干出现"若A则C"与"若非A则C"式的对称条件
+    - 通过逆否转换能把不同前件归到同一对象的正反两条路
+    - 题目要求推出"一定为真"的结论
+    exclude:
+    - 只有单向逻辑,找不到对同一对象的正反两路
+    - 题干已给事实真(直接代入更快)
+    - 问"可能为真/不可能为真"
+  method_steps:
+  - 翻译并把条件逆否化,统一成"对象X→结论C"与"非X→结论C"两条路径
+  - 确认两条路径推出的结论是同一个命题(殊途同归点)
+  - 无论X真假结论都为真,该结论即为隐藏事实真;锁定后再代入原条件验证其余结论
+  error_signatures:
+  - code: non_contrapositive_used
+    description: 把否命题或逆命题当等价用(只有逆否与原命题等价)
+  - code: wrong_merge_target
+    description: 两条路径推出的不是同一命题,却当成殊途同归
+  - code: overgeneralize
+    description: 推出必真结论后,又对具体个体妄加推断
+  fix_action: 做4道殊途同归题(2018浙江电吉他、2023北京计算机、2024考研体操),每题标出两条路径与共同结论
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥85%
+  pitfall: 殊途同归与推矛盾本质相同(逆否互换后等价);找到共同结论前必须先把链条逆否连接完整,别在中间跳步
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/真假推理-其他
+- id: mc_tixing_shibie
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/题型识别/题干特征判定
+  title: 逻辑推理题型三步识别
+  recognition: 拿到题干先判定"有没有事实真"+"选项是逻辑还是事实",10秒内锁定用代入/前件验证/推矛盾哪种方法
+  applicability:
+    include:
+    - 题干有"逻辑箭头+明确事实真"→直接把事实真代入推理(送分题)
+    - 题干只有逻辑真、选项也是逻辑箭头→把选项前件代入题干验证能否推出后件
+    - 题干只有逻辑真、选项是事实陈述→必须推矛盾找隐藏事实真
+    exclude:
+    - 问"一定为假/可能为真"(用代入验证找前真后假)
+    - 真话假话题(条件真假未知,不能直接推理)
+    - 文氏图题(出现"所有/有的"且问推出)
+  method_steps:
+  - 扫题干:是否有已知为真的具体事实
+  - 看选项:是"逻辑箭头"还是"事实陈述"
+  - 按三类表定方法:有事实→代入;无事实+选项逻辑→前件验证;无事实+选项事实→推矛盾
+  error_signatures:
+  - code: fact_not_used
+    description: 题干有事实真却不用,硬推矛盾浪费时间
+  - code: method_misapplied
+    description: 三类题型用错方法(该代入的却去推矛盾,该推矛盾的却代入)
+  - code: slow_typing
+    description: 判型超过10秒,整体时间失控
+  fix_action: 分类刷10道逻辑题,每题先写下"题型类型"再解题,练到10秒内判型
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥85%
+  pitfall: '"选项是事实"指具体"谁去/谁通过/买什么",不是泛指描述;判错类型直接导致方法选错,全题白做'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/翻译推理
+  - 行测/判断推理/真假推理
+- id: mc_ruxuan_minge
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/推矛盾/入选名额
+  title: 入选名额法-人数限制推矛盾
+  recognition: 题干有"几人选几人"的名额限制(4选3、7选4等),条件是逻辑真、选项是事实 → 用名额上限制造矛盾
+  applicability:
+    include:
+    - 题干明确给出入选/不入选人数(如"7人中选4人")
+    - 出现"如果A或B,则C"结构可做逆否
+    - 假设某人入选会连锁推出"全部入选"从而超名额
+    exclude:
+    - 题干没有人数限制
+    - 选项是逻辑箭头
+    - 已给事实真可直接代入
+  method_steps:
+  - 翻译条件并串联链条(如 张→李→刘→田)
+  - 假设某前件为真,若推出"全部N人入选"与"只选M人(N>M)"矛盾→该前件必假
+  - 秒杀:对"如果A或B,则C"做逆否得"非C→非A且非B",直接凑齐"不入选名额",剩余的人全部入选
+  - 正确选项必含"非C情况下那批必入选者"中至少一人,直接找含该批人员的选项
+  error_signatures:
+  - code: quota_overrun_unseen
+    description: 推导时未核对人数限制,出现超名额/全员入选还不警觉
+  - code: wrong_inverse
+    description: 想用否命题/逆命题替代逆否(只有逆否等价)
+  - code: count_miscount
+    description: 数错入选与不入选名额(如7选4记成选3)
+  fix_action: 做3道入选名额题(2017上海5选3、2024四川7选4、2025广东2男2女),每题先标人数限制再推导
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥75%
+  pitfall: 推矛盾后要找到"始作俑者"(直接触发矛盾的那个"或"前件)并对其取否,而不只是否掉中间假设;取否"或"要两边全否
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/真假推理-其他
+- id: mc_qianzhen_houjia
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/代入验证/前真后假
+  title: 问一定为假-直接找前真后假
+  recognition: 题干给逻辑(如果…那么…),问"一定为假/不可能为真/说法有误/断定不成立",选项是具体情况 → 找"前件真且后件假"的选项
+  applicability:
+    include:
+    - 问法:"哪项一定为假""不可能为真""说明断定不成立""表明说法有误"
+    - 题干给出一个或多个逻辑箭头
+    - 选项是具体情境(某情况发生与否)
+    exclude:
+    - 问"一定为真"要推结论(用推矛盾/代入)
+    - 选项是逻辑箭头而非具体事实
+    - 条件真假未知(真话假话题)
+  method_steps:
+  - 翻译题干所有逻辑箭头(A→B),逐一编号
+  - 套规则:A→B为假当且仅当"A为真且B为假"(前真后假);可先改写成非A或B再取否理解
+  - 逐个选项比对是否为某条逻辑的"前真后假"
+  - 题干多条逻辑时逐条核对,用过的条件打勾防漏
+  error_signatures:
+  - code: reverse_judged
+    description: 把"前假后真"或"后件为真"误判为逻辑为假
+  - code: missed_condition
+    description: 题干多条逻辑只核对了其中一条
+  - code: cross_chain_confusion
+    description: 把跨条件串行元素当成同一逻辑的前真后假
+  - code: text_diving
+    description: 陷入文字语义,不用结构化"前真后假"比对
+  fix_action: 做5道"一定为假"题,每题写出"哪个选项构成A且非B"再对答案
+  time_budget_sec: 50
+  accuracy_rule: 正确率≥90%
+  pitfall: 前件为假或后件为真时逻辑仍为真;如"起雾但飞机按时起飞"不能否定"不起雾→按时起飞",只有"不起雾且没按时起飞"才是为假
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/真假推理
+- id: mc_keneng_weizhen
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/代入验证/排除矛盾
+  title: 问可能为真-排除三个矛盾项
+  recognition: 问"哪项可能为真/满足题干要求/与题干条件不矛盾",选项是完整组合 → 代入排除与条件矛盾的选项,留下唯一不矛盾的
+  applicability:
+    include:
+    - 问法:"可能为真""符合题干""不矛盾"
+    - 选项给出完整的分配/组合情况
+    - 题干多条限制条件
+    exclude:
+    - 问"一定为真"(应正向推结论)
+    - 选项只是单一事实而非完整情况
+    - 条件为逻辑箭头且无完整选项(用推矛盾)
+  method_steps:
+  - 逐条件写出"与该条件矛盾"的情形(本质仍是前真后假或直接冲突)
+  - 把每个选项代入,与任一条件矛盾即排除
+  - 留下唯一与所有条件都不矛盾的选项
+  error_signatures:
+  - code: uncertainty_judged_contradict
+    description: 把"题干未确定"当成"与条件矛盾"排除
+  - code: rule_overlooked
+    description: 遗漏某个条件未核对,误留选项
+  - code: extra_assumption
+    description: 代入了题干没给的额外假设
+  fix_action: 做4道"可能为真"题,每题先逐条列出矛盾情形再代入排除
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥85%
+  pitfall: 选项可能在条件一不矛盾却在条件二矛盾;代入时每个选项要核对全部条件,只找到一个矛盾还不够
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/代入法
+  - 行测/判断推理/真假推理
+- id: mc_zhenhua_maodun
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/真话假话/矛盾关系
+  title: 真话假话-矛盾关系定真假
+  recognition: 题干说明"只有一句真话(或假话)",条件中存在互为矛盾的两句话 → 矛盾对必一真一假,占据唯一名额,其余话全假(或全真)
+  applicability:
+    include:
+    - '"只有1句真话"+能找到矛盾对(A与非A;A或B与非A且非B;A→B与A且非B)'
+    - '"只有1句假话"+能找到矛盾对'
+    - 两真两假:先找矛盾对占一真一假
+    exclude:
+    - 所有条件均为真(直接代入推理)
+    - 找不到矛盾对(改用同真/不能同假/代入验证)
+    - 选项是逻辑箭头
+  method_steps:
+  - 逐句找矛盾对:矛盾要求"永远一真一假",且主语必须完全相同
+  - 矛盾两句占据唯一的真话名额(或假话名额),其余所有话必然为假(或为真)
+  - 对"其余话"取否推出确定事实(假言为假→前件真且后件假)
+  - 把推出的事实代回验证
+  error_signatures:
+  - code: false_contradiction_or
+    description: 把"A或B"与"非A"当矛盾(非A且B时两句话同真,不是矛盾)
+  - code: false_contradiction_and
+    description: 把"A且B"与"非A"当矛盾(A且非B时两句话同假)
+  - code: prem_leap
+    description: 真假未定就按"肯前推肯后/否后推否前"推理
+  - code: subject_mismatch
+    description: 只盯否定词,不核对主语是否完全相同
+  fix_action: 做5道找矛盾真话假话题(2022国考五句、2025省联考五人说对),每题先标出矛盾对
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥85%
+  pitfall: 矛盾必须是"永远一真一假";"有的/所有""或/且"量词或联结词不同就构不成矛盾,这是最常见的翻车点
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/真假推理
+  - 行测/判断推理/两真两假
+- id: mc_zhenhua_tongzhen
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/真话假话/同真关系
+  title: 真话假话-同真关系定假话
+  recognition: '"只有一句真话"但找不到矛盾对 → 找"一句为真必导致另一句也为真"的同真关系,则该句必假'
+  applicability:
+    include:
+    - 无矛盾对,但"若①为真则②必为真",与"只有1句真话"冲突→①为假
+    - 常见同真:①"A为真"→"A或B为真";②前件为假→"A→B"为真;③后件为真→"A→B"为真;④唯一冠军时"A夺冠"→"B不夺冠"
+    - 两真两假:找完矛盾后,在剩余一真一假的两句里找同真
+    exclude:
+    - 存在矛盾对(优先用矛盾关系)
+    - '"只有一句假话"(用不能同真,不是同真)'
+    - 选项已给完整情况(直接代入)
+  method_steps:
+  - 假设某句为真,看是否连锁推出另一句也为真
+  - 若会→该句必假(否则真话数超限)
+  - 由该句为假推出事实(如"甲或乙"为假→甲和乙都假),再判断剩余句真假
+  - 判断"A→B"真假:前件假或后件真时整个命题为真,只有"前件真且后件假"才为假
+  error_signatures:
+  - code: same_true_missed
+    description: 只找矛盾漏掉同真,两真两假卡壳
+  - code: two_methods_confused
+    description: 混淆"矛盾推理"(推出其余话全假)与"同真推理"(推出触发句为假)
+  - code: antecedent_false_wrong
+    description: 误以为前件为假就是假话(A→B前件假时命题为真)
+  fix_action: 做4道同真类题(2023省联考、陕西2024两真两假、上海2019三句),每题标出"谁真→谁真"
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: '"A→B"为真有两条触发路径(前件假 或 后件真);识别不出这两条路径,判断假言真假必错'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/真假推理-其他
+  - 行测/判断推理/两真两假
+- id: mc_zhenhua_buneng
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/真话假话/不能同真同假
+  title: 真话假话-不能同时为真/为假占名额
+  recognition: 两句话不能同时为假(至少一真)或不能同时为真(至少一假),配合真话/假话名额直接锁死范围
+  applicability:
+    include:
+    - '"唯一通过/唯一冠军"类限制下,"甲没通过"与"丙没通过"不能同假(否则两人都通过)'
+    - 进阶模型:"A→B"与"非B"不能同时为假(非B假→B真→A→B真)
+    - '"只有一句假话"时,找不能同时为真的两句(如"冠军是欧洲"与"冠军是南美洲")占假话名额'
+    exclude:
+    - 能直接找到矛盾对(优先用矛盾)
+    - 判不出两句话是否不能同假/同真
+    - 选项完整可代入验证
+  method_steps:
+  - 判断两句话是否不能同时为假:同时为假会不会违反人数/唯一限制或逻辑→是,则至少一真
+  - 这两句占据唯一真话名额,其余话必假;从其余话取否推出事实
+  - '"只有一句假话"时反向:找不能同时为真的两句,占假话名额,其余话必真'
+  - 需要时再回验到底哪句是真话(或假话)
+  error_signatures:
+  - code: arrow_back_model_missed
+    description: 看不出"A→B"与"非B"不能同假(只盯文字不看结构)
+  - code: unique_condition_ignored
+    description: 忽略"唯一冠军/唯一通过/顺序围坐"等隐含限制,判不出不能同假
+  - code: direction_swapped
+    description: '"只有一句假话"却错用"找不能同假"'
+  fix_action: 做3道不能同真同假题(2023广东专家、2023陕西红蓝、2023山东冠军),每题先判断关系类型
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥75%
+  pitfall: '"A→B"与"非B"表面毫无关系却能互相钳制(不能同假);要主动翻译出"假言+后件否定"这一结构才能识别'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/真假推理-其他
+  - 行测/判断推理/只有一真/一假
+- id: mc_zhenhua_dairu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/真话假话/代入验证
+  title: 真话假话-选项代入数真假
+  recognition: 条件间无明显矛盾/同真/不能同假关系,但选项给出完整具体的情况 → 直接代入选项数真话数
+  applicability:
+    include:
+    - 选项给出完整的分配/排名/获奖数
+    - 规则特殊:"得2个奖项的人说假话""一人全对、一人一对一错、一人全错"
+    - 从条件无法直接推理
+    exclude:
+    - 选项只给单一事实而非完整情况
+    - 存在明显矛盾对(先用逻辑推理更快)
+    - 选项数量巨大且关系可推理
+  method_steps:
+  - 把选项代入题干,逐句判断每句话真假
+  - 统计真话数,或核对特殊规则(如"得2奖者应说假话")
+  - 一旦发现"应假却真/应真却假"立即排除该选项,不必验完
+  - 留下唯一满足数量/规则要求的选项
+  error_signatures:
+  - code: rule_read_backwards
+    description: 把规则理解反(如"得2奖说假话"记成说真话)
+  - code: partial_verification
+    description: 只找到一个矛盾就排除正确项,或正确项未验证全部条件
+  - code: count_omission
+    description: 数真话时漏掉某句
+  - code: avoid_substitution
+    description: 条件多却总想先推理再验证,浪费时间
+  fix_action: 做4道代入验证题(2022四川奖项、2020北京茶、2021广东花),每题限时50秒
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥85%
+  pitfall: '"应说假话的人说了真话"和"应说真话的人说了假话"都是矛盾信号,两种都要查,只查一边会漏'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/真假推理-其他
+  - 行测/判断推理/代入法
+- id: mc_aeio_duidang
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/AEIO/对当关系
+  title: AEIO对当关系-真假话定位
+  recognition: 题干为"所有…都是/都不是"与"有的…是/不是"的直言命题,并告知真话/假话数量 → 用对当关系占名额
+  applicability:
+    include:
+    - 出现"所有…都有/都没有""有人…""有的…不是"表述,且问真假
+    - '"只有一句真话/一句假话/两真两假"'
+    - 需要利用对当关系占名额后取否推事实
+    exclude:
+    - 文氏图题(问"推出什么",不涉及真假判断)
+    - 以假言命题为主
+    - 无"所有/有的"结构
+  method_steps:
+  - 给每句话标注类型:A=所有都是、E=所有都不是、I=有的是、O=有的不是
+  - 找矛盾对:A与O、E与I,一真一假占两名额(记"IE矛盾,浏览器")
+  - 无矛盾用:上反对A-E至少一假、下反对I-O至少一真、差等A真→I真且E真→O真(反向不行)
+  - 确定某句为假后取否推出事实(A假→O真,E假→I真)
+  error_signatures:
+  - code: ae_treated_contradiction
+    description: 把A-E上反对当矛盾(A-E可同假,只占假话名额)
+  - code: reverse_subaltern
+    description: 由"I真"推"A真"(特称真推不出全称真)
+  - code: type_label_wrong
+    description: '"没有人…"翻译错(E与O混淆)'
+  - code: singular_ignored
+    description: 忽视单称命题(可视为特殊I/O处理)
+  fix_action: 做6道AEIO真题(2018国考、2018山东、2022上海、2022山东),每题先标注每句类型与关系
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: 上反对A-E"至少一假可同假"、下反对I-O"至少一真可同真",两者方向相反;记反或记混直接错
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/集合推理
+  - 行测/判断推理/真假推理
+- id: mc_yiyi_duiying_yincang
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/一一对应/隐藏含义
+  title: 一一对应-三大隐藏考点展开
+  recognition: N个元素与N个位置一一匹配,每个位置只放一个 → 关键在于把"A=某位"展开成隐藏的不等式
+  applicability:
+    include:
+    - '"A在位置1"→展开为"B≠1且C≠1"(一山不容二虎)且"A≠2且A≠3"(一人不能分饰两角)'
+    - '"A≠2且B≠2"→最后一个元素C必须=2(最后的位置留给最后的人)'
+    - 用于剩余元素的收尾推理
+    exclude:
+    - 元素数≠位置数(多对一)
+    - 顺序排列题(元素有序)
+    - 未给位置匹配关系
+  method_steps:
+  - 每读一条条件就展开隐藏含义:某元素占某位→其他元素不能去该位,该元素也不能去其他位
+  - 综合排除,逐个元素锁定唯一位置
+  - 收尾用"最后的位置必须给最后的人"快速补全
+  error_signatures:
+  - code: one_hill_only
+    description: 只看"A=1"推出别人不能去1,忘了A自己不能去别处
+  - code: one_person_only
+    description: 反过来只推出"A≠2,A≠3",忘了排除别人
+  - code: last_slot_missed
+    description: 推到最后一个位置还不认领归属
+  - code: exclude_not_synced
+    description: 推出A=2后没同步排除其他位置
+  fix_action: 做5道一一对应题,每读一条条件就在草稿写展开式(A=1→B≠1,C≠1;A≠2,A≠3)
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥85%
+  pitfall: '"A=1"隐藏含义是双向的(别人不能占1,A也不能去别处);只展开一边会推不动或推错'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-单题
+- id: mc_yiyi_duiying_tuimao
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/一一对应/推矛盾
+  title: 一一对应-假设前件真找冲突
+  recognition: 一一对应题,题干只有逻辑箭头无事实真 → 假设前件为真,若导致两人抢一位/一人两职/人数超限即矛盾,前件必假
+  applicability:
+    include:
+    - 条件为"如果…那么…"且无事实真
+    - 假设某元素在某位置会连锁触发位置冲突
+    - 项目有参与人数上限(每项目最多2人)
+    exclude:
+    - 题干有事实真(直接代入更快)
+    - 问"一定为假"(用前真后假)
+    - 直言条件为主(用排除法)
+  method_steps:
+  - 翻译逻辑箭头并找可串联的链条
+  - 假设某前件为真,沿链推出各元素位置
+  - 若出现"两元素抢同一位置/一人两位置/超人数上限"→该前件必假
+  - 前件为假后,用"最后的位置留给最后的人"补全剩余分配
+  error_signatures:
+  - code: conflict_unnoticed
+    description: 推出"两人同职/一人两职"却不警觉
+  - code: quota_overrun
+    description: 忽略"每项目最多2人"等上限
+  - code: bad_assumption_start
+    description: 假设起点选错,绕远或推不出
+  fix_action: 做3道无事实真一一对应题(2017国考工作安排、2022省联考分工、2023国考项目),每题先标假设点
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥75%
+  pitfall: 假设前件为真推出矛盾后只得到"前件为假",必须把这个假事实代回原逻辑继续推,不能停在半路
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-单题
+- id: mc_yiyi_duiying_paichu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/一一对应/矛盾排除
+  title: 一一对应-找抢位矛盾排除选项
+  recognition: 三/四元素一一对应,选项给完整分配,条件为"若A在X位则B在X位" → 推出两元素抢同一位的矛盾,排除相关选项
+  applicability:
+    include:
+    - 逻辑箭头条件+选项完整分配
+    - '"分别来自不同大学/不同专业"等一一对应限定'
+    - 问"符合预测/与条件不矛盾"的选项
+    exclude:
+    - 问"一定为真"结论(正向推矛盾)
+    - 无一一对应限定(可同位)
+    - 直言条件为主(用排除+隐藏含义)
+  method_steps:
+  - 翻译逻辑箭头(如 哲学=③→管理=②)
+  - 找抢位矛盾:若"管理=①→哲学=①"则两人抢①,故管理≠①;把条件转成"X≠某位"
+  - 用排除掉的"谁不能等于谁"逐项排除选项
+  - 剩余唯一选项再代入验证
+  error_signatures:
+  - code: conflict_unnoticed
+    description: 推出"两个学院同录一个大学"却不当作矛盾
+  - code: option_by_option
+    description: 不排除直接逐一代入,速度慢
+  - code: contrapositive_wrong
+    description: 逆否推理方向用反
+  fix_action: 做4道三元素对应题(2012管综招聘、江苏2024),每题先写出"谁不能等于谁"
+  time_budget_sec: 70
+  accuracy_rule: 正确率≥80%
+  pitfall: '"若X在A位则Y也在A位"在"一一对应"限定下必然矛盾,要主动翻译成"X≠A位",不翻译就发现不了矛盾'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-单题
+- id: mc_yiyi_duiying_qzhj
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/一一对应/前真后假
+  title: 一一对应-找"预测错误"的选项
+  recognition: 问"哪项表明某人的预测/说法错误",且已知某元素已占某位 → 找使该逻辑为假的"前件真且后件假"情况
+  applicability:
+    include:
+    - 问法:"表明预测错误""不符合预测""说明说法不成立"
+    - 题干已给事实(某元素=某位)
+    - 逻辑箭头条件
+    exclude:
+    - 问"符合预测/可能为真"(找不矛盾)
+    - 无已知事实可用
+    - 问"一定为真"
+  method_steps:
+  - 找已知事实落在哪个条件的后件上,判定该后件真假
+  - 逻辑为假=前件真且后件假:后件已被已知事实定假,只需再满足前件为真
+  - 匹配含"前件为真"情况的选项
+  error_signatures:
+  - code: antecedent_ignored
+    description: 只盯后件为假,忘了还需前件为真
+  - code: wrong_condition
+    description: 用无关条件去定位
+  - code: error_vs_nonconflict
+    description: 混淆"预测错误"(找前真后假)与"不矛盾"(找整体不冲突)
+  fix_action: 做3道"预测错误"题(2012管综学院录用、江苏招聘),每题先标"已知事实是哪个条件的后件"
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥80%
+  pitfall: '"表明预测错误"=该逻辑为假=前件真且后件假;已知事实把后件定假后,答案还必须同时满足前件为真,两者缺一不可'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-单题
+- id: mc_yiyi_duiying_zhiyan
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/一一对应/直言条件
+  title: 一一对应-比较与共同活动定"不是同一人"
+  recognition: 条件为"教师比乙年龄大""甲与丙一起爬山/下棋""和第一名是好友"等比较或共同活动表述 → 蕴含"两者不是同一人"
+  applicability:
+    include:
+    - 比较关系(比…得分低/年龄大)→比较双方不是同一人
+    - 共同活动(一起爬山、下过围棋、是好友)→参与者不是同一人
+    - 双重/三重对应(省份+学校+颜色等)
+    exclude:
+    - 逻辑箭头条件为主
+    - 无"不是同一人"类隐含信息
+    - 元素位置一一对应但条件均为"如果…那么"
+  method_steps:
+  - 把"比较/共同活动/好友"统一翻译成"X≠Y"(不是同一人)
+  - 结合一一对应逐一排除,锁定唯一归属
+  - 剩两种可能时做分情况讨论:假设一种成立,推出矛盾则另一成立
+  - 双重对应先解一维,再用结论解第二维
+  error_signatures:
+  - code: same_person_assumed
+    description: 把"比丙得分低"当成丙在比较对象中,忘了隐含"不是同一人"
+  - code: case_split_missing
+    description: 剩两种情况不做分情况讨论,硬推卡住
+  - code: dimension_mixed
+    description: 双重对应中两个维度(省份/学校)混淆
+  fix_action: 做4道直言/比较对应题(教师银行职员、三人方向、四人专业),每题先把比较写成"≠"
+  time_budget_sec: 75
+  accuracy_rule: 正确率≥80%
+  pitfall: '"教师比乙年龄大"的真实信息是"教师≠乙"(不是同一人),而非年龄大小本身;所有比较和共同活动都是"不是同一人"的信号'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-单题
+- id: mc_wenshitu_dairu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/文氏图/代入替换
+  title: 文氏图-所有写箭头、有的代入替换
+  recognition: 题干同时出现"所有…都是"与"有的…是",问"可以推出什么" → 文氏图题(不是真话假话)
+  applicability:
+    include:
+    - '"所有A都是B"+"有的C是A"类组合'
+    - 两个"所有"+一个"有的"
+    - 补前提题型:已知"有的A是C",目标"有的B是C",需补"所有A都是B"
+    exclude:
+    - 问"只有一句真话/假话"(AEIO真假话)
+    - 无"所有/有的"结构
+    - 问"可能/不可能为真"
+  method_steps:
+  - 把"所有…都是/都不是"写成箭头(A→B、C→非B)
+  - 把"有的X是Y"中X代入箭头,沿箭头方向推出的内容替换后件(只能替换后件,不能逆推前件)
+  - 需反向时先换位:"有的A是B"↔"有的B是A",再代入
+  - 补前提:要使"有的A是C"变"有的B是C",必须补"所有A都是B"(方向A→B)
+  error_signatures:
+  - code: antecedent_substitute
+    description: 把"有的"条件错误替换到前件(只能替换后件)
+  - code: no_commutation
+    description: 忘了"有的A是B"可换位为"有的B是A"
+  - code: reverse_all
+    description: 由"有的"反推"所有"
+  - code: individual_overreach
+    description: 推出"有的教师…"却去推断具体某个老师
+  fix_action: 做6道文氏图题(2023北京、2018国考、2025管综、2018北京语言奖),每题先写箭头链再代入
+  time_budget_sec: 65
+  accuracy_rule: 正确率≥85%
+  pitfall: 只能沿箭头方向替换后件;需要逆方向时先对"有的A是B"换位成"有的B是A"再代入,直接逆推前件必错
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/集合推理
+- id: mc_wenshitu_wuqu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/文氏图/思维误区
+  title: 文氏图-"有的…不/是"不可互推
+  recognition: 排除型选项常考:"有的A不是B"推不出"有的B不是A";"有的A是B"推不出"有的A不是B" → 见到即判不可推出
+  applicability:
+    include:
+    - 选项出现"有些A不是B"类的反向断言
+    - 判断某个"有的"命题能否推出
+    - '"并非所有A都是B"需翻译为"有的A不是B"'
+    exclude:
+    - 由箭头链能直接推出的结论
+    - 选项为具体个体断言
+  method_steps:
+  - 判断选项是"有的A是B"还是"有的A不是B"还是"所有…"
+  - 能推出"有的A不是B"的情形:由箭头链把A代入非B侧(如 有的博士→非统计→非男性)
+  - 凡是从"有的A是B"推"有的B不是A"、或从"有的A是B"推"有的A不是B"的,一律判为推不出
+  error_signatures:
+  - code: o_to_o_reverse
+    description: 由"有的A不是B"推"有的B不是A"(A包含B时所有B都是A,此推断不成立)
+  - code: i_to_o
+    description: 由"有的A是B"推"有的A不是B"(可能所有A都是B)
+  - code: not_all_mistranslated
+    description: '"并非所有A都是B"错翻成"所有A都不是B"(应为"有的A不是B")'
+  fix_action: 做3道误区辨析题(2023广东博士男性、2025管综果树、2018北京语言奖),每题标注哪些选项是误区
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥90%
+  pitfall: '"并非所有…都是…"="有的…不是…";但"有的…不是…"与"有的…是…"之间不可互推,两个方向都要设防'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/集合推理
+- id: mc_wenshitu_guoban
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/逻辑判断/文氏图/过半交集
+  title: 文氏图-两个超过一半必有交集
+  recognition: 题干出现两个"超过半数/大多数"的集合描述 → 两集合必有交集,或可比较交集大小
+  applicability:
+    include:
+    - 两个集合占比都>50%(如"大多数本科毕业生为工学""大多数毕业即就业")
+    - 问"有些X是Y"或交集数量比较
+    - 占比明确的集合题
+    exclude:
+    - 只有一个"超过一半"
+    - 两个占比相加≤100%
+    - 问具体个体归属
+  method_steps:
+  - 找出两个占比>50%的集合
+  - 直接写结论:有些(集合1)是(集合2)(必有交集)
+  - 若比较大小:两个>50%集合的交集,必大于两个<50%集合(非1且非2)的交集
+  error_signatures:
+  - code: single_half
+    description: 只用一个过半集合就下交集结论
+  - code: half_boundary
+    description: 把"恰好50%"当成超过一半
+  - code: compare_direction
+    description: 交集大小比较写反(大的是两个过半的集合,不是两个不过半的)
+  fix_action: 做2道过半交集题(2021山东工学就业、2012管综阔叶珍稀),直接套公式
+  time_budget_sec: 50
+  accuracy_rule: 正确率≥90%
+  pitfall: '"超过一半"是严格>50%;两个过半集合的交集非空,但具体交多少人不确定,只能推"有些"'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/集合推理

@@ -1,0 +1,1982 @@
+- id: mc_yituowu_general
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/通用
+  title: 一拖五-通用题型方法
+  recognition: 一个材料/条件组连续出5问，背景条件(队列长度、组空间数)贯穿全题
+  applicability:
+    include:
+    - 一拖五整套(5问)所有题型:队列类/分组类/队列+分组/数独
+    - 问'一定为真/一定为假/可能为真'三类问题
+    - 单问带附加条件(如'若甲在第二天')的场景
+    exclude:
+    - 单题(非一拖五)无连续5问
+    - 只需构造完整排列、无需逐问判断的题
+  method_steps:
+  - 读题先锁定背景限制(队列长度、组数量、每组空间数)并写下，5问共用
+  - 每问先把该问的附加条件圈出来(它是钥匙)，再沿用前问已推出的公共结论
+  - 问'一定为真'只能严格正向推理、禁用代入；问'一定为假'代入验证找矛盾、优先验极端选项；问'可能为真'排除3个矛盾选项或构造一组无矛盾排列
+  - 推理只剩两种可能时分情况讨论，只有两种情形都成立的结论才是一定为真
+  error_signatures:
+  - code: use_substitution_for_certain
+    description: 问'一定为真'时用代入法，把'可能真'选项误当'一定真'
+  - code: ignore_background_limits
+    description: 忽略队列长度/组空间数等背景限制，后续推理全错
+  - code: ignore_added_condition
+    description: 做后几问时忘记该问新给的附加条件
+  - code: miss_case_split
+    description: 只剩两种可能时不分类讨论，直接下结论
+  fix_action: 做10套一拖五整套(每套5问)，整套限时60-70秒/题，每题强制先圈附加条件
+  time_budget_sec: 80
+  accuracy_rule: 每套5问至少对4问(80%)
+  pitfall: 每问的附加条件才是该问的钥匙，只靠公共条件做题、漏用附加条件，大概率选错
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_queue_basic
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列类
+  title: 一拖五-队列类套路
+  recognition: 若干元素排成一列(排队/排名/货架/值班)顺序不确定，给确定/顺序/绑定/隔离/推理五类条件
+  applicability:
+    include:
+    - 纯顺序题与带身份(中/外、男/女、军官/士兵)的排队题
+    - 确定类+顺序类+绑定类条件组合
+    - 问'可能/一定/不可能'任意问法
+    exclude:
+    - 圆桌环形题(方向规则不同，见环形卡)
+    - 只考分组不考顺序的题目
+  method_steps:
+  - 条件符号化:确定类A=3/B≠4直接写；顺序类统一写成<号(猴<妙<美)；绑定类(AB)=相邻可互换、[EF]=顺序固定
+  - 先填确定类条件并按'空间分割'思考:A=4→左边3个右边2个位置，先看空间少的一侧能否装下其他条件
+  - 顺序类转空间限制:A<B<C→A不能排倒数两位、C不能排前两位、B不能排首尾；再扣已占位置算剩余空间
+  - 绑定类确定其一即确定其二；位置可互换时分别考虑两种排法，剩余空间不够时绑定块整体前移/后移
+  error_signatures:
+  - code: ignore_position_exclusive
+    description: 忘了'一个位置只能占一个元素'，A=3后其他元素仍排3
+  - code: sequence_space_blind
+    description: 顺序条件只记大小不换算空间需求(A<B<C→A右边需2个空位)
+  - code: binding_swap_miss
+    description: 只写一种前后顺序，忽略相邻/间隔固定时元素位置可互换
+  - code: confuse_insulation_binding
+    description: 把'不相邻'(隔离,中间隔几个不固定)当'恰好隔一个'(绑定,格数固定)
+  fix_action: 做12道队列类题目，限时90秒/题，每题先用符号化+空间分割写出一步推理再动笔
+  time_budget_sec: 90
+  accuracy_rule: 85%以上
+  pitfall: 绑定类'AB相邻'只约束相邻不约束前后，推位置时漏算可互换的两种排法必错
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_queue_fill_up
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列类/占满法
+  title: 一拖五-数量占满法
+  recognition: 两类元素数量之和恰好等于槽位总数(6瓶12球红3绿3；7天每天2部电影科幻3武侠3=剩余6天)
+  applicability:
+    include:
+    - 每个槽位放2个的配对题(球入瓶、电影排期、课程复习)
+    - 给出'某两类不能同槽'约束的题
+    - 加'同类连续'附加条件的排期题
+    exclude:
+    - 每槽放1个的普通排列题
+    - 没有明确槽位数量的题目
+  method_steps:
+  - 先做数量加法:算两大类的数量之和是否等于槽位总数(红3+绿3=6瓶)
+  - 若相等且两类不能同槽→每槽必且只能放这两类中的一个，另一组散类(白3黑2蓝1=6)每槽一个
+  - 推出散类中任意两个不能同槽(白黑、白蓝、黑蓝都不行)，直接对应'不可能同槽'选项
+  - 有'连续'附加条件时，把已占满的两大类按连续段摆好(前3天/后3天)，再排散类
+  error_signatures:
+  - code: skip_quantity_calc
+    description: 不先算数量之和，直接穷举组合
+  - code: forget_residual_rule
+    description: 占满后没意识到散类元素每槽只能放一个、任意两个散类不同槽
+  - code: ignore_fixed_slot
+    description: 没注意'周四已放2部科幻'，基数没先从总数里扣掉
+  - code: pair_assume
+    description: 误以为同类两两同槽，实际靠'数量之和=槽位数'逼出每槽必放其一
+  fix_action: 做6道占满法题目，限时100秒/题，每题先写出两个数量加法
+  time_budget_sec: 100
+  accuracy_rule: 85%以上
+  pitfall: '''红绿不同槽''不是简单互斥，真正的钥匙是''数量之和恰好=槽位数''→每槽必放其一，丢掉这一步本题全废'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_queue_long_span_overlap
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列类/大跨度绑定
+  title: 一拖五-大跨度绑定相交
+  recognition: 两个'中间隔n个元素'的绑定条件占格之和>总人数(7人排队，隔3人=5格+隔3人=5格，5+5=10>7)
+  applicability:
+    include:
+    - 排队/隧道/跑步赛道出现两个大跨度间隔条件
+    - 两个条件存在交叉关系的题
+    - 问'可能/不可能/可以推出'及'最多隔几人'
+    exclude:
+    - 只有一个间隔条件的题
+    - 占格之和≤总人数、可以平铺的题
+  method_steps:
+  - 把每个间隔条件折算成占格数(相邻=2格，隔1个=3格，隔3个=5格)，求两个条件占格之和
+  - 占格和>总人数→两个条件必须相交(重叠放)，枚举相交方式:谁卡在谁中间，通常只有2-3种
+  - 先摆相交的大跨度块，剩余空格填入剩余元素；每问附加条件用来排除某几种相交方式
+  - 问'最多/最少隔几人':最远=放首尾(总人数-2)，最近=相邻(0)
+  error_signatures:
+  - code: span_count_wrong
+    description: 折算占格数出错(隔3人应占5格，误算成4格)
+  - code: flat_assumption
+    description: 默认两个大跨度条件能平铺，没算占格和是否超过总数
+  - code: arrangement_miss
+    description: 只列一种相交排列，漏掉另一种，选项判错
+  - code: ignore_swap
+    description: 间隔条件未声明顺序时，两端元素可互换没考虑
+  fix_action: 做8道大跨度绑定题，限时100秒/题，每题必须画出全部相交排列再验证选项
+  time_budget_sec: 100
+  accuracy_rule: 80%以上
+  pitfall: 相交排列不唯一，先把所有可能排列全列出来再逐问验证，少列一种就错
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_queue_circle
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列类/环形
+  title: 一拖五-环形队列(圆桌)
+  recognition: 圆桌/围成一圈，座位编号逆时针或乱序，含'某人在某人左边第N张'表述
+  applicability:
+    include:
+    - 圆桌座位号推理
+    - 绑定类+左右方向混合的环形题
+    - 座位编号不按顺时针顺序给的题
+    exclude:
+    - 直线排队题
+    - 编号连续且按顺时针给出的顺序题
+  method_steps:
+  - 先记口诀'左顺右逆':面对桌子左手边=顺时针，右手边=逆时针
+  - 把'右边第N张'换算成逆时针数N格，'左边第N张'=顺时针数N格
+  - 用确定类条件(丙在1号)定锚，逐个元素按方向一步推理排除
+  - 某个座位被占后，其绑定元素的对应编号同步失效(如乙所在座位被占→甲、丙不能是该编号)
+  error_signatures:
+  - code: direction_reverse
+    description: 把左边/右边与顺/逆时针搞反，所有推理颠倒
+  - code: anchor_missing
+    description: 不从已确定座位开始推，直接猜位置
+  - code: ignore_occupied
+    description: 某座位被占后没同步排除其绑定元素的对应编号
+  fix_action: 做5道环形队列题，限时90秒/题，动笔前先标清每个方向的换算
+  time_budget_sec: 90
+  accuracy_rule: 80%以上
+  pitfall: '''左边第N张''是顺还是逆方向判断错则整题全错，先花10秒标方向再推'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_grouping_basic
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类
+  title: 一拖五-分组类基础套路
+  recognition: 7-10个元素分到2-3个组、组间无顺序，条件含确定/绑定/隔离/推理类(组间无顺序类条件)
+  applicability:
+    include:
+    - 分两组(上午/下午、一二编队)与分三组
+    - 绑定(A=B同组)、隔离(A≠B不同组)、逻辑箭头条件
+    - 问'一定为真/不可能'的分组题
+    exclude:
+    - 组间有顺序的队列+分组混合题(见混合卡)
+    - 每组空间数题目未给出的(见组空间数量卡)
+  method_steps:
+  - 第一步定背景:几组、每组几个空位，写下(60-70%错题源于漏背景)
+  - 第二步填确定类条件；第三步用隔离条件(A≠B→两组时各占一组，两组空间各减1)
+  - 第四步用绑定条件(A=B→合成大零件，只能放进空位≥零件大小的组)
+  - 第五步用推理条件:同时写逆否命题；假设前件为真推出矛盾→前件必假，得到隐藏确定条件
+  error_signatures:
+  - code: background_skip
+    description: 忽略分组方式(2-2-3还是1-3-3)直接推
+  - code: at_least_at_most_confuse
+    description: 把'至少一个'(允许两人同组)与'至多一个'(不允许同组)混为一谈
+  - code: space_not_enough
+    description: 绑定大零件没检查目标组剩余空间是否放得下
+  - code: contrapositive_miss
+    description: 逻辑箭头只记正命题，不写逆否命题
+  fix_action: 做12道分组基础题，限时100秒/题，每步推理前先写各组剩余空间数
+  time_budget_sec: 100
+  accuracy_rule: 85%以上
+  pitfall: '''至少一个在A组''≠''两人不同组'':前者允许两人同时在A组，混淆必选错'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_grouping_standard
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/标准分组
+  title: 一拖五-标准分组
+  recognition: 题干明确告知元素总数和每组人数(7元素分3人+4人两组，8元素分2/3/3三组)
+  applicability:
+    include:
+    - 空间数明确的两组/三组分法
+    - 隔离+推理+绑定混合条件
+    - 问'一定为真/不可能'的分组题
+    exclude:
+    - 空间数未明确的分组(套路3)
+    - 连续两次分组找交集(套路2)
+  method_steps:
+  - 先用确定条件定锚(如航母己必在第二编队)，算每组分完确定元素后的剩余空位
+  - 隔离条件(A≠C)→两边各占一个，两组剩余空间各减1
+  - 推理条件写逆否(若乙在一→丁在一，逆否:丁不在→乙不在)，配合空间不足推矛盾:假设丁在二→乙被迫也在二→超员→丁必在一
+  - 两侧各剩1个空位时，最后两个元素必'一边一个'→不可能同组
+  error_signatures:
+  - code: position_interchangeable
+    description: 甲丙位置可互换却当确定条件用，把'可能真'当'一定真'
+  - code: three_people_binding_overflow
+    description: 绑定后形成三人组，没检查组内只剩2个空位、超员仍往下推
+  - code: assume_alone_one_side
+    description: 没意识到最后剩两个元素时必然一边一个
+  fix_action: 做8道标准分组题，限时90秒/题，优先找'各剩一个空位→剩余两人不同组'形态
+  time_budget_sec: 90
+  accuracy_rule: 85%以上
+  pitfall: 最后'两边各剩一个空位'时剩余两人必不同组，是最高频考法，主动去找这个形态
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_grouping_twice_intersection
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/两次分组找交集
+  title: 一拖五-分组两次找交集
+  recognition: 同批元素按两种属性各分一次组(年龄/性别、学历/性别)，最终求同时满足两个属性的元素(如'17岁女生')
+  applicability:
+    include:
+    - 7人/6人/5人按两种属性各分组一次
+    - 条件含'X与Y相同'绑定、'X与Y不同'隔离
+    - 问'谁同时满足A和B属性'
+    exclude:
+    - 只按一种属性分一次组
+    - 属性超过两组且目标不是找交集
+  method_steps:
+  - 第一次分组:用'两人不同→一边一个'占位，再用'三人相同→必须同组'但该组剩余放不下3人→逼三人进另一组(大组被填满)
+  - 第二次分组:同样操作按另一属性再来一遍，分别列出每属性的'候选名单'
+  - 找交集:两个候选名单唯一重合的元素即答案
+  error_signatures:
+  - code: group_capacity_skip
+    description: 没算'17岁组只剩2空、放不下3人'，没把三人组逼进另一组
+  - code: first_round_leak
+    description: 第一轮结论没写全就急着做第二轮
+  - code: intersection_miss
+    description: 候选名单列错或漏项，交集找错人
+  - code: same_attr_swap
+    description: '''X与Y年龄相同''的两人可都17或都18，没结合剩余空间定死'
+  fix_action: 做6道两次分组找交集题，限时110秒/题，每题最后画两列候选名单再取交集
+  time_budget_sec: 110
+  accuracy_rule: 90%以上(套路固定，应拿满)
+  pitfall: 核心是'大组被绑满、小组放不下→三人必进大组'，每轮分组都要走到这一步再进下一轮
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_grouping_space_count
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/组空间数量
+  title: 一拖五-先确定组空间数量
+  recognition: 题干只说元素分几组、不说每组几人，但给组间数量关系('A组比B组多')，需先算每组空间数
+  applicability:
+    include:
+    - 5人分3组每组1-2人→唯一模式2-2-1
+    - 有'某组最多/最少/一样多'或'至少n人'的数量线索
+    - 逻辑箭头后件与已定人数矛盾的题
+    exclude:
+    - 题干已明确每组人数的标准分组
+    - 没有组间数量关系的题
+  method_steps:
+  - 第一步:按'每组1-2人'等限制+总人数，穷举出唯一分组模式(5人分3组→2-2-1)
+  - 第二步:用数量关系('X比Y多'→X=2人、Y=1人)把各组空间数定死
+  - 第三步:逻辑箭头后件与某组人数矛盾(如'只有戊选陈老师'但陈老师=2人)→后件必假→逆否得前件假
+  - 第四步:排除已定元素后，剩余元素必须填满剩余空间，逐组补全
+  error_signatures:
+  - code: mode_list_incomplete
+    description: 穷举分组模式漏情况(6人分4组有2-2-1-1与3-1-1-1两种)
+  - code: consequent_contradiction_miss
+    description: 没发现'只有X在A组'与'A组应2人'矛盾
+  - code: double_role
+    description: 同一元素被分进两个组
+  - code: average_assumption
+    description: 只知道几组人数之和却默认平均分配
+  fix_action: 做8道组空间数量题，限时110秒/题，第一步必须写出分组模式再动笔
+  time_budget_sec: 110
+  accuracy_rule: 80%以上
+  pitfall: '''只有X选A组''意思是A组只有X一人，若A组实际应2人则后件必假→逆否推前件，这是最常用的突破口'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_grouping_by_category
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/分类分组
+  title: 一拖五-分类分组
+  recognition: 元素按类别(菜/椒/瓜/豆、大洲)分组，同类元素不能同组，每组各类取一个
+  applicability:
+    include:
+    - 每类n种元素分m组、每组各类恰一个
+    - 绑定(必须同组)与排斥(不能同组)的传递推理
+    - 已给某组元素、求剩余元素归属
+    exclude:
+    - 不限制'同类不同组'的普通分组
+    - 元素不属于任何类别体系的题
+  method_steps:
+  - 标记传递关系:A≠B且B=C→A≠C；A=B且B=C→三者同组
+  - 已知某组元素时，先列该组已占的类别，其余同类元素必分到其他组
+  - 结合绑定条件锁定位置:某类别在某组已被占，则对应绑定元素只能去有该类空位的组
+  - 按'每组各类各一个'网格逐步填满
+  error_signatures:
+  - code: transitivity_miss
+    description: 忽略A≠B且B=C可推出A≠C的传递关系
+  - code: category_duplicate
+    description: 同类别两个元素放进同一组，违反'同类不同组'
+  - code: ignore_occupied_slot
+    description: 某组该类别已被占，仍把同类的另一个放进去
+  - code: binding_against_rejection
+    description: '''必须同组''与''不能同组''冲突时没按排斥优先排除'
+  fix_action: 做5道分类分组题，限时100秒/题，先标出所有排斥与绑定再填网格
+  time_budget_sec: 100
+  accuracy_rule: 80%以上
+  pitfall: '''同类不同组''是主约束，所有推理都围绕每组各取一个类别展开，忘了这层每步都错'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_grouping_slot_pairing
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/档位与配对
+  title: 一拖五-档位分配与配对模型
+  recognition: 先选组再选档(组+档双重约束)或'有男必须有女/有学生必须有教授'的强制配对题
+  applicability:
+    include:
+    - 4人分3组3档，条件'1人选1档、2人选2档、1人选3档'
+    - 男性不能单独出现、工作人员必须由教授陪同
+    - 区分'必然真 vs 可能真'的题
+    exclude:
+    - 无档位概念的单层分组
+    - 没有强制配对约束的题
+  method_steps:
+  - 档位模型:先定档位人数分布(1/2/3)，用确定条件(某人=3档)锁定，再用'两人档位不同→一个1档一个2档'，剩余档位名额必归另一人
+  - 配对模型:找出'必须成对'规则(男必须有女)，其他女性已被别的组占用后，剩余唯一女性必去补位
+  - 判断选项:区分'必然真'(所有情况都成立)与'可能真'(仅某情况成立)
+  error_signatures:
+  - code: maybe_as_must
+    description: 把'可能成立'当'必然成立'选
+  - code: pairing_escape
+    description: 配对对象被其他约束占用后，没意识到剩唯一候选必须补位
+  - code: slot_slot_swap
+    description: 档位分配时把'两人档位不同'误推成'一个1档一个3档'
+  - code: miss_all_cases
+    description: 只验证一种情形就判'一定真'
+  fix_action: 做6道档位/配对模型题，限时90秒/题，先识别模型再按模板推
+  time_budget_sec: 90
+  accuracy_rule: 85%以上
+  pitfall: 这种题结构固定(两题场景换名逻辑完全一致)，识别出'先选组再选档'或'强制配对'模型后直接套模板
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_queue_grouping_mixed
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列分组混合
+  title: 一拖五-队列+分组混合
+  recognition: 元素分进有顺序的组(第1/2/3天、第1-4季度)，且条件含'谁在谁之前/前一天'(2025年国考一拖五即此型)
+  applicability:
+    include:
+    - 分组且有组间顺序(每天3人、每季度几次)
+    - 绑定(同组)+跨组顺序(前一天)+组内顺序混合
+    - 组内顺序与跨组顺序并存(如'A在B之前'可同组、'B在H前一天'必跨组)
+    exclude:
+    - 只有分组、无顺序类条件的题(按普通分组处理)
+    - 组间编号无顺序意义的题
+  method_steps:
+  - 先确认有无顺序类条件；若无则按普通分组做
+  - 优先排队列顺序:处理'前一天/之后'的跨组顺序，定出跨组两两位置(通常2种可能)
+  - 再算组空间:每组容量上限(每天3人/每季度次数)挤压元素归属，绑定同组条件同步生效
+  - 组只剩1个空位时剩余两元素必各占一组→不可能同组；每问附加条件用于排除排列
+  error_signatures:
+  - code: ignore_queue_condition
+    description: 题目有顺序条件却当普通分组做
+  - code: before_vs_previous_confuse
+    description: 混淆'A在B之前'(可同组可跨组)与'A在B前一天'(必跨组)
+  - code: space_capacity_forget
+    description: 忘了每季度/每天容量上限，超员仍往下推
+  - code: leftover_pair_same_group
+    description: 两组各剩1空时仍认为剩余两人可能同组
+  fix_action: 做5道队列+分组混合题(含2025年国考真题)，限时120秒/题，先排顺序再算空间
+  time_budget_sec: 120
+  accuracy_rule: 75%以上(较难)
+  pitfall: '''在之前''≠''在前一天'':前者可能只是组内顺序，后者必跨组，一字之差推理完全不同'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_sudoku
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/数独
+  title: 一拖五-数独
+  recognition: 4×4/5×5表格每行每列元素不重复，题干出现'每月4人调研的城市均不同'等描述
+  applicability:
+    include:
+    - 4×4、5×5方阵填数字/词汇
+    - 行+列不重复；进阶加对角线或粗线框区域不重复
+    - 问某个空格/某一行的内容
+    exclude:
+    - 没有行列不重复规则的排列题
+    - 6×6以上(公考基本不考)
+  method_steps:
+  - 识别后立刻画表格:行=一类元素(人)，列=另一类(城市/月份)，格内填第三类(数字/词)
+  - 技巧1唯一余数法:某格所在行+列已含其余所有数，直接填缺的那个
+  - 技巧2两空格法(最高频，60-70%题目靠它):某行只缺两格→确定候选组合，再用其中一格的列已有数字排除一个
+  - 技巧3三空格法:某行缺三格，观察各格所在列的数字把重复的排除，剩唯一；有对角线/粗线框时优先利用，拐角顶点常是唯一可放位
+  error_signatures:
+  - code: table_not_drawn
+    description: 不画表格直接读，信息量大时漏条件
+  - code: row_col_mix
+    description: 行和列代表的两类元素弄反
+  - code: fill_all_force
+    description: 非要填满全表才做题，题目只问一个空格时浪费时间
+  - code: two_space_candidate_wrong
+    description: 两空格法的候选组合列错(该行已填内容没数全)
+  fix_action: 做10道4×4/5×5数独，限时60秒/题，先画表、优先找已填3格的行/列用唯一余数法
+  time_budget_sec: 60
+  accuracy_rule: 90%以上(套路固定送分)
+  pitfall: 4×4数独是送分题:先画表，优先'已填3格的行/列'唯一余数定位，别把时间耗在选项上
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_real_exam_routine
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/真题精讲
+  title: 国考一拖五精讲-通用解题套路
+  recognition: 国考历年一拖五真题(23年值班、25年会议季度)，条件少但每步推理链长，每问带新附加条件
+  applicability:
+    include:
+    - 队列类真题(值班、研发-后勤-法务绑定链)
+    - 队列+分组真题(季度分配、容量限制)
+    - 每问新给附加条件的整套题
+    exclude:
+    - 单题练习
+    - 江苏/考研等非常规题型
+  method_steps:
+  - 先做'条件联立一步推理':把2-3个条件合成一个确定结论(如'后勤→法务'且'法务≠第2,4天'→'后勤≠第1,3,6天')，这是秒杀关键
+  - 每问的附加条件直接接入已定结论，多数问就是'排除不可能位置'或'找唯一可能位置'
+  - 问'一定为真'坚持正向推理不代入；问'可能来源'用排除法，第一天不行再借第六天
+  - 组/天容量满员时，绑定组(甲戊同季度)被迫整体搬入唯一有空位的时段
+  error_signatures:
+  - code: one_by_one_verify
+    description: 每题都用代入验证不用一步推理，速度慢且易错
+  - code: binding_chain_miss
+    description: 没合成'研发-后勤-法务'连续绑定，单条件单条件推
+  - code: capacity_overflow
+    description: 季度/天数满员后仍把元素往里塞
+  - code: forget_extra_position
+    description: 附加条件推出位置后，不再验证剩余元素的唯一落点
+  fix_action: 精做近5年国考一拖五真题(21/22/23/24/25年)，限时90秒/题，动笔前先写公共一步推理结论
+  time_budget_sec: 90
+  accuracy_rule: 80%以上(每套对4-5问)
+  pitfall: 真题题眼是'条件联立的一步推理结论'，公共条件提前推好，5问都靠它秒出
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_dl_conditions
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列类
+  title: 一拖五-队列类五类条件与空间思维
+  recognition: 几个元素排成一列顺序未定,题干给出确定/顺序/绑定/隔离/推理五类条件。
+  applicability:
+    include:
+    - 6-7个元素排成一条线,只有'谁排第几/谁在谁前后/谁与谁相邻'这类条件
+    - 问法为'以下哪项可能为真/一定为真/不可能为真'
+    - 条件含'A在第3位''B不在第4位''C在第3或第5位'等确定类表述
+    exclude:
+    - 题中有分组但条件里没有任何顺序类条件(按普通分组题处理,组间编号无效)
+    - 题干是'某元素在某组'而非线性排序的题目
+  method_steps:
+  - 符号化全部条件:确定类写'A=3/A≠4/C=3或5','或'条件拆成两种情况分别想;顺序类统一用'<'写'A<B<C';绑定类分三型写(AB)相邻位置可互换、[EF]相邻且E在F前、(C__D)隔两格可互换
+  - 优先填入确定类条件,把大空间切成小空间:A=4则左边3空右边2空,优先思考空间少的一侧能否容纳其他条件
+  - 用顺序类条件限制边界:A<B<C则A不能排最后两位、C不能排前两位、B不能排首尾;E=4且E<F则E后面只剩1空位
+  - 每推一步同步更新'剩余空位数',空间不够即排除该假设或强制归位
+  error_signatures:
+  - code: confound_order_binding
+    description: 混淆'紧挨/间隔固定格数'(绑定)与'不相邻'(隔离)两类条件,前者间隔大小固定后者不固定
+  - code: ignore_spatial_split
+    description: 只记元素位置不记空间分割,如A=4后没算出左边3空右边2空
+  - code: swap_position_assumed
+    description: 绑定类条件如(AB)相邻擅自固定A在前B在后,忽略前后位置可互换
+  fix_action: 做15道队列类一拖五真题,每题限时90秒,专练符号化与'剩余空间够不够'判断
+  time_budget_sec: 90
+  accuracy_rule: 正确率≥85%,条件符号化与一步推理必须在0.5秒内反应
+  pitfall: 确定类条件'醉翁之意不在酒':A=4的真正含义不是A在4,而是A左边只剩3个位置、右边只剩2个位置,空间不够时绑定组(A+B相邻需2格)放不下。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_dl_question_types
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列类
+  title: 一拖五-队列类'可能/一定/不可能'问法应对
+  recognition: 队列题问'以下哪项可能为真/一定为真/不可能为真',需区分确定性强度。
+  applicability:
+    include:
+    - 题目出现'可能为真''不可能为真''一定为真'等强度问法
+    - 条件含逻辑箭头'若A在某位则B不在某位'(推理类条件)
+    - 条件中两个元素限制完全相同(对称元素,如丁和戊地位对称)
+    exclude:
+    - 直接问'谁排第几'的确定性单一问题
+  method_steps:
+  - '''可能为真'':逐一排除三个''一定为假''的选项,剩下那个即答案'
+  - '''不可能为真'':推矛盾定位——假设某元素在某位置,若人数或规则冲突则假设不成立'
+  - 推理类条件立刻写逆否命题(A=3→B≠5 等价于 B=5→A≠3),假设前件为真推出矛盾则前件必假
+  - 对称元素(丁和戊条件完全相同)要么同时成立要么同时不成立,选项必成对出现才可选
+  error_signatures:
+  - code: option_must_vs_may
+    description: 把'可能为真'的选项当'必然为真'(如甲丙位置可互换的候补项)
+  - code: skip_converse
+    description: 推理类条件只写正向逻辑箭头,漏写逆否命题
+  - code: miss_contradiction
+    description: 假设前件为真推出矛盾后,没有顺势得出'前件必假'这一确定结论
+  fix_action: 做10道队列类真题,每题动笔前先标注问法类型(可能/一定/不可能),再选策略
+  time_budget_sec: 90
+  accuracy_rule: 正确率≥90%,确定性与可能性的区分题不许错
+  pitfall: '''可能为真''≠''必然为真'':位置可互换的候补元素(如甲、丙各占一组可互换)通常作为迷惑项出现,只能算''可能''。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_fenzu_basics
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类
+  title: 一拖五-分组类四类条件与空间五步法
+  recognition: 7-10个元素分到2-3个无顺序的组,组间没有顺序类条件。
+  applicability:
+    include:
+    - 多个元素分进若干组(如7元素分3人+4人两组),题干给确定/绑定/隔离/推理条件
+    - 问元素在哪一组、哪些元素必同组/必不同组
+    - 条件含'X不在第2组''X必须与Y同组''X与Y不能同组''若X在第1组则Y不在第3组'
+    exclude:
+    - 组与组之间有明确先后顺序且含顺序类条件的题(见队列+分组卡)
+  method_steps:
+  - 第一步定背景:写清几组、每组几个空位(7分3+4则第一组3空第二组4空),分组方式不同直接影响后续推理
+  - 第二步填确定类条件:无歧义直接填入,同时该组空位减1
+  - 第三步隔离条件:两组时'A≠B'⇒各占一组,两组空间各减1;三组时结合'某组已满'强制归位
+  - 第四五步绑定+推理:绑定作'大零件'只放空位≥其大小的组;推理条件写逆否,假设前件为真推矛盾则前件必假
+  error_signatures:
+  - code: miss_background_limit
+    description: 忽略背景限制(组数/每组空位),这是60%-70%分组错题的第一原因
+  - code: least_one_not_split
+    description: '''至少一个''(A=1或B=1)≠''不在一起'',前者允许两人同组'
+  - code: bound_big_part_space
+    description: 绑定后没检查该组空位是否放得下2-3个元素组成的'大零件'
+  fix_action: 做12道分组类基础题,每题先写下'分组+每组空位'再动笔,限时100秒/题
+  time_budget_sec: 100
+  accuracy_rule: 正确率≥85%,四类条件(确定/绑定/隔离/推理)分类判断不许错
+  pitfall: 忽略背景限制(总人数与各组空位)是分组题60%-70%错题的原因,例如7个元素分3组既可以是2-2-3也可以是1-3-3,不同分组方式结论完全不同。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_fenzu_standard
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/标准分组
+  title: 一拖五-分组类套路1标准分组
+  recognition: 题目明确告知元素总数与每组具体空间数(如7元素分3人+4人两组)。
+  applicability:
+    include:
+    - 题干直接给出每组人数(7分3+4、8分2+3+3)
+    - 条件含'甲丙不在同一编队''己必须第二编队''若乙在第一编队则丁也在第一编队'这类直接分组关系
+    - 问'以下哪项不可能'或'哪项一定为真'
+    exclude:
+    - 题干未给每组人数的分组题(用'先确定组空间数量'套路)
+  method_steps:
+  - 填确定类条件(如己在第二编队)并划掉占用空位
+  - 隔离条件必一边一个:甲丙不同组⇒各占一组;若再推出丙在第二组则甲必在第一组
+  - 推矛盾定位置:假设某元素在某组,若连同其绑定元素超过该组剩余空位则假设不成立,该元素必去另一组
+  - 收官检查:两组各剩1个空位时,剩余两人必不同组(高频考点,直接锁定答案)
+  error_signatures:
+  - code: miss_leftover_separate
+    description: 两组各剩1个空位时,没推出剩余两人必然不在同一组
+  - code: skip_converse
+    description: 推理类条件'乙→丁'只写正向,漏写逆否'丁不在→乙不在'
+  - code: option_must_vs_may
+    description: 把'可能为真'选项(如甲在第一组)当'必然为真'
+  fix_action: 做8道标准分组真题(7元素3+4型:2024省联考专家分组/舰艇分组),每题限时100秒
+  time_budget_sec: 100
+  accuracy_rule: 正确率≥90%
+  pitfall: 隔离类条件中的甲丙位置可互换,选项'甲在第一组'只是可能为真,不是必然为真;必同/必不同才可锁定。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_fenzu_intersection
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/分组两次找交集
+  title: 一拖五-分组类套路2分组两次找交集
+  recognition: 同一组人按两种属性各分一次组(如年龄+性别),问同时满足两个特定属性(如17岁女生)的元素。
+  applicability:
+    include:
+    - 7人按年龄和性别、5人按年龄和课程、6人按学历和性别各分组
+    - 条件结构固定:'X与Y不同'各占一组 + 'P与Q相同'绑定
+    - 最终问交集,如'谁既是17岁又是女生''谁是女硕士'
+    exclude:
+    - 只按一种属性分组的题
+  method_steps:
+  - 第一维度分组:用'不同'关系把两人拆到两组各占1位,用'相同'关系绑定2-3人
+  - 检查'放不下':若某组只剩1-2个空位而绑定组占2-3人,则绑定组被迫进另一组(如17岁组剩2空放不下甲丙戊3人⇒甲丙戊必18岁)
+  - 第二维度同理再分一次,同样用'放不下'定位人员归属
+  - 找交集:分别列出两个维度的候选名单,唯一交集即答案
+  error_signatures:
+  - code: forget_space_capacity
+    description: '''相同''绑定条件占多人时,没检查目标组剩余空位是否放得下'
+  - code: single_dimension_only
+    description: 只按一种属性分组就选答案,漏做第二维度
+  - code: max_gap_misread
+    description: 把'年龄相差最大'误当普通不同关系,其实意味着一个青年一个中年(各占1位)
+  fix_action: 做6道'分组两次找交集'真题(江苏/山东/辽宁/浙江/管综),每题限时110秒
+  time_budget_sec: 110
+  accuracy_rule: 正确率≥85%,两维度都要推完才允许选答案
+  pitfall: 两个'不同'关系推出的候补可互换(如乙/庚分属两年龄组),交集只找两个候选名单共有的那一个元素。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_fenzu_space_count
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/空间数量
+  title: 一拖五-分组类套路3先确定组空间数量
+  recognition: 题干只告知分几组与每组人数范围,未告知各组具体人数,需先算出各组空间才能推理。
+  applicability:
+    include:
+    - '''5人分3组,每组1-2人''''6名员工申报4种奖项,每种1-2人''这类只有总人数+范围'
+    - 条件含组间数量关系('陆老师比张老师多''南山最少''A和B人数一样多')
+    - 条件含逻辑箭头,其后件与已知组人数矛盾('只有戊选择陈老师'但陈老师有2人)
+    exclude:
+    - 题干已给每组具体人数的分组题(用标准分组套路)
+  method_steps:
+  - 定唯一分组模式:5人分3组每组1-2人⇒唯一'2-2-1';6人分4组每组1-2人⇒'2-2-1-1'
+  - 用组间数量关系定各组分值:'A比B多'⇒A=2、B=1;'A最少'⇒A=1;'A和B一样多'⇒同为2
+  - 检查推理条件后件是否与空间矛盾('只有X选某组'但该组有2人)⇒后件必假,逆否得前件为假
+  - 剩余元素按各组分值填满空位,同一人不能同时分两组
+  error_signatures:
+  - code: skip_group_volume
+    description: 不先算每组空间数量直接推元素位置
+  - code: miss_posterior_contradiction
+    description: 推理条件后件与已算出的组人数矛盾时,没识别后件必假并逆否
+  - code: assume_average
+    description: '''乙丁辛共2人''只知道总和,却默认三人平均分配'
+  fix_action: 做8道'空间数量'真题(2021管综/2022省联考志愿者/2025浙江度假/市场部招聘),每题限时120秒
+  time_budget_sec: 120
+  accuracy_rule: 正确率≥80%,第一步必须先列出分组模式再动笔
+  pitfall: 推理条件后件与已知组人数矛盾(如'只有戊选择陈老师'但陈老师应有2人)时,后件必为假,马上做逆否推理。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_fenzu_classified
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/分类分组
+  title: 一拖五-分组类套路4分类分组
+  recognition: 不同类别元素分几组,同一类别的元素不能在同一组(每组各类各取一个)。
+  applicability:
+    include:
+    - 蔬菜分'菜椒瓜豆'四类共12种分3餐、国家分'亚北美欧'三洲分3组,每组各类取一个
+    - 条件给'芹菜不能与黄椒同组''黄椒必须与豇豆同组'等排斥/绑定关系
+    - 已知某组已有几种元素,推剩余元素位置
+    exclude:
+    - 元素不分类、每组无'各类各取一个'限制的普通分组题
+  method_steps:
+  - 标出所有排斥(≠)与绑定(=)关系,先找绑定关系
+  - 传递推理:A≠B且B=C⇒A≠C;A=B且B=C⇒A、B、C三者同组
+  - 已知某组元素时:该组已占的类别,其余同类元素必须分散到其他组
+  - 用绑定条件锁定位置:黄椒=豇豆,则豇豆所在组必须放黄椒;再配合排斥条件逐格填充
+  error_signatures:
+  - code: confound_ne_relationship
+    description: 混淆'不能同组'(排斥)与'必须同组'(绑定)两类关系
+  - code: skip_transitivity
+    description: 忽略传递推理:A≠B且B=C应推出A≠C
+  - code: miss_class_disperse
+    description: 已知某组占了某类后,没把其余同类元素强制分散到其他组
+  fix_action: 做6道分类分组题(2024天津真题+蔬菜/国家模型),每题限时90秒
+  time_budget_sec: 90
+  accuracy_rule: 正确率≥80%
+  pitfall: 组与组之间没有顺序(不区分早/中/晚),只关注元素是否在同一组;题目问'哪项不可能'时别用'可能'推理作答。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_fenzu_two_dim
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/二维分配
+  title: 一拖五-分组类单题模型:先选组再选档
+  recognition: 每人既要选'组'(书/营/部门),又要选'档'(专题数/时段/档次),组与档双重约束。
+  applicability:
+    include:
+    - 4人分3组×3档,条件:'1人选1档、2人选2档、1人选3档'+某两人'组与档均不同'
+    - 确定类条件如'小李选第三卷''小白选综合素质营第三档'
+    - 问某人的档位数或某人在某组某档
+    exclude:
+    - 只有单一维度(只分组或只排队)的题
+  method_steps:
+  - 先定组:由确定类条件+剩余填补推出各组归属(4人选3组,锁定2人后剩1人必去剩余组)
+  - 再定档:档位数量分布(1/2/2/3档)已知,确定类条件锁定某人档位
+  - '''两人组不同且档不同''⇒两人档位必为1档与2档各占一个,剩余名额必属确定的那个人'
+  - 选答案时区分必然真/可能真
+  error_signatures:
+  - code: must_vs_possible
+    description: 把可能成立选项当必然成立(如'小赵选第一卷2档'可能为真但非必然)
+  fix_action: 做5道'先选组再选档'真题(2021/2025浙江+预测值班题),每题限时100秒
+  time_budget_sec: 100
+  accuracy_rule: 正确率≥85%,每道都要能讲清'哪些必然、哪些可能'
+  pitfall: '''小赵选择了第一卷的2个专题''只是可能成立(小赵也可能选1档),只有确定类条件锁定的那人才是必然。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_fenzu_pairing
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/配对
+  title: 一拖五-分组类配对模型(有男必有女/人员配教授)
+  recognition: 条件要求两类元素必须配对不能单独出现('凡有男性的社区必须有女性''工作人员必须有教授陪同')。
+  applicability:
+    include:
+    - 三男三女分四社区,有男性去的社区必须有女性
+    - 工作人员与教授分项目,双方都不能单独出现
+    - 问某人必去某地/某两人不能同时在某项目
+    exclude:
+    - 无'必须配对'约束的普通分组题
+  method_steps:
+  - 识别配对规则:男性不能单独出现、工作人员必须有教授陪、教授必须有工作人员陪
+  - 把已确定的配对对象逐个填入位置(张去A或B、李去C、乙去D),排除已占用者
+  - 找剩余唯一候选人:剩下的唯一女性王必去D配乙;唯一能陪钱教授的人必去历史
+  - 反推排除项:某两人中必有一人陪教授⇒他俩不可能同时出现在某项目
+  error_signatures:
+  - code: single_element_left
+    description: 忽略'有男必有女''人员须配教授'约束,把可单独的元素当必须配对或漏掉配对元素
+  - code: pairing_direction_wrong
+    description: 把'女性可单独'当成'女性也必须配对',方向反了
+  fix_action: 做4道配对模型真题(2023广东男女配对/2024江苏工作人员+教授配对),每题限时80秒
+  time_budget_sec: 80
+  accuracy_rule: 正确率≥90%
+  pitfall: 女性可单独出现、男性必须配女性;同理工作人员需教授陪但教授不能没有工作人员陪,双向约束都别漏。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_mixed_queue_group
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列+分组
+  title: 一拖五-队列+分组混合套路
+  recognition: 元素分成若干组且组与组之间有顺序区别(第1天/第2天),条件含'谁在谁之前/前一天'。
+  applicability:
+    include:
+    - 9人分3天值班每天3人+AB同组+AD跨组顺序条件
+    - 8门课分4学年每学年1-3门+绑定'丙己辛同学年、丁紧随其后'
+    - 7个项目分4天每天不超过3个+顺序链'能源<文化<社会<交通'
+    exclude:
+    - 分组但条件中没有顺序类条件(按普通分组处理,组间编号无效)
+    - 只有线性排序无分组的纯队列题
+  method_steps:
+  - 优先处理顺序条件:顺序类条件是突破口,先列'谁在谁前一天'的2种可能位置分情况讨论
+  - 再填绑定与确定条件:AB同组、G在第三天等,按组空间(每天几人)逐步填入,同步更新各天剩余空位
+  - 区分两类顺序表述:'A在B之前'可同组也可跨组;'A在B的前一天'必跨组,不可混用
+  - 收尾:某组只剩1个空位时结合绑定条件强制归位;两组各剩1空时剩余两元素必不同组
+  error_signatures:
+  - code: group_order_ignored
+    description: 组间无顺序类条件却按混合题处理,把组间编号当顺序用
+  - code: same_day_vs_day_before
+    description: 混淆'A在B之前'(可同组)与'A在B的前一天'(必跨组)
+  - code: day_capacity_forgot
+    description: 某天已满/剩几个空位没同步更新,导致绑定元素放错天
+  fix_action: 做6道队列+分组混合题(2025一拖五真题值班/2022考研课程选修),每题限时120秒
+  time_budget_sec: 120
+  accuracy_rule: 正确率≥80%,混合题首次接触先限时120秒,熟练后压到100秒
+  pitfall: '''A在B之前''只要求A比B早,可同一天(A早班B晚班);只有明确说''A在B的前一天''才必然跨组,这是考官常挖的坑。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes: &id001
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_sudoku
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/数独
+  title: 一拖五-数独题型套路
+  recognition: 题干给出4×4/5×5表格(常文字化:人物×城市填顺序),每行每列元素不重复。
+  applicability:
+    include:
+    - '''每行每列(各元素)均不同''的表格填数/填词题'
+    - '''每个月中4人调研的城市均不同''这类表述(本质是数独)'
+    - 加变形:对角线不重复、粗线框区域不重复(拐角框,2025江苏)
+    exclude:
+    - 非表格结构的排队/分组题
+  method_steps:
+  - 画表格:行=人、列=地(或两类别),格内填顺序/内容,先把题干所有已知条件填入
+  - 唯一余数法:某格所在行列已含其余所有元素⇒填唯一缺失的那个
+  - 双空格法(考最多,60-70%题靠它):某行剩2空,看其中一空格所在列已有其一⇒锁定该空,另一空填剩下的;填完再找新双空格行/列循环
+  - 只推到题目所问的格子就停,不必填满整个表格;有对角线/拐角框条件时优先利用
+  error_signatures:
+  - code: fill_all_waste
+    description: 把整个表格推完才选答案,浪费时间
+  - code: ignore_key_row_col
+    description: 不找已知信息最多的行/列切入,乱推
+  - code: exclusion_insufficient
+    description: 只靠选项排除法,不结合行列推理,排除不彻底
+  fix_action: 做8道数独真题(2024国考4×4/2018江苏/2023江苏5×5/2025江苏拐角),每道限时60秒
+  time_budget_sec: 60
+  accuracy_rule: 正确率≥90%(4×4是送分题;5×5限时内允许错但≥80%)
+  pitfall: 问'不可能为真'时,只需用双空格法推出目标格唯一值再对照选项即可,切忌把整个数独表推完。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_yituowu_rukou_dairu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/通用/首问代入排除
+  title: 一拖五-首问代入排除套路
+  recognition: 一拖五第1问几乎都问"以下哪项符合/可能",题干只给基础条件、无附加条件
+  applicability:
+    include:
+    - 第1问"符合全部条件/可能为真"的直接判断
+    - 选项给出完整排列或完整分组、需整体验证的题
+    - 附加条件出现但选项只判断单点是否可能的题
+    exclude:
+    - 问"一定为真/不可能"的题——代入只能证伪不能证必真
+    - 问数量或最值(如"最多隔几排")的题
+    - 需从条件推出唯一结论的题
+  method_steps:
+  - 把每个条件先翻译成"可快速验证的否定句":如"法务≠第2/4天""后勤后面必须接法务"
+  - 逐条代入选项,顺序固定为:先验顺序/位置类条件(秒杀),再验绑定/二选一类条件
+  - 验"充分条件"时注意方向:题干若为"如果有X则Y",选项不含X则不受该条约束,不要误判
+  - 排除到只剩一项即为答案,无需再验证其余选项
+  error_signatures:
+  - code: ignore_sufficient_condition
+    description: 把"若有后勤则接法务"当成"必须安排后勤",误排合法选项
+  - code: validate_in_wrong_order
+    description: 先验复杂的二选一条件浪费时间,应优先验位置/顺序类条件
+  - code: over_verify
+    description: 已排除到唯一答案后仍逐个验证其余选项,浪费答题时间
+  - code: treat_possible_as_must
+    description: 把"可能为真"的选项当成"一定为真"选入
+  fix_action: 做15道一拖五首问型题,每题限时90秒,重点练"先验位置条件、后验绑定条件"的验证顺序
+  time_budget_sec: 90
+  accuracy_rule: 首问属送分题,正确率要求100%,每问不超过1.5分钟
+  pitfall: 选项验证要盯充分条件方向:题干是"如果有后勤则接法务",选项里有后勤才需查其后面;无后勤的选项不受此条限制。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+  - 行测/判断推理/代入法
+- id: mc_yituowu_bukeneng_sha
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/通用/不可能项与必真项判断
+  title: 一拖五-不可能项与必真项判断套路
+  recognition: 问"以下哪项不可能/一定为真",题干有多条条件且部分为"如果…则…"或二选一绑定
+  applicability:
+    include:
+    - 问"不可能"的选项判断(20/21/17年均有)
+    - 问"一定为真"需分情况讨论找共同结论的题(24年)
+    - 选项会同时限制多个条件的题
+    exclude:
+    - 问"可能为真/符合条件"的题(改用首问代入排除卡)
+    - 问数量或最值的题
+    - 选项只涉及单一无限制元素的题(信息不足无法判断)
+  method_steps:
+  - 不可能项:优先验证"同时限制最多条件"的选项——限制条件越多越容易推出矛盾
+  - 优先验证带触发条件的选项:如"如果丁=人事则李=财务"这类前件为真的选项必触发限制
+  - 一定为真:对关键元素分2-3种情况逐一构造可行方案,找所有情况下的共同结论才是必真
+  - 代入验证一旦推出矛盾立即选该选项,无需验证其余选项
+  error_signatures:
+  - code: possible_is_not_must
+    description: 把某种情况"可能成立"当成"必然成立"(19年第三问B选项陷阱)
+  - code: verify_low_constraint_first
+    description: 先验证限制少的选项,白费时间构造可行解
+  - code: ignore_max_capacity
+    description: 推出某元素占用数量超过上限(如王最多管4部门)却不判矛盾
+  - code: single_branch_conclusion
+    description: 分情况讨论时只推一种情况就下"必真"结论
+  fix_action: 做10道"不可能/一定为真"型题,每题限时100秒,先练"锁定限制最多选项"再动手验证
+  time_budget_sec: 100
+  accuracy_rule: 此类题难度中等偏上,正确率≥80%;问"一定为真"时答案必须能由条件必然推出
+  pitfall: '"可能为真"和"一定为真"是两回事:构造出一种可行方案只能证"可能",要证"必真"必须排除其他所有情况;考官常用"可能真"选项做陷阱。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_yituowu_duilie_bangding_weizhi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列类/绑定位置排除
+  title: 一拖五-队列类绑定位置排除套路
+  recognition: 给N天值班/座位,元素带"X必须在Y前一天/紧挨Y"的绑定条件,并叠加位置禁用条件
+  applicability:
+    include:
+    - 值班排班、站位排序,带"紧挨前/后一天"绑定
+    - 带链式绑定(如研发→后勤→法务)的队列题
+    - 绑定+固定禁用位置(如法务≠第2/4天)叠加的题
+    exclude:
+    - 无绑定、只有"谁在谁之前"宽松顺序的题(改用顺序类位置排除)
+    - 分组题(不涉及前后位置)
+    - 大跨度"隔几排"题(用大跨度条件卡)
+  method_steps:
+  - 把绑定翻译成箭头图:研发→后勤→法务,并逐元素列出位置禁区
+  - 一步推理:由"后勤→法务"+"法务≠第2/4天"推出后勤≠第1/3/6天(第6天后无位置给法务)
+  - 用禁区清单快速排除非法位置;问"可能值"时先列候选位置再逐个排除
+  - 有链式绑定时检查边界:绑定尾元素不能放最后、头元素前面要留出后续绑定位置
+  error_signatures:
+  - code: forget_tail_slot
+    description: 忽略绑定尾元素后面还必须空位,把后勤排在第6天
+  - code: ignore_chain_dependency
+    description: 有研发→后勤→法务链时只看相邻一条,漏掉研发的前置位置限制
+  - code: count_people_mistake
+    description: 涉及"每个部门推荐2人"时错把部门数当人数,名额耗尽判断失误
+  - code: bind_direction_reverse
+    description: 把绑定方向搞反(研发→后勤记成后勤在前),禁区清单整体出错
+  fix_action: 做12道队列类绑定题,每题限时90秒,重点练"一步推理列禁区清单"
+  time_budget_sec: 90
+  accuracy_rule: 绑定+位置排除题正确率≥85%
+  pitfall: 绑定有方向:研发→后勤→法务表示研发在前、法务在后;位置禁区要按方向从尾元素反推,漏掉"后勤不能在第6天"这类尾空位即错。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_yituowu_duilie_huo_erdangyi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列类/或条件二选一绑定
+  title: 一拖五-队列类"或"条件二选一绑定套路
+  recognition: 条件形如"人事部紧接在研发部或生产部的后面""法务部后面紧挨研发或销售",是两对象二选一绑定
+  applicability:
+    include:
+    - '"X紧接在A或B之后"型条件'
+    - '"X后面是A或B"型条件'
+    - 与顺序类条件(如"销售在财务和生产之前")叠加的题
+    exclude:
+    - 无"或"、只绑定单个对象的题
+    - 分组型题
+    - 位置关系明确、无二选一的题
+  method_steps:
+  - 把"或"条件翻译成反向锁定:若X前面不是A,则X必须与B绑定(二选一必居其一)
+  - 先把冗长名称简化为数字(如戊己庚辛→1-6),降低干扰
+  - 用顺序类条件推位置上限:如"销售在财务和生产之前"→销售最晚只能放第4位
+  - 问"不可能相邻/安排"时,找同时限制两个"或"条件的选项——它最容易产生矛盾
+  error_signatures:
+  - code: or_condition_wrong_direction
+    description: 把"X在A或B之后"反推成"A或B必须在X之后",方向搞反
+  - code: ignore_following_space
+    description: 得到[法务销售]绑定后,忽略销售后面还需给财务、生产留2个空位
+  - code: not_check_both_bindings
+    description: 只检查一个"或"条件,漏掉另一个同时被限制的绑定
+  - code: shorthand_confusion
+    description: 简化成数字后把原名称与数字对应关系记错
+  fix_action: 做10道带"或"绑定条件的队列题,每题限时100秒,重点练反向锁定绑定
+  time_budget_sec: 100
+  accuracy_rule: '"或"条件题正确率≥80%'
+  pitfall: 二选一绑定的"反向锁定"是破题点:某个位置被占使X前面不是A时,X必须与B绑定,并继续检查绑定后的空间需求(销售后面要留财务和生产)。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_yituowu_duilie_dakuadu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列类/大跨度条件
+  title: 一拖五-队列类大跨度条件套路
+  recognition: 条件形如"文具与调料隔3排""粮油在零食之后隔2排",给出两点间距或位置差值
+  applicability:
+    include:
+    - '"A与B隔N个位置/排"型条件'
+    - '"A在B后N位"型条件'
+    - 问"某元素不可能在的位置"或"最多隔几排"的题
+    exclude:
+    - 只含相邻绑定的题(改用绑定位置排除卡)
+    - 分组题
+    - 无条件间距的宽松顺序题
+  method_steps:
+  - 区分"隔N排"与"中间隔N个格子":前者间距=N,后者间距=N+1,先统一记数口径
+  - 大跨度条件列位置方程:A在p位→B在p+N位,由首尾边界推出A、B的位置禁区
+  - 两个大跨度条件必须"相交"(共用位置):用位置带互相约束缩小范围
+  - 问"最多隔几排":把两个大跨度条件分别推向两端,再算中间最远间距
+  error_signatures:
+  - code: count_gap_wrong
+    description: '"隔3排"与"中间隔3格"混淆,记数口径不一致导致位置推算整体偏移'
+  - code: not_consider_intersect
+    description: 忽略两个大跨度条件必须共用位置,范围不收敛
+  - code: forget_boundary
+    description: 大跨度条件推到首尾边界时未检查是否越界
+  - code: space_overrun
+    description: 多个条件叠加时未算总占位(超过总排数),该判无解或该验证的漏掉
+  fix_action: 做10道大跨度条件题,每题限时100秒,动笔画位置轴辅助推算
+  time_budget_sec: 100
+  accuracy_rule: 大跨度题正确率≥75%
+  pitfall: '"隔3排"与"间隔3个格子"是两种记数,全题必须用同一口径,一个选项口径错整题崩;同时大跨度条件必须相交(共用位置)才能收敛范围。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_yituowu_duilie_guiding_gongge
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列类/固定序列与计数分配
+  title: 一拖五-队列类固定序列与计数分配套路
+  recognition: 元素按规则自动排成固定序列(如"同类不连续→单双位固定"),再叠加"每人答N道"的计数分配
+  applicability:
+    include:
+    - '"同类元素不能连续出现"型题(自动得到固定插空序列)'
+    - 每个对象有答题/分配数量约束(至少N道、只能答某类)的题
+    - 问"最少答题数/剩余题目/数量分配可能"的题
+    exclude:
+    - 无固定序列的自由排列题
+    - 位置由条件自由决定的题
+    - 分组题
+  method_steps:
+  - 识别"同类不连续":插空得固定序列(历史占1/3/5/7、地理占2/4/6),先画出来
+  - 把数量约束写成数值等式:总任务=各人数量之和,枚举可能的分配组合(如赵/陈各≥2道→只有三种组合)
+  - '"一半/全对"类条件转成数量等式,用最值思路求极值(如王全错时答对总数最少)'
+  - 问"补充条件可唯一确定":代入选项,看哪个能锁死所有自由变量的分配
+  error_signatures:
+  - code: miss_insertion_pattern
+    description: 没发现"同类不连续"已锁死序列,仍当自由排列处理
+  - code: allocation_sum_wrong
+    description: 枚举人数分配时漏掉某种组合或违反"至少N道"约束
+  - code: min_max_direction_error
+    description: 求"答对总数最少"时方向弄反,没让无约束对象取最小
+  - code: possible_vs_must_confusion
+    description: 把"可能为真"当"一定为真"(19年第三问B选项陷阱)
+  fix_action: 做8道固定序列+计数分配题,每题限时90秒,先画序列再列数量等式
+  time_budget_sec: 90
+  accuracy_rule: 计数分配题正确率≥80%
+  pitfall: '"至少"条件用来卡下限:王只答1道→赵+陈共6道,赵、陈各≥2道→分配组合只有三种,漏一种就错。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_yituowu_fenzu_jiandan
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/简单分组
+  title: 一拖五-分组类简单分组套路
+  recognition: N个元素分成M组每组固定人数、无前后顺序条件(如"乙的结对城市不是丁"),本质是纯分组
+  applicability:
+    include:
+    - 6元素分3组每组2人、分组对应年份但无顺序要求的题
+    - '"甲必须与乙或丙同组"型绑定'
+    - 附加"甲/乙不在某年"型时间槽限制的题
+    exclude:
+    - 组内有前后位置要求的题(队列类)
+    - 每组人数不固定的题(用人数不固定分组卡)
+    - 带"谁在谁之前"顺序条件的题
+  method_steps:
+  - 先判断无顺序条件即"简单分组",把时间槽(年份)只当组标签使用
+  - 翻译绑定并做一步推理:甲=乙或丙→若乙不与甲同组则丙必与甲同组
+  - 用组容量排除:每组只有2个位置,丁/戊/己所在的组不可能有甲(甲需与乙或丙占满)
+  - 附加固定条件(某元素在某年)时,先用绑定+排除锁定约束最强的元素(如甲)的年份,再填其余
+  error_signatures:
+  - code: treat_group_as_queue
+    description: 把分组的年份当有先后顺序,引入不存在的顺序约束
+  - code: bind_or_miss
+    description: 漏掉"甲=乙或丙"的反向一步推理(乙不绑则丙必绑)
+  - code: group_capacity_ignore
+    description: 忽略每组只有2个位置,把第3个元素塞进已满组
+  - code: year_slot_miss
+    description: 附加"某年限制"时未先锁定约束最强的元素就盲目代入
+  fix_action: 做10道简单分组题,每题限时75秒,先列绑定再填时间槽
+  time_budget_sec: 75
+  accuracy_rule: 24年这种简单分组题正确率≥90%
+  pitfall: 最快破题点是"绑定反向一步推理"+"组容量排除"(丁/戊/己所在组不可能有甲),别只靠逐问代入。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_yituowu_fenzu_renshu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/人数不固定分组
+  title: 一拖五-分组类人数不固定分组套路
+  recognition: 题干"N元素分M组"但未说明每组人数,并带"丁分管数量>卫分管数量"这类组间数量比较
+  applicability:
+    include:
+    - N元素分M组且每组人数不定的题
+    - 带组间数量比较条件(如A>B)的题
+    - 带二选一条件(王管教育或工会之一)的题
+    exclude:
+    - 每组人数固定的分组题(用简单分组卡)
+    - 队列排序题
+    - 无数量比较的分组题
+  method_steps:
+  - 先枚举分组人数分配方案(考虑"每人至少1个"):如7元素分3组只可能1-1-5/1-2-4/1-3-3/2-2-3
+  - 用绑定+数量比较排除不可行方案:如1-1-5时教育/财务/宣传/后勤全归丁,王/卫无二选一可选→矛盾
+  - 锁定方案后用二选一条件推逻辑链:某元素被占→卫必选工会→王必选教育(连锁反应)
+  - 验证时核对人数上限:推出某人分得数量超过该方案上限即为矛盾
+  error_signatures:
+  - code: miss_partition_case
+    description: 枚举人数分配时漏掉某一种方案或忽略"每人至少1个"
+  - code: ignore_quantity_compare
+    description: 用分组方案时漏用"丁>卫"数量比较排除
+  - code: chain_reaction_miss
+    description: 二选一条件的连锁反应(后勤被占→卫选工会→王选教育)只推一半
+  - code: overflow_capacity
+    description: 代入时未核对人数上限(王最多管4个),推出5个却不判矛盾
+  fix_action: 做8道人数不固定分组题,每题限时100秒,必须先把分配方案枚举到唯一再逐问
+  time_budget_sec: 100
+  accuracy_rule: 人数不固定分组题正确率≥80%
+  pitfall: '"先定分组人数方案"是全局前提(1-2-4/1-3-3/2-2-3),方案错了后面每问都错;要用数量比较和绑定把它卡到唯一再开始逐问。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_yituowu_fenzu_tiaojian_fanyi
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/条件翻译与逆否推理
+  title: 一拖五-分组类条件翻译与逆否推理套路
+  recognition: 题干带"如果X则Y"型充分条件(如"丁勇=人事→李明=财务")和"不能单蹦"型约束,如5项工作分3人
+  applicability:
+    include:
+    - 带充分条件(如果…则…)的分组分配题
+    - 带"某对象必须至少做两件事"型约束的题
+    - 问"某人可能做哪些/不可能完成哪些"的题
+    exclude:
+    - 无条件关联、只靠代入的题
+    - 队列排序题
+    - 元素数量较大的复杂分组
+  method_steps:
+  - 逐条把文字条件翻译成符号等式/不等式:如"王莉≠人事且≠管理"
+  - 识别充分条件并写出逆否:丁=人事→李=财务,逆否为李≠财务→丁≠人事
+  - '"不能单蹦"转成约束:做教育的人必须还做至少1项其他工作,教育不能单独出现'
+  - 问"不可能"时优先验证会触发条件前件(如丁=人事)的选项,前件为真即引入限制
+  error_signatures:
+  - code: miss_converse
+    description: 只用正向充分条件,忘了逆否(李≠财务→丁≠人事)也可用
+  - code: singleton_violation
+    description: 忽略"教育不能单蹦",把只做教育的方案当合法
+  - code: trigger_condition_order
+    description: 没优先验证含前件(如丁=人事)的选项,先验无关选项浪费时间
+  - code: orphan_task
+    description: 推出一项工作无人可做(如人事没人能管)却未识别为矛盾
+  fix_action: 做10道带"如果…则…"的分组题,每题限时90秒,先把所有条件翻译成符号再动笔
+  time_budget_sec: 90
+  accuracy_rule: 条件翻译+逆否题正确率≥85%
+  pitfall: '"如果X则Y"不只正向用,逆否(非Y→非X)是很多问的破题点;同时"前件为真"的选项必触发限制,要优先验证它。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_yituowu_hunhe_jidu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列+分组混合/季度分组
+  title: 一拖五-队列+分组混合套路
+  recognition: 元素先按季度/天数分组(组),组间又有先后顺序条件(如"丁在乙之后、丙之前"),队列与分组并存
+  applicability:
+    include:
+    - 会议/活动按季度、年度分组且组间有前后关系的题
+    - 组容量限制(每季度最多3个)与顺序条件叠加的题
+    - 问"哪个元素可安排在某个组"的题
+    exclude:
+    - 纯队列无分组(用队列类卡)
+    - 纯分组无顺序(用分组类卡)
+    - 元素带重复、需开两次的题(用重复元素卡)
+  method_steps:
+  - 先处理固定组条件:某元素在第N季度→该季度容量被占,其他元素不能再去
+  - 把顺序条件逐个转成位置禁区:丁在乙之后→乙≠最后组;丙在丁之后→丙≠最前组
+  - 绑定(甲、戊同组)+顺序叠加时用排除法锁定每个元素的可去组集合(如甲、戊只能去第三/四季度)
+  - 附加"某季度满/某组只有1个位置"时,反推哪些绑定元素必须集中到别组
+  error_signatures:
+  - code: ignore_group_capacity
+    description: 忽略季度最多容纳3个,把第4个元素塞进已满季度
+  - code: forget_binding_together
+    description: 甲、戊同组绑定,只推了甲忘了戊也得跟着动
+  - code: sequence_vs_group_mix
+    description: 把"丁在乙之后"当成必须相邻,引入不存在的相邻约束
+  - code: fixed_group_occupancy
+    description: 忘了丁、辛已在第二季度占2个位置,乙因"在丁前"进不了第二季度
+  fix_action: 做8道队列+分组混合题,每题限时100秒,先列每个元素的"可去组集合"再逐问
+  time_budget_sec: 100
+  accuracy_rule: 混合题正确率≥80%
+  pitfall: 先画"每个元素能去哪些组"的禁区表(丁辛占第2季→乙只能第1季),再处理绑定和容量,顺序反了容易乱。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_yituowu_hunhe_chongfu
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列+分组混合/重复元素
+  title: 一拖五-队列+分组混合重复元素套路
+  recognition: 8个槽位分4天×2,有1门课程开两次(重复元素),带"两次不能同天、不在第3天、一次必须在第4天"型条件
+  applicability:
+    include:
+    - 元素可重复出现(开两次)的排布题
+    - '"重复元素的两处位置有特殊限制"型条件'
+    - 条件存在歧义、需按选项反推考官意图的题
+    exclude:
+    - 每个元素只出现一次的题
+    - 纯分组题
+    - 无重复限制的队列题
+  method_steps:
+  - 先算总槽位与元素:8个位置、7门课+1个重复,把"开两次"的元素标出来
+  - 翻译重复元素限制:两次不能同天、不在第3天、其中一次必须在第4天→重复元素必占第4天之一
+  - 遇到歧义条件(真题有理解分歧)按"选项反推意图":用哪个理解能让某选项成立/不成立来判断出题人本意
+  - 绑定+重复叠加时用排除:数学必须在逻辑次日→逻辑数学必相邻;某天已满则该组合无法放入
+  error_signatures:
+  - code: double_course_same_day
+    description: 重复元素两次排在同一天,违反"开两次不同天"
+  - code: repeat_on_day3
+    description: 把开两次的元素放第3天,违反"重复课程不能在第3天"
+  - code: ambiguity_wrong_reading
+    description: 歧义条件选错理解,导致整体方案全错
+  - code: adjacent_bound_miss
+    description: 数学必须在逻辑次日,只当"数学在逻辑后"漏了"紧挨次日"
+  fix_action: 做8道带重复元素的排布题,每题限时110秒,先标出重复元素再排
+  time_budget_sec: 110
+  accuracy_rule: 带歧义/重复的18年题正确率≥75%
+  pitfall: 歧义条件先按"哪句话能让某选项成立"反推出题人意图(18年条件3、4),理解错了整道题全错;同时"重复元素两次不同天"是硬约束。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_meta_guide
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/总纲
+  title: 一拖五-题型识别与做题总纲
+  recognition: 同一材料(元素排队或分组的条件组)下连续5问,题型分队列/分组/队列+分组/数独,做题前必须先读懂背景限制。
+  applicability:
+    include:
+    - 题干给出6-7个元素排队或分组的一组材料,随后连续5道小题共用背景条件
+    - 提问含'一定为真/一定为假/可能为真'等强度词,需要按提问类型换打法
+    - 材料中混有确定/顺序/绑定/隔离/推理类条件,需先分类再逐个一步推理
+    exclude:
+    - 与共同材料无关的独立形式逻辑/真假话单题
+    - 多对多表格等低频复杂题型(江苏/广东特色,备考阶段跳过)
+    - 题干只给了组编号但条件中完全没有顺序类关系的题(按普通分组处理)
+  method_steps:
+  - 先读背景限制:明确队列长度或组空间数量(如7元素分3+4还是2-2-3),这一步决定推理框架,约60%-70%错题源于背景理解错误
+  - 标注每一问的附加条件(它是本题的解题钥匙),并注意每问独立,不要沿用上一问的附加条件
+  - 按提问换打法:问'一定为真'用正向推理且禁用代入法(代入只能证可能);问'一定为假'用代入验证找矛盾;问'可能为真'用排除法排掉三个矛盾项或构造法补齐验证
+  - 对'要么A要么B'式条件做分情况讨论,比较两种情况的共同结论作为'一定为真'项
+  error_signatures:
+  - code: background_ignore
+    description: 忽略背景限制(队列长度/组空间数)直接推理,导致60%-70%题做错
+  - code: extra_cond_leak
+    description: 新问题没用上本题附加条件,或把上一问的附加条件误带入
+  - code: substitute_for_must_true
+    description: 问'一定为真'却用代入法,代入只能证明可能为真,必误选
+  - code: conditional_both_ways
+    description: 遇到'要么都选要么都不选'类条件只推一边,漏掉分情况讨论
+  fix_action: 做10套一拖五真题,每套动笔前先默写背景(队列长度/组空间),并把每问的提问类型标注在题号旁;复盘时只对背景误判和提问误读两类错因复盘。
+  time_budget_sec: 90
+  accuracy_rule: 材料阅读与背景框架搭建不允许丢分,整体正确率≥70%后再开始压时间。
+  pitfall: 同一组元素按不同分组方式(如7人分2-2-3还是1-3-3)推理结论完全不同,做题前必须先把背景限制定死再动笔。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_queue_onestep
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列类/条件一步推理
+  title: 一拖五-队列类条件符号化与一步推理
+  recognition: 几个元素排成一列、顺序不确定,题干给确定/顺序/绑定/隔离/推理五类条件,需要把每类条件翻译成'空间被切掉多少格'。
+  applicability:
+    include:
+    - 确定类条件:某元素第3位、不在第4位、在第3或5位
+    - 顺序类条件A在B前、绑定类条件(AB相邻/中间隔固定格数/E紧挨F且在前)、隔离类A和B不相邻
+    - 推理类条件'如果A在第3位则B不在第5位'这类逻辑箭头
+    exclude:
+    - 组与组之间无顺序、没有'谁在谁之前'关系的纯分组题
+    - 需要两两列举排列而非单步推理就能解决的全排列题
+  method_steps:
+  - 统一符号化:前后关系用<、确定位置用=、相邻写(AB)、隔固定距离写(C__D)、不相邻和逻辑箭头各用专属符号;推理类条件当场把逆否命题写出来
+  - 确定类=切空间:A=4意味着左边3格右边2格,优先思考空间较少的一侧;或条件(C=2或4)拆成两种可能,0.5秒内反应'别格占2则C必4'
+  - 顺序类背成条件反射:A<B<C→A不能排末两位、C不能排前两位、B不能排首尾;再叠加确定条件(E=4且E<F→E后只剩1空)看剩余空间够不够其他条件放
+  - 绑定类做位置联动与空间影响:A=1且AB相邻→B=2;C=2且CD隔两个→D=5;G=2时AB相邻→A、B≠1;隔离类AB不相邻+B=2→A≠1、3只能=4
+  error_signatures:
+  - code: or_cond_not_split
+    description: 把'在第3或5位'当单个条件,忘记拆成两种可能分别推理
+  - code: bind_swap_ignore
+    description: 相邻/间隔固定距离条件允许前后位置互换,误当成顺序固定
+  - code: contrapositive_miss
+    description: 推理类条件只写正向推理,漏写逆否命题导致漏解
+  - code: isolation_vs_fixed_gap
+    description: 把'不相邻'(中间隔几个不定)当成'恰好隔一个'(间隔固定)处理
+  fix_action: 做20道队列条件一步推理小题限时60秒/题,把'顺序类不能排首尾''隔离类禁相邻''绑定位置联动'背成条件反射;对或条件单独加练。
+  time_budget_sec: 60
+  accuracy_rule: 一步推理是30%-50%一拖五题的唯一解法,正确率须≥90%才算合格。
+  pitfall: 确定条件A=2的真正含义不是'A在2',而是'A左边只剩1个空间'——考官的醉翁之意在于让你检查绑定件(如BC相邻需2格)是否放得进这个窄空间。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_queue_questiontype
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列类/提问方式
+  title: 一拖五-队列类提问方式与附加条件推理
+  recognition: 队列材料下连续追问'以下哪项可能为真/一定为真/不可能为真',每问带一个新的附加条件,需按提问强度选打法。
+  applicability:
+    include:
+    - 问'不可能为真':由已知条件正向推矛盾,矛盾项即答案
+    - 问'可能为真':排除三个一定假的选项,剩下的就是答案
+    - 附加条件给出后需要连锁一步推理(如安徽第一→江西第七、浙江第四、福建第五)
+    exclude:
+    - 问'一定为真'的题(应正向推理,代入法必错)
+    - 第一问直接代入选项验证的送分题(不属于推理题打法)
+  method_steps:
+  - 问'不可能为真':先做一步推理锁定禁位(如调料前必须有酒→调料≠第一排;粮油前必须有零食→粮油最早也只能第四排),再对照选项秒排
+  - 问'可能为真':逐项找其违反的确定/绑定条件,排除三个一定假的;若剩两个再用构造法补齐验证
+  - 附加条件推理:把附加条件当确定条件填入后连锁推出(安徽第1→江西必第7、浙江必第4、福建必紧挨浙江即第5);不确定的位置只标注'可能真',如'福建可能第1或第6'就不是一定真
+  - 判断'一定为真'时找所有可能情形的共同结论,而非某一种情形的结论
+  error_signatures:
+  - code: possible_vs_must
+    description: 把'可能为真'当成'一定为真'作答,未区分提问强度
+  - code: uncertain_as_certain
+    description: 把可能的位置(如福建第1或第6)当成确定结论选成'一定为真'
+  - code: extra_cond_miss
+    description: 新问题漏用本题新给的附加条件,只按公共条件推理
+  - code: reverse_direction_wrong
+    description: 问'不可能为真'时按'可能为真'的方向排除,推反了
+  fix_action: 做8道队列类'可能/一定/不可能'三问组合题,做题前先把每问的提问类型写在题干旁,再决定用排除还是正向推。
+  time_budget_sec: 60
+  accuracy_rule: 提问类型判定不允许失误,组合推理题正确率≥75%后再提速。
+  pitfall: '''可能为真''=排除三个一定假的,''一定为真''=必须正向推出,两者是相反方向;代入法在''一定为真''题中只能证明''可能'',必然误选,严禁使用。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_group_standard
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/标准分组
+  title: 一拖五-分组类标准分组套路
+  recognition: 题干明确告知元素总数和每组固定人数(如7元素分第一编队3人/第二编队4人),配隔离/推理/至多/确定类条件。
+  applicability:
+    include:
+    - 明确给出总人数和每组具体人数的分组题
+    - 含'甲丙不在同一组''如果乙在一则丁在一''戊和丙至多一个在一''己必在二'这类条件
+    exclude:
+    - 未告知每组人数的'先确定组空间数量'题(套路3)
+    - 按两个属性各分一次再找交集的题(套路2)
+    - 同一类别元素须分散在不同组的分类分组题(套路4)
+  method_steps:
+  - 先写死空间:第一组3空/第二组4空,填入确定条件(己在第二组)后立刻重算两组剩余空位
+  - 隔离条件=一边一个:甲丙不同组→各占一组、空间各减1;'至多一个'等价转化为'至少一个在另一组'并写出两个方向箭头(戊在一→丙在二;丙在一→戊在二)
+  - 推理条件写逆否:乙=一→丁=一,逆否丁=二→乙=二;假设某元素在某组导致该组超员即矛盾,前件必假(如假设丁在二会带进乙=二导致超员→丁必在一)
+  - 剩余空间推理:两边各剩一个空位时,剩余两人只能'一边一个'→它们不可能在同一组(高频答案)
+  error_signatures:
+  - code: swap_taken_as_fixed
+    description: 把甲丙'一边一个'当成甲必在一组,忽略位置可互换而误选'可能为真'项
+  - code: space_not_recounted
+    description: 填入确定/隔离条件后忘记重算各组剩余空位,后续超员判断失效
+  - code: reverse_not_written
+    description: 推理条件不写逆否命题,无法用矛盾法锁定位置
+  fix_action: 做6道标准分组真题(7元素分3人/4人两组的管综与省联考同构题),每步把两组剩余空位数写在组旁;专项练'乙和庚不可能在同一组'这类结论。
+  time_budget_sec: 75
+  accuracy_rule: 标准分组是分组类基本功,正确率须≥85%。
+  pitfall: 当分组空间被占满、最后两个元素只能'一边一个'时,它们必然不同组——'X和Y不可能在同一组'是标准分组最高频的确定结论,也是选项最爱考的答案。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_group_intersect
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/分组两次找交集
+  title: 一拖五-分组类两次找交集套路
+  recognition: 同一组人按两种不同属性各分一次组(如年龄+性别、学历+性别、年龄+课程),最终求同时满足两个属性的交集元素(如17岁女生)。
+  applicability:
+    include:
+    - 7人按年龄(18岁4人/17岁3人)和性别(女3男4)各分一次
+    - 5人按年龄(青年3/中年2)和课程(语文2/数学3)等3+2组型
+    - 条件含'XX年龄/性别不同''XX学历/课程相同'两组相同与不同关系
+    exclude:
+    - 只按一个标准分一次的普通分组题
+    - 求的是位置而非属性交集的队列题
+    - 没有'最终录用/确定某类人'目标的纯分组题
+  method_steps:
+  - 第一次分组(属性一):用'乙庚年龄不同'把两人分置两组各占1位;用'甲丙戊年龄相同'当绑定件,发现绑定3人>17岁组剩余2空放不下→甲丙戊必为18岁;据此列出属性一的完整分布
+  - 第二次分组(属性二):同法用'甲庚性别不同'+'乙丁己性别相同'重复一遍,列出属性二的完整分布
+  - 找交集:分别写出两个属性的候选名单(17岁候选:丁、己+乙/庚之一;女生候选:丙、戊+甲/庚之一),两名单共同出现的元素即答案(只有庚)
+  - 五人选组长变式:'年龄相差最大'等价于'一个青年一个中年'(=不同关系),同样走'不同分置+相同放不下归另组'流程
+  error_signatures:
+  - code: intersection_multiple
+    description: 候选名单有多个候选时漏核对,没有逐一取两名单交集
+  - code: bind_not_size_checked
+    description: 相同关系绑定件没检查'放不放得下'(3人>2空)就乱归组
+  - code: candidate_half_missed
+    description: 列候选名单时漏掉'或'的另一半(如乙/庚二选一),导致交集找错
+  fix_action: 做5道'分组两次找交集'真题(2010江苏/2012管综/2023江苏/2024山东/2018浙江),每道强制先写两个候选名单再找交集,检查是否含'或'项。
+  time_budget_sec: 90
+  accuracy_rule: 套路固定,正确率≥85%后可压到90秒内完成。
+  pitfall: 交集元素必须是两个候选名单的交集,而候选名单常含'或'项——17岁候选是'丁、己+乙/庚之一',女生候选是'丙、戊+甲/庚之一',别只列确定的那几个导致交集算错。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_group_space_count
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/先确定组空间数量
+  title: 一拖五-分组类先确定组空间数量套路
+  recognition: 题干只告知分几组、不告知每组人数,需先根据'每组1-2人'和总数推出唯一分组模式(如5人3组=2-2-1),再用数量关系确定每组人数。
+  applicability:
+    include:
+    - 5人分3组每组1-2人(唯一模式2-2-1)、6人报4种奖(两奖2人两奖1人)、4户选3企业家(一人选2户)
+    - 条件含'某组比某组多/某组最少'的数量关系
+    - 含一个逻辑箭头条件(如'只有戊选陈老师'与陈老师2人矛盾)
+    exclude:
+    - 已明确各组人数的标准分组题
+    - 没有数量关系线索、空间模式无法确定的题
+  method_steps:
+  - 先定空间:按'每组1-2人'+总人数穷举出唯一分组模式(5人3组只能是2-2-1),再用数量关系锁定每组分几人(陆>张→陆2人张1人陈2人;南山最少→南山1人)
+  - 用已定空间检验箭头条件后件:后件'只有戊选陈老师'与实际'陈老师2人'矛盾→后件必假,取逆否得前件假(甲丙丁都不选陆老师)
+  - 逆否后再填人:排除不能进某组的元素后,剩余元素必须填满该组空位(乙、戊填满陆老师2空)
+  - 当箭头条件前件'恒真'时直接推后件(市场部需3人但乙戊最多2人→甲丙丁至少1人选市场部→前件恒真→后件成立)
+  error_signatures:
+  - code: space_mode_wrong
+    description: 没先确定2-2-1模式就开推,或把'多/少'方向搞反导致人数分配错
+  - code: consequent_contradiction_miss
+    description: 没发现后件与已定空间矛盾,错过逆否推理这步关键得分点
+  - code: full_spot_overflow
+    description: 填人时不检查'一人不能进两组'或空位是否足够
+  - code: even_split_assume
+    description: 对只知道总和的部门(乙丁辛共2人)默认平均分配
+  fix_action: 做7道'先确定组空间'真题(2021管综/2022省联考/2024浙江/2025考研等),第一步固定写成'空间=2-2-1'再动笔,养成先定空间习惯。
+  time_budget_sec: 90
+  accuracy_rule: 空间模式判定不允许失误,此类题正确率≥80%。
+  pitfall: 出现'只有X选某组'这类后件时,先拿已确定的组空间对照——后件与实际空间数矛盾时立刻逆否,这是全场最快得分点,也是考官固定埋的点。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_group_classified
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/分组类/分类分组
+  title: 一拖五-分组类分类分组套路
+  recognition: 不同元素分成几类(菜/椒/瓜/豆),同一类别元素不能在同一组,每组从每类中各取一个(如12种蔬菜分3餐,每餐菜椒瓜豆各一)。
+  applicability:
+    include:
+    - 12种蔬菜分早中晚三餐、每餐'菜椒瓜豆各一'这类'每类取一个'题
+    - 各大洲国家分三组、每组每洲选一个(每类取一个)
+    - 条件含绑定(黄椒=豇豆)与排斥(芹菜≠黄椒)需要传递推理
+    exclude:
+    - 组与组之间有顺序的队列+分组混合题
+    - 同一元素可重复出现在多组的题(每类取一个意味着同类必须分散)
+  method_steps:
+  - 先标出全部排斥/绑定关系并做传递推理:芹菜≠黄椒且黄椒=豇豆→芹菜≠豇豆;A=B且B=C→A、B、C三者同组
+  - 已知一组已含三类元素时,先确定该组占用了哪些类别,剩余同类元素必分到其他组
+  - 用'同类不共组'两两排除:某元素因所在组已有同类只能换组,再配合绑定条件(黄椒=豇豆)锁定其最终组位
+  - 新增类别(如加南美洲)不影响原有推理框架,只需把新条件(巴西=法国、巴西≠韩国)纳入已有分组逐步排除
+  error_signatures:
+  - code: same_class_together
+    description: 把同类两个元素放进同一组,违反'每类取一个'的核心规则
+  - code: transitivity_ignore
+    description: 只看到直接关系,没做排斥与绑定的传递推理(芹菜≠豇豆)
+  - code: group_unordered_mistake
+    description: 把无顺序的组当有顺序处理,推出多余的位置关系
+  fix_action: 做5道分类分组题(2024天津蔬菜/国家分组),每步先写'同类分散'约束再填,错误只复盘在'同类同组'和传递推理两类错因上。
+  time_budget_sec: 75
+  accuracy_rule: 低频考点(考研公考各考一次),会做即可,正确率≥70%。
+  pitfall: 排斥传递(A≠B且B=C→A≠C)与同组传递(A=B且B=C→三者同组)是两条不同的推理规则,同组传递只适用于绑定关系、不能跨组推,混淆即错。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_mixed_queue_group
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/队列+分组混合
+  title: 一拖五-队列+分组混合套路
+  recognition: 多个元素分到有顺序的组(第1/2/3天、第一/二/三学年),条件里同时含'谁在谁之前'的顺序类和'同组'绑定类,需先排顺序再定分组。
+  applicability:
+    include:
+    - 9人分3天值班每天3人,含AB同组、A在D前一天这类跨组顺序+绑定条件
+    - 4天会议/8门课分学年,含'能源<文化<社会'顺序和'交通信息同天'绑定
+    - 6件事分3天含'②在③前一天'+绑定件,需要先分析分组模式
+    exclude:
+    - 只说1/2/3组但条件中无顺序类关系的题(按普通分组处理,组间顺序视为无效)
+    - 纯队列或纯分组题(不跨题型)
+  method_steps:
+  - 先处理队列顺序再分组空间:顺序类条件是突破口,优先用'跨组顺序'(A在D前一天→A=1则D=2或A=2则D=3)排出组的先后,队列长度一般3-4组
+  - 严格区分两种表述:'A在B之前'可同组(组内A早班B晚班),'B在H的前一天'必跨组;混淆必错
+  - 跨组顺序+绑定联动逐组填满:A在第二天→B同天;→D第三天→C同天;两组都只剩一空时,H和I必各占一空、不可能同组(高频结论)
+  - 数'前面有几个元素'判位:I在A、C之前,且A<B、C<E、EF绑定→I后面至少5个元素→I必在第一天;先分析分组模式(6事分2天=2+4或3+3)再填
+  error_signatures:
+  - code: cross_vs_within_order
+    description: 把'在之前'(可同组)当成'在前一天'(必跨组),跨组关系推错
+  - code: bind_need_space_ignore
+    description: 绑定件(EF占2格)没检查目标组剩余空位,放进只剩1格的组
+  - code: space_mode_miss
+    description: 没先分析分组模式(如6事分2天只有2+4和3+3两种)就乱填
+  fix_action: 做6道队列+分组混合真题(2020考研休息日/2022考研课程/2025国考),先画'组行+空位'表再填,专项标记'在之前vs在前一天'的判定。
+  time_budget_sec: 120
+  accuracy_rule: 低频但2025国考刚考,正确率≥70%后再压时间,优先保证跨组判定零失误。
+  pitfall: '''A在B之前''是组内关系可以同组,只有明确表述''在前一天''才是跨组——这两种表述混用是这类混合题最大的坑,也是考官最爱埋的点。'
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes: *id001
+- id: mc_ytw_sudoku_basic
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/数独/基础三技巧
+  title: 一拖五-数独基础三技巧(唯一空格/双空格/三空格)
+  recognition: 给出4×4或5×5表格,每行每列填入的数字/词不能重复,问某个空格的内容(题干常隐藏为'每个人调研的城市均不同'之类的话)。
+  applicability:
+    include:
+    - 4×4表格填1-4数字或四字词(国考/江苏送分题)
+    - 5×5表格填数字/五谷/五词,只问某个特定空格
+    - 题干出现'每月中4人调研的城市均不同'这类每行每列不重复的描述
+    exclude:
+    - 带对角线或粗线区域框附加条件的变形数独(另有专门技巧)
+    - 需要填满全表才能作答的题(通常只问部分空格,不必全填)
+  method_steps:
+  - 立刻画表:行/列代表两类元素(人物×城市,格内填顺序数字),先把题干确定的对应关系填入(王3月苏州→王行苏州列填3)
+  - 技巧一唯一空格法:某格所在行列已含其余全部元素→填唯一缺失的那个(行有2,3列有1,4→只能填5)
+  - 技巧二双空格法(主力,60%-70%题靠它):某行列剩两空时先定两空可能组合,再用其中一空所在列/行的已有数排除一个可能性,锁定另一个;填入后往往生成新的'两空格'行列,连锁推进
+  - 只推到题目所问的空格即可停,不必填满全表;排除法把选项缩小到两个时,推一个关键格即可锁定答案
+  error_signatures:
+  - code: row_col_cross_miss
+    description: 只看行或只看列,漏掉行与列交叉共同约束某格
+  - code: overfill_whole_grid
+    description: 把整个数独填完才看选项,白白浪费时间
+  - code: unique_hidden_not_seen
+    description: 没识别出'调研城市均不同'这类描述就是数独,没画表直接推
+  fix_action: 做10道4×4/5×5数独题限时60秒/题,专练'双空格→连锁'的两格推理,练到一眼找出信息最多的行列。
+  time_budget_sec: 60
+  accuracy_rule: 数独是送分题,正确率须≥90%,正确后再压时间。
+  pitfall: 双空格法是绝对主力:某行列剩两格时先定组合,再用其中一格所在列的已有数排除——填完又形成新的双空格行列,连锁推进比逐格硬推快得多;能推一半就不必全填。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料
+- id: mc_ytw_sudoku_extra
+  exam_scope: guokao
+  track: xingce
+  module_name: 判断推理
+  tag_path: 判断推理/分析推理/一拖五/数独/附加条件
+  title: 一拖五-数独附加条件(对角线/区域框/拐角)
+  recognition: 数独基础上增加'两条对角线元素也不重复'或'粗线框区域元素不重复'的附加约束,问特定空格。
+  applicability:
+    include:
+    - 5×5+两条对角线(酸甜苦辣咸、生旦净末丑)
+    - 4×4/5×5+粗线区域框(天地日月、俄罗斯方块形五山),拐角处为考点
+    - 区域框内也须包含全部元素的变形数独
+    exclude:
+    - 纯行列约束的普通数独(用基础三技巧)
+    - 区域框内不要求包含全部元素的题
+  method_steps:
+  - 对角线条件优先用:多一个约束反而简化推理——某格所在行+列+对角线已含4个不同元素,该格即第5个(空格②行列对角线已含苦辣咸等→只能填甜)
+  - 区域框条件找拐角:拐角顶点已确定某元素时,框内其余位置都不能放该元素而框内又必须有它→该元素必在拐角顶点本身(如(1,1)处必为华山)
+  - 变形数独先排除法:观察问的空格所在列/区域,用'不能是什么'排除选项(汉字数独第1列排除C/D/E),缩小到两个后再针对关键行列推
+  - 定位一个空格后,其所在行列随即成为新的信息较多行列,配合区域框约束连锁推进
+  error_signatures:
+  - code: diagonal_ignored
+    description: 漏用对角线约束,明明多一重限制可简化却绕远路
+  - code: corner_not_used
+    description: 没识别出拐角顶点的独占性,区域框题卡壳
+  - code: region_vs_full_grid
+    description: 区域框题只按行列推,漏掉'区域框内也必须含全部元素'这一约束
+  fix_action: 做6道带对角线/区域框的数独题限时90秒/题,做题前先圈出对角线和所有拐角顶点再推。
+  time_budget_sec: 90
+  accuracy_rule: 附加条件反而让推理更简单,正确率≥85%后再压时间。
+  pitfall: 拐角推理:拐角框内除顶点外的位置都不能放该元素,而框内又必须有该元素,所以唯一落点就是拐角顶点本身——不要被俄罗斯方块形的复杂图形吓住,核心就是找拐角的独占性。
+  author_note: 依据公开行测方法论整理,AI生成,等待人工回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer: null
+    reviewed_at: null
+  priority: 4
+  status: draft
+  knowledge_nodes:
+  - 行测/判断推理/组合排列-材料

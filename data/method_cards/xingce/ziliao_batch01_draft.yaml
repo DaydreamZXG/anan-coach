@@ -7,21 +7,21 @@
   recognition: 题干问同比、环比、增长速度或增幅，材料能定位现期量和上一期量
   applicability:
     include:
-      - 题干直接问增长率、增速、增幅
-      - 材料同时给出现期量和基期量，或能由相邻时期定位
+    - 题干直接问增长率、增速、增幅
+    - 材料同时给出现期量和基期量，或能由相邻时期定位
     exclude:
-      - 题干问增长量而不是增长率
-      - 多个部分合并后才求整体增速
+    - 题干问增长量而不是增长率
+    - 多个部分合并后才求整体增速
   method_steps:
-    - 先标出现期和基期，判断答案应为正还是负
-    - 增长率 = 增长量 / 基期，增长量 = 现期 - 基期
-    - 选项差距大时只估首两位，优先排除符号和量级错误
-    - 基期接近整百整千时，把分母化整再估百分数
+  - 先标出现期和基期，判断答案应为正还是负
+  - 增长率 = 增长量 / 基期，增长量 = 现期 - 基期
+  - 选项差距大时只估首两位，优先排除符号和量级错误
+  - 基期接近整百整千时，把分母化整再估百分数
   error_signatures:
-    - code: growth_rate_denominator_wrong
-      description: 把现期量当作增长率分母
-    - code: growth_rate_sign_missed
-      description: 现期小于基期时没有先判负增长
+  - code: growth_rate_denominator_wrong
+    description: 把现期量当作增长率分母
+  - code: growth_rate_sign_missed
+    description: 现期小于基期时没有先判负增长
   fix_action: 做 {n} 题一般增长率同类题，限时 {sec} 秒/题
   time_budget_sec: 55
   accuracy_rule: 选项相差超过3个百分点时估算；相差小于3个百分点时保留一位小数
@@ -31,11 +31,12 @@
     tested_count: 0
     passed_count: 0
     sample_question_ids: []
-    reviewer:
-    reviewed_at:
+    reviewer: null
+    reviewed_at: null
   priority: 5
   status: draft
-
+  knowledge_nodes:
+  - 行测/资料分析/一般增长率
 - id: mc_ziliao_hunhe_zengzhanglv_01
   exam_scope: guokao
   track: xingce
@@ -45,21 +46,21 @@
   recognition: 题干问两个或多个部分合计后的同比、环比增长率
   applicability:
     include:
-      - 已知各部分现期量和各自增长率
-      - 题干要求整体、合计、总体的增长率
+    - 已知各部分现期量和各自增长率
+    - 题干要求整体、合计、总体的增长率
     exclude:
-      - 只问单个部分增长率
-      - 各部分口径重叠，不能直接相加
+    - 只问单个部分增长率
+    - 各部分口径重叠，不能直接相加
   method_steps:
-    - 先确定各部分增长率的最大值和最小值，整体增速必在两者之间
-    - 用现期量除以 1 + r 估出各部分基期量
-    - 基期量大的部分对整体增速拉力更大
-    - 选项在两端之外直接排除，居中选偏向基期大者的一侧
+  - 先确定各部分增长率的最大值和最小值，整体增速必在两者之间
+  - 用现期量除以 1 + r 估出各部分基期量
+  - 基期量大的部分对整体增速拉力更大
+  - 选项在两端之外直接排除，居中选偏向基期大者的一侧
   error_signatures:
-    - code: mixed_growth_outside_range
-      description: 选了不在各部分增长率区间内的整体增速
-    - code: mixed_growth_weight_current
-      description: 用现期量大小直接判断偏向，忽略应按基期量加权
+  - code: mixed_growth_outside_range
+    description: 选了不在各部分增长率区间内的整体增速
+  - code: mixed_growth_weight_current
+    description: 用现期量大小直接判断偏向，忽略应按基期量加权
   fix_action: 做 {n} 题混合增长率同类题，限时 {sec} 秒/题
   time_budget_sec: 65
   accuracy_rule: 选项间距大时用居中偏向判断；选项贴近时估基期权重再算
@@ -69,11 +70,12 @@
     tested_count: 0
     passed_count: 0
     sample_question_ids: []
-    reviewer:
-    reviewed_at:
+    reviewer: null
+    reviewed_at: null
   priority: 5
   status: draft
-
+  knowledge_nodes:
+  - 行测/资料分析/混合增长率
 - id: mc_ziliao_jiqiliang_01
   exam_scope: guokao
   track: xingce
@@ -83,21 +85,21 @@
   recognition: 题干给出现期量和增长率，问上年、上期或基期的量
   applicability:
     include:
-      - 题干明确问上一年、上期、基期、2024年等过去口径
-      - 材料给出现期量和同比、环比或增长率
+    - 题干明确问上一年、上期、基期、2024年等过去口径
+    - 材料给出现期量和同比、环比或增长率
     exclude:
-      - 问增长量而不是基期量
-      - 需要先合并多个现期量再求基期
+    - 问增长量而不是基期量
+    - 需要先合并多个现期量再求基期
   method_steps:
-    - 基期 = 现期 / (1 + 增长率)
-    - 增长率绝对值小于5%时，用现期乘以 (1 - r) 快速近似
-    - 增长率为负时分母是 1 - |r|，基期会大于现期
-    - 选项差距大于5%时估算，不做完整除法
+  - 基期 = 现期 / (1 + 增长率)
+  - 增长率绝对值小于5%时，用现期乘以 (1 - r) 快速近似
+  - 增长率为负时分母是 1 - |r|，基期会大于现期
+  - 选项差距大于5%时估算，不做完整除法
   error_signatures:
-    - code: base_period_formula_flip
-      description: 把基期公式记成现期乘以 (1 + r)
-    - code: negative_growth_direction_wrong
-      description: 负增长时仍把基期算得比现期小
+  - code: base_period_formula_flip
+    description: 把基期公式记成现期乘以 (1 + r)
+  - code: negative_growth_direction_wrong
+    description: 负增长时仍把基期算得比现期小
   fix_action: 做 {n} 题基期量同类题，限时 {sec} 秒/题
   time_budget_sec: 55
   accuracy_rule: 选项差距大于5%时估算；差距小于5%时保留一位小数核算
@@ -107,11 +109,12 @@
     tested_count: 0
     passed_count: 0
     sample_question_ids: []
-    reviewer:
-    reviewed_at:
+    reviewer: null
+    reviewed_at: null
   priority: 5
   status: draft
-
+  knowledge_nodes:
+  - 行测/资料分析/基期计算
 - id: mc_ziliao_xianqiliang_01
   exam_scope: guokao
   track: xingce
@@ -121,21 +124,21 @@
   recognition: 题干给出基期量和增长率，问后来某期、保持增速后的现期量
   applicability:
     include:
-      - 题干出现若保持、预计、将达到、某年为多少
-      - 已知基期量和增长率或能先求出增长率
+    - 题干出现若保持、预计、将达到、某年为多少
+    - 已知基期量和增长率或能先求出增长率
     exclude:
-      - 问过去基期量
-      - 题干要求复杂递推且每期增速不同
+    - 问过去基期量
+    - 题干要求复杂递推且每期增速不同
   method_steps:
-    - 现期 = 基期 x (1 + 增长率)
-    - 如果先给相邻两期量，先求增长率再顺推
-    - 连续多年同增速且选项粗时，用倍数感判断量级
-    - 问首次超过时，先算每年净增加量，再用差距除以增量
+  - 现期 = 基期 x (1 + 增长率)
+  - 如果先给相邻两期量，先求增长率再顺推
+  - 连续多年同增速且选项粗时，用倍数感判断量级
+  - 问首次超过时，先算每年净增加量，再用差距除以增量
   error_signatures:
-    - code: current_period_direction_wrong
-      description: 把顺推现期误做成反推基期
-    - code: projection_increment_wrong
-      description: 保持增量和保持增速没有区分
+  - code: current_period_direction_wrong
+    description: 把顺推现期误做成反推基期
+  - code: projection_increment_wrong
+    description: 保持增量和保持增速没有区分
   fix_action: 做 {n} 题现期计算同类题，限时 {sec} 秒/题
   time_budget_sec: 60
   accuracy_rule: 单步顺推保留整数或一位小数；首次超过题先估年份再精算临界点
@@ -145,11 +148,12 @@
     tested_count: 0
     passed_count: 0
     sample_question_ids: []
-    reviewer:
-    reviewed_at:
+    reviewer: null
+    reviewed_at: null
   priority: 4
   status: draft
-
+  knowledge_nodes:
+  - 行测/资料分析/现期计算
 - id: mc_ziliao_zengzhangliang_jisuan_01
   exam_scope: guokao
   track: xingce
@@ -159,21 +163,21 @@
   recognition: 题干问增加了多少、增长量、同比增量或环比增量
   applicability:
     include:
-      - 已知现期量和增长率
-      - 或材料直接给出现期量和基期量
+    - 已知现期量和增长率
+    - 或材料直接给出现期量和基期量
     exclude:
-      - 问增长率
-      - 问多个对象增长量大小排序
+    - 问增长率
+    - 问多个对象增长量大小排序
   method_steps:
-    - 有现期和基期时，增长量 = 现期 - 基期
-    - 有现期和增长率时，增长量 = 现期 x r / (1 + r)
-    - r 接近 1/n 时，用现期 / (n + 1) 速算增长量
-    - 负增长时增长量为负，问减少量时取绝对值
+  - 有现期和基期时，增长量 = 现期 - 基期
+  - 有现期和增长率时，增长量 = 现期 x r / (1 + r)
+  - r 接近 1/n 时，用现期 / (n + 1) 速算增长量
+  - 负增长时增长量为负，问减少量时取绝对值
   error_signatures:
-    - code: growth_amount_use_current_times_rate
-      description: 直接用现期乘增长率，少除以 (1 + r)
-    - code: growth_amount_negative_misread
-      description: 没区分增长量为负和减少量为正
+  - code: growth_amount_use_current_times_rate
+    description: 直接用现期乘增长率，少除以 (1 + r)
+  - code: growth_amount_negative_misread
+    description: 没区分增长量为负和减少量为正
   fix_action: 做 {n} 题增长量计算同类题，限时 {sec} 秒/题
   time_budget_sec: 55
   accuracy_rule: r 可化成常见分数时用 n+1 公式；不能化分数时按选项差距估算
@@ -183,11 +187,12 @@
     tested_count: 0
     passed_count: 0
     sample_question_ids: []
-    reviewer:
-    reviewed_at:
+    reviewer: null
+    reviewed_at: null
   priority: 5
   status: draft
-
+  knowledge_nodes:
+  - 行测/资料分析/增长量计算
 - id: mc_ziliao_zengzhangliang_bijiao_01
   exam_scope: guokao
   track: xingce
@@ -197,21 +202,21 @@
   recognition: 题干问哪个增长量最大、最小，或要求比较多个对象同比增量
   applicability:
     include:
-      - 多个对象均给出现期量和增长率
-      - 题干目标是增长量大小而不是增长率大小
+    - 多个对象均给出现期量和增长率
+    - 题干目标是增长量大小而不是增长率大小
     exclude:
-      - 只比较增长率
-      - 数据口径不同，不能直接横比
+    - 只比较增长率
+    - 数据口径不同，不能直接横比
   method_steps:
-    - 同时比较现期量和增长率，现期大且率大则增长量必大
-    - 现期小且率小的对象可先排除
-    - 一大一小时，用现期 x r / (1 + r) 估算关键候选
-    - 只精算最接近的两个候选
+  - 同时比较现期量和增长率，现期大且率大则增长量必大
+  - 现期小且率小的对象可先排除
+  - 一大一小时，用现期 x r / (1 + r) 估算关键候选
+  - 只精算最接近的两个候选
   error_signatures:
-    - code: growth_amount_compare_rate_only
-      description: 只按增长率大小比较增长量
-    - code: growth_amount_compare_all_calculated
-      description: 每个选项都完整计算，耗时过长
+  - code: growth_amount_compare_rate_only
+    description: 只按增长率大小比较增长量
+  - code: growth_amount_compare_all_calculated
+    description: 每个选项都完整计算，耗时过长
   fix_action: 做 {n} 题增长量比较同类题，限时 {sec} 秒/题
   time_budget_sec: 60
   accuracy_rule: 先用大大则大排除；只在一大一小时估算增长量
@@ -221,11 +226,12 @@
     tested_count: 0
     passed_count: 0
     sample_question_ids: []
-    reviewer:
-    reviewed_at:
+    reviewer: null
+    reviewed_at: null
   priority: 5
   status: draft
-
+  knowledge_nodes:
+  - 行测/资料分析/增长量比较
 - id: mc_ziliao_xianqi_bizhong_01
   exam_scope: guokao
   track: xingce
@@ -235,21 +241,21 @@
   recognition: 题干问某部分占总体的比重、占比或百分点差
   applicability:
     include:
-      - 材料给出同一时期的部分量和总体量
-      - 题干出现占、比重、占比、百分点
+    - 材料给出同一时期的部分量和总体量
+    - 题干出现占、比重、占比、百分点
     exclude:
-      - 问上一期比重
-      - 问两期比重变化
+    - 问上一期比重
+    - 问两期比重变化
   method_steps:
-    - 先圈部分量，再圈整体量，确认二者同一时期同一单位
-    - 比重 = 部分 / 整体
-    - 问百分点差时分别算两个比重再相减
-    - 选项粗时把整体化成便于除的整百、整千
+  - 先圈部分量，再圈整体量，确认二者同一时期同一单位
+  - 比重 = 部分 / 整体
+  - 问百分点差时分别算两个比重再相减
+  - 选项粗时把整体化成便于除的整百、整千
   error_signatures:
-    - code: proportion_part_whole_reversed
-      description: 把整体和部分放反
-    - code: percentage_point_as_percent
-      description: 把百分点差误当成百分比变化
+  - code: proportion_part_whole_reversed
+    description: 把整体和部分放反
+  - code: percentage_point_as_percent
+    description: 把百分点差误当成百分比变化
   fix_action: 做 {n} 题现期比重同类题，限时 {sec} 秒/题
   time_budget_sec: 50
   accuracy_rule: 比重题先估首位；百分点差小于2时再保留一位小数
@@ -259,11 +265,12 @@
     tested_count: 0
     passed_count: 0
     sample_question_ids: []
-    reviewer:
-    reviewed_at:
+    reviewer: null
+    reviewed_at: null
   priority: 5
   status: draft
-
+  knowledge_nodes:
+  - 行测/资料分析/现期比重
 - id: mc_ziliao_liangqi_bizhong_01
   exam_scope: guokao
   track: xingce
@@ -273,21 +280,21 @@
   recognition: 题干问比重上升、下降或比上年提高几个百分点
   applicability:
     include:
-      - 已知部分现期量、整体现期量及二者增速
-      - 题干比较两个时期的比重变化
+    - 已知部分现期量、整体现期量及二者增速
+    - 题干比较两个时期的比重变化
     exclude:
-      - 只问现期比重
-      - 缺少部分或整体的增长率
+    - 只问现期比重
+    - 缺少部分或整体的增长率
   method_steps:
-    - 先比较部分增速 a 和整体增速 b
-    - a 大于 b，比重上升；a 小于 b，比重下降
-    - 变化幅度约为现期比重 x (a - b) / (1 + a)
-    - 只问升降时不用计算百分点
+  - 先比较部分增速 a 和整体增速 b
+  - a 大于 b，比重上升；a 小于 b，比重下降
+  - 变化幅度约为现期比重 x (a - b) / (1 + a)
+  - 只问升降时不用计算百分点
   error_signatures:
-    - code: two_period_proportion_direction_wrong
-      description: 没用部分增速减整体增速判断升降
-    - code: two_period_proportion_overcalculate
-      description: 只问升降仍完整计算百分点，浪费时间
+  - code: two_period_proportion_direction_wrong
+    description: 没用部分增速减整体增速判断升降
+  - code: two_period_proportion_overcalculate
+    description: 只问升降仍完整计算百分点，浪费时间
   fix_action: 做 {n} 题两期比重同类题，限时 {sec} 秒/题
   time_budget_sec: 65
   accuracy_rule: 先判升降；选项只问方向不算幅度，问百分点再估现期比重乘增速差
@@ -297,11 +304,12 @@
     tested_count: 0
     passed_count: 0
     sample_question_ids: []
-    reviewer:
-    reviewed_at:
+    reviewer: null
+    reviewed_at: null
   priority: 5
   status: draft
-
+  knowledge_nodes:
+  - 行测/资料分析/两期比重
 - id: mc_ziliao_jiqi_bizhong_01
   exam_scope: guokao
   track: xingce
@@ -311,21 +319,21 @@
   recognition: 题干问上年、上期或基期某部分占总体的比重
   applicability:
     include:
-      - 已知部分现期量、整体现期量及二者增长率
-      - 题干明确问过去时期的比重
+    - 已知部分现期量、整体现期量及二者增长率
+    - 题干明确问过去时期的比重
     exclude:
-      - 只问现期比重
-      - 材料已直接给出基期部分和基期整体
+    - 只问现期比重
+    - 材料已直接给出基期部分和基期整体
   method_steps:
-    - 先算现期比重 = 部分现期 / 整体现期
-    - 基期比重 = 现期比重 x (1 + 整体增速) / (1 + 部分增速)
-    - 部分增速大于整体增速时，基期比重小于现期比重
-    - 选项粗时先用升降关系排除，再估修正系数
+  - 先算现期比重 = 部分现期 / 整体现期
+  - 基期比重 = 现期比重 x (1 + 整体增速) / (1 + 部分增速)
+  - 部分增速大于整体增速时，基期比重小于现期比重
+  - 选项粗时先用升降关系排除，再估修正系数
   error_signatures:
-    - code: base_proportion_growth_order_wrong
-      description: 把修正系数写成 (1 + 部分增速) / (1 + 整体增速)
-    - code: base_proportion_direction_wrong
-      description: 没先用增速大小判断基期比重相对现期的方向
+  - code: base_proportion_growth_order_wrong
+    description: 把修正系数写成 (1 + 部分增速) / (1 + 整体增速)
+  - code: base_proportion_direction_wrong
+    description: 没先用增速大小判断基期比重相对现期的方向
   fix_action: 做 {n} 题基期比重同类题，限时 {sec} 秒/题
   time_budget_sec: 70
   accuracy_rule: 先用方向排除；选项接近时再计算修正系数
@@ -335,11 +343,12 @@
     tested_count: 0
     passed_count: 0
     sample_question_ids: []
-    reviewer:
-    reviewed_at:
+    reviewer: null
+    reviewed_at: null
   priority: 4
   status: draft
-
+  knowledge_nodes:
+  - 行测/资料分析/基期比重
 - id: mc_ziliao_xianqi_pingjunshu_01
   exam_scope: guokao
   track: xingce
@@ -349,21 +358,21 @@
   recognition: 题干问平均每、平均拥有、人均、日均、单位里程等现期平均值
   applicability:
     include:
-      - 同一时期给出总量和份数
-      - 题干出现平均、每、单位、人均、日均
+    - 同一时期给出总量和份数
+    - 题干出现平均、每、单位、人均、日均
     exclude:
-      - 问平均数增长率
-      - 问基期平均数
+    - 问平均数增长率
+    - 问基期平均数
   method_steps:
-    - 先把被平均的总量圈出来，再圈份数或对象数
-    - 平均数 = 总量 / 份数
-    - 单位不一致时先统一数量级
-    - 选项范围型题只需估到落入区间
+  - 先把被平均的总量圈出来，再圈份数或对象数
+  - 平均数 = 总量 / 份数
+  - 单位不一致时先统一数量级
+  - 选项范围型题只需估到落入区间
   error_signatures:
-    - code: average_total_count_reversed
-      description: 把份数除以总量
-    - code: average_unit_not_converted
-      description: 万、亿、万人次等单位没有先统一
+  - code: average_total_count_reversed
+    description: 把份数除以总量
+  - code: average_unit_not_converted
+    description: 万、亿、万人次等单位没有先统一
   fix_action: 做 {n} 题现期平均数同类题，限时 {sec} 秒/题
   time_budget_sec: 50
   accuracy_rule: 范围选项估到区间即可；精确选项保留两位有效数字
@@ -373,11 +382,12 @@
     tested_count: 0
     passed_count: 0
     sample_question_ids: []
-    reviewer:
-    reviewed_at:
+    reviewer: null
+    reviewed_at: null
   priority: 4
   status: draft
-
+  knowledge_nodes:
+  - 行测/资料分析/现期平均数
 - id: mc_ziliao_jiqi_pingjunshu_01
   exam_scope: guokao
   track: xingce
@@ -387,21 +397,21 @@
   recognition: 题干问上年、上期或基期的平均每、人均、单位量
   applicability:
     include:
-      - 已知总量现期、份数现期及二者增长率
-      - 题干明确问过去时期平均数
+    - 已知总量现期、份数现期及二者增长率
+    - 题干明确问过去时期平均数
     exclude:
-      - 只问现期平均数
-      - 材料直接给出基期总量和基期份数可直接相除
+    - 只问现期平均数
+    - 材料直接给出基期总量和基期份数可直接相除
   method_steps:
-    - 先算现期平均数 = 总量现期 / 份数现期
-    - 基期平均数 = 现期平均数 x (1 + 份数增速) / (1 + 总量增速)
-    - 总量增速大于份数增速时，基期平均数小于现期平均数
-    - 先用方向排除，再估修正系数
+  - 先算现期平均数 = 总量现期 / 份数现期
+  - 基期平均数 = 现期平均数 x (1 + 份数增速) / (1 + 总量增速)
+  - 总量增速大于份数增速时，基期平均数小于现期平均数
+  - 先用方向排除，再估修正系数
   error_signatures:
-    - code: base_average_growth_order_wrong
-      description: 把总量和份数的增长率修正顺序写反
-    - code: base_average_direction_wrong
-      description: 没用总量增速和份数增速判断基期平均数方向
+  - code: base_average_growth_order_wrong
+    description: 把总量和份数的增长率修正顺序写反
+  - code: base_average_direction_wrong
+    description: 没用总量增速和份数增速判断基期平均数方向
   fix_action: 做 {n} 题基期平均数同类题，限时 {sec} 秒/题
   time_budget_sec: 70
   accuracy_rule: 先判方向；选项接近时保留一位小数核算修正系数
@@ -411,11 +421,12 @@
     tested_count: 0
     passed_count: 0
     sample_question_ids: []
-    reviewer:
-    reviewed_at:
+    reviewer: null
+    reviewed_at: null
   priority: 4
   status: draft
-
+  knowledge_nodes:
+  - 行测/资料分析/基期平均数
 - id: mc_ziliao_bizhi_jisuan_01
   exam_scope: guokao
   track: xingce
@@ -425,21 +436,21 @@
   recognition: 题干问是几倍、比值、强度、密度、单位量或 A 约为 B 的多少
   applicability:
     include:
-      - 题干需要把两个同口径量做除法
-      - 选项为倍数、范围或单位强度
+    - 题干需要把两个同口径量做除法
+    - 选项为倍数、范围或单位强度
     exclude:
-      - 问比重且有明确部分整体关系
-      - 问增长率的倍数，需要先求两个增长率
+    - 问比重且有明确部分整体关系
+    - 问增长率的倍数，需要先求两个增长率
   method_steps:
-    - 把题干翻译成 A / B，先写清谁除以谁
-    - 单位不同先统一，尤其万、亿、日均、公里
-    - 选项为范围时估首两位即可
-    - 若问增长速度的倍数，先分别求两个增长率再相除
+  - 把题干翻译成 A / B，先写清谁除以谁
+  - 单位不同先统一，尤其万、亿、日均、公里
+  - 选项为范围时估首两位即可
+  - 若问增长速度的倍数，先分别求两个增长率再相除
   error_signatures:
-    - code: ratio_direction_reversed
-      description: A 是 B 的几倍时把 B / A
-    - code: ratio_nested_rate_skipped
-      description: 问增长速度倍数时直接用原量相除
+  - code: ratio_direction_reversed
+    description: A 是 B 的几倍时把 B / A
+  - code: ratio_nested_rate_skipped
+    description: 问增长速度倍数时直接用原量相除
   fix_action: 做 {n} 题比值计算同类题，限时 {sec} 秒/题
   time_budget_sec: 55
   accuracy_rule: 范围选项只估到区间；精确倍数题保留两位有效数字
@@ -449,11 +460,12 @@
     tested_count: 0
     passed_count: 0
     sample_question_ids: []
-    reviewer:
-    reviewed_at:
+    reviewer: null
+    reviewed_at: null
   priority: 4
   status: draft
-
+  knowledge_nodes:
+  - 行测/资料分析/比值计算
 - id: mc_ziliao_bizhi_bijiao_01
   exam_scope: guokao
   track: xingce
@@ -463,21 +475,21 @@
   recognition: 题干问多个对象的强度、平均量、比值谁最高或最低
   applicability:
     include:
-      - 多个对象都能写成 A / B
-      - 题干目标是比较大小而非求具体数值
+    - 多个对象都能写成 A / B
+    - 题干目标是比较大小而非求具体数值
     exclude:
-      - 只要求单个比值落在哪个范围
-      - 分子分母口径不同，不能横向比较
+    - 只要求单个比值落在哪个范围
+    - 分子分母口径不同，不能横向比较
   method_steps:
-    - 先写出每个候选的 A / B
-    - 分子大且分母小的候选必更大，优先保留
-    - 一大一小时用交叉相乘比较 A1 x B2 和 A2 x B1
-    - 只对最后两个候选估算具体比值
+  - 先写出每个候选的 A / B
+  - 分子大且分母小的候选必更大，优先保留
+  - 一大一小时用交叉相乘比较 A1 x B2 和 A2 x B1
+  - 只对最后两个候选估算具体比值
   error_signatures:
-    - code: ratio_compare_numerator_only
-      description: 只看分子大小比较比值
-    - code: ratio_compare_full_calculation
-      description: 每个候选都完整除法，耗时过长
+  - code: ratio_compare_numerator_only
+    description: 只看分子大小比较比值
+  - code: ratio_compare_full_calculation
+    description: 每个候选都完整除法，耗时过长
   fix_action: 做 {n} 题比值比较同类题，限时 {sec} 秒/题
   time_budget_sec: 60
   accuracy_rule: 比较题优先交叉相乘；除非选项要求具体数值，否则不做完整除法
@@ -487,7 +499,9 @@
     tested_count: 0
     passed_count: 0
     sample_question_ids: []
-    reviewer:
-    reviewed_at:
+    reviewer: null
+    reviewed_at: null
   priority: 4
   status: draft
+  knowledge_nodes:
+  - 行测/资料分析/比值比较
