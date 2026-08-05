@@ -13545,6 +13545,21 @@ export type PublicApiEnvelopeWorkspace = {
 };
 
 /**
+ * PublicApiEnvelope[XingceRescue]
+ */
+export type PublicApiEnvelopeXingceRescue = {
+    data: XingceRescue;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[XingceTaskBriefing]
  */
 export type PublicApiEnvelopeXingceTaskBriefing = {
@@ -15240,6 +15255,122 @@ export type RequirementConfirmationRequest = {
 export type RequirementConfirmationResult = {
     confirmation: RequirementConfirmation;
     eligibility: PositionEligibilitySnapshot;
+};
+
+/**
+ * RescueMethodCard
+ *
+ * 错题对应考点的已发布方法卡（内容裁剪：识别/方法/易错点）。
+ */
+export type RescueMethodCard = {
+    /**
+     * Cardid
+     */
+    cardId: string;
+    /**
+     * Fixaction
+     */
+    fixAction: string;
+    /**
+     * Methodsteps
+     */
+    methodSteps: Array<string>;
+    /**
+     * Modulename
+     */
+    moduleName: string;
+    /**
+     * Pitfall
+     */
+    pitfall?: string | null;
+    /**
+     * Recognition
+     */
+    recognition: string;
+    /**
+     * Tagpath
+     */
+    tagPath: string;
+    /**
+     * Timebudgetsec
+     */
+    timeBudgetSec: number;
+    /**
+     * Title
+     */
+    title: string;
+};
+
+/**
+ * RescueNodeContext
+ */
+export type RescueNodeContext = {
+    /**
+     * Displaypath
+     */
+    displayPath: string;
+    /**
+     * Modulename
+     */
+    moduleName: string;
+    /**
+     * Nodeid
+     */
+    nodeId: string;
+};
+
+/**
+ * RescueSimilarOption
+ */
+export type RescueSimilarOption = {
+    /**
+     * Label
+     */
+    label: string;
+    /**
+     * Optionid
+     */
+    optionId: string;
+    /**
+     * Text
+     */
+    text: string;
+};
+
+/**
+ * RescueSimilarQuestion
+ *
+ * 按考点从题库选出的同类题（冻结内容，前端直接展示）。
+ */
+export type RescueSimilarQuestion = {
+    /**
+     * Contentversionid
+     */
+    contentVersionId: string;
+    /**
+     * Correctoptionids
+     */
+    correctOptionIds: Array<string>;
+    /**
+     * Explanation
+     */
+    explanation?: string | null;
+    /**
+     * Modulename
+     */
+    moduleName: string;
+    /**
+     * Options
+     */
+    options: Array<RescueSimilarOption>;
+    /**
+     * Questionid
+     */
+    questionId: string;
+    /**
+     * Stem
+     */
+    stem: string;
 };
 
 /**
@@ -18953,6 +19084,57 @@ export type XingceGroupSummary = {
      * Scheduled
      */
     scheduled: boolean;
+};
+
+/**
+ * XingceRescue
+ *
+ * 做完一组题后的集中救场结果（只读，不打断做题）。
+ */
+export type XingceRescue = {
+    /**
+     * Items
+     */
+    items?: Array<XingceRescueItem>;
+    /**
+     * Reviewid
+     */
+    reviewId: string;
+    /**
+     * Sessionid
+     */
+    sessionId: string;
+    /**
+     * Summary
+     */
+    summary: string;
+};
+
+/**
+ * XingceRescueItem
+ *
+ * 单道错题的救场：错因解释 + 方法卡 + 同类题。
+ */
+export type XingceRescueItem = {
+    /**
+     * Causecode
+     */
+    causeCode: string;
+    /**
+     * Causelabel
+     */
+    causeLabel: string;
+    /**
+     * Explanation
+     */
+    explanation: string;
+    methodCard?: RescueMethodCard | null;
+    node: RescueNodeContext;
+    /**
+     * Questionid
+     */
+    questionId: string;
+    similarQuestion?: RescueSimilarQuestion | null;
 };
 
 /**
@@ -32005,6 +32187,68 @@ export type SubmitAttemptReflectionApiV2XingceAttemptReviewsReviewIdReflectionPu
 };
 
 export type SubmitAttemptReflectionApiV2XingceAttemptReviewsReviewIdReflectionPutResponse = SubmitAttemptReflectionApiV2XingceAttemptReviewsReviewIdReflectionPutResponses[keyof SubmitAttemptReflectionApiV2XingceAttemptReviewsReviewIdReflectionPutResponses];
+
+export type GetAttemptRescueApiV2XingceAttemptReviewsReviewIdRescueGetData = {
+    body?: never;
+    path: {
+        /**
+         * Review Id
+         */
+        review_id: string;
+    };
+    query?: never;
+    url: '/api/v2/xingce/attempt-reviews/{review_id}/rescue';
+};
+
+export type GetAttemptRescueApiV2XingceAttemptReviewsReviewIdRescueGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetAttemptRescueApiV2XingceAttemptReviewsReviewIdRescueGetError = GetAttemptRescueApiV2XingceAttemptReviewsReviewIdRescueGetErrors[keyof GetAttemptRescueApiV2XingceAttemptReviewsReviewIdRescueGetErrors];
+
+export type GetAttemptRescueApiV2XingceAttemptReviewsReviewIdRescueGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeXingceRescue;
+};
+
+export type GetAttemptRescueApiV2XingceAttemptReviewsReviewIdRescueGetResponse = GetAttemptRescueApiV2XingceAttemptReviewsReviewIdRescueGetResponses[keyof GetAttemptRescueApiV2XingceAttemptReviewsReviewIdRescueGetResponses];
 
 export type GetMasteryQueueApiV2XingceMasteryQueueGetData = {
     body?: never;

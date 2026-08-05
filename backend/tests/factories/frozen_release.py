@@ -43,6 +43,25 @@ class FrozenKnowledgeNodeSeed:
     tag_value: str = "言语理解基础"
     near5_weight: float = 1.0
     near5_occurrence_count: int = 100
+    method_card_ids: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True, slots=True)
+class FrozenMethodCardSeed:
+    """测试用已发布方法卡：会随发布一起被引用，必须在激活前写入。"""
+
+    id: str
+    module_name: str = _DEFAULT_CANONICAL_MODULE
+    tag_path: str = "行测/言语理解与表达/言语理解基础"
+    title: str = "言语理解基础方法卡"
+    recognition: str = "测试用识别条件"
+    method_steps: tuple[str, ...] = ("先圈限定词", "再比较选项")
+    error_signatures: tuple[dict[str, str], ...] = ()
+    fix_action: str = "做同类题巩固"
+    time_budget_sec: int = 60
+    accuracy_rule: str = "验证后同类题正确率提升"
+    pitfall: str | None = "别把猜测当方法"
+    priority: int = 5
 
 
 @dataclass(frozen=True, slots=True)
@@ -86,6 +105,7 @@ def seed_canonical_frozen_release(
     release_key: str,
     questions: tuple[FrozenQuestionSeed, ...],
     nodes: tuple[FrozenKnowledgeNodeSeed, ...] = (FrozenKnowledgeNodeSeed(),),
+    method_cards: tuple[FrozenMethodCardSeed, ...] = (),
     reference_time: datetime | None = None,
     legacy_visual_schema: bool = False,
 ) -> CanonicalFrozenRelease:
@@ -95,6 +115,7 @@ def seed_canonical_frozen_release(
         release_key=release_key,
         questions=questions,
         nodes=nodes,
+        method_cards=method_cards,
         reference_time=now,
         fresh_until=now + timedelta(days=365),
         legacy_visual_schema=legacy_visual_schema,
@@ -217,12 +238,18 @@ def _seed_frozen_release_storage(
     release_key: str,
     questions: tuple[FrozenQuestionSeed, ...],
     nodes: tuple[FrozenKnowledgeNodeSeed, ...],
+    method_cards: tuple[FrozenMethodCardSeed, ...] = (),
     reference_time: datetime,
     fresh_until: datetime,
     activated_at: datetime | None = None,
     legacy_visual_schema: bool = False,
 ) -> CanonicalFrozenRelease:
-    _validate_seed(release_key=release_key, questions=questions, nodes=nodes)
+    _validate_seed(
+        release_key=release_key,
+        questions=questions,
+        nodes=nodes,
+        method_cards=method_cards,
+    )
     release_id = str(uuid5(NAMESPACE_URL, f"gongkao-test-frozen-release:{release_key}"))
     release_version = f"knowledge-map@test:{release_key}:v1"
     source_data_version = f"question-bank@test:{release_key}:v1"
@@ -230,6 +257,7 @@ def _seed_frozen_release_storage(
         release_key=release_key,
         questions=questions,
         nodes=nodes,
+        method_cards=method_cards,
     )
     existing = session.execute(
         text(
@@ -288,6 +316,8 @@ def _seed_frozen_release_storage(
             "fresh_until": fresh_until,
         },
     )
+    for card in method_cards:
+        _insert_method_card(session, card=card)
     for node in nodes:
         _insert_node(session, release_id=release_id, node=node)
     _insert_questions(session, questions)
@@ -341,12 +371,13 @@ def _insert_node(
               support_status, near5_window_start_year,
               near5_window_end_year, near5_weight,
               near5_occurrence_count, stable_for_old_questions,
-              status
+              method_card_ids, status
             ) values (
               cast(:release_id as uuid), :node_id, 'guokao', 'xingce',
               :module_name, :node_type, :tag_type, :tag_value,
               :display_path, 'text_supported', 2022, 2026, :near5_weight,
-              :near5_occurrence_count, true, 'published'
+              :near5_occurrence_count, true,
+              cast(:method_card_ids as jsonb), 'published'
             )
             """
         ),
@@ -360,6 +391,56 @@ def _insert_node(
             "display_path": f"{node.module_name}/{node.tag_value}",
             "near5_weight": node.near5_weight,
             "near5_occurrence_count": node.near5_occurrence_count,
+            "method_card_ids": _json(list(node.method_card_ids)),
+        },
+    )
+
+
+def _insert_method_card(
+    session: Session,
+    *,
+    card: FrozenMethodCardSeed,
+) -> None:
+    session.execute(
+        text(
+            """
+            insert into product.method_cards (
+              id, exam_scope, track, module_name, tag_path,
+              title, recognition, applicability, method_steps,
+              error_signatures, fix_action, time_budget_sec,
+              accuracy_rule, pitfall, author_note, validation,
+              priority, status
+            ) values (
+              :id, 'guokao', 'xingce', :module_name, :tag_path,
+              :title, :recognition, '{}'::jsonb,
+              cast(:method_steps as jsonb),
+              cast(:error_signatures as jsonb), :fix_action,
+              :time_budget_sec, :accuracy_rule, :pitfall,
+              'test fixture', '{}'::jsonb, :priority, 'published'
+            )
+            on conflict (id) do update set
+              title = excluded.title,
+              recognition = excluded.recognition,
+              method_steps = excluded.method_steps,
+              fix_action = excluded.fix_action,
+              pitfall = excluded.pitfall,
+              priority = excluded.priority,
+              status = excluded.status
+            """
+        ),
+        {
+            "id": card.id,
+            "module_name": card.module_name,
+            "tag_path": card.tag_path,
+            "title": card.title,
+            "recognition": card.recognition,
+            "method_steps": _json(list(card.method_steps)),
+            "error_signatures": _json(list(card.error_signatures)),
+            "fix_action": card.fix_action,
+            "time_budget_sec": card.time_budget_sec,
+            "accuracy_rule": card.accuracy_rule,
+            "pitfall": card.pitfall,
+            "priority": card.priority,
         },
     )
 
@@ -655,6 +736,7 @@ def _validate_seed(
     release_key: str,
     questions: tuple[FrozenQuestionSeed, ...],
     nodes: tuple[FrozenKnowledgeNodeSeed, ...],
+    method_cards: tuple[FrozenMethodCardSeed, ...] = (),
 ) -> None:
     if not release_key.strip() or not questions or not nodes:
         raise AssertionError("frozen-release fixture requires key, questions, and nodes")
@@ -667,6 +749,16 @@ def _validate_seed(
         or any(item.answer not in item.option_labels for item in questions)
     ):
         raise AssertionError("frozen-release fixture contains ambiguous seed authority")
+    card_ids = tuple(item.id for item in method_cards)
+    referenced = {
+        card_id
+        for node in nodes
+        for card_id in node.method_card_ids
+    }
+    if len(card_ids) != len(set(card_ids)):
+        raise AssertionError("frozen-release method cards must have unique ids")
+    if not referenced.issubset(set(card_ids)):
+        raise AssertionError("frozen-release nodes reference missing method cards")
 
 
 def _fixture_fingerprint(
@@ -674,12 +766,17 @@ def _fixture_fingerprint(
     release_key: str,
     questions: tuple[FrozenQuestionSeed, ...],
     nodes: tuple[FrozenKnowledgeNodeSeed, ...],
+    method_cards: tuple[FrozenMethodCardSeed, ...] = (),
 ) -> str:
+    del method_cards
     payload = {
         "contractVersion": "canonical-frozen-release-test-factory@v1",
         "releaseKey": release_key,
         "questions": [asdict(item) for item in questions],
-        "nodes": [asdict(item) for item in nodes],
+        "nodes": [
+            {key: value for key, value in asdict(item).items() if key != "method_card_ids"}
+            for item in nodes
+        ],
     }
     return sha256(
         json.dumps(
@@ -689,3 +786,7 @@ def _fixture_fingerprint(
             separators=(",", ":"),
         ).encode("utf-8")
     ).hexdigest()
+
+
+def _json(value: object) -> str:
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":"))

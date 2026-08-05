@@ -39,6 +39,11 @@ from app.domains.xingce_learning.mastery.service import (
     XingceMasteryCursorError,
     XingceMasteryService,
 )
+from app.domains.xingce_learning.rescue.schemas import XingceRescue
+from app.domains.xingce_learning.rescue.service import (
+    XingceRescueError,
+    XingceRescueService,
+)
 from app.platform.http import (
     COMMON_API_ERROR_RESPONSES,
     PublicApiEnvelope,
@@ -354,6 +359,39 @@ def decide_attempt_cause(
             command=command,
         ),
     )
+
+
+def get_xingce_rescue_service() -> XingceRescueService:
+    return XingceRescueService()
+
+
+@router.get(
+    "/attempt-reviews/{review_id}/rescue",
+    response_model=PublicApiEnvelope[XingceRescue],
+)
+def get_attempt_rescue(
+    review_id: UUID,
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    service: Annotated[XingceRescueService, Depends(get_xingce_rescue_service)],
+) -> PublicApiEnvelope[XingceRescue] | JSONResponse:
+    try:
+        result = service.rescue(
+            session,
+            user_id=current_user.user_id,
+            review_id=str(review_id),
+        )
+        return public_success_envelope(request=request, response=response, data=result)
+    except XingceRescueError as exc:
+        session.rollback()
+        return public_error_response(
+            request=request,
+            status_code=exc.status_code,
+            code=exc.code,
+            message=exc.message,
+        )
 
 
 def _write(

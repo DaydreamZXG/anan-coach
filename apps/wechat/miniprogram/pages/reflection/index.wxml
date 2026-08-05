@@ -419,6 +419,64 @@
           </view>
         </view>
       </view>
+
+      <!-- 错题即时救场：方法卡 + 同类题预览。 -->
+      <view wx:if="{{rescue && rescue.items.length}}" class="rescue-card">
+        <view class="rescue-card__head">
+          <view class="rescue-card__mark">救</view>
+          <view class="rescue-card__title">这组错题，先补方法再练一道</view>
+        </view>
+        <view wx:for="{{rescue.items}}" wx:key="questionId" class="rescue-item">
+          <view class="rescue-item__explanation">{{item.explanation}}</view>
+          <view wx:if="{{item.methodCard}}" class="rescue-method">
+            <view class="rescue-method__title">{{item.methodCard.title}}</view>
+            <view wx:if="{{item.methodCard.recognition}}" class="rescue-method__row">
+              <view class="rescue-method__label">怎么认</view>
+              <view class="rescue-method__copy">{{item.methodCard.recognition}}</view>
+            </view>
+            <view class="rescue-method__row">
+              <view class="rescue-method__label">怎么做</view>
+              <view class="rescue-method__steps">
+                <view wx:for="{{item.methodCard.methodSteps}}" wx:for-item="step" wx:key="*this" class="rescue-method__step">{{step}}</view>
+              </view>
+            </view>
+            <view wx:if="{{item.methodCard.pitfall}}" class="rescue-method__row">
+              <view class="rescue-method__label">易错点</view>
+              <view class="rescue-method__copy">{{item.methodCard.pitfall}}</view>
+            </view>
+          </view>
+          <view wx:if="{{item.similarQuestion}}" class="rescue-similar">
+            <view class="rescue-similar__toggle" bindtap="toggleRescueSimilarQuestion">
+              <text>{{rescueSimilarQuestionOpen ? '收起同类题' : '再练一道同类题'}}</text>
+              <text class="rescue-similar__chevron">{{rescueSimilarQuestionOpen ? '▲' : '▼'}}</text>
+            </view>
+            <view wx:if="{{rescueSimilarQuestionOpen}}" class="rescue-similar__body">
+              <view class="rescue-similar__stem">{{item.similarQuestion.stem}}</view>
+              <view wx:for="{{item.similarQuestion.options}}" wx:for-item="option" wx:key="optionId" class="rescue-similar__option">
+                <text class="rescue-similar__label">{{option.label}}</text>
+                <text class="rescue-similar__text">{{option.text}}</text>
+                <text wx:if="{{option.optionId === item.similarQuestion.correctOptionIds[0]}}" class="rescue-similar__correct">✓ 正确</text>
+              </view>
+              <view wx:if="{{item.similarQuestion.explanation}}" class="rescue-similar__explanation">
+                <view class="rescue-similar__explanation-label">解析</view>
+                <view class="rescue-similar__explanation-copy">{{item.similarQuestion.explanation}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <button
+          hover-class="item--hover"
+          class="reflection-primary completed-primary rescue-practice-button tap-tactile"
+          bindtap="startRescuePractice"
+        >再练一道同类题</button>
+      </view>
+      <view wx:elif="{{rescueLoading}}" class="rescue-card rescue-card--loading">
+        <view class="rescue-card__head"><view class="rescue-card__mark">救</view><view class="rescue-card__title">正在准备方法卡…</view></view>
+      </view>
+      <view wx:elif="{{rescueError}}" class="rescue-card rescue-card--error">
+        <view class="rescue-card__title">方法卡暂时没准备好</view>
+        <button hover-class="item--hover" class="rescue-retry tap-tactile" bindtap="retryRescue">再试一次</button>
+      </view>
       <button
         hover-class="item--hover"
         wx:if="{{hasImmediateVerification}}"

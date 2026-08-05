@@ -1,7 +1,11 @@
 import { ApiClient, ApiClientError } from "../../api/client";
 import { LearningMediaApi } from "../../api/learning-media";
 import { XfyunApi } from "../../api/xfyun";
-import { XingceLearningApi, type XingceTaskSession } from "../../api/xingce-learning";
+import {
+  XingceLearningApi,
+  type XingceRescue,
+  type XingceTaskSession,
+} from "../../api/xingce-learning";
 import { routes } from "../../app/navigation/routes";
 import { navigateBackOr } from "../../app/navigation/safe-back";
 import { currentAuthSession } from "../../auth/session";
@@ -173,6 +177,11 @@ interface ReflectionPageData {
   completionClosure: XingceReflectionClosureView;
   hasImmediateVerification: boolean;
   verificationNavigationLocked: boolean;
+  /** 错题即时救场：方法卡 + 同类题（完成态展示，不打断做题）。 */
+  rescue: XingceRescue | null;
+  rescueLoading: boolean;
+  rescueError: boolean;
+  rescueSimilarQuestionOpen: boolean;
 }
 
 interface ReflectionPageCustom {
@@ -226,6 +235,9 @@ interface ReflectionPageCustom {
   closeActionAnalysis(): void;
   toggleMoreEvidence(): void;
   noop(): void;
+  toggleRescueSimilarQuestion(): void;
+  startRescuePractice(): void;
+  retryRescue(): Promise<void>;
 }
 
 interface ReflectionRuntime {
@@ -321,6 +333,10 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     },
     hasImmediateVerification: false,
     verificationNavigationLocked: false,
+    rescue: null,
+    rescueLoading: false,
+    rescueError: false,
+    rescueSimilarQuestionOpen: false,
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -995,8 +1011,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       runtime.mediaDraft = loadReflectionLearningMediaDraft(runtime.ownerUserId, runtime.reviewId);
       void deleteVoiceFiles(localPaths);
       applySession(this, runtime, response.data);
-      returnToTodayForBackgroundCause =
-        response.data.review?.state === "cause_candidate_pending";
+      returnToTodayForBackgroundCause = response.data.review?.state === "cause_candidate_pending";
     } catch (error) {
       if (!runtimeIsActive(this, runtime)) return;
       if (error instanceof ApiClientError && error.statusCode === 409) {
@@ -1115,6 +1130,28 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     const plan = runtimes.get(this)?.session?.completion?.plan;
     if (plan) publishLatestTodayDashboard(plan);
     void wx.switchTab({ url: routes.today });
+  },
+
+  // 错题即时救场：完成态卡片里展开/收起同类题。
+  toggleRescueSimilarQuestion() {
+    this.setData({ rescueSimilarQuestionOpen: !this.data.rescueSimilarQuestionOpen });
+  },
+
+  async retryRescue() {
+    const runtime = runtimes.get(this);
+    if (!runtime || runtime.disposed) return;
+    await loadRescue(this, runtime);
+  },
+
+  // 「再练一道同类题」：跳到针对训练作答页（不打断现有完成态）。
+  startRescuePractice() {
+    const runtime = runtimes.get(this);
+    const rescue = this.data.rescue;
+    const similar = rescue?.items?.at(0)?.similarQuestion;
+    if (!runtime?.session || !rescue || !similar || this.data.rescueLoading) return;
+    // 同类题暂以内嵌预览展示（答案与解析在卡片内）；正式交互式再练
+    // 需要独立的单题作答会话，作为救场下一步。
+    this.toggleRescueSimilarQuestion();
   },
 
   async startImmediateVerification() {
@@ -1490,6 +1527,21 @@ function clearCausePoll(runtime: ReflectionRuntime): void {
   runtime.causePollTimer = null;
 }
 
+/** 错题即时救场：错因确认后拉方法卡 + 同类题（只读，失败静默不影响完成态）。 */
+async function loadRescue(page: ReflectionPageInstance, runtime: ReflectionRuntime): Promise<void> {
+  if (runtime.disposed || page.data.rescueLoading) return;
+  const epoch = ++runtime.requestEpoch;
+  page.setData({ rescueLoading: true, rescueError: false });
+  try {
+    const response = await runtime.api.getRescue(runtime.reviewId);
+    if (!isCurrent(page, runtime, epoch) || !currentAccountOwns(runtime)) return;
+    page.setData({ rescue: response.data, rescueLoading: false, rescueError: false });
+  } catch {
+    if (!isCurrent(page, runtime, epoch)) return;
+    page.setData({ rescueLoading: false, rescueError: true });
+  }
+}
+
 async function decideCause(
   page: ReflectionPageInstance,
   runtime: ReflectionRuntime,
@@ -1662,6 +1714,9 @@ function applySession(
   if (phase === "cause_processing") scheduleCausePoll(page, runtime);
   else clearCausePoll(runtime);
   if (session.completion?.plan) publishLatestTodayDashboard(session.completion.plan);
+  if (phase === "completed" && !page.data.rescue) {
+    void loadRescue(page, runtime);
+  }
 }
 
 function reviewSwipeBlocked(page: ReflectionPageInstance): boolean {
@@ -1825,6 +1880,10 @@ function invalidateForAccountChange(
     voiceSummary: presentReflectionVoiceSummary([]),
     speechBusy: false,
     speechPlaying: false,
+    rescue: null,
+    rescueLoading: false,
+    rescueError: false,
+    rescueSimilarQuestionOpen: false,
   });
 }
 

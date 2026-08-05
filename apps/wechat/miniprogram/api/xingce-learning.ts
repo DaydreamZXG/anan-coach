@@ -16,10 +16,16 @@ import type {
   ReflectionCommand as GeneratedReflectionCommand,
   ReflectionVersionProjection as GeneratedReflectionVersionProjection,
   ReportQuestionDisputeCommand as GeneratedReportQuestionDisputeCommand,
+  RescueMethodCard as GeneratedRescueMethodCard,
+  RescueNodeContext as GeneratedRescueNodeContext,
+  RescueSimilarOption as GeneratedRescueSimilarOption,
+  RescueSimilarQuestion as GeneratedRescueSimilarQuestion,
   VerificationOutcomeProjection as GeneratedVerificationOutcomeProjection,
   XingceAttemptResult as GeneratedXingceAttemptResult,
   XingceCompletionReceipt as GeneratedXingceCompletionReceipt,
   XingceGroupSummary as GeneratedXingceGroupSummary,
+  XingceRescue as GeneratedXingceRescue,
+  XingceRescueItem as GeneratedXingceRescueItem,
   XingceResultItem as GeneratedXingceResultItem,
   XingceTaskBriefing as GeneratedXingceTaskBriefing,
   XingceTimingEvidence as GeneratedXingceTimingEvidence,
@@ -158,6 +164,14 @@ export type XingceAttemptReview = Omit<
 };
 export type XingceCompletionReceipt = GeneratedXingceCompletionReceipt;
 
+/** 错题即时救场（只读，做完一组题确认错因后返回）。 */
+export type XingceRescueMethodCard = GeneratedRescueMethodCard;
+export type XingceRescueSimilarOption = GeneratedRescueSimilarOption;
+export type XingceRescueSimilarQuestion = GeneratedRescueSimilarQuestion;
+export type XingceRescueNodeContext = GeneratedRescueNodeContext;
+export type XingceRescueItem = GeneratedXingceRescueItem;
+export type XingceRescue = GeneratedXingceRescue;
+
 export interface XingceTaskSession {
   sessionId: string;
   planTaskId: string;
@@ -289,6 +303,11 @@ export class XingceLearningApi {
     return this.client.put<XingceTaskSession>(`${reviewPath(reviewId)}/cause-followup`, command, {
       idempotencyKey,
     });
+  }
+
+  /** 错题即时救场：错因 -> 方法卡 -> 同类题（只读，不打断做题）。 */
+  getRescue(reviewId: string): Promise<ApiEnvelope<XingceRescue>> {
+    return this.client.get<XingceRescue>(`${reviewPath(reviewId)}/rescue`);
   }
 
   reportDispute(
