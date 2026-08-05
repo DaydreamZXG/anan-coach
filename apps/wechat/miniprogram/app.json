@@ -41,42 +41,6 @@
   ],
   "subPackages": [
     {
-      "root": "packages/anan-thinking",
-      "name": "anan-thinking",
-      "pages": [],
-      "entry": "package-entry.js"
-    },
-    {
-      "root": "packages/anan-reminder",
-      "name": "anan-reminder",
-      "pages": [],
-      "entry": "package-entry.js"
-    },
-    {
-      "root": "packages/anan-encouragement",
-      "name": "anan-encouragement",
-      "pages": [],
-      "entry": "package-entry.js"
-    },
-    {
-      "root": "packages/anan-rest",
-      "name": "anan-rest",
-      "pages": [],
-      "entry": "package-entry.js"
-    },
-    {
-      "root": "packages/anan-deprioritize",
-      "name": "anan-deprioritize",
-      "pages": [],
-      "entry": "package-entry.js"
-    },
-    {
-      "root": "packages/anan-growth",
-      "name": "anan-growth",
-      "pages": [],
-      "entry": "package-entry.js"
-    },
-    {
       "root": "pages/capture-import",
       "name": "capture-import",
       "pages": ["index"]
@@ -174,12 +138,6 @@
   "lazyCodeLoading": "requiredComponents",
   "requiredPrivateInfos": ["getLocation"],
   "permission": {
-    "scope.camera": {
-      "desc": "用于拍摄你主动选择识别的题目、材料和手写答案"
-    },
-    "scope.record": {
-      "desc": "用于录制你主动发起的语音复盘和申论作答说明"
-    },
     "scope.userLocation": {
       "desc": "用于展示你当前位置附近的天气，帮助安排当天学习"
     }

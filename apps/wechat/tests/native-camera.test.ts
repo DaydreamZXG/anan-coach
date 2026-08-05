@@ -1,5 +1,4 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import appConfig from "../miniprogram/app.json";
 import { captureSourcePhoto } from "../miniprogram/platform/source-image";
 
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
@@ -23,7 +22,6 @@ describe("capture import native camera", () => {
     expect(captureTemplate).toContain('bindinitdone="handleCameraInit"');
     expect(captureTemplate).toContain('binderror="handleCameraError"');
     expect(captureTemplate).toContain('bindtap="chooseCamera"');
-    expect(appConfig.permission["scope.camera"].desc).toContain("拍摄");
   });
 
   it("takes the displayed camera frame instead of reopening chooseMedia", async () => {

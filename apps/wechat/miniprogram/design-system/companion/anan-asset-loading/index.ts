@@ -1,5 +1,0 @@
-Component({
-  options: {
-    virtualHost: true,
-  },
-});

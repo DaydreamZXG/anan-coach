@@ -7,8 +7,6 @@ import termsTemplate from "../miniprogram/pages/terms/index.wxml?raw";
 
 describe("WeChat review compliance surface", () => {
   it("declares every directly requested runtime permission with a user-facing purpose", () => {
-    expect(appConfig.permission["scope.camera"].desc).toContain("拍摄");
-    expect(appConfig.permission["scope.record"].desc).toContain("语音复盘");
     expect(appConfig.permission["scope.userLocation"].desc).toContain("天气");
   });
 
