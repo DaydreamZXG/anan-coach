@@ -127,6 +127,7 @@ interface AnnotationLayerHost {
     scrollTop: number;
     contentHeight: number;
     tool: string;
+    toolbarCollapsed: boolean;
     lassoSelectedCount: number;
     drawnStrokeCount: number;
   };
@@ -363,6 +364,7 @@ Component({
   },
   data: {
     tool: "pen",
+    toolbarCollapsed: false,
     tools: [
       { value: "pan", glyph: "✋", label: "滑动" },
       { value: "pen", glyph: "✎", label: "画笔" },
@@ -375,6 +377,10 @@ Component({
   },
   observers: {
     "mode, strokes, replayMs"(this: AnnotationLayerHost) {
+      // 收起态只服务当前批注会话。离开批注后恢复默认画笔，下一次打开不增加一步操作。
+      if (this.data.mode !== "annotate" && this.data.toolbarCollapsed) {
+        this.setData({ toolbarCollapsed: false, tool: "pen", lassoSelectedCount: 0 });
+      }
       // wx:if 会在 hidden 时销毁 canvas 节点。WeakMap 中的 context 不会
       // 自动感知节点已卸载，若继续复用就会把下一题的笔迹画到旧节点。
       // 隐藏时丢弃整个运行时，下次 annotate 必须重查节点并重建 context。
@@ -422,6 +428,25 @@ Component({
     },
   },
   methods: {
+    collapseToolbar() {
+      const state = runtime(this);
+      state.activeStroke = null;
+      state.activeStrokeStartedAt = 0;
+      state.lassoPath = [];
+      state.selectedStrokeIds = new Set();
+      // 收起后必须切到滑动：隐藏的作画捕获层不能继续挡住题面滚动。
+      this.setData({
+        tool: "pan",
+        toolbarCollapsed: true,
+        lassoSelectedCount: 0,
+      });
+      redraw(this);
+    },
+
+    expandToolbar() {
+      this.setData({ toolbarCollapsed: false });
+    },
+
     selectTool(event: WechatMiniprogram.BaseEvent) {
       const state = runtime(this);
       state.lassoPath = [];

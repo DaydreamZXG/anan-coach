@@ -13,6 +13,7 @@
  */
 .annotation-layer__capture,
 .annotation-layer__toolbar,
+.annotation-layer__dock,
 .annotation-layer__lasso-bar {
   pointer-events: auto;
 }
@@ -114,7 +115,7 @@
 .annotation-layer__actions {
   display: grid;
   gap: calc(8 * var(--rpx));
-  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.35fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.35fr);
 }
 
 .annotation-layer__secondary-action {
@@ -158,9 +159,71 @@
   font-weight: 700;
 }
 
+/* 阅读态只留一个小胶囊；题面与材料均可继续滚动，且仍能直接结束草稿。 */
+.annotation-layer__dock {
+  position: absolute;
+  right: calc(24 * var(--rpx));
+  bottom: calc(calc(24 * var(--rpx)) + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  display: flex;
+  max-width: calc(100% - calc(48 * var(--rpx)));
+  height: calc(76 * var(--rpx));
+  align-items: center;
+  overflow: hidden;
+  border: calc(1 * var(--rpx)) solid var(--figma-color-line);
+  border-radius: var(--radius-capsule);
+  background: var(--figma-color-surface);
+  box-shadow: var(--shadow-elevated);
+}
+
+.annotation-layer__dock-expand,
+.annotation-layer__dock-done {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: var(--text-micro);
+  font-weight: 700;
+  line-height: normal;
+}
+
+.annotation-layer__dock-expand {
+  gap: calc(8 * var(--rpx));
+  padding: 0 calc(20 * var(--rpx));
+  color: var(--color-ink-secondary);
+}
+
+.annotation-layer__dock-glyph {
+  color: var(--color-primary-deep);
+  font-size: var(--text-caption);
+}
+
+.annotation-layer__dock-hint {
+  color: var(--color-primary-deep);
+}
+
+.annotation-layer__dock-divider {
+  width: calc(1 * var(--rpx));
+  height: calc(32 * var(--rpx));
+  flex: none;
+  background: var(--figma-color-line);
+}
+
+.annotation-layer__dock-done {
+  padding: 0 calc(22 * var(--rpx));
+  color: var(--figma-color-on-dark);
+  background: var(--color-primary-deep);
+}
+
 .annotation-layer__tool::after,
 .annotation-layer__secondary-action::after,
 .annotation-layer__done::after,
+.annotation-layer__dock-expand::after,
+.annotation-layer__dock-done::after,
 .annotation-layer__lasso-delete::after {
   border: 0;
 }

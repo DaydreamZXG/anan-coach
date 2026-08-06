@@ -96,6 +96,9 @@ describe("tablet responsive layout contract", () => {
 
   it("turns xingce and mock answering into material-question workbenches", () => {
     expect(practiceTemplate).toContain('class="practice-workspace ');
+    expect(practiceTemplate).toMatch(
+      /class="practice-question-stage"[\s\S]*class="practice-question-pane"[\s\S]*class="practice-annotation-host/u,
+    );
     expect(practiceTemplate).toContain('class="practice-question-pane"');
     expect(practiceStyles).toContain("grid-template-columns: minmax(340px, 0.95fr)");
     expect(practiceTemplate).toContain(
@@ -116,6 +119,12 @@ describe("tablet responsive layout contract", () => {
     );
     expect(practiceStyles).toMatch(/\.practice-question-pane \{[^}]*padding:\s*0;/u);
     expect(practiceStyles).toMatch(/\.practice-question-body \{[^}]*padding:\s*24px 24px 112px;/u);
+    expect(practiceStyles).toMatch(
+      /\.practice-question-stage \{[^}]*position:\s*relative;[^}]*min-width:\s*0;[^}]*min-height:\s*0;/u,
+    );
+    expect(practiceStyles).toMatch(
+      /\.practice-workspace--single \.practice-question-stage \{[^}]*grid-column:\s*1 \/ -1;/u,
+    );
     expect(taskShellStyles).toMatch(
       /\.task-shell--xingce \.task-footer \{[^}]*width:\s*100%;[^}]*max-width:\s*none;[^}]*transform:\s*none;/u,
     );
@@ -127,6 +136,9 @@ describe("tablet responsive layout contract", () => {
     );
 
     expect(mockTemplate).toContain('class="mock-workspace ');
+    expect(mockTemplate).toMatch(
+      /class="mock-question-stage"[\s\S]*class="mock-question-pane"[\s\S]*class="mock-annotation-host/u,
+    );
     expect(mockTemplate).toContain('layoutVariant="xingce"');
     expect(mockTemplate).toContain('<scroll-view\n        class="mock-question-pane"');
     expect(mockTemplate).toContain('scroll-top="{{questionScrollTop}}"');
@@ -139,6 +151,12 @@ describe("tablet responsive layout contract", () => {
     expect(mockTemplate).not.toContain(">下一题</button>");
     expect(mockTemplate).toContain('class="mock-material-pane"');
     expect(mockStyles).toContain("grid-template-columns: minmax(360px, 0.95fr)");
+    expect(mockStyles).toMatch(
+      /\.mock-question-stage \{[^}]*position:\s*relative;[^}]*min-width:\s*0;[^}]*min-height:\s*0;/u,
+    );
+    expect(mockStyles).toMatch(
+      /\.mock-workspace--single \.mock-question-stage \{[^}]*grid-column:\s*1 \/ -1;/u,
+    );
   });
 
   it("keeps the practice answer card and CTA inside phone and tablet viewports", () => {

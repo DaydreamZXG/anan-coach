@@ -232,6 +232,17 @@
   flex-direction: column;
 }
 
+/* 草稿画布与工具条只属于题目舞台，不能覆盖或拦截相邻的材料阅读区。 */
+.practice-question-stage {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
 /* Figma 2:74：标题行与滚动材料同处一张白卡，卡片整体带极浅投影。 */
 .material-reader-shell {
   display: block;
@@ -937,7 +948,7 @@ button.submit-button {
     gap: 28px;
   }
 
-  .practice-workspace--single .practice-question-pane {
+  .practice-workspace--single .practice-question-stage {
     grid-column: 1 / -1;
     width: 100%;
     max-width: 780px;

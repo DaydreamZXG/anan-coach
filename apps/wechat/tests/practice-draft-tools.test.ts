@@ -11,6 +11,7 @@ interface AnnotationTestData {
   elapsedMs: number;
   replayMs: number;
   tool: string;
+  toolbarCollapsed: boolean;
   tools: Array<{ value: string; glyph: string; label: string }>;
   lassoSelectedCount: number;
   drawnStrokeCount: number;
@@ -31,6 +32,8 @@ interface CapturedAnnotationComponent {
     resize(this: AnnotationObserverHost): void;
   };
   methods: {
+    collapseToolbar(this: AnnotationTestHost): void;
+    expandToolbar(this: AnnotationTestHost): void;
     clearAll(this: AnnotationTestHost): Promise<void>;
     openMore(this: AnnotationTestHost): void;
     onTouchStart(this: AnnotationObserverHost, event: WechatMiniprogram.TouchEvent): void;
@@ -104,9 +107,33 @@ describe("practice drawable draft tools", () => {
     expect(annotationTemplate).toContain('catchtap="clearAll">清空</button>');
     expect(annotationTemplate).toContain('catchtap="finish">完成</button>');
     expect(annotationTemplate).toContain('catchtap="openMore">更多</button>');
+    expect(annotationTemplate).toContain('catchtap="collapseToolbar">收起</button>');
+    expect(annotationTemplate).toContain('catchtap="expandToolbar"');
+    expect(annotationTemplate).toContain('aria-label="草稿工具已收起"');
     expect(annotationTemplate).not.toContain("annotation-layer__badge");
     expect(annotationTemplate).not.toContain("自动保存");
     expect(annotationTemplate).not.toContain("批注中");
+  });
+
+  it("collapses into reading mode without leaving an invisible drawing shield", async () => {
+    const definition = await captureAnnotationComponent();
+    const host: AnnotationTestHost = {
+      data: { ...cloneData(definition.data), strokes: [], tool: "highlighter" },
+      setData(patch) {
+        Object.assign(this.data, patch);
+      },
+      triggerEvent: vi.fn(),
+    };
+
+    definition.methods.collapseToolbar.call(host);
+
+    expect(host.data.toolbarCollapsed).toBe(true);
+    expect(host.data.tool).toBe("pan");
+    expect(host.data.lassoSelectedCount).toBe(0);
+
+    definition.methods.expandToolbar.call(host);
+    expect(host.data.toolbarCollapsed).toBe(false);
+    expect(host.data.tool).toBe("pan");
   });
 
   it("confirms a destructive clear and preserves the erased-stroke evidence", async () => {

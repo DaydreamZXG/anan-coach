@@ -113,6 +113,17 @@
   flex-direction: column;
 }
 
+/* 草稿画布与工具条只属于题目舞台，不能覆盖或拦截相邻的材料阅读区。 */
+.mock-question-stage {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
 /* 与练习页同构：宿主只负责定位，实际触摸策略由 annotation-layer 控制。 */
 .mock-annotation-host {
   position: absolute;
@@ -474,7 +485,7 @@
     gap: 32px;
   }
 
-  .mock-workspace--single .mock-question-pane {
+  .mock-workspace--single .mock-question-stage {
     grid-column: 1 / -1;
     width: 100%;
     max-width: 800px;

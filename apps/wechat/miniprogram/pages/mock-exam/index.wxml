@@ -82,6 +82,8 @@
         bindpositionchange="updateMaterialPosition"
       />
 
+      <!-- 题目舞台同时承载滚动题面与草稿层；平板双栏时草稿不会再伸进左侧材料栏。 -->
+      <view class="mock-question-stage">
       <!--
         左右快滑切题只绑在题目栏（平板双栏时材料栏不参与）。
         判定阈值与已知边界（content-renderer 表格横向滚动）见 task-runtime/swipe-nav.ts。
@@ -180,6 +182,7 @@
           binddone="closeAnnotation"
           bindmore="toggleTools"
         />
+      </view>
       </view>
     </view>
   </view>
