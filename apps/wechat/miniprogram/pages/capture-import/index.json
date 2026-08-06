@@ -5,6 +5,6 @@
   "usingComponents": {
     "state-view": "../../design-system/primitives/state-view/index",
     "ilink-bot-sheet": "../../components/ilink-bot-sheet/index",
-    "workbench-nav": "../../components/workbench-nav/index"
+    "workbench-nav": "./shared/components/workbench-nav/index"
   }
 }

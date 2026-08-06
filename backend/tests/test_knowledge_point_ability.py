@@ -536,7 +536,7 @@ def _seed_xingce_assessments(
                   :candidate_key, :work_item_key, 1, 'xingce',
                   'objective_practice', 'practice', '知识点校准训练',
                   '形成不可变行测评估事实', 20, true,
-                  '/pages/xingce-task-intro/index?mode=targeted',
+                  '/xingce/xingce-task-intro/index?mode=targeted',
                   0.8, 0.6, 0.8, 0.5, 1.0, 0.1, 0,
                   '[{"owner":"calibration-test"}]'::jsonb,
                   '{}'::jsonb, :input_fingerprint, :recorded_at

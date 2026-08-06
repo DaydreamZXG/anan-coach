@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { StudyPreferenceController } from "../miniprogram/features/onboarding/study-preference-controller";
+import { StudyPreferenceController } from "../miniprogram/plans/shared/features/onboarding/study-preference-controller";
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -9,7 +9,7 @@ afterEach(() => {
 describe("岸岸 Agent 周节奏预填", () => {
   it("只解析来自岸岸的白名单星期参数", async () => {
     vi.stubGlobal("Page", vi.fn());
-    const { parseAgentWeeklyPrefill } = await import("../miniprogram/pages/study-preference/index");
+    const { parseAgentWeeklyPrefill } = await import("../miniprogram/plans/study-preference/index");
 
     expect(
       parseAgentWeeklyPrefill({

@@ -132,7 +132,7 @@
 
           <view class="primary-task__body">
             <view class="primary-task__head">
-              <view>
+              <view class="compact-task__copy">
                 <view class="task-meta">
                   <text class="task-tag">{{item.kindLabel}}</text>
                   <text class="task-duration">· 预计 {{item.estimatedMinutes}} 分钟</text>
@@ -160,15 +160,15 @@
       </block>
 
       <view class="other-tasks">
-        <block wx:for="{{view.activeTasks}}" wx:key="id">
-          <view wx:if="{{index > 0}}" class="compact-task">
+        <block wx:for="{{view.secondaryTasks}}" wx:key="id">
+          <view class="compact-task">
             <view class="compact-task__main">
               <view class="compact-task__icon">
                 <image class="icon icon--small" src="/assets/icons/today/file-text-secondary.png" mode="aspectFit" />
               </view>
               <view>
                 <view class="compact-task__title">{{item.title}}</view>
-                <view class="compact-task__meta">{{item.trackLabel}} · 预计 {{item.estimatedMinutes}} 分钟</view>
+                <view class="compact-task__meta">{{item.queueMetaLabel}}</view>
               </view>
             </view>
             <button
@@ -177,7 +177,7 @@
               data-id="{{item.id}}"
               disabled="{{!item.canOpen}}"
               bindtap="openTask"
-            >{{item.status === 'in_progress' ? '继续' : '开始'}}</button>
+            >{{item.queueActionLabel}}</button>
           </view>
         </block>
         <block wx:for="{{view.completedTasks}}" wx:key="id">
@@ -189,8 +189,9 @@
         </block>
       </view>
       <view wx:if="{{taskNavigationError}}" class="task-error">{{taskNavigationError}}</view>
+      </view>
 
-      <view class="track-section">
+      <view class="track-section today-col--track">
         <view class="track-section__head">
           <view class="track-section__title">双轨进度</view>
           <view class="track-section__note">行测与申论每天都保留状态</view>
@@ -215,10 +216,13 @@
           </button>
         </view>
       </view>
-      </view>
 
       <view class="today-col today-col--side-b">
       <view class="secondary-tools">
+        <view class="secondary-tools__head">
+          <view class="secondary-tools__title">学习工具</view>
+          <view class="secondary-tools__meta">模考 · 复盘 · 计划</view>
+        </view>
         <button hover-class="item--hover" class="mock-entry" bindtap="openMockExam">
           <view class="mock-entry__icon">
             <image class="icon icon--small" src="/assets/icons/task/clock.svg" mode="aspectFit" />

@@ -10,7 +10,7 @@ import type {
   EssayTaskWorkspace,
   EssayTransferCommandV2,
   EssayTransferPlanTaskCompletionCommandV2,
-} from "../../../api/essay-intelligence";
+} from "../shared/api/essay-intelligence";
 import type {
   EssayRewriteWriterContext,
   EssayTransferWriterContext,

@@ -12,14 +12,14 @@ describe("岸岸 Agent 计划调整闭环", () => {
       resolveCompanionAction({
         kind: "adjust_plan_preview",
         label: "预览调整为 90 分钟",
-        targetRef: "/pages/day-adjustment/index?source=anan&availableMinutes=90",
+        targetRef: "/plans/day-adjustment/index?source=anan&availableMinutes=90",
         requiresConfirmation: true,
       }),
     ).toMatchObject({
       kind: "navigate",
       target: {
         mode: "navigateTo",
-        url: "/pages/day-adjustment/index?source=anan&availableMinutes=90",
+        url: "/plans/day-adjustment/index?source=anan&availableMinutes=90",
       },
       requiresConfirmation: true,
     });
@@ -27,7 +27,7 @@ describe("岸岸 Agent 计划调整闭环", () => {
       resolveCompanionAction({
         kind: "adjust_plan_preview",
         label: "伪造参数",
-        targetRef: "/pages/day-adjustment/index?source=anan&availableMinutes=90&goalId=other",
+        targetRef: "/plans/day-adjustment/index?source=anan&availableMinutes=90&goalId=other",
         requiresConfirmation: true,
       }),
     ).toEqual({ kind: "unavailable" });
@@ -37,7 +37,7 @@ describe("岸岸 Agent 计划调整闭环", () => {
         kind: "adjust_plan_preview",
         label: "预览今天只练资料分析",
         targetRef:
-          "/pages/day-adjustment/index?source=anan&preferredXingceModule=%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90&xingceOnly=1",
+          "/plans/day-adjustment/index?source=anan&preferredXingceModule=%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90&xingceOnly=1",
         requiresConfirmation: true,
       }),
     ).toMatchObject({ kind: "navigate", requiresConfirmation: true });
@@ -45,7 +45,7 @@ describe("岸岸 Agent 计划调整闭环", () => {
 
   it("只接收来自岸岸的 0..1440 整数分钟", async () => {
     vi.stubGlobal("Page", vi.fn());
-    const { parseAgentPrefillMinutes } = await import("../miniprogram/pages/day-adjustment/index");
+    const { parseAgentPrefillMinutes } = await import("../miniprogram/plans/day-adjustment/index");
 
     expect(parseAgentPrefillMinutes({ source: "anan", availableMinutes: "90" })).toBe(90);
     expect(parseAgentPrefillMinutes({ source: "anan", availableMinutes: "0" })).toBe(0);
@@ -56,7 +56,7 @@ describe("岸岸 Agent 计划调整闭环", () => {
 
   it("只接收来自岸岸的规范行测模块偏好", async () => {
     vi.stubGlobal("Page", vi.fn());
-    const { parseAgentPrefillFocus } = await import("../miniprogram/pages/day-adjustment/index");
+    const { parseAgentPrefillFocus } = await import("../miniprogram/plans/day-adjustment/index");
 
     expect(
       parseAgentPrefillFocus({

@@ -4,7 +4,7 @@ import {
   type EssayReviewIntentView,
   type EssayReviewResponse,
   type EssayTaskWorkspace,
-} from "../miniprogram/api/essay-intelligence";
+} from "../miniprogram/pages/essay-task/shared/api/essay-intelligence";
 import { ApiClient } from "../miniprogram/api/client";
 import { registeredTaskNavigationTarget } from "../miniprogram/app/navigation/routes";
 import {
@@ -17,11 +17,11 @@ import {
   buildArtifactCommand,
   EssayFormError,
   initialEssayFormDrafts,
-} from "../miniprogram/features/essay-task/forms";
+} from "../miniprogram/pages/essay-task/features/forms";
 import {
   presentEssayWorkspace,
   stageBlockingReason,
-} from "../miniprogram/features/essay-task/presentation";
+} from "../miniprogram/essay/shared/features/essay-task/presentation";
 import {
   presentGroundedReview,
   presentReviewIntent,

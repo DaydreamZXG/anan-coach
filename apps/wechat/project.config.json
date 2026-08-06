@@ -11,6 +11,7 @@
     "enhance": true,
     "postcss": true,
     "minified": true,
+    "ignoreUploadUnusedFiles": true,
     "urlCheck": true,
     "checkInvalidKey": true,
     "checkSiteMap": true,

@@ -2,9 +2,9 @@ import type {
   EssayIntelligenceApi,
   EssayReviewIntentView,
   EssayReviewResponse,
-} from "../../../api/essay-intelligence";
-import type { LearningMediaApi } from "../../../api/learning-media";
-import type { EssayHandwritingApi } from "../../../api/essay-handwriting";
+} from "../shared/api/essay-intelligence";
+import type { LearningMediaApi } from "../shared/api/learning-media";
+import type { EssayHandwritingApi } from "../shared/api/essay-handwriting";
 import type { EssayWriterContext, EssayTaskStage } from "../../../features/essay-task/capabilities";
 import type { EssayClosureDraft } from "./closure-store";
 import type { PendingEssayDraftingSubmission } from "../../../features/essay-task/drafting";
@@ -12,8 +12,8 @@ import type { PendingPlanTaskCompletion } from "../../../features/essay-task/pen
 import type {
   WechatVoicePreview,
   WechatVoiceRecorder,
-} from "../../../features/learning-media/platform";
-import type { ReflectionVoiceUploadCoordinator } from "../../../features/learning-media/upload-controller";
+} from "../shared/features/learning-media/platform";
+import type { ReflectionVoiceUploadCoordinator } from "../shared/features/learning-media/upload-controller";
 
 export interface EssayTaskPageRuntime {
   api: EssayIntelligenceApi | null;

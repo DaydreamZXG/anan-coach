@@ -3,9 +3,9 @@ import type {
   MockExamCheckpointCommand,
   MockExamLearnerSession,
   MockExamSubmitCommand,
-} from "../../api/mock-exam";
+} from "./shared/api/mock-exam";
 import type { QuestionAttemptDraft, TaskRuntimeState } from "../../task-runtime/contracts";
-import { createTaskRuntime } from "../../task-runtime/state/runtime";
+import { createTaskRuntime } from "./shared/task-runtime/state/runtime";
 
 export interface MockExamTiming {
   startedAt: string;

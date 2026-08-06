@@ -1,6 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
 import { ApiClient } from "../miniprogram/api/client";
-import { MathInkApi, type MathInkRecognitionResult } from "../miniprogram/api/math-ink";
+import {
+  MathInkApi,
+  type MathInkRecognitionResult,
+} from "../miniprogram/pages/practice/shared/api/math-ink";
 import type { RecognizeMathInkCommand } from "../miniprogram/api/generated/types.gen";
 
 describe("Math Ink generated contract", () => {

@@ -55,7 +55,7 @@ from app.platform.outbox import OutboxRepository
 
 
 PLAN_CONTRACT_VERSION = "daily-plan-v3"
-PLAN_ALGORITHM_VERSION = "dual-track-direct-essay-v5"
+PLAN_ALGORITHM_VERSION = "dual-track-direct-essay-v6"
 PLAN_BASIS = "evidence_priority_v2"
 SHANGHAI = ZoneInfo("Asia/Shanghai")
 STRATEGY_ADJUSTABLE_STAGES = {
@@ -805,10 +805,6 @@ class PlanningService:
                 replan_codes.append("task_execution_recorded")
             if previous_inputs.get("strategyDecisions") != strategy_state_fingerprint:
                 replan_codes.append("strategy_decision_changed")
-        if not preference.confirmed:
-            replan_codes.append("weekly_preference_pending_confirmation")
-        if not capacity.confirmed:
-            replan_codes.append("daily_capacity_pending_confirmation")
         if adaptive_recovery_day:
             replan_codes.append("capacity_recovery_mode")
         if mock_due and remaining_minutes < 120:
@@ -930,7 +926,7 @@ def _materialize_plan_task_start_url(start_url: str, *, task_id: str) -> str:
     parts = urlsplit(start_url)
     if parts.path not in {
         "/pages/essay-task/index",
-        "/pages/xingce-task-intro/index",
+        "/xingce/xingce-task-intro/index",
         "/pages/mock-exam/index",
     }:
         return start_url
@@ -1016,9 +1012,7 @@ def _apply_strategy_decisions(
             guidance_reason = guidance_decisions[0].rationale
             candidate = replace(
                 candidate,
-                reason=(
-                    f"{candidate.reason} 中控大脑建议先建立基线：{guidance_reason}"
-                ),
+                reason=(f"{candidate.reason} 中控大脑建议先建立基线：{guidance_reason}"),
                 evidence_refs=tuple(_unique_refs([*candidate.evidence_refs, *decision_refs])),
                 priority=replace(
                     priority,
@@ -1418,16 +1412,11 @@ def _plan_copy(
         if goal_gap.readiness != "complete":
             return (
                 "今天先把训练起点准备好",
-                "确认今天可用时间并完成起点诊断；目标岗位可以稍后再选，不影响先开始学习。",
-            )
-        if not capacity.confirmed:
-            return (
-                "先确认今天能学多久",
-                "点「调整今天」告诉岸岸可用时间和状态，安排马上生成；不会用凑数任务填满今天。",
+                "今天的可用时间已按每周计划生效；先完成起点诊断，目标岗位可以稍后再选，不影响开始学习。",
             )
         return (
             "今天的正式安排还没就绪",
-            "你的目标和时间都已确认，还差能安全派发的训练内容；稍后回来重新读取即可，岸岸不会硬塞不可执行的任务。",
+            "今天的可用时间已经生效，还差能安全派发的训练内容；稍后回来重新读取即可，岸岸不会硬塞不可执行的任务。",
         )
     xingce = sum(
         item.candidate.estimated_minutes for item in tasks if item.candidate.track == "xingce"
@@ -1440,7 +1429,7 @@ def _plan_copy(
         if xingce and essay
         else f"今天先完成最高收益的 {sum(item.candidate.estimated_minutes for item in tasks)} 分钟闭环"
     )
-    capacity_note = "已确认" if capacity.confirmed else "等待你确认"
+    capacity_note = "按你今天的调整" if capacity.source_type == "user_override" else "按每周计划"
     gap_note = (
         f"当前岗位总分差约 {goal_gap.baseline_gap:g} 分"
         if goal_gap.readiness == "complete" and goal_gap.baseline_gap is not None
@@ -1555,8 +1544,6 @@ def _day_mode(
 
 
 def _needs_adaptive_recovery(capacity: CapacitySnapshot) -> bool:
-    if not capacity.confirmed:
-        return False
     return (
         capacity.available_minutes == 0
         or capacity.energy == 1

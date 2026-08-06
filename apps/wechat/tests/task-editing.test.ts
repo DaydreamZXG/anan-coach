@@ -1,11 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import type { TaskEditingApi, TaskEditLease } from "../miniprogram/api/task-editing";
+import type {
+  TaskEditingApi,
+  TaskEditLease,
+} from "../miniprogram/pages/practice/shared/api/task-editing";
 import {
   acquireTaskEditOwnership,
   resolveRevisionConflict,
   TaskEditTakeoverDeclined,
-} from "../miniprogram/features/task-editing/coordinator";
+} from "../miniprogram/pages/practice/shared/features/task-editing/coordinator";
 
 const firstLease: TaskEditLease = {
   state: "takeover_required",

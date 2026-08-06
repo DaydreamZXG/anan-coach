@@ -1,12 +1,12 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { mapLearnerSafeMockSession } from "../miniprogram/api/mock-exam";
-import type { MockExamAnswerCheckpoint } from "../miniprogram/api/mock-exam";
-import { reduceTaskRuntime } from "../miniprogram/task-runtime/state/runtime";
+import { mapLearnerSafeMockSession } from "../miniprogram/reports/shared/api/mock-exam";
+import type { MockExamAnswerCheckpoint } from "../miniprogram/reports/shared/api/mock-exam";
+import { reduceTaskRuntime } from "../miniprogram/pages/practice/shared/task-runtime/state/runtime";
 import {
   loadTaskDisplayPreferences,
   storeTaskDisplayPreferences,
-} from "../miniprogram/task-runtime/display-preferences";
+} from "../miniprogram/pages/practice/shared/task-runtime/display-preferences";
 import {
   buildMockCheckpointCommand,
   buildMockSubmitCommand,
@@ -473,7 +473,7 @@ describe("stage 2 F02 mock exam", () => {
 
     harness.page.openMockReport.call(harness.page);
     expect(harness.navigateTo).toHaveBeenCalledWith({
-      url: "/pages/mock-report/index?sessionId=mock-session-1",
+      url: "/reports/mock-report/index?sessionId=mock-session-1",
     });
     harness.page.onUnload.call(harness.page);
   });

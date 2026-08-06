@@ -1,0 +1,11 @@
+<view class="workbench-nav-placeholder" style="height: {{paddingTop + navHeight}}px;"></view>
+<view
+  class="workbench-nav workbench-nav--{{tone}} component-token-host"
+  style="padding-top: {{paddingTop}}px; height: {{navHeight}}px; grid-template-columns: {{capsuleReserve}}px minmax(0, 1fr) {{capsuleReserve}}px;"
+>
+  <view wx:if="{{showBack}}" hover-class="item--hover" class="workbench-nav__back" bindtap="goBack" role="button" aria-label="返回">
+    <view class="workbench-nav__back-icon" aria-hidden="true"></view>
+  </view>
+  <view class="workbench-nav__title">{{title}}</view>
+  <view class="workbench-nav__spacer"></view>
+</view>

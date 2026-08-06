@@ -3,25 +3,25 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   putPrivateLearningMedia,
   type LearningMediaUploadProjection,
-} from "../miniprogram/api/learning-media";
+} from "../miniprogram/pages/reflection/shared/api/learning-media";
 import { sha256Hex } from "../miniprogram/api/sha256";
 import {
   loadReflectionLearningMediaDraft,
   storeReflectionLearningMediaDraft,
-} from "../miniprogram/features/learning-media/draft-store";
+} from "../miniprogram/pages/reflection/shared/features/learning-media/draft-store";
 import {
   maximumReflectionVoiceTotalBytes,
   type ReflectionVoiceSegment,
-} from "../miniprogram/features/learning-media/contracts";
+} from "../miniprogram/pages/reflection/shared/features/learning-media/contracts";
 import {
   ensureRecordPermission,
   persistRecordedVoice,
-} from "../miniprogram/features/learning-media/platform";
+} from "../miniprogram/pages/reflection/shared/features/learning-media/platform";
 import {
   LearningMediaOperationCancelled,
   ReflectionVoiceUploadCoordinator,
   type LearningMediaUploadGateway,
-} from "../miniprogram/features/learning-media/upload-controller";
+} from "../miniprogram/pages/reflection/shared/features/learning-media/upload-controller";
 import {
   apiSuccess,
   reflectedXingceSession,

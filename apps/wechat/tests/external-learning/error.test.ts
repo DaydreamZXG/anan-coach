@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { ApiClientError } from "../../miniprogram/api/client";
-import { externalLearningError } from "../../miniprogram/features/external-learning/error";
+import { externalLearningError } from "../../miniprogram/xingce/shared/features/external-learning/error";
 
 describe("external learning error presentation", () => {
   it("does not misclassify a local file error as a network interruption", () => {

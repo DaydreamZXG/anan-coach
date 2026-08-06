@@ -736,7 +736,7 @@ export const visualScenarios = [
             id: "today-task-1",
             canOpen: true,
             navigationUrl:
-              "/pages/xingce-task-intro/index?planTaskId=today-task-1&mode=verification",
+              "/xingce/xingce-task-intro/index?planTaskId=today-task-1&mode=verification",
             navigationMode: "navigateTo",
             track: "xingce",
             trackLabel: "行测",
@@ -928,7 +928,7 @@ export const visualScenarios = [
   },
   {
     id: "f10-support-placeholder",
-    route: "/pages/support/index",
+    route: "/account/support/index",
     authenticated: true,
     data: {
       groupQrImageUrl: "",
@@ -1086,7 +1086,7 @@ export const visualScenarios = [
   },
   {
     id: "f15-study-preference-settings-ready",
-    route: "/pages/study-preference/index",
+    route: "/plans/study-preference/index",
     authenticated: true,
     data: {
       state: {
@@ -1259,7 +1259,7 @@ export const visualScenarios = [
   },
   {
     id: "a08-retake-workspace-ready",
-    route: "/pages/retake/index",
+    route: "/plans/retake/index",
     authenticated: true,
     data: {
       state: {
@@ -1493,7 +1493,7 @@ export const visualScenarios = [
   },
   {
     id: "c01-xingce-briefing-ready",
-    route: "/pages/xingce-task-intro/index?mode=baseline&planTaskId=visual-plan-task-001",
+    route: "/xingce/xingce-task-intro/index?mode=baseline&planTaskId=visual-plan-task-001",
     authenticated: true,
     data: {
       status: "ready",
@@ -1894,7 +1894,7 @@ export const visualScenarios = [
   },
   {
     id: "c19-xingce-favorites-list",
-    route: "/pages/xingce-mastery/favorites/index",
+    route: "/xingce/xingce-mastery/favorites/index",
     authenticated: true,
     data: {
       status: "ready",
@@ -1955,7 +1955,7 @@ export const visualScenarios = [
   },
   {
     id: "c20-xingce-favorites-empty",
-    route: "/pages/xingce-mastery/favorites/index",
+    route: "/xingce/xingce-mastery/favorites/index",
     authenticated: true,
     data: {
       status: "ready",
@@ -1973,7 +1973,7 @@ export const visualScenarios = [
   },
   {
     id: "c21-xingce-favorites-error",
-    route: "/pages/xingce-mastery/favorites/index",
+    route: "/xingce/xingce-mastery/favorites/index",
     authenticated: true,
     data: {
       status: "error",
@@ -2227,7 +2227,7 @@ export const visualScenarios = [
   },
   {
     id: "c08-xingce-mastery-queue",
-    route: "/pages/xingce-mastery/index",
+    route: "/xingce/xingce-mastery/index",
     authenticated: true,
     data: {
       status: "ready",
@@ -2271,7 +2271,7 @@ export const visualScenarios = [
             action: {
               state: "ready",
               startUrl:
-                "/pages/xingce-task-intro/index?mode=verification&planTaskId=visual-plan-task-002",
+                "/xingce/xingce-task-intro/index?mode=verification&planTaskId=visual-plan-task-002",
               planTaskId: "visual-plan-task-002",
             },
             sessionId: null,
@@ -2328,7 +2328,7 @@ export const visualScenarios = [
   },
   {
     id: "c21-community-draft-private",
-    route: "/pages/community-draft/index",
+    route: "/community/community-draft/index",
     authenticated: true,
     data: {
       pageState: "default",
@@ -2353,7 +2353,7 @@ export const visualScenarios = [
   },
   {
     id: "c22-community-structure-confirm",
-    route: "/pages/community-structure/index?cardId=visual-community-card",
+    route: "/community/community-structure/index?cardId=visual-community-card",
     authenticated: true,
     data: {
       pageState: "default",
@@ -2390,7 +2390,7 @@ export const visualScenarios = [
   {
     id: "c23-community-independent-trial",
     route:
-      "/pages/community-trial/index?track=xingce&applicability=%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90",
+      "/community/community-trial/index?track=xingce&applicability=%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90",
     authenticated: true,
     data: {
       pageState: "default",
@@ -2432,7 +2432,7 @@ export const visualScenarios = [
   },
   {
     id: "c24-community-contributions-ledger",
-    route: "/pages/community-contributions/index",
+    route: "/community/community-contributions/index",
     authenticated: true,
     data: {
       pageState: "default",
@@ -2550,7 +2550,7 @@ export const visualScenarios = [
   },
   {
     id: "f06-essay-review-evidence",
-    route: "/pages/essay-review/index?taskVersionId=visual-essay-task",
+    route: "/essay/essay-review/index?taskVersionId=visual-essay-task",
     authenticated: true,
     data: {
       status: "ready",
@@ -2619,7 +2619,7 @@ export const visualScenarios = [
   },
   {
     id: "f07-essay-rewrite-comparison",
-    route: "/pages/essay-rewrite/index?taskVersionId=visual-essay-task",
+    route: "/essay/essay-rewrite/index?taskVersionId=visual-essay-task",
     authenticated: true,
     data: {
       status: "ready",
@@ -2644,7 +2644,7 @@ export const visualScenarios = [
   },
   {
     id: "f10-essay-material-map",
-    route: "/pages/essay-material/index?taskVersionId=visual-essay-task",
+    route: "/essay/essay-material/index?taskVersionId=visual-essay-task",
     authenticated: true,
     data: {
       status: "ready",
@@ -2714,7 +2714,7 @@ export const visualScenarios = [
   },
   {
     id: "f11-essay-compose-workbench",
-    route: "/pages/essay-compose/index?taskVersionId=visual-essay-task&planTaskId=visual-plan",
+    route: "/essay/essay-compose/index?taskVersionId=visual-essay-task&planTaskId=visual-plan",
     authenticated: true,
     data: {
       status: "ready",
@@ -2760,7 +2760,7 @@ export const visualScenarios = [
   },
   {
     id: "f12-essay-grounding-evidence",
-    route: "/pages/essay-evidence/index?taskVersionId=visual-essay-task",
+    route: "/essay/essay-evidence/index?taskVersionId=visual-essay-task",
     authenticated: true,
     data: {
       status: "ready",
@@ -2797,7 +2797,7 @@ export const visualScenarios = [
   },
   {
     id: "b02-plan-basis-ready",
-    route: "/pages/plan-basis/index",
+    route: "/plans/plan-basis/index",
     authenticated: true,
     data: {
       status: "ready",
@@ -2816,7 +2816,7 @@ export const visualScenarios = [
         title: "资料分析首次复测",
         reason: "确认上次问法方向错误是否已经修正。",
         estimatedMinutes: 30,
-        startUrl: "/pages/xingce-task-intro/index",
+        startUrl: "/xingce/xingce-task-intro/index",
         objective: "独立完成一组比重估算题，并保留真实作答过程。",
         successCriteria: ["完成全部题目", "标记不确定题目", "提交关键题复盘"],
         requiresReflection: true,
@@ -2839,7 +2839,7 @@ export const visualScenarios = [
   },
   {
     id: "b03-day-adjustment-ready",
-    route: "/pages/day-adjustment/index",
+    route: "/plans/day-adjustment/index",
     authenticated: true,
     data: {
       status: "ready",
@@ -2861,7 +2861,7 @@ export const visualScenarios = [
   },
   {
     id: "b04-daily-settlement-ready",
-    route: "/pages/daily-settlement/index",
+    route: "/plans/daily-settlement/index",
     authenticated: true,
     data: {
       status: "ready",
@@ -2935,7 +2935,7 @@ export const visualScenarios = [
   },
   {
     id: "b05-weekly-plan-ready",
-    route: "/pages/weekly-plan/index",
+    route: "/plans/weekly-plan/index",
     authenticated: true,
     data: {
       status: "ready",
@@ -3080,7 +3080,7 @@ export const visualScenarios = [
   {
     id: "e02-ability-module-ready",
     route:
-      "/pages/ability-module/index?track=xingce&moduleKey=%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90",
+      "/reports/ability-module/index?track=xingce&moduleKey=%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90",
     authenticated: true,
     data: {
       status: "ready",
@@ -3111,7 +3111,7 @@ export const visualScenarios = [
   },
   {
     id: "e03-error-pattern-ready",
-    route: `/pages/error-pattern/index?patternId=${"a".repeat(64)}`,
+    route: `/reports/error-pattern/index?patternId=${"a".repeat(64)}`,
     authenticated: true,
     data: {
       status: "ready",
@@ -3199,7 +3199,7 @@ export const visualScenarios = [
           {
             kind: "adjust_plan_preview",
             label: "预览今日计划调整",
-            targetRef: "/pages/day-adjustment/index",
+            targetRef: "/plans/day-adjustment/index",
             requiresConfirmation: true,
           },
         ],
@@ -3210,7 +3210,7 @@ export const visualScenarios = [
   },
   {
     id: "e05-plan-history-ready",
-    route: "/pages/plan-history/index",
+    route: "/plans/plan-history/index",
     authenticated: true,
     data: {
       status: "ready",
@@ -3244,7 +3244,7 @@ export const visualScenarios = [
   },
   {
     id: "f01-report-center-ready",
-    route: "/pages/report-center/index",
+    route: "/reports/report-center/index",
     authenticated: true,
     data: {
       status: "ready",
@@ -3274,35 +3274,35 @@ export const visualScenarios = [
             title: "单次题组",
             subtitle: "正确率、用时和复盘证据",
             state: "ready",
-            route: "/pages/report-overview/index?kind=single_set",
+            route: "/reports/report-overview/index?kind=single_set",
           },
           {
             reportKind: "weekly",
             title: "本周学习",
             subtitle: "计划执行和双轨投入",
             state: "ready",
-            route: "/pages/report-overview/index?kind=weekly",
+            route: "/reports/report-overview/index?kind=weekly",
           },
           {
             reportKind: "mock",
             title: "模考报告",
             subtitle: "表现指数、模块和错因",
             state: "partial",
-            route: "/pages/mock-report/index",
+            route: "/reports/mock-report/index",
           },
           {
             reportKind: "position_gap",
             title: "岗位分差",
             subtitle: "目标分依据与能力区间",
             state: "ready",
-            route: "/pages/report-overview/index?kind=position_gap",
+            route: "/reports/report-overview/index?kind=position_gap",
           },
           {
             reportKind: "global",
             title: "全局学习报告",
             subtitle: "趋势、模块、速度和下一步",
             state: "ready",
-            route: "/pages/global-report/index",
+            route: "/reports/global-report/index",
           },
         ],
       },
@@ -3310,7 +3310,7 @@ export const visualScenarios = [
   },
   {
     id: "f03-mock-report-ready",
-    route: "/pages/mock-report/index?sessionId=visual-mock-session-v1",
+    route: "/reports/mock-report/index?sessionId=visual-mock-session-v1",
     authenticated: true,
     data: {
       status: "ready",
@@ -3360,7 +3360,7 @@ export const visualScenarios = [
   },
   {
     id: "f04-external-score-final-review",
-    route: "/pages/external-report/index",
+    route: "/reports/external-report/index",
     data: {
       workflow: {
         phase: "final_review",
@@ -3392,7 +3392,7 @@ export const visualScenarios = [
   },
   {
     id: "f13-global-report-ready",
-    route: "/pages/global-report/index",
+    route: "/reports/global-report/index",
     authenticated: true,
     data: {
       status: "ready",
@@ -3490,7 +3490,7 @@ export const visualScenarios = [
   },
   {
     id: "g01-open-access-ready",
-    route: "/pages/membership/index",
+    route: "/account/membership/index",
     authenticated: true,
     skipControllerSettlement: true,
     scrollTop: 260,
@@ -3524,7 +3524,7 @@ export const visualScenarios = [
   },
   {
     id: "g02-privacy-ready",
-    route: "/pages/privacy/index",
+    route: "/account/privacy/index",
     authenticated: true,
     skipControllerSettlement: true,
     data: {
@@ -3733,7 +3733,7 @@ export const visualScenarios = [
   },
   {
     id: "f02-report-overview-ready",
-    route: "/pages/report-overview/index?kind=weekly",
+    route: "/reports/report-overview/index?kind=weekly",
     authenticated: true,
     skipControllerSettlement: true,
     data: {
@@ -3783,7 +3783,7 @@ export const visualScenarios = [
   },
   {
     id: "g03-terms-ready",
-    route: "/pages/terms/index",
+    route: "/account/terms/index",
     authenticated: false,
     data: {},
   },
@@ -3888,7 +3888,7 @@ export const visualScenarios = [
   },
   {
     id: "h02-learning-packets-ready",
-    route: "/pages/learning-packets/index",
+    route: "/xingce/learning-packets/index",
     authenticated: true,
     skipControllerSettlement: true,
     data: {
@@ -3973,7 +3973,7 @@ export const visualScenarios = [
   },
   {
     id: "h03-answer-ingestion-draft",
-    route: "/pages/answer-ingestion/index?packetVersionId=packet-v3",
+    route: "/xingce/answer-ingestion/index?packetVersionId=packet-v3",
     authenticated: true,
     skipControllerSettlement: true,
     data: {
@@ -4638,7 +4638,7 @@ export const visualScenarios = [
   },
   {
     id: "h05-coach-notification-settings-ready",
-    route: "/pages/notification-settings/index",
+    route: "/account/notification-settings/index",
     authenticated: true,
     skipControllerSettlement: true,
     data: {

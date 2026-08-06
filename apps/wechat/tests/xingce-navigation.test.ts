@@ -90,38 +90,38 @@ describe("real xingce task navigation", () => {
   });
 
   it("registers C08 as an authenticated non-task destination", () => {
-    expect(routes.xingceMastery).toBe("/pages/xingce-mastery/index");
+    expect(routes.xingceMastery).toBe("/xingce/xingce-mastery/index");
     expect(registeredNavigationTarget(routes.xingceMastery)).toEqual({
       mode: "navigateTo",
-      url: "/pages/xingce-mastery/index",
+      url: "/xingce/xingce-mastery/index",
     });
     expect(registeredTaskNavigationTarget(routes.xingceMastery)).toBeNull();
-    expect(routes.xingceFavorites).toBe("/pages/xingce-mastery/favorites/index");
+    expect(routes.xingceFavorites).toBe("/xingce/xingce-mastery/favorites/index");
     expect(registeredNavigationTarget(routes.xingceFavorites)).toEqual({
       mode: "navigateTo",
-      url: "/pages/xingce-mastery/favorites/index",
+      url: "/xingce/xingce-mastery/favorites/index",
     });
     expect(registeredTaskNavigationTarget(routes.xingceFavorites)).toBeNull();
   });
 
   it("registers C01 only with one explicit plan task and briefing mode", () => {
-    const url = "/pages/xingce-task-intro/index?planTaskId=plan-task-2026-07-16&mode=targeted";
-    expect(routes.xingceTaskIntro).toBe("/pages/xingce-task-intro/index");
+    const url = "/xingce/xingce-task-intro/index?planTaskId=plan-task-2026-07-16&mode=targeted";
+    expect(routes.xingceTaskIntro).toBe("/xingce/xingce-task-intro/index");
     expect(registeredTaskNavigationTarget(url)).toEqual({ mode: "navigateTo", url });
     expect(registeredTaskNavigationTarget(routes.xingceTaskIntro)).toBeNull();
     expect(
       registeredTaskNavigationTarget(
-        "/pages/xingce-task-intro/index?planTaskId=plan-task&mode=practice",
+        "/xingce/xingce-task-intro/index?planTaskId=plan-task&mode=practice",
       ),
     ).toBeNull();
     expect(
       registeredTaskNavigationTarget(
-        "/pages/xingce-task-intro/index?planTaskId=plan-task&mode=verification&extra=1",
+        "/xingce/xingce-task-intro/index?planTaskId=plan-task&mode=verification&extra=1",
       ),
     ).toBeNull();
     expect(
       registeredTaskNavigationTarget(
-        "/pages/xingce-task-intro/index?planTaskId=first&planTaskId=second&mode=baseline",
+        "/xingce/xingce-task-intro/index?planTaskId=first&planTaskId=second&mode=baseline",
       ),
     ).toBeNull();
   });

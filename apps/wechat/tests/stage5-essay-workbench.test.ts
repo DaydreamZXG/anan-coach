@@ -3,7 +3,7 @@ import type { RecognitionRevision } from "../miniprogram/api/external-learning-c
 import type {
   EssayRewriteComparisonV1,
   EssayTaskWorkspace,
-} from "../miniprogram/api/essay-intelligence";
+} from "../miniprogram/essay/shared/api/essay-intelligence";
 import {
   canonicalHandwritingText,
   confirmedHandwritingBinding,
@@ -20,7 +20,7 @@ import {
   outlineViews,
   pointViews,
   rewriteComparisonView,
-} from "../miniprogram/features/essay-workbench/presentation";
+} from "../miniprogram/essay/shared/features/essay-workbench/presentation";
 import { withEssayTaskContext } from "../miniprogram/features/essay-task/capabilities";
 
 describe("stage 5 essay workbench", () => {

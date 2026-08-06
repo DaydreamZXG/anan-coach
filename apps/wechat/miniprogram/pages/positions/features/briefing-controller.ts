@@ -6,7 +6,7 @@ import {
   targetValidityView,
   type PositionOperationError,
   type PositionRequestTrace,
-} from "../../../features/positions/contracts";
+} from "./contracts";
 import { positionOperationError } from "./error-state";
 
 export type PositionBriefingStatus =

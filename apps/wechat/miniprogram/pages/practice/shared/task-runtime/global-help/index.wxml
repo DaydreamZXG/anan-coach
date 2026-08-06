@@ -1,0 +1,22 @@
+<view class="help-panel">
+  <view class="help-head">
+    <view>
+      <view class="help-title">作答帮助</view>
+      <view class="help-copy">只发送页面与故障信息，不上传题干、选项、答案、解析或草稿。</view>
+    </view>
+    <button hover-class="item--hover" class="help-close" bindtap="close">关闭</button>
+  </view>
+  <view class="help-options">
+    <button hover-class="item--hover"
+      wx:for="{{options}}"
+      wx:key="code"
+      class="help-option {{selectedIssueCode === item.code ? 'help-option--active' : ''}}"
+      data-issue="{{item.code}}"
+      bindtap="chooseIssue"
+    >
+      <text>{{item.label}}</text>
+      <text class="help-kind">{{item.category === 'operation' ? '操作' : '故障'}}</text>
+    </button>
+  </view>
+  <button hover-class="item--hover" class="help-submit {{!selectedIssueCode ? 'help-submit--disabled' : ''}}" disabled="{{!selectedIssueCode}}" bindtap="submit">提交帮助请求</button>
+</view>

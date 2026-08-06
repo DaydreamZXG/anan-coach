@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { AnnotationStroke } from "../miniprogram/task-runtime/contracts";
-import type { RichContentBlock } from "../miniprogram/task-runtime/content-renderer/model";
+import type { RichContentBlock } from "../miniprogram/pages/practice/shared/task-runtime/content-renderer/model";
 import {
   ANCHOR_MATCH_DISTANCE,
   collectAnchorSegments,
@@ -9,7 +9,7 @@ import {
   translatedPoints,
   type AnchorSegmentRect,
   type NormalizedSegmentRect,
-} from "../miniprogram/task-runtime/annotation-layer/anchor";
+} from "../miniprogram/pages/practice/shared/task-runtime/annotation-layer/anchor";
 
 function block(blockId: string, text: string): RichContentBlock {
   return { type: "paragraph", blockId, text };

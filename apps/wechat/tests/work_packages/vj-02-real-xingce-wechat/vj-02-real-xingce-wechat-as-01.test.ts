@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { ApiClient } from "../../../miniprogram/api/client";
-import { XingceLearningApi } from "../../../miniprogram/api/xingce-learning";
+import { XingceLearningApi } from "../../../miniprogram/xingce/shared/api/xingce-learning";
 import { registeredTaskNavigationTarget } from "../../../miniprogram/app/navigation/routes";
 import { resolveXingcePlanTaskId } from "../../../miniprogram/features/xingce/real_attempt/contracts";
 import { activeXingceSession, apiSuccess, todayWithXingceTask, xingceIds } from "./harness";

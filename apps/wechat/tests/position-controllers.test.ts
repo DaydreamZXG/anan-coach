@@ -16,7 +16,7 @@ import type { ApiEnvelope } from "../miniprogram/domain/contracts";
 import {
   planInvalidationViews,
   targetValidityView,
-} from "../miniprogram/features/positions/contracts";
+} from "../miniprogram/pages/positions/features/contracts";
 import { PositionDiscoveryController } from "../miniprogram/pages/positions/features/discovery-controller";
 import { PositionCompareController } from "../miniprogram/pages/positions/features/compare-controller";
 import { PositionDetailController } from "../miniprogram/pages/positions/features/detail-controller";

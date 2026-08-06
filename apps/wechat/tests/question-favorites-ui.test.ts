@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import type { QuestionFavoriteListItem } from "../miniprogram/api/generated/types.gen";
-import { presentQuestionFavoriteItem } from "../miniprogram/features/xingce/favorites/presentation";
+import { presentQuestionFavoriteItem } from "../miniprogram/xingce/shared/features/xingce/favorites/presentation";
 import {
   apiSuccess,
   createMemoryWechatStorage,
@@ -434,7 +434,7 @@ async function createFavoritesPage(intercept?: FavoritesRequestInterceptor) {
   });
   const { installUnauthorizedReset } = await import("../miniprogram/api/auth");
   installUnauthorizedReset();
-  await import("../miniprogram/pages/xingce-mastery/favorites/index");
+  await import("../miniprogram/xingce/xingce-mastery/favorites/index");
   if (!captured) throw new Error("question favorites page was not registered");
   const setData = vi.fn(function (this: TestFavoritesPage, patch: Record<string, unknown>) {
     Object.assign(this.data, patch);

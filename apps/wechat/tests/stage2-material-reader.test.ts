@@ -6,10 +6,10 @@ import {
   nextFontScale,
   reduceMaterialReader,
   restoreMaterialReaderState,
-} from "../miniprogram/task-runtime/material-reader/state";
+} from "../miniprogram/pages/practice/shared/task-runtime/material-reader/state";
 
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
-import materialReaderTemplate from "../miniprogram/task-runtime/material-reader/index.wxml?raw";
+import materialReaderTemplate from "../miniprogram/pages/practice/shared/task-runtime/material-reader/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.

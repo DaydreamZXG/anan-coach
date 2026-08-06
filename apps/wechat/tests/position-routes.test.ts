@@ -17,11 +17,11 @@ describe("position deep links", () => {
     });
     expect(onboardingResultActionTarget("import_prior_evidence")).toEqual({
       mode: "navigateTo",
-      url: "/pages/external-report/index",
+      url: "/reports/external-report/index",
     });
     expect(onboardingResultActionTarget("start_retake_recovery")).toEqual({
       mode: "navigateTo",
-      url: "/pages/retake/index",
+      url: "/plans/retake/index",
     });
     expect(onboardingResultActionTarget("review_exam_briefing", "position/1")).toEqual({
       mode: "navigateTo",

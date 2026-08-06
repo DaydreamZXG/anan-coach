@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import type { XingceTaskSession } from "../miniprogram/api/xingce-learning";
+import type { XingceTaskSession } from "../miniprogram/xingce/shared/api/xingce-learning";
 import {
   apiSuccess,
   createMemoryWechatStorage,

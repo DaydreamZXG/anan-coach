@@ -169,14 +169,14 @@ describe("today dual-track planning", () => {
       tasks: [
         {
           ...source,
-          startUrl: "/pages/xingce-task-intro/index?mode=targeted&planTaskId=task-data",
+          startUrl: "/xingce/xingce-task-intro/index?mode=targeted&planTaskId=task-data",
         },
       ],
     }).tasks[0];
 
     expect(task?.canOpen).toBe(true);
     expect(task?.navigationUrl).toBe(
-      "/pages/xingce-task-intro/index?mode=targeted&planTaskId=task-data",
+      "/xingce/xingce-task-intro/index?mode=targeted&planTaskId=task-data",
     );
   });
 
@@ -205,9 +205,9 @@ describe("today dual-track planning", () => {
   });
 
   it.each([
-    "/pages/xingce-task-intro/index?mode=targeted",
-    "/pages/xingce-task-intro/index?mode=targeted&planTaskId=another-task",
-    "/pages/xingce-task-intro/index?mode=targeted&planTaskId=task-data&planTaskId=task-data",
+    "/xingce/xingce-task-intro/index?mode=targeted",
+    "/xingce/xingce-task-intro/index?mode=targeted&planTaskId=another-task",
+    "/xingce/xingce-task-intro/index?mode=targeted&planTaskId=task-data&planTaskId=task-data",
   ])("rejects a Xingce briefing URL that is not authoritative: %s", (startUrl) => {
     const [source] = prototypeToday.tasks;
     if (!source || source.track !== "xingce") throw new Error("Xingce fixture is required");

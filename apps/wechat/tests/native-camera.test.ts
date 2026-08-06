@@ -1,12 +1,12 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { captureSourcePhoto } from "../miniprogram/platform/source-image";
+import { captureSourcePhoto } from "../miniprogram/xingce/shared/platform/source-image";
 
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import captureTemplateRaw from "../miniprogram/pages/capture-import/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program source through its raw asset loader.
 import captureLogicRaw from "../miniprogram/pages/capture-import/index.ts?raw";
 // @ts-expect-error Vite exposes mini-program source through its raw asset loader.
-import externalLearningPlatformRaw from "../miniprogram/features/external-learning/platform.ts?raw";
+import externalLearningPlatformRaw from "../miniprogram/xingce/shared/features/external-learning/platform.ts?raw";
 
 const captureTemplate = String(captureTemplateRaw);
 const captureLogic = String(captureLogicRaw);

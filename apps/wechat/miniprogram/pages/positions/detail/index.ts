@@ -9,14 +9,8 @@ import {
 } from "../../../app/navigation/routes";
 import { currentAuthSession } from "../../../auth/session";
 import { storeCompanionLaunchContext } from "../../../features/companion/context-store";
-import {
-  PositionDetailController,
-  type PositionDetailState,
-} from "../features/detail-controller";
-import {
-  PositionPageRuntimeRegistry,
-  type PositionController,
-} from "../features/runtime";
+import { PositionDetailController, type PositionDetailState } from "../features/detail-controller";
+import { PositionPageRuntimeRegistry, type PositionController } from "../features/runtime";
 import { PositionStateStore } from "../../../features/positions/state-store";
 
 interface PositionDetailPageData {

@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
-import template from "../miniprogram/pages/essay-material/index.wxml?raw";
+import template from "../miniprogram/essay/essay-material/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import styles from "../miniprogram/pages/essay-material/index.wxss?raw";
+import styles from "../miniprogram/essay/essay-material/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program sources through its raw asset loader.
-import source from "../miniprogram/pages/essay-material/index.ts?raw";
+import source from "../miniprogram/essay/essay-material/index.ts?raw";
 
 describe("申论材料阅读排版", () => {
   it("正文不再渲染装饰性段落序号，并保留中文阅读缩进", () => {

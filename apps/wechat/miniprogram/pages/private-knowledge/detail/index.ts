@@ -1,7 +1,7 @@
 import { ApiClient, ApiClientError } from "../../../api/client";
 import { PrivateKnowledgeApi, type PrivateSourceSummary } from "../features/api/private-knowledge";
 import { routes } from "../../../app/navigation/routes";
-import { navigateBackOr } from "../../../app/navigation/safe-back";
+import { navigateBackOr } from "../shared/app/navigation/safe-back";
 import { currentAuthSession } from "../../../auth/session";
 import { createIdempotencyKey } from "../../../platform/command-id";
 

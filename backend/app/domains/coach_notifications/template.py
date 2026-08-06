@@ -19,7 +19,7 @@ _ROUTES: dict[CoachCategory, str] = {
     "reflection": "pages/today/index",
     "retest": "pages/today/index",
     "mock": "pages/today/index",
-    "weekly_summary": "pages/weekly-plan/index",
+    "weekly_summary": "plans/weekly-plan/index",
 }
 _ACTIONS: dict[CoachCategory, str] = {
     "task": "打开今日计划继续",

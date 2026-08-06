@@ -28,13 +28,13 @@ describe("external learning navigation", () => {
     });
     expect(captureImportUrl("import/1")).toBe("/pages/capture-import/index?importId=import%2F1");
     expect(learningPacketsUrl({ contentVersionId: "content/1" })).toBe(
-      "/pages/learning-packets/index?contentVersionId=content%2F1",
+      "/xingce/learning-packets/index?contentVersionId=content%2F1",
     );
     expect(answerIngestionUrl({ packetVersionId: "packet/1" })).toBe(
-      "/pages/answer-ingestion/index?packetVersionId=packet%2F1",
+      "/xingce/answer-ingestion/index?packetVersionId=packet%2F1",
     );
     expect(answerIngestionUrl({ ingestionId: "ingestion/1" })).toBe(
-      "/pages/answer-ingestion/index?ingestionId=ingestion%2F1",
+      "/xingce/answer-ingestion/index?ingestionId=ingestion%2F1",
     );
     expect(() =>
       answerIngestionUrl({ packetVersionId: "packet-1", ingestionId: "ingestion-1" }),
@@ -52,7 +52,7 @@ describe("external learning navigation", () => {
       url: answer,
     });
     expect(loginUrlForReturn(routes.learningPackets)).toBe(
-      "/pages/login/index?returnTo=%2Fpages%2Flearning-packets%2Findex",
+      "/pages/login/index?returnTo=%2Fxingce%2Flearning-packets%2Findex",
     );
   });
 

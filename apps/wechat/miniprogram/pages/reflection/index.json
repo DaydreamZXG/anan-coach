@@ -3,11 +3,10 @@
   "navigationStyle": "custom",
   "backgroundColor": "#F7F9FC",
   "usingComponents": {
-    "count-up": "../../design-system/primitives/count-up/index",
-    "content-renderer": "../../task-runtime/content-renderer/index",
-    "material-reader": "../../task-runtime/material-reader/index",
-    "annotation-layer": "../../task-runtime/annotation-layer/index",
+    "content-renderer": "./shared/task-runtime/content-renderer/index",
+    "material-reader": "./shared/task-runtime/material-reader/index",
+    "annotation-layer": "./shared/task-runtime/annotation-layer/index",
     "state-view": "../../design-system/primitives/state-view/index",
-    "workbench-nav": "../../components/workbench-nav/index"
+    "workbench-nav": "./shared/components/workbench-nav/index"
   }
 }

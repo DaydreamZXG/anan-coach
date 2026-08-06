@@ -22,7 +22,7 @@ import {
   isOnboardingVersionConflict,
   onboardingCommandError,
   type OnboardingCommandError,
-} from "../../../features/onboarding/command-error";
+} from "../shared/features/onboarding/command-error";
 import type { OnboardingNextStep } from "../../../features/onboarding/types";
 
 type QualificationProfileApi = Pick<QualificationApi, "getProfile" | "updateProfile">;

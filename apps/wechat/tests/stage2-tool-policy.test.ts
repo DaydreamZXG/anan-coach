@@ -5,7 +5,7 @@ import {
   MOCK_PRE_SUBMIT_ALLOWED_TOOLS,
   taskToolPolicy,
   type ObjectiveTaskExperience,
-} from "../miniprogram/task-runtime/tool-policy";
+} from "../miniprogram/pages/practice/shared/task-runtime/tool-policy/index";
 
 describe("stage 2 objective task tool policy", () => {
   it("blocks answer-revealing tools before submission in every objective mode", () => {

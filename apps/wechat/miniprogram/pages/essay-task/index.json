@@ -2,7 +2,7 @@
   "navigationBarTitleText": "申论任务",
   "navigationStyle": "custom",
   "usingComponents": {
-    "task-shell": "../../task-runtime/task-shell/index",
+    "task-shell": "./shared/task-runtime/task-shell/index",
     "state-view": "../../design-system/primitives/state-view/index"
   }
 }

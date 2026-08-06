@@ -3,7 +3,7 @@ import type {
   EssayIntelligenceApi,
   EssayReviewResponse,
   EssayTaskWorkspace,
-} from "../miniprogram/api/essay-intelligence";
+} from "../miniprogram/pages/essay-task/shared/api/essay-intelligence";
 import {
   essayStageCapability,
   parseEssayWriterContext,

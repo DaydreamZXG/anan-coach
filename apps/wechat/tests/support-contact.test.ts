@@ -3,9 +3,9 @@ import { describe, expect, it } from "vitest";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import meTemplate from "../miniprogram/pages/me/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program sources through its raw asset loader.
-import supportSource from "../miniprogram/pages/support/index.ts?raw";
+import supportSource from "../miniprogram/account/support/index.ts?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
-import supportTemplate from "../miniprogram/pages/support/index.wxml?raw";
+import supportTemplate from "../miniprogram/account/support/index.wxml?raw";
 
 describe("微信客服入口", () => {
   it("从我的页面进入二维码客服页，不再调用微信客服会话", () => {

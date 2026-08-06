@@ -5,17 +5,17 @@ import appStylesRaw from "../miniprogram/app.wxss?raw";
 // @ts-expect-error Vite exposes mini-program component styles through its raw asset loader.
 import uiButtonStylesRaw from "../miniprogram/design-system/primitives/ui-button/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
-import dayAdjustmentTemplate from "../miniprogram/pages/day-adjustment/index.wxml?raw";
+import dayAdjustmentTemplate from "../miniprogram/plans/day-adjustment/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import dayAdjustmentStylesRaw from "../miniprogram/pages/day-adjustment/index.wxss?raw";
+import dayAdjustmentStylesRaw from "../miniprogram/plans/day-adjustment/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import dailySettlementStylesRaw from "../miniprogram/pages/daily-settlement/index.wxss?raw";
+import dailySettlementStylesRaw from "../miniprogram/plans/daily-settlement/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import captureStylesRaw from "../miniprogram/pages/capture-import/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import essayMaterialStylesRaw from "../miniprogram/pages/essay-material/index.wxss?raw";
+import essayMaterialStylesRaw from "../miniprogram/essay/essay-material/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import essayReviewStylesRaw from "../miniprogram/pages/essay-review/index.wxss?raw";
+import essayReviewStylesRaw from "../miniprogram/essay/essay-review/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import essayTaskStylesRaw from "../miniprogram/pages/essay-task/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
@@ -39,7 +39,7 @@ import positionsStylesRaw from "../miniprogram/features/positions/page-shell.wxs
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import reflectionStylesRaw from "../miniprogram/pages/reflection/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import weeklyPlanStylesRaw from "../miniprogram/pages/weekly-plan/index.wxss?raw";
+import weeklyPlanStylesRaw from "../miniprogram/plans/weekly-plan/index.wxss?raw";
 
 function normalizeRpxCalc(source: unknown): string {
   if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");

@@ -4,17 +4,17 @@ import {
   CommerceApi,
   freshWechatLoginCode,
   requestWechatVirtualPayment,
-} from "../miniprogram/api/commerce";
-import type { VirtualPaymentInvocationError } from "../miniprogram/api/commerce";
+} from "../miniprogram/account/shared/api/commerce";
+import type { VirtualPaymentInvocationError } from "../miniprogram/account/shared/api/commerce";
 import type { CommercialPolicySnapshot } from "../miniprogram/api/generated/types.gen";
-import { presentCommercialPolicies } from "../miniprogram/features/commerce/policy-presentation";
+import { presentCommercialPolicies } from "../miniprogram/account/shared/features/commerce/policy-presentation";
 
 // @ts-expect-error Vite exposes TypeScript source through its raw asset loader.
-import commerceSource from "../miniprogram/api/commerce.ts?raw";
+import commerceSource from "../miniprogram/account/shared/api/commerce.ts?raw";
 // @ts-expect-error Vite exposes TypeScript source through its raw asset loader.
-import membershipSource from "../miniprogram/pages/membership/index.ts?raw";
+import membershipSource from "../miniprogram/account/membership/index.ts?raw";
 // @ts-expect-error Vite exposes WXML source through its raw asset loader.
-import membershipTemplate from "../miniprogram/pages/membership/index.wxml?raw";
+import membershipTemplate from "../miniprogram/account/membership/index.wxml?raw";
 // @ts-expect-error Vite exposes WXML source through its raw asset loader.
 import meTemplate from "../miniprogram/pages/me/index.wxml?raw";
 

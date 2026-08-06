@@ -12,7 +12,7 @@ import {
   type PositionRequestTrace,
   type PositionRouteSummary,
   type PositionTargetValidityView,
-} from "../../../features/positions/contracts";
+} from "./contracts";
 import { positionOperationError, shouldRetainPositionCommand } from "./error-state";
 import { primaryGoalPreviewView, type PrimaryGoalPreviewView } from "./presentation";
 import type {

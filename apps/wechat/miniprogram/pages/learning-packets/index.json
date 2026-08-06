@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "我的学习包",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "state-view": "../../design-system/primitives/state-view/index",
-    "ui-button": "../../design-system/primitives/ui-button/index",
-    "workbench-nav": "../../components/workbench-nav/index"
-  }
-}

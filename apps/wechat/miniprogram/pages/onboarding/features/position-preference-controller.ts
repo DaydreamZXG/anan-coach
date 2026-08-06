@@ -17,7 +17,7 @@ import {
 import {
   onboardingCommandError,
   type OnboardingCommandError,
-} from "../../../features/onboarding/command-error";
+} from "../shared/features/onboarding/command-error";
 
 type PositionPreferenceApi = Pick<OnboardingApi, "getPositionPreference" | "putPositionPreference">;
 

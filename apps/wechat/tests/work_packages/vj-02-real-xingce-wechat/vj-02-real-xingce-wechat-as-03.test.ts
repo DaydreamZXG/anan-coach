@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { ApiClient } from "../../../miniprogram/api/client";
 import type { ApiClientError } from "../../../miniprogram/api/client";
-import { XingceLearningApi } from "../../../miniprogram/api/xingce-learning";
+import { XingceLearningApi } from "../../../miniprogram/xingce/shared/api/xingce-learning";
 import {
   checkpointCommand,
   mergePendingDraft,
@@ -13,8 +13,8 @@ import {
   loadPendingXingceSubmit,
   storePendingXingceCheckpoint,
   storePendingXingceSubmit,
-} from "../../../miniprogram/features/xingce/real_attempt/pending-store";
-import { reduceTaskRuntime } from "../../../miniprogram/task-runtime/state/runtime";
+} from "../../../miniprogram/pages/practice/shared/features/xingce/real_attempt/pending-store";
+import { reduceTaskRuntime } from "../../../miniprogram/pages/practice/shared/task-runtime/state/runtime";
 import { activeXingceSession, answer, createMemoryWechatStorage, xingceIds } from "./harness";
 
 afterEach(() => {

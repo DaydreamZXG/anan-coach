@@ -163,7 +163,7 @@ async function todayPrimaryTask(program) {
   const data = await readPageData(program, page);
   assert.ok(data.view?.tasks?.length >= 1, "today page exposes no task card");
   await invokePageHandler(program, page, "openTask", { id: data.view.tasks[0].id });
-  await waitForPath(program, "/pages/xingce-task-intro/index", "today task did not open briefing");
+  await waitForPath(program, "/xingce/xingce-task-intro/index", "today task did not open briefing");
 }
 
 async function todayCaptureEntry(program) {
@@ -228,7 +228,7 @@ async function submittedMockReport(program) {
     reportSessionId: "visual-mock-session-v1",
   });
   await invokePageHandler(program, page, "openMockReport");
-  await waitForPath(program, "/pages/mock-report/index", "submitted mock did not open its report");
+  await waitForPath(program, "/reports/mock-report/index", "submitted mock did not open its report");
 }
 
 async function essayComposeActions(program) {
@@ -280,7 +280,7 @@ async function profileMenu(program) {
 
   const profilePage = await openVisualScenario(program, "f09-profile-ready");
   await invokePageHandler(program, profilePage, "openPrivacy");
-  await waitForPath(program, "/pages/privacy/index", "profile privacy link did not navigate");
+  await waitForPath(program, "/account/privacy/index", "profile privacy link did not navigate");
 }
 
 async function openVisualScenario(program, id, options = {}) {

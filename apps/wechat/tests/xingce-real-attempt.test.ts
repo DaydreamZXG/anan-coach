@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { ApiClient } from "../miniprogram/api/client";
-import { XingceLearningApi } from "../miniprogram/api/xingce-learning";
+import { XingceLearningApi } from "../miniprogram/xingce/shared/api/xingce-learning";
 import {
   checkpointCommand,
   mergePendingDraft,
@@ -13,13 +13,13 @@ import {
   resolveXingcePlanTaskId,
 } from "../miniprogram/features/xingce/real_attempt/contracts";
 import { XingcePageRuntimeRegistry } from "../miniprogram/pages/practice/features/xingce/real_attempt/page-runtime";
-import { presentXingceResult } from "../miniprogram/features/xingce/real_attempt/presentation";
+import { presentXingceResult } from "../miniprogram/pages/practice/shared/features/xingce/real_attempt/presentation";
 import {
   clearXingcePendingForUser,
   loadPendingXingceReflection,
   storePendingXingceReflection,
-} from "../miniprogram/features/xingce/real_attempt/pending-store";
-import { reduceTaskRuntime } from "../miniprogram/task-runtime/state/runtime";
+} from "../miniprogram/pages/practice/shared/features/xingce/real_attempt/pending-store";
+import { reduceTaskRuntime } from "../miniprogram/pages/practice/shared/task-runtime/state/runtime";
 import {
   activeXingceSession,
   answer,

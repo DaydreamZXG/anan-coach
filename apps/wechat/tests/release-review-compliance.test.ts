@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import appConfig from "../miniprogram/app.json";
 
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
-import termsTemplate from "../miniprogram/pages/terms/index.wxml?raw";
+import termsTemplate from "../miniprogram/account/terms/index.wxml?raw";
 
 describe("WeChat review compliance surface", () => {
   it("declares every directly requested runtime permission with a user-facing purpose", () => {
@@ -11,7 +11,11 @@ describe("WeChat review compliance surface", () => {
   });
 
   it("publishes a readable agreement without inventing a payment offer", () => {
-    expect(appConfig.pages).toContain("pages/terms/index");
+    const registeredPages = [
+      ...appConfig.pages,
+      ...appConfig.subPackages.flatMap(({ root, pages }) => pages.map((page) => `${root}/${page}`)),
+    ];
+    expect(registeredPages).toContain("account/terms/index");
     expect(termsTemplate).toContain("岸岸用户协议");
     expect(termsTemplate).toContain("不替代招录机关公告");
     expect(termsTemplate).toContain("当前版本不提供购买入口");

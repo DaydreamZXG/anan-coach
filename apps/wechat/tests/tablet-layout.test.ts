@@ -6,23 +6,23 @@ import tabBarStylesRaw from "../miniprogram/custom-tab-bar/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import responsiveStylesRaw from "../miniprogram/design-system/responsive/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import taskShellStylesRaw from "../miniprogram/task-runtime/task-shell/index.wxss?raw";
+import taskShellStylesRaw from "../miniprogram/pages/practice/shared/task-runtime/task-shell/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import practiceStylesRaw from "../miniprogram/pages/practice/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import materialReaderStylesRaw from "../miniprogram/task-runtime/material-reader/index.wxss?raw";
+import materialReaderStylesRaw from "../miniprogram/pages/practice/shared/task-runtime/material-reader/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
-import favoritesTemplate from "../miniprogram/pages/xingce-mastery/favorites/index.wxml?raw";
+import favoritesTemplate from "../miniprogram/xingce/xingce-mastery/favorites/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import favoritesStylesRaw from "../miniprogram/pages/xingce-mastery/favorites/index.wxss?raw";
+import favoritesStylesRaw from "../miniprogram/xingce/xingce-mastery/favorites/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import mockTemplate from "../miniprogram/pages/mock-exam/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import mockStylesRaw from "../miniprogram/pages/mock-exam/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import answerSheetStylesRaw from "../miniprogram/task-runtime/answer-sheet/index.wxss?raw";
+import answerSheetStylesRaw from "../miniprogram/pages/practice/shared/task-runtime/answer-sheet/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import essayTemplate from "../miniprogram/pages/essay-task/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.

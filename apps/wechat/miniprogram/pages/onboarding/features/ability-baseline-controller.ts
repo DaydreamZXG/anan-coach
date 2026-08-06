@@ -16,7 +16,7 @@ import {
 import {
   onboardingCommandError,
   type OnboardingCommandError,
-} from "../../../features/onboarding/command-error";
+} from "../shared/features/onboarding/command-error";
 
 type AbilityBaselineApi = Pick<OnboardingApi, "getAbilityBaseline" | "putAbilityBaseline">;
 

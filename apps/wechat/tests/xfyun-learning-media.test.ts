@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 
 import { XfyunApi } from "../miniprogram/pages/reflection/features/api/xfyun";
-import { maximumReflectionVoiceDurationMilliseconds } from "../miniprogram/features/learning-media/contracts";
+import { maximumReflectionVoiceDurationMilliseconds } from "../miniprogram/pages/reflection/shared/features/learning-media/contracts";
 
 describe("讯飞学习媒体补强", () => {
   it("把复盘录音限制在讯飞单连接支持的 60 秒", () => {

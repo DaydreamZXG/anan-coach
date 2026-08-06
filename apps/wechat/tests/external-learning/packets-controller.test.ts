@@ -3,7 +3,7 @@ import type { OfflinePacketVersion } from "../../miniprogram/api/external-learni
 import {
   LearningPacketsController,
   type LearningPacketsState,
-} from "../../miniprogram/features/external-learning/packets-controller";
+} from "../../miniprogram/xingce/shared/features/external-learning/packets-controller";
 import { gateway, packet, packetList } from "./fixtures";
 
 describe("learning packets controller", () => {

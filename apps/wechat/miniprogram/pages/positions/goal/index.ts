@@ -11,14 +11,8 @@ import {
   routes,
 } from "../../../app/navigation/routes";
 import { currentAuthSession } from "../../../auth/session";
-import {
-  PositionGoalController,
-  type PositionGoalState,
-} from "../features/goal-controller";
-import {
-  PositionPageRuntimeRegistry,
-  type PositionController,
-} from "../features/runtime";
+import { PositionGoalController, type PositionGoalState } from "../features/goal-controller";
+import { PositionPageRuntimeRegistry, type PositionController } from "../features/runtime";
 import { PositionStateStore } from "../../../features/positions/state-store";
 
 interface PositionGoalPageData {

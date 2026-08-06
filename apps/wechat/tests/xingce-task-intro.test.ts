@@ -5,8 +5,8 @@ import {
   XingceLearningApi,
   type XingceBriefingMode,
   type XingceTaskBriefing,
-} from "../miniprogram/api/xingce-learning";
-import { assertXingceTaskBriefing } from "../miniprogram/features/xingce/briefing/contracts";
+} from "../miniprogram/xingce/shared/api/xingce-learning";
+import { assertXingceTaskBriefing } from "../miniprogram/xingce/shared/features/xingce/briefing/contracts";
 import { apiSuccess } from "./work_packages/vj-02-real-xingce-wechat/harness";
 
 afterEach(() => {
@@ -300,7 +300,7 @@ async function createPage(
     getStorageSync: vi.fn(() => ""),
     removeStorageSync: vi.fn(),
   });
-  await import("../miniprogram/pages/xingce-task-intro/index");
+  await import("../miniprogram/xingce/xingce-task-intro/index");
   if (!captured) throw new Error("task intro page was not registered");
   const initialStatusValue: unknown = captured.data.status;
   const initialStatus = typeof initialStatusValue === "string" ? initialStatusValue : "";

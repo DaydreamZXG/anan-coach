@@ -2,7 +2,7 @@ import type {
   MockExamCheckpointCommand,
   MockExamSubmitCommand,
   MockExamTrajectoryCommand,
-} from "../../api/mock-exam";
+} from "./shared/api/mock-exam";
 
 export interface PendingMockCheckpoint {
   kind: "checkpoint";

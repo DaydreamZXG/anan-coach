@@ -412,7 +412,7 @@ def _queue_item(*, bucket: MasteryQueueBucket, row: RowMapping) -> MasteryQueueI
                 state="ready",
                 planTaskId=plan_task_id,
                 startUrl=(
-                    "/pages/xingce-task-intro/index?mode=verification&planTaskId="
+                    "/xingce/xingce-task-intro/index?mode=verification&planTaskId="
                     f"{plan_task_id}"
                 ),
             )

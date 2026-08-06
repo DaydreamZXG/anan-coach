@@ -555,7 +555,7 @@ def test_planning_baseline_guidance_boosts_baseline_candidate() -> None:
         reason="先摸底",
         estimated_minutes=30,
         completion_rule="答完",
-        start_url="/pages/xingce-task-intro/index?mode=baseline",
+        start_url="/xingce/xingce-task-intro/index?mode=baseline",
         evidence_refs=(),
         priority=PriorityBreakdown(
             goal_gain=0.45,

@@ -758,7 +758,7 @@ def test_companion_buttons_use_deterministic_executable_targets() -> None:
     assert _allowed_actions(decision=planner)[0].model_dump(by_alias=True) == {
         "kind": "adjust_plan_preview",
         "label": "预览今日计划调整",
-        "targetRef": "/pages/day-adjustment/index",
+        "targetRef": "/plans/day-adjustment/index",
         "requiresConfirmation": True,
     }
     assert _allowed_actions(decision=position)[0].target_ref == "/pages/positions/index"

@@ -168,7 +168,7 @@ def enrich_existing(findings: list[dict[str, Any]]) -> None:
         "用户可能基于过期信息继续操作；刷新或重进是替代路径。"
     )
     request["affected_pages_or_modules"] = [
-        "动态确认：pages/report-center/index",
+        "动态确认：reports/report-center/index",
         "公共能力缺口：api/client.ts 不暴露 RequestTask/cancellation",
     ]
     request["deduplication"] = (

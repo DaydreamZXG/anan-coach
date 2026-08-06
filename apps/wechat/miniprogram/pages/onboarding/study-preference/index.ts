@@ -6,7 +6,7 @@ import { currentAuthSession } from "../../../auth/session";
 import {
   StudyPreferenceController,
   type StudyPreferenceControllerState,
-} from "../../../features/onboarding/study-preference-controller";
+} from "../shared/features/onboarding/study-preference-controller";
 import type { StudyMinutesField } from "../../../features/onboarding/study-preference";
 import type { OnboardingNextStep } from "../../../features/onboarding/types";
 

@@ -2,21 +2,21 @@ import { ApiClient, ApiClientError } from "../../api/client";
 import { CompanionApi } from "../../api/companion";
 import { companionFailureView } from "../../features/companion/presentation";
 import { LearningBrainApi } from "../../api/learning-brain";
-import { MathInkApi, type FormulaVersion, type InkStroke } from "../../api/math-ink";
-import { QuestionFavoritesApi } from "../../api/question-favorites";
-import { TaskEditingApi } from "../../api/task-editing";
+import { MathInkApi, type FormulaVersion, type InkStroke } from "./shared/api/math-ink";
+import { QuestionFavoritesApi } from "./shared/api/question-favorites";
+import { TaskEditingApi } from "./shared/api/task-editing";
 import {
   XingceLearningApi,
   type XingceQuestionDisputeCategory,
   type XingceTaskSession,
-} from "../../api/xingce-learning";
+} from "./shared/api/xingce-learning";
 import {
   TaskHelpApi,
   type TaskHelpCommand,
   type TaskHelpPageObjectReference,
-} from "../../api/task-help";
+} from "./shared/api/task-help";
 import { routes } from "../../app/navigation/routes";
-import { navigateBackOr } from "../../app/navigation/safe-back";
+import { navigateBackOr } from "./shared/app/navigation/safe-back";
 import { currentAuthSession, sameSessionOwner } from "../../auth/session";
 import { environment } from "../../config/environment";
 import { createCoachRepository } from "../../data/coach-repository";
@@ -35,13 +35,13 @@ import {
 import {
   executeQuestionFavoriteCommand,
   type QuestionFavoriteDesiredState,
-} from "../../features/xingce/favorites/command";
+} from "./shared/features/xingce/favorites/command";
 import { XingcePageRuntimeRegistry } from "./features/xingce/real_attempt/page-runtime";
 import {
   formatElapsed,
   presentXingceTask,
   type XingceTaskView,
-} from "../../features/xingce/real_attempt/presentation";
+} from "./shared/features/xingce/real_attempt/presentation";
 import {
   clearPendingXingceCheckpoint,
   clearPendingXingceStart,
@@ -52,39 +52,39 @@ import {
   storePendingXingceCheckpoint,
   storePendingXingceStart,
   storePendingXingceSubmit,
-} from "../../features/xingce/real_attempt/pending-store";
+} from "./shared/features/xingce/real_attempt/pending-store";
 import {
   acquireTaskEditOwnership,
   resolveRevisionConflict,
   TaskEditTakeoverDeclined,
-} from "../../features/task-editing/coordinator";
+} from "./shared/features/task-editing/coordinator";
 import { createIdempotencyKey } from "../../platform/command-id";
 import { decideAutosave, decideExit } from "./features/task-runtime/state/autosave";
-import { appendStrokeWithinLimit } from "../../task-runtime/annotation-layer/strokes";
+import { appendStrokeWithinLimit } from "./shared/task-runtime/annotation-layer/strokes";
 import type { AnnotationStroke } from "../../task-runtime/contracts";
-import type { AnchorSegmentRect } from "../../task-runtime/annotation-layer/anchor";
-import { reduceTaskRuntime, unansweredQuestionIds } from "../../task-runtime/state/runtime";
+import type { AnchorSegmentRect } from "./shared/task-runtime/annotation-layer/anchor";
+import { reduceTaskRuntime, unansweredQuestionIds } from "./shared/task-runtime/state/runtime";
 import type {
   ContentAnchor,
   ContentDisplayPreferences,
   RichContentBlock,
-} from "../../task-runtime/content-renderer/model";
+} from "./shared/task-runtime/content-renderer/model";
 import {
   loadTaskDisplayPreferences,
   storeTaskDisplayPreferences,
-} from "../../task-runtime/display-preferences";
+} from "./shared/task-runtime/display-preferences";
 import {
   createMaterialReaderState,
   reduceMaterialReader,
   type MaterialReaderState,
-} from "../../task-runtime/material-reader/state";
+} from "./shared/task-runtime/material-reader/state";
 import {
   resolveSwipeNav,
   swipeSampleFromTouchEnd,
   swipeSampleFromTouchMove,
   swipeSampleFromTouchStart,
-} from "../../task-runtime/swipe-nav";
-import { taskToolPolicy, type TaskToolPolicy } from "../../task-runtime/tool-policy/index";
+} from "./shared/task-runtime/swipe-nav";
+import { taskToolPolicy, type TaskToolPolicy } from "./shared/task-runtime/tool-policy/index";
 
 type PageStatus = "loading" | "ready" | "error" | "unavailable";
 

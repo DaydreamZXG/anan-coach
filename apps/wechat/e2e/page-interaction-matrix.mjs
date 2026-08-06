@@ -97,7 +97,7 @@ export const pageInteractionMatrix = [
     observable: false,
   }),
   page(
-    "pages/notification-settings/index",
+    "account/notification-settings/index",
     "h05-coach-notification-settings-ready",
     "保存 AI 督学偏好",
     {
@@ -105,17 +105,17 @@ export const pageInteractionMatrix = [
       selector: ".save-button",
     },
   ),
-  page("pages/membership/index", "g01-open-access-ready", "说明免费冷启动边界", {
+  page("account/membership/index", "g01-open-access-ready", "说明免费冷启动边界", {
     evidence: RUNTIME_READ_ONLY,
   }),
-  page("pages/privacy/index", "g02-privacy-ready", "创建个人数据导出", {
+  page("account/privacy/index", "g02-privacy-ready", "创建个人数据导出", {
     handler: "createExport",
     selector: ".privacy-secondary",
   }),
-  page("pages/terms/index", "g03-terms-ready", "阅读用户协议", {
+  page("account/terms/index", "g03-terms-ready", "阅读用户协议", {
     evidence: RUNTIME_READ_ONLY,
   }),
-  page("pages/support/index", "f10-support-placeholder", "预览客服群二维码", {
+  page("account/support/index", "f10-support-placeholder", "预览客服群二维码", {
     handler: "previewGroupQr",
     selector: ".qr-action",
     evidence: PLATFORM_DEVICE,
@@ -157,7 +157,7 @@ export const pageInteractionMatrix = [
     observable: false,
   }),
   page(
-    "pages/study-preference/index",
+    "plans/study-preference/index",
     "f15-study-preference-settings-ready",
     "修改已生效的每周学习时间",
     {
@@ -175,12 +175,12 @@ export const pageInteractionMatrix = [
     handler: "openAssessment",
     selector: ".archive-primary",
   }),
-  page("pages/retake/index", "a08-retake-workspace-ready", "建立二战失分回收计划", {
+  page("plans/retake/index", "a08-retake-workspace-ready", "建立二战失分回收计划", {
     handler: "startProgram",
     selector: ".s9-primary-button",
     observable: false,
   }),
-  page("pages/xingce-task-intro/index", "c01-xingce-briefing-ready", "开始真实行测任务", {
+  page("xingce/xingce-task-intro/index", "c01-xingce-briefing-ready", "开始真实行测任务", {
     handler: "startTask",
     selector: ".s9-primary-button",
     observable: false,
@@ -195,23 +195,23 @@ export const pageInteractionMatrix = [
     selector: "task-tools-panel",
     eventKind: "toggleeyecare",
   }),
-  page("pages/report-center/index", "f01-report-center-ready", "进入外部模考成绩确认", {
+  page("reports/report-center/index", "f01-report-center-ready", "进入外部模考成绩确认", {
     handler: "openExternalScore",
     selector: ".external-card",
   }),
-  page("pages/mock-report/index", "f03-mock-report-ready", "把模考结论带回今日计划", {
+  page("reports/mock-report/index", "f03-mock-report-ready", "把模考结论带回今日计划", {
     handler: "openNextAction",
     selector: ".report-next-action",
   }),
-  page("pages/external-report/index", "f04-external-score-final-review", "确认或重新录入外部成绩", {
+  page("reports/external-report/index", "f04-external-score-final-review", "确认或重新录入外部成绩", {
     handler: "restart",
     selector: ".link-action",
   }),
-  page("pages/report-overview/index", "f02-report-overview-ready", "把周期报告结论带回计划", {
+  page("reports/report-overview/index", "f02-report-overview-ready", "把周期报告结论带回计划", {
     handler: "openNextAction",
     selector: ".report-next-action",
   }),
-  page("pages/global-report/index", "f13-global-report-ready", "把全局报告结论带回计划", {
+  page("reports/global-report/index", "f13-global-report-ready", "把全局报告结论带回计划", {
     handler: "openNextAction",
     selector: ".report-next-action",
   }),
@@ -220,30 +220,30 @@ export const pageInteractionMatrix = [
     selector: ".tag-chip",
     dataset: { code: "misread" },
   }),
-  page("pages/xingce-mastery/index", "c08-xingce-mastery-queue", "打开到期复测项", {
+  page("xingce/xingce-mastery/index", "c08-xingce-mastery-queue", "打开到期复测项", {
     handler: "openItem",
     selector: ".card-action",
     dataset: { itemid: "visual-mastery-item-001" },
   }),
-  page("pages/xingce-mastery/favorites/index", "c19-xingce-favorites-list", "取消一条长期收藏", {
+  page("xingce/xingce-mastery/favorites/index", "c19-xingce-favorites-list", "取消一条长期收藏", {
     handler: "cancelFavorite",
     selector: ".favorite-card__cancel",
     dataset: { questionid: "favorite-current" },
     observable: false,
   }),
-  page("pages/essay-material/index", "f10-essay-material-map", "带着材料地图进入作答", {
+  page("essay/essay-material/index", "f10-essay-material-map", "带着材料地图进入作答", {
     handler: "returnToWriter",
     selector: ".material-return",
     observable: false,
   }),
-  page("pages/essay-compose/index", "f11-essay-compose-workbench", "进入申论成稿工作区", {
+  page("essay/essay-compose/index", "f11-essay-compose-workbench", "进入申论成稿工作区", {
     handler: "openDrafting",
     selector: ".workbench-action",
     index: 1,
   }),
-  page("pages/essay-review/index", "f06-essay-review-evidence", "阅读多模型评阅证据"),
-  page("pages/essay-rewrite/index", "f07-essay-rewrite-comparison", "阅读原稿与重写对照"),
-  page("pages/essay-evidence/index", "f12-essay-grounding-evidence", "阅读申论证据引用"),
+  page("essay/essay-review/index", "f06-essay-review-evidence", "阅读多模型评阅证据"),
+  page("essay/essay-rewrite/index", "f07-essay-rewrite-comparison", "阅读原稿与重写对照"),
+  page("essay/essay-evidence/index", "f12-essay-grounding-evidence", "阅读申论证据引用"),
   page("pages/essay-task/index", "f05-essay-rewrite-ready", "维护申论结构化输入", {
     handler: "addPoint",
     selector: ".add-button",
@@ -255,7 +255,7 @@ export const pageInteractionMatrix = [
     index: 1,
     dataset: { mode: "import" },
   }),
-  page("pages/learning-packets/index", "h02-learning-packets-ready", "切换学习包学科", {
+  page("xingce/learning-packets/index", "h02-learning-packets-ready", "切换学习包学科", {
     handler: "chooseTrack",
     selector: ".choice",
     index: 1,
@@ -276,56 +276,56 @@ export const pageInteractionMatrix = [
       observable: false,
     },
   ),
-  page("pages/answer-ingestion/index", "h03-answer-ingestion-draft", "选择答案录入方式", {
+  page("xingce/answer-ingestion/index", "h03-answer-ingestion-draft", "选择答案录入方式", {
     handler: "chooseMode",
     selector: ".choice",
     index: 1,
     dataset: { value: "answer_image" },
   }),
-  page("pages/community-draft/index", "c21-community-draft-private", "选择私人方法来源", {
+  page("community/community-draft/index", "c21-community-draft-private", "选择私人方法来源", {
     handler: "chooseSource",
     selector: ".choice-card",
     dataset: { value: "voice_transcript" },
   }),
-  page("pages/community-structure/index", "c22-community-structure-confirm", "确认方法卡权利声明", {
+  page("community/community-structure/index", "c22-community-structure-confirm", "确认方法卡权利声明", {
     handler: "chooseRights",
     selector: ".rights-row",
     dataset: { value: "private_third_party" },
   }),
-  page("pages/community-trial/index", "c23-community-independent-trial", "主动加入方法试用", {
+  page("community/community-trial/index", "c23-community-independent-trial", "主动加入方法试用", {
     handler: "optIn",
     selector: ".action-button",
   }),
   page(
-    "pages/community-contributions/index",
+    "community/community-contributions/index",
     "c24-community-contributions-ledger",
     "阅读贡献与奖励账本",
   ),
-  page("pages/plan-basis/index", "b02-plan-basis-ready", "阅读计划生成依据"),
-  page("pages/day-adjustment/index", "b03-day-adjustment-ready", "调整今日精力尺度", {
+  page("plans/plan-basis/index", "b02-plan-basis-ready", "阅读计划生成依据"),
+  page("plans/day-adjustment/index", "b03-day-adjustment-ready", "调整今日精力尺度", {
     handler: "chooseEnergy",
     selector: ".energy-option",
     dataset: { value: 2 },
   }),
-  page("pages/daily-settlement/index", "b04-daily-settlement-ready", "阅读当日闭环结算"),
-  page("pages/weekly-plan/index", "b05-weekly-plan-ready", "阅读周计划节奏"),
+  page("plans/daily-settlement/index", "b04-daily-settlement-ready", "阅读当日闭环结算"),
+  page("plans/weekly-plan/index", "b05-weekly-plan-ready", "阅读周计划节奏"),
   page("pages/ability/index", "e01-learning-profile-ready", "打开模块能力画像", {
     handler: "openModule",
     selector: ".module-row",
     dataset: { track: "xingce", key: "资料分析" },
   }),
-  page("pages/ability-module/index", "e02-ability-module-ready", "选择有期限的战略取舍", {
+  page("reports/ability-module/index", "e02-ability-module-ready", "选择有期限的战略取舍", {
     handler: "chooseDecisionType",
     selector: ".brain-pill",
     dataset: { type: "exam_skip" },
   }),
-  page("pages/error-pattern/index", "e03-error-pattern-ready", "阅读错误模式原始证据"),
+  page("reports/error-pattern/index", "e03-error-pattern-ready", "阅读错误模式原始证据"),
   page("pages/anan/index", "e04-companion-grounded-answer", "沿证据允许动作继续处理", {
     handler: "handleAction",
     selector: ".action-button",
     dataset: { index: 0 },
   }),
-  page("pages/plan-history/index", "e05-plan-history-ready", "阅读计划变更记录"),
+  page("plans/plan-history/index", "e05-plan-history-ready", "阅读计划变更记录"),
 ];
 
 export const interactionEvidenceKinds = {

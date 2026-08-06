@@ -1,0 +1,155 @@
+<view
+  class="task-shell task-shell--{{layoutVariant}} {{footerAvailable ? '' : 'task-shell--no-footer'}} {{headerAvailable ? '' : 'task-shell--no-header'}}"
+  style="--task-status-bar-height: {{statusBarHeight}}px; --task-navigation-height: {{navigationHeight}}px; --task-menu-bottom: {{menuBottom}}px; --task-capsule-reserve: {{capsuleReserve}}px;"
+>
+  <view wx:if="{{headerAvailable}}" class="task-header" aria-label="任务工具栏">
+    <button hover-class="item--hover" class="task-header-button task-header-button--back" aria-label="退出任务" bindtap="exit">
+      <image
+        wx:if="{{layoutVariant === 'xingce'}}"
+        class="task-asset-icon task-asset-icon--back"
+        src="/assets/icons/task/back.svg"
+        mode="aspectFit"
+        aria-hidden="true"
+      />
+      <view wx:else class="task-icon task-icon--back" aria-hidden="true"></view>
+    </button>
+
+    <view wx:if="{{titleAvailable}}" class="task-header-title">
+      <text class="task-header-title__main">{{title}}</text>
+      <text wx:if="{{total > 1}}" class="task-header-title__progress">{{current}} / {{total}}</text>
+    </view>
+
+    <view class="task-header-actions">
+      <button hover-class="item--hover" wx:if="{{answerSheetAvailable}}" class="task-question-control" aria-label="选择题目，当前第 {{current}} 题，共 {{total}} 题" bindtap="openAnswerSheet">
+        <image
+          wx:if="{{layoutVariant === 'xingce'}}"
+          class="task-asset-icon task-asset-icon--list"
+          src="/assets/icons/task/list.svg"
+          mode="aspectFit"
+          aria-hidden="true"
+        />
+        <view wx:else class="task-icon task-icon--grid" aria-hidden="true">
+          <view class="task-icon__shape"></view>
+          <view class="task-icon__shape"></view>
+          <view class="task-icon__shape"></view>
+          <view class="task-icon__shape"></view>
+        </view>
+        <text class="task-progress-label">{{current}}/{{total}}</text>
+      </button>
+
+      <button hover-class="item--hover"
+        wx:if="{{timerPausable}}"
+        class="task-timer-control {{timerPaused ? 'task-timer-control--paused' : ''}}"
+        aria-label="{{timerPaused ? '继续训练' : '暂停训练'}}，已用时 {{elapsedLabel}}"
+        bindtap="toggleTimer"
+      >
+        <image
+          wx:if="{{layoutVariant === 'xingce'}}"
+          class="task-asset-icon task-asset-icon--clock"
+          src="/assets/icons/task/clock.svg"
+          mode="aspectFit"
+          aria-hidden="true"
+        />
+        <view wx:else class="task-icon task-icon--clock" aria-hidden="true">
+          <view class="task-icon-clock-hand"></view>
+        </view>
+        <text class="task-timer">{{elapsedLabel}}</text>
+        <image
+          wx:if="{{layoutVariant === 'xingce' && !timerPaused}}"
+          class="task-asset-icon task-asset-icon--pause"
+          src="/assets/icons/task/pause.svg"
+          mode="aspectFit"
+          aria-hidden="true"
+        />
+        <view wx:else class="task-icon {{timerPaused ? 'task-icon--play' : 'task-icon--pause'}}" aria-hidden="true">
+          <view class="task-icon__shape"></view>
+          <view wx:if="{{!timerPaused}}" class="task-icon__shape"></view>
+        </view>
+        <view class="task-sync-dot task-sync-dot--{{syncTone}}" aria-hidden="true"></view>
+      </button>
+
+      <view wx:else class="task-timer-control task-timer-control--read-only" aria-label="计时 {{elapsedLabel}}，{{syncLabel}}">
+        <image
+          wx:if="{{layoutVariant === 'xingce'}}"
+          class="task-asset-icon task-asset-icon--clock"
+          src="/assets/icons/task/clock.svg"
+          mode="aspectFit"
+          aria-hidden="true"
+        />
+        <text class="task-timer">{{elapsedLabel}}</text>
+        <view class="task-sync-dot task-sync-dot--{{syncTone}}" aria-hidden="true"></view>
+      </view>
+
+      <view class="task-header-divider"></view>
+
+      <button hover-class="item--hover" wx:if="{{materialAvailable}}" class="task-header-button task-header-button--material" aria-label="查看共享材料" bindtap="openMaterial">
+        <view class="task-icon task-icon--material" aria-hidden="true">
+          <view class="task-icon-material-line task-icon-material-line--one"></view>
+          <view class="task-icon-material-line task-icon-material-line--two"></view>
+          <view class="task-icon-material-line task-icon-material-line--three"></view>
+        </view>
+      </button>
+
+      <button hover-class="item--hover" wx:if="{{draftAvailable}}" class="task-header-button task-header-button--draft" aria-label="打开当前题草稿" bindtap="openDraft">
+        <image
+          wx:if="{{layoutVariant === 'xingce'}}"
+          class="task-asset-icon"
+          src="/assets/icons/task/draft.svg"
+          mode="aspectFit"
+          aria-hidden="true"
+        />
+        <view wx:else class="task-icon task-icon--draft" aria-hidden="true">
+          <view class="task-icon-draft-pencil"></view>
+          <view class="task-icon-draft-line"></view>
+        </view>
+      </button>
+
+      <button hover-class="item--hover" wx:if="{{answerSheetAvailable && markAvailable}}" class="task-header-button task-header-button--mark {{marked ? 'task-header-button--mark-active' : ''}}" aria-label="{{marked ? '取消标记本题' : '标记本题'}}" bindtap="toggleMark">
+        <image
+          wx:if="{{layoutVariant === 'xingce' && marked}}"
+          class="task-asset-icon"
+          src="/assets/icons/task/bookmark-active.svg"
+          mode="aspectFit"
+          aria-hidden="true"
+        />
+        <view wx:else class="task-icon task-icon--bookmark" aria-hidden="true"></view>
+      </button>
+
+      <button
+        hover-class="item--hover"
+        wx:if="{{companionAvailable}}"
+        class="task-header-button task-header-button--anan task-header-button--companion"
+        aria-label="就当前题问岸岸"
+        bindtap="openCompanion"
+      >
+        <view class="task-companion-mark" aria-hidden="true">
+          <image
+            class="task-asset-icon task-asset-icon--anan"
+            src="/assets/icons/task/anan.svg"
+            mode="aspectFit"
+          />
+        </view>
+      </button>
+
+      <button hover-class="item--hover" wx:if="{{toolsAvailable}}" class="task-header-button task-header-button--tool" aria-label="打开当前工具" bindtap="openTools">
+        <image
+          wx:if="{{layoutVariant === 'xingce'}}"
+          class="task-asset-icon task-asset-icon--tool"
+          src="/assets/icons/task/draft.svg"
+          mode="aspectFit"
+          aria-hidden="true"
+        />
+        <view wx:else class="task-icon task-icon--spark" aria-hidden="true">
+          <view class="task-icon__spark-main"></view>
+          <view class="task-icon__spark-small"></view>
+        </view>
+      </button>
+    </view>
+  </view>
+
+  <view class="task-content"><slot></slot></view>
+
+  <view wx:if="{{footerAvailable}}" class="task-footer">
+    <view class="task-footer-main"><slot name="footer"></slot></view>
+  </view>
+</view>

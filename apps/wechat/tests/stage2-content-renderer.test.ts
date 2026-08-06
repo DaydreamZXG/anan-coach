@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
-import contentRendererTemplate from "../miniprogram/task-runtime/content-renderer/index.wxml?raw";
+import contentRendererTemplate from "../miniprogram/pages/practice/shared/task-runtime/content-renderer/index.wxml?raw";
 
 import {
   collectPreviewUrls,
@@ -11,7 +11,7 @@ import {
   type RichContentBlock,
   type TableContentBlock,
   type TableContentCell,
-} from "../miniprogram/task-runtime/content-renderer/model";
+} from "../miniprogram/pages/practice/shared/task-runtime/content-renderer/model";
 
 describe("stage 2 rich content renderer contract", () => {
   it("does not introduce preserved whitespace around plain paragraph text", () => {

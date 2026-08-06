@@ -5,8 +5,8 @@ import {
   TaskHelpApi,
   taskHelpWirePayload,
   type TaskHelpCommand,
-} from "../miniprogram/api/task-help";
-import { createTaskHelpCommand } from "../miniprogram/task-runtime/global-help/contracts";
+} from "../miniprogram/pages/practice/shared/api/task-help";
+import { createTaskHelpCommand } from "../miniprogram/pages/practice/shared/task-runtime/global-help/contracts";
 
 const mockReference = {
   pageCode: "F02",

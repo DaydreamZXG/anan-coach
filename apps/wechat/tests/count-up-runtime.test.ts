@@ -6,7 +6,7 @@ import {
   COUNT_UP_MIN_DURATION_MS,
   clampCountUpDuration,
   countUpFrames,
-} from "../miniprogram/design-system/primitives/count-up/runtime";
+} from "../miniprogram/plans/shared/design-system/primitives/count-up/runtime";
 
 describe("count-up 数字滚动运行时", () => {
   it("把时长钳制在动效纪律允许的 150-300ms 区间", () => {

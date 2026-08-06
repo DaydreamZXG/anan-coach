@@ -12,12 +12,12 @@ import {
   type CaptureImportState,
 } from "./features/external-learning/capture-controller";
 import { requireExternalLearningGateway } from "../../features/external-learning/contracts";
-import { externalLearningError } from "../../features/external-learning/error";
+import { externalLearningError } from "./shared/features/external-learning/error";
 import {
   presentMatchCandidates,
   type MatchCandidateView,
 } from "./features/external-learning/match-presentation";
-import { ExternalLearningPageRuntimeRegistry } from "../../features/external-learning/page-runtime";
+import { ExternalLearningPageRuntimeRegistry } from "./shared/features/external-learning/page-runtime";
 import {
   chooseQuestionImage,
   chooseQuestionPdf,
@@ -25,7 +25,7 @@ import {
   ensureCameraPermission,
   requestCameraSetting,
   takeQuestionPhoto,
-} from "../../features/external-learning/platform";
+} from "./shared/features/external-learning/platform";
 import type { LocalImportFile } from "../../features/external-learning/contracts";
 
 interface CaptureImportPageData {

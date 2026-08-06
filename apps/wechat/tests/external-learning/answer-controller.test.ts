@@ -4,7 +4,7 @@ import {
   MAX_ANSWER_IMAGE_BYTES,
   parseAnswerString,
   validateAnswerImage,
-} from "../../miniprogram/features/external-learning/answer-controller";
+} from "../../miniprogram/xingce/shared/features/external-learning/answer-controller";
 import type { LocalAnswerImageFile } from "../../miniprogram/features/external-learning/contracts";
 import { answerWorkspace, gateway, ingestion } from "./fixtures";
 

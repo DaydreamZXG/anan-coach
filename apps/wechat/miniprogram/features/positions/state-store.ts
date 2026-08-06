@@ -1,4 +1,4 @@
-import type { PositionRouteSummary } from "./contracts";
+import type { PositionRouteSummary } from "../../pages/positions/features/contracts";
 import type { PrimaryGoalPreview } from "../../api/generated/types.gen";
 import { createIdempotencyKey } from "../../platform/command-id";
 

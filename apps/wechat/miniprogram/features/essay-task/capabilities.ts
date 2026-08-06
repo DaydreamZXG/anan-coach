@@ -1,4 +1,4 @@
-import type { EssayArtifactType } from "../../api/essay-intelligence";
+import type { EssayArtifactType } from "../../essay/shared/api/essay-intelligence";
 
 export type EssayTaskStage =
   | "essay_material_reading"

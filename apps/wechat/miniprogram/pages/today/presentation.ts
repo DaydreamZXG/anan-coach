@@ -42,6 +42,12 @@ export interface TaskView {
   disabledReason: string;
 }
 
+export interface TaskQueueView extends TaskView {
+  queueSize: number;
+  queueMetaLabel: string;
+  queueActionLabel: string;
+}
+
 export interface TrackAllocationView {
   track: LearningTrack;
   trackLabel: string;
@@ -95,6 +101,7 @@ export interface TodayView {
   omittedTrackReasons: OmittedTrackReasonView[];
   tasks: TaskView[];
   activeTasks: TaskView[];
+  secondaryTasks: TaskQueueView[];
   completedTasks: TaskView[];
   hasTasks: boolean;
   hasExecutionActivity: boolean;
@@ -202,6 +209,7 @@ export function presentTodayDashboard(dashboard: TodayDashboard): TodayView {
     (task) => task.status === "ready" || task.status === "in_progress",
   );
   const completedTasks = tasks.filter((task) => task.status === "complete");
+  const secondaryTasks = presentSecondaryTaskQueues(activeTasks.slice(1));
   const hasExecutionActivity = tasks.some(
     (task) => task.status === "in_progress" || task.status === "complete" || task.elapsedMinutes,
   );
@@ -222,7 +230,8 @@ export function presentTodayDashboard(dashboard: TodayDashboard): TodayView {
     energy: dashboard.capacity.energy,
     stress: dashboard.capacity.stress,
     confidenceLevel: dashboard.capacity.confidenceLevel,
-    capacityStatusLabel: dashboard.capacity.confirmed ? "今日时间已确认" : "确认今日时间",
+    capacityStatusLabel:
+      dashboard.capacity.sourceType === "user_override" ? "今天已调整" : "按每周计划",
     capacitySourceLabel: capacitySourceLabel(dashboard),
     planSectionTitle: planSectionTitle(dashboard),
     planModeLabel: modeLabels[dashboard.dualTrackExplanation.mode],
@@ -231,6 +240,7 @@ export function presentTodayDashboard(dashboard: TodayDashboard): TodayView {
     omittedTrackReasons: presentOmittedReasons(dashboard, allocationTracks),
     tasks,
     activeTasks,
+    secondaryTasks,
     completedTasks,
     hasTasks: activeTasks.length > 0,
     hasExecutionActivity,
@@ -443,6 +453,66 @@ function presentTask(task: TodayTask): TaskView {
   };
 }
 
+function presentSecondaryTaskQueues(tasks: TaskView[]): TaskQueueView[] {
+  const queues: TaskQueueView[] = [];
+  const groupedQueueIndexes = new Map<string, number>();
+
+  for (const task of tasks) {
+    const groupedTitle = groupedPracticeTitle(task);
+    if (!groupedTitle) {
+      queues.push(presentSingleTaskQueue(task));
+      continue;
+    }
+
+    const key = `${task.track}:${task.kind}:${groupedTitle}`;
+    const existingIndex = groupedQueueIndexes.get(key);
+    if (existingIndex === undefined) {
+      groupedQueueIndexes.set(key, queues.length);
+      queues.push({
+        ...task,
+        title: groupedTitle,
+        queueSize: 1,
+        queueMetaLabel: taskQueueMetaLabel(task.trackLabel, 1, task.estimatedMinutes),
+        queueActionLabel: task.status === "in_progress" ? "继续" : "开始",
+      });
+      continue;
+    }
+
+    const queue = queues[existingIndex];
+    if (!queue) {
+      throw new Error("Task queue index is inconsistent");
+    }
+    queue.queueSize += 1;
+    queue.estimatedMinutes += task.estimatedMinutes;
+    queue.queueMetaLabel = taskQueueMetaLabel(
+      queue.trackLabel,
+      queue.queueSize,
+      queue.estimatedMinutes,
+    );
+  }
+
+  return queues;
+}
+
+function presentSingleTaskQueue(task: TaskView): TaskQueueView {
+  return {
+    ...task,
+    queueSize: 1,
+    queueMetaLabel: `${task.trackLabel} · 预计 ${String(task.estimatedMinutes)} 分钟`,
+    queueActionLabel: task.status === "in_progress" ? "继续" : "开始",
+  };
+}
+
+function groupedPracticeTitle(task: TaskView): string | null {
+  if (task.track !== "xingce" || task.kind !== "practice") return null;
+  const match = task.title.match(/^(.*?)（第\s*\d+\s*组）$/u);
+  return match?.[1]?.trim() || null;
+}
+
+function taskQueueMetaLabel(trackLabel: string, queueSize: number, minutes: number): string {
+  return `${trackLabel} · 还剩 ${String(queueSize)} 组 · 共 ${String(minutes)} 分钟`;
+}
+
 function presentAllocation(allocation: TrackAllocation): TrackAllocationView {
   return {
     track: allocation.track,
@@ -484,9 +554,9 @@ function planSectionTitle(dashboard: TodayDashboard): string {
 
 function capacitySourceLabel(dashboard: TodayDashboard): string {
   if (dashboard.capacity.sourceType === "user_override") {
-    return dashboard.capacity.confirmed ? "你今天确认的时间" : "你今天设置的时间，还待确认";
+    return "按你今天的调整";
   }
-  return dashboard.capacity.confirmed ? "按你的每周学习时间" : "按每周学习时间预排，今天还待确认";
+  return "按每周学习时间自动安排";
 }
 
 export function evidenceReferenceLabel(reference: PlanningEvidenceRef): string {

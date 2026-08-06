@@ -41,10 +41,10 @@ const systemChromeContracts = new Map([
   ["/pages/ability/index", pageChrome(".ability-content")],
   ["/pages/anan/index", pageChrome(".coach-content")],
   ["/pages/capture-import/index", workbenchChrome()],
-  ["/pages/daily-settlement/index", workbenchChrome()],
-  ["/pages/day-adjustment/index", workbenchChrome()],
-  ["/pages/essay-material/index", workbenchChrome()],
-  ["/pages/essay-review/index", workbenchChrome()],
+  ["/plans/daily-settlement/index", workbenchChrome()],
+  ["/plans/day-adjustment/index", workbenchChrome()],
+  ["/essay/essay-material/index", workbenchChrome()],
+  ["/essay/essay-review/index", workbenchChrome()],
   ["/pages/me/index", pageChrome(".profile-content")],
   [
     "/pages/onboarding/ability-baseline/index",
@@ -68,7 +68,7 @@ const systemChromeContracts = new Map([
     "/pages/onboarding/study-preference/index",
     componentChrome("#runtime-workbench-nav", ".workbench-nav__back", ".workbench-nav__title"),
   ],
-  ["/pages/plan-basis/index", workbenchChrome()],
+  ["/plans/plan-basis/index", workbenchChrome()],
   ["/pages/positions/compare/index", workbenchChrome()],
   ["/pages/positions/detail/index", workbenchChrome()],
   ["/pages/positions/goal/index", workbenchChrome()],
@@ -80,7 +80,7 @@ const systemChromeContracts = new Map([
   ["/pages/onboarding/profile/index", workbenchChrome()],
   ["/pages/reflection/index", workbenchChrome()],
   ["/pages/today/index", pageChrome(".today-content")],
-  ["/pages/weekly-plan/index", workbenchChrome()],
+  ["/plans/weekly-plan/index", workbenchChrome()],
   [
     "/pages/practice/index",
     componentChrome(
@@ -109,11 +109,11 @@ const systemChromeContracts = new Map([
     ),
   ],
   [
-    "/pages/answer-ingestion/index",
+    "/xingce/answer-ingestion/index",
     componentChrome("#runtime-workbench-nav", ".workbench-nav__back", ".workbench-nav__title"),
   ],
   [
-    "/pages/learning-packets/index",
+    "/xingce/learning-packets/index",
     componentChrome("#runtime-workbench-nav", ".workbench-nav__back", ".workbench-nav__title"),
   ],
 ]);
@@ -371,7 +371,7 @@ async function leaveLoginControllerBeforeAuthFixture(program) {
   // controller is still alive creates a race where its late completion can clear the visual
   // fixture or navigate away from the scenario. Unload it on a static, side-effect-free page
   // before applying deterministic authentication.
-  const neutralPage = await program.reLaunch("/pages/support/index");
+  const neutralPage = await program.reLaunch("/account/support/index");
   assert.ok(neutralPage, "Unable to unload the login controller before visual authentication");
 }
 

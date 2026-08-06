@@ -1,13 +1,13 @@
 import { ApiClient, ApiClientError } from "../../api/client";
-import { LearningMediaApi } from "../../api/learning-media";
+import { LearningMediaApi } from "./shared/api/learning-media";
 import { XfyunApi } from "./features/api/xfyun";
 import {
   XingceLearningApi,
   type XingceRescue,
   type XingceTaskSession,
-} from "../../api/xingce-learning";
+} from "./shared/api/xingce-learning";
 import { routes } from "../../app/navigation/routes";
-import { navigateBackOr } from "../../app/navigation/safe-back";
+import { navigateBackOr } from "./shared/app/navigation/safe-back";
 import { currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
@@ -15,7 +15,7 @@ import {
   clearReflectionLearningMediaDraft,
   loadReflectionLearningMediaDraft,
   storeReflectionLearningMediaDraft,
-} from "../../features/learning-media/draft-store";
+} from "./shared/features/learning-media/draft-store";
 import {
   maximumReflectionVoiceDurationMilliseconds,
   maximumReflectionVoiceSegments,
@@ -23,7 +23,7 @@ import {
   validateVoiceCollection,
   type ReflectionLearningMediaDraft,
   type ReflectionVoiceSegment,
-} from "../../features/learning-media/contracts";
+} from "./shared/features/learning-media/contracts";
 import {
   deleteLocalVoice,
   ensureRecordPermission,
@@ -34,17 +34,17 @@ import {
   WechatVoicePreview,
   WechatVoiceRecorder,
   type RecordedVoiceFile,
-} from "../../features/learning-media/platform";
+} from "./shared/features/learning-media/platform";
 import {
   presentReflectionVoiceSegments,
   presentReflectionVoiceSummary,
   type ReflectionVoiceSegmentView,
   type ReflectionVoiceSummaryView,
-} from "../../features/learning-media/presentation";
+} from "./shared/features/learning-media/presentation";
 import {
   LearningMediaOperationCancelled,
   ReflectionVoiceUploadCoordinator,
-} from "../../features/learning-media/upload-controller";
+} from "./shared/features/learning-media/upload-controller";
 import {
   isXingceReflectionTag,
   isXingceReplacementCauseCode,
@@ -65,7 +65,7 @@ import {
   type XingceCauseCandidateView,
   type XingceResultItemView,
   type XingceResultView,
-} from "../../features/xingce/real_attempt/presentation";
+} from "./shared/features/xingce/real_attempt/presentation";
 import {
   clearPendingXingceCauseDecision,
   clearPendingXingceCauseFollowup,
@@ -76,30 +76,30 @@ import {
   storePendingXingceCauseDecision,
   storePendingXingceCauseFollowup,
   storePendingXingceReflection,
-} from "../../features/xingce/real_attempt/pending-store";
+} from "./shared/features/xingce/real_attempt/pending-store";
 import { publishLatestTodayDashboard } from "../../features/planning/runtime-state";
 import { createIdempotencyKey } from "../../platform/command-id";
 import type {
   ContentAnchor,
   ContentDisplayPreferences,
   RichContentBlock,
-} from "../../task-runtime/content-renderer/model";
+} from "./shared/task-runtime/content-renderer/model";
 import {
   loadTaskDisplayPreferences,
   storeTaskDisplayPreferences,
-} from "../../task-runtime/display-preferences";
+} from "./shared/task-runtime/display-preferences";
 import {
   createMaterialReaderState,
   reduceMaterialReader,
   type MaterialReaderState,
-} from "../../task-runtime/material-reader/state";
+} from "./shared/task-runtime/material-reader/state";
 import {
   resolveSwipeNav,
   swipeSampleFromTouchEnd,
   swipeSampleFromTouchMove,
   swipeSampleFromTouchStart,
   type SwipeNavSample,
-} from "../../task-runtime/swipe-nav";
+} from "./shared/task-runtime/swipe-nav";
 
 type ReflectionStatus = "loading" | "ready" | "error" | "unavailable";
 type ReflectionPhase =

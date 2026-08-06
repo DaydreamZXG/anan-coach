@@ -4,7 +4,7 @@ import type {
   EssayReviewQueueCommand,
   EssayTaskWorkspace,
   ReflectionPayload,
-} from "../../api/essay-intelligence";
+} from "../../essay/shared/api/essay-intelligence";
 
 export const sourceContextValues = ["in_program", "paper", "external"] as const;
 export const sourceContextLabels = ["直接在手机上写", "写在纸上", "在别的地方写的"];

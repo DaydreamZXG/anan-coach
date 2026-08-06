@@ -7,9 +7,9 @@ import {
 } from "./features/api/private-knowledge";
 import { currentAuthSession } from "../../auth/session";
 import { routes } from "../../app/navigation/routes";
-import { navigateBackOr } from "../../app/navigation/safe-back";
+import { navigateBackOr } from "./shared/app/navigation/safe-back";
 import type { LocalSourceArtifactFile } from "../../features/external-learning/contracts";
-import { chooseQuestionImage, chooseQuestionPdf } from "../../features/external-learning/platform";
+import { chooseQuestionImage, chooseQuestionPdf } from "./shared/features/external-learning/platform";
 import { createIdempotencyKey } from "../../platform/command-id";
 
 const noReviewableTextMessage = "没有识别到可逐段核对的文字。";

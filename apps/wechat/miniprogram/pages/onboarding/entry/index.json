@@ -2,6 +2,6 @@
   "navigationBarTitleText": "建立备考档案",
   "navigationStyle": "custom",
   "usingComponents": {
-    "workbench-nav": "../../../components/workbench-nav/index"
+    "workbench-nav": "../shared/components/workbench-nav/index"
   }
 }

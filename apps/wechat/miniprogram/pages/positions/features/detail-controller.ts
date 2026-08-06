@@ -10,7 +10,7 @@ import {
   type PositionRemoteStatus,
   type PositionRequestTrace,
   type PositionRouteSummary,
-} from "../../../features/positions/contracts";
+} from "./contracts";
 import { positionOperationError, shouldRetainPositionCommand } from "./error-state";
 import {
   positionRouteSummaryView,

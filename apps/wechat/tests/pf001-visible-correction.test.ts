@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import type { XingceTaskSession } from "../miniprogram/api/xingce-learning";
+import type { XingceTaskSession } from "../miniprogram/xingce/shared/api/xingce-learning";
 import {
   presentXingceImmediateVerification,
   presentXingceReflectionClosure,
-} from "../miniprogram/features/xingce/real_attempt/presentation";
+} from "../miniprogram/pages/practice/shared/features/xingce/real_attempt/presentation";
 import {
   apiSuccess,
   completedXingceSession,
@@ -13,7 +13,7 @@ import {
 } from "./work_packages/vj-02-real-xingce-wechat/harness";
 
 const verificationTaskId = "81000000-0000-4000-8000-000000000001";
-const verificationUrl = `/pages/xingce-task-intro/index?mode=verification&planTaskId=${verificationTaskId}`;
+const verificationUrl = `/xingce/xingce-task-intro/index?mode=verification&planTaskId=${verificationTaskId}`;
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -173,7 +173,7 @@ describe("PF-001 immediate verification target", () => {
       {
         ...current,
         id: oldTaskId,
-        startUrl: `/pages/xingce-task-intro/index?mode=verification&planTaskId=${oldTaskId}`,
+        startUrl: `/xingce/xingce-task-intro/index?mode=verification&planTaskId=${oldTaskId}`,
         evidenceRefs: [verificationDecisionEvidence(oldDecisionVersionId)],
       },
       current,
@@ -200,11 +200,11 @@ describe("PF-001 immediate verification target", () => {
   });
 
   it.each([
-    "https://evil.example/pages/xingce-task-intro/index?mode=verification",
+    "https://evil.example/xingce/xingce-task-intro/index?mode=verification",
     `/pages/practice/index?mode=verification&planTaskId=${verificationTaskId}`,
-    `/pages/xingce-task-intro/index?mode=verification&planTaskId=${verificationTaskId}&next=https%3A%2F%2Fevil.example`,
-    "/pages/xingce-task-intro/index?mode=verification&planTaskId=another-owned-task",
-    `/pages/xingce-task-intro/index?mode=targeted&planTaskId=${verificationTaskId}`,
+    `/xingce/xingce-task-intro/index?mode=verification&planTaskId=${verificationTaskId}&next=https%3A%2F%2Fevil.example`,
+    "/xingce/xingce-task-intro/index?mode=verification&planTaskId=another-owned-task",
+    `/xingce/xingce-task-intro/index?mode=targeted&planTaskId=${verificationTaskId}`,
   ])("拒绝恶意或越权 startUrl：%s", (startUrl) => {
     const session = withVerificationTask(completedXingceSession("replace"));
     requiredFirstTask(session).startUrl = startUrl;

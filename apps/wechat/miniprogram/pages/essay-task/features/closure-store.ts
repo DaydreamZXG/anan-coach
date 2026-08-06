@@ -1,5 +1,5 @@
 import type { EssayRewriteDraft, EssayTransferDraft } from "./closure";
-import type { EssayRewritePlanTaskCompletionCommandV2 } from "../../../api/essay-intelligence";
+import type { EssayRewritePlanTaskCompletionCommandV2 } from "../shared/api/essay-intelligence";
 import type {
   EssayRewriteWriterContext,
   EssayTransferWriterContext,

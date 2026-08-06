@@ -149,17 +149,17 @@ def test_plan_task_start_urls_are_materialized_with_plan_task_id() -> None:
 
     assert (
         _materialize_plan_task_start_url(
-            "/pages/xingce-task-intro/index?mode=baseline",
+            "/xingce/xingce-task-intro/index?mode=baseline",
             task_id=task_id,
         )
-        == f"/pages/xingce-task-intro/index?mode=baseline&planTaskId={task_id}"
+        == f"/xingce/xingce-task-intro/index?mode=baseline&planTaskId={task_id}"
     )
     assert (
         _materialize_plan_task_start_url(
-            f"/pages/xingce-task-intro/index?mode=targeted&planTaskId={task_id}",
+            f"/xingce/xingce-task-intro/index?mode=targeted&planTaskId={task_id}",
             task_id=str(uuid4()),
         )
-        == f"/pages/xingce-task-intro/index?mode=targeted&planTaskId={task_id}"
+        == f"/xingce/xingce-task-intro/index?mode=targeted&planTaskId={task_id}"
     )
     assert (
         _materialize_plan_task_start_url(

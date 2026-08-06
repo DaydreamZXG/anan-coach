@@ -10,11 +10,11 @@ import type {
 import {
   externalLearningError,
   type ExternalLearningError,
-} from "../../../../features/external-learning/error";
+} from "../../shared/features/external-learning/error";
 import {
   recognitionSegmentView,
   type RecognitionSegmentView,
-} from "../../../../features/external-learning/presentation";
+} from "../../shared/features/external-learning/presentation";
 
 export const MAX_IMPORT_IMAGE_BYTES = 20 * 1024 * 1024;
 export const MAX_IMPORT_PDF_BYTES = 50 * 1024 * 1024;

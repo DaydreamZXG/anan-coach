@@ -116,14 +116,14 @@ def test_global_route_is_server_owned_and_blocks_pre_submit_answer_leakage() -> 
     ("route_id", "workspace", "object_type"),
     (
         ("pages/ability/index", "profile", None),
-        ("pages/plan-basis/index", "today", "plan"),
-        ("pages/weekly-plan/index", "today", "plan"),
-        ("pages/daily-settlement/index", "today", None),
+        ("plans/plan-basis/index", "today", "plan"),
+        ("plans/weekly-plan/index", "today", "plan"),
+        ("plans/daily-settlement/index", "today", None),
         ("pages/positions/detail/index", "position", "position"),
-        ("pages/report-overview/index", "profile", "report"),
-        ("pages/report-overview/index", "training", "report"),
-        ("pages/mock-report/index", "training", "report"),
-        ("pages/global-report/index", "profile", "report"),
+        ("reports/report-overview/index", "profile", "report"),
+        ("reports/report-overview/index", "training", "report"),
+        ("reports/mock-report/index", "training", "report"),
+        ("reports/global-report/index", "profile", "report"),
     ),
 )
 def test_contextual_companion_entry_pages_are_explicitly_allowed(

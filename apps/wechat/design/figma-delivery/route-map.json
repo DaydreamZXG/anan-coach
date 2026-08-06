@@ -116,7 +116,7 @@
       "figmaNodeId": "9:2",
       "figmaName": "01 · 任务依据",
       "routeName": "planBasis",
-      "route": "/pages/plan-basis/index",
+      "route": "/plans/plan-basis/index",
       "navigationMode": "navigateTo"
     },
     {
@@ -124,7 +124,7 @@
       "figmaNodeId": "10:2",
       "figmaName": "02 · 周计划",
       "routeName": "weeklyPlan",
-      "route": "/pages/weekly-plan/index",
+      "route": "/plans/weekly-plan/index",
       "navigationMode": "navigateTo"
     },
     {
@@ -132,7 +132,7 @@
       "figmaNodeId": "11:2",
       "figmaName": "03 · 今日调整",
       "routeName": "dayAdjustment",
-      "route": "/pages/day-adjustment/index",
+      "route": "/plans/day-adjustment/index",
       "navigationMode": "navigateTo"
     },
     {
@@ -140,7 +140,7 @@
       "figmaNodeId": "12:2",
       "figmaName": "04 · 每日结算",
       "routeName": "dailySettlement",
-      "route": "/pages/daily-settlement/index",
+      "route": "/plans/daily-settlement/index",
       "navigationMode": "navigateTo"
     },
     {
@@ -342,7 +342,7 @@
       "figmaNodeId": "29:2",
       "figmaName": "02 · 材料阅读",
       "routeName": "essayMaterial",
-      "route": "/pages/essay-material/index",
+      "route": "/essay/essay-material/index",
       "navigationMode": "navigateTo"
     },
     {
@@ -350,7 +350,7 @@
       "figmaNodeId": "30:2",
       "figmaName": "03 · 批改结果",
       "routeName": "essayReview",
-      "route": "/pages/essay-review/index",
+      "route": "/essay/essay-review/index",
       "navigationMode": "navigateTo"
     },
     {

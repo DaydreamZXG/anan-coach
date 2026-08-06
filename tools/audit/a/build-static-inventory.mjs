@@ -151,7 +151,7 @@ const parameterContracts = new Map([
     { valid: "positionId=position-1", missing: "应就地提示" },
   ],
   [
-    "pages/xingce-task-intro/index",
+    "xingce/xingce-task-intro/index",
     {
       valid: "mode=verification&planTaskId=visual-plan-task-001",
       missing: "应拒绝猜测任务",
@@ -179,15 +179,15 @@ const parameterContracts = new Map([
     },
   ],
   [
-    "pages/community-draft/index",
+    "community/community-draft/index",
     { valid: "reviewId/track/taskVersionId 可选", missing: "合法" },
   ],
   [
-    "pages/community-structure/index",
+    "community/community-structure/index",
     { valid: "cardId=visual-community-card", missing: "应显示地址不完整" },
   ],
   [
-    "pages/community-trial/index",
+    "community/community-trial/index",
     { valid: "track=xingce&applicability=资料分析", missing: "需运行验证" },
   ],
   [
@@ -198,45 +198,45 @@ const parameterContracts = new Map([
     },
   ],
   [
-    "pages/essay-review/index",
+    "essay/essay-review/index",
     { valid: "taskVersionId=visual-essay-task（reviewVersionId 可选）", missing: "应就地提示" },
   ],
   [
-    "pages/essay-rewrite/index",
+    "essay/essay-rewrite/index",
     { valid: "taskVersionId=visual-essay-task", missing: "应就地提示" },
   ],
   [
-    "pages/essay-material/index",
+    "essay/essay-material/index",
     { valid: "taskVersionId=visual-essay-task", missing: "应就地提示" },
   ],
   [
-    "pages/essay-compose/index",
+    "essay/essay-compose/index",
     {
       valid: "taskVersionId=visual-essay-task&planTaskId=visual-plan",
       missing: "应就地提示",
     },
   ],
   [
-    "pages/essay-evidence/index",
+    "essay/essay-evidence/index",
     {
       valid: "taskVersionId=visual-essay-task（reviewVersionId 可选）",
       missing: "应就地提示",
     },
   ],
   [
-    "pages/ability-module/index",
+    "reports/ability-module/index",
     { valid: "track=xingce&moduleKey=资料分析", missing: "应就地提示" },
   ],
   [
-    "pages/error-pattern/index",
+    "reports/error-pattern/index",
     { valid: "patternId=<64 hex>", missing: "应就地提示" },
   ],
   [
-    "pages/mock-report/index",
+    "reports/mock-report/index",
     { valid: "sessionId 可选（默认 current）", missing: "合法/默认 current" },
   ],
   [
-    "pages/report-overview/index",
+    "reports/report-overview/index",
     { valid: "kind=weekly 可选", missing: "合法/默认周期" },
   ],
   [
@@ -244,11 +244,11 @@ const parameterContracts = new Map([
     { valid: "importId/channel 可选", missing: "合法" },
   ],
   [
-    "pages/learning-packets/index",
+    "xingce/learning-packets/index",
     { valid: "contentVersionId 可选", missing: "合法" },
   ],
   [
-    "pages/answer-ingestion/index",
+    "xingce/answer-ingestion/index",
     {
       valid: "packetVersionId=packet-v3（或 ingestionId，二选一）",
       missing: "需运行验证",

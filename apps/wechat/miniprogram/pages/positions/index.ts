@@ -10,10 +10,7 @@ import {
   routes,
 } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
-import {
-  PositionPageRuntimeRegistry,
-  type PositionController,
-} from "./features/runtime";
+import { PositionPageRuntimeRegistry, type PositionController } from "./features/runtime";
 import {
   ScoreEvidenceController,
   type ScoreEvidenceControllerState,

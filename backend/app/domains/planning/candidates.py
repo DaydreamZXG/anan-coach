@@ -341,7 +341,7 @@ def _objective_candidates(
                 reason=f"有 {snapshot.due_verification_count} 道错题到了复测时间，趁还记得，再打一仗，赢了它们就是你的。",
                 estimated_minutes=15,
                 completion_rule="答完这几道题，说说你的判断，结果会自动存好。",
-                start_url="/pages/xingce-task-intro/index?mode=verification",
+                start_url="/xingce/xingce-task-intro/index?mode=verification",
                 evidence_refs=tuple(evidence),
                 priority=PriorityBreakdown(
                     goal_gain=0.65 if goal.positive_gap else 0.45,
@@ -438,7 +438,7 @@ def _objective_candidates(
                 ),
                 estimated_minutes=block_minutes,
                 completion_rule="做完这组题，把答案、用时和做题时的感觉记一下就行。",
-                start_url="/pages/xingce-task-intro/index?mode=targeted",
+                start_url="/xingce/xingce-task-intro/index?mode=targeted",
                 evidence_refs=tuple(evidence),
                 priority=PriorityBreakdown(
                     goal_gain=max(0.45, (0.72 if goal.positive_gap else 0.50) - block_index * 0.02),
@@ -500,7 +500,7 @@ def _baseline_candidate(
         reason="咱们先摸个底，不急着赶进度。答一组题，让我看看你现在的水平，后面才好帮你规划。",
         estimated_minutes=estimated_minutes,
         completion_rule="按真实水平答完这组题就行，用时和做题的感觉顺手记一下。",
-        start_url="/pages/xingce-task-intro/index?mode=baseline",
+        start_url="/xingce/xingce-task-intro/index?mode=baseline",
         evidence_refs=tuple(evidence),
         priority=PriorityBreakdown(
             goal_gain=0.65 if goal.positive_gap else 0.45,

@@ -1,7 +1,7 @@
-import type { EssayArtifactPlanTaskCommand } from "../../api/essay-intelligence";
+import type { EssayArtifactPlanTaskCommand } from "../../essay/shared/api/essay-intelligence";
 import { parseEssayTaskStage, type EssayTaskStage } from "./capabilities";
 import { isPendingEssayDraftingSubmission, type PendingEssayDraftingSubmission } from "./drafting";
-import type { EssayFormDrafts } from "./forms";
+import type { EssayFormDrafts } from "../../pages/essay-task/features/forms";
 
 export const ESSAY_PENDING_SCHEMA_VERSION = 4 as const;
 export const ESSAY_PENDING_TTL_MS = 7 * 24 * 60 * 60 * 1_000;

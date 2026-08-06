@@ -573,6 +573,7 @@
   flex: none;
   flex-direction: column;
   gap: calc(24 * var(--rpx));
+  margin-top: var(--figma-space-16);
 }
 
 .compact-task {
@@ -585,8 +586,13 @@
 }
 
 .compact-task__main {
+  flex: 1;
   min-width: 0;
   gap: calc(24 * var(--rpx));
+}
+
+.compact-task__copy {
+  min-width: 0;
 }
 
 .compact-task__icon {
@@ -615,12 +621,15 @@
 
 .compact-task__action {
   width: auto;
+  min-width: calc(104 * var(--rpx));
+  flex: none;
   padding: calc(12 * var(--rpx)) calc(28 * var(--rpx));
   border-radius: var(--radius-capsule);
   background: var(--bg);
   color: var(--ink);
   font-size: var(--text-caption);
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .completed-task {
@@ -651,11 +660,16 @@
   margin: calc(24 * var(--rpx)) 0 calc(16 * var(--rpx));
 }
 
+.secondary-tools__head {
+  display: none;
+}
+
 .settlement-button {
   width: 100%;
   min-height: calc(88 * var(--rpx));
   justify-content: center;
   gap: calc(16 * var(--rpx));
+  margin-top: var(--figma-space-16);
   border: calc(1 * var(--rpx)) solid var(--ink);
   border-radius: var(--radius-40);
   background: var(--ink);
@@ -749,6 +763,10 @@
 
 .track-section {
   margin-top: calc(40 * var(--rpx));
+}
+
+.today-col--track {
+  margin-top: 0;
 }
 
 .track-section__head,
@@ -845,7 +863,7 @@
   color: var(--primary);
 }
 
-/* 平板：768 起加左导航轨（单列限宽）；1024 起任务|辅助两列（粉笔式）。 */
+/* 平板竖屏保持单列；仅在 1024+ 横屏进入任务台双栏。 */
 @media (min-width: 768px) {
   .today-content {
     width: 100%;
@@ -854,17 +872,18 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (orientation: landscape) {
   .today-content {
     display: grid;
     max-width: 1100px;
     align-items: start;
-    column-gap: 24px;
-    grid-template-columns: minmax(0, 1fr) 340px;
+    column-gap: 28px;
+    row-gap: 24px;
+    grid-template-columns: minmax(0, 1fr) 320px;
     grid-template-areas:
-      "header header"
-      "main side-a"
+      "header side-a"
       "main side-b"
+      "main track"
       "main .";
     grid-template-rows: auto auto auto 1fr;
   }
@@ -886,5 +905,65 @@
   .today-col--side-b {
     grid-area: side-b;
     min-width: 0;
+  }
+
+  .today-col--track {
+    grid-area: track;
+    min-width: 0;
+    margin-top: 0;
+  }
+
+  .secondary-tools {
+    margin: 0 0 8px;
+  }
+
+  .secondary-tools__head {
+    display: block;
+    margin: calc(8 * var(--rpx)) 4px 16px;
+  }
+
+  .secondary-tools__title {
+    color: var(--ink);
+    font-size: var(--text-title-sm);
+    font-weight: 700;
+  }
+
+  .secondary-tools__meta {
+    margin-top: calc(12 * var(--rpx));
+    color: var(--ink-2);
+    font-size: var(--text-caption);
+    font-weight: 500;
+  }
+
+  .today-col--track .track-section__head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: calc(8 * var(--rpx));
+    margin: 0 4px 16px;
+  }
+
+  .today-col--track .track-grid {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .today-col--track .track-card {
+    width: 100%;
+    min-height: 0;
+    padding: 16px 18px;
+    border-radius: var(--radius-32);
+  }
+
+  .today-col--track .track-card__summary {
+    margin-top: 12px;
+  }
+
+  .today-col--track .track-card__detail {
+    min-height: 0;
+    margin-top: 4px;
+  }
+
+  .today-col--track .track-card__action {
+    margin-top: 12px;
   }
 }

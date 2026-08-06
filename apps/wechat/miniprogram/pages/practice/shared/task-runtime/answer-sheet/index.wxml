@@ -1,0 +1,46 @@
+<view wx:if="{{visible}}" class="answer-card" catchtouchmove="noop">
+  <view class="answer-card__mask" catchtap="close" aria-label="关闭答题卡"></view>
+  <view class="answer-card__sheet">
+    <view class="answer-card__handle-row" aria-hidden="true"><view class="answer-card__handle"></view></view>
+    <view class="answer-card__header">
+      <view>
+        <view class="answer-card__title">答题卡</view>
+        <view class="answer-card__subtitle">{{subtitle}}</view>
+      </view>
+      <button hover-class="item--hover" class="answer-card__close" aria-label="关闭答题卡" bindtap="close">×</button>
+    </view>
+    <view class="answer-card__legend">
+      <view class="answer-card__legend-item"><view class="answer-card__legend-dot answer-card__legend-dot--answered"></view><text>已答 {{answered}}</text></view>
+      <view class="answer-card__legend-item"><view class="answer-card__legend-dot answer-card__legend-dot--unanswered"></view><text>未答 {{unanswered}}</text></view>
+      <view class="answer-card__legend-item"><view class="answer-card__legend-dot answer-card__legend-dot--current"></view><text>当前 1</text></view>
+      <view class="answer-card__legend-item"><view class="answer-card__legend-dot answer-card__legend-dot--marked"></view><text>存疑 {{marked}}</text></view>
+    </view>
+    <view class="answer-card__section">
+      <view class="answer-card__module-row">
+        <view class="answer-card__module-name">{{moduleName}}</view>
+        <view class="answer-card__module-counts">{{moduleCounts}}</view>
+      </view>
+      <view class="answer-card__grid">
+        <view wx:for="{{items}}" wx:key="index" class="answer-card__cell">
+          <button hover-class="item--hover"
+            class="answer-card__question answer-card__question--{{item.active ? 'current' : item.state}} {{!item.active && item.marked ? 'answer-card__question--marked' : ''}}"
+            aria-label="第 {{item.label}} 题{{item.active ? '，当前题' : item.marked ? '，已存疑' : item.state === 'answered' ? '，已作答' : '，未作答'}}"
+            data-index="{{item.index}}"
+            bindtap="selectQuestion"
+          >{{item.label}}</button>
+          <view wx:if="{{item.marked && !item.active}}" class="answer-card__marked-badge" aria-hidden="true">!</view>
+        </view>
+      </view>
+      <view class="answer-card__hint">{{hint}}</view>
+    </view>
+    <view wx:if="{{insightAvailable}}" class="answer-card__insight">
+      <image class="answer-card__insight-icon" src="/assets/icons/task/answer-card-insight.svg" mode="aspectFit" aria-hidden="true" />
+      <view>
+        <view class="answer-card__insight-title">岸岸会记住你存疑的题</view>
+        <view class="answer-card__insight-sub">交卷后优先进入证据复盘</view>
+      </view>
+    </view>
+    <button hover-class="item--hover" class="answer-card__cta" bindtap="close">继续第 {{current}} 题</button>
+    <button hover-class="item--hover" class="answer-card__submit" bindtap="submit">{{submitLabel}}</button>
+  </view>
+</view>

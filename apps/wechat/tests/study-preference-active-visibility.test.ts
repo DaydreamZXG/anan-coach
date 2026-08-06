@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest";
 
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
-import templateRaw from "../miniprogram/pages/study-preference/index.wxml?raw";
+import templateRaw from "../miniprogram/plans/study-preference/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import stylesRaw from "../miniprogram/pages/study-preference/index.wxss?raw";
+import stylesRaw from "../miniprogram/plans/study-preference/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program page logic through its raw asset loader.
-import logicRaw from "../miniprogram/pages/study-preference/index.ts?raw";
+import logicRaw from "../miniprogram/plans/study-preference/index.ts?raw";
 import {
   studyMinutesOptionId,
   studyMinutesScrollTargets,
-} from "../miniprogram/pages/study-preference/scroll-position";
+} from "../miniprogram/plans/study-preference/scroll-position";
 
 const template = String(templateRaw);
 const styles = String(stylesRaw);

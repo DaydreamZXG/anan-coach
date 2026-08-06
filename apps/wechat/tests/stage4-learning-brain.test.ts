@@ -13,15 +13,15 @@ afterEach(() => {
 describe("stage 4 WeChat learning brain", () => {
   it("exposes every B and E formal page through registered route constants", () => {
     expect(routes).toMatchObject({
-      planBasis: "/pages/plan-basis/index",
-      dayAdjustment: "/pages/day-adjustment/index",
-      dailySettlement: "/pages/daily-settlement/index",
-      weeklyPlan: "/pages/weekly-plan/index",
+      planBasis: "/plans/plan-basis/index",
+      dayAdjustment: "/plans/day-adjustment/index",
+      dailySettlement: "/plans/daily-settlement/index",
+      weeklyPlan: "/plans/weekly-plan/index",
       ability: "/pages/ability/index",
-      abilityModule: "/pages/ability-module/index",
-      errorPattern: "/pages/error-pattern/index",
+      abilityModule: "/reports/ability-module/index",
+      errorPattern: "/reports/error-pattern/index",
       anan: "/pages/anan/index",
-      planHistory: "/pages/plan-history/index",
+      planHistory: "/plans/plan-history/index",
     });
   });
 

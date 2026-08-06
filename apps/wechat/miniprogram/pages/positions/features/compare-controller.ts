@@ -5,7 +5,7 @@ import {
   type PositionDeliveryView,
   type PositionOperationError,
   type PositionRemoteStatus,
-} from "../../../features/positions/contracts";
+} from "./contracts";
 import { positionOperationError } from "./error-state";
 import {
   positionComparisonItemView,

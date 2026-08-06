@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "backgroundColor": "#F7F9FC",
+  "usingComponents": {
+    "state-view": "../../design-system/primitives/state-view/index",
+    "workbench-nav": "../shared/components/workbench-nav/index"
+  }
+}

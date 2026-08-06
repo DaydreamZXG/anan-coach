@@ -426,9 +426,9 @@ def validate_csvs(root: Path, validation: Validation) -> None:
         )
 
     required_param_expectations = {
-        "/pages/community-structure/index": "cardId!",
-        "/pages/ability-module/index": "track!|moduleKey!",
-        "/pages/mock-report/index": "sessionId?",
+        "/community/community-structure/index": "cardId!",
+        "/reports/ability-module/index": "track!|moduleKey!",
+        "/reports/mock-report/index": "sessionId?",
     }
     pages_by_route = {row["route"]: row for row in pages}
     for route, expected in required_param_expectations.items():

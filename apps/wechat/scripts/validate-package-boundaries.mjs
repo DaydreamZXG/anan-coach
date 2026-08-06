@@ -4,6 +4,7 @@ import { resolve, sep } from "node:path";
 const appRoot = resolve(import.meta.dirname, "..", "miniprogram");
 const appConfig = JSON.parse(readFileSync(resolve(appRoot, "app.json"), "utf8"));
 const packageLimitBytes = 2 * 1024 * 1024;
+const mediaLimitBytes = 200 * 1024;
 const failures = [];
 const packages = appConfig.subPackages ?? appConfig.subpackages ?? [];
 const roots = packages.map((item) => ({
@@ -12,18 +13,18 @@ const roots = packages.map((item) => ({
 }));
 
 const packageBytes = new Map([["main", 0]]);
-const imageBytes = new Map([["main", 0]]);
+const mediaBytes = new Map([["main", 0]]);
 for (const { root } of roots) {
   packageBytes.set(root, 0);
-  imageBytes.set(root, 0);
+  mediaBytes.set(root, 0);
 }
 
 for (const path of allFiles(appRoot)) {
   const owner = packageOwner(path, roots);
   const bytes = statSync(path).size;
   packageBytes.set(owner, (packageBytes.get(owner) ?? 0) + bytes);
-  if (/\.(?:gif|jpe?g|png|webp)$/iu.test(path)) {
-    imageBytes.set(owner, (imageBytes.get(owner) ?? 0) + bytes);
+  if (/\.(?:aac|gif|jpe?g|m4a|mp3|ogg|png|svg|wav|webp)$/iu.test(path)) {
+    mediaBytes.set(owner, (mediaBytes.get(owner) ?? 0) + bytes);
   }
 }
 
@@ -32,8 +33,11 @@ for (const { root } of roots) {
     failures.push(`${root} raw source exceeds the 2 MiB package limit`);
   }
 }
-if ((imageBytes.get("main") ?? 0) > packageLimitBytes) {
-  failures.push("main-package images alone exceed the 2 MiB package limit");
+const totalMediaBytes = [...mediaBytes.values()].reduce((total, bytes) => total + bytes, 0);
+if (totalMediaBytes > mediaLimitBytes) {
+  failures.push(
+    `image and audio resources exceed 200 KiB (${String(totalMediaBytes)} > ${String(mediaLimitBytes)} bytes)`,
+  );
 }
 
 if (failures.length > 0) {
@@ -44,7 +48,7 @@ if (failures.length > 0) {
 process.stdout.write(
   [
     `Validated ${roots.length} subpackages.`,
-    `Main-package image lower bound: ${imageBytes.get("main") ?? 0} bytes.`,
+    `Image/audio resources: ${String(totalMediaBytes)} / ${String(mediaLimitBytes)} bytes.`,
     "Final compiled main-package size still requires the official WeChat packaging receipt.",
   ].join(" ") + "\n",
 );

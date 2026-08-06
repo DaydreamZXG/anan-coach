@@ -3,14 +3,14 @@ import type {
   XingceCheckpointCommand,
   XingceTaskMode,
   XingceTaskSession,
-} from "../../../../../api/xingce-learning";
+} from "../../../shared/api/xingce-learning";
 import type {
   QuestionAttemptDraft,
   TaskMode,
   TaskPhase,
   TaskServerState,
 } from "../../../../../task-runtime/contracts";
-import { createTaskRuntime, reduceTaskRuntime } from "../../../../../task-runtime/state/runtime";
+import { createTaskRuntime, reduceTaskRuntime } from "../../../shared/task-runtime/state/runtime";
 import type { TaskRuntimeState } from "../../../../../task-runtime/contracts";
 import {
   assertLearnerSafeSession,

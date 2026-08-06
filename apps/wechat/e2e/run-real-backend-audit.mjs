@@ -73,12 +73,12 @@ try {
   );
   await auditReadyPage(
     miniProgram,
-    "/pages/report-center/index",
+    "/reports/report-center/index",
     (data) => data.status === "ready" && Boolean(data.center),
   );
   await auditReadyPage(
     miniProgram,
-    "/pages/notification-settings/index",
+    "/account/notification-settings/index",
     (data) => data.status === "ready" && Boolean(data.draft),
   );
   if (allowWrites) await auditNotificationPreferenceWrite(miniProgram);
@@ -113,7 +113,7 @@ async function auditReadyPage(program, route, predicate) {
 }
 
 async function auditNotificationPreferenceWrite(program) {
-  const page = await program.reLaunch("/pages/notification-settings/index");
+  const page = await program.reLaunch("/account/notification-settings/index");
   assert.ok(page);
   await waitForPredicate(
     async () => (await readPageData(program, page)).status === "ready",

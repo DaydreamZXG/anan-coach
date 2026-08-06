@@ -90,7 +90,7 @@ export const prototypeToday: TodayDashboard = {
           role: "计算路径过长累计出现 5 次",
         },
       ],
-      startUrl: "/pages/xingce-task-intro/index?mode=targeted",
+      startUrl: "/xingce/xingce-task-intro/index?mode=targeted",
     },
     {
       id: "task-shenlun-material",
@@ -183,7 +183,7 @@ export const prototypeToday: TodayDashboard = {
           role: "首次间隔验证今日到期",
         },
       ],
-      startUrl: "/pages/xingce-task-intro/index?mode=verification",
+      startUrl: "/xingce/xingce-task-intro/index?mode=verification",
     },
   ],
   dueReflectionCount: 1,

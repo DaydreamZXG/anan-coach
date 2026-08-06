@@ -305,7 +305,7 @@ def execute_companion_actions(
             action=CompanionAllowedAction(
                 kind="supply_information",
                 label="修改每周学习时间",
-                targetRef="/pages/study-preference/index",
+                targetRef="/plans/study-preference/index",
                 requiresConfirmation=False,
             ),
         ),
@@ -315,7 +315,7 @@ def execute_companion_actions(
             action=CompanionAllowedAction(
                 kind="supply_information",
                 label="查看本周计划",
-                targetRef="/pages/weekly-plan/index",
+                targetRef="/plans/weekly-plan/index",
                 requiresConfirmation=False,
             ),
         ),
@@ -380,7 +380,7 @@ def default_companion_actions(
             CompanionAllowedAction(
                 kind="supply_information",
                 label="查看本周计划",
-                targetRef="/pages/weekly-plan/index",
+                targetRef="/plans/weekly-plan/index",
                 requiresConfirmation=False,
             )
         ]
@@ -398,7 +398,7 @@ def default_companion_actions(
             CompanionAllowedAction(
                 kind="supply_information",
                 label="修改每周学习时间",
-                targetRef="/pages/study-preference/index",
+                targetRef="/plans/study-preference/index",
                 requiresConfirmation=False,
             )
         ]
@@ -630,7 +630,7 @@ def _capacity_action(
     value: int | None,
     focus: PlanFocusRequest | None = None,
 ) -> CompanionAllowedAction:
-    target_ref = "/pages/day-adjustment/index"
+    target_ref = "/plans/day-adjustment/index"
     params: dict[str, str | int] = {}
     if value is not None or focus is not None:
         params["source"] = "anan"
@@ -675,7 +675,7 @@ def _weekly_schedule_action(request: WeeklyScheduleRequest) -> CompanionAllowedA
     return CompanionAllowedAction(
         kind="supply_information",
         label=f"预览周节奏：{' / '.join(labels)}",
-        targetRef=f"/pages/study-preference/index?{urlencode(params)}",
+        targetRef=f"/plans/study-preference/index?{urlencode(params)}",
         requiresConfirmation=True,
     )
 

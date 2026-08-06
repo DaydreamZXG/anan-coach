@@ -1,11 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { decideAutosave, decideExit } from "../miniprogram/pages/practice/features/task-runtime/state/autosave";
+import {
+  decideAutosave,
+  decideExit,
+} from "../miniprogram/pages/practice/features/task-runtime/state/autosave";
 import {
   createTaskRuntime,
   reduceTaskRuntime,
   TaskTransitionError,
   unansweredQuestionIds,
-} from "../miniprogram/task-runtime/state/runtime";
+} from "../miniprogram/pages/practice/shared/task-runtime/state/runtime";
 
 describe("task runtime", () => {
   it("records answer evidence without mutating prior state", () => {

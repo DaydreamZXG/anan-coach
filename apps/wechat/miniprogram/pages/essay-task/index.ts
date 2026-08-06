@@ -7,13 +7,13 @@ import {
   type EssayReviewResponse,
   type EssayRewriteResultV2,
   type EssayTaskWorkspace,
-} from "../../api/essay-intelligence";
+} from "./shared/api/essay-intelligence";
 import { ApiClient, ApiClientError } from "../../api/client";
-import { LearningMediaApi } from "../../api/learning-media";
-import { EssayHandwritingApi } from "../../api/essay-handwriting";
+import { LearningMediaApi } from "./shared/api/learning-media";
+import { EssayHandwritingApi } from "./shared/api/essay-handwriting";
 import { loginUrlForReturn } from "../../app/navigation/auth-return";
 import { routes } from "../../app/navigation/routes";
-import { navigateBackOr } from "../../app/navigation/safe-back";
+import { navigateBackOr } from "./shared/app/navigation/safe-back";
 import { currentAuthSession, type ActiveAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
 import {
@@ -90,24 +90,21 @@ import {
   type OutlineSectionDraft,
   type PointDraft,
   type ReviewDraft,
-} from "../../features/essay-task/forms";
+} from "./features/forms";
 import {
   presentEssayWorkspace,
   stageBlockingReason,
   type FindingView,
   type MaterialSegmentView,
   type WorkspaceView,
-} from "../../features/essay-task/presentation";
+} from "./shared/features/essay-task/presentation";
 import {
   presentGroundedReview,
   presentReviewIntent,
   presentReviewJob,
   type ReviewDisplay,
 } from "./features/review-presentation";
-import {
-  EssayTaskPageRuntimeRegistry,
-  type EssayTaskPageRuntime,
-} from "./features/page-runtime";
+import { EssayTaskPageRuntimeRegistry, type EssayTaskPageRuntime } from "./features/page-runtime";
 import {
   clearLegacyEssayPending,
   clearPendingDraftingSubmission as clearStoredDraftingSubmission,
@@ -122,12 +119,12 @@ import { createIdempotencyKey } from "../../platform/command-id";
 import {
   validateVoiceCollection,
   type ReflectionVoiceSegment,
-} from "../../features/learning-media/contracts";
+} from "./shared/features/learning-media/contracts";
 import {
   clearReflectionLearningMediaDraft,
   loadReflectionLearningMediaDraft,
   storeReflectionLearningMediaDraft,
-} from "../../features/learning-media/draft-store";
+} from "./shared/features/learning-media/draft-store";
 import {
   deleteLocalVoice,
   ensureRecordPermission,
@@ -135,14 +132,14 @@ import {
   requestRecordSetting,
   WechatVoicePreview,
   WechatVoiceRecorder,
-} from "../../features/learning-media/platform";
+} from "./shared/features/learning-media/platform";
 import {
   presentReflectionVoiceSegments,
   presentReflectionVoiceSummary,
   type ReflectionVoiceSegmentView,
   type ReflectionVoiceSummaryView,
-} from "../../features/learning-media/presentation";
-import { ReflectionVoiceUploadCoordinator } from "../../features/learning-media/upload-controller";
+} from "./shared/features/learning-media/presentation";
+import { ReflectionVoiceUploadCoordinator } from "./shared/features/learning-media/upload-controller";
 import {
   canonicalHandwritingText,
   confirmedHandwritingBinding,
@@ -159,7 +156,7 @@ import {
   chooseSourceImage,
   ensureCameraPermission,
   requestCameraSetting,
-} from "../../platform/source-image";
+} from "./shared/platform/source-image";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
 
 type PageStatus = "loading" | "ready" | "error" | "unavailable";

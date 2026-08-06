@@ -4,7 +4,7 @@ import type {
   XingceCheckpointCommand,
   XingceTaskMode,
   XingceTaskSession,
-} from "../miniprogram/api/xingce-learning";
+} from "../miniprogram/xingce/shared/api/xingce-learning";
 import {
   activeXingceSession,
   apiSuccess,
@@ -15,7 +15,7 @@ import {
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
-import questionToolbarTemplate from "../miniprogram/task-runtime/question-toolbar/index.wxml?raw";
+import questionToolbarTemplate from "../miniprogram/pages/practice/shared/task-runtime/question-toolbar/index.wxml?raw";
 
 afterEach(() => {
   vi.useRealTimers();

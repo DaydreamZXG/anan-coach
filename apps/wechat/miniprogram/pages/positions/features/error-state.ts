@@ -1,5 +1,5 @@
 import { ApiClientError } from "../../../api/client";
-import type { PositionOperationError } from "../../../features/positions/contracts";
+import type { PositionOperationError } from "./contracts";
 
 const needsProfileCodes = new Set([
   "onboarding_qualification_incomplete",

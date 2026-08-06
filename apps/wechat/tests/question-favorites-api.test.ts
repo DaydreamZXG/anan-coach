@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ApiClient } from "../miniprogram/api/client";
 import type { SetQuestionFavoriteCommand } from "../miniprogram/api/generated/types.gen";
-import { QuestionFavoritesApi } from "../miniprogram/api/question-favorites";
+import { QuestionFavoritesApi } from "../miniprogram/xingce/shared/api/question-favorites";
 
 afterEach(() => {
   vi.unstubAllGlobals();

@@ -5,7 +5,7 @@ import ananStyles from "../miniprogram/pages/anan/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import stage9Styles from "../miniprogram/design-system/stage9/screen.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import taskShellStyles from "../miniprogram/task-runtime/task-shell/index.wxss?raw";
+import taskShellStyles from "../miniprogram/pages/practice/shared/task-runtime/task-shell/index.wxss?raw";
 
 describe("transparent action docks", () => {
   it("岸岸输入栏只保留输入胶囊，不再铺整块底部蒙版", () => {

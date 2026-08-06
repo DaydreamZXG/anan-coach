@@ -4,12 +4,12 @@ import type {
   XingceCauseCandidate,
   XingceTaskSession,
   XingceVerificationOutcome,
-} from "../miniprogram/api/xingce-learning";
+} from "../miniprogram/xingce/shared/api/xingce-learning";
 import {
   presentXingceCauseCandidate,
   presentXingceResult,
   xingceReflectionReviewItems,
-} from "../miniprogram/features/xingce/real_attempt/presentation";
+} from "../miniprogram/pages/practice/shared/features/xingce/real_attempt/presentation";
 import {
   apiSuccess,
   completedXingceSession,

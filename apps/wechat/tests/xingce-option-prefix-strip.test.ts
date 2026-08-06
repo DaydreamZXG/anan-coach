@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   stripOptionContentPrefix,
   stripOptionLabelPrefix,
-} from "../miniprogram/task-runtime/option-presentation";
+} from "../miniprogram/pages/practice/shared/task-runtime/option-presentation";
 
 /**
  * 选项展示剥离题库自带 "A、" 前缀的回归测试：

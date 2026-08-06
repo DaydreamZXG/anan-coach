@@ -9,45 +9,45 @@ import {
   type MockExamLearnerSession,
   type MockExamSubmitReceipt,
   type MockExamTrajectoryCommand,
-} from "../../api/mock-exam";
-import { TaskEditingApi } from "../../api/task-editing";
-import type { TaskEditOwnership } from "../../features/task-editing/coordinator";
+} from "./shared/api/mock-exam";
+import { TaskEditingApi } from "./shared/api/task-editing";
+import type { TaskEditOwnership } from "./shared/features/task-editing/coordinator";
 import {
   acquireTaskEditOwnership,
   resolveRevisionConflict,
   TaskEditTakeoverDeclined,
-} from "../../features/task-editing/coordinator";
+} from "./shared/features/task-editing/coordinator";
 import { loginUrlForReturn } from "../../app/navigation/auth-return";
 import { routes } from "../../app/navigation/routes";
 import { isValidPlanTaskId } from "../../features/xingce/real_attempt/contracts";
-import { TaskHelpApi, type TaskHelpCommand } from "../../api/task-help";
+import { TaskHelpApi, type TaskHelpCommand } from "./shared/api/task-help";
 import { currentAuthSession, sameSessionOwner, type ActiveAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
 import { createIdempotencyKey, stableFingerprint } from "../../platform/command-id";
 import type { TaskRuntimeState } from "../../task-runtime/contracts";
 import type { AnnotationStroke } from "../../task-runtime/contracts";
-import type { AnchorSegmentRect } from "../../task-runtime/annotation-layer/anchor";
-import type { ContentDisplayPreferences } from "../../task-runtime/content-renderer/model";
-import { stripOptionContentPrefix } from "../../task-runtime/option-presentation";
+import type { AnchorSegmentRect } from "./shared/task-runtime/annotation-layer/anchor";
+import type { ContentDisplayPreferences } from "./shared/task-runtime/content-renderer/model";
+import { stripOptionContentPrefix } from "./shared/task-runtime/option-presentation";
 import {
   loadTaskDisplayPreferences,
   storeTaskDisplayPreferences,
-} from "../../task-runtime/display-preferences";
+} from "./shared/task-runtime/display-preferences";
 import {
   createMaterialReaderState,
   reduceMaterialReader,
   type MaterialReaderPosition,
   type MaterialReaderState,
-} from "../../task-runtime/material-reader/state";
-import { reduceTaskRuntime } from "../../task-runtime/state/runtime";
+} from "./shared/task-runtime/material-reader/state";
+import { reduceTaskRuntime } from "./shared/task-runtime/state/runtime";
 import {
   resolveSwipeNav,
   swipeSampleFromTouchEnd,
   swipeSampleFromTouchMove,
   swipeSampleFromTouchStart,
   type SwipeNavSample,
-} from "../../task-runtime/swipe-nav";
-import { taskToolPolicy, type TaskToolPolicy } from "../../task-runtime/tool-policy/index";
+} from "./shared/task-runtime/swipe-nav";
+import { taskToolPolicy, type TaskToolPolicy } from "./shared/task-runtime/tool-policy/index";
 import {
   appendPendingMockTrajectory,
   clearPendingMockCheckpoint,

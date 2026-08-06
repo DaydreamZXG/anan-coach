@@ -5,7 +5,7 @@ import type {
   XingceResultItem,
   XingceTaskMode,
   XingceTaskSession,
-} from "../../../api/xingce-learning";
+} from "../../../xingce/shared/api/xingce-learning";
 import type { TodayDashboard } from "../../../api/generated/types.gen";
 
 export type XingcePlanStage =

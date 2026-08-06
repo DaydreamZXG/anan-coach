@@ -35,8 +35,8 @@ describe("岸岸 Agent 动作白名单", () => {
     for (const targetRef of [
       "/pages/profile/archive/index",
       "/pages/onboarding/profile/index",
-      "/pages/study-preference/index",
-      "/pages/weekly-plan/index",
+      "/plans/study-preference/index",
+      "/plans/weekly-plan/index",
     ]) {
       expect(
         resolveCompanionAction({
@@ -56,7 +56,7 @@ describe("岸岸 Agent 动作白名单", () => {
         kind: "supply_information",
         label: "预览周节奏",
         targetRef:
-          "/pages/study-preference/index?source=anan&mockExamDay=saturday&fixedRestDay=sunday",
+          "/plans/study-preference/index?source=anan&mockExamDay=saturday&fixedRestDay=sunday",
         requiresConfirmation: true,
       }),
     ).toMatchObject({ kind: "navigate", requiresConfirmation: true });
@@ -65,7 +65,7 @@ describe("岸岸 Agent 动作白名单", () => {
         kind: "supply_information",
         label: "伪造周节奏",
         targetRef:
-          "/pages/study-preference/index?source=anan&mockExamDay=saturday&fixedRestDay=saturday",
+          "/plans/study-preference/index?source=anan&mockExamDay=saturday&fixedRestDay=saturday",
         requiresConfirmation: true,
       }),
     ).toEqual({ kind: "unavailable" });

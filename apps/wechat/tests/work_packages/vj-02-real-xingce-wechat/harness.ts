@@ -4,7 +4,7 @@ import type {
   XingceResultCode,
   XingceTaskMode,
   XingceTaskSession,
-} from "../../../miniprogram/api/xingce-learning";
+} from "../../../miniprogram/xingce/shared/api/xingce-learning";
 
 export const xingceIds = {
   planTask: "10000000-0000-4000-8000-000000000001",

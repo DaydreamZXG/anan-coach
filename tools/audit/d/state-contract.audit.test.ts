@@ -99,7 +99,7 @@ describe("audit reproduction: frontend request/state contracts", () => {
 
   it("lets an older report-center response overwrite the newer onShow response", async () => {
     const harness = await capturePage(
-      "../../../apps/wechat/miniprogram/pages/report-center/index",
+      "../../../apps/wechat/miniprogram/reports/report-center/index",
       "deferred",
     );
     const page = instantiatePage(harness.definition);
@@ -191,7 +191,7 @@ describe("audit reproduction: frontend request/state contracts", () => {
 
   it("rotates the capacity idempotency key while retrying the same versioned command", async () => {
     const harness = await capturePage(
-      "../../../apps/wechat/miniprogram/pages/day-adjustment/index",
+      "../../../apps/wechat/miniprogram/plans/day-adjustment/index",
       "capacity-unknown-outcome",
     );
     const page = instantiatePage(harness.definition);
@@ -230,7 +230,7 @@ describe("audit reproduction: frontend request/state contracts", () => {
 
   it("rotates the notification-preference key while retrying the same versioned command", async () => {
     const harness = await capturePage(
-      "../../../apps/wechat/miniprogram/pages/notification-settings/index",
+      "../../../apps/wechat/miniprogram/account/notification-settings/index",
       "coach-unknown-outcome",
     );
     const page = instantiatePage(harness.definition);

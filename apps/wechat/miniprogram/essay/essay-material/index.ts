@@ -1,0 +1,205 @@
+import { EssayIntelligenceApi, type EssayTaskWorkspace } from "../shared/api/essay-intelligence";
+import { routes } from "../../app/navigation/routes";
+import { navigateBackOr } from "../shared/app/navigation/safe-back";
+import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
+import { materialDirectory } from "../shared/features/essay-workbench/presentation";
+import { materialTextParagraphs } from "../shared/features/essay-task/material-paragraphs";
+
+type MaterialParagraph = EssayTaskWorkspace["material"]["segments"][number] & {
+  anchorId: string;
+  displayParagraphId: string;
+  showAnnotation: boolean;
+};
+
+Page({
+  data: {
+    status: "loading",
+    errorMessage: "",
+    requestId: "",
+    workspace: null as EssayTaskWorkspace | null,
+    directory: [] as ReturnType<typeof materialDirectory>,
+    segments: [] as MaterialParagraph[],
+    annotations: [] as Array<{ segmentId: string; summary: string; evidenceQuote: string }>,
+    taskVersionId: "",
+    targetAnchor: "",
+    activeMaterialLabel: "材料",
+    selectedSegmentId: "",
+    selectedParagraphId: "",
+    selectedText: "",
+    insertMode: false,
+    retryAllowed: false,
+  },
+
+  onLoad(options: Record<string, string | undefined>) {
+    this.setData({
+      taskVersionId: options.taskVersionId?.trim() ?? "",
+      targetAnchor: options.anchor?.trim() ?? "",
+      insertMode: options.insertMode === "drafting",
+    });
+    void this.loadWorkspace();
+  },
+
+  async loadWorkspace() {
+    const taskVersionId = this.data.taskVersionId;
+    if (!taskVersionId) {
+      this.setData({
+        status: "error",
+        errorMessage: "这个地址好像不对，回申论作答页再进一次就行。",
+        retryAllowed: false,
+      });
+      return;
+    }
+    const client = requireAuthenticatedClient();
+    if (!client) return;
+    this.setData({ status: "loading", errorMessage: "", requestId: "" });
+    try {
+      const response = await new EssayIntelligenceApi(client).getWorkspace(taskVersionId);
+      const workspace = response.data;
+      const directory = materialDirectory(workspace);
+      const artifact = workspace.currentArtifacts.material_annotation;
+      const annotations =
+        artifact?.payload.schemaType === "material_annotation"
+          ? artifact.payload.annotations.map((item) => ({
+              segmentId: item.segmentId,
+              summary: item.paragraphSummary,
+              evidenceQuote: item.evidenceQuote ?? "",
+            }))
+          : [];
+      const materialAnchors = new Set<number>();
+      const segments = workspace.material.segments.flatMap((segment) => {
+        const paragraphs = materialTextParagraphs(segment.text, segment.segmentId);
+        return paragraphs.map((paragraph, index) => {
+          const firstForMaterial = !materialAnchors.has(segment.materialOrder);
+          if (firstForMaterial) materialAnchors.add(segment.materialOrder);
+          return {
+            ...segment,
+            text: paragraph.text,
+            displayParagraphId: paragraph.paragraphId,
+            showAnnotation: index === paragraphs.length - 1,
+            anchorId: firstForMaterial
+              ? `material-${String(segment.materialOrder)}`
+              : paragraph.paragraphId,
+          };
+        });
+      });
+      const targetDirectory = directory.find(
+        (item) => item.firstAnchorId === this.data.targetAnchor,
+      );
+      const targetMaterialOrder =
+        targetDirectory?.materialOrder ??
+        parseMaterialOrder(this.data.targetAnchor) ??
+        directory[0]?.materialOrder;
+      this.setData({
+        status: "ready",
+        workspace,
+        directory,
+        segments,
+        annotations,
+        activeMaterialLabel:
+          targetMaterialOrder === undefined
+            ? "材料"
+            : materialReaderTitle(targetMaterialOrder, directory),
+        retryAllowed: false,
+      });
+      if (this.data.targetAnchor) {
+        wx.nextTick(() => {
+          void wx.pageScrollTo({ selector: `#${this.data.targetAnchor}`, duration: 240 });
+        });
+      }
+    } catch (error) {
+      const view = errorView(error, "材料没加载出来，别急，再试一次。");
+      this.setData({
+        status: "error",
+        errorMessage: view.message,
+        requestId: view.requestId,
+        retryAllowed: true,
+      });
+    }
+  },
+
+  retryLoad() {
+    if (this.data.retryAllowed) void this.loadWorkspace();
+  },
+
+  scrollToMaterial(event: WechatMiniprogram.BaseEvent) {
+    const anchor = String(event.currentTarget.dataset.anchor ?? "");
+    const materialOrder = Number(event.currentTarget.dataset.materialOrder ?? 0);
+    if (!anchor) return;
+    this.setData({
+      activeMaterialLabel: materialReaderTitle(materialOrder, this.data.directory),
+      selectedSegmentId: "",
+      selectedParagraphId: "",
+      selectedText: "",
+    });
+    void wx.pageScrollTo({ selector: `#${anchor}`, duration: 240 });
+  },
+
+  selectSegment(event: WechatMiniprogram.BaseEvent) {
+    const segmentId = String(event.currentTarget.dataset.segmentId ?? "");
+    const displayParagraphId = String(event.currentTarget.dataset.paragraphId ?? "");
+    const text = String(event.currentTarget.dataset.text ?? "").trim();
+    const materialOrder = Number(event.currentTarget.dataset.materialOrder ?? 0);
+    if (!segmentId || !displayParagraphId || !text) return;
+    this.setData({
+      selectedSegmentId: segmentId,
+      selectedParagraphId: displayParagraphId,
+      selectedText: text,
+      activeMaterialLabel: materialReaderTitle(materialOrder, this.data.directory),
+    });
+  },
+
+  clearSelection() {
+    this.setData({ selectedSegmentId: "", selectedParagraphId: "", selectedText: "" });
+  },
+
+  copySelection() {
+    const text = this.data.selectedText;
+    if (!text) return;
+    void wx.setClipboardData({ data: text });
+  },
+
+  addSelectionToOutline() {
+    this.emitSelection("addMaterialToOutline");
+  },
+
+  quoteSelection() {
+    this.emitSelection("quoteMaterial");
+  },
+
+  emitSelection(eventName: "addMaterialToOutline" | "quoteMaterial") {
+    const text = this.data.selectedText;
+    if (!text || !this.data.insertMode) return;
+    const eventChannel = this.getOpenerEventChannel();
+    if (!eventChannel.emit) {
+      void wx.showToast({
+        title: "回作答页再打开一次材料就行",
+        icon: "none",
+      });
+      return;
+    }
+    eventChannel.emit(eventName, { text });
+    navigateBackOr(routes.today);
+  },
+
+  returnToWriter() {
+    navigateBackOr(routes.today);
+  },
+});
+
+function parseMaterialOrder(anchor: string): number | null {
+  const match = /^material-(\d+)$/u.exec(anchor);
+  if (!match?.[1]) return null;
+  const value = Number(match[1]);
+  return Number.isInteger(value) && value > 0 ? value : null;
+}
+
+function materialReaderTitle(
+  materialOrder: number,
+  directory: Array<{ materialOrder: number }>,
+): string {
+  if (directory.length <= 1) return `材料 ${String(materialOrder)}`;
+  const position = directory.findIndex((item) => item.materialOrder === materialOrder);
+  return position < 0
+    ? `材料 ${String(materialOrder)}`
+    : `材料 ${String(materialOrder)} · ${String(position + 1)}/${String(directory.length)}`;
+}

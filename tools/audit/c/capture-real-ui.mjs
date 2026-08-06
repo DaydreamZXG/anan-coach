@@ -754,7 +754,7 @@ async function readViewportEvidence(miniProgram, page) {
 async function leaveLoginControllerBeforeAuthFixture(miniProgram) {
   const route = await activeRoute(miniProgram);
   if (route !== "pages/login/index") return;
-  const page = await miniProgram.reLaunch("/pages/support/index");
+  const page = await miniProgram.reLaunch("/account/support/index");
   assert.ok(
     page,
     "Unable to unload login controller before changing auth fixture",

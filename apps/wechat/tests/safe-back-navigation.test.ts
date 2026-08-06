@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { routes } from "../miniprogram/app/navigation/routes";
-import { navigateBackOr } from "../miniprogram/app/navigation/safe-back";
+import { navigateBackOr } from "../miniprogram/plans/shared/app/navigation/safe-back";
 
 let navigateBack: ReturnType<typeof vi.fn>;
 let redirectTo: ReturnType<typeof vi.fn>;

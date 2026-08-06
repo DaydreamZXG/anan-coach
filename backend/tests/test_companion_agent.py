@@ -47,7 +47,7 @@ def test_plan_action_carries_only_the_explicit_capacity_to_preview() -> None:
     assert action.model_dump(by_alias=True) == {
         "kind": "adjust_plan_preview",
         "label": "预览调整为 90 分钟",
-        "targetRef": "/pages/day-adjustment/index?source=anan&availableMinutes=90",
+        "targetRef": "/plans/day-adjustment/index?source=anan&availableMinutes=90",
         "requiresConfirmation": True,
     }
 
@@ -58,7 +58,7 @@ def test_plan_action_keeps_manual_preview_when_no_capacity_is_stated() -> None:
         question_text="帮我调整一下今天的计划",
     )[0]
 
-    assert action.target_ref == "/pages/day-adjustment/index"
+    assert action.target_ref == "/plans/day-adjustment/index"
 
 
 def test_model_requested_capacity_action_must_match_the_user_value() -> None:
@@ -75,7 +75,7 @@ def test_model_requested_capacity_action_must_match_the_user_value() -> None:
 
     assert outcome.succeeded_count == 1
     assert outcome.actions[0].target_ref == (
-        "/pages/day-adjustment/index?source=anan&availableMinutes=90"
+        "/plans/day-adjustment/index?source=anan&availableMinutes=90"
     )
     assert any(event["eventType"] == "succeeded" for event in outcome.events)
 
@@ -193,7 +193,7 @@ def test_weekly_schedule_tool_opens_confirmed_prefill_only_for_user_days() -> No
     assert outcome.succeeded_count == 1
     assert outcome.actions[0].requires_confirmation is True
     assert outcome.actions[0].target_ref == (
-        "/pages/study-preference/index?source=anan&mockExamDay=saturday&fixedRestDay=sunday"
+        "/plans/study-preference/index?source=anan&mockExamDay=saturday&fixedRestDay=sunday"
     )
 
 

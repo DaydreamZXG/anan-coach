@@ -4,7 +4,7 @@ import {
   isOnboardingVersionConflict,
   onboardingCommandError,
   type OnboardingCommandError,
-} from "../../../features/onboarding/command-error";
+} from "../shared/features/onboarding/command-error";
 import {
   clearPendingPreparationExperience,
   loadPendingPreparationExperience,

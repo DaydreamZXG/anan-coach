@@ -8,11 +8,11 @@ import { assertLearnerSafeSession } from "../../../miniprogram/features/xingce/r
 import {
   presentXingceResult,
   presentXingceTask,
-} from "../../../miniprogram/features/xingce/real_attempt/presentation";
+} from "../../../miniprogram/pages/practice/shared/features/xingce/real_attempt/presentation";
 import {
   reduceTaskRuntime,
   unansweredQuestionIds,
-} from "../../../miniprogram/task-runtime/state/runtime";
+} from "../../../miniprogram/pages/practice/shared/task-runtime/state/runtime";
 import { activeXingceSession, answer } from "./harness";
 
 describe("VJ-02 real xingce WeChat AS-02", () => {

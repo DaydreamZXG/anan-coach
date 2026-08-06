@@ -1,6 +1,6 @@
 import type { AbilityApi } from "./api/ability";
 import type { ReportedScoreEvidenceRequest } from "../../../api/generated/types.gen";
-import type { PositionOperationError } from "../../../features/positions/contracts";
+import type { PositionOperationError } from "./contracts";
 import { scoreEvidenceHistoryItemView, type ScoreEvidenceHistoryItemView } from "./ability/history";
 import { reportedScoreRequestFromDraft, type ReportedScoreDraft } from "./ability/reporting";
 import { positionOperationError, shouldRetainPositionCommand } from "./error-state";

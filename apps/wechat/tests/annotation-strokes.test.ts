@@ -11,7 +11,7 @@ import {
   strokesVisibleAtReplay,
   tombstoneStrokes,
   WECHAT_IOS_MAX_FORCE,
-} from "../miniprogram/task-runtime/annotation-layer/strokes";
+} from "../miniprogram/pages/practice/shared/task-runtime/annotation-layer/strokes";
 
 function stroke(strokeId: string, atMs: number, erasedAtMs?: number): AnnotationStroke {
   return {

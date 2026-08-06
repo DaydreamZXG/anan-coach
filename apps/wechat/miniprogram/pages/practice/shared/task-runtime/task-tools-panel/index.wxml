@@ -1,0 +1,22 @@
+<ui-sheet
+  visible="{{visible}}"
+  title="设置与帮助"
+  copy="草稿会自动保存"
+  show-close
+  level="overlay"
+  max-height="86vh"
+  bindclose="close"
+>
+  <view class="task-tool-grid">
+    <button hover-class="item--hover" wx:if="{{disputeAvailable}}" class="control-center task-tool-item" bindtap="dispute">题目争议</button>
+    <button hover-class="item--hover" wx:if="{{helpAvailable}}" class="control-center task-tool-item" bindtap="help">操作/故障帮助</button>
+    <button hover-class="item--hover" class="control-center task-tool-item {{preferences.colorMode === 'eye_care' ? 'task-tool-item--active' : ''}}" bindtap="toggleEyeCare">护眼模式</button>
+    <button hover-class="item--hover" wx:if="{{submitAvailable}}" class="control-center task-tool-item task-tool-item--submit" disabled="{{interactionLocked}}" bindtap="submit">提前交卷</button>
+  </view>
+  <view class="display-tool-row">
+    <button hover-class="item--hover" class="display-tool-button" bindtap="decreaseFont">A−</button>
+    <view>字号 {{preferences.fontScale * 100}}%</view>
+    <button hover-class="item--hover" class="display-tool-button" bindtap="increaseFont">A＋</button>
+  </view>
+  <view class="locked-tools">{{lockedCopy}}</view>
+</ui-sheet>

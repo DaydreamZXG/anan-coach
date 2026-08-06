@@ -12,10 +12,7 @@ import {
   PositionCompareController,
   type PositionCompareState,
 } from "../features/compare-controller";
-import {
-  PositionPageRuntimeRegistry,
-  type PositionController,
-} from "../features/runtime";
+import { PositionPageRuntimeRegistry, type PositionController } from "../features/runtime";
 import { PositionStateStore } from "../../../features/positions/state-store";
 
 interface PositionComparePageData {

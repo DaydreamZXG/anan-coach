@@ -4,12 +4,12 @@ import type {
   RetakeEnrollmentResult,
   RetakeWorkspace,
 } from "../miniprogram/api/generated/types.gen";
-import type { RetakeApi } from "../miniprogram/api/retake";
+import type { RetakeApi } from "../miniprogram/plans/shared/api/retake";
 import {
   RetakeController,
   type RetakeControllerState,
-} from "../miniprogram/features/retake/controller";
-import { loadPendingRetakeProgram } from "../miniprogram/features/retake/pending-store";
+} from "../miniprogram/plans/shared/features/retake/controller";
+import { loadPendingRetakeProgram } from "../miniprogram/plans/shared/features/retake/pending-store";
 
 type Api = Pick<RetakeApi, "getWorkspace" | "startProgram">;
 let storage: Map<string, unknown>;

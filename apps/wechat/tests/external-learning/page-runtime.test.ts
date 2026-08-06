@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { ExternalLearningPageRuntimeRegistry } from "../../miniprogram/features/external-learning/page-runtime";
+import { ExternalLearningPageRuntimeRegistry } from "../../miniprogram/xingce/shared/features/external-learning/page-runtime";
 
 describe("external learning page runtime ownership", () => {
   it("disposes a replaced controller and isolates two page instances", () => {

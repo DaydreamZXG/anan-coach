@@ -1,0 +1,52 @@
+<view class="question-toolbar">
+  <view class="question-context">
+    <text class="question-context__module">{{moduleName}}</text>
+    <text class="question-context__position">第 {{current}} 题</text>
+  </view>
+  <view class="question-actions" aria-label="当前题操作">
+    <button
+      wx:if="{{favoriteAvailable}}"
+      class="question-tool question-tool--favorite question-tool--{{favoriteStatus}} {{favorited ? 'question-tool--active' : ''}}"
+      hover-class="item--hover"
+      disabled="{{interactionLocked || favoriteStatus === 'loading' || favoriteStatus === 'saving'}}"
+      aria-label="{{favoriteButtonLabel}}"
+      bindtap="favorite"
+    >
+      <image class="question-tool__icon question-tool__icon--favorite" src="/assets/icons/task/bookmark-active.svg" mode="aspectFit" aria-hidden="true" />
+      <text class="question-tool__label">{{favoriteButtonLabel}}</text>
+    </button>
+    <button
+      wx:if="{{markAvailable}}"
+      class="question-tool question-tool--mark {{marked ? 'question-tool--active' : ''}}"
+      hover-class="item--hover"
+      disabled="{{interactionLocked}}"
+      aria-label="{{marked ? '取消本题存疑' : '将本题设为存疑'}}"
+      bindtap="mark"
+    >
+      <view class="question-tool__mark-icon" aria-hidden="true">!</view>
+      <text class="question-tool__label">{{marked ? '已存疑' : '存疑'}}</text>
+    </button>
+    <button
+      wx:if="{{draftAvailable}}"
+      class="question-tool question-tool--draft"
+      hover-class="item--hover"
+      disabled="{{interactionLocked}}"
+      aria-label="打开草稿"
+      bindtap="draft"
+    >
+      <image class="question-tool__icon question-tool__icon--draft" src="/assets/icons/task/draft.svg" mode="aspectFit" aria-hidden="true" />
+      <text class="question-tool__label">草稿</text>
+    </button>
+    <button
+      wx:if="{{settingsAvailable}}"
+      class="question-tool question-tool--settings"
+      hover-class="item--hover"
+      disabled="{{interactionLocked}}"
+      aria-label="打开设置与帮助"
+      bindtap="settings"
+    >
+      <view class="question-tool__more" aria-hidden="true">•••</view>
+      <text class="question-tool__label">设置</text>
+    </button>
+  </view>
+</view>

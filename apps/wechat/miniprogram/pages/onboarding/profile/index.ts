@@ -2,7 +2,7 @@ import { ApiClient } from "../../../api/client";
 import type { MajorTreeResponse } from "../../../api/generated/types.gen";
 import { QualificationApi } from "../../../api/qualification";
 import { routes } from "../../../app/navigation/routes";
-import { navigateBackOr } from "../../../app/navigation/safe-back";
+import { navigateBackOr } from "../shared/app/navigation/safe-back";
 import { PageControllerRegistry } from "../../../app/runtime/controller-registry";
 import { currentAuthSession } from "../../../auth/session";
 import {

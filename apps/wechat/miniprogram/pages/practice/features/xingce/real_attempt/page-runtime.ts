@@ -2,12 +2,12 @@ import type {
   XingceLearningApi,
   XingceTaskMode,
   XingceTaskSession,
-} from "../../../../../api/xingce-learning";
+} from "../../../shared/api/xingce-learning";
 import type { TaskRuntimeState } from "../../../../../task-runtime/contracts";
-import type { SwipeNavSample } from "../../../../../task-runtime/swipe-nav";
-import type { TaskEditingApi } from "../../../../../api/task-editing";
-import type { QuestionFavoritesApi } from "../../../../../api/question-favorites";
-import type { TaskEditOwnership } from "../../../../../features/task-editing/coordinator";
+import type { SwipeNavSample } from "../../../shared/task-runtime/swipe-nav";
+import type { TaskEditingApi } from "../../../shared/api/task-editing";
+import type { QuestionFavoritesApi } from "../../../shared/api/question-favorites";
+import type { TaskEditOwnership } from "../../../shared/features/task-editing/coordinator";
 
 export interface XingcePageRuntime {
   api: XingceLearningApi | null;

@@ -82,25 +82,25 @@ export const visualDeliveryContracts = [
     ".result-content",
     ["你的备考档案立起来了", "接下来怎么走"],
   ),
-  delivery("9:2", "b02-plan-basis-ready", "/pages/plan-basis/index", ".basis-content", [
+  delivery("9:2", "b02-plan-basis-ready", "/plans/plan-basis/index", ".basis-content", [
     "为什么今天练这个",
     "岸岸为什么这样安排",
   ]),
-  delivery("10:2", "b05-weekly-plan-ready", "/pages/weekly-plan/index", ".week-content", [
+  delivery("10:2", "b05-weekly-plan-ready", "/plans/weekly-plan/index", ".week-content", [
     "这周，只追三个能验证的变化",
     "本周第 4 天",
   ]),
   delivery(
     "11:2",
     "b03-day-adjustment-ready",
-    "/pages/day-adjustment/index",
+    "/plans/day-adjustment/index",
     ".adjustment-content",
     ["今天变了，计划也可以跟着变", "2.5 小时"],
   ),
   delivery(
     "12:2",
     "b04-daily-settlement-ready",
-    "/pages/daily-settlement/index",
+    "/plans/daily-settlement/index",
     ".settlement-content",
     ["今天到这里，看看真正留下了什么", "原计划"],
   ),
@@ -375,12 +375,12 @@ export const visualDeliveryContracts = [
   delivery(
     "29:2",
     "f10-essay-material-map",
-    "/pages/essay-material/index",
+    "/essay/essay-material/index",
     ".material-reader",
     ["多个部门系统尚未打通", "社区建立联合协商台账"],
     ".material-return",
   ),
-  delivery("30:2", "f06-essay-review-evidence", "/pages/essay-review/index", ".review-score-card", [
+  delivery("30:2", "f06-essay-review-evidence", "/essay/essay-review/index", ".review-score-card", [
     "综合得分",
     "中等可信",
   ]),

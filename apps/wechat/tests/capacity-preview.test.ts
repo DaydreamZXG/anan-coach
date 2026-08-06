@@ -3,7 +3,7 @@ import {
   plannedDuration,
   presentCapacityChanges,
   type CapacityComparableTask,
-} from "../miniprogram/features/planning/capacity-preview";
+} from "../miniprogram/plans/shared/features/planning/capacity-preview";
 
 describe("capacity adjustment preview", () => {
   it("describes retained, shortened, added and removed tasks from real plan versions", () => {

@@ -7,7 +7,7 @@ import {
   swipeSampleFromTouchMove,
   swipeSampleFromTouchStart,
   type SwipeNavSample,
-} from "../miniprogram/task-runtime/swipe-nav";
+} from "../miniprogram/pages/practice/shared/task-runtime/swipe-nav";
 
 function at(x: number, y: number, timeMs: number): SwipeNavSample {
   return { x, y, timeMs };

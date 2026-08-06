@@ -62,7 +62,7 @@ def _candidate(*, stage: str, key: str) -> TaskCandidate:
         reason="当前证据收益最高。",
         estimated_minutes=20,
         completion_rule="完成题组并形成证据。",
-        start_url="/pages/xingce-task-intro/index",
+        start_url="/xingce/xingce-task-intro/index",
         evidence_refs=(),
         priority=PriorityBreakdown(
             goal_gain=0.8,

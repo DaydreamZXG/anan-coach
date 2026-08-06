@@ -8,8 +8,8 @@ import type {
   QualificationGap,
   RequirementCheck,
 } from "../../../api/generated/types.gen";
-import { targetValidityView } from "../../../features/positions/contracts";
-import type { PositionRouteSummary } from "../../../features/positions/contracts";
+import { targetValidityView } from "./contracts";
+import type { PositionRouteSummary } from "./contracts";
 
 export interface PositionCardView extends PositionDiscoveryItem {
   eligibilityLabel: string;

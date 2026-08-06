@@ -18,7 +18,7 @@
   "dispositions": [
     {
       "routeName": "mockReport",
-      "route": "/pages/mock-report/index",
+      "route": "/reports/mock-report/index",
       "disposition": "reuse_existing_design",
       "targetFigmaNodeIds": [
         "13:2",
@@ -29,7 +29,7 @@
     },
     {
       "routeName": "retake",
-      "route": "/pages/retake/index",
+      "route": "/plans/retake/index",
       "disposition": "new_design_required",
       "targetFigmaNodeIds": [],
       "targetFlow": "retake.recovery",
@@ -37,7 +37,7 @@
     },
     {
       "routeName": "planHistory",
-      "route": "/pages/plan-history/index",
+      "route": "/plans/plan-history/index",
       "disposition": "merge_into_designed_flow",
       "targetFigmaNodeIds": [
         "10:2"
@@ -47,7 +47,7 @@
     },
     {
       "routeName": "studyPreference",
-      "route": "/pages/study-preference/index",
+      "route": "/plans/study-preference/index",
       "disposition": "reuse_existing_design",
       "targetFigmaNodeIds": [
         "37:2"
@@ -57,7 +57,7 @@
     },
     {
       "routeName": "membership",
-      "route": "/pages/membership/index",
+      "route": "/account/membership/index",
       "disposition": "hide_until_product_activation",
       "targetFigmaNodeIds": [],
       "targetFlow": null,
@@ -65,7 +65,7 @@
     },
     {
       "routeName": "privacy",
-      "route": "/pages/privacy/index",
+      "route": "/account/privacy/index",
       "disposition": "new_design_required",
       "targetFigmaNodeIds": [],
       "targetFlow": "account.dataRights",
@@ -73,7 +73,7 @@
     },
     {
       "routeName": "terms",
-      "route": "/pages/terms/index",
+      "route": "/account/terms/index",
       "disposition": "reuse_existing_design",
       "targetFigmaNodeIds": [
         "31:2"
@@ -101,7 +101,7 @@
     },
     {
       "routeName": "notificationSettings",
-      "route": "/pages/notification-settings/index",
+      "route": "/account/notification-settings/index",
       "disposition": "new_design_required",
       "targetFigmaNodeIds": [],
       "targetFlow": "account.notifications",
@@ -109,7 +109,7 @@
     },
     {
       "routeName": "support",
-      "route": "/pages/support/index",
+      "route": "/account/support/index",
       "disposition": "merge_into_designed_flow",
       "targetFigmaNodeIds": [
         "7:2"
@@ -119,7 +119,7 @@
     },
     {
       "routeName": "xingceTaskIntro",
-      "route": "/pages/xingce-task-intro/index",
+      "route": "/xingce/xingce-task-intro/index",
       "disposition": "new_design_required",
       "targetFigmaNodeIds": [],
       "targetFlow": "practice.briefing",
@@ -127,7 +127,7 @@
     },
     {
       "routeName": "reportCenter",
-      "route": "/pages/report-center/index",
+      "route": "/reports/report-center/index",
       "disposition": "merge_into_designed_flow",
       "targetFigmaNodeIds": [
         "4:2"
@@ -137,7 +137,7 @@
     },
     {
       "routeName": "externalReport",
-      "route": "/pages/external-report/index",
+      "route": "/reports/external-report/index",
       "disposition": "new_design_required",
       "targetFigmaNodeIds": [],
       "targetFlow": "ability.externalEvidence",
@@ -145,7 +145,7 @@
     },
     {
       "routeName": "reportOverview",
-      "route": "/pages/report-overview/index",
+      "route": "/reports/report-overview/index",
       "disposition": "merge_into_designed_flow",
       "targetFigmaNodeIds": [
         "4:2"
@@ -155,7 +155,7 @@
     },
     {
       "routeName": "globalReport",
-      "route": "/pages/global-report/index",
+      "route": "/reports/global-report/index",
       "disposition": "merge_into_designed_flow",
       "targetFigmaNodeIds": [
         "4:2",
@@ -166,7 +166,7 @@
     },
     {
       "routeName": "xingceMastery",
-      "route": "/pages/xingce-mastery/index",
+      "route": "/xingce/xingce-mastery/index",
       "disposition": "merge_into_designed_flow",
       "targetFigmaNodeIds": [
         "4:2"
@@ -176,7 +176,7 @@
     },
     {
       "routeName": "xingceFavorites",
-      "route": "/pages/xingce-mastery/favorites/index",
+      "route": "/xingce/xingce-mastery/favorites/index",
       "disposition": "merge_into_designed_flow",
       "targetFigmaNodeIds": [
         "4:2"
@@ -186,7 +186,7 @@
     },
     {
       "routeName": "essayCompose",
-      "route": "/pages/essay-compose/index",
+      "route": "/essay/essay-compose/index",
       "disposition": "reuse_existing_design",
       "targetFigmaNodeIds": [
         "17:2"
@@ -196,7 +196,7 @@
     },
     {
       "routeName": "essayRewrite",
-      "route": "/pages/essay-rewrite/index",
+      "route": "/essay/essay-rewrite/index",
       "disposition": "reuse_existing_design",
       "targetFigmaNodeIds": [
         "30:2"
@@ -206,7 +206,7 @@
     },
     {
       "routeName": "essayEvidence",
-      "route": "/pages/essay-evidence/index",
+      "route": "/essay/essay-evidence/index",
       "disposition": "reuse_existing_design",
       "targetFigmaNodeIds": [
         "29:2",
@@ -217,7 +217,7 @@
     },
     {
       "routeName": "learningPackets",
-      "route": "/pages/learning-packets/index",
+      "route": "/xingce/learning-packets/index",
       "disposition": "reuse_existing_design",
       "targetFigmaNodeIds": [
         "24:2",
@@ -228,7 +228,7 @@
     },
     {
       "routeName": "answerIngestion",
-      "route": "/pages/answer-ingestion/index",
+      "route": "/xingce/answer-ingestion/index",
       "disposition": "reuse_existing_design",
       "targetFigmaNodeIds": [
         "48:2",
@@ -239,7 +239,7 @@
     },
     {
       "routeName": "communityDraft",
-      "route": "/pages/community-draft/index",
+      "route": "/community/community-draft/index",
       "disposition": "hide_until_product_activation",
       "targetFigmaNodeIds": [],
       "targetFlow": null,
@@ -247,7 +247,7 @@
     },
     {
       "routeName": "communityStructure",
-      "route": "/pages/community-structure/index",
+      "route": "/community/community-structure/index",
       "disposition": "hide_until_product_activation",
       "targetFigmaNodeIds": [],
       "targetFlow": null,
@@ -255,7 +255,7 @@
     },
     {
       "routeName": "communityTrial",
-      "route": "/pages/community-trial/index",
+      "route": "/community/community-trial/index",
       "disposition": "hide_until_product_activation",
       "targetFigmaNodeIds": [],
       "targetFlow": null,
@@ -263,7 +263,7 @@
     },
     {
       "routeName": "communityContributions",
-      "route": "/pages/community-contributions/index",
+      "route": "/community/community-contributions/index",
       "disposition": "hide_until_product_activation",
       "targetFigmaNodeIds": [],
       "targetFlow": null,
@@ -271,7 +271,7 @@
     },
     {
       "routeName": "abilityModule",
-      "route": "/pages/ability-module/index",
+      "route": "/reports/ability-module/index",
       "disposition": "merge_into_designed_flow",
       "targetFigmaNodeIds": [
         "4:2"
@@ -281,7 +281,7 @@
     },
     {
       "routeName": "errorPattern",
-      "route": "/pages/error-pattern/index",
+      "route": "/reports/error-pattern/index",
       "disposition": "merge_into_designed_flow",
       "targetFigmaNodeIds": [
         "4:2",

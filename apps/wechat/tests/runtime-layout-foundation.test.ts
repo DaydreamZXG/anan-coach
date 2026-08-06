@@ -5,11 +5,11 @@ import primitiveStylesRaw from "../miniprogram/design-system/primitives/index.wx
 // @ts-expect-error Vite exposes mini-program component logic through its raw asset loader.
 import safeTopLogic from "../miniprogram/components/safe-top/index.ts?raw";
 // @ts-expect-error Vite exposes mini-program component logic through its raw asset loader.
-import workbenchNavLogic from "../miniprogram/components/workbench-nav/index.ts?raw";
+import workbenchNavLogic from "../miniprogram/plans/shared/components/workbench-nav/index.ts?raw";
 // @ts-expect-error Vite exposes mini-program component templates through its raw asset loader.
-import workbenchNavTemplate from "../miniprogram/components/workbench-nav/index.wxml?raw";
+import workbenchNavTemplate from "../miniprogram/plans/shared/components/workbench-nav/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import workbenchNavStylesRaw from "../miniprogram/components/workbench-nav/index.wxss?raw";
+import workbenchNavStylesRaw from "../miniprogram/plans/shared/components/workbench-nav/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import onboardingShellStylesRaw from "../miniprogram/features/onboarding/page-shell.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.

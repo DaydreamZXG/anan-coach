@@ -8,7 +8,7 @@ import type { OnboardingApi } from "../miniprogram/api/onboarding";
 import {
   StudyPreferenceController,
   type StudyPreferenceControllerState,
-} from "../miniprogram/features/onboarding/study-preference-controller";
+} from "../miniprogram/plans/shared/features/onboarding/study-preference-controller";
 import { loadPendingStudyPreference } from "../miniprogram/features/onboarding/pending-store";
 
 type StudyApi = Pick<OnboardingApi, "getProgress" | "getStudyPreference" | "putStudyPreference">;

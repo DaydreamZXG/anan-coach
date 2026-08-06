@@ -4,7 +4,7 @@ import type {
   EssayReviewResponse,
   EssayTaskWorkspace,
   EssayTransferPlanTaskCompletionResultV2,
-} from "../../../api/essay-intelligence";
+} from "../shared/api/essay-intelligence";
 import type { EssayTransferWriterContext } from "../../../features/essay-task/capabilities";
 import {
   buildTransferAnswerCommand,

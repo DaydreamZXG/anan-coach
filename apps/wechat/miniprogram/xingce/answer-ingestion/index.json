@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "录入答案",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "state-view": "../../design-system/primitives/state-view/index",
+    "ui-button": "../../design-system/primitives/ui-button/index",
+    "workbench-nav": "../shared/components/workbench-nav/index"
+  }
+}

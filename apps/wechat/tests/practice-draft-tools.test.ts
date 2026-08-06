@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import type { AnnotationStroke } from "../miniprogram/task-runtime/contracts";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
-import annotationTemplate from "../miniprogram/task-runtime/annotation-layer/index.wxml?raw";
+import annotationTemplate from "../miniprogram/pages/practice/shared/task-runtime/annotation-layer/index.wxml?raw";
 
 interface AnnotationTestData {
   mode: string;
@@ -309,7 +309,7 @@ async function captureAnnotationComponent(
     getWindowInfo: () => ({ pixelRatio: 2 }),
   });
   vi.stubGlobal("setTimeout", vi.fn());
-  await import("../miniprogram/task-runtime/annotation-layer/index");
+  await import("../miniprogram/pages/practice/shared/task-runtime/annotation-layer/index");
   if (!captured) throw new Error("annotation layer was not registered");
   return captured;
 }

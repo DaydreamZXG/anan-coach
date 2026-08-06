@@ -8,7 +8,7 @@ import {
   type CommunityDiscoveryCard,
   type CommunityRewardLedgerResponse,
   type CommunityStructureCandidate,
-} from "../miniprogram/api/community-method-cards";
+} from "../miniprogram/community/shared/api/community-method-cards";
 import {
   assertEligibleTrial,
   assertFeedbackChoice,
@@ -22,11 +22,11 @@ import {
   mapCommunityError,
   reportCategories,
   rightsOptions,
-} from "../miniprogram/features/community-method-cards/contracts";
+} from "../miniprogram/community/shared/features/community-method-cards/contracts";
 import {
   commercialStateView,
   presentTrialCard,
-} from "../miniprogram/features/community-method-cards/presentation";
+} from "../miniprogram/community/shared/features/community-method-cards/presentation";
 import { apiSuccess } from "./work_packages/vj-02-real-xingce-wechat/harness";
 
 afterEach(() => {

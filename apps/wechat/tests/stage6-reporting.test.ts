@@ -4,19 +4,19 @@ import type { ApiClient } from "../miniprogram/api/client";
 import type { ApiEnvelope } from "../miniprogram/domain/contracts";
 import type { RecognitionRevision } from "../miniprogram/api/external-learning-contracts";
 import type { ReportCenterProjection } from "../miniprogram/api/generated/types.gen";
-import { ReportingApi } from "../miniprogram/api/reporting";
+import { ReportingApi } from "../miniprogram/reports/shared/api/reporting";
 import { routes } from "../miniprogram/app/navigation/routes";
-import { registerReportPage } from "../miniprogram/features/reporting/report-page";
+import { registerReportPage } from "../miniprogram/reports/shared/features/reporting/report-page";
 import {
   REPORT_CHART_TEXT_CHANNELS,
   REPORT_CHART_TYPES,
-} from "../miniprogram/design-system/reporting/report-chart/contract";
+} from "../miniprogram/reports/shared/design-system/reporting/report-chart/contract";
 import {
   editExternalScoreSpan,
   reviewingExternalScoreState,
   toggleExternalScoreSpan,
   verifiedExternalScoreSpans,
-} from "../miniprogram/features/reporting/external-score-workflow";
+} from "../miniprogram/reports/shared/features/reporting/external-score-workflow";
 import {
   appendPendingMockTrajectory,
   loadPendingMockTrajectory,
@@ -31,14 +31,14 @@ afterEach(() => {
 describe("stage 6 mock reporting", () => {
   it("registers F01-F04 and F13 as real mini-program routes", () => {
     expect(routes).toMatchObject({
-      reportCenter: "/pages/report-center/index",
+      reportCenter: "/reports/report-center/index",
       mockExam: "/pages/mock-exam/index",
-      mockReport: "/pages/mock-report/index",
-      externalReport: "/pages/external-report/index",
-      globalReport: "/pages/global-report/index",
+      mockReport: "/reports/mock-report/index",
+      externalReport: "/reports/external-report/index",
+      globalReport: "/reports/global-report/index",
     });
     expect(Object.values(routes)).toEqual(
-      expect.arrayContaining(["/pages/report-overview/index", "/pages/global-report/index"]),
+      expect.arrayContaining(["/reports/report-overview/index", "/reports/global-report/index"]),
     );
   });
 
@@ -281,7 +281,7 @@ async function captureReportCenterPage(): Promise<ReportCenterHarness> {
     reLaunch: vi.fn(() => Promise.resolve()),
   });
 
-  await import("../miniprogram/pages/report-center/index");
+  await import("../miniprogram/reports/report-center/index");
   if (!definition) throw new Error("report-center page was not registered");
   const page: ReportCenterTestPage = {
     ...definition,

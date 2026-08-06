@@ -833,7 +833,7 @@ async function createCapacityPage(
     navigateBack,
   });
 
-  await import("../miniprogram/pages/day-adjustment/index");
+  await import("../miniprogram/plans/day-adjustment/index");
   if (!captured) throw new Error("day adjustment page was not registered");
   const definition = captured;
   const instantiatePage = (overrides: Partial<DayAdjustmentPageData> = {}): DayAdjustmentPage => {

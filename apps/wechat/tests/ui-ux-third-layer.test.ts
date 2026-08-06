@@ -19,9 +19,9 @@ import meLogic from "../miniprogram/pages/me/index.ts?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
-import essayEvidenceTemplate from "../miniprogram/pages/essay-evidence/index.wxml?raw";
+import essayEvidenceTemplate from "../miniprogram/essay/essay-evidence/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import essayEvidenceStylesRaw from "../miniprogram/pages/essay-evidence/index.wxss?raw";
+import essayEvidenceStylesRaw from "../miniprogram/essay/essay-evidence/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import privateKnowledgeTemplate from "../miniprogram/pages/private-knowledge/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
@@ -121,6 +121,26 @@ describe("third-layer UI and UX contracts", () => {
     );
     expect(todayStyles).toMatch(
       /\.tool-link\s*\{[^}]*flex:\s*1;[^}]*border:[^;]+;[^}]*background:\s*var\(--color-surface\);/su,
+    );
+  });
+
+  it("keeps breathing room between the primary task and the follow-up queue", () => {
+    expect(todayStyles).toMatch(/\.other-tasks\s*\{[^}]*margin-top:\s*var\(--figma-space-16\);/su);
+    expect(todayStyles).toMatch(
+      /\.settlement-button\s*\{[^}]*margin-top:\s*var\(--figma-space-16\);/su,
+    );
+  });
+
+  it("reserves the two-column workbench for landscape tablets", () => {
+    expect(todayTemplate).toContain('class="secondary-tools__title">学习工具</view>');
+    expect(todayTemplate).toContain('class="secondary-tools__meta">模考 · 复盘 · 计划</view>');
+    expect(todayTemplate).toContain('class="track-section today-col--track"');
+    expect(todayStyles).toContain("@media (min-width: 1024px) and (orientation: landscape)");
+    expect(todayStyles).toMatch(
+      /@media \(min-width: 1024px\) and \(orientation: landscape\)[\s\S]*?\.today-content\s*\{[^}]*display:\s*grid;[^}]*grid-template-columns:\s*minmax\(0, 1fr\) 320px;/u,
+    );
+    expect(todayStyles).toMatch(
+      /\.today-col--track \.track-grid\s*\{[^}]*flex-direction:\s*column;/u,
     );
   });
 });

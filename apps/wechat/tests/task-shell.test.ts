@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import { taskShellSyncTone } from "../miniprogram/task-runtime/task-shell/state";
+import { taskShellSyncTone } from "../miniprogram/pages/practice/shared/task-runtime/task-shell/state";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
-import taskShellTemplate from "../miniprogram/task-runtime/task-shell/index.wxml?raw";
+import taskShellTemplate from "../miniprogram/pages/practice/shared/task-runtime/task-shell/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import taskShellStylesRaw from "../miniprogram/task-runtime/task-shell/index.wxss?raw";
+import taskShellStylesRaw from "../miniprogram/pages/practice/shared/task-runtime/task-shell/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
-import questionToolbarTemplate from "../miniprogram/task-runtime/question-toolbar/index.wxml?raw";
+import questionToolbarTemplate from "../miniprogram/pages/practice/shared/task-runtime/question-toolbar/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.

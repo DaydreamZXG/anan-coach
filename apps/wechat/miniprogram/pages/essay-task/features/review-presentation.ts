@@ -2,8 +2,8 @@ import type {
   EssayReviewIntentView,
   EssayReviewJobView,
   EssayReviewResponse,
-} from "../../../api/essay-intelligence";
-import { presentFinding, type FindingView } from "../../../features/essay-task/presentation";
+} from "../shared/api/essay-intelligence";
+import { presentFinding, type FindingView } from "../shared/features/essay-task/presentation";
 
 export type ReviewDisplayState =
   "idle" | "waiting_quota" | "queued" | "running" | "completed" | "blocked" | "failed";

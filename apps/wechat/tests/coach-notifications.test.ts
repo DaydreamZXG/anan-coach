@@ -133,7 +133,7 @@ describe("coach notifications", () => {
       getStorageSync: () => "",
       removeStorageSync: () => undefined,
     });
-    await import("../miniprogram/pages/notification-settings/index");
+    await import("../miniprogram/account/notification-settings/index");
     const definition = captured as Record<string, unknown> & {
       data: Record<string, unknown>;
       requestWechatAuthorization(): void;
@@ -1099,7 +1099,7 @@ async function notificationSettingsPage(input: {
       return Promise.resolve({ randomValues: bytes.buffer });
     },
   });
-  await import("../miniprogram/pages/notification-settings/index");
+  await import("../miniprogram/account/notification-settings/index");
   const definition = captured as NotificationSettingsPage;
 
   function instantiatePage(): NotificationSettingsPageInstance {

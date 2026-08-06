@@ -4,42 +4,78 @@
     "pages/today/index",
     "pages/ability/index",
     "pages/anan/index",
-    "pages/me/index",
-    "pages/daily-settlement/index",
-    "pages/essay-material/index",
-    "pages/mock-report/index",
-    "pages/retake/index",
-    "pages/plan-history/index",
-    "pages/study-preference/index",
-    "pages/plan-basis/index",
-    "pages/weekly-plan/index",
-    "pages/membership/index",
-    "pages/privacy/index",
-    "pages/terms/index",
-    "pages/notification-settings/index",
-    "pages/support/index",
-    "pages/xingce-task-intro/index",
-    "pages/report-center/index",
-    "pages/external-report/index",
-    "pages/report-overview/index",
-    "pages/global-report/index",
-    "pages/xingce-mastery/index",
-    "pages/xingce-mastery/favorites/index",
-    "pages/essay-compose/index",
-    "pages/essay-review/index",
-    "pages/essay-rewrite/index",
-    "pages/essay-evidence/index",
-    "pages/learning-packets/index",
-    "pages/answer-ingestion/index",
-    "pages/community-draft/index",
-    "pages/community-structure/index",
-    "pages/community-trial/index",
-    "pages/community-contributions/index",
-    "pages/day-adjustment/index",
-    "pages/ability-module/index",
-    "pages/error-pattern/index"
+    "pages/me/index"
   ],
   "subPackages": [
+    {
+      "root": "plans",
+      "name": "plans",
+      "pages": [
+        "daily-settlement/index",
+        "retake/index",
+        "plan-history/index",
+        "study-preference/index",
+        "plan-basis/index",
+        "weekly-plan/index",
+        "day-adjustment/index"
+      ]
+    },
+    {
+      "root": "account",
+      "name": "account",
+      "pages": [
+        "membership/index",
+        "privacy/index",
+        "terms/index",
+        "notification-settings/index",
+        "support/index"
+      ]
+    },
+    {
+      "root": "xingce",
+      "name": "xingce",
+      "pages": [
+        "xingce-task-intro/index",
+        "xingce-mastery/index",
+        "xingce-mastery/favorites/index",
+        "learning-packets/index",
+        "answer-ingestion/index"
+      ]
+    },
+    {
+      "root": "essay",
+      "name": "essay",
+      "pages": [
+        "essay-material/index",
+        "essay-compose/index",
+        "essay-review/index",
+        "essay-rewrite/index",
+        "essay-evidence/index"
+      ]
+    },
+    {
+      "root": "community",
+      "name": "community",
+      "pages": [
+        "community-draft/index",
+        "community-structure/index",
+        "community-trial/index",
+        "community-contributions/index"
+      ]
+    },
+    {
+      "root": "reports",
+      "name": "reports",
+      "pages": [
+        "mock-report/index",
+        "report-center/index",
+        "external-report/index",
+        "report-overview/index",
+        "global-report/index",
+        "ability-module/index",
+        "error-pattern/index"
+      ]
+    },
     {
       "root": "pages/capture-import",
       "name": "capture-import",

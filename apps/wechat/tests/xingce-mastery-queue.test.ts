@@ -7,11 +7,11 @@ import {
   type XingceMasteryQueueBucket,
   type XingceMasteryQueueItem,
   type XingceMasteryQueuePage,
-} from "../miniprogram/api/xingce-learning";
+} from "../miniprogram/xingce/shared/api/xingce-learning";
 import {
   assertMasteryQueuePage,
   masteryQueueActionTarget,
-} from "../miniprogram/features/xingce/mastery/contracts";
+} from "../miniprogram/xingce/shared/features/xingce/mastery/contracts";
 import { apiSuccess } from "./work_packages/vj-02-real-xingce-wechat/harness";
 
 afterEach(() => {
@@ -60,20 +60,20 @@ describe("Xingce mastery queue API and contract", () => {
     const due = queueItem("due_verification", {
       action: {
         state: "ready",
-        startUrl: "/pages/xingce-task-intro/index?mode=verification&planTaskId=plan-a",
+        startUrl: "/xingce/xingce-task-intro/index?mode=verification&planTaskId=plan-a",
         planTaskId: "plan-a",
       },
     });
     expect(masteryQueueActionTarget(due)).toEqual({
       mode: "navigateTo",
-      url: "/pages/xingce-task-intro/index?mode=verification&planTaskId=plan-a",
+      url: "/xingce/xingce-task-intro/index?mode=verification&planTaskId=plan-a",
     });
     expect(
       masteryQueueActionTarget({
         ...due,
         action: {
           ...due.action,
-          startUrl: "/pages/xingce-task-intro/index?mode=verification&planTaskId=other",
+          startUrl: "/xingce/xingce-task-intro/index?mode=verification&planTaskId=other",
         },
       }),
     ).toBeNull();
@@ -85,7 +85,7 @@ describe("Xingce mastery queue API and contract", () => {
       ...firstStable,
       action: {
         state: "ready",
-        startUrl: "/pages/xingce-task-intro/index?mode=verification&planTaskId=plan-a",
+        startUrl: "/xingce/xingce-task-intro/index?mode=verification&planTaskId=plan-a",
         planTaskId: "plan-a",
       },
     };
@@ -418,7 +418,7 @@ async function createPage(handleRequest: RequestHandler, options: { waitForReady
     getStorageSync: vi.fn(() => ""),
     removeStorageSync: vi.fn(),
   });
-  await import("../miniprogram/pages/xingce-mastery/index");
+  await import("../miniprogram/xingce/xingce-mastery/index");
   if (!captured) throw new Error("mastery queue page was not registered");
   const setData = vi.fn(function (this: TestMasteryPage, patch: Record<string, unknown>) {
     Object.assign(this.data, patch);

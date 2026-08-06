@@ -1,0 +1,9 @@
+{
+  "navigationStyle": "custom",
+  "backgroundColor": "#F7F9FC",
+  "usingComponents": {
+    "count-up": "../shared/design-system/primitives/count-up/index",
+    "state-view": "../../design-system/primitives/state-view/index",
+    "workbench-nav": "../shared/components/workbench-nav/index"
+  }
+}
