@@ -4,6 +4,7 @@ import minium
 
 from minium_support import (
     TAB_ROUTES,
+    open_app_route,
     open_ready_page,
     tap_and_expect_route,
     wait_for_path,
@@ -12,7 +13,7 @@ from minium_support import (
 
 class DMainTabJourneyTest(minium.MiniTest):
     def _assert_tab(self, route, selector):
-        page = self.app.switch_tab(route, is_click=True)
+        page = open_app_route(self.app, route)
         self.assertEqual(page.path, route)
         self.assertTrue(page.get_elements(selector, max_timeout=15))
 
@@ -157,7 +158,7 @@ class GPositionAndReportJourneyTest(minium.MiniTest):
             allowed_states=("ready", "empty"),
         )
         self.assertTrue(page.get_elements(".mastery-page"))
-        favorites = self.app.relaunch("/xingce/xingce-mastery/favorites/index")
+        favorites = open_app_route(self.app, "/xingce/xingce-mastery/favorites/index")
         self.assertEqual(favorites.path, "/xingce/xingce-mastery/favorites/index")
         self.assertTrue(favorites.get_elements("view", max_timeout=15))
 
@@ -192,6 +193,6 @@ class HContentAndCommunityJourneyTest(minium.MiniTest):
             ("/community/community-trial/index", ".action-button"),
             ("/community/community-contributions/index", "view"),
         ):
-            page = self.app.relaunch(route)
+            page = open_app_route(self.app, route)
             self.assertEqual(page.path, route)
             self.assertTrue(page.get_elements(selector, max_timeout=15), route)

@@ -153,6 +153,33 @@ def wait_for_data(page, predicate, timeout=20):
     return wait_until(lambda: (lambda data: data if predicate(data) else None)(page.data), timeout)
 
 
+def open_app_route(app, url, timeout=15):
+    """Avoid the Android cloud-device reLaunch/startup race when opening a route."""
+
+    target = str(url).split("?", 1)[0]
+    for _ in range(3):
+        if target in TAB_ROUTES:
+            page = app.switch_tab(target, is_click=False)
+        else:
+            root = app.switch_tab(TAB_ROUTES[0], is_click=False)
+            if root.path != TAB_ROUTES[0]:
+                root = app.relaunch(TAB_ROUTES[0])
+            wait_until(lambda: current_page(app).path == TAB_ROUTES[0], timeout=5)
+            page = app.navigate_to(url)
+        if page.path == target:
+            return page
+        settled = wait_until(
+            lambda: (
+                lambda candidate: candidate if candidate.path == target else None
+            )(current_page(app)),
+            timeout=min(5, timeout),
+        )
+        if settled:
+            return settled
+        time.sleep(0.5)
+    return current_page(app)
+
+
 def wait_for_settled_page(app, requested_route, timeout=20):
     """等待目标页稳定、呈现 DOM，或安全跳转到另一条已注册路由。"""
 
@@ -172,7 +199,7 @@ def wait_for_settled_page(app, requested_route, timeout=20):
 
 
 def open_ready_page(test, route, allowed_states=("ready", "empty", "idle", "draft"), timeout=30):
-    page = test.app.relaunch(route)
+    page = open_app_route(test.app, route)
     test.assertEqual(page.path, route, "没有打开目标页面：%s" % route)
 
     def inspect():
@@ -200,8 +227,7 @@ def open_ready_page(test, route, allowed_states=("ready", "empty", "idle", "draf
 
 
 def open_rendered_page(test, route, timeout=20):
-    page = test.app.relaunch(route)
-    test.assertEqual(page.path, route, "reLaunch 没有先打开目标路由：%s" % route)
+    page = open_app_route(test.app, route)
     result = wait_for_settled_page(test.app, route, timeout=timeout)
     test.assertIsNotNone(result, "%s 一直加载或没有渲染 DOM" % route)
     final_page = result["page"]

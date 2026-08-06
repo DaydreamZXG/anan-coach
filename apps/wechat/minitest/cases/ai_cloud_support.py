@@ -2,11 +2,13 @@
 
 import time
 
+from minium_support import open_app_route
+
 
 def open_page(mini, route):
     """把 AI 探索重置到已注册页面，并返回实际页面路径。"""
 
-    page = mini.app.relaunch(route)
+    page = open_app_route(mini.app, route)
     mini.user_logger.info("AI journey start route: %s -> %s" % (route, page.path))
     return page.path
 
@@ -14,7 +16,7 @@ def open_page(mini, route):
 def open_today(mini):
     """回到今日 Tab，供连续 DDT 用例恢复稳定起点。"""
 
-    page = mini.app.switch_tab("/pages/today/index", is_click=True)
+    page = open_app_route(mini.app, "/pages/today/index")
     mini.user_logger.info("AI journey returned to today: %s" % page.path)
     return page.path
 
@@ -22,7 +24,7 @@ def open_today(mini):
 def require_disposable_account(mini):
     """阻止 AI 写入用例修改普通账号。"""
 
-    page = mini.app.relaunch("/pages/me/index")
+    page = open_app_route(mini.app, "/pages/me/index")
     deadline = time.time() + 30
     display_name = ""
     while time.time() < deadline:

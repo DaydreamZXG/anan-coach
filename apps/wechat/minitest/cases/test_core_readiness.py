@@ -2,7 +2,7 @@
 
 import minium
 
-from minium_support import open_ready_page, wait_until
+from minium_support import open_app_route, open_ready_page, wait_until
 
 
 class AReadyAccountPreflightTest(minium.MiniTest):
@@ -24,7 +24,7 @@ class CCoreWorkspaceReadinessTest(minium.MiniTest):
         self.assertTrue(page.get_elements(".ability-content"))
 
     def test_companion_workspace_has_context(self):
-        page = self.app.relaunch("/pages/anan/index")
+        page = open_app_route(self.app, "/pages/anan/index")
         self.assertEqual(page.path, "/pages/anan/index")
         data = wait_until(
             lambda: (

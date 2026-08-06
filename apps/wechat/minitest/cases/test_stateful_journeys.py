@@ -6,6 +6,7 @@ from minium_support import (
     assert_disposable_account,
     current_page,
     find_task_navigation,
+    open_app_route,
     open_ready_page,
     wait_for_data,
     wait_for_path,
@@ -74,7 +75,7 @@ class ZDisposableAccountMutationTest(minium.MiniTest):
 
     def test_companion_returns_grounded_answer(self):
         self._assert_disposable()
-        page = self.app.relaunch("/pages/anan/index")
+        page = open_app_route(self.app, "/pages/anan/index")
         self.assertEqual(page.path, "/pages/anan/index")
         self.assertTrue(
             wait_until(lambda: page.data.get("askAvailable") is True, timeout=45),
@@ -126,7 +127,7 @@ class ZDisposableAccountMutationTest(minium.MiniTest):
         )
         self.assertTrue(navigation_url, "专用账号今天没有可执行的真实行测任务")
 
-        page = self.app.relaunch(navigation_url)
+        page = open_app_route(self.app, navigation_url)
         if page.path == "/xingce/xingce-task-intro/index":
             ready = wait_for_data(page, lambda: page.data.get("status") == "ready", timeout=45)
             self.assertIsNotNone(ready, "行测任务说明没有加载成功")
@@ -219,7 +220,7 @@ class ZDisposableAccountMutationTest(minium.MiniTest):
             {"/pages/essay-task/index"},
         )
         self.assertTrue(navigation_url, "专用账号今天没有可执行的真实申论任务")
-        page = self.app.relaunch(navigation_url)
+        page = open_app_route(self.app, navigation_url)
         ready = wait_for_data(
             page,
             lambda: page.data.get("status") == "ready"

@@ -2,7 +2,7 @@
 
 import minium
 
-from minium_support import open_ready_page, wait_until
+from minium_support import open_app_route, open_ready_page, wait_until
 
 
 class IResponsiveWorkspaceTest(minium.MiniTest):
@@ -24,7 +24,7 @@ class IResponsiveWorkspaceTest(minium.MiniTest):
         self._assert_no_horizontal_overflow("/pages/ability/index")
 
     def test_companion_has_no_horizontal_overflow(self):
-        page = self.app.relaunch("/pages/anan/index")
+        page = open_app_route(self.app, "/pages/anan/index")
         self.assertEqual(page.path, "/pages/anan/index")
         self.assertTrue(
             wait_until(

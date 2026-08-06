@@ -1,5 +1,43 @@
 # 微信云测 Minium 全量测试
 
+## 一键提交全量云测
+
+不需要在云测页面手工组合用例。在 `apps/wechat` 目录执行：
+
+```bash
+npm run minitest:package
+npm run cloudtest:start
+```
+
+脚本会使用微信云测官方 HTTPS API 重新上传 109 条 Minium 用例，按“全新账号建档 → 成熟账号读链路 → 写链路”顺序创建普通全量计划，再提交 5 个任务：Android Minium、iOS Minium、成熟账号 AI、写入账号 AI 和全新账号 AI。最长预留时长为 `55 + 55 + 50 + 30 + 20 = 210` 分钟，测试提前结束时微信会返还多预留的时长。
+
+查看进度：
+
+```bash
+npm run cloudtest:status
+```
+
+若某个任务在云端“创建失败”或超时，只重试失败项，不会重复提交已完成、测试中或排队中的任务：
+
+```bash
+npm run cloudtest:retry
+```
+
+若全新账号 AI 任务已成功启动，但用例在新手引导中失败，同步修正后的 AI 用例，再换一个未使用的虚拟账号重跑：
+
+```bash
+npm run aitest:sync
+npm run cloudtest:retry-ai-fresh
+```
+
+若测试用例本身已修正，可从 Android 和 iOS 的上一份报告中自动抽取失败方法，生成失败回归计划。回归计划会额外带上登录/建档和今日页预检两个启动用例，避免新云测任务因不继承上一任务的本地登录态而产生假失败：
+
+```bash
+npm run cloudtest:regression
+```
+
+这一轮使用 `vaccount18` 先建档再顺序执行成熟与写入链路，`vaccount19` 跑 iOS 全量链路，`vaccount20` 专门验证全新账号建档。同一虚拟账号的任务会由微信云测自动排队。
+
 这套用例用于微信开发者工具的“云测 → 自定义测试 → Minium”。它连接真实上传版本、真实后端和测试账号，不把“页面能打开”冒充“业务已跑通”。
 
 当前套件经微信官方 `debug_analyse.py` 解析为 **109 条独立用例**：

@@ -2,6 +2,8 @@
 
 import minium
 
+from minium_support import open_app_route
+
 
 TODAY_PATH = "/pages/today/index"
 
@@ -10,7 +12,7 @@ class TodayLayoutCustomTest(minium.MiniTest):
     """覆盖本轮主包瘦身后最容易回归的今日页行为。"""
 
     def _open_ready_today(self):
-        page = self.app.relaunch(TODAY_PATH)
+        page = open_app_route(self.app, TODAY_PATH)
         self.assertEqual(
             page.path,
             TODAY_PATH,
@@ -129,7 +131,7 @@ class SplitPackageRouteCustomTest(minium.MiniTest):
     """确认主包瘦身后关键分包仍可按真实路由打开。"""
 
     def _assert_route_opens(self, route):
-        page = self.app.relaunch(route)
+        page = open_app_route(self.app, route)
         self.assertEqual(page.path, route, "分包页面未能打开：%s" % route)
         page.wait_for(2)
         current = self.app.get_current_page()
