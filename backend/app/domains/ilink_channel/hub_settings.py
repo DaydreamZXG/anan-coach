@@ -17,6 +17,7 @@ class OpenILinkHubSettings:
     service_password: str
     authorization_ttl_seconds: int
     request_timeout_seconds: float
+    bridge_webhook_secret: str = ""
 
     @classmethod
     def from_environment(cls) -> "OpenILinkHubSettings":
@@ -27,6 +28,9 @@ class OpenILinkHubSettings:
             service_password=os.getenv("OPENILINK_HUB_SERVICE_PASSWORD", "").strip(),
             authorization_ttl_seconds=_integer("OPENILINK_HUB_AUTHORIZATION_TTL_SECONDS", 600),
             request_timeout_seconds=_float("OPENILINK_HUB_REQUEST_TIMEOUT_SECONDS", 45),
+            bridge_webhook_secret=os.getenv(
+                "OPENILINK_HUB_BRIDGE_WEBHOOK_SECRET", ""
+            ).strip(),
         )
 
     def validate(self) -> None:
@@ -54,6 +58,10 @@ class OpenILinkHubSettings:
             )
         if not 10 <= self.request_timeout_seconds <= 60:
             raise OpenILinkHubConfigurationError("OpenIlink Hub request timeout is outside policy")
+        if len(self.bridge_webhook_secret) < 32:
+            raise OpenILinkHubConfigurationError(
+                "OpenIlink Hub bridge webhook secret is incomplete"
+            )
 
 
 def _bool(name: str, default: bool) -> bool:

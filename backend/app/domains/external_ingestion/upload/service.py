@@ -32,6 +32,7 @@ from app.domains.external_ingestion.upload.models import (
 )
 from app.domains.external_ingestion.upload.ports import (
     MalwareScannerPort,
+    PdfPageCounterPort,
     PrivateObjectStoragePort,
     UploadRepositoryPort,
     UploadReservationPort,
@@ -80,6 +81,7 @@ class UploadService:
         scanner: MalwareScannerPort | None,
         scanner_approval: ScannerRuntimeApproval | None,
         reservations: UploadReservationPort,
+        pdf_page_counter: PdfPageCounterPort | None = None,
         policy: UploadPolicy | None = None,
         clock: Callable[[], datetime] | None = None,
     ) -> None:
@@ -88,6 +90,7 @@ class UploadService:
         self._scanner = scanner
         self._scanner_approval = scanner_approval
         self._reservations = reservations
+        self._pdf_page_counter = pdf_page_counter
         self._policy = policy or default_upload_policy()
         self._clock = clock or (lambda: datetime.now(UTC))
 
@@ -615,7 +618,28 @@ class UploadService:
         authorization in ``_verify_and_scan``.  The optional malware scanner is
         deliberately not part of the small-test launch path.
         """
-        if session.mime_type == "application/pdf" and session.page_count is None:
+        authoritative_page_count = session.page_count
+        if session.mime_type == "application/pdf" and self._pdf_page_counter is not None:
+            try:
+                authoritative_page_count = self._pdf_page_counter.count_pages(
+                    object_ref=session.object_ref,
+                    expected_sha256=session.content_sha256,
+                    maximum_bytes=session.byte_size,
+                )
+            except Exception as error:
+                failed = session.transition(
+                    UploadState.SCAN_FAILED,
+                    at=self._clock(),
+                    failure_code="pdf_metadata_unreadable",
+                )
+                self._persist_transition(
+                    previous=session,
+                    replacement=failed,
+                    event_type="upload_metadata_validation_failed",
+                    details={"reason": "pdf_metadata_unreadable", "errorType": type(error).__name__},
+                )
+                return failed
+        if session.mime_type == "application/pdf" and authoritative_page_count is None:
             failed = session.transition(
                 UploadState.SCAN_FAILED,
                 at=self._clock(),
@@ -639,14 +663,38 @@ class UploadService:
             definition_version="not-applicable",
             scanned_at=self._clock(),
             detected_page_count=(
-                session.page_count if session.mime_type == "application/pdf" else None
+                authoritative_page_count if session.mime_type == "application/pdf" else None
             ),
         )
+        if (
+            session.mime_type == "application/pdf"
+            and authoritative_page_count is not None
+            and (
+                authoritative_page_count > self._policy.maximum_pdf_pages
+                or (
+                    session.page_count is not None
+                    and authoritative_page_count != session.page_count
+                )
+            )
+        ):
+            reason = (
+                "detected_page_count_exceeds_limit"
+                if authoritative_page_count > self._policy.maximum_pdf_pages
+                else "detected_page_count_mismatch"
+            )
+            return self._quarantine(
+                session=session,
+                receipt=receipt,
+                reason=reason,
+                now=self._clock(),
+                authoritative_page_count=authoritative_page_count,
+            )
         finalizing = session.transition(
             UploadState.FINALIZING,
             at=self._clock(),
             scan_receipt=receipt,
             failure_code=None,
+            page_count=authoritative_page_count,
         )
         self._persist_transition(
             previous=session,

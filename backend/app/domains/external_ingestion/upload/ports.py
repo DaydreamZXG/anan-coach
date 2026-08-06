@@ -154,6 +154,18 @@ class MalwareScannerPort(Protocol):
     ) -> ScanReceipt: ...
 
 
+class PdfPageCounterPort(Protocol):
+    """Read an already integrity-checked private PDF and return its real page count."""
+
+    def count_pages(
+        self,
+        *,
+        object_ref: str,
+        expected_sha256: str,
+        maximum_bytes: int,
+    ) -> int: ...
+
+
 class UploadReservationPort(Protocol):
     """Idempotent quota/billing reservation boundary.
 

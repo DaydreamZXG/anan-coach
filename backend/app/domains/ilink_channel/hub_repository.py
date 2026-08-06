@@ -45,6 +45,19 @@ class OpenILinkHubRepository:
             .one_or_none()
         )
 
+    def for_bot(self, *, bot_id: str):
+        return (
+            self._session.execute(
+                text(
+                    "select * from messaging.ilink_hub_bot_links "
+                    "where hub_bot_id = :bot_id and state = 'connected'"
+                ),
+                {"bot_id": bot_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
+
     def upsert_pending(
         self,
         *,

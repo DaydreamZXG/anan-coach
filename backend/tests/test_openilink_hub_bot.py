@@ -9,6 +9,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.domains.ilink_channel.hub_client import HubBindStart, HubBindStatus
+from app.domains.ilink_channel.hub_bridge import HubBridgeEvent, verify_hub_signature
 from app.domains.ilink_channel.hub_service import OpenILinkHubBotService
 from app.domains.ilink_channel.hub_settings import (
     OpenILinkHubConfigurationError,
@@ -54,6 +55,7 @@ def hub_settings() -> OpenILinkHubSettings:
         service_password="p" * 32,
         authorization_ttl_seconds=600,
         request_timeout_seconds=45,
+        bridge_webhook_secret="b" * 40,
     )
 
 
@@ -64,7 +66,7 @@ class FakeHubClient:
             HubBindStatus(state="scanned"),
             HubBindStatus(state="connected", bot_id="hub-bot-a"),
         ]
-        self.enabled_bot_ids: list[str] = []
+        self.configured_bot_ids: list[str] = []
         self.deleted_bot_ids: list[str] = []
 
     def start_bind(self) -> HubBindStart:
@@ -78,8 +80,8 @@ class FakeHubClient:
         assert session_id.startswith("bind-service-")
         return self.statuses.pop(0)
 
-    def enable_bot_ai(self, *, bot_id: str) -> None:
-        self.enabled_bot_ids.append(bot_id)
+    def configure_control_bridge(self, *, bot_id: str) -> None:
+        self.configured_bot_ids.append(bot_id)
 
     def delete_bot(self, *, bot_id: str) -> None:
         self.deleted_bot_ids.append(bot_id)
@@ -153,7 +155,7 @@ def test_hub_bot_authorization_is_account_isolated_and_revocable(
     db_session.commit()
     assert connected.state == "connected"
     assert connected.qr_image_data_url is None
-    assert hub.enabled_bot_ids == ["hub-bot-a"]
+    assert hub.configured_bot_ids == ["hub-bot-a"]
 
     revoked = service.revoke(
         db_session,
@@ -174,9 +176,38 @@ def test_hub_origin_is_private_loopback_only() -> None:
         service_password="p" * 32,
         authorization_ttl_seconds=600,
         request_timeout_seconds=45,
+        bridge_webhook_secret="b" * 40,
     )
     with pytest.raises(OpenILinkHubConfigurationError):
         invalid.validate()
+
+
+def test_hub_bridge_signature_and_event_contract() -> None:
+    body = (
+        b'{"type":"event","trace_id":"tr-1","installation_id":"inst-1",'
+        b'"bot":{"id":"bot-1"},"event":{"id":"evt-1",'
+        b'"type":"message.text","data":{"sender":{"id":"wx-1","role":"user"},'
+        b'"content":"today"}}}'
+    )
+    import hashlib
+    import hmac
+
+    signature = "sha256=" + hmac.new(
+        b"b" * 40,
+        b"1786000000:" + body,
+        hashlib.sha256,
+    ).hexdigest()
+    verify_hub_signature(
+        body=body,
+        timestamp="1786000000",
+        signature=signature,
+        secret="b" * 40,
+        now=datetime.fromtimestamp(1786000000, tz=UTC),
+    )
+    event = HubBridgeEvent.parse(__import__("json").loads(body))
+    assert event.bot_id == "bot-1"
+    assert event.sender_id == "wx-1"
+    assert event.content == "today"
 
 
 def test_hub_command_lock_is_transaction_scoped(db_session: Session) -> None:

@@ -26,6 +26,7 @@ from app.domains.external_ingestion.upload.reservations import (
 )
 from app.domains.external_ingestion.upload.service import UploadService
 from app.domains.external_ingestion.upload.tos_sdk import VolcengineTosSdkFacade
+from app.internal_services.private_pdf import PrivatePdfPageCounter
 
 
 class HttpMalwareScannerClient:
@@ -129,6 +130,7 @@ def build_upload_service(*, session: Session, settings: Settings) -> UploadServi
                 ),
             ),
         ),
+        pdf_page_counter=PrivatePdfPageCounter(settings),
     )
 
 

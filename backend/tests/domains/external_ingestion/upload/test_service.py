@@ -378,6 +378,22 @@ class FakeScanner:
         return result
 
 
+class FakePdfPageCounter:
+    def __init__(self, page_count: int) -> None:
+        self.page_count = page_count
+        self.calls: list[tuple[str, str, int]] = []
+
+    def count_pages(
+        self,
+        *,
+        object_ref: str,
+        expected_sha256: str,
+        maximum_bytes: int,
+    ) -> int:
+        self.calls.append((object_ref, expected_sha256, maximum_bytes))
+        return self.page_count
+
+
 class FakeReservations:
     def __init__(self) -> None:
         self.by_key: dict[str, UploadReservation] = {}
@@ -540,6 +556,43 @@ def test_mvp_image_upload_completes_without_malware_scanner() -> None:
         "upload_metadata_validated",
         "upload_available",
     }
+
+
+def test_mvp_pdf_without_client_page_count_uses_private_object_metadata() -> None:
+    repository = FakeRepository()
+    storage = FakeStorage()
+    reservations = FakeReservations()
+    counter = FakePdfPageCounter(28)
+    service = UploadService(
+        repository=repository,
+        object_storage=storage,
+        scanner=None,
+        scanner_approval=None,
+        reservations=reservations,
+        pdf_page_counter=counter,
+    )
+    owner = uuid4()
+    started = service.start(
+        request(
+            owner,
+            filename="paper.pdf",
+            mime_type="application/pdf",
+            source_kind=SourceKind.PDF_UPLOAD,
+            page_count=None,
+            part_sha256s=("c" * 64,),
+        )
+    )
+    storage.upload(started.session)
+
+    result = service.complete(owner_user_id=owner, session_id=started.session.session_id)
+
+    assert result.session.state == UploadState.AVAILABLE
+    assert result.session.page_count == 28
+    assert result.artifact is not None
+    assert result.artifact.page_count == 28
+    assert counter.calls == [
+        (started.session.object_ref, started.session.content_sha256, started.session.byte_size)
+    ]
 
 
 def test_mvp_image_upload_still_rejects_integrity_mismatch_without_scanner() -> None:

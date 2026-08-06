@@ -450,11 +450,10 @@ class XingceAttemptService:
     ) -> TaskSessionProjection:
         saved_at = _utc(now)
         fingerprint = _fingerprint("checkpoint_save", session_id, command)
-        self._runtime_repository.lock_user(session, user_id=user_id)
+        row = self._required_session(session, user_id, session_id, for_update=True)
         replay = self._replay(session, user_id, command_id, fingerprint)
         if replay is not None:
             return replay
-        row = self._required_session(session, user_id, session_id, for_update=True)
         _require_revision(row, command.expected_revision, state="active")
         if command.total_elapsed_seconds < int(row["total_elapsed_seconds"]):
             raise _conflict("total elapsed time cannot decrease")

@@ -364,7 +364,6 @@ class TaskEditingService:
         now: datetime | None = None,
     ) -> None:
         at = _utc(now)
-        self._repository.lock_user(session, user_id=user_id)
         actual_revision = self._required_revision(
             session,
             user_id=user_id,

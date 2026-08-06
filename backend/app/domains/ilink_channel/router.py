@@ -4,7 +4,18 @@ from datetime import UTC, datetime
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response, status
+import json
+
+from fastapi import (
+    APIRouter,
+    BackgroundTasks,
+    Depends,
+    Header,
+    HTTPException,
+    Request,
+    Response,
+    status,
+)
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
@@ -12,6 +23,12 @@ from app.db.session import get_db_session
 from app.domains.auth.deps import get_current_user
 from app.domains.auth.repository import AuthenticatedUser
 from app.domains.ilink_channel.hub_client import OpenILinkHubError
+from app.domains.ilink_channel.hub_bridge import (
+    HubBridgeEvent,
+    HubBridgeEventError,
+    process_hub_event,
+    verify_hub_signature,
+)
 from app.domains.ilink_channel.hub_service import OpenILinkHubBotService
 from app.domains.ilink_channel.hub_settings import (
     OpenILinkHubConfigurationError,
@@ -82,6 +99,35 @@ def _raise_hub_unavailable(exc: OpenILinkHubError) -> None:
         status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
         detail="微信岸岸暂时没有连上，请重新试一次。",
     ) from exc
+
+
+@router.post("/hub/events", status_code=status.HTTP_202_ACCEPTED)
+async def receive_hub_event(
+    request: Request,
+    background_tasks: BackgroundTasks,
+    x_timestamp: Annotated[str, Header(alias="X-Timestamp")],
+    x_signature: Annotated[str, Header(alias="X-Signature")],
+) -> dict[str, bool]:
+    body = await request.body()
+    if len(body) > 1_048_576:
+        raise HTTPException(status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
+    try:
+        settings = OpenILinkHubSettings.from_environment()
+        settings.validate()
+        verify_hub_signature(
+            body=body,
+            timestamp=x_timestamp,
+            signature=x_signature,
+            secret=settings.bridge_webhook_secret,
+        )
+        event = HubBridgeEvent.parse(json.loads(body))
+    except (HubBridgeEventError, ValueError, json.JSONDecodeError) as exc:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="OpenIlink Hub event verification failed.",
+        ) from exc
+    background_tasks.add_task(process_hub_event, event)
+    return {"accepted": True}
 
 
 @router.get("/bot", response_model=PublicApiEnvelope[HubBotAuthorizationView])

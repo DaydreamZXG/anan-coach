@@ -32,7 +32,7 @@ class OpenILinkHubGateway(Protocol):
 
     def poll_bind(self, *, session_id: str) -> HubBindStatus: ...
 
-    def enable_bot_ai(self, *, bot_id: str) -> None: ...
+    def configure_control_bridge(self, *, bot_id: str) -> None: ...
 
     def delete_bot(self, *, bot_id: str) -> None: ...
 
@@ -148,7 +148,7 @@ class OpenILinkHubBotService:
         row = repository.for_authorization(
             user_id=user_id,
             authorization_id=authorization_id,
-            for_update=True,
+            for_update=False,
         )
         if row is None:
             raise ILinkNotFound("hub_authorization_not_found")
@@ -164,12 +164,21 @@ class OpenILinkHubBotService:
         status = self._client.poll_bind(session_id=session_id)
         if status.state == "wait":
             return self._view_from_row(row)
+        current = repository.for_authorization(
+            user_id=user_id,
+            authorization_id=authorization_id,
+            for_update=True,
+        )
+        if current is None:
+            raise ILinkNotFound("hub_authorization_not_found")
+        if current["state"] not in {"waiting_scan", "scanned"}:
+            return self._view_from_row(current)
         if status.state == "scanned":
             updated = repository.mark_scanned(
                 authorization_id=authorization_id,
                 now=now,
             )
-            return self._view_from_row(updated or row)
+            return self._view_from_row(updated or current)
         if status.state == "refreshed":
             if not status.qr_content:
                 raise OpenILinkHubError("bind_qr_missing")
@@ -188,7 +197,7 @@ class OpenILinkHubBotService:
         if status.state == "connected":
             if not status.bot_id:
                 raise OpenILinkHubError("bound_bot_missing")
-            self._client.enable_bot_ai(bot_id=status.bot_id)
+            self._client.configure_control_bridge(bot_id=status.bot_id)
             updated = repository.connect(
                 authorization_id=authorization_id,
                 hub_bot_id=status.bot_id,
