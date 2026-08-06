@@ -253,7 +253,7 @@ def stage8_exception_response(request: Request, exc: Exception) -> JSONResponse:
             request=request,
             status_code=status.HTTP_409_CONFLICT,
             code="commerce_not_open",
-            message="当前处于免费冷启动阶段，不开放购买。",
+            message="当前未开放购买，不会创建订单。",
         )
     if isinstance(exc, Stage8CommerceNotFound):
         return public_error_response(

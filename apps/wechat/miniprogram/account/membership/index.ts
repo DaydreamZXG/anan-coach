@@ -62,7 +62,7 @@ Page({
     accepted: false,
     paying: false,
     refunding: false,
-    entitlementLabel: "免费版",
+    entitlementLabel: "当前服务",
     entitlementPeriod: "",
     effectiveDays: 0,
     effectiveDaysRequired: 0,
@@ -71,9 +71,9 @@ Page({
     coreRatioLabel: "尚无到期任务",
     clientPlatform: "",
     freeColdStart: true,
-    paymentDisclosure: "现在是免费开放阶段，不会产生任何扣费。",
+    paymentDisclosure: "当前未开放购买，不会产生任何扣费。",
     paymentEnabled: false,
-    commercialModeLabel: "当前全功能免费",
+    commercialModeLabel: "当前未开放购买",
     refundBlockingLabel: "",
   },
 
@@ -141,12 +141,12 @@ Page({
         refundPolicyTitle: refundPolicy?.title ?? "退款规则",
         refundPolicyLabel: refundPolicy?.contentLabel ?? "",
         entitlementLabel: freeColdStart
-          ? "免费开放阶段"
+          ? "当前服务"
           : dashboard.entitlement.tier === "pro"
             ? "陪练会员"
             : "免费版",
         entitlementPeriod: freeColdStart
-          ? "所有注册用户开放"
+          ? "注册后可使用"
           : dashboard.entitlement.subscriptionEnd
             ? `有效至 ${dashboard.entitlement.subscriptionEnd.slice(0, 10)}`
             : "当前没有开通会员",
@@ -160,10 +160,10 @@ Page({
             : `${String(Math.round(ratio * 100))}%`,
         clientPlatform: platform,
         paymentEnabled: dashboard.catalog.orderingEnabled && environment.virtualPaymentEnabled,
-        commercialModeLabel: freeColdStart ? "当前全功能免费" : "开通了哪些，就能用哪些",
+        commercialModeLabel: freeColdStart ? "当前未开放购买" : "开通了哪些，就能用哪些",
         refundBlockingLabel: refundBlockingLabel(dashboard.refundEligibility?.blockingCode ?? null),
         paymentDisclosure: freeColdStart
-          ? "现在是免费开放阶段，不会产生任何扣费。"
+          ? "当前未开放购买，不会产生任何扣费。"
           : !environment.virtualPaymentEnabled
             ? "现在还不能开通会员，也不会扣任何费用。"
             : "通过微信支付 · 一次付费 · 不自动续费",

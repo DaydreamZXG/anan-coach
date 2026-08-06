@@ -231,8 +231,6 @@
 }
 
 .material-segment {
-  display: flex;
-  gap: calc(20 * var(--rpx));
   padding: calc(28 * var(--rpx));
   scroll-margin-top: calc(24 * var(--rpx));
 }
@@ -257,12 +255,17 @@
 }
 
 .segment-body {
-  flex: 1;
   min-width: 0;
 }
 
+.segment-header {
+  display: flex;
+  align-items: center;
+  gap: calc(16 * var(--rpx));
+  margin-bottom: calc(18 * var(--rpx));
+}
+
 .segment-label {
-  margin-bottom: calc(12 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
 }
@@ -1180,8 +1183,12 @@
   }
 
   .material-segment {
-    gap: 14px;
     padding: 20px;
+  }
+
+  .segment-header {
+    gap: 12px;
+    margin-bottom: 14px;
   }
 
   .segment-index,

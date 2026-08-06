@@ -1,14 +1,14 @@
 <view class="s9-page s9-page--with-dock membership-page">
   <view class="s9-hero">
-    <view class="s9-title">{{freeColdStart ? '现在全功能免费开放' : '第一次付钱，也可以安心试'}}</view>
-    <view class="s9-subtitle">{{freeColdStart ? '所有注册用户直接就能用，不用买，也不会有任何扣费。' : (offer ? offer.subtitle : '服务期和退款规则，付款前都会给你看清楚。')}}</view>
+    <view class="s9-title">{{freeColdStart ? '直接使用岸岸' : '第一次付钱，也可以安心试'}}</view>
+    <view class="s9-subtitle">{{freeColdStart ? '当前不需要开通会员，本页也不会发起购买或扣款。' : (offer ? offer.subtitle : '服务期和退款规则，付款前都会给你看清楚。')}}</view>
     <view wx:if="{{!freeColdStart}}" class="s9-chip-row">
       <view class="s9-chip s9-chip--gold">创始体验官</view>
       <view class="s9-chip s9-chip--primary">{{offer ? offer.remainingLabel : '名额待确认'}}</view>
     </view>
     <view wx:else class="s9-chip-row">
-      <view class="s9-chip s9-chip--primary">公开免费</view>
-      <view class="s9-chip">阶段性开放</view>
+      <view class="s9-chip s9-chip--primary">无需开通</view>
+      <view class="s9-chip">无自动续费</view>
     </view>
   </view>
 
@@ -18,26 +18,26 @@
   <block wx:elif="{{freeColdStart}}">
     <view class="s9-stack">
       <view class="s9-card s9-card--primary founder-card">
-        <view class="s9-card-kicker">当前开放状态</view>
-        <view class="s9-card-title">注册后即可使用岸岸</view>
-        <view class="s9-card-copy">岗位、训练、申论批改、拍照搜题、报告和学习档案都正常开放，不分会员身份。</view>
-        <view class="s9-card-meta">现在不收费 · 不会自动扣费 · 不自动续费</view>
+        <view class="s9-card-kicker">当前服务状态</view>
+        <view class="s9-card-title">不用开通会员</view>
+        <view class="s9-card-copy">岗位、训练、申论批改、拍照搜题、报告和学习档案可以直接使用。</view>
+        <view class="s9-card-meta">没有购买按钮 · 不会发起扣款</view>
       </view>
 
       <view class="s9-card guarantee-card">
-        <view class="s9-card-kicker">阶段说明</view>
-        <view class="s9-card-title">现在是免费的，但这不是永久承诺</view>
+        <view class="s9-card-kicker">付费边界</view>
+        <view class="s9-card-title">任何付费都要由你主动确认</view>
         <view class="s9-card-copy">如果以后要收费，会在你付钱之前把价格、服务内容和退款规则单独讲清楚；不会因为看过这一页，就默认你同意任何付费约定。</view>
         <view class="s9-card-meta">{{commercialModeLabel}}</view>
       </view>
     </view>
 
     <view class="s9-section">
-      <view class="s9-section-head"><view class="s9-section-title">目前开放的范围</view><view class="s9-section-meta">{{entitlementPeriod}}</view></view>
+      <view class="s9-section-head"><view class="s9-section-title">当前服务范围</view><view class="s9-section-meta">{{entitlementPeriod}}</view></view>
       <view class="s9-list">
-        <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">现在没有收费开通的地方</view><view class="s9-list-copy">现在不会收费；以后开放时，会先跟你确认再扣钱。</view></view></view>
+        <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">当前没有购买入口</view><view class="s9-list-copy">本页不会创建订单；以后开放时，会先展示完整规则并由你确认。</view></view></view>
         <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">你的学习数据不会被会员影响</view><view class="s9-list-copy">作答、档案、计划、私人资料和导出属于你的学习数据。</view></view></view>
-        <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">免费开放，不等于可以乱用</view><view class="s9-list-copy">批量爬题、脚本刷题、恶意文件和账号共用，仍会被系统拦下来。</view></view></view>
+        <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">服务规则照常生效</view><view class="s9-list-copy">批量爬题、脚本刷题、恶意文件和账号共用，仍会被系统拦下来。</view></view></view>
       </view>
     </view>
   </block>

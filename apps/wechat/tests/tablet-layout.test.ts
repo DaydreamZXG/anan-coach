@@ -198,6 +198,15 @@ describe("tablet responsive layout contract", () => {
     expect(essayTemplate).toContain('class="essay-workbench-grid"');
     expect(essayTemplate).toContain('class="essay-context-pane"');
     expect(essayTemplate).toContain('class="essay-action-pane"');
+    expect(essayTemplate).toContain('class="segment-header"');
+    expect(essayTemplate).toMatch(
+      /class="segment-header"[\s\S]*?class="segment-index type-data"[\s\S]*?class="segment-label"[\s\S]*?class="segment-body"/u,
+    );
+    expect(essayStyles).toMatch(/\.material-segment \{[^}]*padding:/u);
+    expect(essayStyles).not.toMatch(/\.material-segment \{[^}]*display:\s*flex/u);
+    expect(essayStyles).toMatch(
+      /\.segment-header \{[^}]*display:\s*flex;[^}]*align-items:\s*center;[^}]*margin-bottom:/u,
+    );
     expect(essayStyles).toContain("grid-template-columns: minmax(360px, 0.9fr)");
     expect(essayStyles).toContain("max-height: calc(100vh - 180px)");
     expect(essayWorkbenchStyles).toContain("max-width: 1120px");

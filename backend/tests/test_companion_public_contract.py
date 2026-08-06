@@ -1,3 +1,4 @@
+from dataclasses import replace
 from uuid import uuid4
 
 import pytest
@@ -113,11 +114,45 @@ def test_context_sources_separate_model_payload_from_public_summary() -> None:
         "本次判断汇总了 2 条已记录学习证据；当前没有待复测项目。"
     )
     assert summaries["daily_plan"] == (
-        "今日共 2 项任务：行测「行测提分练习：言语理解与表达」，60 分钟；"
+        "今日共 2 项，预计 75 分钟：行测「行测提分练习：言语理解与表达」，60 分钟；"
         "申论「建立申论材料地图」，15 分钟。"
     )
     assert summaries["target_position"] == "国考：尚未确认具体主目标岗位，目标总分为 131.8 分。"
     assert all("{" not in (summary or "") for summary in summaries.values())
+
+
+def test_today_plan_summary_groups_repeated_training() -> None:
+    context = replace(
+        _context(),
+        today_plan_tasks=[
+            {
+                "track": "xingce",
+                "title": "言语理解与表达",
+                "estimatedMinutes": 30,
+                "status": "pending",
+            },
+            {
+                "track": "xingce",
+                "title": "言语理解与表达（第 2 组）",
+                "estimatedMinutes": 30,
+                "status": "complete",
+            },
+            {
+                "track": "xingce",
+                "title": "言语理解与表达（第 3 组）",
+                "estimatedMinutes": 30,
+                "status": "pending",
+            },
+        ],
+    )
+
+    candidates = _context_retrieval_candidates(context)
+    plan = next(candidate for candidate in candidates if candidate.reference.kind == "daily_plan")
+
+    assert plan.reference.title == "今日计划概览"
+    assert plan.display_summary == (
+        "今日共 3 项，预计 90 分钟：行测「言语理解与表达」3 组，共 90 分钟，1 组已完成。"
+    )
 
 
 def test_selected_citation_uses_public_summary_instead_of_json_excerpt() -> None:

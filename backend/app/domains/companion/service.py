@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from hashlib import sha256
 import json
+import re
 from typing import Any, Literal, TypeVar
 from uuid import NAMESPACE_URL, uuid5
 
@@ -1562,7 +1563,7 @@ def _context_retrieval_candidates(context: CompanionContextRecord) -> tuple[Any,
                 source_id="daily-plan-current",
                 version=_stable_payload_version(today_plan),
                 anchor="current-tasks",
-                title="今日完整计划",
+                title="今日计划概览",
                 text_value=json.dumps(today_plan, ensure_ascii=False, sort_keys=True),
                 trust_scope="daily_plan",
                 source_weight=1.0,
@@ -1791,15 +1792,73 @@ def _today_plan_citation_summary(context: CompanionContextRecord) -> str:
     if not tasks:
         return "今日暂未安排学习任务。"
     track_labels = {"xingce": "行测", "essay": "申论", "mock": "模考", "recovery": "复盘"}
-    task_parts = []
+    groups: dict[tuple[str, str], dict[str, object]] = {}
     for item in tasks:
-        title = str(item.get("title") or "学习任务").strip()
+        title = re.sub(
+            r"\s*[（(]第\s*\d+\s*组[）)]\s*$",
+            "",
+            str(item.get("title") or "学习任务").strip(),
+        )
         track = track_labels.get(str(item.get("track") or ""), "学习")
         minutes = item.get("estimatedMinutes")
-        duration = f"，{minutes} 分钟" if isinstance(minutes, int) else ""
-        status = "，已完成" if item.get("status") == "complete" else ""
-        task_parts.append(f"{track}「{title}」{duration}{status}")
-    return f"今日共 {len(tasks)} 项任务：" + "；".join(task_parts) + "。"
+        key = (track, title)
+        group = groups.setdefault(
+            key,
+            {
+                "track": track,
+                "title": title,
+                "count": 0,
+                "total_minutes": 0,
+                "minutes_complete": True,
+                "completed_count": 0,
+            },
+        )
+        group["count"] = int(group["count"]) + 1
+        if isinstance(minutes, int):
+            group["total_minutes"] = int(group["total_minutes"]) + minutes
+        else:
+            group["minutes_complete"] = False
+        if item.get("status") == "complete":
+            group["completed_count"] = int(group["completed_count"]) + 1
+
+    total_minutes = sum(
+        int(item.get("estimatedMinutes") or 0)
+        for item in tasks
+        if isinstance(item.get("estimatedMinutes"), int)
+    )
+    all_minutes_known = all(isinstance(item.get("estimatedMinutes"), int) for item in tasks)
+    headline = f"今日共 {len(tasks)} 项"
+    if all_minutes_known:
+        headline += f"，预计 {total_minutes} 分钟"
+
+    group_parts: list[str] = []
+    visible_groups = list(groups.values())
+    if len(visible_groups) > 4:
+        hidden_count = len(visible_groups) - 3
+        visible_groups = visible_groups[:3]
+    else:
+        hidden_count = 0
+    for group in visible_groups:
+        track = str(group["track"])
+        title = str(group["title"])
+        count = int(group["count"])
+        completed_count = int(group["completed_count"])
+        if count > 1:
+            part = f"{track}「{title}」{count} 组"
+            if bool(group["minutes_complete"]):
+                part += f"，共 {int(group['total_minutes'])} 分钟"
+            if completed_count > 0:
+                part += f"，{completed_count} 组已完成"
+        else:
+            part = f"{track}「{title}」"
+            if bool(group["minutes_complete"]):
+                part += f"，{int(group['total_minutes'])} 分钟"
+            if completed_count > 0:
+                part += "，已完成"
+        group_parts.append(part)
+    if hidden_count > 0:
+        group_parts.append(f"另有 {hidden_count} 类任务，完整安排在今日计划中")
+    return headline + "：" + "；".join(group_parts) + "。"
 
 
 def _essay_citation_summary(context: CompanionContextRecord) -> str:

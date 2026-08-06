@@ -483,6 +483,33 @@
   border-radius: var(--radius-24);
   background: var(--bg);
 }
+.citation-summary-list {
+  margin-top: calc(18 * var(--rpx));
+  border-top: calc(1 * var(--rpx)) solid var(--line);
+}
+.citation-summary-item {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(12 * var(--rpx));
+  padding: calc(14 * var(--rpx)) 0;
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
+  line-height: 1.55;
+}
+.citation-summary-item + .citation-summary-item {
+  border-top: calc(1 * var(--rpx)) solid var(--line);
+}
+.citation-summary-mark {
+  flex: none;
+  width: calc(8 * var(--rpx));
+  height: calc(8 * var(--rpx));
+  margin-top: calc(11 * var(--rpx));
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+.citation-summary-copy {
+  min-width: 0;
+}
 .limitations {
   margin-top: calc(28 * var(--rpx));
 }

@@ -127,10 +127,12 @@ describe("WeChat virtual payment", () => {
     expect(membershipSource).not.toContain("requestWechatPayment");
   });
 
-  it("keeps paid code private while free cold start owns the public UI", () => {
+  it("keeps paid code private while purchase is unavailable", () => {
     expect(meTemplate).not.toContain("会员与保障");
     expect(meTemplate).not.toContain("openMembership");
-    expect(membershipTemplate).toContain("现在全功能免费开放");
+    expect(membershipTemplate).toContain("当前不需要开通会员");
+    expect(membershipTemplate).not.toContain("冷启动");
+    expect(membershipTemplate).not.toContain("全功能免费");
     expect(membershipTemplate).toContain('wx:elif="{{freeColdStart}}"');
     expect(membershipTemplate).toContain('wx:if="{{offer && paymentEnabled}}"');
   });

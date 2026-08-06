@@ -8,6 +8,7 @@ import { ApiClientError } from "../../api/client";
 
 export type CompanionCitationView = CompanionCitation & {
   sourceLabel: string;
+  summaryItems: string[];
 };
 
 export type CompanionAnswerView = Omit<CompanionAskResponse, "citations"> & {
@@ -66,6 +67,7 @@ export interface CompanionContextView {
 const sourceLabels: Record<string, string> = {
   learner_activity: "练习与模考记录",
   learning_brain: "学习档案",
+  daily_plan: "今日计划",
   essay_learning: "申论学习记录",
   target_position: "目标岗位资料",
   method_card: "已验证学习方法",
@@ -99,6 +101,118 @@ function publicCitationSummary(citation: CompanionCitation): string {
   return citationFallbackSummaries[citation.kind] ?? "已读取与当前问题相关的学习依据。";
 }
 
+interface DailyPlanGroup {
+  track: string;
+  title: string;
+  count: number;
+  totalMinutes: number | null;
+  completedCount: number;
+}
+
+interface CitationPresentation {
+  summary: string;
+  summaryItems: string[];
+}
+
+function normalizedPlanTaskTitle(value: string): string {
+  return value.replace(/\s*[（(]第\s*\d+\s*组[）)]\s*$/u, "").trim();
+}
+
+function parseDailyPlanGroup(value: string): DailyPlanGroup | null {
+  const grouped =
+    /^([^「]+)「(.+?)」(\d+)\s*组，共\s*(\d+)\s*分钟(?:，\s*(\d+)\s*组已完成)?$/u.exec(value);
+  if (grouped?.[1] && grouped[2] && grouped[3] && grouped[4]) {
+    return {
+      track: grouped[1].trim(),
+      title: normalizedPlanTaskTitle(grouped[2]),
+      count: Number(grouped[3]),
+      totalMinutes: Number(grouped[4]),
+      completedCount: Number(grouped[5] ?? 0),
+    };
+  }
+
+  const single = /^([^「]+)「(.+?)」(?:，\s*(\d+)\s*分钟)?(?:，\s*(已完成))?$/u.exec(value);
+  if (!single?.[1] || !single[2]) return null;
+  return {
+    track: single[1].trim(),
+    title: normalizedPlanTaskTitle(single[2]),
+    count: 1,
+    totalMinutes: single[3] ? Number(single[3]) : null,
+    completedCount: single[4] ? 1 : 0,
+  };
+}
+
+function compactDailyPlanCitation(summary: string): CitationPresentation | null {
+  const normalized = summary
+    .replace(/\s+/gu, " ")
+    .trim()
+    .replace(/[。.]\s*$/u, "");
+  const match = /^今日共\s*(\d+)\s*项(?:任务)?(?:，预计\s*(\d+)\s*分钟)?[:：](.+)$/u.exec(
+    normalized,
+  );
+  if (!match?.[1] || !match[3]) return null;
+  const parts = match[3]
+    .split("；")
+    .map((item) => item.trim())
+    .filter(Boolean);
+  const continuationItems = parts.filter((item) => item.startsWith("另有 "));
+  const parsed = parts.filter((item) => !item.startsWith("另有 ")).map(parseDailyPlanGroup);
+  if (!parsed.length || parsed.some((item) => item === null)) return null;
+
+  const groups = new Map<string, DailyPlanGroup>();
+  for (const item of parsed) {
+    if (!item) continue;
+    const key = item.track + "\n" + item.title;
+    const current = groups.get(key);
+    if (!current) {
+      groups.set(key, { ...item });
+      continue;
+    }
+    current.count += item.count;
+    current.completedCount += item.completedCount;
+    current.totalMinutes =
+      current.totalMinutes === null || item.totalMinutes === null
+        ? null
+        : current.totalMinutes + item.totalMinutes;
+  }
+
+  const taskCount = Number(match[1]);
+  const planGroups = [...groups.values()];
+  const parsedMinutes = planGroups.reduce<number | null>(
+    (total, item) =>
+      total === null || item.totalMinutes === null ? null : total + item.totalMinutes,
+    0,
+  );
+  const totalMinutes = match[2] ? Number(match[2]) : parsedMinutes;
+  const completedCount = planGroups.reduce((total, item) => total + item.completedCount, 0);
+  const headlineParts = ["今日 " + String(taskCount) + " 项"];
+  if (totalMinutes !== null) headlineParts.push("预计 " + String(totalMinutes) + " 分钟");
+  if (completedCount > 0) headlineParts.push("已完成 " + String(completedCount) + " 项");
+
+  const visibleGroups = planGroups.length > 4 ? planGroups.slice(0, 3) : planGroups;
+  const summaryItems = visibleGroups.map((item) => {
+    const parts = [item.track, item.title];
+    if (item.count > 1) parts.push(String(item.count) + " 组");
+    if (item.totalMinutes !== null) parts.push(String(item.totalMinutes) + " 分钟");
+    if (item.completedCount > 0) parts.push(String(item.completedCount) + " 组已完成");
+    return parts.join(" · ");
+  });
+  if (planGroups.length > visibleGroups.length) {
+    summaryItems.push(
+      "另有 " + String(planGroups.length - visibleGroups.length) + " 类任务，完整安排在今日计划中",
+    );
+  } else if (continuationItems[0]) {
+    summaryItems.push(continuationItems[0]);
+  }
+  return { summary: headlineParts.join(" · "), summaryItems };
+}
+
+function citationPresentation(citation: CompanionCitation): CitationPresentation {
+  const summary = publicCitationSummary(citation);
+  if (citation.kind !== "daily_plan") return { summary, summaryItems: [] };
+  return compactDailyPlanCitation(summary) ?? { summary, summaryItems: [] };
+}
+
 export function companionAnswerView(
   response: CompanionAskResponse,
   stateLabel: string,
@@ -108,16 +222,19 @@ export function companionAnswerView(
   const quotaUnlimited = response.quota.accessMode === "unlimited";
   return {
     ...response,
-    citations: response.citations.map((citation) => ({
-      ...citation,
-      summary: publicCitationSummary(citation),
-      sourceLabel: sourceLabels[citation.kind] ?? "学习依据",
-    })),
+    citations: response.citations.map((citation) => {
+      const presentation = citationPresentation(citation);
+      return {
+        ...citation,
+        title: citation.kind === "daily_plan" ? "今日计划概览" : citation.title,
+        summary: presentation.summary,
+        summaryItems: presentation.summaryItems,
+        sourceLabel: sourceLabels[citation.kind] ?? "学习依据",
+      };
+    }),
     quotaRemaining,
     quotaUnlimited,
-    quotaSummaryLabel: quotaUnlimited
-      ? "冷启动期间可自由使用"
-      : `今日还可提问 ${String(quotaRemaining ?? 0)} 次`,
+    quotaSummaryLabel: quotaUnlimited ? "" : "今日还可提问 " + String(quotaRemaining ?? 0) + " 次",
     stateLabel,
     confidenceLabel: { low: "依据较少", medium: "依据一般", high: "依据充分" }[response.confidence],
     agentLabel: {

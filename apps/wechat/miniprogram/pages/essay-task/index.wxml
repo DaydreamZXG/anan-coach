@@ -129,9 +129,11 @@
         id="{{item.anchorId}}"
         class="material-segment"
       >
-        <view class="segment-index type-data">{{index + 1}}</view>
-        <view class="segment-body">
+        <view class="segment-header">
+          <view class="segment-index type-data">{{index + 1}}</view>
           <view class="segment-label">{{item.directoryLabel}} · {{item.paragraphLabel}}</view>
+        </view>
+        <view class="segment-body">
           <view
             wx:for="{{item.paragraphs}}"
             wx:for-item="paragraph"

@@ -157,6 +157,12 @@
           <view class="citation-title">{{item.title}}</view>
           <view class="citation-version">{{item.sourceLabel}}</view>
           <view class="citation-copy">{{item.summary}}</view>
+          <view wx:if="{{item.summaryItems && item.summaryItems.length}}" class="citation-summary-list">
+            <view wx:for="{{item.summaryItems}}" wx:key="*this" class="citation-summary-item">
+              <view class="citation-summary-mark"></view>
+              <view class="citation-summary-copy">{{item}}</view>
+            </view>
+          </view>
         </view>
 
         <view wx:if="{{answer.limitations.length}}" class="limitations">
@@ -167,7 +173,7 @@
         <view wx:if="{{answer.allowedActions.length}}" class="action-list">
           <button hover-class="item--hover" wx:for="{{answer.allowedActions}}" wx:key="label" class="answer-action action-button" data-index="{{index}}" bindtap="handleAction">{{item.label}}</button>
         </view>
-        <view class="quota-note">{{answer.quotaSummaryLabel}}</view>
+        <view wx:if="{{answer.quotaSummaryLabel}}" class="quota-note">{{answer.quotaSummaryLabel}}</view>
       </view>
     </view>
   </view>
