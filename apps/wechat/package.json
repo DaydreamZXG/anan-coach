@@ -4,6 +4,8 @@
   "private": true,
   "description": "AI 国考上岸教练微信小程序",
   "scripts": {
+    "aitest:check": "python3 scripts/sync-ai-cloud-plans.py --check",
+    "aitest:sync": "python3 scripts/sync-ai-cloud-plans.py --apply",
     "check": "npm run format:check && npm run typecheck && npm run lint && npm run tokens:validate && npm run interactions:validate && npm run controls:validate && npm run design:validate && npm run navigation:validate && npm run structure:validate && npm run visual:validate && npm run interaction-coverage:validate && npm run package:validate && npm run api:check && npm run test:node && npm run test && npm run test:cloud",
     "api:check": "node scripts/generate-api.mjs --check",
     "api:generate": "node scripts/generate-api.mjs",

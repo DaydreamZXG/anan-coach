@@ -86,6 +86,7 @@
 ## 4. 相关文档
 
 - 全量云测执行说明：`apps/wechat/minitest/README.md`（109 条 Minium 用例、三类账号、三种设备形态）
+- AI 全量计划：`apps/wechat/minitest/AI-FULL-PLAN.md`（25 条 AI 旅程和 3 组计划已同步云端，60/60 路由设计覆盖）
 - 0.1.10 内测与宣传口径：`docs/product/2026-08-06-wechat-0.1.10-full-test-and-public-beta.md`
 - 全局待办：`docs/engineering/global-backlog.md`（T14 主包超限、T15 云测修复已更新）
 - 操作备忘：`docs/engineering/operations-playbook.md`

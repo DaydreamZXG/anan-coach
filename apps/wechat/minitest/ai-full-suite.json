@@ -1,0 +1,602 @@
+{
+  "schemaVersion": 1,
+  "suiteId": "anan-wechat-0.1.10-ai-full",
+  "appVersion": "0.1.10",
+  "cases": [
+    {
+      "id": "M01",
+      "name": "岸岸AI-M01-今日计划理解与首要任务",
+      "priority": "P0",
+      "accountProfile": "mature",
+      "objective": "像真实学员一样理解今日计划、计划依据和第一项任务。",
+      "startRoute": "/pages/today/index",
+      "coverageRoutes": ["/pages/today/index", "/plans/plan-basis/index"],
+      "steps": [
+        "先完整观察今日页，说明今天可学时间、任务数量、第一项任务和完整模考入口分别在哪里。",
+        "检查首要任务与后续任务卡片、完整模考与记录今天之间是否有清晰间距，开始或继续按钮是否保持横排。",
+        "点击计划依据，阅读计划为什么这样安排，然后返回今日页。",
+        "点击第一项可执行任务，确认成功进入真实任务说明或任务工作区；不要提交任务。"
+      ],
+      "assertions": [
+        "今日页能看懂今天学多久、先做什么以及为什么这样安排",
+        "卡片没有紧贴、文字遮挡、按钮竖排或无法点击",
+        "计划依据可打开且第一项真实任务可进入"
+      ]
+    },
+    {
+      "id": "M02",
+      "name": "岸岸AI-M02-计划结算周计划与历史",
+      "priority": "P0",
+      "accountProfile": "mature",
+      "objective": "验证学员能从计划工具理解今天、这周和历史变化。",
+      "startRoute": "/plans/daily-settlement/index",
+      "coverageRoutes": [
+        "/plans/daily-settlement/index",
+        "/plans/plan-history/index",
+        "/plans/weekly-plan/index"
+      ],
+      "steps": [
+        "阅读今日结算页面，确认完成情况、剩余事项或空态说明清楚。",
+        "返回今日页，进入周计划，向下滑动查看本周节奏和任务安排。",
+        "打开计划历史，检查历史变更有时间、原因或结果说明。"
+      ],
+      "assertions": [
+        "今日结算、周计划和计划历史都能稳定显示，不出现白屏或无限加载",
+        "学员能区分今天结果、本周安排和历史变更"
+      ]
+    },
+    {
+      "id": "M03",
+      "name": "岸岸AI-M03-学习时间调整预览与二战入口",
+      "priority": "P1",
+      "accountProfile": "mature",
+      "objective": "只读探索学习时间设置、今日调整预览和二战计划入口。",
+      "startRoute": "/plans/study-preference/index",
+      "coverageRoutes": [
+        "/plans/study-preference/index",
+        "/plans/day-adjustment/index",
+        "/plans/retake/index"
+      ],
+      "steps": [
+        "查看当前每周学习时间设置，确认半小时粒度和默认值易于理解；不要保存修改。",
+        "打开调整今天，改变一个精力选项并生成预览，阅读任务变化与目标影响；不要点击最终确认。",
+        "返回后打开二战计划入口，检查前置说明和开始按钮。"
+      ],
+      "assertions": [
+        "学习时间和精力调整的单位、当前值与影响说明明确",
+        "生成预览不会直接保存，二战入口能正常呈现"
+      ]
+    },
+    {
+      "id": "M04",
+      "name": "岸岸AI-M04-岗位搜索与资格依据",
+      "priority": "P0",
+      "accountProfile": "mature",
+      "objective": "从岗位工作区找到真实岗位并理解资格依据。",
+      "startRoute": "/pages/positions/index",
+      "coverageRoutes": [
+        "/pages/positions/index",
+        "/pages/positions/search/index",
+        "/pages/positions/detail/index"
+      ],
+      "steps": [
+        "观察岗位工作区当前目标、资格状态和推荐入口。",
+        "进入岗位搜索，使用现有筛选或搜索结果，选择第一条真实岗位。",
+        "在岗位详情向下滑动，查看学历、专业、政治面貌等资格要求及其证据说明。",
+        "不要确认或修改任何资格事实。"
+      ],
+      "assertions": [
+        "岗位搜索结果可打开真实详情",
+        "岗位详情能区分岗位事实、用户资格和判断依据",
+        "页面不存在空白详情、重叠或无法返回"
+      ]
+    },
+    {
+      "id": "M05",
+      "name": "岸岸AI-M05-岗位对比目标与考情",
+      "priority": "P0",
+      "accountProfile": "mature",
+      "objective": "验证岗位对比、目标预览和考情简报能形成连续决策。",
+      "startRoute": "/pages/positions/compare/index",
+      "coverageRoutes": [
+        "/pages/positions/compare/index",
+        "/pages/positions/goal/index",
+        "/pages/positions/briefing/index"
+      ],
+      "steps": [
+        "查看岗位对比页面，比较至少两项可见差异；如果没有足够岗位，要明确显示如何补充。",
+        "进入目标岗位影响预览，阅读目标分、计划或风险变化；不要最终确认目标变更。",
+        "进入岗位考情简报，向下滑动查看考试结构、竞争或分数依据。"
+      ],
+      "assertions": [
+        "岗位对比不是只有名称，能看到有决策价值的差异或明确空态",
+        "目标影响与考情依据可理解且不互相矛盾"
+      ]
+    },
+    {
+      "id": "M06",
+      "name": "岸岸AI-M06-能力画像模块与错因证据",
+      "priority": "P0",
+      "accountProfile": "mature",
+      "objective": "从能力画像进入模块报告并查看原始错因证据。",
+      "startRoute": "/pages/ability/index",
+      "coverageRoutes": [
+        "/pages/ability/index",
+        "/reports/ability-module/index",
+        "/reports/error-pattern/index"
+      ],
+      "steps": [
+        "观察能力首页，找出行测和申论的当前状态与有数据的能力模块。",
+        "点击第一个可打开模块，阅读能力结论、样本量、置信或边界说明。",
+        "从报告进入错误模式或原始证据，检查结论能追溯到真实训练记录。"
+      ],
+      "assertions": [
+        "能力结论没有把无数据伪装成低分",
+        "模块报告能说明结论依据和数据边界",
+        "错误模式可以追溯到原始证据"
+      ]
+    },
+    {
+      "id": "M07",
+      "name": "岸岸AI-M07-行测任务说明与工具可理解性",
+      "priority": "P0",
+      "accountProfile": "mature",
+      "objective": "验证行测任务开始前的信息和作答工具说明。",
+      "startRoute": "/xingce/xingce-task-intro/index",
+      "coverageRoutes": ["/xingce/xingce-task-intro/index"],
+      "steps": [
+        "阅读任务说明中的模块、题量、预计时间和训练目的。",
+        "检查开始按钮、退出方式和前置状态是否清楚。",
+        "本用例不要点击开始，避免创建新的作答记录。"
+      ],
+      "assertions": [
+        "开始任务前可以理解练什么、做多少题和为什么练",
+        "不可开始时会给出明确原因而不是无响应"
+      ]
+    },
+    {
+      "id": "M08",
+      "name": "岸岸AI-M08-行测掌握队列与收藏",
+      "priority": "P1",
+      "accountProfile": "mature",
+      "objective": "验证复测掌握队列和长期收藏的可读性。",
+      "startRoute": "/xingce/xingce-mastery/index",
+      "coverageRoutes": ["/xingce/xingce-mastery/index", "/xingce/xingce-mastery/favorites/index"],
+      "steps": [
+        "阅读掌握队列，区分待复测、已掌握、迁移验证或空态。",
+        "打开一条可查看项目但不要开始复测；如果没有项目，确认空态提供下一步。",
+        "进入收藏列表，查看题目摘要、收藏状态和取消入口；不要取消收藏。"
+      ],
+      "assertions": [
+        "掌握状态和下一步动作清楚，不把空数据当作完成",
+        "收藏列表可查看且不会发生误取消"
+      ]
+    },
+    {
+      "id": "M09",
+      "name": "岸岸AI-M09-学习包与答案导入入口",
+      "priority": "P1",
+      "accountProfile": "mature",
+      "objective": "探索行测申论学习包以及答案录入方式。",
+      "startRoute": "/xingce/learning-packets/index",
+      "coverageRoutes": ["/xingce/learning-packets/index", "/xingce/answer-ingestion/index"],
+      "steps": [
+        "在学习包页面切换行测与申论，观察内容、来源和适用阶段是否随之变化。",
+        "打开答案录入页面，切换文字、图片或其他可见录入方式，但不要调用系统相册。",
+        "检查每种方式是否解释支持内容、隐私和下一步。"
+      ],
+      "assertions": [
+        "行测与申论学习包切换后内容匹配当前学科",
+        "答案录入方式可区分且不会在未授权时自动打开系统能力"
+      ]
+    },
+    {
+      "id": "M10",
+      "name": "岸岸AI-M10-报告中心全局周期模考与外部成绩",
+      "priority": "P0",
+      "accountProfile": "mature",
+      "objective": "完整阅读报告中心的各类报告和下一步建议。",
+      "startRoute": "/reports/report-center/index",
+      "coverageRoutes": [
+        "/reports/report-center/index",
+        "/reports/report-overview/index",
+        "/reports/global-report/index",
+        "/reports/mock-report/index",
+        "/reports/external-report/index"
+      ],
+      "steps": [
+        "在报告中心识别周期报告、全局报告、模考报告和外部成绩入口。",
+        "逐个打开当前账号可用的报告，阅读结论、指标、证据和下一步动作，再返回报告中心。",
+        "进入外部成绩流程，只查看当前记录或录入说明，不保存新成绩。",
+        "遇到不可用报告时检查是否明确说明数据不足或生成条件。"
+      ],
+      "assertions": [
+        "报告类型可以区分，结论、证据和下一步不是空白",
+        "无报告时给出真实生成条件，不伪造分数或趋势",
+        "各报告能正常返回报告中心"
+      ]
+    },
+    {
+      "id": "M11",
+      "name": "岸岸AI-M11-申论材料成稿评阅改写证据链",
+      "priority": "P0",
+      "accountProfile": "mature",
+      "objective": "验证申论从材料到成稿、评阅、改写和证据的可追溯链。",
+      "startRoute": "/essay/essay-material/index",
+      "coverageRoutes": [
+        "/essay/essay-material/index",
+        "/essay/essay-compose/index",
+        "/essay/essay-review/index",
+        "/essay/essay-rewrite/index",
+        "/essay/essay-evidence/index"
+      ],
+      "steps": [
+        "阅读材料地图，检查目录、段落和题目要求能对应。",
+        "进入成稿工作台，只查看现有答案或空态，不提交。",
+        "依次查看评阅、改写对照和引用证据；若当前账号没有对应产物，检查缺失原因与返回路径。"
+      ],
+      "assertions": [
+        "材料、答案、评阅、改写和证据属于同一条申论任务链或明确说明缺失",
+        "评阅结论能追溯到答案片段和材料证据",
+        "页面不存在版本错配或无说明空白"
+      ]
+    },
+    {
+      "id": "M12",
+      "name": "岸岸AI-M12-资料导入与私人知识库",
+      "priority": "P1",
+      "accountProfile": "mature",
+      "objective": "验证资料导入入口和私人知识库检索详情。",
+      "startRoute": "/pages/capture-import/index",
+      "coverageRoutes": [
+        "/pages/capture-import/index",
+        "/pages/private-knowledge/index",
+        "/pages/private-knowledge/detail/index"
+      ],
+      "steps": [
+        "在资料导入页切换拍题与导入模式，但不要打开系统相机、相册或文件选择器。",
+        "进入私人知识库，搜索一个已有关键词；如果为空，检查空态是否解释如何导入。",
+        "打开第一条真实资料详情，查看来源、版本、处理状态和更新入口；不要上传新版本。"
+      ],
+      "assertions": [
+        "导入模式、资料隐私和处理状态说明清楚",
+        "私人资料可搜索并打开详情，或空态提供真实下一步",
+        "未主动确认前不触发系统文件能力"
+      ]
+    },
+    {
+      "id": "M13",
+      "name": "岸岸AI-M13-社区方法卡完整只读链",
+      "priority": "P1",
+      "accountProfile": "mature",
+      "objective": "只读探索方法卡草稿、结构、试用和贡献账本。",
+      "startRoute": "/community/community-draft/index",
+      "coverageRoutes": [
+        "/community/community-draft/index",
+        "/community/community-structure/index",
+        "/community/community-trial/index",
+        "/community/community-contributions/index"
+      ],
+      "steps": [
+        "查看方法来源选择和私人内容边界，不提交草稿。",
+        "打开结构与权利声明页面，检查原创、第三方和私人资料的区别。",
+        "查看独立试用说明和贡献奖励账本，不加入试用或发布内容。"
+      ],
+      "assertions": [
+        "社区内容来源、使用权和隐私边界明确",
+        "试用与贡献记录不是虚构奖励，空态有清楚说明"
+      ]
+    },
+    {
+      "id": "M14",
+      "name": "岸岸AI-M14-我的档案与资格维护",
+      "priority": "P0",
+      "accountProfile": "mature",
+      "objective": "从我的页面查看完整备考档案和资格维护入口。",
+      "startRoute": "/pages/me/index",
+      "coverageRoutes": [
+        "/pages/me/index",
+        "/pages/profile/archive/index",
+        "/pages/onboarding/profile/index"
+      ],
+      "steps": [
+        "观察我的页面姓名、目标、学习资产和设置入口是否分组清楚。",
+        "进入完整备考档案，阅读资格、岗位偏好、时间与能力评估。",
+        "进入资格维护页，检查已有字段是否正确回填；不要提交修改。",
+        "返回我的页面，确认底部导航和滚动位置没有异常。"
+      ],
+      "assertions": [
+        "个人档案信息来自当前账号且字段回填正确",
+        "查看档案不会意外修改数据",
+        "返回后我的页面和底部导航可用"
+      ]
+    },
+    {
+      "id": "M15",
+      "name": "岸岸AI-M15-岸岸上下文与证据边界",
+      "priority": "P0",
+      "accountProfile": "mature",
+      "objective": "验证岸岸在未提问时能说明当前学习上下文和能力边界。",
+      "startRoute": "/pages/anan/index",
+      "coverageRoutes": ["/pages/anan/index"],
+      "steps": [
+        "观察岸岸页面当前目标、今日状态、推荐提问和输入区。",
+        "检查页面是否说明数据来源、额度或当前不能回答的边界。",
+        "不要发送问题，避免消耗额度。"
+      ],
+      "assertions": [
+        "岸岸知道当前账号的学习上下文或明确说明尚缺什么",
+        "未提问时不会伪造回答，输入区没有被底部导航或键盘占位遮挡"
+      ]
+    },
+    {
+      "id": "M16",
+      "name": "岸岸AI-M16-会员协议隐私提醒与客服",
+      "priority": "P0",
+      "accountProfile": "mature",
+      "objective": "验证账号权益、协议、隐私、提醒设置和客服入口。",
+      "startRoute": "/account/membership/index",
+      "coverageRoutes": [
+        "/account/membership/index",
+        "/account/privacy/index",
+        "/account/terms/index",
+        "/account/notification-settings/index",
+        "/account/support/index"
+      ],
+      "steps": [
+        "阅读会员或开放范围说明，确认免费能力与受限能力边界。",
+        "依次查看用户协议和隐私中心，不创建导出或删除请求。",
+        "查看 AI 督学提醒设置的当前状态、时段和次数，不保存。",
+        "查看客服支持和二维码说明，不调用系统保存、识别或预览能力。"
+      ],
+      "assertions": [
+        "会员、协议、隐私和提醒的用户影响说明清楚",
+        "只读查看不会触发付费、订阅授权、导出或删除",
+        "客服入口提供可理解的求助方式"
+      ]
+    },
+    {
+      "id": "W01",
+      "name": "岸岸AI-W01-真实调整今日计划",
+      "priority": "P0",
+      "accountProfile": "disposable",
+      "objective": "真实修改专用账号的今日精力并验证计划重排。",
+      "startRoute": "/plans/day-adjustment/index",
+      "coverageRoutes": ["/plans/day-adjustment/index", "/pages/today/index"],
+      "steps": [
+        "记录当前可学时间、精力、任务数量和首要任务。",
+        "选择与当前不同的精力，保持学习时间不变，生成调整预览。",
+        "检查预览明确列出任务变化、保留内容和目标影响后，点击确认。",
+        "回到今日页，重新读取可学时间、精力和任务队列。"
+      ],
+      "assertions": [
+        "确认前能看到真实预览而不是直接保存",
+        "确认后今日计划版本和精力发生对应变化",
+        "调整后任务没有重复成十几张相同卡片"
+      ]
+    },
+    {
+      "id": "W02",
+      "name": "岸岸AI-W02-真实保存督学提醒",
+      "priority": "P1",
+      "accountProfile": "disposable",
+      "objective": "修改并保存专用账号的 AI 督学提醒偏好。",
+      "startRoute": "/account/notification-settings/index",
+      "coverageRoutes": ["/account/notification-settings/index"],
+      "steps": [
+        "记录当前提醒开关、接收时段、安静时段和每日上限。",
+        "修改一个不会触发系统订阅弹窗的普通偏好字段。",
+        "点击保存，等待页面明确显示保存成功。",
+        "重新打开页面，确认修改后的值仍然存在。"
+      ],
+      "assertions": ["保存操作返回明确成功结果", "重新进入后读取到相同偏好而不是只改了页面显示"]
+    },
+    {
+      "id": "W03",
+      "name": "岸岸AI-W03-真实提问与引用依据",
+      "priority": "P0",
+      "accountProfile": "disposable",
+      "objective": "向岸岸提出基于今日计划的问题并核对回答依据。",
+      "startRoute": "/pages/anan/index",
+      "coverageRoutes": ["/pages/anan/index"],
+      "steps": [
+        "在输入框输入：结合我今天的计划，只告诉我现在最该完成的一项任务，并说明依据。",
+        "发送后等待回答完成，不要重复点击发送。",
+        "阅读答案、理由、引用和限制；如果额度不足或上下文缺失，应明确返回失败原因。"
+      ],
+      "assertions": [
+        "岸岸回答了一个具体的当前任务而不是泛泛鼓励",
+        "回答包含可见依据或明确说明证据不足",
+        "一次点击只产生一次回答和一次额度消耗"
+      ]
+    },
+    {
+      "id": "W04",
+      "name": "岸岸AI-W04-真实创建个人数据导出",
+      "priority": "P1",
+      "accountProfile": "disposable",
+      "objective": "创建或恢复个人数据导出请求并验证状态。",
+      "startRoute": "/account/privacy/index",
+      "coverageRoutes": ["/account/privacy/index"],
+      "steps": [
+        "阅读导出范围，确认不包含密钥和第三方支付凭据。",
+        "如果已有导出请求，刷新状态；如果没有，点击创建导出。",
+        "等待页面显示生成中、已完成或明确失败状态；不要调用系统保存或转发。"
+      ],
+      "assertions": [
+        "导出请求有唯一可见状态且刷新不会重复创建",
+        "导出范围和隐私边界清楚",
+        "失败时有可恢复动作而不是一直加载"
+      ]
+    },
+    {
+      "id": "W05",
+      "name": "岸岸AI-W05-行测作答交卷与复盘闭环",
+      "priority": "P0",
+      "accountProfile": "disposable",
+      "objective": "从今日任务完成一次真实行测作答、交卷和复盘。",
+      "startRoute": "/pages/today/index",
+      "coverageRoutes": [
+        "/xingce/xingce-task-intro/index",
+        "/pages/practice/index",
+        "/pages/reflection/index"
+      ],
+      "steps": [
+        "在今日计划找到可执行的行测训练并进入；如果没有行测任务，直接失败并说明测试数据不足。",
+        "阅读任务说明并开始，至少完成两题：选择答案、填写信心，使用一次标记或排除功能。",
+        "打开答题卡，确认已答和未答数量正确；明确处置剩余未答题后交卷。",
+        "在结果页核对题量、正确率或暂无判分边界，然后进入关键题复盘。",
+        "记录一句真实错因原话，逐题完成复盘并提交给岸岸判断。"
+      ],
+      "assertions": [
+        "答案、信心和答题卡状态保持一致",
+        "交卷只产生一次训练结果并进入匹配的复盘记录",
+        "复盘保存后能看到下一步或后台判断状态"
+      ]
+    },
+    {
+      "id": "W06",
+      "name": "岸岸AI-W06-完整模考启动工具与报告入口",
+      "priority": "P0",
+      "accountProfile": "disposable",
+      "objective": "验证完整模考可启动、可作答、可暂停退出并能看到既有模考报告。",
+      "startRoute": "/pages/today/index",
+      "coverageRoutes": ["/pages/mock-exam/index", "/reports/mock-report/index"],
+      "steps": [
+        "从今日页进入完整模考，阅读题量、时长和交卷规则后开始。",
+        "完成前两题，使用一次暂停继续、答题卡和长题阅读设置。",
+        "退出时检查未完成提示和恢复说明，不要强行交完全部模考题。",
+        "打开账号已有的最近模考报告；如果没有报告，检查页面明确说明生成条件。"
+      ],
+      "assertions": [
+        "模考开始、暂停、继续、答题卡和退出恢复都可操作",
+        "退出未完成模考不会伪造成已完成成绩",
+        "已有模考报告可读，没有时提供真实空态"
+      ]
+    },
+    {
+      "id": "W07",
+      "name": "岸岸AI-W07-外部模考成绩录入与报告",
+      "priority": "P1",
+      "accountProfile": "disposable",
+      "objective": "录入一组合法外部成绩并确认报告和计划影响。",
+      "startRoute": "/reports/external-report/index",
+      "coverageRoutes": ["/reports/external-report/index", "/reports/report-center/index"],
+      "steps": [
+        "进入外部成绩录入，先阅读字段单位、范围和数据用途。",
+        "输入一组页面允许的测试成绩，提交前再次核对。",
+        "确认提交，等待报告生成或明确排队状态。",
+        "回到报告中心，确认新记录可追溯且不会覆盖无关历史成绩。"
+      ],
+      "assertions": [
+        "非法范围会阻止提交，合法测试成绩能保存",
+        "保存后存在可识别的新记录、报告或排队状态",
+        "新成绩不会被显示成应用内真实模考成绩"
+      ]
+    },
+    {
+      "id": "W08",
+      "name": "岸岸AI-W08-申论当前阶段真实提交",
+      "priority": "P0",
+      "accountProfile": "disposable",
+      "objective": "从今日计划完成当前申论阶段的一次真实结构化提交。",
+      "startRoute": "/pages/today/index",
+      "coverageRoutes": ["/pages/essay-task/index"],
+      "steps": [
+        "在今日计划找到可执行的申论任务并进入；如果没有申论任务，直接失败并说明测试数据不足。",
+        "先识别当前阶段是材料阅读、要点提取、提纲、成稿、评阅确认还是改写。",
+        "按照当前页面要求填写最少但有意义的测试内容，确保必填项、材料出处和字数边界满足要求。",
+        "提交前复核当前任务、材料和版本属于同一条任务链，然后只点击一次提交。",
+        "等待保存成功、评阅排队或下一阶段状态。"
+      ],
+      "assertions": [
+        "当前申论阶段和必填要求可理解",
+        "提交内容与当前材料和任务版本一致",
+        "一次提交只形成一个权威结果并显示后续状态"
+      ]
+    },
+    {
+      "id": "F01",
+      "name": "岸岸AI-F01-全新账号完整建档到今日计划",
+      "priority": "P0",
+      "accountProfile": "fresh",
+      "objective": "像首次使用的真实备考学员一样完成登录和全部新手引导。",
+      "startRoute": "/pages/login/index",
+      "coverageRoutes": [
+        "/pages/login/index",
+        "/pages/onboarding/entry/index",
+        "/pages/onboarding/preparation-experience/index",
+        "/pages/onboarding/index",
+        "/pages/onboarding/position-preference/index",
+        "/pages/onboarding/study-preference/index",
+        "/pages/onboarding/ability-baseline/index",
+        "/pages/onboarding/result/index",
+        "/pages/today/index"
+      ],
+      "steps": [
+        "阅读并同意用户协议与隐私政策，完成微信登录。",
+        "选择新建档案，按真实顺序填写备考经历和一组合法资格信息。",
+        "选择至少一个地区和岗位层级偏好。",
+        "选择每周可学 8 小时，不做额外二次确认。",
+        "选择尚不确定的能力起点，完成建档结果页。",
+        "进入首次今日计划，等待计划加载完成并理解第一项任务。"
+      ],
+      "assertions": [
+        "新用户可以连续完成所有步骤，没有循环、断路或重复确认可学时间",
+        "建档结果与刚填写的资格、岗位偏好和每周8小时一致",
+        "首次今日计划能生成且任务数量与可学时间相称"
+      ]
+    }
+  ],
+  "plans": [
+    {
+      "id": "mature",
+      "name": "岸岸0.1.10-AI全量-成熟账号",
+      "priority": "P0",
+      "accountProfile": "mature",
+      "caseIds": [
+        "M01",
+        "M02",
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16"
+      ],
+      "deviceMatrix": ["phone_portrait", "tablet_portrait", "tablet_landscape"]
+    },
+    {
+      "id": "disposable",
+      "name": "岸岸0.1.10-AI全量-写入账号",
+      "priority": "P0",
+      "accountProfile": "disposable",
+      "caseIds": ["W08", "W05", "W06", "W07", "W03", "W01", "W02", "W04"],
+      "deviceMatrix": ["phone_portrait"]
+    },
+    {
+      "id": "fresh",
+      "name": "岸岸0.1.10-AI全量-全新账号",
+      "priority": "P0",
+      "accountProfile": "fresh",
+      "caseIds": ["F01"],
+      "deviceMatrix": ["phone_portrait"]
+    }
+  ],
+  "manualPlatformCases": [
+    "相机拍题、相册选图与权限拒绝后恢复",
+    "系统文件选择器导入资料和更新私人资料版本",
+    "麦克风授权、录音、试听、上传和语音转文字",
+    "微信订阅消息授权弹窗与设置页同步",
+    "客服二维码预览、保存和识别",
+    "个人数据导出文件保存与转发"
+  ]
+}
