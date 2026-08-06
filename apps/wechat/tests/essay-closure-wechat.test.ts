@@ -16,15 +16,15 @@ import {
   criterionOptions,
   initialRewriteDraft,
   initialTransferDraft,
-} from "../miniprogram/features/essay-task/closure";
+} from "../miniprogram/pages/essay-task/features/closure";
 import {
   advanceEssayTransferFlow,
   pollEssayTransferReview,
-} from "../miniprogram/features/essay-task/closure-flow";
+} from "../miniprogram/pages/essay-task/features/closure-flow";
 import {
   loadEssayClosureDraft,
   storeEssayClosureDraft,
-} from "../miniprogram/features/essay-task/closure-store";
+} from "../miniprogram/pages/essay-task/features/closure-store";
 
 afterEach(() => {
   vi.unstubAllGlobals();

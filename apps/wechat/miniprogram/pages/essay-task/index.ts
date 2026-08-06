@@ -42,17 +42,17 @@ import {
   type CriterionOption,
   type EssayRewriteDraft,
   type EssayTransferDraft,
-} from "../../features/essay-task/closure";
+} from "./features/closure";
 import {
   advanceEssayTransferFlow,
   pollEssayTransferReview,
   transferPhaseMessage,
-} from "../../features/essay-task/closure-flow";
+} from "./features/closure-flow";
 import {
   clearEssayClosureDraft,
   loadEssayClosureDraft,
   storeEssayClosureDraft,
-} from "../../features/essay-task/closure-store";
+} from "./features/closure-store";
 import {
   answerSourceTypeLabels,
   answerSourceTypeValues,
@@ -103,11 +103,11 @@ import {
   presentReviewIntent,
   presentReviewJob,
   type ReviewDisplay,
-} from "../../features/essay-task/review-presentation";
+} from "./features/review-presentation";
 import {
   EssayTaskPageRuntimeRegistry,
   type EssayTaskPageRuntime,
-} from "../../features/essay-task/page-runtime";
+} from "./features/page-runtime";
 import {
   clearLegacyEssayPending,
   clearPendingDraftingSubmission as clearStoredDraftingSubmission,
@@ -154,7 +154,7 @@ import {
   needsRecognitionCorrection,
   reviewingHandwritingState,
   type EssayHandwritingState,
-} from "../../features/essay-handwriting/workflow";
+} from "./features/essay-handwriting/workflow";
 import {
   chooseSourceImage,
   ensureCameraPermission,

@@ -7,7 +7,7 @@ import {
   checkpointCommand,
   mergePendingDraft,
   runtimeFromXingceSession,
-} from "../../../miniprogram/features/xingce/real_attempt/controller";
+} from "../../../miniprogram/pages/practice/features/xingce/real_attempt/controller";
 import {
   loadPendingXingceCheckpoint,
   loadPendingXingceSubmit,

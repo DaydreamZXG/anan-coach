@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { scoreEvidenceHistoryItemView } from "../miniprogram/features/ability/history";
+import { scoreEvidenceHistoryItemView } from "../miniprogram/pages/positions/features/ability/history";
 
 describe("score evidence history presentation", () => {
   it("keeps a superseded record visible but unavailable for correction", () => {

@@ -7,7 +7,7 @@ import { currentAuthSession } from "../../../auth/session";
 import {
   PositionBriefingController,
   type PositionBriefingState,
-} from "../../../features/positions/briefing-controller";
+} from "../features/briefing-controller";
 
 interface PositionBriefingPageData {
   state: PositionBriefingState | null;

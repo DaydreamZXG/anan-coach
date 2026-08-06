@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 
-import { XfyunApi } from "../miniprogram/api/xfyun";
+import { XfyunApi } from "../miniprogram/pages/reflection/features/api/xfyun";
 import { maximumReflectionVoiceDurationMilliseconds } from "../miniprogram/features/learning-media/contracts";
 
 describe("讯飞学习媒体补强", () => {

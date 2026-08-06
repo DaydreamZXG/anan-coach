@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { abilityEstimateView } from "../miniprogram/features/ability/presentation";
+import { abilityEstimateView } from "../miniprogram/pages/positions/features/ability/presentation";
 
 describe("ability estimate presentation", () => {
   it("never labels a partial single-subject estimate as a usable total", () => {

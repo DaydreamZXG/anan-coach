@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { OnboardingResultProjection } from "../miniprogram/api/generated/types.gen";
-import { onboardingResultView } from "../miniprogram/features/onboarding/result-presentation";
+import { onboardingResultView } from "../miniprogram/pages/onboarding/features/result-presentation";
 
 describe("onboarding result presentation", () => {
   it("shows a signed, auditable gap only for complete dual-subject evidence", () => {

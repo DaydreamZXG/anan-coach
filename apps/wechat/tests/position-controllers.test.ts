@@ -17,17 +17,17 @@ import {
   planInvalidationViews,
   targetValidityView,
 } from "../miniprogram/features/positions/contracts";
-import { PositionDiscoveryController } from "../miniprogram/features/positions/discovery-controller";
-import { PositionCompareController } from "../miniprogram/features/positions/compare-controller";
-import { PositionDetailController } from "../miniprogram/features/positions/detail-controller";
+import { PositionDiscoveryController } from "../miniprogram/pages/positions/features/discovery-controller";
+import { PositionCompareController } from "../miniprogram/pages/positions/features/compare-controller";
+import { PositionDetailController } from "../miniprogram/pages/positions/features/detail-controller";
 import {
   positionOperationError,
   shouldRetainPositionCommand,
-} from "../miniprogram/features/positions/error-state";
-import { PositionPageRuntimeRegistry } from "../miniprogram/features/positions/runtime";
-import { PositionGoalController } from "../miniprogram/features/positions/goal-controller";
-import { PositionWorkspaceController } from "../miniprogram/features/positions/workspace-controller";
-import { positionFitView } from "../miniprogram/features/positions/presentation";
+} from "../miniprogram/pages/positions/features/error-state";
+import { PositionPageRuntimeRegistry } from "../miniprogram/pages/positions/features/runtime";
+import { PositionGoalController } from "../miniprogram/pages/positions/features/goal-controller";
+import { PositionWorkspaceController } from "../miniprogram/pages/positions/features/workspace-controller";
+import { positionFitView } from "../miniprogram/pages/positions/features/presentation";
 import {
   clearPositionStateForUser,
   PositionStateStore,

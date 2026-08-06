@@ -12,11 +12,11 @@ import {
   PositionDiscoveryController,
   type PositionDiscoveryState,
   type PositionSearchFilters,
-} from "../../../features/positions/discovery-controller";
+} from "../features/discovery-controller";
 import {
   PositionPageRuntimeRegistry,
   type PositionController,
-} from "../../../features/positions/runtime";
+} from "../features/runtime";
 import { PositionStateStore } from "../../../features/positions/state-store";
 
 interface PositionSearchPageData {

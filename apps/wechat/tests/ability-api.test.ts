@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { AbilityApi } from "../miniprogram/api/ability";
+import { AbilityApi } from "../miniprogram/pages/positions/features/api/ability";
 import { ApiClient } from "../miniprogram/api/client";
 
 afterEach(() => {

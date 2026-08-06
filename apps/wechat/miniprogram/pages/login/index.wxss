@@ -86,10 +86,10 @@
   flex-direction: column;
   margin-top: calc(32 * var(--rpx));
   color: var(--figma-color-ink);
-  font-size: var(--text-display);
+  font-size: var(--text-hero);
   font-weight: 700;
   letter-spacing: calc(-1.2 * var(--rpx));
-  line-height: calc(80 * var(--rpx));
+  line-height: calc(64 * var(--rpx));
 }
 
 .login-actions {

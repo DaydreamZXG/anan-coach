@@ -12,7 +12,7 @@ import {
   OnboardingResultController,
   type OnboardingResultNavigation,
   type OnboardingResultControllerState,
-} from "../../../features/onboarding/result-controller";
+} from "../features/result-controller";
 
 interface OnboardingResultPageData {
   state: OnboardingResultControllerState | null;

@@ -10,13 +10,13 @@ import { storeCompanionLaunchContext } from "../../features/companion/context-st
 import {
   CaptureImportController,
   type CaptureImportState,
-} from "../../features/external-learning/capture-controller";
+} from "./features/external-learning/capture-controller";
 import { requireExternalLearningGateway } from "../../features/external-learning/contracts";
 import { externalLearningError } from "../../features/external-learning/error";
 import {
   presentMatchCandidates,
   type MatchCandidateView,
-} from "../../features/external-learning/match-presentation";
+} from "./features/external-learning/match-presentation";
 import { ExternalLearningPageRuntimeRegistry } from "../../features/external-learning/page-runtime";
 import {
   chooseQuestionImage,

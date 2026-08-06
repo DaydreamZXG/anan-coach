@@ -1,5 +1,5 @@
 import { ApiClient } from "../../api/client";
-import { AbilityApi } from "../../api/ability";
+import { AbilityApi } from "./features/api/ability";
 import { QualificationApi } from "../../api/qualification";
 import { loginUrlForReturn } from "../../app/navigation/auth-return";
 import {
@@ -13,16 +13,16 @@ import { currentAuthSession } from "../../auth/session";
 import {
   PositionPageRuntimeRegistry,
   type PositionController,
-} from "../../features/positions/runtime";
+} from "./features/runtime";
 import {
   ScoreEvidenceController,
   type ScoreEvidenceControllerState,
-} from "../../features/positions/score-evidence-controller";
+} from "./features/score-evidence-controller";
 import { PositionStateStore } from "../../features/positions/state-store";
 import {
   PositionWorkspaceController,
   type PositionWorkspaceState,
-} from "../../features/positions/workspace-controller";
+} from "./features/workspace-controller";
 
 interface PositionWorkspacePageData {
   workspace: PositionWorkspaceState | null;

@@ -8,7 +8,7 @@ import { currentAuthSession } from "../../../auth/session";
 import {
   PositionPreferenceController,
   type PositionPreferenceControllerState,
-} from "../../../features/onboarding/position-preference-controller";
+} from "../features/position-preference-controller";
 import type { PositionLevel } from "../../../features/onboarding/position-preference";
 
 interface PositionLevelOption {

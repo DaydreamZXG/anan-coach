@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { decideAutosave, decideExit } from "../miniprogram/task-runtime/state/autosave";
+import { decideAutosave, decideExit } from "../miniprogram/pages/practice/features/task-runtime/state/autosave";
 import {
   createTaskRuntime,
   reduceTaskRuntime,

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { EssayTaskPageRuntimeRegistry } from "../miniprogram/features/essay-task/page-runtime";
+import { EssayTaskPageRuntimeRegistry } from "../miniprogram/pages/essay-task/features/page-runtime";
 
 afterEach(() => {
   vi.useRealTimers();

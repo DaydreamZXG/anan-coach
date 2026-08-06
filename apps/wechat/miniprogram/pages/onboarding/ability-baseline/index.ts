@@ -6,7 +6,7 @@ import { currentAuthSession } from "../../../auth/session";
 import {
   AbilityBaselineController,
   type AbilityBaselineControllerState,
-} from "../../../features/onboarding/ability-baseline-controller";
+} from "../features/ability-baseline-controller";
 
 interface AbilityBaselinePageData {
   state: AbilityBaselineControllerState | null;

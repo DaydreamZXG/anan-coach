@@ -27,7 +27,7 @@ import {
   runtimeFromXingceSession,
   runtimeWithPendingCheckpoint,
   XingcePageContractError,
-} from "../../features/xingce/real_attempt/controller";
+} from "./features/xingce/real_attempt/controller";
 import {
   isValidPlanTaskId,
   parseXingceTaskMode,
@@ -36,7 +36,7 @@ import {
   executeQuestionFavoriteCommand,
   type QuestionFavoriteDesiredState,
 } from "../../features/xingce/favorites/command";
-import { XingcePageRuntimeRegistry } from "../../features/xingce/real_attempt/page-runtime";
+import { XingcePageRuntimeRegistry } from "./features/xingce/real_attempt/page-runtime";
 import {
   formatElapsed,
   presentXingceTask,
@@ -59,7 +59,7 @@ import {
   TaskEditTakeoverDeclined,
 } from "../../features/task-editing/coordinator";
 import { createIdempotencyKey } from "../../platform/command-id";
-import { decideAutosave, decideExit } from "../../task-runtime/state/autosave";
+import { decideAutosave, decideExit } from "./features/task-runtime/state/autosave";
 import { appendStrokeWithinLimit } from "../../task-runtime/annotation-layer/strokes";
 import type { AnnotationStroke } from "../../task-runtime/contracts";
 import type { AnchorSegmentRect } from "../../task-runtime/annotation-layer/anchor";

@@ -12,11 +12,11 @@ import { storeCompanionLaunchContext } from "../../../features/companion/context
 import {
   PositionDetailController,
   type PositionDetailState,
-} from "../../../features/positions/detail-controller";
+} from "../features/detail-controller";
 import {
   PositionPageRuntimeRegistry,
   type PositionController,
-} from "../../../features/positions/runtime";
+} from "../features/runtime";
 import { PositionStateStore } from "../../../features/positions/state-store";
 
 interface PositionDetailPageData {

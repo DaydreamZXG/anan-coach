@@ -9,7 +9,7 @@ import type { QualificationApi } from "../miniprogram/api/qualification";
 import {
   QualificationController,
   type QualificationControllerState,
-} from "../miniprogram/features/onboarding/qualification-controller";
+} from "../miniprogram/pages/onboarding/features/qualification-controller";
 import {
   loadPendingQualification,
   ONBOARDING_PENDING_TTL_MS,

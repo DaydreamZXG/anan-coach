@@ -8,7 +8,7 @@ import { currentAuthSession } from "../../auth/session";
 import {
   QualificationController,
   type QualificationControllerState,
-} from "../../features/onboarding/qualification-controller";
+} from "./features/qualification-controller";
 import type { OnboardingNextStep } from "../../features/onboarding/types";
 import {
   emptyQualificationDraft,

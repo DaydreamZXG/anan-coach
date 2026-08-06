@@ -11,11 +11,11 @@ import { currentAuthSession } from "../../../auth/session";
 import {
   PositionCompareController,
   type PositionCompareState,
-} from "../../../features/positions/compare-controller";
+} from "../features/compare-controller";
 import {
   PositionPageRuntimeRegistry,
   type PositionController,
-} from "../../../features/positions/runtime";
+} from "../features/runtime";
 import { PositionStateStore } from "../../../features/positions/state-store";
 
 interface PositionComparePageData {

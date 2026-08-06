@@ -34,6 +34,26 @@ export const ONBOARDING_PENDING_TTL_MS = 7 * 24 * 60 * 60 * 1_000;
 const storageFamilyRoot = "gongkao.onboarding.pending";
 const storageRoot = `${storageFamilyRoot}.v${String(ONBOARDING_PENDING_SCHEMA_VERSION)}`;
 
+// 同一 key 在单页内会被控制器重复读取（最高 8ms/次），用内存缓存引用挡掉重复磁盘读。
+// 缓存存的是 wx 返回的原始引用，读时仍走完整校验，因此外部对 storage 的直改会被再次发现。
+const storageReadCache = new Map<string, unknown>();
+
+function cachedRead(key: string): unknown {
+  if (storageReadCache.has(key)) return storageReadCache.get(key);
+  const value: unknown = wx.getStorageSync(key);
+  storageReadCache.set(key, value);
+  return value;
+}
+
+function invalidateCacheKey(key: string): void {
+  storageReadCache.delete(key);
+}
+
+/** Test-only seam: clears the in-memory read cache so a fresh wx stub starts clean. */
+export function resetPendingStorageReadCache(): void {
+  storageReadCache.clear();
+}
+
 interface PendingEnvelope<T> {
   schemaVersion: typeof ONBOARDING_PENDING_SCHEMA_VERSION;
   ownerUserId: string;
@@ -105,6 +125,7 @@ export function storePendingPreparationExperience(
     payload: value,
   };
   wx.setStorageSync(preparationExperienceStorageKey(owner), envelope);
+  invalidateCacheKey(preparationExperienceStorageKey(owner));
 }
 
 export function loadPendingPreparationExperience(
@@ -113,10 +134,11 @@ export function loadPendingPreparationExperience(
 ): PendingPreparationExperienceCommand | null {
   const owner = required(ownerUserId, "userId");
   const key = preparationExperienceStorageKey(owner);
-  const value: unknown = wx.getStorageSync(key);
+  const value: unknown = cachedRead(key);
   if (value === undefined || value === null || value === "") return null;
   if (!isEnvelope(value, owner, validNow(nowMs), isPendingPreparationExperienceCommand)) {
     wx.removeStorageSync(key);
+    invalidateCacheKey(key);
     return null;
   }
   return value.payload;
@@ -124,6 +146,7 @@ export function loadPendingPreparationExperience(
 
 export function clearPendingPreparationExperience(ownerUserId: string): void {
   wx.removeStorageSync(preparationExperienceStorageKey(required(ownerUserId, "userId")));
+  invalidateCacheKey(preparationExperienceStorageKey(required(ownerUserId, "userId")));
 }
 
 export function storePendingQualification(
@@ -144,6 +167,7 @@ export function storePendingQualification(
     payload: value,
   };
   wx.setStorageSync(qualificationStorageKey(owner), envelope);
+  invalidateCacheKey(qualificationStorageKey(owner));
 }
 
 export function loadPendingQualification(
@@ -152,10 +176,11 @@ export function loadPendingQualification(
 ): PendingQualificationCommand | null {
   const owner = required(ownerUserId, "userId");
   const key = qualificationStorageKey(owner);
-  const value: unknown = wx.getStorageSync(key);
+  const value: unknown = cachedRead(key);
   if (value === undefined || value === null || value === "") return null;
   if (!isEnvelope(value, owner, validNow(nowMs), isPendingQualificationCommand)) {
     wx.removeStorageSync(key);
+    invalidateCacheKey(key);
     return null;
   }
   return value.payload;
@@ -163,6 +188,7 @@ export function loadPendingQualification(
 
 export function clearPendingQualification(ownerUserId: string): void {
   wx.removeStorageSync(qualificationStorageKey(required(ownerUserId, "userId")));
+  invalidateCacheKey(qualificationStorageKey(required(ownerUserId, "userId")));
 }
 
 export function storePendingPositionPreference(
@@ -183,6 +209,7 @@ export function storePendingPositionPreference(
     payload: value,
   };
   wx.setStorageSync(positionPreferenceStorageKey(owner), envelope);
+  invalidateCacheKey(positionPreferenceStorageKey(owner));
 }
 
 export function loadPendingPositionPreference(
@@ -191,10 +218,11 @@ export function loadPendingPositionPreference(
 ): PendingPositionPreferenceCommand | null {
   const owner = required(ownerUserId, "userId");
   const key = positionPreferenceStorageKey(owner);
-  const value: unknown = wx.getStorageSync(key);
+  const value: unknown = cachedRead(key);
   if (value === undefined || value === null || value === "") return null;
   if (!isEnvelope(value, owner, validNow(nowMs), isPendingPositionPreferenceCommand)) {
     wx.removeStorageSync(key);
+    invalidateCacheKey(key);
     return null;
   }
   return value.payload;
@@ -202,6 +230,7 @@ export function loadPendingPositionPreference(
 
 export function clearPendingPositionPreference(ownerUserId: string): void {
   wx.removeStorageSync(positionPreferenceStorageKey(required(ownerUserId, "userId")));
+  invalidateCacheKey(positionPreferenceStorageKey(required(ownerUserId, "userId")));
 }
 
 export function storePendingAbilityBaseline(
@@ -222,6 +251,7 @@ export function storePendingAbilityBaseline(
     payload: value,
   };
   wx.setStorageSync(abilityBaselineStorageKey(owner), envelope);
+  invalidateCacheKey(abilityBaselineStorageKey(owner));
 }
 
 export function loadPendingAbilityBaseline(
@@ -230,10 +260,11 @@ export function loadPendingAbilityBaseline(
 ): PendingAbilityBaselineCommand | null {
   const owner = required(ownerUserId, "userId");
   const key = abilityBaselineStorageKey(owner);
-  const value: unknown = wx.getStorageSync(key);
+  const value: unknown = cachedRead(key);
   if (value === undefined || value === null || value === "") return null;
   if (!isEnvelope(value, owner, validNow(nowMs), isPendingAbilityBaselineCommand)) {
     wx.removeStorageSync(key);
+    invalidateCacheKey(key);
     return null;
   }
   return value.payload;
@@ -241,6 +272,7 @@ export function loadPendingAbilityBaseline(
 
 export function clearPendingAbilityBaseline(ownerUserId: string): void {
   wx.removeStorageSync(abilityBaselineStorageKey(required(ownerUserId, "userId")));
+  invalidateCacheKey(abilityBaselineStorageKey(required(ownerUserId, "userId")));
 }
 
 export function storePendingStudyPreference(
@@ -261,6 +293,7 @@ export function storePendingStudyPreference(
     payload: value,
   };
   wx.setStorageSync(storageKey(owner), envelope);
+  invalidateCacheKey(storageKey(owner));
 }
 
 export function loadPendingStudyPreference(
@@ -269,10 +302,11 @@ export function loadPendingStudyPreference(
 ): PendingStudyPreferenceCommand | null {
   const owner = required(ownerUserId, "userId");
   const key = storageKey(owner);
-  const value: unknown = wx.getStorageSync(key);
+  const value: unknown = cachedRead(key);
   if (value === undefined || value === null || value === "") return null;
   if (!isEnvelope(value, owner, validNow(nowMs), isPendingStudyPreferenceCommand)) {
     wx.removeStorageSync(key);
+    invalidateCacheKey(key);
     return null;
   }
   return value.payload;
@@ -280,6 +314,7 @@ export function loadPendingStudyPreference(
 
 export function clearPendingStudyPreference(ownerUserId: string): void {
   wx.removeStorageSync(storageKey(required(ownerUserId, "userId")));
+  invalidateCacheKey(storageKey(required(ownerUserId, "userId")));
 }
 
 export function storePendingResultAcknowledgement(
@@ -300,6 +335,7 @@ export function storePendingResultAcknowledgement(
     payload: value,
   };
   wx.setStorageSync(resultStorageKey(owner), envelope);
+  invalidateCacheKey(resultStorageKey(owner));
 }
 
 export function loadPendingResultAcknowledgement(
@@ -308,10 +344,11 @@ export function loadPendingResultAcknowledgement(
 ): PendingResultAcknowledgement | null {
   const owner = required(ownerUserId, "userId");
   const key = resultStorageKey(owner);
-  const value: unknown = wx.getStorageSync(key);
+  const value: unknown = cachedRead(key);
   if (value === undefined || value === null || value === "") return null;
   if (!isEnvelope(value, owner, validNow(nowMs), isPendingResultAcknowledgement)) {
     wx.removeStorageSync(key);
+    invalidateCacheKey(key);
     return null;
   }
   return value.payload;
@@ -319,6 +356,7 @@ export function loadPendingResultAcknowledgement(
 
 export function clearPendingResultAcknowledgement(ownerUserId: string): void {
   wx.removeStorageSync(resultStorageKey(required(ownerUserId, "userId")));
+  invalidateCacheKey(resultStorageKey(required(ownerUserId, "userId")));
 }
 
 export function clearOnboardingPendingForUser(ownerUserId: string): void {
@@ -326,13 +364,17 @@ export function clearOnboardingPendingForUser(ownerUserId: string): void {
   for (const key of wx.getStorageInfoSync().keys) {
     if (key.startsWith(`${storageFamilyRoot}.v`) && key.includes(`.${owner}.`)) {
       wx.removeStorageSync(key);
+      invalidateCacheKey(key);
     }
   }
 }
 
 export function clearAllOnboardingPending(): void {
   for (const key of wx.getStorageInfoSync().keys) {
-    if (key.startsWith(`${storageFamilyRoot}.v`)) wx.removeStorageSync(key);
+    if (key.startsWith(`${storageFamilyRoot}.v`)) {
+      wx.removeStorageSync(key);
+      invalidateCacheKey(key);
+    }
   }
 }
 

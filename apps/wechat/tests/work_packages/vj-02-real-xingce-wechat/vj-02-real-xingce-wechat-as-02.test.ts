@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   checkpointCommand,
   runtimeFromXingceSession,
-} from "../../../miniprogram/features/xingce/real_attempt/controller";
+} from "../../../miniprogram/pages/practice/features/xingce/real_attempt/controller";
 import { assertLearnerSafeSession } from "../../../miniprogram/features/xingce/real_attempt/contracts";
 import {
   presentXingceResult,

@@ -1,5 +1,5 @@
 import { ApiClient, ApiClientError } from "../../../api/client";
-import { PrivateKnowledgeApi, type PrivateSourceSummary } from "../../../api/private-knowledge";
+import { PrivateKnowledgeApi, type PrivateSourceSummary } from "../features/api/private-knowledge";
 import { routes } from "../../../app/navigation/routes";
 import { navigateBackOr } from "../../../app/navigation/safe-back";
 import { currentAuthSession } from "../../../auth/session";

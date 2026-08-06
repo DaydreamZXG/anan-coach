@@ -12,7 +12,7 @@ import {
   editHandwritingSpan,
   needsRecognitionCorrection,
   reviewingHandwritingState,
-} from "../miniprogram/features/essay-handwriting/workflow";
+} from "../miniprogram/pages/essay-task/features/essay-handwriting/workflow";
 import {
   answerSummary,
   essayWriterUrl,

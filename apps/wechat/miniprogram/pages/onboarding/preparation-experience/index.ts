@@ -8,7 +8,7 @@ import { currentAuthSession, updateAuthDisplayName } from "../../../auth/session
 import {
   PreparationExperienceController,
   type PreparationExperienceControllerState,
-} from "../../../features/onboarding/preparation-experience-controller";
+} from "../features/preparation-experience-controller";
 import type { PreparationExperienceChoice } from "../../../features/onboarding/preparation-experience";
 import type { OnboardingNextStep } from "../../../features/onboarding/types";
 

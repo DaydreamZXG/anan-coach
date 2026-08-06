@@ -2,6 +2,8 @@ const authSessionKey = "gongkao.auth.session.v1";
 const legacyAccessTokenKey = "gongkao.auth.accessToken";
 const deviceIdKey = "gongkao.installation.deviceId";
 const hydratedSessionStores = new WeakSet();
+// deviceId 在设备生命周期内不变，读一次后走内存，避免启动路径每次同步读 storage。
+let memoizedDeviceId: string | null = null;
 
 interface SessionGlobalData {
   accessToken?: string;
@@ -133,10 +135,15 @@ export function sameSessionOwner(
 }
 
 export function currentDeviceId(): string {
+  if (memoizedDeviceId !== null) return memoizedDeviceId;
   const stored = wx.getStorageSync<string>(deviceIdKey);
-  if (stored) return stored;
+  if (stored) {
+    memoizedDeviceId = stored;
+    return stored;
+  }
   const generated = `wechat-${String(Date.now())}-${Math.random().toString(36).slice(2, 14)}`;
   wx.setStorageSync(deviceIdKey, generated);
+  memoizedDeviceId = generated;
   return generated;
 }
 

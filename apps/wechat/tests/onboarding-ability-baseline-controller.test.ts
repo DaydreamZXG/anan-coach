@@ -5,7 +5,7 @@ import type { OnboardingApi } from "../miniprogram/api/onboarding";
 import {
   AbilityBaselineController,
   type AbilityBaselineControllerState,
-} from "../miniprogram/features/onboarding/ability-baseline-controller";
+} from "../miniprogram/pages/onboarding/features/ability-baseline-controller";
 import { loadPendingAbilityBaseline } from "../miniprogram/features/onboarding/pending-store";
 
 type BaselineApi = Pick<OnboardingApi, "getAbilityBaseline" | "putAbilityBaseline">;

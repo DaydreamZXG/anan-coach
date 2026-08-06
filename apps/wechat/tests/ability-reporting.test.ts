@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { reportedScoreRequestFromDraft } from "../miniprogram/features/ability/reporting";
+import { reportedScoreRequestFromDraft } from "../miniprogram/pages/positions/features/ability/reporting";
 
 describe("reported score evidence", () => {
   it("builds a same-date structured total-score report", () => {

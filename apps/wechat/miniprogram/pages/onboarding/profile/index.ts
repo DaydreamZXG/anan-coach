@@ -8,7 +8,7 @@ import { currentAuthSession } from "../../../auth/session";
 import {
   QualificationProfileEditorController,
   type QualificationProfileEditorState,
-} from "../../../features/qualification/profile-editor-controller";
+} from "../features/qualification/profile-editor-controller";
 import {
   emptyQualificationDraft,
   qualificationCertificationOptions,

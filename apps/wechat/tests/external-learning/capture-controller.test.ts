@@ -3,7 +3,7 @@ import {
   CaptureImportController,
   MAX_IMPORT_IMAGE_BYTES,
   type CaptureImportState,
-} from "../../miniprogram/features/external-learning/capture-controller";
+} from "../../miniprogram/pages/capture-import/features/external-learning/capture-controller";
 import type { LocalImportFile } from "../../miniprogram/features/external-learning/contracts";
 import { contentMatch, gateway, importWorkspace, questionUnit, recognition } from "./fixtures";
 

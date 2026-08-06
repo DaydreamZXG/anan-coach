@@ -81,16 +81,29 @@ App<{ globalData: CoachAppState }>({
     });
     attachNetworkStatusListener();
     void productFontFaceManager.load(environment.fontAssets, "app_launch");
-    void recordCoachNotificationOpen(options).catch(() => undefined);
+    deferCoachNotificationOpen(options);
   },
 
   onShow(options) {
     attachNetworkStatusListener();
     void productFontFaceManager.retry(environment.fontAssets, "app_show_retry");
-    void recordCoachNotificationOpen(options).catch(() => undefined);
+    deferCoachNotificationOpen(options);
   },
 
   onHide() {
     detachNetworkStatusListener();
   },
 });
+
+function deferCoachNotificationOpen(options: { query?: Record<string, string | undefined> }) {
+  // 推送打开记录非首屏关键路径；用 nextTick 推到渲染后再同步读 storage，避免阻塞启动。
+  if (typeof wx.nextTick === "function") {
+    wx.nextTick(() => {
+      void recordCoachNotificationOpen(options).catch(() => undefined);
+    });
+    return;
+  }
+  setTimeout(() => {
+    void recordCoachNotificationOpen(options).catch(() => undefined);
+  }, 0);
+}

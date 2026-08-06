@@ -37,6 +37,8 @@
 | T11 | **图题供给地基** | `VISUAL_QUESTION_MODULES` 白名单开关默认关 + 错因诚实降级。产品决策已定（图形推理 4,023 题优先）——**grep 未见开关落地**，列为待办 | ⏳ 待办 |
 | T12 | **定位短测 `/api/v1/onboarding/placement-test*`** | 对账发现后端骨架已存在，实现可能比预想近 | ⏳ 待办 |
 | T13 | **上线阻塞逐条处置** | 见 §3 表格，其中 CR-AI-002 / CR-PAGE-001 / CR-OPS-001 是我方可修 | 🔴 阻塞 |
+| T14 | **主包超限（>1.5M）+ 微信质量告警** | 34 个仅单分包用的主包文件已移入分包（207 import 重写），typecheck+865 测试过。**待实测主包编译后大小**（需上传体验版看官方报告）。剩 3 个漏网可移 + 11 个多分包共享（结构性）。交接见 `docs/engineering/2026-08-06-main-package-slimming-handoff.md` | 🔴 待实测 |
+| T15 | **微信云测修复（首轮）** | ① 登录页标签语 `--text-display`→`--text-hero` 全屏适配 ② 启动同步 Storage → nextTick 延迟 + deviceId 记忆化 ③⑤ channel-video/onAppRouteDone 旧包告警已无 ④ pending-store 内存缓存 ⑥ HTTP/2 服务端已开（实测 `http_version=2`） | ✅ 已修 |
 
 ## 2. ✅ 已收口 / 已验证（历史背景，不用再操心）
 

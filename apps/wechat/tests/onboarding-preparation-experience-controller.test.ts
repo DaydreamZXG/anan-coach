@@ -8,7 +8,7 @@ import type { OnboardingApi } from "../miniprogram/api/onboarding";
 import {
   PreparationExperienceController,
   type PreparationExperienceControllerState,
-} from "../miniprogram/features/onboarding/preparation-experience-controller";
+} from "../miniprogram/pages/onboarding/features/preparation-experience-controller";
 import { loadPendingPreparationExperience } from "../miniprogram/features/onboarding/pending-store";
 
 type ExperienceApi = Pick<OnboardingApi, "getProgress" | "putPreparationExperience">;

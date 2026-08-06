@@ -8,7 +8,7 @@ import type { OnboardingApi } from "../miniprogram/api/onboarding";
 import {
   OnboardingResultController,
   type OnboardingResultControllerState,
-} from "../miniprogram/features/onboarding/result-controller";
+} from "../miniprogram/pages/onboarding/features/result-controller";
 import { loadPendingResultAcknowledgement } from "../miniprogram/features/onboarding/pending-store";
 
 type ResultApi = Pick<OnboardingApi, "getProgress" | "getResult" | "acknowledgeResult">;

@@ -7,12 +7,12 @@ import {
   mergePendingDraft,
   runtimeFromXingceSession,
   runtimeWithPendingCheckpoint,
-} from "../miniprogram/features/xingce/real_attempt/controller";
+} from "../miniprogram/pages/practice/features/xingce/real_attempt/controller";
 import {
   assertLearnerSafeSession,
   resolveXingcePlanTaskId,
 } from "../miniprogram/features/xingce/real_attempt/contracts";
-import { XingcePageRuntimeRegistry } from "../miniprogram/features/xingce/real_attempt/page-runtime";
+import { XingcePageRuntimeRegistry } from "../miniprogram/pages/practice/features/xingce/real_attempt/page-runtime";
 import { presentXingceResult } from "../miniprogram/features/xingce/real_attempt/presentation";
 import {
   clearXingcePendingForUser,

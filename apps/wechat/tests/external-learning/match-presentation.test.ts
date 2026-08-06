@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { presentMatchCandidates } from "../../miniprogram/features/external-learning/match-presentation";
+import { presentMatchCandidates } from "../../miniprogram/pages/capture-import/features/external-learning/match-presentation";
 
 describe("external-learning match presentation", () => {
   it("把候选分数格式化为百分比，并将真实证据引用整理为可读摘要", () => {

@@ -6,6 +6,7 @@ import {
   loadPendingResultAcknowledgement,
   loadPendingStudyPreference,
   ONBOARDING_PENDING_TTL_MS,
+  resetPendingStorageReadCache,
   storePendingResultAcknowledgement,
   storePendingQualification,
   storePendingStudyPreference,
@@ -25,6 +26,7 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.unstubAllGlobals();
+  resetPendingStorageReadCache();
 });
 
 describe("onboarding pending storage", () => {

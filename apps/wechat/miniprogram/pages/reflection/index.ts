@@ -1,6 +1,6 @@
 import { ApiClient, ApiClientError } from "../../api/client";
 import { LearningMediaApi } from "../../api/learning-media";
-import { XfyunApi } from "../../api/xfyun";
+import { XfyunApi } from "./features/api/xfyun";
 import {
   XingceLearningApi,
   type XingceRescue,

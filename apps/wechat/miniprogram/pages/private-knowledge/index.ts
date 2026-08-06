@@ -4,7 +4,7 @@ import {
   PrivateKnowledgeApi,
   type PrivateCitation,
   type PrivateSourceSummary,
-} from "../../api/private-knowledge";
+} from "./features/api/private-knowledge";
 import { currentAuthSession } from "../../auth/session";
 import { routes } from "../../app/navigation/routes";
 import { navigateBackOr } from "../../app/navigation/safe-back";

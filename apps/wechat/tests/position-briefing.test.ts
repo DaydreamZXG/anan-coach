@@ -4,7 +4,7 @@ import type { PositionDiscoveryDetail } from "../miniprogram/api/generated/types
 import {
   PositionBriefingController,
   positionBriefingView,
-} from "../miniprogram/features/positions/briefing-controller";
+} from "../miniprogram/pages/positions/features/briefing-controller";
 
 describe("position beginner briefing", () => {
   it("explains versioned position facts without claiming an admission probability", () => {

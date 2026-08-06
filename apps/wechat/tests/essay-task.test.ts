@@ -26,7 +26,7 @@ import {
   presentGroundedReview,
   presentReviewIntent,
   presentReviewJob,
-} from "../miniprogram/features/essay-task/review-presentation";
+} from "../miniprogram/pages/essay-task/features/review-presentation";
 import { createIdempotencyKey } from "../miniprogram/platform/command-id";
 
 afterEach(() => {

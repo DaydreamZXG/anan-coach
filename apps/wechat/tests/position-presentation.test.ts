@@ -7,7 +7,7 @@ import {
   qualificationGapView,
   primaryGoalPreviewView,
   requirementCheckView,
-} from "../miniprogram/features/positions/presentation";
+} from "../miniprogram/pages/positions/features/presentation";
 import type {
   PositionComparisonItem,
   PositionDiscoveryItem,
