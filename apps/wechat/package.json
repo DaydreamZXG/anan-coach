@@ -14,6 +14,7 @@
     "interaction-coverage:validate": "node scripts/validate-interaction-coverage.mjs",
     "interactions:validate": "node scripts/validate-interactions.mjs",
     "lint": "eslint . --max-warnings 0",
+    "minitest:package": "python3 scripts/build-minium-cloud-case.py",
     "navigation:validate": "node scripts/validate-navigation.mjs",
     "package:validate": "node scripts/validate-package-boundaries.mjs && node scripts/analyze-package-runtime.mjs --check && node scripts/sync-subpackage-shared.mjs --check",
     "subpackage-shared:check": "node scripts/sync-subpackage-shared.mjs --check",
