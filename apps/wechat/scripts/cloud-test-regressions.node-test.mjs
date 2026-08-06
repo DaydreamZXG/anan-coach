@@ -26,7 +26,20 @@ test("only pages that render workbench components declare them", () => {
       );
       if (declaration) {
         const target = path.resolve(path.dirname(jsonFile), declaration);
-        assert.equal(target, path.join(miniProgramRoot, "components", tag, "index"));
+        const mainTarget = path.join(miniProgramRoot, "components", tag, "index");
+        const generatedSubpackageTarget = target.endsWith(
+          path.join("shared", "components", tag, "index"),
+        );
+        assert.equal(
+          target === mainTarget || (tag === "workbench-nav" && generatedSubpackageTarget),
+          true,
+          `${jsonFile} must resolve ${tag} to its main component or generated subpackage replica`,
+        );
+        assert.equal(
+          fs.existsSync(`${target}.json`),
+          true,
+          `${jsonFile} resolves ${tag} to a missing component`,
+        );
       }
     }
   }
