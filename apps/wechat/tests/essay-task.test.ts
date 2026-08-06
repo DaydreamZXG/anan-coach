@@ -510,6 +510,11 @@ describe("essay artifact forms", () => {
       "第二自然段。",
       "第三自然段。",
     ]);
+    expect(view.segments[0]?.paragraphs.map((item) => item.displayText)).toEqual([
+      "　　第一自然段。",
+      "　　第二自然段。",
+      "　　第三自然段。",
+    ]);
   });
 });
 

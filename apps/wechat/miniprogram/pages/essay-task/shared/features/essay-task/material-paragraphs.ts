@@ -1,6 +1,7 @@
 export interface MaterialTextParagraph {
   paragraphId: string;
   text: string;
+  displayText: string;
   paragraphIndex: number;
 }
 
@@ -17,6 +18,7 @@ export function materialTextParagraphs(
   return source.map((paragraph, index) => ({
     paragraphId: `${sourceId}-paragraph-${String(index + 1)}`,
     text: paragraph,
+    displayText: `\u3000\u3000${paragraph}`,
     paragraphIndex: index + 1,
   }));
 }

@@ -147,7 +147,7 @@
 }
 
 .prompt-text,
-.segment-text {
+.segment-paragraph {
   color: var(--color-ink-secondary);
   font-family: var(--font-family-reading);
   font-size: var(--text-body-lg);
@@ -156,12 +156,11 @@
 }
 
 .segment-text {
-  display: block;
-  text-indent: 2em;
+  display: inline;
 }
 
 .segment-paragraph + .segment-paragraph {
-  margin-top: calc(22 * var(--rpx));
+  margin-top: calc(8 * var(--rpx));
 }
 
 .requirement-box {
@@ -1168,7 +1167,7 @@
   }
 
   .prompt-text,
-  .segment-text,
+  .segment-paragraph,
   .essay-input,
   .essay-textarea,
   .essay-select,
