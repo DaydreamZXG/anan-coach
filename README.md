@@ -1,12 +1,14 @@
-# 考公搭子
+# 岸岸（考公搭子）
 
-考公搭子是由岗位、解题、规划三个 Agent 共享学习大脑的国考学习产品。当前产品形态是微信小程序 + FastAPI 后端；历史 iOS 探索端已从本仓库移除，交叉审计不要按原生 App 路线评估。
+岸岸是由岗位、教学、规划能力共享学习大脑的国考 AI 教练。当前产品形态是微信小程序 + FastAPI 后端；历史 iOS 探索端已从本仓库移除，交叉审计不要按原生 App 路线评估。
+
+完整产品定位、用户旅程、功能边界与当前状态见：[岸岸国考 AI 教练｜小程序产品文档](docs/product/2026-08-06-anan-wechat-product-document.md)。
 
 Current initial slice:
 
 - FastAPI backend with health, auth, onboarding, position, planning, practice, essay, recognition, privacy, and daily-opening endpoints.
-- WeChat Mini Program with 今日、岗位、岸岸、我的四栏主路径 and 64 registered routes
-  (58 business routes and 6 asset entries).
+- WeChat Mini Program with 今日、能力、岸岸、我的四栏主路径 and 60 registered page routes
+  (5 main-package pages and 55 subpackage pages).
 - 行测、申论、岗位决策、拍照搜题、私人资料库 and AI 督学 are first-class product tracks.
 - Production candidate server at `https://kg.xingguoxian.cn`.
 
