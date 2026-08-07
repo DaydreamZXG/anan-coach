@@ -67,6 +67,14 @@ interface LayerRuntime {
   contentHeight: number;
   /** 当前滚动位置（px），只影响绘制换算，不改变任何存储坐标。 */
   scrollTop: number;
+  /** 上一次观察到的组件模式，用于识别重新打开草稿。 */
+  lastMode: string;
+  /** 合并同一帧内的多次重绘请求，避免滚动时反复刷画。 */
+  redrawQueued: boolean;
+  /** selectorQuery 在飞时不再启动重复查询。 */
+  canvasQueryPending: boolean;
+  /** 仅在首次画布节点尚未就绪时保留一次补绘。 */
+  redrawRetryTimer: ReturnType<typeof setTimeout> | null;
 }
 
 const runtimes = new WeakMap<object, LayerRuntime>();
@@ -90,10 +98,22 @@ function runtime(instance: object): LayerRuntime {
       segments: [],
       contentHeight: 0,
       scrollTop: 0,
+      lastMode: "hidden",
+      redrawQueued: false,
+      canvasQueryPending: false,
+      redrawRetryTimer: null,
     };
     runtimes.set(instance, value);
   }
   return value;
+}
+
+function disposeRuntime(instance: object): void {
+  const state = runtimes.get(instance);
+  if (state && state.redrawRetryTimer !== null) {
+    clearTimeout(state.redrawRetryTimer);
+  }
+  runtimes.delete(instance);
 }
 
 /**
@@ -213,19 +233,32 @@ function redraw(host: AnnotationLayerHost): void {
   }
 }
 
-function scheduleRedraw(host: AnnotationLayerHost, attempt = 0): void {
+function scheduleRedraw(host: AnnotationLayerHost, retryIfMissing = false): void {
   if (host.data.mode === "hidden") return;
-  wx.nextTick(() => {
-    ensureCanvas(host, () => {
-      redraw(host);
+  const state = runtime(host);
+  if (!state.redrawQueued) {
+    state.redrawQueued = true;
+    wx.nextTick(() => {
+      const current = runtimes.get(host);
+      if (!current) return;
+      current.redrawQueued = false;
+      if (host.data.mode === "hidden") return;
+      ensureCanvas(host, () => {
+        redraw(host);
+      });
     });
-    // 画布节点可能晚于首帧就绪，稍后再补一次首绘。
-    if (attempt === 0) {
-      setTimeout(() => {
-        scheduleRedraw(host, 1);
-      }, 300);
-    }
-  });
+  }
+  // 画布节点可能晚于首帧就绪；只有首绘/布局变化需要一次容错补绘。
+  // 滚动重绘不得挂延时任务，否则每一帧都会再画一次并引起卡顿。
+  if (retryIfMissing && !state.context && state.redrawRetryTimer === null) {
+    state.redrawRetryTimer = setTimeout(() => {
+      const current = runtimes.get(host);
+      if (!current) return;
+      current.redrawRetryTimer = null;
+      if (host.data.mode === "hidden" || current.context) return;
+      scheduleRedraw(host);
+    }, 300);
+  }
 }
 
 /**
@@ -255,6 +288,8 @@ function ensureCanvas(host: AnnotationLayerHost, ready: () => void): void {
     ready();
     return;
   }
+  if (state.canvasQueryPending) return;
+  state.canvasQueryPending = true;
   const query = host.createSelectorQuery();
   query.select("#annotation-canvas").fields({ node: true, size: true, rect: true });
   query.exec(
@@ -267,6 +302,9 @@ function ensureCanvas(host: AnnotationLayerHost, ready: () => void): void {
         top?: number;
       } | null>,
     ) => {
+      // hidden/detached 后旧查询可能才回调，不得把旧 canvas 绑回新会话。
+      if (runtimes.get(host) !== state || host.data.mode === "hidden") return;
+      state.canvasQueryPending = false;
       const node = results[0]?.node;
       const width = results[0]?.width ?? 0;
       const height = results[0]?.height ?? 0;
@@ -363,7 +401,8 @@ Component({
     contentHeight: { type: Number, value: 0 },
   },
   data: {
-    tool: "pen",
+    // 打开草稿先保持题面可滚动、选项可点；用户明确选画笔后才挂载全屏作画层。
+    tool: "pan",
     toolbarCollapsed: false,
     tools: [
       { value: "pan", glyph: "✋", label: "滑动" },
@@ -377,18 +416,25 @@ Component({
   },
   observers: {
     "mode, strokes, replayMs"(this: AnnotationLayerHost) {
-      // 收起态只服务当前批注会话。离开批注后恢复默认画笔，下一次打开不增加一步操作。
-      if (this.data.mode !== "annotate" && this.data.toolbarCollapsed) {
-        this.setData({ toolbarCollapsed: false, tool: "pen", lassoSelectedCount: 0 });
+      const state = runtime(this);
+      const enteringAnnotate = this.data.mode === "annotate" && state.lastMode !== "annotate";
+      state.lastMode = this.data.mode;
+      // 新开/重新进入草稿一律先回到滑动模式。这样不会因上次停在画笔、
+      // 草稿有历史笔迹而恢复全屏触摸盾，导致题面和选项持续失去交互。
+      if (
+        enteringAnnotate &&
+        (this.data.tool !== "pan" || this.data.toolbarCollapsed || this.data.lassoSelectedCount > 0)
+      ) {
+        this.setData({ toolbarCollapsed: false, tool: "pan", lassoSelectedCount: 0 });
       }
       // wx:if 会在 hidden 时销毁 canvas 节点。WeakMap 中的 context 不会
       // 自动感知节点已卸载，若继续复用就会把下一题的笔迹画到旧节点。
       // 隐藏时丢弃整个运行时，下次 annotate 必须重查节点并重建 context。
       if (this.data.mode === "hidden") {
-        runtimes.delete(this);
+        disposeRuntime(this);
         return;
       }
-      scheduleRedraw(this);
+      scheduleRedraw(this, true);
     },
     // 句段/内容高变化：整表换算一次（内容坐标恒定）。纯滚动不触发本分支。
     "segments, contentHeight"(this: AnnotationLayerHost) {
@@ -407,23 +453,23 @@ Component({
   lifetimes: {
     // 属性观察器不会为初始值触发；attach 后必须补一次首绘。
     attached() {
-      scheduleRedraw(this);
+      scheduleRedraw(this, true);
     },
     detached() {
-      runtimes.delete(this);
+      disposeRuntime(this);
     },
   },
   pageLifetimes: {
     resize(this: AnnotationLayerHost) {
       if (this.data.mode === "hidden") return;
       invalidateCanvasLayout(this);
-      scheduleRedraw(this);
+      scheduleRedraw(this, true);
       // 部分安卓平板的 resize 事件早于双栏重排完成；布局稳定后再校准一次，
       // 但不改任何笔迹数据。触点继续使用同为视口口径的 client 坐标与 rect。
       setTimeout(() => {
         if (this.data.mode === "hidden") return;
         invalidateCanvasLayout(this);
-        scheduleRedraw(this, 1);
+        scheduleRedraw(this, true);
       }, 120);
     },
   },
@@ -452,7 +498,7 @@ Component({
       state.lassoPath = [];
       state.selectedStrokeIds = new Set();
       this.setData({
-        tool: String(event.currentTarget.dataset.tool ?? "pen"),
+        tool: String(event.currentTarget.dataset.tool ?? "pan"),
         lassoSelectedCount: 0,
       });
       ensureCanvas(this, () => {

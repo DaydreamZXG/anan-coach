@@ -27,6 +27,7 @@ interface CapturedAnnotationComponent {
   data: AnnotationTestData;
   observers: {
     "mode, strokes, replayMs"(this: AnnotationObserverHost): void;
+    scrollTop(this: AnnotationObserverHost): void;
   };
   pageLifetimes: {
     resize(this: AnnotationObserverHost): void;
@@ -103,6 +104,8 @@ describe("practice drawable draft tools", () => {
       "荧光笔",
       "橡皮",
     ]);
+    expect(definition.data.tool).toBe("pan");
+    expect(annotationTemplate).toContain("wx:if=\"{{mode === 'annotate' && tool !== 'pan'}}\"");
     expect(annotationTemplate).toContain('catchtap="undo">撤销</button>');
     expect(annotationTemplate).toContain('catchtap="clearAll">清空</button>');
     expect(annotationTemplate).toContain('catchtap="finish">完成</button>');
@@ -134,6 +137,47 @@ describe("practice drawable draft tools", () => {
     definition.methods.expandToolbar.call(host);
     expect(host.data.toolbarCollapsed).toBe(false);
     expect(host.data.tool).toBe("pan");
+  });
+
+  it("reopens every draft in scroll mode instead of restoring a full-screen drawing shield", async () => {
+    const definition = await captureAnnotationComponent();
+    const host = annotationObserverHost(definition, {
+      mode: "annotate",
+      tool: "highlighter",
+      toolbarCollapsed: true,
+      lassoSelectedCount: 2,
+    });
+
+    definition.observers["mode, strokes, replayMs"].call(host);
+
+    expect(host.data.tool).toBe("pan");
+    expect(host.data.toolbarCollapsed).toBe(false);
+    expect(host.data.lassoSelectedCount).toBe(0);
+  });
+
+  it("coalesces repeated scroll redraws into one next frame", async () => {
+    const nextTicks: Array<() => void> = [];
+    const definition = await captureAnnotationComponent(undefined, (callback) => {
+      nextTicks.push(callback);
+    });
+    const context = canvasContext();
+    const host = annotationObserverHost(definition, { mode: "annotate" }, context);
+
+    definition.observers["mode, strokes, replayMs"].call(host);
+    expect(nextTicks).toHaveLength(1);
+    nextTicks.shift()?.();
+
+    host.data.scrollTop = 1;
+    definition.observers.scrollTop.call(host);
+    host.data.scrollTop = 2;
+    definition.observers.scrollTop.call(host);
+    host.data.scrollTop = 3;
+    definition.observers.scrollTop.call(host);
+
+    expect(nextTicks).toHaveLength(1);
+    nextTicks.shift()?.();
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(context.clearRect).toHaveBeenCalledTimes(2);
   });
 
   it("confirms a destructive clear and preserves the erased-stroke evidence", async () => {
@@ -309,6 +353,7 @@ describe("practice drawable draft tools", () => {
       },
     };
     definition.observers["mode, strokes, replayMs"].call(host);
+    host.data.tool = "pen";
 
     definition.methods.onTouchStart.call(host, clientTouch(120, 160));
     definition.methods.onTouchMove.call(host, clientTouch(152, 240));
@@ -321,7 +366,12 @@ describe("practice drawable draft tools", () => {
 });
 
 async function captureAnnotationComponent(
-  showModal = vi.fn(() => Promise.resolve({ confirm: true, cancel: false })),
+  showModal: () => Promise<{ confirm: boolean; cancel: boolean }> = vi.fn(() =>
+    Promise.resolve({ confirm: true, cancel: false }),
+  ),
+  nextTick: (callback: () => void) => void = (callback) => {
+    callback();
+  },
 ): Promise<CapturedAnnotationComponent> {
   let captured: CapturedAnnotationComponent | undefined;
   vi.stubGlobal("Component", (definition: unknown) => {
@@ -330,15 +380,43 @@ async function captureAnnotationComponent(
   vi.stubGlobal("wx", {
     showModal,
     showToast: vi.fn(() => Promise.resolve()),
-    nextTick: (callback: () => void) => {
-      callback();
-    },
+    nextTick,
     getWindowInfo: () => ({ pixelRatio: 2 }),
   });
   vi.stubGlobal("setTimeout", vi.fn());
   await import("../miniprogram/pages/practice/shared/task-runtime/annotation-layer/index");
   if (!captured) throw new Error("annotation layer was not registered");
   return captured;
+}
+
+function annotationObserverHost(
+  definition: CapturedAnnotationComponent,
+  patch: Partial<AnnotationObserverHost["data"]> = {},
+  context = canvasContext(),
+): AnnotationObserverHost {
+  return {
+    data: {
+      ...cloneData(definition.data),
+      mode: "annotate",
+      strokes: [],
+      segments: [],
+      scrollTop: 0,
+      contentHeight: 800,
+      ...patch,
+    },
+    setData(dataPatch) {
+      Object.assign(this.data, dataPatch);
+    },
+    triggerEvent: vi.fn(),
+    createSelectorQuery() {
+      return {
+        select: () => ({ fields: vi.fn() }),
+        exec(callback) {
+          callback([{ node: canvasNode(context), width: 320, height: 480, left: 0, top: 0 }]);
+        },
+      };
+    },
+  };
 }
 
 function canvasContext(): CanvasContext {
