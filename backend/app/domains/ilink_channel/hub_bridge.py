@@ -129,6 +129,7 @@ def process_hub_event(event: HubBridgeEvent) -> None:
     client = OpenILinkHubClient(hub_settings)
     reply = ""
     user_id: UUID | None = None
+    delivered = False
     try:
         with get_session_factory()() as session:
             link = OpenILinkHubRepository(session).for_bot(bot_id=event.bot_id)
@@ -190,6 +191,7 @@ def process_hub_event(event: HubBridgeEvent) -> None:
                             reply = "岸岸这次没有回答完成，请稍后把原问题再发一次。"
             session.commit()
         _send_with_retry(client=client, event=event, reply=reply)
+        delivered = True
         with get_session_factory()() as session:
             receipts = ILinkRepository(session)
             command_id = f"hub-event:{event.event_id}"
@@ -212,6 +214,18 @@ def process_hub_event(event: HubBridgeEvent) -> None:
             "hub bridge event processing failed",
             extra={"event_id": event.event_id, "trace_id": event.trace_id},
         )
+        if event.event_type == "message.image" and not delivered:
+            try:
+                _send_with_retry(
+                    client=client,
+                    event=event,
+                    reply="这次图片处理中断了，已经保留题目；请稍后原图重发一次。",
+                )
+            except OpenILinkHubError:
+                logger.exception(
+                    "hub bridge fallback reply failed",
+                    extra={"event_id": event.event_id, "trace_id": event.trace_id},
+                )
 
 
 def _send_with_retry(

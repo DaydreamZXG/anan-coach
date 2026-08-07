@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
+import logging
 from uuid import NAMESPACE_URL, UUID, uuid5
 
 from sqlalchemy.orm import Session
@@ -39,6 +40,9 @@ from app.domains.private_knowledge.repository import (
     PrivateKnowledgeConflict,
     PrivateKnowledgeNotFound,
 )
+
+
+logger = logging.getLogger(__name__)
 
 
 class ILinkPhotoWorkflow:
@@ -436,7 +440,14 @@ class ILinkPhotoWorkflow:
                 now=self._clock(),
             )
             session.commit()
-        except (ILinkProtocolError, PhotoResolutionError, ILinkConflict) as exc:
+        except Exception as exc:
+            if not isinstance(
+                exc, (ILinkProtocolError, PhotoResolutionError, ILinkConflict)
+            ):
+                logger.exception(
+                    "unexpected photo query failure",
+                    extra={"query_id": str(query_id), "user_id": str(user_id)},
+                )
             session.rollback()
             if stored is not None:
                 try:

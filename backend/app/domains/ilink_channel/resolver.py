@@ -649,6 +649,7 @@ def _match_query(result: ProcessorResult) -> tuple[MatchQuery, dict[str, object]
         optionTexts=tuple(options),
         materialTexts=tuple(materials),
         visualFingerprints=result.visual_fingerprints,
+        visualFeatureHashes=result.visual_feature_hashes,
     )
     return query, {
         "contractVersion": "ilink-query-recognition@v1",
@@ -700,8 +701,12 @@ def _authorized_candidate(
             (content.prompt_text, *content.option_texts, *content.material_texts)
         )
         text_score = text_similarity(query_text, content_text)
-        visual_score = visual_similarity(query.visual_fingerprints, content.visual_fingerprints)
-        has_visual = bool(query.visual_fingerprints and content.visual_fingerprints)
+        visual_score = visual_similarity(
+            query.visual_feature_hashes, content.visual_feature_hashes
+        )
+        has_visual = bool(
+            query.visual_feature_hashes and content.visual_feature_hashes
+        )
         score = round(
             text_score * policy.text_weight + visual_score * policy.visual_weight
             if has_visual

@@ -6,12 +6,26 @@ from typing import cast
 from uuid import UUID
 
 import httpx
+from sqlalchemy.orm import Session
+
 from app.contracts.external_learning.models import LearningTrack
 from app.core.config import Settings
-from app.domains.external_ingestion.matching.models import MatchQuery
 from app.domains.external_ingestion.answering.models import (
     ExternalAIAnswerPayload,
     ExternalAIAnswerProviderResult,
+)
+from app.domains.external_ingestion.matching.models import (
+    AuthorizationDecision,
+    IndexedContent,
+    MatchingPolicy,
+    MatchQuery,
+)
+from app.domains.external_ingestion.recognition.models import (
+    BoundingBox,
+    PageSegment,
+    ProcessorResult,
+    TextSpan,
+    VisualFeatureHash,
 )
 from app.domains.ilink_channel.resolver import (
     PhotoQuestionResolver,
@@ -19,6 +33,8 @@ from app.domains.ilink_channel.resolver import (
     QueryRecognitionProcessor,
     SecondaryAnswerProvider,
     TosTransientImageStore,
+    _authorized_candidate,
+    _match_query,
 )
 from app.domains.ilink_channel.settings import ILinkSettings
 
@@ -196,6 +212,95 @@ def test_secondary_provider_requests_and_accepts_the_complete_answer_contract(
 
     assert result.answer == "B"
     assert result.explanation == "1+1=2。"
+
+
+def test_photo_matching_uses_structured_visual_hashes(monkeypatch) -> None:
+    feature = VisualFeatureHash(
+        phash="1" * 16,
+        dhash="2" * 16,
+        ahash="3" * 16,
+        edgeDhash="4" * 16,
+    )
+    box = BoundingBox(pageNo=1, x=0, y=0, width=1, height=1)
+    query, _ = _match_query(
+        ProcessorResult(
+            providerRequestId="recognition-1",
+            textSpans=[
+                TextSpan(spanId="span-1", text="选出正确图形", box=box, confidence=0.9)
+            ],
+            segments=[
+                PageSegment(
+                    segmentId="segment-1",
+                    segmentKind="question",
+                    box=box,
+                    textSpanRefs=["span-1"],
+                    confidence=0.9,
+                )
+            ],
+            visualFingerprints=["f" * 64],
+            visualFeatureHashes=[feature],
+            confidence=0.9,
+        )
+    )
+    assert query.visual_fingerprints == ("f" * 64,)
+    assert query.visual_feature_hashes == (feature,)
+
+    content = IndexedContent(
+        contentVersionId="content-1",
+        track="xingce",
+        promptText="选出正确图形",
+        visualFingerprints=["f" * 64],
+        visualFeatureHashes=[feature],
+        referenceAnswer="A",
+        distributionClass="licensed_transferable",
+        authorizationSnapshotRef="snapshot-1",
+        crossUserMatchAllowed=True,
+    )
+
+    class _Catalog:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def search(self, **_kwargs):
+            return (content,)
+
+    class _Authorization:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def authorize(self, **_kwargs):
+            return AuthorizationDecision(
+                allowed=True,
+                reason="licensed content",
+                snapshotRef="snapshot-1",
+            )
+
+    monkeypatch.setattr(
+        "app.domains.ilink_channel.resolver.SQLQuestionContentCatalog", _Catalog
+    )
+    monkeypatch.setattr(
+        "app.domains.ilink_channel.resolver.SQLMatchAuthorization", _Authorization
+    )
+    candidate, ambiguous = _authorized_candidate(
+        session=cast(Session, object()),
+        owner_user_id=UUID("00000000-0000-0000-0000-000000009303"),
+        query=query,
+        policy=MatchingPolicy(
+            policyVersion="matching-v1",
+            similarThreshold=0.8,
+            ambiguityMargin=0.05,
+            textWeight=0.7,
+            visualWeight=0.3,
+            essayMinPromptChars=20,
+            essayRequireMaterial=True,
+            maximumCandidates=5,
+        ),
+        core=Settings(),
+    )
+
+    assert ambiguous is False
+    assert candidate is not None
+    assert candidate[0].content_version_id == "content-1"
 
 
 def test_ilink_recognition_accepts_the_shared_mineru_adapter() -> None:
