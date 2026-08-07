@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import UTC, datetime
 import logging
 from uuid import NAMESPACE_URL, UUID, uuid5
@@ -43,6 +44,12 @@ from app.domains.private_knowledge.repository import (
 
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass(frozen=True, slots=True)
+class HubPhotoResult:
+    reply_text: str
+    content_version_id: str | None
 
 
 class ILinkPhotoWorkflow:
@@ -498,7 +505,7 @@ class ILinkPhotoWorkflow:
         bot_id: str,
         message: InboundMessage,
         client: ILinkProtocolClient,
-    ) -> str:
+    ) -> HubPhotoResult:
         reply = self._process_photo(
             session,
             user_id=user_id,
@@ -509,7 +516,25 @@ class ILinkPhotoWorkflow:
             client=client,
             send_legacy_reply=False,
         )
-        return reply or "这次图片已在处理，请稍后把原图重发一次。"
+        source_message_fingerprint = self._service.cipher.fingerprint(
+            f"openilink-hub:{bot_id}\0{message.message_id}",
+            purpose="source-message",
+        )
+        query = ILinkRepository(session).query_for_message(
+            bot_account_id=f"openilink-hub:{bot_id}",
+            source_message_fingerprint=source_message_fingerprint,
+        )
+        content_version_id = (
+            str(query["content_version_id"])
+            if query is not None and query["content_version_id"]
+            else None
+        )
+        return HubPhotoResult(
+            reply_text=(
+                reply or "这次图片已在处理，请稍后把原图重发一次。"
+            ),
+            content_version_id=content_version_id,
+        )
 
     @staticmethod
     def _hub_query_reply(session: Session, *, query, user_id: UUID) -> str:

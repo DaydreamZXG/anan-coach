@@ -6,9 +6,11 @@ from hashlib import sha256
 import hmac
 import json
 import logging
+import re
 import time
 from uuid import UUID
 
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings, get_settings
@@ -36,6 +38,7 @@ from app.domains.ilink_channel.service import ILinkChannelService
 from app.domains.ilink_channel.settings import ILinkConfigurationError, ILinkSettings
 from app.domains.ilink_channel.workflow import ILinkPhotoWorkflow
 from app.domains.ilink_channel.resolver import PhotoResolutionError
+from app.domains.task_content.service import published_question_asset_url
 
 
 logger = logging.getLogger(__name__)
@@ -44,6 +47,12 @@ _MAX_CLOCK_SKEW_SECONDS = 300
 
 class HubBridgeEventError(ValueError):
     pass
+
+
+@dataclass(frozen=True, slots=True)
+class HubBridgeReply:
+    text: str
+    image_url: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -128,6 +137,7 @@ def process_hub_event(event: HubBridgeEvent) -> None:
     hub_settings = OpenILinkHubSettings.from_environment()
     client = OpenILinkHubClient(hub_settings)
     reply = ""
+    reply_image_url: str | None = None
     user_id: UUID | None = None
     delivered = False
     try:
@@ -144,7 +154,7 @@ def process_hub_event(event: HubBridgeEvent) -> None:
                 return
             if event.event_type == "message.image":
                 try:
-                    reply = _process_image(
+                    image_reply = _process_image(
                         session,
                         event=event,
                         link=link,
@@ -160,6 +170,9 @@ def process_hub_event(event: HubBridgeEvent) -> None:
                 ):
                     session.rollback()
                     reply = "这张图我没能完整取回来，请把原图重发一次；不用进小程序。"
+                else:
+                    reply = image_reply.text
+                    reply_image_url = image_reply.image_url
             elif event.event_type != "message.text" or not event.content:
                 reply = "这类消息我暂时读不了；可以直接发文字或裁剪好的单题截图。"
             else:
@@ -190,6 +203,12 @@ def process_hub_event(event: HubBridgeEvent) -> None:
                             session.rollback()
                             reply = "岸岸这次没有回答完成，请稍后把原问题再发一次。"
             session.commit()
+        if reply_image_url is not None:
+            _send_image_with_retry(
+                client=client,
+                event=event,
+                image_url=reply_image_url,
+            )
         _send_with_retry(client=client, event=event, reply=reply)
         delivered = True
         with get_session_factory()() as session:
@@ -205,6 +224,11 @@ def process_hub_event(event: HubBridgeEvent) -> None:
                     result_payload={
                         "delivered": True,
                         "replySha256": sha256(reply.encode("utf-8")).hexdigest(),
+                        "imageUrlSha256": (
+                            sha256(reply_image_url.encode("utf-8")).hexdigest()
+                            if reply_image_url is not None
+                            else None
+                        ),
                     },
                     now=datetime.now(UTC),
                 )
@@ -248,6 +272,26 @@ def _send_with_retry(
     raise last_error or OpenILinkHubError("bridge_send_failed")
 
 
+def _send_image_with_retry(
+    *, client: OpenILinkHubClient, event: HubBridgeEvent, image_url: str
+) -> None:
+    last_error: OpenILinkHubError | None = None
+    for delay in (0.0, 0.5, 2.0):
+        if delay:
+            time.sleep(delay)
+        try:
+            client.send_image_url(
+                bot_id=event.bot_id,
+                sender_id=event.sender_id,
+                url=image_url,
+                trace_id=event.trace_id,
+            )
+            return
+        except OpenILinkHubError as exc:
+            last_error = exc
+    raise last_error or OpenILinkHubError("bridge_send_failed")
+
+
 def _process_image(
     session: Session,
     *,
@@ -256,14 +300,14 @@ def _process_image(
     user_id: UUID,
     hub_client: OpenILinkHubClient,
     core_settings: Settings,
-) -> str:
+) -> HubBridgeReply:
     media = hub_client.wait_for_image_media(
         bot_id=event.bot_id,
         message_id=event.source_message_id,
     )
     channel_settings = ILinkSettings.from_environment()
     protocol_client = ILinkProtocolClient(channel_settings)
-    return ILinkPhotoWorkflow(
+    result = ILinkPhotoWorkflow(
         core_settings=core_settings,
         channel_settings=channel_settings,
     ).process_hub_photo(
@@ -285,6 +329,75 @@ def _process_image(
         ),
         client=protocol_client,
     )
+    image_url = _published_reply_image_url(
+        session,
+        content_version_id=result.content_version_id,
+    )
+    return HubBridgeReply(
+        text=(
+            result.reply_text
+            if image_url is not None or result.content_version_id is None
+            else _without_missing_explanation_image_references(result.reply_text)
+        ),
+        image_url=image_url,
+    )
+
+
+def _published_reply_image_url(
+    session: Session,
+    *,
+    content_version_id: str | None,
+) -> str | None:
+    if content_version_id is None:
+        return None
+    row = session.execute(
+        text(
+            """
+            select version.snapshot_payload,
+                   explanation.final_analysis_asset_refs
+            from product.question_content_versions version
+            join product.question_explanations explanation
+              on explanation.question_id = version.question_id
+            where version.content_version_id = :content_version_id
+            """
+        ),
+        {"content_version_id": content_version_id},
+    ).mappings().one_or_none()
+    if row is None:
+        return None
+    snapshot = row["snapshot_payload"]
+    references = row["final_analysis_asset_refs"]
+    if not isinstance(snapshot, dict) or not isinstance(references, dict):
+        return None
+    if str(snapshot.get("analysis_source") or "") != str(
+        references.get("source") or ""
+    ):
+        return None
+    assets = references.get("assets")
+    if not isinstance(assets, list):
+        return None
+    for asset in assets:
+        if not isinstance(asset, dict):
+            continue
+        normalized = {
+            "image_src": asset.get("image_src") or asset.get("imageSrc"),
+            "object_key": asset.get("object_key") or asset.get("objectKey"),
+        }
+        if url := published_question_asset_url(normalized):
+            return url
+    return None
+
+
+def _without_missing_explanation_image_references(reply: str) -> str:
+    cleaned = re.sub(
+        r"[（(]如图中[^()（）]{0,40}所示[）)]",
+        "",
+        reply,
+    )
+    cleaned = re.sub(r"按?如下图所示", "", cleaned)
+    cleaned = re.sub(r"如下图所示", "", cleaned)
+    cleaned = re.sub(r"[ 　]+", "", cleaned)
+    return cleaned.replace("。。", "。").replace("，，", "，").strip()
 
 
 def _process_query_command(

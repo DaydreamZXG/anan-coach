@@ -181,6 +181,46 @@ class OpenILinkHubClient:
         content: str,
         trace_id: str,
     ) -> None:
+        self._send_bridge_message(
+            bot_id=bot_id,
+            payload={
+                "type": "text",
+                "content": content,
+                "to": sender_id,
+                "trace_id": trace_id,
+            },
+        )
+
+    def send_image_url(
+        self,
+        *,
+        bot_id: str,
+        sender_id: str,
+        url: str,
+        trace_id: str,
+        filename: str = "question.png",
+    ) -> None:
+        parsed = urlsplit(url)
+        if (
+            parsed.scheme.casefold() != "https"
+            or not parsed.hostname
+            or parsed.username is not None
+            or parsed.password is not None
+            or not sender_id.strip()
+        ):
+            raise OpenILinkHubError("bridge_image_url_invalid")
+        self._send_bridge_message(
+            bot_id=bot_id,
+            payload={
+                "type": "image",
+                "url": url,
+                "filename": filename,
+                "to": sender_id,
+                "trace_id": trace_id,
+            },
+        )
+
+    def _bridge_app_token(self, *, bot_id: str) -> str:
         session_cookie = self._login()
         installations = self._request_list(
             "GET",
@@ -193,7 +233,15 @@ class OpenILinkHubClient:
         )
         if bridge is None:
             raise OpenILinkHubError("bridge_installation_missing")
-        app_token = _required_text(bridge.get("app_token"), "bridge_token_missing")
+        return _required_text(bridge.get("app_token"), "bridge_token_missing")
+
+    def _send_bridge_message(
+        self,
+        *,
+        bot_id: str,
+        payload: dict[str, object],
+    ) -> None:
+        app_token = self._bridge_app_token(bot_id=bot_id)
         try:
             with self._client_factory(
                 timeout=httpx.Timeout(self._settings.request_timeout_seconds, connect=5),
@@ -206,12 +254,7 @@ class OpenILinkHubClient:
                         "Authorization": f"Bearer {app_token}",
                         "Content-Type": "application/json",
                     },
-                    json={
-                        "type": "text",
-                        "content": content,
-                        "to": sender_id,
-                        "trace_id": trace_id,
-                    },
+                    json=payload,
                 )
                 response.raise_for_status()
         except httpx.HTTPError as exc:

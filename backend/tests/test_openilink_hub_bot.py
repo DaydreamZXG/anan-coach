@@ -16,7 +16,12 @@ from app.domains.ilink_channel.hub_client import (
     HubBindStatus,
     OpenILinkHubClient,
 )
-from app.domains.ilink_channel.hub_bridge import HubBridgeEvent, verify_hub_signature
+from app.domains.ilink_channel.hub_bridge import (
+    HubBridgeEvent,
+    _published_reply_image_url,
+    _without_missing_explanation_image_references,
+    verify_hub_signature,
+)
 from app.domains.ilink_channel.hub_service import OpenILinkHubBotService
 from app.domains.ilink_channel.hub_settings import (
     OpenILinkHubConfigurationError,
@@ -307,6 +312,140 @@ def test_hub_client_waits_until_image_media_is_ready() -> None:
     assert sleeps == [0.2]
 
 
+def test_hub_client_sends_an_image_url_through_the_bridge() -> None:
+    requests: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        if request.url.path == "/api/auth/login":
+            return httpx.Response(
+                200,
+                headers={"set-cookie": "session=test-session; Path=/; HttpOnly"},
+                json={"ok": True},
+            )
+        if request.url.path == "/api/bots/hub-bot-a/apps":
+            return httpx.Response(
+                200,
+                json=[{"app_slug": "bridge", "app_token": "bridge-token"}],
+            )
+        assert request.url.path == "/bot/v1/message/send"
+        return httpx.Response(200, json={"ok": True})
+
+    client = OpenILinkHubClient(
+        hub_settings(),
+        client_factory=lambda **kwargs: httpx.Client(
+            transport=httpx.MockTransport(handler), **kwargs
+        ),
+    )
+    client.send_image_url(
+        bot_id="hub-bot-a",
+        sender_id="wx-user-a",
+        url=(
+            "https://img.xingguoxian.cn/data/question-bank-export/files/"
+            "source-question-bank/fenbi-final-analysis-v1-20260613-assets/"
+            "paper/question.png"
+        ),
+        trace_id="trace-image-1",
+    )
+
+    outbound = requests[-1]
+    assert outbound.headers["authorization"] == "Bearer bridge-token"
+    assert __import__("json").loads(outbound.content) == {
+        "type": "image",
+        "url": (
+            "https://img.xingguoxian.cn/data/question-bank-export/files/"
+            "source-question-bank/fenbi-final-analysis-v1-20260613-assets/"
+            "paper/question.png"
+        ),
+        "filename": "question.png",
+        "to": "wx-user-a",
+        "trace_id": "trace-image-1",
+    }
+
+
+def test_hub_reply_resolves_the_representative_published_question_image(
+    db_session: Session,
+) -> None:
+    content_version_id = "f" * 64
+    question_id = "hub-image-question"
+    published_key = (
+        "data/question-bank-export/files/source-question-bank/"
+        "fenbi-final-analysis-v1-20260613-assets/paper/question.png"
+    )
+    snapshot = {
+        "question_id": question_id,
+        "analysis_source": "original_analysis",
+    }
+    db_session.execute(
+        text(
+            "insert into product.questions (question_id, domain, status, stem) "
+            "values (:question_id, 'xingce', 'active', 'hub image question')"
+        ),
+        {"question_id": question_id},
+    )
+    db_session.execute(
+        text(
+            """
+            insert into product.question_explanations (
+              question_id, preferred_analysis, analysis_source,
+              final_analysis_asset_refs
+            ) values (
+              :question_id, 'analysis', 'original_analysis',
+              cast(:asset_refs as jsonb)
+            )
+            """
+        ),
+        {
+            "question_id": question_id,
+            "asset_refs": __import__("json").dumps(
+                {
+                    "source": "original_analysis",
+                    "assets": [
+                        {"object_key": "data/not-published.png"},
+                        {"object_key": published_key},
+                    ],
+                }
+            ),
+        },
+    )
+    db_session.execute(
+        text(
+            """
+            insert into product.question_content_versions (
+              content_version_id, question_id, track, snapshot_payload,
+              normalized_search_text, created_at
+            ) values (
+              :content_version_id, :question_id, 'xingce', cast(:snapshot as jsonb),
+              'hub image question', :now
+            )
+            """
+        ),
+        {
+            "content_version_id": content_version_id,
+            "question_id": question_id,
+            "snapshot": __import__("json").dumps(snapshot),
+            "now": NOW,
+        },
+    )
+
+    assert _published_reply_image_url(
+        db_session,
+        content_version_id=content_version_id,
+    ) == f"https://img.xingguoxian.cn/{published_key}"
+
+
+def test_hub_reply_removes_image_directions_only_when_the_asset_is_missing() -> None:
+    reply = (
+        "答案：B\n\n解析：将原展开图按如下图所示进行编号。"
+        "C项不一致（如图中绿线所示），排除。"
+    )
+
+    result = _without_missing_explanation_image_references(reply)
+
+    assert result == "答案：B\n\n解析：将原展开图进行编号。C项不一致，排除。"
+    assert "如图" not in result
+
+
 class _HubPhotoStorage:
     def put(self, *, user_id, query_id, image):
         return StoredImage(
@@ -399,8 +538,9 @@ def test_hub_photo_query_is_account_owned_and_supports_followup_commands(
         client=_HubPhotoProtocol(),  # type: ignore[arg-type]
     )
 
-    assert "答案：C" in reply
-    assert "不用进小程序" not in reply
+    assert "答案：C" in reply.reply_text
+    assert "不用进小程序" not in reply.reply_text
+    assert reply.content_version_id is None
     query = db_session.execute(
         text(
             "select link_id, hub_authorization_id from messaging.ilink_photo_queries "

@@ -112,7 +112,8 @@ create table product.question_explanations (
   analysis_source text,
   analysis_status text,
   prefer_ai_analysis boolean not null default false,
-  analysis_needs_review boolean not null default false
+  analysis_needs_review boolean not null default false,
+  final_analysis_asset_refs jsonb
 );
 
 create table product.knowledge_chunks (
