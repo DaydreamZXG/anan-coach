@@ -127,7 +127,8 @@ function isQualificationFactInput(value: unknown): value is QualificationFactInp
     value.key.length > 0 &&
     (typeof value.value === "string" ||
       typeof value.value === "number" ||
-      typeof value.value === "boolean")
+      typeof value.value === "boolean" ||
+      (Array.isArray(value.value) && value.value.every((item) => typeof item === "string")))
   );
 }
 
