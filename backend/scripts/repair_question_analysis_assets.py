@@ -204,7 +204,16 @@ def repair_analysis_assets(
             matched_records += 1
             assets = extract_analysis_assets(record, asset_root=asset_root)
             expected_sources = _image_sources(record)
-            unresolved += max(0, len(expected_sources) - len(assets))
+            province = str(record.get("province") or "").strip()
+            unresolved += sum(
+                _resolve_source_asset(
+                    source,
+                    province=province,
+                    asset_root=asset_root,
+                )
+                is None
+                for source in expected_sources
+            )
             for binding in selected:
                 candidates[binding.question_id] = assets
 
