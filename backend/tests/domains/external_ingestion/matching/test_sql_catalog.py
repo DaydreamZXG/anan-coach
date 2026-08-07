@@ -229,6 +229,80 @@ def test_search_recalls_transformed_image_by_perceptual_hashes(
     assert results[0].visual_feature_hashes[0].phash == "0000000000000000"
 
 
+def test_search_prefetch_uses_text_to_disambiguate_visual_hash_collisions(
+    db_session: Session,
+) -> None:
+    _seed_question(db_session, question_id="q-relevant")
+    _seed_question(db_session, question_id="q-visual-collision")
+    db_session.execute(
+        text("update product.questions set stem = :stem where question_id = 'q-relevant'"),
+        {"stem": "左边为给定的纸盒外表面，右边哪一项能由它折叠而成？"},
+    )
+    db_session.execute(
+        text(
+            "update product.questions set stem = '完全无关的统计图问题' "
+            "where question_id = 'q-visual-collision'"
+        )
+    )
+    catalog = SQLQuestionContentCatalog(
+        db_session,
+        clock=lambda: NOW,
+        prefetch_factor=1,
+        maximum_prefetch=1,
+    )
+    relevant = catalog.publish_current(question_id="q-relevant")
+    collision = catalog.publish_current(question_id="q-visual-collision")
+    for question_id, version, suffix, phash in (
+        ("q-relevant", relevant.content_version_id, "a", "0000000000000001"),
+        ("q-visual-collision", collision.content_version_id, "b", "0000000000000000"),
+    ):
+        db_session.execute(
+            text(
+                """
+                insert into product.question_visual_fingerprints (
+                  visual_fingerprint_id, question_id, content_version_id,
+                  fingerprint_sha256, fingerprint_policy_version,
+                  source_asset_ref, created_at, phash, dhash, ahash, edge_dhash
+                ) values (
+                  :id, :question_id, :version, :fingerprint,
+                  'visual-perceptual-256@v1', :asset, :created_at,
+                  :phash, '0000000000000000', '0000000000000000',
+                  '0000000000000000'
+                )
+                """
+            ),
+            {
+                "id": str(uuid4()),
+                "question_id": question_id,
+                "version": version,
+                "fingerprint": suffix * 64,
+                "asset": f"asset:{question_id}",
+                "created_at": NOW,
+                "phash": phash,
+            },
+        )
+
+    results = catalog.search(
+        query=MatchQuery(
+            track="xingce",
+            promptText="左边为给定的纸盒外表面，右边哪一项能由它折叠而成？",
+            visualFeatureHashes=(
+                {
+                    "phash": "0000000000000000",
+                    "dhash": "0000000000000000",
+                    "ahash": "0000000000000000",
+                    "edgeDhash": "0000000000000000",
+                },
+            ),
+        ),
+        maximum_candidates=1,
+    )
+
+    assert [item.content_version_id for item in results] == [
+        relevant.content_version_id
+    ]
+
+
 def test_unknown_domain_and_tampered_version_fail_closed(db_session: Session) -> None:
     _seed_question(db_session, question_id="q-unknown-domain")
     db_session.execute(

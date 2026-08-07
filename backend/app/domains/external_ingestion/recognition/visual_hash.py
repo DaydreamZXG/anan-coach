@@ -18,6 +18,13 @@ from hashlib import sha256
 from PIL import Image, ImageFilter, ImageOps
 
 
+MATCHING_BAND_COUNT = 12
+MATCHING_BAND_HEIGHT_TO_WIDTH = 0.30
+MATCHING_BAND_HORIZONTAL_INSET = 0.04
+MATCHING_BAND_MIN_HEIGHT = 220
+MATCHING_PORTRAIT_MIN_RATIO = 1.20
+
+
 def _grayscale_square(image: Image.Image, size: int) -> list[int]:
     gray = ImageOps.grayscale(image).resize((size, size), Image.Resampling.LANCZOS)
     return list(gray.getdata())
@@ -94,6 +101,53 @@ def feature_hashes(image: Image.Image) -> dict[str, str]:
         "ahash": average_hash(rgb),
         "edge_dhash": edge_difference_hash(rgb),
     }
+
+
+def matching_feature_hashes(image: Image.Image) -> tuple[dict[str, str], ...]:
+    """Return whole-image plus horizontal-band hashes for screenshot matching.
+
+    Question-bank assets are usually tightly cropped while users often send a tall
+    phone screenshot. Hashing only the whole screenshot makes the app chrome,
+    whitespace and answer controls dominate the perceptual hash. For portrait
+    images, add evenly distributed wide bands so the embedded question figure can
+    still be compared with its tightly cropped catalog asset.
+
+    The fixed upper bound keeps SQL candidate generation predictable. Duplicate
+    hashes are removed because mostly blank bands often collapse to the same value.
+    """
+
+    prepared = ImageOps.exif_transpose(image).convert("RGB")
+    candidates = [prepared]
+    width, height = prepared.size
+    if (
+        width >= 320
+        and height >= 320
+        and height / max(1, width) >= MATCHING_PORTRAIT_MIN_RATIO
+    ):
+        band_height = min(
+            height,
+            max(MATCHING_BAND_MIN_HEIGHT, round(width * MATCHING_BAND_HEIGHT_TO_WIDTH)),
+        )
+        inset = round(width * MATCHING_BAND_HORIZONTAL_INSET)
+        right = max(inset + 1, width - inset)
+        travel = max(0, height - band_height)
+        denominator = max(1, MATCHING_BAND_COUNT - 1)
+        for index in range(MATCHING_BAND_COUNT):
+            top = round(index * travel / denominator)
+            candidates.append(prepared.crop((inset, top, right, top + band_height)))
+
+    unique: list[dict[str, str]] = []
+    seen: set[tuple[str, ...]] = set()
+    for candidate in candidates:
+        hashes = feature_hashes(candidate)
+        identity = tuple(
+            hashes[name] for name in ("phash", "dhash", "ahash", "edge_dhash")
+        )
+        if identity in seen:
+            continue
+        seen.add(identity)
+        unique.append(hashes)
+    return tuple(unique)
 
 
 def fingerprint_sha256(hashes: dict[str, str]) -> str:

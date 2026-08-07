@@ -309,8 +309,8 @@ class SQLQuestionContentCatalog:
                   )
                 order by
                   visual_match desc,
-                  visual_distance asc nulls last,
                   similarity(version.normalized_search_text, :normalized) desc,
+                  visual_distance asc nulls last,
                   version.content_version_id
                 limit :prefetch
                 """

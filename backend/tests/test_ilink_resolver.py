@@ -350,6 +350,94 @@ def test_photo_matching_uses_structured_visual_hashes(monkeypatch) -> None:
     assert candidate[0].content_version_id == "content-1"
 
 
+def test_visual_question_matches_by_stem_and_local_figure_not_page_chrome(
+    monkeypatch,
+) -> None:
+    query_feature = VisualFeatureHash(
+        phash="0" * 16,
+        dhash="0" * 16,
+        ahash="0" * 16,
+        edgeDhash="0" * 16,
+    )
+    catalog_feature = VisualFeatureHash(
+        phash="0" * 15 + "1",
+        dhash="0" * 15 + "1",
+        ahash="0" * 15 + "1",
+        edgeDhash="0" * 15 + "1",
+    )
+    prompt = "左边为给定的纸盒外表面，右边哪一项能由它折叠而成？"
+    query = MatchQuery(
+        track="xingce",
+        promptText=prompt,
+        optionTexts=("A A\nB C D\nA B\nC C\nD D",),
+        materialTexts=("00:03\n专项智能练习（图形推理）\n单选题",),
+        visualFeatureHashes=(query_feature,),
+    )
+    text_only = IndexedContent(
+        contentVersionId="text-only-duplicate",
+        track="xingce",
+        promptText=prompt,
+        referenceAnswer="B",
+        distributionClass="licensed_transferable",
+        crossUserMatchAllowed=True,
+    )
+    visual = IndexedContent(
+        contentVersionId="visual-source",
+        track="xingce",
+        promptText=prompt,
+        visualFeatureHashes=(catalog_feature,),
+        referenceAnswer="B",
+        distributionClass="licensed_transferable",
+        crossUserMatchAllowed=True,
+    )
+
+    class _Catalog:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def search(self, **_kwargs):
+            return (text_only, visual)
+
+    class _Authorization:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def authorize(self, **_kwargs):
+            return AuthorizationDecision(
+                allowed=True,
+                reason="licensed content",
+                snapshotRef="snapshot-visual",
+            )
+
+    monkeypatch.setattr(
+        "app.domains.ilink_channel.resolver.SQLQuestionContentCatalog", _Catalog
+    )
+    monkeypatch.setattr(
+        "app.domains.ilink_channel.resolver.SQLMatchAuthorization", _Authorization
+    )
+
+    candidate, ambiguous = _authorized_candidate(
+        session=cast(Session, object()),
+        owner_user_id=UUID("00000000-0000-0000-0000-000000009305"),
+        query=query,
+        policy=MatchingPolicy(
+            policyVersion="matching-v1",
+            similarThreshold=0.86,
+            ambiguityMargin=0.05,
+            textWeight=0.75,
+            visualWeight=0.25,
+            essayMinPromptChars=20,
+            essayRequireMaterial=True,
+            maximumCandidates=5,
+        ),
+        core=Settings(),
+    )
+
+    assert ambiguous is False
+    assert candidate is not None
+    assert candidate[0].content_version_id == "visual-source"
+
+
 def test_ilink_recognition_accepts_the_shared_mineru_adapter() -> None:
     route = "photo-query-approved-v1"
     release = "mineru-staging-20260802"

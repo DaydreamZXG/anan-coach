@@ -26,8 +26,9 @@ from app.domains.external_ingestion.matching.authorization import SQLMatchAuthor
 from app.domains.external_ingestion.matching.catalog import SQLQuestionContentCatalog
 from app.domains.external_ingestion.matching.fingerprint import (
     canonical_fingerprint,
+    grouped_text_similarity,
     normalize_text,
-    text_similarity,
+    requires_visual_evidence,
     visual_similarity,
 )
 from app.domains.external_ingestion.matching.models import MatchQuery, MatchingPolicy
@@ -691,10 +692,15 @@ def _authorized_candidate(
         maximum_prefetch=core.matching_sql_maximum_prefetch,
     )
     authorization = SQLMatchAuthorization(session)
-    query_text = "\n".join((query.prompt_text, *query.option_texts, *query.material_texts))
     scored = []
     for content in catalog.search(query=query, maximum_candidates=policy.maximum_candidates):
         if content.track != query.track:
+            continue
+        if (
+            query.visual_feature_hashes
+            and requires_visual_evidence(query.prompt_text)
+            and not content.visual_feature_hashes
+        ):
             continue
         if (
             content.distribution_class == "account_private"
@@ -711,10 +717,14 @@ def _authorized_candidate(
         )
         if not decision.allowed or not decision.snapshot_ref:
             continue
-        content_text = "\n".join(
-            (content.prompt_text, *content.option_texts, *content.material_texts)
+        text_score = grouped_text_similarity(
+            query_prompt=query.prompt_text,
+            content_prompt=content.prompt_text,
+            query_options=query.option_texts,
+            content_options=content.option_texts,
+            query_materials=query.material_texts,
+            content_materials=content.material_texts,
         )
-        text_score = text_similarity(query_text, content_text)
         visual_score = visual_similarity(
             query.visual_feature_hashes, content.visual_feature_hashes
         )

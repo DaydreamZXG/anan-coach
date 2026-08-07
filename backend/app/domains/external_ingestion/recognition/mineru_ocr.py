@@ -30,8 +30,8 @@ from app.domains.external_ingestion.recognition.models import (
     enforce_provider_dispatch_fence,
 )
 from app.domains.external_ingestion.recognition.visual_hash import (
-    feature_hashes,
     fingerprint_sha256,
+    matching_feature_hashes,
 )
 from app.internal_services.private_objects import PrivateObjectReader
 from app.domains.xfyun.formula import FormulaRecognition, XfyunFormulaError
@@ -205,23 +205,26 @@ class MinerURecognitionProcessor:
             segments=segments,
             omrMarks=(),
             pageImageSha256=(sha256(pdf_bytes).hexdigest(),),
-            visualFingerprints=(
-                fingerprint_sha256(source_feature_hashes.model_dump()),
+            visualFingerprints=tuple(
+                fingerprint_sha256(item.model_dump()) for item in source_feature_hashes
             ),
-            visualFeatureHashes=(source_feature_hashes,),
+            visualFeatureHashes=source_feature_hashes,
             confidence=_confidence_from_blocks(layout_blocks),
         )
 
     def _prepare_pdf(
         self, source: Path, *, mime_type: str
-    ) -> tuple[bytes, bytes, VisualFeatureHash]:
+    ) -> tuple[bytes, bytes, tuple[VisualFeatureHash, ...]]:
         """把源文件统一转成单页 PDF 再喂 MinerU（它对 PDF/文档的解析最稳）。"""
         try:
             with Image.open(source) as opened:
                 prepared = prepare_for_ocr(opened, enable_crop=True, max_long_edge=2200)
         except Exception as exc:
             raise ProcessorResponseError("MinerU image cannot be decoded") from exc
-        hashes = VisualFeatureHash.model_validate(feature_hashes(prepared.image))
+        hashes = tuple(
+            VisualFeatureHash.model_validate(item)
+            for item in matching_feature_hashes(prepared.image)
+        )
         formula_buffer = BytesIO()
         prepared.image.convert("RGB").save(formula_buffer, "JPEG", quality=92, optimize=True)
         buffer = BytesIO()

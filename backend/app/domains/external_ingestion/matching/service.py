@@ -23,7 +23,9 @@ from app.domains.external_ingestion.matching.errors import (
 )
 from app.domains.external_ingestion.matching.fingerprint import (
     canonical_fingerprint,
+    grouped_text_similarity,
     normalize_text,
+    requires_visual_evidence,
     text_similarity,
     visual_similarity,
 )
@@ -392,6 +394,12 @@ class MatchingService:
             if content.track != query.track:
                 continue
             if (
+                query.visual_feature_hashes
+                and requires_visual_evidence(query.prompt_text)
+                and not content.visual_feature_hashes
+            ):
+                continue
+            if (
                 content.distribution_class == "account_private"
                 and content.owner_user_id != owner_user_id
             ):
@@ -404,7 +412,15 @@ class MatchingService:
             if not decision.allowed or decision.snapshot_ref is None:
                 continue
             candidate_text = _content_text(content)
-            text_score = text_similarity(query_text, candidate_text)
+            text_score = grouped_text_similarity(
+                query_prompt=query.prompt_text,
+                content_prompt=content.prompt_text,
+                query_options=query.option_texts,
+                content_options=content.option_texts,
+                query_materials=query.material_texts,
+                content_materials=content.material_texts,
+                scorer=text_similarity,
+            )
             visual_score = visual_similarity(
                 query.visual_feature_hashes, content.visual_feature_hashes
             )
