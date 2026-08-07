@@ -8,8 +8,13 @@ from uuid import UUID
 from app.contracts.external_learning.models import LearningTrack
 from app.core.config import Settings
 from app.domains.external_ingestion.matching.models import MatchQuery
+from app.domains.external_ingestion.answering.models import (
+    ExternalAIAnswerPayload,
+    ExternalAIAnswerProviderResult,
+)
 from app.domains.ilink_channel.resolver import (
     PhotoQuestionResolver,
+    PhotoResolutionError,
     QueryRecognitionProcessor,
     TosTransientImageStore,
 )
@@ -60,6 +65,70 @@ def test_answer_models_are_lazy_and_unapproved_models_abstain() -> None:
     assert result.answer_kind == "ambiguous"
     assert result.answer_text == "这道题暂时没有可核验的答案"
     assert result.model_provenance is None
+
+
+class _PrimaryAnswerProvider:
+    provider_name = "primary-test"
+    model = "primary-model"
+
+    def validate_configuration(self) -> None:
+        return None
+
+    def generate(self, **_kwargs) -> ExternalAIAnswerProviderResult:
+        return ExternalAIAnswerProviderResult(
+            output=ExternalAIAnswerPayload(
+                answer="C",
+                explanation="甲与乙的对应关系支持 C。",
+                keyPoints=["对应关系"],
+                confidence="medium",
+                limitations=[],
+                sourceSegmentRefs=["segment-1"],
+            ),
+            usageInputTokens=10,
+            usageCachedInputTokens=0,
+            usageOutputTokens=5,
+            latencyMs=20,
+            outputFingerprint="a" * 64,
+            providerRequestIdFingerprint="b" * 64,
+        )
+
+
+class _UnavailableSecondaryProvider:
+    def validate(self) -> None:
+        return None
+
+    def generate(self, **_kwargs):
+        raise PhotoResolutionError("secondary_answer_failed")
+
+
+def test_secondary_outage_keeps_an_honestly_labelled_primary_candidate() -> None:
+    resolver = PhotoQuestionResolver(
+        core_settings=Settings(),
+        channel_settings=_channel_settings(),
+        storage=cast(TosTransientImageStore, object()),
+        recognizer=cast(QueryRecognitionProcessor, object()),
+        primary=cast(object, _PrimaryAnswerProvider()),  # type: ignore[arg-type]
+        secondary=cast(object, _UnavailableSecondaryProvider()),  # type: ignore[arg-type]
+    )
+
+    result = resolver._dual_ai(
+        query=MatchQuery(
+            track=LearningTrack.XINGCE,
+            promptText="根据材料，正确选项是哪一个？",
+            optionTexts=("A. 甲", "B. 乙", "C. 丙"),
+        ),
+        recognized={"segmentRefs": ["segment-1"]},
+        query_id=UUID("00000000-0000-0000-0000-000000009302"),
+    )
+
+    assert result.answer_kind == "ai_candidate"
+    assert result.answer_text == "C"
+    assert "单模型候选结论" in result.explanation
+    assert result.model_provenance is not None
+    assert (
+        result.model_provenance["policy"]
+        == "primary-candidate-secondary-unavailable@v1"
+    )
 
 
 def test_ilink_recognition_accepts_the_shared_mineru_adapter() -> None:

@@ -368,10 +368,16 @@ def render_query_reply(
     payload = dict(query["answer_payload"] or {})
     answer = str(payload.get("answerText") or "当前没有可可靠展示的答案")
     explanation = str(payload.get("explanation") or "")
+    provenance = dict(query["model_provenance"] or {})
+    ai_source = (
+        "AI 候选 · 尚未双模型复核 · 非官方答案"
+        if provenance.get("policy") == "primary-candidate-secondary-unavailable@v1"
+        else "AI 双模型候选 · 非官方答案"
+    )
     source = {
         "authorized_exact": "题库授权原题",
         "similar_reference": "相似题参考",
-        "ai_candidate": "AI 双模型候选 · 非官方答案",
+        "ai_candidate": ai_source,
         "ambiguous": "匹配存在歧义",
         "material_required": "缺少共享材料",
     }.get(str(query["answer_kind"]), "来源未确认")

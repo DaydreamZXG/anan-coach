@@ -505,11 +505,11 @@ class PhotoQuestionResolver:
         self, *, query: MatchQuery, recognized: dict[str, object], query_id: UUID
     ) -> AnswerProjection:
         try:
-            primary_provider, secondary_provider = self._answer_providers()
+            primary_provider = self._primary or ExternalAIAnswerProvider(self._core)
+            primary_provider.validate_configuration()
         except (
             AIProviderConfigurationError,
             ExternalAIAnswerProviderError,
-            PhotoResolutionError,
         ):
             return AnswerProjection(
                 answerKind="ambiguous",
@@ -522,6 +522,7 @@ class PhotoQuestionResolver:
                 recognizedPayload=recognized,
                 modelProvenance=None,
             )
+        self._primary = primary_provider
         try:
             primary = primary_provider.generate(
                 query=query,
@@ -530,9 +531,35 @@ class PhotoQuestionResolver:
             )
         except ExternalAIAnswerProviderError as exc:
             raise PhotoResolutionError(exc.code, retryable=exc.retryable) from exc
-        secondary = secondary_provider.generate(
-            query=query, idempotency_key=f"ilink-secondary-answer:{query_id}"
-        )
+        secondary_provider = self._secondary or SecondaryAnswerProvider()
+        try:
+            secondary_provider.validate()
+            secondary = secondary_provider.generate(
+                query=query, idempotency_key=f"ilink-secondary-answer:{query_id}"
+            )
+        except PhotoResolutionError:
+            return AnswerProjection(
+                answerKind="ai_candidate",
+                answerText=primary.output.answer,
+                explanation=(
+                    primary.output.explanation
+                    + "\n\n备用模型未完成复核，这是单模型候选结论，不是官方答案。"
+                ),
+                track=query.track.value,
+                recognizedPayload=recognized,
+                modelProvenance={
+                    "policy": "primary-candidate-secondary-unavailable@v1",
+                    "agreement": None,
+                    "primary": {
+                        "provider": primary_provider.provider_name,
+                        "model": primary_provider.model,
+                        "outputFingerprint": primary.output_fingerprint,
+                        "requestFingerprint": primary.provider_request_id_fingerprint,
+                    },
+                    "secondary": {"status": "unavailable"},
+                },
+            )
+        self._secondary = secondary_provider
         if _answer_identity(primary.output.answer) != _answer_identity(secondary.answer):
             return AnswerProjection(
                 answerKind="ambiguous",
@@ -570,18 +597,6 @@ class PhotoQuestionResolver:
                 },
             },
         )
-
-    def _answer_providers(
-        self,
-    ) -> tuple[ExternalAIAnswerProvider, SecondaryAnswerProvider]:
-        primary = self._primary or ExternalAIAnswerProvider(self._core)
-        secondary = self._secondary or SecondaryAnswerProvider()
-        primary.validate_configuration()
-        secondary.validate()
-        self._primary = primary
-        self._secondary = secondary
-        return primary, secondary
-
 
 def _match_query(result: ProcessorResult) -> tuple[MatchQuery, dict[str, object]]:
     spans = {span.span_id: span.text.strip() for span in result.text_spans}
