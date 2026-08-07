@@ -41,3 +41,24 @@ def test_rejects_remote_and_parent_traversal_analysis_sources(tmp_path: Path) ->
     }
 
     assert extract_analysis_assets(record, asset_root=asset_root) == ()
+
+
+def test_excludes_inline_tex_glyphs_and_deduplicates_explanation_images(
+    tmp_path: Path,
+) -> None:
+    asset_root = tmp_path / "assets"
+    paper = asset_root / "paper_images"
+    paper.mkdir(parents=True)
+    (paper / "degree.png").write_bytes(b"degree")
+    (paper / "analysis.png").write_bytes(b"analysis")
+    record = {
+        "original_analysis_html": (
+            '<p>旋转90<img flag="tex" src="paper_images/degree.png"></p>'
+            '<img src="paper_images/analysis.png">'
+            '<img src="paper_images/analysis.png">'
+        )
+    }
+
+    assets = extract_analysis_assets(record, asset_root=asset_root)
+
+    assert [asset.image_src for asset in assets] == ["paper_images/analysis.png"]

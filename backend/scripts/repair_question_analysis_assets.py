@@ -22,8 +22,11 @@ import json
 import mimetypes
 import os
 from pathlib import Path, PurePosixPath
+from typing import Callable
+from urllib.parse import quote
 from urllib.parse import unquote, urlsplit
 
+import httpx
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
 
@@ -74,7 +77,9 @@ class RepairReport:
     missing_assets: int
     objects_already_present: int
     objects_uploaded: int
+    objects_unverified: int
     explanations_updated: int
+    explanations_skipped: int
 
 
 class _ImageSourceParser(HTMLParser):
@@ -87,10 +92,18 @@ class _ImageSourceParser(HTMLParser):
     ) -> None:
         if tag.casefold() != "img":
             return
-        for name, value in attrs:
-            if name.casefold() == "src" and value and value.strip():
-                self.sources.append(value.strip())
-                return
+        normalized = {
+            name.casefold(): value.strip()
+            for name, value in attrs
+            if value and value.strip()
+        }
+        # Fenbi stores degree signs and formula glyphs as tiny inline images.
+        # They belong in rich-text/formula rendering, not as standalone Bot images.
+        if normalized.get("flag", "").casefold() == "tex":
+            return
+        source = normalized.get("src")
+        if source and source not in self.sources:
+            self.sources.append(source)
 
 
 def extract_analysis_assets(
@@ -143,6 +156,7 @@ def repair_analysis_assets(
     object_store: TosObjectStore,
     question_ids: tuple[str, ...],
     all_questions: bool,
+    public_verifier: Callable[[AnalysisAsset], bool] | None = None,
 ) -> RepairReport:
     if mode not in {"audit", "apply"}:
         raise ValueError("mode must be audit or apply")
@@ -178,16 +192,27 @@ def repair_analysis_assets(
 
     already_present = 0
     uploaded = 0
+    unverified = 0
     updated = 0
+    skipped = 0
+    verifier = public_verifier or public_object_matches
     for question_id, assets in sorted(candidates.items()):
         verified: list[AnalysisAsset] = []
         for asset in assets:
             metadata = object_store.head(asset.object_key)
-            if _metadata_matches(metadata, asset):
+            if _metadata_matches(metadata, asset) or (
+                metadata.exists
+                and metadata.size == asset.byte_size
+                and metadata.sha256_hex is None
+                and verifier(asset)
+            ):
                 already_present += 1
                 verified.append(asset)
                 continue
-            if metadata.exists or mode != "apply":
+            if metadata.exists:
+                unverified += 1
+                continue
+            if mode != "apply":
                 continue
             with asset.source_path.open("rb") as payload:
                 object_store.put(
@@ -201,7 +226,7 @@ def repair_analysis_assets(
                 raise RuntimeError(f"uploaded explanation asset failed verification: {asset.object_key}")
             uploaded += 1
             verified.append(asset)
-        if mode == "apply" and verified:
+        if mode == "apply" and len(verified) == len(assets):
             changed = session.execute(
                 text(
                     """
@@ -224,6 +249,8 @@ def repair_analysis_assets(
                 },
             ).rowcount
             updated += int(changed or 0)
+        elif mode == "apply":
+            skipped += 1
     if mode == "apply":
         session.commit()
     else:
@@ -236,7 +263,9 @@ def repair_analysis_assets(
         missing_assets=unresolved,
         objects_already_present=already_present,
         objects_uploaded=uploaded,
+        objects_unverified=unverified,
         explanations_updated=updated,
+        explanations_skipped=skipped,
     )
 
 
@@ -331,6 +360,29 @@ def _metadata_matches(metadata: ObjectMetadata, asset: AnalysisAsset) -> bool:
         and metadata.size == asset.byte_size
         and metadata.sha256_hex == asset.content_sha256
     )
+
+
+def public_object_matches(asset: AnalysisAsset) -> bool:
+    encoded_key = quote(asset.object_key, safe="/")
+    url = f"https://img.xingguoxian.cn/{encoded_key}"
+    try:
+        with httpx.stream(
+            "GET",
+            url,
+            follow_redirects=False,
+            timeout=httpx.Timeout(30.0, connect=5.0),
+        ) as response:
+            response.raise_for_status()
+            digest = sha256()
+            size = 0
+            for chunk in response.iter_bytes():
+                size += len(chunk)
+                if size > asset.byte_size:
+                    return False
+                digest.update(chunk)
+    except httpx.HTTPError:
+        return False
+    return size == asset.byte_size and digest.hexdigest() == asset.content_sha256
 
 
 def _parser() -> argparse.ArgumentParser:
