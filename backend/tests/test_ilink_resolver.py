@@ -5,6 +5,7 @@ import json
 from typing import cast
 from uuid import UUID
 
+import httpx
 from app.contracts.external_learning.models import LearningTrack
 from app.core.config import Settings
 from app.domains.external_ingestion.matching.models import MatchQuery
@@ -16,6 +17,7 @@ from app.domains.ilink_channel.resolver import (
     PhotoQuestionResolver,
     PhotoResolutionError,
     QueryRecognitionProcessor,
+    SecondaryAnswerProvider,
     TosTransientImageStore,
 )
 from app.domains.ilink_channel.settings import ILinkSettings
@@ -129,6 +131,71 @@ def test_secondary_outage_keeps_an_honestly_labelled_primary_candidate() -> None
         result.model_provenance["policy"]
         == "primary-candidate-secondary-unavailable@v1"
     )
+
+
+def test_secondary_provider_requests_and_accepts_the_complete_answer_contract(
+    monkeypatch,
+) -> None:
+    monkeypatch.setenv("ILINK_SECONDARY_AI_BASE_URL", "https://secondary.example/v1")
+    monkeypatch.setenv("ILINK_SECONDARY_AI_API_KEY", "secondary-test-key")
+    monkeypatch.setenv("ILINK_SECONDARY_AI_MODEL", "deepseek-v4-flash")
+    monkeypatch.setenv("ILINK_SECONDARY_AI_PROVIDER_RELEASE_ID", "secondary-release-v1")
+    monkeypatch.setenv(
+        "ILINK_SECONDARY_AI_HTTPS_HOST_ALLOWLIST", "secondary.example"
+    )
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        body = json.loads(request.content)
+        document = json.loads(body["messages"][1]["content"])
+        assert set(document["requiredSchema"]) == {
+            "answer",
+            "explanation",
+            "keyPoints",
+            "confidence",
+            "limitations",
+        }
+        assert "requiredSchema" in body["messages"][0]["content"]
+        return httpx.Response(
+            200,
+            headers={"x-request-id": "secondary-request-1"},
+            json={
+                "id": "completion-1",
+                "model": "deepseek-v4-flash",
+                "choices": [
+                    {
+                        "message": {
+                            "content": json.dumps(
+                                {
+                                    "answer": "B",
+                                    "explanation": "1+1=2。",
+                                    "keyPoints": ["基本加法"],
+                                    "confidence": "high",
+                                    "limitations": [],
+                                },
+                                ensure_ascii=False,
+                            )
+                        }
+                    }
+                ],
+            },
+        )
+
+    provider = SecondaryAnswerProvider(
+        client_factory=lambda **kwargs: httpx.Client(
+            transport=httpx.MockTransport(handler), **kwargs
+        )
+    )
+    result = provider.generate(
+        query=MatchQuery(
+            track=LearningTrack.XINGCE,
+            promptText="1+1=?",
+            optionTexts=("A. 1", "B. 2"),
+        ),
+        idempotency_key="secondary-contract-1",
+    )
+
+    assert result.answer == "B"
+    assert result.explanation == "1+1=2。"
 
 
 def test_ilink_recognition_accepts_the_shared_mineru_adapter() -> None:
