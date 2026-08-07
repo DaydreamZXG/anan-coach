@@ -75,6 +75,10 @@ from app.domains.companion.schemas import (
     ExternalQuestionResolveResponse,
     KnowledgeMapCandidate,
 )
+from app.domains.companion.short_term import (
+    ShortTermConversationMessage,
+    short_term_history_payload,
+)
 from app.domains.essay.schemas import AIQuotaState
 from app.platform.outbox import OutboxRepository
 
@@ -150,6 +154,7 @@ class CompanionService:
         learner_key: str,
         idempotency_key: str,
         request: CompanionAskRequest,
+        short_term_history: tuple[ShortTermConversationMessage, ...] = (),
     ) -> CompanionAskResponse:
         request_payload = request.model_dump(by_alias=True, mode="json")
         try:
@@ -231,12 +236,19 @@ class CompanionService:
                     retrieval=retrieval,
                 )
             persona = _build_persona_prompt()
+            provider_kwargs: dict[str, Any] = {
+                "route_decision": decision.model_dump(by_alias=True, mode="json"),
+                "question_text": request.question_text,
+                "context": context_payload,
+                "sources": _provider_sources(retrieval),
+                "persona": persona,
+            }
+            if short_term_history:
+                provider_kwargs["conversation_history"] = short_term_history_payload(
+                    short_term_history
+                )
             provider_request = self._ai_provider.prepare_companion_question(
-                route_decision=decision.model_dump(by_alias=True, mode="json"),
-                question_text=request.question_text,
-                context=context_payload,
-                sources=_provider_sources(retrieval),
-                persona=persona,
+                **provider_kwargs
             )
             execution_payload = {
                 "contractVersion": COMPANION_ASK_EXECUTION_CONTRACT,

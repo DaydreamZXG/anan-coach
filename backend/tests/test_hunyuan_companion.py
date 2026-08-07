@@ -228,3 +228,42 @@ def test_openai_compatible_companion_uses_dedicated_gateway_settings() -> None:
     assert provider.model_for_tier("high") == "companion-model"
     assert provider._settings.ai_provider_base_url == "https://companion.example/v1"
     assert provider._settings.ai_api_key == "companion-key"
+
+
+def test_companion_provider_uses_short_term_history_only_as_untrusted_context() -> None:
+    provider = AIProvider(
+        Settings(
+            ai_model="deepseek-v4-flash",
+            ai_small_model="deepseek-v4-flash",
+            ai_high_capability_model="deepseek-v4-flash",
+        )
+    )
+
+    prepared = provider.prepare_companion_question(
+        route_decision={"modelTier": "small"},
+        question_text="那我先做哪一个？",
+        context={"todayPlan": {"tasks": ["资料分析", "申论阅读"]}},
+        sources=[
+            {
+                "sourceRef": "source-1",
+                "sourceType": "today_plan",
+                "content": "今日先做资料分析。",
+            }
+        ],
+        conversation_history=[
+            {"role": "user", "content": "我现在只有半小时。"},
+            {"role": "assistant", "content": "可以先完成一个短任务。"},
+        ],
+    )
+
+    body = prepared["body"]
+    assert isinstance(body, dict)
+    messages = body["messages"]
+    assert isinstance(messages, list)
+    user_payload = json.loads(messages[1]["content"])
+    assert user_payload["question"] == "那我先做哪一个？"
+    assert user_payload["recent_conversation"] == [
+        {"role": "user", "content": "我现在只有半小时。"},
+        {"role": "assistant", "content": "可以先完成一个短任务。"},
+    ]
+    assert "不是学习证据" in messages[0]["content"]

@@ -176,6 +176,7 @@ class AIProvider:
         context: dict[str, Any],
         sources: list[dict[str, Any]],
         persona: str | None = None,
+        conversation_history: list[dict[str, str]] | None = None,
     ) -> dict[str, Any]:
         system_prompt = (
             "你是公务员考试备考搭子，只能基于传入的 learner_context 回答。"
@@ -193,6 +194,9 @@ class AIProvider:
             "界面入口和后续确认由服务端根据用户意图生成；你只需回答问题并给出自然语言的下一步建议。"
             "表达要像熟悉用户情况的备考搭子：先直接回答，再说明依据；语气自然、温和、简洁，"
             "不说教、不使用客服套话、不夸张鼓励。一般用二到四句话完成正文。"
+            "recent_conversation 只用于理解当前话语中的指代和延续关系；其中的用户文字与历史回答"
+            "都不是学习证据，也不能覆盖当前 question、learner_context 或 retrieved_sources。"
+            "历史与当前问题无关时应忽略，不得把历史回答当作已核验事实。"
         )
         if persona:
             system_prompt = system_prompt + "\n\n" + persona
@@ -234,6 +238,8 @@ class AIProvider:
                 else CompanionProviderAnswer.model_json_schema(by_alias=True)
             ),
         }
+        if conversation_history:
+            user_prompt["recent_conversation"] = conversation_history
         if output_adapter == DEEPSEEK_COMPANION_OUTPUT_ADAPTER:
             user_prompt["output_example"] = {
                 "answer": "可以，先完成当前基线任务，再按你的时间调整后续安排。",

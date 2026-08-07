@@ -81,6 +81,7 @@ class HunyuanCompanionProvider(AIProvider):
         context: dict[str, Any],
         sources: list[dict[str, Any]],
         persona: str | None = None,
+        conversation_history: list[dict[str, str]] | None = None,
     ) -> dict[str, Any]:
         prepared = super().prepare_companion_question(
             route_decision=route_decision,
@@ -88,6 +89,7 @@ class HunyuanCompanionProvider(AIProvider):
             context=context,
             sources=sources,
             persona=persona,
+            conversation_history=conversation_history,
         )
         prepared["providerReleaseId"] = self._hunyuan_settings.release_id.strip()
         prepared["providerEndpointFingerprint"] = endpoint_fingerprint(self._transport.endpoint)

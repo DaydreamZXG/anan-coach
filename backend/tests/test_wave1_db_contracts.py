@@ -108,7 +108,7 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     assert revision96.down_revision == "20260804_95"
     assert revision97.down_revision == "20260804_96"
     assert revision98.down_revision == "20260805_97"
-    assert script.get_heads() == ["20260807_99"]
+    assert script.get_heads() == ["20260807_100"]
     with pytest.raises(RuntimeError, match="forward-only"):
         revision77.downgrade()
     with pytest.raises(RuntimeError, match="forward-only"):

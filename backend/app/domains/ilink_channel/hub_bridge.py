@@ -11,6 +11,7 @@ import time
 from uuid import UUID
 
 from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings, get_settings
@@ -36,6 +37,7 @@ from app.domains.ilink_channel.repository import (
 )
 from app.domains.ilink_channel.service import ILinkChannelService
 from app.domains.ilink_channel.settings import ILinkConfigurationError, ILinkSettings
+from app.domains.ilink_channel.short_term_memory import ILinkShortTermMemory
 from app.domains.ilink_channel.workflow import ILinkPhotoWorkflow
 from app.domains.ilink_channel.resolver import PhotoResolutionError
 from app.domains.task_content.service import published_question_asset_url
@@ -138,6 +140,7 @@ def process_hub_event(event: HubBridgeEvent) -> None:
     client = OpenILinkHubClient(hub_settings)
     reply = ""
     reply_image_urls: tuple[str, ...] = ()
+    memory_user_text: str | None = None
     user_id: UUID | None = None
     delivered = False
     try:
@@ -173,6 +176,7 @@ def process_hub_event(event: HubBridgeEvent) -> None:
                 else:
                     reply = image_reply.text
                     reply_image_urls = image_reply.image_urls
+                    memory_user_text = "我发了一张题目截图。"
             elif event.event_type != "message.text" or not event.content:
                 reply = "这类消息我暂时读不了；可以直接发文字或裁剪好的单题截图。"
             else:
@@ -182,6 +186,7 @@ def process_hub_event(event: HubBridgeEvent) -> None:
                         user_id=user_id,
                         event=event,
                     )
+                    memory_user_text = event.content
                 else:
                     control = ILinkControlPlane().handle(
                         session,
@@ -191,6 +196,7 @@ def process_hub_event(event: HubBridgeEvent) -> None:
                     )
                     if control is not None:
                         reply = control.reply
+                        memory_user_text = event.content
                     else:
                         try:
                             reply = AccountScopedCompanionResponder(settings=settings).reply(
@@ -198,10 +204,16 @@ def process_hub_event(event: HubBridgeEvent) -> None:
                                 user_id=user_id,
                                 source_message_id=event.source_message_id,
                                 question=event.content,
+                                short_term_history=_recent_short_term_history(
+                                    session,
+                                    user_id=user_id,
+                                ),
                             )
                         except ChannelCompanionUnavailable:
                             session.rollback()
                             reply = "岸岸这次没有回答完成，请稍后把原问题再发一次。"
+                        else:
+                            memory_user_text = event.content
             session.commit()
         for reply_image_url in reply_image_urls:
             _send_image_with_retry(
@@ -216,6 +228,14 @@ def process_hub_event(event: HubBridgeEvent) -> None:
             command_id = f"hub-event:{event.event_id}"
             receipts.lock_command(command_id=command_id)
             if receipts.command_receipt(command_id=command_id) is None:
+                if memory_user_text is not None and reply and user_id is not None:
+                    _remember_short_term_turn(
+                        session,
+                        user_id=user_id,
+                        source_message_id=event.source_message_id,
+                        user_text=memory_user_text,
+                        assistant_text=reply,
+                    )
                 receipts.save_command_receipt(
                     command_id=command_id,
                     command_type="hub_bridge_event",
@@ -423,6 +443,47 @@ def _process_query_command(
     except ILinkConflict:
         session.rollback()
         return "这次操作没有改动记录，请先重发原图后再试。"
+
+
+def _recent_short_term_history(
+    session: Session,
+    *,
+    user_id: UUID,
+):
+    try:
+        with session.begin_nested():
+            return ILinkShortTermMemory(session).recent_messages(user_id=user_id)
+    except SQLAlchemyError:
+        logger.warning(
+            "iLink short-term memory read failed open",
+            extra={"user_id": str(user_id)},
+            exc_info=True,
+        )
+        return ()
+
+
+def _remember_short_term_turn(
+    session: Session,
+    *,
+    user_id: UUID,
+    source_message_id: str,
+    user_text: str,
+    assistant_text: str,
+) -> None:
+    try:
+        with session.begin_nested():
+            ILinkShortTermMemory(session).remember(
+                user_id=user_id,
+                source_message_id=source_message_id,
+                user_text=user_text,
+                assistant_text=assistant_text,
+            )
+    except (SQLAlchemyError, ValueError):
+        logger.warning(
+            "iLink short-term memory write failed open",
+            extra={"user_id": str(user_id)},
+            exc_info=True,
+        )
 
 
 def _event_fingerprint(event: HubBridgeEvent) -> str:

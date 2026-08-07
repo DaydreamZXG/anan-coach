@@ -16,6 +16,7 @@ from app.domains.companion.commands import CompanionCommandConflict
 from app.domains.companion.repository import CompanionRepository
 from app.domains.companion.schemas import CompanionAskRequest
 from app.domains.companion.service import CompanionCommandFailure, CompanionService
+from app.domains.companion.short_term import ShortTermConversationMessage
 from app.domains.learning_brain.service import (
     LearningBrainContractError,
     LearningBrainService,
@@ -35,6 +36,7 @@ class ChannelCompanionResponder(Protocol):
         user_id: UUID,
         source_message_id: str,
         question: str,
+        short_term_history: tuple[ShortTermConversationMessage, ...] = (),
     ) -> str: ...
 
 
@@ -51,6 +53,7 @@ class AccountScopedCompanionResponder:
         user_id: UUID,
         source_message_id: str,
         question: str,
+        short_term_history: tuple[ShortTermConversationMessage, ...] = (),
     ) -> str:
         user_ref = str(user_id)
         try:
@@ -84,6 +87,7 @@ class AccountScopedCompanionResponder:
                         "learnerStateVersion": str(profile.profile_version_id),
                     },
                 ),
+                short_term_history=short_term_history,
             )
         except (
             CompanionCommandConflict,
