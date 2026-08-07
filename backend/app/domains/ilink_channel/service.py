@@ -350,7 +350,7 @@ def query_view(repository: ILinkRepository, *, query, user_id: UUID) -> QueryVie
     return QueryView(
         queryId=UUID(str(query["query_id"])),
         userId=user_id,
-        linkId=UUID(str(query["link_id"])),
+        linkId=(UUID(str(query["link_id"])) if query["link_id"] is not None else None),
         state=str(query["state"]),
         answerKind=str(query["answer_kind"]),
         collectionState=collection_state,
@@ -358,7 +358,9 @@ def query_view(repository: ILinkRepository, *, query, user_id: UUID) -> QueryVie
     )
 
 
-def render_query_reply(*, query, collection_state: str) -> str:
+def render_query_reply(
+    *, query, collection_state: str, include_material_command: bool = True
+) -> str:
     if query["state"] == "deleted":
         return "已删除这次查询和个人收录内容。"
     if query["state"] == "failed":
@@ -381,7 +383,10 @@ def render_query_reply(*, query, collection_state: str) -> str:
     }[collection_state]
     body = f"答案：{answer}\n\n解析：{explanation}\n\n来源：{source}\n状态：{status}"
     if collection_state == "not_collected":
-        return body + "\n回复「收录」「重做」「删除」；讲义或笔记类图片可回复「存资料」收进私有阅读室"
+        suffix = "\n回复「收录」「重做」「删除」"
+        if include_material_command:
+            suffix += "；讲义或笔记类图片可回复「存资料」收进私有阅读室"
+        return body + suffix
     if collection_state == "collected":
         return body + "\n回复「重做」「删除」"
     if collection_state == "queued_for_reattempt":

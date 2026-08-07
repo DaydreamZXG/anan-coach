@@ -1,14 +1,21 @@
 from __future__ import annotations
 
 import base64
+from dataclasses import replace
 from datetime import UTC, datetime
 from uuid import UUID
 
+import httpx
 import pytest
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.domains.ilink_channel.hub_client import HubBindStart, HubBindStatus
+from app.core.config import Settings
+from app.domains.ilink_channel.hub_client import (
+    HubBindStart,
+    HubBindStatus,
+    OpenILinkHubClient,
+)
 from app.domains.ilink_channel.hub_bridge import HubBridgeEvent, verify_hub_signature
 from app.domains.ilink_channel.hub_service import OpenILinkHubBotService
 from app.domains.ilink_channel.hub_settings import (
@@ -16,7 +23,16 @@ from app.domains.ilink_channel.hub_settings import (
     OpenILinkHubSettings,
 )
 from app.domains.ilink_channel.repository import ILinkNotFound, ILinkRepository
+from app.domains.ilink_channel.protocol import (
+    InboundMessage,
+    MediaReference,
+    ValidatedImage,
+)
+from app.domains.ilink_channel.resolver import StoredImage
+from app.domains.ilink_channel.schemas import AnswerProjection
+from app.domains.ilink_channel.service import ILinkChannelService
 from app.domains.ilink_channel.settings import ILinkSettings
+from app.domains.ilink_channel.workflow import ILinkPhotoWorkflow
 
 
 NOW = datetime(2026, 7, 27, 15, 0, tzinfo=UTC)
@@ -208,6 +224,205 @@ def test_hub_bridge_signature_and_event_contract() -> None:
     assert event.bot_id == "bot-1"
     assert event.sender_id == "wx-1"
     assert event.content == "today"
+    assert event.source_message_id == "evt-1"
+
+    image_event = HubBridgeEvent.parse(
+        {
+            "type": "event",
+            "trace_id": "tr-image",
+            "installation_id": "inst-1",
+            "bot": {"id": "bot-1"},
+            "event": {
+                "id": "evt-image",
+                "type": "message.image",
+                "data": {
+                    "message_id": 7491305165594995592,
+                    "sender": {"id": "wx-1", "role": "user"},
+                },
+            },
+        }
+    )
+    assert image_event.source_message_id == "7491305165594995592"
+
+
+def test_hub_client_waits_until_image_media_is_ready() -> None:
+    message_reads = 0
+    sleeps: list[float] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        nonlocal message_reads
+        if request.url.path == "/api/auth/login":
+            return httpx.Response(
+                200,
+                headers={"set-cookie": "session=test-session; Path=/; HttpOnly"},
+                json={"ok": True},
+            )
+        assert request.url.path == "/api/bots/hub-bot-a/messages"
+        message_reads += 1
+        ready = message_reads == 2
+        return httpx.Response(
+            200,
+            json={
+                "messages": [
+                    {
+                        "message_id": 7491305165594995592,
+                        "direction": "inbound",
+                        "media_status": "ready" if ready else "processing",
+                        "item_list": (
+                            [
+                                {
+                                    "type": "image",
+                                    "media": {
+                                        "url": (
+                                            "https://novac2c.cdn.weixin.qq.com/"
+                                            "c2c/download?id=1"
+                                        ),
+                                        "aes_key": "media-key",
+                                        "encrypt_query_param": "encrypted-query",
+                                    },
+                                }
+                            ]
+                            if ready
+                            else []
+                        ),
+                    }
+                ]
+            },
+        )
+
+    client = OpenILinkHubClient(
+        hub_settings(),
+        client_factory=lambda **kwargs: httpx.Client(
+            transport=httpx.MockTransport(handler), **kwargs
+        ),
+        sleeper=sleeps.append,
+    )
+    media = client.wait_for_image_media(
+        bot_id="hub-bot-a", message_id="7491305165594995592"
+    )
+
+    assert media.encrypted_query_param == "encrypted-query"
+    assert media.aes_key == "media-key"
+    assert message_reads == 2
+    assert sleeps == [0.2]
+
+
+class _HubPhotoStorage:
+    def put(self, *, user_id, query_id, image):
+        return StoredImage(
+            object_ref=f"tos://bucket/private/ilink/{user_id}/{query_id}/image.png",
+            content_sha256="a" * 64,
+            mime_type=image.mime_type,
+        )
+
+    def delete(self, *, object_ref):
+        del object_ref
+
+
+class _HubPhotoResolver:
+    def __init__(self) -> None:
+        self.storage = _HubPhotoStorage()
+
+    def resolve(self, _session, **_kwargs):
+        return AnswerProjection(
+            answerKind="ai_candidate",
+            answerText="C",
+            explanation="题干中的对应关系支持 C。",
+            track="xingce",
+            recognizedPayload={"prompt": "example"},
+            modelProvenance={"policy": "dual-independent-agreement@v1"},
+        )
+
+
+class _HubPhotoProtocol:
+    def download_image(self, _media):
+        return ValidatedImage(
+            payload=b"valid-image",
+            mime_type="image/png",
+            width=100,
+            height=100,
+        )
+
+
+def test_hub_photo_query_is_account_owned_and_supports_followup_commands(
+    db_session: Session,
+) -> None:
+    _insert_users(db_session)
+    authorization_id = UUID("00000000-0000-0000-0000-00000000b201")
+    db_session.execute(
+        text(
+            """
+            insert into messaging.ilink_hub_bot_links (
+              authorization_id, user_id, state, encryption_key_id, hub_bot_id,
+              revision, last_command_id, created_at, updated_at, connected_at
+            ) values (
+              :authorization_id, :user_id, 'connected', 'key-v1', 'hub-bot-photo',
+              1, 'connect-photo', :now, :now, :now
+            )
+            """
+        ),
+        {
+            "authorization_id": str(authorization_id),
+            "user_id": str(USER_A),
+            "now": NOW,
+        },
+    )
+    db_session.commit()
+    photo_settings = replace(
+        identity_settings(),
+        bot_token="official-token-secret",
+        recognition_route="photo-query-approved-v1",
+    )
+    workflow = ILinkPhotoWorkflow(
+        core_settings=Settings(),
+        channel_settings=photo_settings,
+        resolver=_HubPhotoResolver(),  # type: ignore[arg-type]
+        clock=lambda: NOW,
+    )
+    reply = workflow.process_hub_photo(
+        db_session,
+        user_id=USER_A,
+        authorization_id=authorization_id,
+        bot_id="hub-bot-photo",
+        message=InboundMessage(
+            message_id="image-message-1",
+            sender_id="wx-user-a",
+            context_token="",
+            run_id=None,
+            text="",
+            image=MediaReference(
+                encrypted_query_param="encrypted-query",
+                full_url="https://novac2c.cdn.weixin.qq.com/c2c/download?id=1",
+                aes_key=base64.b64encode(b"k" * 16).decode(),
+            ),
+        ),
+        client=_HubPhotoProtocol(),  # type: ignore[arg-type]
+    )
+
+    assert "答案：C" in reply
+    assert "不用进小程序" not in reply
+    query = db_session.execute(
+        text(
+            "select link_id, hub_authorization_id from messaging.ilink_photo_queries "
+            "where user_id = :user_id"
+        ),
+        {"user_id": str(USER_A)},
+    ).mappings().one()
+    assert query["link_id"] is None
+    assert UUID(str(query["hub_authorization_id"])) == authorization_id
+
+    collected = ILinkChannelService(
+        settings=photo_settings,
+        clock=lambda: NOW,
+    ).command_latest(
+        db_session,
+        user_id=USER_A,
+        command="收录",
+        source_message_id="collect-message-1",
+    )
+    db_session.commit()
+    assert collected.link_id is None
+    assert "已收录" in collected.reply_text
 
 
 def test_hub_command_lock_is_transaction_scoped(db_session: Session) -> None:

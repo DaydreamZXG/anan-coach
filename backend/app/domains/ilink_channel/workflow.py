@@ -30,6 +30,7 @@ from app.domains.ilink_channel.resolver import (
 from app.domains.ilink_channel.service import (
     ILinkChannelService,
     query_view,
+    render_query_reply,
 )
 from app.domains.ilink_channel.settings import ILinkSettings
 from app.domains.planning.errors import PlanningContractError
@@ -318,13 +319,17 @@ class ILinkPhotoWorkflow:
         session: Session,
         *,
         user_id: UUID,
-        link_id: UUID,
+        link_id: UUID | None,
         message: InboundMessage,
         client: ILinkProtocolClient,
-    ) -> None:
+        hub_authorization_id: UUID | None = None,
+        source_bot_account_id: str | None = None,
+        send_legacy_reply: bool = True,
+    ) -> str | None:
         now = self._clock()
+        bot_account_id = source_bot_account_id or self._settings.bot_account_id
         source_message_fingerprint = self._service.cipher.fingerprint(
-            f"{self._settings.bot_account_id}\0{message.message_id}",
+            f"{bot_account_id}\0{message.message_id}",
             purpose="source-message",
         )
         query_id = uuid5(
@@ -335,11 +340,16 @@ class ILinkPhotoWorkflow:
         query, replayed = repository.insert_query(
             query_id=query_id,
             link_id=link_id,
+            hub_authorization_id=hub_authorization_id,
             user_id=user_id,
-            bot_account_id=self._settings.bot_account_id,
+            bot_account_id=bot_account_id,
             source_message_fingerprint=source_message_fingerprint,
-            encrypted_context_token=self._service.cipher.encrypt(
-                message.context_token, purpose=f"query-context:{query_id}"
+            encrypted_context_token=(
+                self._service.cipher.encrypt(
+                    message.context_token, purpose=f"query-context:{query_id}"
+                )
+                if message.context_token
+                else None
             ),
             key_id=self._service.cipher.key_id,
             now=now,
@@ -348,17 +358,23 @@ class ILinkPhotoWorkflow:
         query = repository.query(query_id=query_id)
         if query is None:
             raise ILinkNotFound("query_not_found")
-        if replayed and query["reply_state"] in {"sent", "uncertain"}:
+        if (
+            send_legacy_reply
+            and replayed
+            and query["reply_state"] in {"sent", "uncertain"}
+        ):
             return
         if query["state"] in {"answered", "failed"}:
-            self._send_query_reply(
-                session,
-                query=query,
-                user_id=user_id,
-                message=message,
-                client=client,
-            )
-            return
+            if send_legacy_reply:
+                self._send_query_reply(
+                    session,
+                    query=query,
+                    user_id=user_id,
+                    message=message,
+                    client=client,
+                )
+                return None
+            return self._hub_query_reply(session, query=query, user_id=user_id)
         stored: StoredImage | None = None
         try:
             if query["state"] == "received":
@@ -450,13 +466,50 @@ class ILinkPhotoWorkflow:
                 session.commit()
         query = ILinkRepository(session).query(query_id=query_id)
         if query is not None:
-            self._send_query_reply(
-                session,
-                query=query,
-                user_id=user_id,
-                message=message,
-                client=client,
-            )
+            if send_legacy_reply:
+                self._send_query_reply(
+                    session,
+                    query=query,
+                    user_id=user_id,
+                    message=message,
+                    client=client,
+                )
+                return None
+            return self._hub_query_reply(session, query=query, user_id=user_id)
+        return None
+
+    def process_hub_photo(
+        self,
+        session: Session,
+        *,
+        user_id: UUID,
+        authorization_id: UUID,
+        bot_id: str,
+        message: InboundMessage,
+        client: ILinkProtocolClient,
+    ) -> str:
+        reply = self._process_photo(
+            session,
+            user_id=user_id,
+            link_id=None,
+            hub_authorization_id=authorization_id,
+            source_bot_account_id=f"openilink-hub:{bot_id}",
+            message=message,
+            client=client,
+            send_legacy_reply=False,
+        )
+        return reply or "这次图片已在处理，请稍后把原图重发一次。"
+
+    @staticmethod
+    def _hub_query_reply(session: Session, *, query, user_id: UUID) -> str:
+        repository = ILinkRepository(session)
+        return render_query_reply(
+            query=query,
+            collection_state=repository.collection_state(
+                query_id=UUID(str(query["query_id"])), user_id=user_id
+            ),
+            include_material_command=False,
+        )
 
     def _send_query_reply(
         self,

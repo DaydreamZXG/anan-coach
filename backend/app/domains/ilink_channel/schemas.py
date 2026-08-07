@@ -85,7 +85,7 @@ class AnswerProjection(StrictModel):
 class QueryView(StrictModel):
     query_id: UUID = Field(alias="queryId")
     user_id: UUID = Field(alias="userId")
-    link_id: UUID = Field(alias="linkId")
+    link_id: UUID | None = Field(default=None, alias="linkId")
     state: Literal["received", "processing", "answered", "failed", "deleted"]
     answer_kind: Literal[
         "none",

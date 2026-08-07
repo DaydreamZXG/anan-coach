@@ -9,7 +9,9 @@ import logging
 import time
 from uuid import UUID
 
-from app.core.config import get_settings
+from sqlalchemy.orm import Session
+
+from app.core.config import Settings, get_settings
 from app.db.session import get_session_factory
 from app.domains.companion.channel import (
     AccountScopedCompanionResponder,
@@ -19,7 +21,21 @@ from app.domains.ilink_channel.control_plane import ILinkControlPlane
 from app.domains.ilink_channel.hub_client import OpenILinkHubClient, OpenILinkHubError
 from app.domains.ilink_channel.hub_repository import OpenILinkHubRepository
 from app.domains.ilink_channel.hub_settings import OpenILinkHubSettings
-from app.domains.ilink_channel.repository import ILinkRepository
+from app.domains.ilink_channel.protocol import (
+    ILinkProtocolClient,
+    ILinkProtocolError,
+    InboundMessage,
+    MediaReference,
+)
+from app.domains.ilink_channel.repository import (
+    ILinkConflict,
+    ILinkNotFound,
+    ILinkRepository,
+)
+from app.domains.ilink_channel.service import ILinkChannelService
+from app.domains.ilink_channel.settings import ILinkConfigurationError, ILinkSettings
+from app.domains.ilink_channel.workflow import ILinkPhotoWorkflow
+from app.domains.ilink_channel.resolver import PhotoResolutionError
 
 
 logger = logging.getLogger(__name__)
@@ -38,6 +54,7 @@ class HubBridgeEvent:
     installation_id: str
     bot_id: str
     sender_id: str
+    source_message_id: str
     content: str
 
     @classmethod
@@ -68,8 +85,16 @@ class HubBridgeEvent:
         if not event_type.startswith("message."):
             raise HubBridgeEventError("hub bridge event type is unsupported")
         content = data.get("content")
+        source_message_id = data.get("message_id")
         return cls(
             **{key: str(value).strip() for key, value in values.items()},
+            source_message_id=(
+                str(source_message_id).strip()
+                if isinstance(source_message_id, (str, int))
+                and not isinstance(source_message_id, bool)
+                and str(source_message_id).strip()
+                else str(values["event_id"]).strip()
+            ),
             content=content.strip() if isinstance(content, str) else "",
         )
 
@@ -116,28 +141,53 @@ def process_hub_event(event: HubBridgeEvent) -> None:
             receipts.lock_command(command_id=command_id)
             if receipts.command_receipt(command_id=command_id) is not None:
                 return
-            if event.event_type != "message.text" or not event.content:
-                reply = "图片我已经收到。当前请先在小程序的「拍照搜题」里处理；文字计划和学习问题可以直接发我。"
+            if event.event_type == "message.image":
+                try:
+                    reply = _process_image(
+                        session,
+                        event=event,
+                        link=link,
+                        user_id=user_id,
+                        hub_client=client,
+                        core_settings=settings,
+                    )
+                except (
+                    ILinkConfigurationError,
+                    ILinkProtocolError,
+                    OpenILinkHubError,
+                    PhotoResolutionError,
+                ):
+                    session.rollback()
+                    reply = "这张图我没能完整取回来，请把原图重发一次；不用进小程序。"
+            elif event.event_type != "message.text" or not event.content:
+                reply = "这类消息我暂时读不了；可以直接发文字或裁剪好的单题截图。"
             else:
-                control = ILinkControlPlane().handle(
-                    session,
-                    user_id=user_id,
-                    source_message_id=event.event_id,
-                    text=event.content,
-                )
-                if control is not None:
-                    reply = control.reply
+                if event.content in {"收录", "重做", "删除"}:
+                    reply = _process_query_command(
+                        session,
+                        user_id=user_id,
+                        event=event,
+                    )
                 else:
-                    try:
-                        reply = AccountScopedCompanionResponder(settings=settings).reply(
-                            session,
-                            user_id=user_id,
-                            source_message_id=event.event_id,
-                            question=event.content,
-                        )
-                    except ChannelCompanionUnavailable:
-                        session.rollback()
-                        reply = "岸岸这次没有回答完成，请稍后把原问题再发一次。"
+                    control = ILinkControlPlane().handle(
+                        session,
+                        user_id=user_id,
+                        source_message_id=event.source_message_id,
+                        text=event.content,
+                    )
+                    if control is not None:
+                        reply = control.reply
+                    else:
+                        try:
+                            reply = AccountScopedCompanionResponder(settings=settings).reply(
+                                session,
+                                user_id=user_id,
+                                source_message_id=event.source_message_id,
+                                question=event.content,
+                            )
+                        except ChannelCompanionUnavailable:
+                            session.rollback()
+                            reply = "岸岸这次没有回答完成，请稍后把原问题再发一次。"
             session.commit()
         _send_with_retry(client=client, event=event, reply=reply)
         with get_session_factory()() as session:
@@ -184,6 +234,69 @@ def _send_with_retry(
     raise last_error or OpenILinkHubError("bridge_send_failed")
 
 
+def _process_image(
+    session: Session,
+    *,
+    event: HubBridgeEvent,
+    link,
+    user_id: UUID,
+    hub_client: OpenILinkHubClient,
+    core_settings: Settings,
+) -> str:
+    media = hub_client.wait_for_image_media(
+        bot_id=event.bot_id,
+        message_id=event.source_message_id,
+    )
+    channel_settings = ILinkSettings.from_environment()
+    protocol_client = ILinkProtocolClient(channel_settings)
+    return ILinkPhotoWorkflow(
+        core_settings=core_settings,
+        channel_settings=channel_settings,
+    ).process_hub_photo(
+        session,
+        user_id=user_id,
+        authorization_id=UUID(str(link["authorization_id"])),
+        bot_id=event.bot_id,
+        message=InboundMessage(
+            message_id=event.source_message_id,
+            sender_id=event.sender_id,
+            context_token="",
+            run_id=None,
+            text=event.content,
+            image=MediaReference(
+                encrypted_query_param=media.encrypted_query_param,
+                full_url=media.url,
+                aes_key=media.aes_key,
+            ),
+        ),
+        client=protocol_client,
+    )
+
+
+def _process_query_command(
+    session: Session,
+    *,
+    user_id: UUID,
+    event: HubBridgeEvent,
+) -> str:
+    try:
+        view = ILinkChannelService(
+            settings=ILinkSettings.from_environment()
+        ).command_latest(
+            session,
+            user_id=user_id,
+            command=event.content,
+            source_message_id=event.source_message_id,
+        )
+        return view.reply_text
+    except ILinkNotFound:
+        session.rollback()
+        return "还没有可操作的图片题，先直接发一张单题截图给我。"
+    except ILinkConflict:
+        session.rollback()
+        return "这次操作没有改动记录，请先重发原图后再试。"
+
+
 def _event_fingerprint(event: HubBridgeEvent) -> str:
     payload = {
         "botId": event.bot_id,
@@ -191,6 +304,7 @@ def _event_fingerprint(event: HubBridgeEvent) -> str:
         "eventId": event.event_id,
         "eventType": event.event_type,
         "senderId": event.sender_id,
+        "sourceMessageId": event.source_message_id,
     }
     return sha256(
         json.dumps(payload, ensure_ascii=False, sort_keys=True).encode("utf-8")

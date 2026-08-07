@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import json
+import time
 from typing import Callable
 from urllib.parse import urlsplit
 
@@ -32,6 +33,13 @@ class HubBindStatus:
     message: str | None = None
 
 
+@dataclass(frozen=True)
+class HubImageMedia:
+    url: str
+    aes_key: str
+    encrypted_query_param: str
+
+
 class OpenILinkHubClient:
     def __init__(
         self,
@@ -39,11 +47,13 @@ class OpenILinkHubClient:
         *,
         client_factory: Callable[..., httpx.Client] | None = None,
         websocket_connect=connect,
+        sleeper: Callable[[float], None] = time.sleep,
     ) -> None:
         settings.validate()
         self._settings = settings
         self._client_factory = client_factory or httpx.Client
         self._websocket_connect = websocket_connect
+        self._sleeper = sleeper
 
     def start_bind(self) -> HubBindStart:
         session_cookie = self._login()
@@ -207,6 +217,46 @@ class OpenILinkHubClient:
         except httpx.HTTPError as exc:
             raise OpenILinkHubError("bridge_send_failed") from exc
 
+    def wait_for_image_media(
+        self,
+        *,
+        bot_id: str,
+        message_id: str,
+    ) -> HubImageMedia:
+        if not bot_id.strip() or not message_id.strip():
+            raise OpenILinkHubError("image_message_invalid")
+        session_cookie = self._login()
+        for delay in (0.0, 0.2, 0.5, 1.0, 2.0):
+            if delay:
+                self._sleeper(delay)
+            payload = self._request_json(
+                "GET",
+                f"/api/bots/{bot_id}/messages?limit=50",
+                session_cookie=session_cookie,
+                json_body=None,
+            )
+            messages = payload.get("messages")
+            if not isinstance(messages, list):
+                raise OpenILinkHubError("image_message_contract_invalid")
+            row = next(
+                (
+                    item
+                    for item in messages
+                    if isinstance(item, dict)
+                    and str(item.get("message_id") or "") == message_id
+                    and item.get("direction") == "inbound"
+                ),
+                None,
+            )
+            if row is None:
+                continue
+            if row.get("media_status") == "failed":
+                raise OpenILinkHubError("image_media_failed")
+            media = _image_media(row.get("item_list"))
+            if media is not None:
+                return media
+        raise OpenILinkHubError("image_media_not_ready")
+
     def delete_bot(self, *, bot_id: str) -> None:
         session_cookie = self._login()
         self._request_json(
@@ -316,3 +366,27 @@ def _required_text(value: object, code: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise OpenILinkHubError(code)
     return value.strip()
+
+
+def _image_media(value: object) -> HubImageMedia | None:
+    if not isinstance(value, list):
+        return None
+    for item in value:
+        if not isinstance(item, dict) or item.get("type") != "image":
+            continue
+        media = item.get("media")
+        if not isinstance(media, dict):
+            continue
+        url = media.get("url")
+        aes_key = media.get("aes_key")
+        encrypted_query_param = media.get("encrypt_query_param")
+        if all(
+            isinstance(field, str) and field.strip()
+            for field in (url, aes_key, encrypted_query_param)
+        ):
+            return HubImageMedia(
+                url=str(url).strip(),
+                aes_key=str(aes_key).strip(),
+                encrypted_query_param=str(encrypted_query_param).strip(),
+            )
+    return None

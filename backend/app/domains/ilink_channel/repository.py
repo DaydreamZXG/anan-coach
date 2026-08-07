@@ -308,14 +308,17 @@ class ILinkRepository:
         self,
         *,
         query_id: UUID,
-        link_id: UUID,
+        link_id: UUID | None,
+        hub_authorization_id: UUID | None = None,
         user_id: UUID,
         bot_account_id: str,
         source_message_fingerprint: str,
-        encrypted_context_token: str,
+        encrypted_context_token: str | None,
         key_id: str,
         now: datetime,
     ):
+        if (link_id is None) == (hub_authorization_id is None):
+            raise ValueError("photo query must have exactly one channel authorization")
         existing = self.query_for_message(
             bot_account_id=bot_account_id,
             source_message_fingerprint=source_message_fingerprint,
@@ -328,18 +331,25 @@ class ILinkRepository:
             text(
                 """
                 insert into messaging.ilink_photo_queries (
-                  query_id, link_id, user_id, bot_account_id, source_message_id,
+                  query_id, link_id, hub_authorization_id, user_id,
+                  bot_account_id, source_message_id,
                   state, answer_kind, encrypted_context_token, encryption_key_id,
                   version, created_at, updated_at
                 ) values (
-                  :query_id, :link_id, :user_id, :bot_account_id, :source_message_id,
+                  :query_id, :link_id, :hub_authorization_id, :user_id,
+                  :bot_account_id, :source_message_id,
                   'received', 'none', :context_token, :key_id, 1, :now, :now
                 ) returning *
                 """
             ),
             {
                 "query_id": str(query_id),
-                "link_id": str(link_id),
+                "link_id": str(link_id) if link_id is not None else None,
+                "hub_authorization_id": (
+                    str(hub_authorization_id)
+                    if hub_authorization_id is not None
+                    else None
+                ),
                 "user_id": str(user_id),
                 "bot_account_id": bot_account_id,
                 "source_message_id": source_message_fingerprint,
