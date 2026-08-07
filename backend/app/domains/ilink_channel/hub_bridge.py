@@ -52,7 +52,7 @@ class HubBridgeEventError(ValueError):
 @dataclass(frozen=True, slots=True)
 class HubBridgeReply:
     text: str
-    image_url: str | None = None
+    image_urls: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -137,7 +137,7 @@ def process_hub_event(event: HubBridgeEvent) -> None:
     hub_settings = OpenILinkHubSettings.from_environment()
     client = OpenILinkHubClient(hub_settings)
     reply = ""
-    reply_image_url: str | None = None
+    reply_image_urls: tuple[str, ...] = ()
     user_id: UUID | None = None
     delivered = False
     try:
@@ -172,7 +172,7 @@ def process_hub_event(event: HubBridgeEvent) -> None:
                     reply = "这张图我没能完整取回来，请把原图重发一次；不用进小程序。"
                 else:
                     reply = image_reply.text
-                    reply_image_url = image_reply.image_url
+                    reply_image_urls = image_reply.image_urls
             elif event.event_type != "message.text" or not event.content:
                 reply = "这类消息我暂时读不了；可以直接发文字或裁剪好的单题截图。"
             else:
@@ -203,7 +203,7 @@ def process_hub_event(event: HubBridgeEvent) -> None:
                             session.rollback()
                             reply = "岸岸这次没有回答完成，请稍后把原问题再发一次。"
             session.commit()
-        if reply_image_url is not None:
+        for reply_image_url in reply_image_urls:
             _send_image_with_retry(
                 client=client,
                 event=event,
@@ -224,11 +224,10 @@ def process_hub_event(event: HubBridgeEvent) -> None:
                     result_payload={
                         "delivered": True,
                         "replySha256": sha256(reply.encode("utf-8")).hexdigest(),
-                        "imageUrlSha256": (
-                            sha256(reply_image_url.encode("utf-8")).hexdigest()
-                            if reply_image_url is not None
-                            else None
-                        ),
+                        "imageUrlSha256s": [
+                            sha256(image_url.encode("utf-8")).hexdigest()
+                            for image_url in reply_image_urls
+                        ],
                     },
                     now=datetime.now(UTC),
                 )
@@ -329,27 +328,27 @@ def _process_image(
         ),
         client=protocol_client,
     )
-    image_url = _published_reply_image_url(
+    image_urls = _published_reply_image_urls(
         session,
         content_version_id=result.content_version_id,
     )
     return HubBridgeReply(
         text=(
             result.reply_text
-            if image_url is not None or result.content_version_id is None
+            if image_urls or result.content_version_id is None
             else _without_missing_explanation_image_references(result.reply_text)
         ),
-        image_url=image_url,
+        image_urls=image_urls,
     )
 
 
-def _published_reply_image_url(
+def _published_reply_image_urls(
     session: Session,
     *,
     content_version_id: str | None,
-) -> str | None:
+) -> tuple[str, ...]:
     if content_version_id is None:
-        return None
+        return ()
     row = session.execute(
         text(
             """
@@ -364,18 +363,19 @@ def _published_reply_image_url(
         {"content_version_id": content_version_id},
     ).mappings().one_or_none()
     if row is None:
-        return None
+        return ()
     snapshot = row["snapshot_payload"]
     references = row["final_analysis_asset_refs"]
     if not isinstance(snapshot, dict) or not isinstance(references, dict):
-        return None
+        return ()
     if str(snapshot.get("analysis_source") or "") != str(
         references.get("source") or ""
     ):
-        return None
+        return ()
     assets = references.get("assets")
     if not isinstance(assets, list):
-        return None
+        return ()
+    image_urls: list[str] = []
     for asset in assets:
         if not isinstance(asset, dict):
             continue
@@ -384,8 +384,9 @@ def _published_reply_image_url(
             "object_key": asset.get("object_key") or asset.get("objectKey"),
         }
         if url := published_question_asset_url(normalized):
-            return url
-    return None
+            if url not in image_urls:
+                image_urls.append(url)
+    return tuple(image_urls)
 
 
 def _without_missing_explanation_image_references(reply: str) -> str:

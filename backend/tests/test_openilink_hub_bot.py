@@ -18,7 +18,7 @@ from app.domains.ilink_channel.hub_client import (
 )
 from app.domains.ilink_channel.hub_bridge import (
     HubBridgeEvent,
-    _published_reply_image_url,
+    _published_reply_image_urls,
     _without_missing_explanation_image_references,
     verify_hub_signature,
 )
@@ -363,14 +363,18 @@ def test_hub_client_sends_an_image_url_through_the_bridge() -> None:
     }
 
 
-def test_hub_reply_resolves_the_representative_published_question_image(
+def test_hub_reply_resolves_all_published_explanation_images_in_source_order(
     db_session: Session,
 ) -> None:
     content_version_id = "f" * 64
     question_id = "hub-image-question"
-    published_key = (
+    published_key_a = (
         "data/question-bank-export/files/source-question-bank/"
-        "fenbi-final-analysis-v1-20260613-assets/paper/question.png"
+        "fenbi-final-analysis-v1-20260613-assets/paper/analysis-a.png"
+    )
+    published_key_b = (
+        "data/question-bank-export/files/source-question-bank/"
+        "fenbi-final-analysis-v1-20260613-assets/paper/analysis-b.png"
     )
     snapshot = {
         "question_id": question_id,
@@ -402,7 +406,8 @@ def test_hub_reply_resolves_the_representative_published_question_image(
                     "source": "original_analysis",
                     "assets": [
                         {"object_key": "data/not-published.png"},
-                        {"object_key": published_key},
+                        {"object_key": published_key_a},
+                        {"object_key": published_key_b},
                     ],
                 }
             ),
@@ -428,10 +433,13 @@ def test_hub_reply_resolves_the_representative_published_question_image(
         },
     )
 
-    assert _published_reply_image_url(
+    assert _published_reply_image_urls(
         db_session,
         content_version_id=content_version_id,
-    ) == f"https://img.xingguoxian.cn/{published_key}"
+    ) == (
+        f"https://img.xingguoxian.cn/{published_key_a}",
+        f"https://img.xingguoxian.cn/{published_key_b}",
+    )
 
 
 def test_hub_reply_removes_image_directions_only_when_the_asset_is_missing() -> None:
