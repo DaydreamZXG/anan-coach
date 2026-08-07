@@ -27,6 +27,7 @@ from urllib.parse import quote
 from urllib.parse import unquote, urlsplit
 
 import httpx
+from PIL import Image, UnidentifiedImageError
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
 
@@ -38,6 +39,7 @@ except ModuleNotFoundError:  # direct ``python scripts/...`` execution
 
 OBJECT_PREFIX = "data/question-bank-export/files/source-question-bank/"
 IMAGE_SUFFIXES = frozenset({".gif", ".jpeg", ".jpg", ".png", ".webp"})
+MIN_STANDALONE_IMAGE_SPAN_PIXELS = 64
 
 
 @dataclass(frozen=True, slots=True)
@@ -56,6 +58,8 @@ class AnalysisAsset:
     content_sha256: str
     mime_type: str
     byte_size: int
+    pixel_width: int
+    pixel_height: int
 
     def reference(self) -> dict[str, object]:
         return {
@@ -65,6 +69,8 @@ class AnalysisAsset:
             "contentSha256": self.content_sha256,
             "mimeType": self.mime_type,
             "byteSize": self.byte_size,
+            "pixelWidth": self.pixel_width,
+            "pixelHeight": self.pixel_height,
         }
 
 
@@ -131,6 +137,16 @@ def extract_analysis_assets(
         if resolved is None:
             continue
         relative_path, source_path = resolved
+        try:
+            with Image.open(source_path) as image:
+                pixel_width, pixel_height = image.size
+        except (OSError, UnidentifiedImageError):
+            continue
+        # Tiny inline sprites only make sense inside the original HTML sentence.
+        # Sending them as separate WeChat images would turn one explanation into
+        # dozens of meaningless glyph messages.
+        if max(pixel_width, pixel_height) < MIN_STANDALONE_IMAGE_SPAN_PIXELS:
+            continue
         payload = source_path.read_bytes()
         mime_type = mimetypes.guess_type(source_path.name)[0] or "application/octet-stream"
         assets.append(
@@ -142,6 +158,8 @@ def extract_analysis_assets(
                 content_sha256=sha256(payload).hexdigest(),
                 mime_type=mime_type,
                 byte_size=len(payload),
+                pixel_width=pixel_width,
+                pixel_height=pixel_height,
             )
         )
     return tuple(assets)
