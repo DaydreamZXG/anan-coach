@@ -5,7 +5,6 @@ import json
 from typing import cast
 from uuid import UUID
 
-import httpx
 from sqlalchemy.orm import Session
 
 from app.contracts.external_learning.models import LearningTrack
@@ -29,9 +28,7 @@ from app.domains.external_ingestion.recognition.models import (
 )
 from app.domains.ilink_channel.resolver import (
     PhotoQuestionResolver,
-    PhotoResolutionError,
     QueryRecognitionProcessor,
-    SecondaryAnswerProvider,
     TosTransientImageStore,
     _authorized_candidate,
     _match_query,
@@ -62,7 +59,7 @@ def _channel_settings() -> ILinkSettings:
     )
 
 
-def test_answer_models_are_lazy_and_unapproved_models_abstain() -> None:
+def test_answer_model_is_lazy_and_an_unapproved_model_abstains() -> None:
     resolver = PhotoQuestionResolver(
         core_settings=Settings(),
         channel_settings=_channel_settings(),
@@ -70,7 +67,7 @@ def test_answer_models_are_lazy_and_unapproved_models_abstain() -> None:
         recognizer=cast(QueryRecognitionProcessor, object()),
     )
 
-    result = resolver._dual_ai(
+    result = resolver._single_ai(
         query=MatchQuery(
             track=LearningTrack.XINGCE,
             promptText="根据材料，正确选项是哪一个？",
@@ -111,42 +108,16 @@ class _PrimaryAnswerProvider:
         )
 
 
-class _UnavailableSecondaryProvider:
-    def validate(self) -> None:
-        return None
-
-    def generate(self, **_kwargs):
-        raise PhotoResolutionError("secondary_answer_failed")
-
-
-class _DisagreeingSecondaryProvider:
-    def validate(self) -> None:
-        return None
-
-    def generate(self, **_kwargs):
-        from app.domains.ilink_channel.resolver import SecondaryAnswer
-
-        return SecondaryAnswer(
-            answer="A",
-            explanation="备用模型选择 A。",
-            output_fingerprint="c" * 64,
-            request_fingerprint="d" * 64,
-            provider_release="secondary-test",
-            model="secondary-model",
-        )
-
-
-def test_secondary_outage_keeps_an_honestly_labelled_primary_candidate() -> None:
+def test_single_primary_model_returns_an_honestly_labelled_candidate() -> None:
     resolver = PhotoQuestionResolver(
         core_settings=Settings(),
         channel_settings=_channel_settings(),
         storage=cast(TosTransientImageStore, object()),
         recognizer=cast(QueryRecognitionProcessor, object()),
         primary=cast(object, _PrimaryAnswerProvider()),  # type: ignore[arg-type]
-        secondary=cast(object, _UnavailableSecondaryProvider()),  # type: ignore[arg-type]
     )
 
-    result = resolver._dual_ai(
+    result = resolver._single_ai(
         query=MatchQuery(
             track=LearningTrack.XINGCE,
             promptText="根据材料，正确选项是哪一个？",
@@ -160,105 +131,8 @@ def test_secondary_outage_keeps_an_honestly_labelled_primary_candidate() -> None
     assert result.answer_text == "C"
     assert "单模型候选结论" in result.explanation
     assert result.model_provenance is not None
-    assert (
-        result.model_provenance["policy"]
-        == "primary-candidate-secondary-unavailable@v1"
-    )
-
-
-def test_secondary_disagreement_cannot_suppress_the_primary_candidate() -> None:
-    resolver = PhotoQuestionResolver(
-        core_settings=Settings(),
-        channel_settings=_channel_settings(),
-        storage=cast(TosTransientImageStore, object()),
-        recognizer=cast(QueryRecognitionProcessor, object()),
-        primary=cast(object, _PrimaryAnswerProvider()),  # type: ignore[arg-type]
-        secondary=cast(object, _DisagreeingSecondaryProvider()),  # type: ignore[arg-type]
-    )
-
-    result = resolver._dual_ai(
-        query=MatchQuery(
-            track=LearningTrack.XINGCE,
-            promptText="根据材料，正确选项是哪一个？",
-            optionTexts=("A. 甲", "B. 乙", "C. 丙"),
-        ),
-        recognized={"segmentRefs": ["segment-1"]},
-        query_id=UUID("00000000-0000-0000-0000-000000009304"),
-    )
-
-    assert result.answer_kind == "ai_candidate"
-    assert result.answer_text == "C"
-    assert "复核分歧" in result.explanation
-    assert result.model_provenance is not None
-    assert (
-        result.model_provenance["policy"]
-        == "primary-candidate-secondary-disagreed@v1"
-    )
-
-
-def test_secondary_provider_requests_and_accepts_the_complete_answer_contract(
-    monkeypatch,
-) -> None:
-    monkeypatch.setenv("ILINK_SECONDARY_AI_BASE_URL", "https://secondary.example/v1")
-    monkeypatch.setenv("ILINK_SECONDARY_AI_API_KEY", "secondary-test-key")
-    monkeypatch.setenv("ILINK_SECONDARY_AI_MODEL", "deepseek-v4-flash")
-    monkeypatch.setenv("ILINK_SECONDARY_AI_PROVIDER_RELEASE_ID", "secondary-release-v1")
-    monkeypatch.setenv(
-        "ILINK_SECONDARY_AI_HTTPS_HOST_ALLOWLIST", "secondary.example"
-    )
-
-    def handler(request: httpx.Request) -> httpx.Response:
-        body = json.loads(request.content)
-        document = json.loads(body["messages"][1]["content"])
-        assert set(document["requiredSchema"]) == {
-            "answer",
-            "explanation",
-            "keyPoints",
-            "confidence",
-            "limitations",
-        }
-        assert "requiredSchema" in body["messages"][0]["content"]
-        return httpx.Response(
-            200,
-            headers={"x-request-id": "secondary-request-1"},
-            json={
-                "id": "completion-1",
-                "model": "deepseek-v4-flash",
-                "choices": [
-                    {
-                        "message": {
-                            "content": json.dumps(
-                                {
-                                    "answer": "B",
-                                    "explanation": "1+1=2。",
-                                    "keyPoints": ["基本加法"],
-                                    "confidence": "high",
-                                    "limitations": [],
-                                },
-                                ensure_ascii=False,
-                            )
-                        }
-                    }
-                ],
-            },
-        )
-
-    provider = SecondaryAnswerProvider(
-        client_factory=lambda **kwargs: httpx.Client(
-            transport=httpx.MockTransport(handler), **kwargs
-        )
-    )
-    result = provider.generate(
-        query=MatchQuery(
-            track=LearningTrack.XINGCE,
-            promptText="1+1=?",
-            optionTexts=("A. 1", "B. 2"),
-        ),
-        idempotency_key="secondary-contract-1",
-    )
-
-    assert result.answer == "B"
-    assert result.explanation == "1+1=2。"
+    assert result.model_provenance["policy"] == "single-primary-candidate@v1"
+    assert "secondary" not in result.model_provenance
 
 
 def test_photo_matching_uses_structured_visual_hashes(monkeypatch) -> None:

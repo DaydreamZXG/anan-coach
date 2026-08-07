@@ -330,7 +330,7 @@ class _HubPhotoResolver:
             explanation="题干中的对应关系支持 C。",
             track="xingce",
             recognizedPayload={"prompt": "example"},
-            modelProvenance={"policy": "dual-independent-agreement@v1"},
+            modelProvenance={"policy": "single-primary-candidate@v1"},
         )
 
 

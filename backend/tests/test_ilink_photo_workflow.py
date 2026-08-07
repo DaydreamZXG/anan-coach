@@ -338,10 +338,10 @@ def test_explicit_delete_and_account_disable_erase_private_channel_data(db_sessi
         AnswerProjection(
             answerKind="ai_candidate",
             answerText="C",
-            explanation="双模型一致候选",
+            explanation="单模型候选",
             track="xingce",
             recognizedPayload={"segmentRefs": ["s1"]},
-            modelProvenance={"policy": "dual-independent-agreement@v1"},
+            modelProvenance={"policy": "single-primary-candidate@v1"},
         )
     )
     workflow = ILinkPhotoWorkflow(

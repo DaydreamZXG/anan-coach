@@ -105,7 +105,6 @@ REQUIRED_WORKLOAD_KEYS = {
     "ilink-channel.env": {
         "ILINK_BOT_TOKEN",
         "ILINK_IDENTITY_ENCRYPTION_KEY",
-        "ILINK_SECONDARY_AI_API_KEY",
     },
     "ilink-worker.env": {
         "TOS_ACCESS_KEY",

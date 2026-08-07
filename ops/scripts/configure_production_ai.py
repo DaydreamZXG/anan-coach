@@ -90,14 +90,6 @@ DEFERRED_PAYMENT_SECRETS = {
     "WECHAT_VIRTUAL_PAY_MESSAGE_ENCODING_AES_KEY",
 }
 
-ILINK_AI_SETTINGS = {
-    "ILINK_SECONDARY_AI_BASE_URL": "https://tokenrhythm.studio/v1",
-    "ILINK_SECONDARY_AI_MODEL": "deepseek-v4-flash",
-    "ILINK_SECONDARY_AI_PROVIDER_RELEASE_ID": "tokenrhythm-deepseek-v4-flash",
-    "ILINK_SECONDARY_AI_HTTPS_HOST_ALLOWLIST": "tokenrhythm.studio",
-}
-
-
 def _key(line: str) -> str | None:
     stripped = line.strip()
     if not stripped or stripped.startswith("#") or "=" not in stripped:
@@ -181,37 +173,18 @@ def configure(env_file: Path, api_key: str) -> None:
     )
 
 
-def configure_ilink(env_file: Path, api_key: str) -> None:
-    desired = dict(ILINK_AI_SETTINGS)
-    desired["ILINK_SECONDARY_AI_API_KEY"] = api_key.strip()
-    _rewrite_env(
-        env_file,
-        desired,
-        managed_comment="iLink secondary AI contract (managed by configure_production_ai.py)",
-    )
-
-
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--env-file", type=Path, default=Path("/etc/gongkao-dazi/api.env")
-    )
-    parser.add_argument(
-        "--ilink-env-file",
-        type=Path,
-        default=Path("/etc/gongkao-dazi/ilink-channel.env"),
     )
     args = parser.parse_args()
     if os.geteuid() != 0:
         raise SystemExit("run as root so the production env remains root-only")
     api_key = getpass.getpass("TokenRhythm test API key: ")
     configure(args.env_file, api_key)
-    configured = [str(args.env_file)]
-    if args.ilink_env_file.exists():
-        configure_ilink(args.ilink_env_file, api_key)
-        configured.append(str(args.ilink_env_file))
     print(
-        f"configured={','.join(configured)} secret_output=false "
+        f"configured={args.env_file} secret_output=false "
         "virtual_payment_secrets=absent"
     )
 
