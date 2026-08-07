@@ -570,16 +570,30 @@ class PhotoQuestionResolver:
         self._secondary = secondary_provider
         if _answer_identity(primary.output.answer) != _answer_identity(secondary.answer):
             return AnswerProjection(
-                answerKind="ambiguous",
-                answerText="两个独立模型没有得到同一答案",
-                explanation="为避免把分歧包装成确定答案，这次不展示单一结论。",
+                answerKind="ai_candidate",
+                answerText=primary.output.answer,
+                explanation=(
+                    primary.output.explanation
+                    + "\n\n备用模型得出了不同结论；这里仍展示主模型候选，"
+                    "但已标记复核分歧，不是官方答案。"
+                ),
                 track=query.track.value,
                 recognizedPayload=recognized,
                 modelProvenance={
-                    "policy": "dual-independent-agreement@v1",
+                    "policy": "primary-candidate-secondary-disagreed@v1",
                     "agreement": False,
-                    "primaryOutputFingerprint": primary.output_fingerprint,
-                    "secondaryOutputFingerprint": secondary.output_fingerprint,
+                    "primary": {
+                        "provider": primary_provider.provider_name,
+                        "model": primary_provider.model,
+                        "outputFingerprint": primary.output_fingerprint,
+                        "requestFingerprint": primary.provider_request_id_fingerprint,
+                    },
+                    "secondary": {
+                        "providerRelease": secondary.provider_release,
+                        "model": secondary.model,
+                        "outputFingerprint": secondary.output_fingerprint,
+                        "requestFingerprint": secondary.request_fingerprint,
+                    },
                 },
             )
         return AnswerProjection(

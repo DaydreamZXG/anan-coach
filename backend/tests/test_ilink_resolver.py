@@ -119,6 +119,23 @@ class _UnavailableSecondaryProvider:
         raise PhotoResolutionError("secondary_answer_failed")
 
 
+class _DisagreeingSecondaryProvider:
+    def validate(self) -> None:
+        return None
+
+    def generate(self, **_kwargs):
+        from app.domains.ilink_channel.resolver import SecondaryAnswer
+
+        return SecondaryAnswer(
+            answer="A",
+            explanation="备用模型选择 A。",
+            output_fingerprint="c" * 64,
+            request_fingerprint="d" * 64,
+            provider_release="secondary-test",
+            model="secondary-model",
+        )
+
+
 def test_secondary_outage_keeps_an_honestly_labelled_primary_candidate() -> None:
     resolver = PhotoQuestionResolver(
         core_settings=Settings(),
@@ -146,6 +163,36 @@ def test_secondary_outage_keeps_an_honestly_labelled_primary_candidate() -> None
     assert (
         result.model_provenance["policy"]
         == "primary-candidate-secondary-unavailable@v1"
+    )
+
+
+def test_secondary_disagreement_cannot_suppress_the_primary_candidate() -> None:
+    resolver = PhotoQuestionResolver(
+        core_settings=Settings(),
+        channel_settings=_channel_settings(),
+        storage=cast(TosTransientImageStore, object()),
+        recognizer=cast(QueryRecognitionProcessor, object()),
+        primary=cast(object, _PrimaryAnswerProvider()),  # type: ignore[arg-type]
+        secondary=cast(object, _DisagreeingSecondaryProvider()),  # type: ignore[arg-type]
+    )
+
+    result = resolver._dual_ai(
+        query=MatchQuery(
+            track=LearningTrack.XINGCE,
+            promptText="根据材料，正确选项是哪一个？",
+            optionTexts=("A. 甲", "B. 乙", "C. 丙"),
+        ),
+        recognized={"segmentRefs": ["segment-1"]},
+        query_id=UUID("00000000-0000-0000-0000-000000009304"),
+    )
+
+    assert result.answer_kind == "ai_candidate"
+    assert result.answer_text == "C"
+    assert "复核分歧" in result.explanation
+    assert result.model_provenance is not None
+    assert (
+        result.model_provenance["policy"]
+        == "primary-candidate-secondary-disagreed@v1"
     )
 
 

@@ -369,11 +369,14 @@ def render_query_reply(
     answer = str(payload.get("answerText") or "当前没有可可靠展示的答案")
     explanation = str(payload.get("explanation") or "")
     provenance = dict(query["model_provenance"] or {})
-    ai_source = (
-        "AI 候选 · 尚未双模型复核 · 非官方答案"
-        if provenance.get("policy") == "primary-candidate-secondary-unavailable@v1"
-        else "AI 双模型候选 · 非官方答案"
-    )
+    ai_source = {
+        "primary-candidate-secondary-unavailable@v1": (
+            "AI 候选 · 尚未双模型复核 · 非官方答案"
+        ),
+        "primary-candidate-secondary-disagreed@v1": (
+            "AI 候选 · 复核意见不一致 · 非官方答案"
+        ),
+    }.get(str(provenance.get("policy")), "AI 双模型候选 · 非官方答案")
     source = {
         "authorized_exact": "题库授权原题",
         "similar_reference": "相似题参考",
