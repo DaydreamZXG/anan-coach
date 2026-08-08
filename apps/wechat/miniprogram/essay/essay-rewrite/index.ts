@@ -1,4 +1,7 @@
-import { EssayIntelligenceApi, type EssayRewriteComparisonV1 } from "../shared/api/essay-intelligence";
+import {
+  EssayIntelligenceApi,
+  type EssayRewriteComparisonV1,
+} from "../shared/api/essay-intelligence";
 import { routes } from "../../app/navigation/routes";
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
 import { rewriteComparisonView } from "../shared/features/essay-workbench/presentation";

@@ -203,10 +203,15 @@ export const pageInteractionMatrix = [
     handler: "openNextAction",
     selector: ".report-next-action",
   }),
-  page("reports/external-report/index", "f04-external-score-final-review", "确认或重新录入外部成绩", {
-    handler: "restart",
-    selector: ".link-action",
-  }),
+  page(
+    "reports/external-report/index",
+    "f04-external-score-final-review",
+    "确认或重新录入外部成绩",
+    {
+      handler: "restart",
+      selector: ".link-action",
+    },
+  ),
   page("reports/report-overview/index", "f02-report-overview-ready", "把周期报告结论带回计划", {
     handler: "openNextAction",
     selector: ".report-next-action",
@@ -287,11 +292,16 @@ export const pageInteractionMatrix = [
     selector: ".choice-card",
     dataset: { value: "voice_transcript" },
   }),
-  page("community/community-structure/index", "c22-community-structure-confirm", "确认方法卡权利声明", {
-    handler: "chooseRights",
-    selector: ".rights-row",
-    dataset: { value: "private_third_party" },
-  }),
+  page(
+    "community/community-structure/index",
+    "c22-community-structure-confirm",
+    "确认方法卡权利声明",
+    {
+      handler: "chooseRights",
+      selector: ".rights-row",
+      dataset: { value: "private_third_party" },
+    },
+  ),
   page("community/community-trial/index", "c23-community-independent-trial", "主动加入方法试用", {
     handler: "optIn",
     selector: ".action-button",

@@ -1,4 +1,8 @@
-import { registeredNavigationTarget, routes, type AppRoute } from "../../../../../app/navigation/routes";
+import {
+  registeredNavigationTarget,
+  routes,
+  type AppRoute,
+} from "../../../../../app/navigation/routes";
 
 export function navigateBackOr(fallbackUrl: AppRoute = routes.today): void {
   const fallback = () => {

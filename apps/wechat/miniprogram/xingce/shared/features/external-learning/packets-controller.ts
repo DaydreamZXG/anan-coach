@@ -1,4 +1,7 @@
-import type { LearningTrack, OfflinePacketVersion } from "../../../../api/external-learning-contracts";
+import type {
+  LearningTrack,
+  OfflinePacketVersion,
+} from "../../../../api/external-learning-contracts";
 import { createIdempotencyKey } from "../../../../platform/command-id";
 import type {
   CreatePacketCommand,

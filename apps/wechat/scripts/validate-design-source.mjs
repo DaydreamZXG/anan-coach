@@ -122,13 +122,7 @@ for (const [kind, expected] of Object.entries(expectedDispositionCounts)) {
 }
 
 const profileController = readText(resolve(miniprogramRoot, "pages/me/index.ts"));
-for (const hiddenRoute of [
-  "membership",
-  "communityDraft",
-  "communityStructure",
-  "communityTrial",
-  "communityContributions",
-]) {
+for (const hiddenRoute of ["communityDraft", "communityStructure"]) {
   if (profileController.includes(`routes.${hiddenRoute}`)) {
     failures.push(`Hidden product route is still exposed from My: ${hiddenRoute}`);
   }

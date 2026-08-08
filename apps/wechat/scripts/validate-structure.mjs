@@ -39,7 +39,7 @@ for (const directory of [
   "app/navigation",
   "design-system/tokens",
   "design-system/primitives",
-  "design-system/companion",
+  "features/companion",
   "domain",
   "pages",
   "task-runtime",

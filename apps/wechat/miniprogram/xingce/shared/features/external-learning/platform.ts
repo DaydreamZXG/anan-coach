@@ -1,4 +1,7 @@
-import type { LocalAnswerImageFile, LocalImportFile } from "../../../../features/external-learning/contracts";
+import type {
+  LocalAnswerImageFile,
+  LocalImportFile,
+} from "../../../../features/external-learning/contracts";
 import {
   captureSourcePhoto,
   chooseSourceImage,

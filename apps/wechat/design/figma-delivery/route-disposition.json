@@ -10,9 +10,9 @@
     "registeredRouteCount": 60,
     "directlyMappedRouteCount": 31,
     "unmappedRouteCount": 29,
-    "reuseExistingDesignCount": 9,
+    "reuseExistingDesignCount": 12,
     "mergeIntoDesignedFlowCount": 9,
-    "hideUntilProductActivationCount": 5,
+    "hideUntilProductActivationCount": 2,
     "newDesignRequiredCount": 6
   },
   "dispositions": [
@@ -58,10 +58,10 @@
     {
       "routeName": "membership",
       "route": "/account/membership/index",
-      "disposition": "hide_until_product_activation",
+      "disposition": "reuse_existing_design",
       "targetFigmaNodeIds": [],
-      "targetFlow": null,
-      "reason": "当前已确认免费冷启动，会员和支付暂缓，不应暴露入口。"
+      "targetFlow": "profile.membershipExplanation",
+      "reason": "公测期开放会员说明页并复用现有账户卡片设计；页面仍禁止购买和扣款。"
     },
     {
       "routeName": "privacy",
@@ -243,7 +243,7 @@
       "disposition": "hide_until_product_activation",
       "targetFigmaNodeIds": [],
       "targetFlow": null,
-      "reason": "社区能力不在当前国考核心发布范围。"
+      "reason": "社区草稿编辑器暂不作为独立产品入口开放。"
     },
     {
       "routeName": "communityStructure",
@@ -251,23 +251,23 @@
       "disposition": "hide_until_product_activation",
       "targetFigmaNodeIds": [],
       "targetFlow": null,
-      "reason": "社区能力不在当前国考核心发布范围。"
+      "reason": "社区结构编辑器暂不作为独立产品入口开放。"
     },
     {
       "routeName": "communityTrial",
       "route": "/community/community-trial/index",
-      "disposition": "hide_until_product_activation",
+      "disposition": "reuse_existing_design",
       "targetFigmaNodeIds": [],
-      "targetFlow": null,
-      "reason": "社区能力不在当前国考核心发布范围。"
+      "targetFlow": "profile.communityTrial",
+      "reason": "资料卡社区已获准从“我的”开放，复用现有社区试用页设计。"
     },
     {
       "routeName": "communityContributions",
       "route": "/community/community-contributions/index",
-      "disposition": "hide_until_product_activation",
+      "disposition": "reuse_existing_design",
       "targetFigmaNodeIds": [],
-      "targetFlow": null,
-      "reason": "社区能力不在当前国考核心发布范围。"
+      "targetFlow": "profile.communityContributions",
+      "reason": "资料卡贡献记录已获准从“我的”开放，复用现有贡献页设计。"
     },
     {
       "routeName": "abilityModule",

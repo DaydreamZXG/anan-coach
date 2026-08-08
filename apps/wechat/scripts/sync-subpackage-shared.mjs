@@ -1,5 +1,6 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, extname, relative, resolve } from "node:path";
+import { format, resolveConfig } from "prettier";
 
 import {
   subpackageSharedDestination,
@@ -7,6 +8,7 @@ import {
 } from "./subpackage-shared-manifest.mjs";
 
 const appRoot = resolve(import.meta.dirname, "..", "miniprogram");
+const prettierOptions = (await resolveConfig(appRoot)) ?? {};
 const checkOnly = process.argv.includes("--check");
 const destinationToSource = new Map();
 const sourceToPackages = new Map(
@@ -32,11 +34,9 @@ for (const entry of subpackageSharedFiles) {
   const canonical = readFileSync(resolve(appRoot, canonicalRelative), "utf8");
   for (const packageName of entry.packages.slice(1)) {
     const replicaRelative = subpackageSharedDestination(entry.path, packageName);
-    const expected = rewriteRelativeReferences(
-      canonical,
-      canonicalRelative,
+    const expected = await formatReplica(
+      rewriteRelativeReferences(canonical, canonicalRelative, replicaRelative, packageName),
       replicaRelative,
-      packageName,
     );
     const replicaPath = resolve(appRoot, replicaRelative);
     let actual = "";
@@ -67,6 +67,15 @@ if (mismatches.length > 0) {
 process.stdout.write(
   `${checkOnly ? "Validated" : "Synchronized"} ${String(replicaCount)} subpackage shared replicas.\n`,
 );
+
+async function formatReplica(content, replicaPath) {
+  return [".ts", ".js"].includes(extname(replicaPath))
+    ? format(content, {
+        ...prettierOptions,
+        filepath: resolve(appRoot, replicaPath),
+      })
+    : content;
+}
 
 function rewriteRelativeReferences(content, sourcePath, targetPath, packageName) {
   return content.replace(/(["'])(\.{1,2}\/[^"'\s]+)\1/gu, (full, quote, rawSpecifier) => {

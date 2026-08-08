@@ -228,7 +228,11 @@ async function submittedMockReport(program) {
     reportSessionId: "visual-mock-session-v1",
   });
   await invokePageHandler(program, page, "openMockReport");
-  await waitForPath(program, "/reports/mock-report/index", "submitted mock did not open its report");
+  await waitForPath(
+    program,
+    "/reports/mock-report/index",
+    "submitted mock did not open its report",
+  );
 }
 
 async function essayComposeActions(program) {

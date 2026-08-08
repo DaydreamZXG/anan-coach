@@ -1,5 +1,8 @@
 import { ApiClient } from "../../api/client";
-import { CommunityMethodCardsApi, type CommunityCardState } from "../shared/api/community-method-cards";
+import {
+  CommunityMethodCardsApi,
+  type CommunityCardState,
+} from "../shared/api/community-method-cards";
 import { routes } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";

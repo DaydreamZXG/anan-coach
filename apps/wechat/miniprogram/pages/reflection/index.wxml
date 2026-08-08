@@ -528,6 +528,7 @@
         <button
           wx:for="{{replaySurfaceOptions}}"
           wx:key="value"
+          hover-class="item--hover"
           class="replay-surface-switch__item {{replaySurface === item.value ? 'replay-surface-switch__item--active' : ''}}"
           data-surface="{{item.value}}"
           bindtap="selectReplaySurface"

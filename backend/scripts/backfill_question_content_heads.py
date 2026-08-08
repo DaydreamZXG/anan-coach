@@ -29,12 +29,11 @@ from __future__ import annotations
 import argparse
 from datetime import datetime, UTC
 import sys
-from typing import Any
 
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.db.session import get_engine, get_session_factory
+from app.db.session import get_session_factory
 from app.domains.external_ingestion.matching.catalog import (
     ContentPublicationError,
     ContentVersionIntegrityError,
@@ -88,7 +87,6 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    engine = get_engine()
     session_factory = get_session_factory()
 
     with session_factory() as session:
@@ -103,7 +101,6 @@ def main() -> int:
             print(question_id)
         return 0
 
-    catalog = SQLQuestionContentCatalog  # type: ignore[assignment]
     session = session_factory()
     published = 0
     failed: list[tuple[str, str]] = []

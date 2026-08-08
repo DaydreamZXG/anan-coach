@@ -29,7 +29,7 @@ import sys
 
 from sqlalchemy.orm import Session
 
-from app.db.session import get_engine, get_session_factory
+from app.db.session import get_session_factory
 from app.domains.external_ingestion.matching.catalog import (
     ContentPublicationError,
     ContentVersionIntegrityError,
