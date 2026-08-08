@@ -80,9 +80,9 @@ AI_SETTINGS = {
     "AI_ESSAY_TOKENRHYTHM_PROVIDER_REPLAY_RETENTION_SECONDS": "0",
     "AI_ESSAY_TOKENRHYTHM_MAX_INPUT_BYTES": "8388608",
     "AI_ESSAY_TOKENRHYTHM_MAX_OUTPUT_BYTES": "2097152",
-    "AI_ESSAY_ADJUDICATOR_BASE_URL": "https://tokenrhythm.studio/v1",
-    "AI_ESSAY_ADJUDICATOR_PROVIDER_RELEASE_ID": "tokenrhythm-deepseek-v4-flash-adjudicator",
-    "AI_ESSAY_ADJUDICATOR_MODEL": "deepseek-v4-flash",
+    "AI_ESSAY_ADJUDICATOR_BASE_URL": "https://gemini-web2api.ergouapi.co/v1",
+    "AI_ESSAY_ADJUDICATOR_PROVIDER_RELEASE_ID": "gemini-web2api-adjudicator-2026-08-08.1",
+    "AI_ESSAY_ADJUDICATOR_MODEL": "gemini-3.5-flash",
     "AI_ESSAY_ADJUDICATOR_IDEMPOTENCY_KEY_HEADER": "Idempotency-Key",
     "AI_ESSAY_ADJUDICATOR_REQUEST_ID_HEADER": "body:id",
     "AI_ESSAY_ADJUDICATOR_IDEMPOTENCY_CAPABILITY": "nonreplayable_audited",
@@ -206,7 +206,9 @@ def configure(env_file: Path, api_key: str) -> None:
     desired["AI_API_KEY"] = api_key.strip()
     desired["AI_COMPANION_API_KEY"] = api_key.strip()
     desired["AI_ESSAY_TOKENRHYTHM_API_KEY"] = api_key.strip()
-    desired["AI_ESSAY_ADJUDICATOR_API_KEY"] = api_key.strip()
+    desired["AI_ESSAY_ADJUDICATOR_API_KEY"] = _existing_value(
+        original, "AI_ESSAY_PRIMARY_API_KEY"
+    )
     desired["OPERATIONS_METRICS_TOKEN"] = operations_token or secrets.token_urlsafe(48)
     _rewrite_env(
         env_file,
