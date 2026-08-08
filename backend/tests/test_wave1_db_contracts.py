@@ -64,18 +64,12 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     )
     revision89 = import_module("migrations.versions.20260731_89_major_catalog_tables")
     revision90 = import_module("migrations.versions.20260801_90_visual_fingerprint_hashes")
-    revision91 = import_module(
-        "migrations.versions.20260801_91_question_bank_import_authority"
-    )
+    revision91 = import_module("migrations.versions.20260801_91_question_bank_import_authority")
     revision92 = import_module("migrations.versions.20260802_92_optional_reflection_tags")
-    revision93 = import_module(
-        "migrations.versions.20260802_93_tokenrhythm_essay_candidate"
-    )
+    revision93 = import_module("migrations.versions.20260802_93_tokenrhythm_essay_candidate")
     revision94 = import_module("migrations.versions.20260802_94_gender_qualification_fact")
     revision95 = import_module("migrations.versions.20260804_95_daily_focus_override")
-    revision96 = import_module(
-        "migrations.versions.20260804_96_central_brain_strategy_directive"
-    )
+    revision96 = import_module("migrations.versions.20260804_96_central_brain_strategy_directive")
     revision97 = import_module("migrations.versions.20260805_97_login_terms_consent")
     revision98 = import_module("migrations.versions.20260806_98_method_card_knowledge_nodes")
     revision99 = import_module("migrations.versions.20260807_99_ilink_hub_photo_queries")
@@ -83,6 +77,7 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     revision101 = import_module(
         "migrations.versions.20260808_101_publish_community_method_policies"
     )
+    revision102 = import_module("migrations.versions.20260808_102_retire_direct_ilink_worker")
     script = ScriptDirectory.from_config(Config(str(BACKEND_ROOT / "alembic.ini")))
 
     assert revision71.down_revision == "20260728_70"
@@ -116,7 +111,8 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     assert revision99.down_revision == "20260806_98"
     assert revision100.down_revision == "20260807_99"
     assert revision101.down_revision == "20260807_100"
-    assert script.get_heads() == ["20260808_101"]
+    assert revision102.down_revision == "20260808_101"
+    assert script.get_heads() == ["20260808_102"]
     with pytest.raises(RuntimeError, match="forward-only"):
         revision77.downgrade()
     with pytest.raises(RuntimeError, match="forward-only"):

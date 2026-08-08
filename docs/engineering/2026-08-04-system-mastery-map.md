@@ -739,7 +739,7 @@
 
 ## 7. 拍照搜题 / 导入 / 私人知识库
 
-**本簇概览**:本簇以「外来学习材料」为主线,共有三条互相关联但独立的链路:(1) 小程序内拍照/相册/PDF 导入题目,走 external_ingestion 域的「上传→识别→题库匹配/AI 解析→用户核对」流水线;(2) 微信「发图搜题」通道(ilink_channel 域),用户在微信直接给岸岸发单题图片或文字指令,由独立常驻 worker 消费并回复;(3) 私人知识库(private_knowledge 域),讲义/笔记/PDF/Markdown 经 OCR 核对后切片,投影到 WeKnora 做混合检索,微信「存资料」可把已答复图片转入该库。三者共用底层上传对象存储(TOS)、recognition_revisions 识别版本、source_artifact_versions 资料版本与幂等命令回执机制;答题通道还复用控制面指令(今天/调整今天/查资料)读写计划与资料库。跨功能警告:xfyun 域只是语音+公式识别的辅助能力,拍照搜题主 OCR 并不在 xfyun;ilink_channel 涉及 control_plane/plan_projection/workflow 三模块,而 companion 的 resolve_external_question(外部错题记忆)是另一条独立入口,勿混为一谈。
+**本簇概览**:本簇以「外来学习材料」为主线,共有三条互相关联但独立的链路:(1) 小程序内拍照/相册/PDF 导入题目,走 external_ingestion 域的「上传→识别→题库匹配/AI 解析→用户核对」流水线;(2) 微信「发图搜题」通道(ilink_channel 域),用户在微信直接给岸岸发单题图片或文字指令,由 OpenILink Hub 收发消息并把事件转给后端处理;(3) 私人知识库(private_knowledge 域),讲义/笔记/PDF/Markdown 经 OCR 核对后切片,投影到 WeKnora 做混合检索,微信「存资料」可把已答复图片转入该库。三者共用底层上传对象存储(TOS)、recognition_revisions 识别版本、source_artifact_versions 资料版本与幂等命令回执机制;答题通道还复用控制面指令(今天/调整今天/查资料)读写计划与资料库。跨功能警告:xfyun 域只是语音+公式识别的辅助能力,拍照搜题主 OCR 并不在 xfyun;ilink_channel 涉及 control_plane/plan_projection/workflow 三模块,而 companion 的 resolve_external_question(外部错题记忆)是另一条独立入口,勿混为一谈。
 
 #### 1. 拍照上传识别(capture-import 页 + xfyun OCR)
 
@@ -763,10 +763,11 @@
 
 #### 2. 答题通道(ilink_channel 域,微信发图搜题)
 
-- **产品意图**:用户先在「拍照搜题」页或「我的」里生成微信连接二维码,扫码把微信入口绑定到岸岸账户。绑定后直接在微信里给岸岸发裁剪好的单题图片,常驻 worker(ILinkWorker)轮询微信侧更新,拉图、识别、匹配题库,若命中已授权原题就直接回答案,未命中则跑两套独立 AI 模型,仅在两模型答案一致时才展示 AI 候选(否则回答歧义),回复带来源标签与收录状态。用户可回文字指令「收录/重做/删除」操作最近查询,或发「今天」「调整今天 X小时」「查资料 关键词」「存资料」等控制面指令读改写计划与资料库。查询与收录明确不计入能力画像,只有后续独立作答才算证据。
-- **调用链**:微信发图 -> backend/app/workers/ilink_channel.py:59 _run_loop -> protocol.py:84 get_updates -> workflow.py:72 process(先查绑定) -> :316 _process_photo -> repository.py:330 insert_query -> resolver.py:98 TosTransientImageStore.put -> :244 QueryRecognitionProcessor.recognize -> :426 PhotoQuestionResolver.resolve(题库授权候选 catalog.py:150 / 双AI resolver.py:504) -> workflow.py:397 answer_query -> :461 _send_query_reply;文本指令 -> workflow.py:130 control_plane.py:100 handle(今天/进度/调整今天/查资料/删资料) / plan_projection.py:27 today_plan_reply(只读摘要);「存资料」-> workflow.py:270 -> material_intake.py:76;绑定链路 -> components/ilink-bot-sheet/index.ts:121 issue -> POST /api/v2/ilink-channel/bot/authorizations -> hub_service.py:64 -> 微信扫码 -> 微信回连接码 -> workflow.py:212 _confirm_binding -> service.py:154 confirm_sender
+- **产品意图**:用户在小程序生成 OpenILink Hub 授权二维码并绑定岸岸账户。绑定后直接在微信里给岸岸发裁剪好的单题图片或文字；Hub 负责微信凭据、收发与媒体会话，岸岸后端负责账户隔离、识别、题库匹配、AI、计划控制、短期记忆和回复决策。原直连长轮询 worker 已退役，临时私有图片由无消息权限的独立删除 worker 到期清理。
+- **调用链**:微信消息 -> OpenILink Hub -> POST /api/v2/ilink-channel/hub/events -> hub_bridge.py:process_hub_event -> 图片走 ILinkPhotoWorkflow.process_hub_photo / PhotoQuestionResolver，文字走 ILinkControlPlane 或 AccountScopedCompanionResponder -> OpenILinkHubClient 回发；临时图片到期 -> messaging.ilink_object_deletion_queue -> app.workers.ilink_object_deletions。
 - **关键文件**:
-  - `backend/app/workers/ilink_channel.py:26,59,90,118`
+  - `backend/app/workers/ilink_object_deletions.py`
+  - `backend/app/domains/ilink_channel/hub_bridge.py`
   - `backend/app/domains/ilink_channel/workflow.py:43,72,130,316,461`
   - `backend/app/domains/ilink_channel/control_plane.py:60,100,225,325,337`
   - `backend/app/domains/ilink_channel/plan_projection.py:19,27,54`
@@ -776,12 +777,12 @@
   - `backend/app/domains/ilink_channel/material_intake.py:44,62,76`
   - `backend/app/domains/ilink_channel/repository.py:330,654,855`
   - `apps/wechat/miniprogram/components/ilink-bot-sheet/index.ts:88,121,160`
-- **核心表**: `messaging.ilink_channel_links`, `messaging.ilink_hub_bot_links`, `messaging.ilink_photo_queries`, `messaging.ilink_photo_collections`, `messaging.ilink_command_receipts`, `messaging.ilink_channel_events`, `messaging.ilink_object_deletion_queue`, `messaging.ilink_worker_cursors`
+- **核心表**: `messaging.ilink_channel_links`, `messaging.ilink_hub_bot_links`, `messaging.ilink_photo_queries`, `messaging.ilink_photo_collections`, `messaging.ilink_command_receipts`, `messaging.ilink_channel_events`, `messaging.ilink_object_deletion_queue`
 - **易错点**:
   - ilink_channel 是三模块分工:control_plane(文本指令)、plan_projection(今日计划只读投影)、workflow(照片主流程),改一处要先弄清职责边界
   - 微信通道的查询/收录 answer_kind 与 collection_state 都不产生学习证据(abilityImpact=none_until_independent_attempt),统计口径勿把「查过的题」当「做过的题」
   - companion 的 resolve_external_question(/api/v1/companion/external-questions/resolve)是另一条「外部错题记忆」入口,与 ilink 拍题通道无关,前端当前并无调用方,只在生成 API 契约里存在
-  - worker 断点续传基于加密 cursor;bot_token_stale 会清空 cursor 并要求重新扫码(worker 循环内),接入时别忽略 token 续期
+  - OpenILink Hub 是唯一消息运输入口；禁止恢复直连长轮询 worker 或旧加密 cursor 表
 - **关联**: planning 计划域(control_plane 读写今日容量)、private_knowledge 域(存资料/查资料)、companion 岸岸(回复兜底)
 
 #### 3. 答案采集入库(answer_ingestion / external_ingestion 边界)

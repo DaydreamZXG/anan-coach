@@ -1,5 +1,5 @@
 [Unit]
-Description=Gongkao Dazi official iLink photo-question worker
+Description=Gongkao Dazi iLink private-object deletion worker
 After=network-online.target postgresql.service
 Wants=network-online.target
 
@@ -10,11 +10,11 @@ Group=gongkao-wkr-ilink
 WorkingDirectory=/srv/gongkao-dazi/current/backend
 Environment=PYTHONDONTWRITEBYTECODE=1
 EnvironmentFile=/etc/gongkao-dazi/ilink-channel.env
-EnvironmentFile=/etc/gongkao-dazi/ilink-worker.env
+EnvironmentFile=/etc/gongkao-dazi/worker-ilink-object-deletion.env
 EnvironmentFile=/etc/gongkao-dazi/db.env
 EnvironmentFile=/etc/gongkao-dazi/worker-heartbeat-ilink.env
 EnvironmentFile=/etc/gongkao-dazi/release-runtime.env
-ExecStart=/srv/gongkao-dazi/current/backend/.venv/bin/python -m app.workers.ilink_channel
+ExecStart=/srv/gongkao-dazi/current/backend/.venv/bin/python -m app.workers.ilink_object_deletions
 Restart=always
 RestartSec=3
 TimeoutStopSec=45

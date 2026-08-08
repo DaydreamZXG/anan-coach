@@ -50,8 +50,8 @@ JOB_CONSUMER_PRINCIPALS: Final = (
     JobConsumerPrincipal(
         database_principal="gongkao_worker_heartbeat_ilink_login",
         group_role="gongkao_worker_heartbeat_ilink",
-        consumer_unit="gongkao-dazi-ilink-worker",
-        consumer_entrypoint="app.workers.ilink_channel",
+        consumer_unit="gongkao-dazi-ilink-object-deletion-worker",
+        consumer_entrypoint="app.workers.ilink_object_deletions",
     ),
 )
 

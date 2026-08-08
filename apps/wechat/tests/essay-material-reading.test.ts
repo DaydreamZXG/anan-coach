@@ -14,7 +14,8 @@ describe("申论材料阅读排版", () => {
     expect(template).not.toContain("material-paragraph__number");
     expect(template).not.toContain("paragraphNumber");
     expect(styles).not.toContain(".material-paragraph__number");
-    expect(styles).toMatch(/\.material-paragraph__text\s*\{[^}]*text-indent:\s*2em;/u);
+    expect(template).toContain("{{item.displayText}}");
+    expect(styles).not.toContain("text-indent");
   });
 
   it("单份定向材料只显示材料号，不伪装成材料号除以段数", () => {

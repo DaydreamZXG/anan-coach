@@ -8,6 +8,7 @@ import { materialTextParagraphs } from "../shared/features/essay-task/material-p
 type MaterialParagraph = EssayTaskWorkspace["material"]["segments"][number] & {
   anchorId: string;
   displayParagraphId: string;
+  displayText: string;
   showAnnotation: boolean;
 };
 
@@ -74,6 +75,7 @@ Page({
           return {
             ...segment,
             text: paragraph.text,
+            displayText: paragraph.displayText,
             displayParagraphId: paragraph.paragraphId,
             showAnnotation: index === paragraphs.length - 1,
             anchorId: firstForMaterial

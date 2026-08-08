@@ -49,48 +49,62 @@ class ILinkRepository:
 
     def link_for_user(self, *, user_id: UUID, for_update: bool = False):
         suffix = " for update" if for_update else ""
-        return self._session.execute(
-            text(
-                "select * from messaging.ilink_channel_links "
-                "where user_id = :user_id" + suffix
-            ),
-            {"user_id": str(user_id)},
-        ).mappings().one_or_none()
+        return (
+            self._session.execute(
+                text(
+                    "select * from messaging.ilink_channel_links where user_id = :user_id" + suffix
+                ),
+                {"user_id": str(user_id)},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def link_for_code(self, *, code_hash: str, for_update: bool = False):
         suffix = " for update" if for_update else ""
-        return self._session.execute(
-            text(
-                "select * from messaging.ilink_channel_links "
-                "where state = 'pending' and binding_code_hash = :code_hash" + suffix
-            ),
-            {"code_hash": code_hash},
-        ).mappings().one_or_none()
+        return (
+            self._session.execute(
+                text(
+                    "select * from messaging.ilink_channel_links "
+                    "where state = 'pending' and binding_code_hash = :code_hash" + suffix
+                ),
+                {"code_hash": code_hash},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def link_for_sender(
         self, *, bot_account_id: str, sender_fingerprint: str, for_update: bool = False
     ):
         suffix = " for update" if for_update else ""
-        return self._session.execute(
-            text(
-                "select * from messaging.ilink_channel_links "
-                "where state = 'bound' and bot_account_id = :bot_account_id "
-                "and sender_fingerprint = :sender_fingerprint" + suffix
-            ),
-            {
-                "bot_account_id": bot_account_id,
-                "sender_fingerprint": sender_fingerprint,
-            },
-        ).mappings().one_or_none()
+        return (
+            self._session.execute(
+                text(
+                    "select * from messaging.ilink_channel_links "
+                    "where state = 'bound' and bot_account_id = :bot_account_id "
+                    "and sender_fingerprint = :sender_fingerprint" + suffix
+                ),
+                {
+                    "bot_account_id": bot_account_id,
+                    "sender_fingerprint": sender_fingerprint,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def command_receipt(self, *, command_id: str):
-        return self._session.execute(
-            text(
-                "select * from messaging.ilink_command_receipts "
-                "where command_id = :command_id"
-            ),
-            {"command_id": command_id},
-        ).mappings().one_or_none()
+        return (
+            self._session.execute(
+                text(
+                    "select * from messaging.ilink_command_receipts where command_id = :command_id"
+                ),
+                {"command_id": command_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def save_command_receipt(
         self,
@@ -125,9 +139,10 @@ class ILinkRepository:
         )
 
     def pending_material_delete(self, *, user_id: UUID, code: str):
-        return self._session.execute(
-            text(
-                """
+        return (
+            self._session.execute(
+                text(
+                    """
                 select * from messaging.ilink_command_receipts
                 where user_id = :user_id
                   and command_type = 'control_material_delete_pending'
@@ -135,9 +150,12 @@ class ILinkRepository:
                 order by created_at desc
                 limit 1
                 """
-            ),
-            {"user_id": str(user_id), "code": code},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": str(user_id), "code": code},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def material_delete_consumed(self, *, pending_command_id: str) -> bool:
         return bool(
@@ -193,7 +211,9 @@ class ILinkRepository:
                         "command_id": command_id,
                         "now": now,
                     },
-                ).mappings().one()
+                )
+                .mappings()
+                .one()
             )
         return dict(
             self._session.execute(
@@ -220,7 +240,9 @@ class ILinkRepository:
                     "command_id": command_id,
                     "now": now,
                 },
-            ).mappings().one()
+            )
+            .mappings()
+            .one()
         )
 
     def bind_link(
@@ -235,9 +257,10 @@ class ILinkRepository:
         now: datetime,
     ) -> dict[str, Any]:
         try:
-            row = self._session.execute(
-                text(
-                    """
+            row = (
+                self._session.execute(
+                    text(
+                        """
                     update messaging.ilink_channel_links set
                       state = 'bound', bot_account_id = :bot_account_id,
                       sender_fingerprint = :sender_fingerprint,
@@ -250,29 +273,31 @@ class ILinkRepository:
                     where link_id = :link_id and state = 'pending'
                     returning *
                     """
-                ),
-                {
-                    "link_id": str(link_id),
-                    "bot_account_id": bot_account_id,
-                    "sender_fingerprint": sender_fingerprint,
-                    "encrypted_sender_id": encrypted_sender_id,
-                    "key_id": key_id,
-                    "command_id": command_id,
-                    "now": now,
-                },
-            ).mappings().one_or_none()
+                    ),
+                    {
+                        "link_id": str(link_id),
+                        "bot_account_id": bot_account_id,
+                        "sender_fingerprint": sender_fingerprint,
+                        "encrypted_sender_id": encrypted_sender_id,
+                        "key_id": key_id,
+                        "command_id": command_id,
+                        "now": now,
+                    },
+                )
+                .mappings()
+                .one_or_none()
+            )
         except IntegrityError as exc:
             raise ILinkConflict("sender_already_bound") from exc
         if row is None:
             raise ILinkConflict("link_state_changed")
         return dict(row)
 
-    def revoke_link(
-        self, *, link_id: UUID, command_id: str, now: datetime
-    ) -> dict[str, Any]:
-        row = self._session.execute(
-            text(
-                """
+    def revoke_link(self, *, link_id: UUID, command_id: str, now: datetime) -> dict[str, Any]:
+        row = (
+            self._session.execute(
+                text(
+                    """
                 update messaging.ilink_channel_links set
                   state = 'revoked', sender_fingerprint = null,
                   encrypted_sender_id = null, encrypted_binding_code = null,
@@ -282,26 +307,33 @@ class ILinkRepository:
                 where link_id = :link_id and state in ('pending', 'bound')
                 returning *
                 """
-            ),
-            {"link_id": str(link_id), "command_id": command_id, "now": now},
-        ).mappings().one_or_none()
+                ),
+                {"link_id": str(link_id), "command_id": command_id, "now": now},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             raise ILinkConflict("link_state_changed")
         return dict(row)
 
     def counts(self, *, user_id: UUID) -> tuple[int, int]:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 select
                   (select count(*) from messaging.ilink_photo_queries
                    where user_id = :user_id and state <> 'deleted') as query_count,
                   (select count(*) from messaging.ilink_photo_collections
                    where user_id = :user_id and state <> 'deleted') as collection_count
                 """
-            ),
-            {"user_id": str(user_id)},
-        ).mappings().one()
+                ),
+                {"user_id": str(user_id)},
+            )
+            .mappings()
+            .one()
+        )
         return int(row["query_count"]), int(row["collection_count"])
 
     def insert_query(
@@ -327,9 +359,10 @@ class ILinkRepository:
             if UUID(str(existing["user_id"])) != user_id:
                 raise ILinkConflict("message_replay_cross_account")
             return existing, True
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 insert into messaging.ilink_photo_queries (
                   query_id, link_id, hub_authorization_id, user_id,
                   bot_account_id, source_message_id,
@@ -341,23 +374,24 @@ class ILinkRepository:
                   'received', 'none', :context_token, :key_id, 1, :now, :now
                 ) returning *
                 """
-            ),
-            {
-                "query_id": str(query_id),
-                "link_id": str(link_id) if link_id is not None else None,
-                "hub_authorization_id": (
-                    str(hub_authorization_id)
-                    if hub_authorization_id is not None
-                    else None
                 ),
-                "user_id": str(user_id),
-                "bot_account_id": bot_account_id,
-                "source_message_id": source_message_fingerprint,
-                "context_token": encrypted_context_token,
-                "key_id": key_id,
-                "now": now,
-            },
-        ).mappings().one()
+                {
+                    "query_id": str(query_id),
+                    "link_id": str(link_id) if link_id is not None else None,
+                    "hub_authorization_id": (
+                        str(hub_authorization_id) if hub_authorization_id is not None else None
+                    ),
+                    "user_id": str(user_id),
+                    "bot_account_id": bot_account_id,
+                    "source_message_id": source_message_fingerprint,
+                    "context_token": encrypted_context_token,
+                    "key_id": key_id,
+                    "now": now,
+                },
+            )
+            .mappings()
+            .one()
+        )
         self.event(
             aggregate_type="query",
             aggregate_id=str(query_id),
@@ -371,40 +405,56 @@ class ILinkRepository:
         )
         return row, False
 
-    def query_for_message(
-        self, *, bot_account_id: str, source_message_fingerprint: str
-    ):
-        return self._session.execute(
-            text(
-                "select * from messaging.ilink_photo_queries "
-                "where bot_account_id = :bot and source_message_id = :message"
-            ),
-            {"bot": bot_account_id, "message": source_message_fingerprint},
-        ).mappings().one_or_none()
+    def query_for_message(self, *, bot_account_id: str, source_message_fingerprint: str):
+        return (
+            self._session.execute(
+                text(
+                    "select * from messaging.ilink_photo_queries "
+                    "where bot_account_id = :bot and source_message_id = :message"
+                ),
+                {"bot": bot_account_id, "message": source_message_fingerprint},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def query(self, *, query_id: UUID, for_update: bool = False):
         suffix = " for update" if for_update else ""
-        return self._session.execute(
-            text(
-                "select * from messaging.ilink_photo_queries "
-                "where query_id = :query_id" + suffix
-            ),
-            {"query_id": str(query_id)},
-        ).mappings().one_or_none()
+        return (
+            self._session.execute(
+                text(
+                    "select * from messaging.ilink_photo_queries "
+                    "where query_id = :query_id" + suffix
+                ),
+                {"query_id": str(query_id)},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def latest_query(self, *, user_id: UUID, for_update: bool = False):
         suffix = " for update" if for_update else ""
-        return self._session.execute(
-            text(
-                "select * from messaging.ilink_photo_queries "
-                "where user_id = :user_id and state in ('answered', 'failed') "
-                "order by created_at desc limit 1" + suffix
-            ),
-            {"user_id": str(user_id)},
-        ).mappings().one_or_none()
+        return (
+            self._session.execute(
+                text(
+                    "select * from messaging.ilink_photo_queries "
+                    "where user_id = :user_id and state in ('answered', 'failed') "
+                    "order by created_at desc limit 1" + suffix
+                ),
+                {"user_id": str(user_id)},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def start_processing(
-        self, *, query_id: UUID, object_ref: str, source_fingerprint: str, mime_type: str, now: datetime
+        self,
+        *,
+        query_id: UUID,
+        object_ref: str,
+        source_fingerprint: str,
+        mime_type: str,
+        now: datetime,
     ) -> None:
         changed = self._session.execute(
             text(
@@ -486,9 +536,7 @@ class ILinkRepository:
         if changed != 1:
             raise ILinkConflict("query_state_changed")
 
-    def expire_stale_processing(
-        self, *, before: datetime, limit: int, now: datetime
-    ) -> int:
+    def expire_stale_processing(self, *, before: datetime, limit: int, now: datetime) -> int:
         if limit < 1 or limit > 1000:
             raise ValueError("stale processing limit is outside policy")
         rows = self._session.execute(
@@ -525,9 +573,7 @@ class ILinkRepository:
         ).scalars()
         return len(tuple(rows))
 
-    def expire_uncollected_queries(
-        self, *, before: datetime, limit: int, now: datetime
-    ) -> int:
+    def expire_uncollected_queries(self, *, before: datetime, limit: int, now: datetime) -> int:
         if limit < 1 or limit > 1000:
             raise ValueError("query expiry limit is outside policy")
         rows = self._session.execute(
@@ -572,9 +618,7 @@ class ILinkRepository:
         ).scalars()
         return len(tuple(rows))
 
-    def expire_answered_transients(
-        self, *, before: datetime, limit: int, now: datetime
-    ) -> int:
+    def expire_answered_transients(self, *, before: datetime, limit: int, now: datetime) -> int:
         if limit < 1 or limit > 1000:
             raise ValueError("answered transient expiry limit is outside policy")
         rows = self._session.execute(
@@ -628,9 +672,7 @@ class ILinkRepository:
         if changed != 1:
             raise ILinkConflict("query_state_changed")
 
-    def set_reply_state(
-        self, *, query_id: UUID, client_id: str, state: str, now: datetime
-    ) -> None:
+    def set_reply_state(self, *, query_id: UUID, client_id: str, state: str, now: datetime) -> None:
         clear_token = state in {"sent", "uncertain"}
         self._session.execute(
             text(
@@ -658,9 +700,10 @@ class ILinkRepository:
             raise ILinkNotFound("query_not_found")
         if query["state"] != "answered":
             raise ILinkConflict("query_not_answered")
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 insert into messaging.ilink_photo_collections (
                   collection_id, query_id, user_id, state, command_id,
                   collected_at, updated_at
@@ -675,23 +718,25 @@ class ILinkRepository:
                   updated_at = excluded.updated_at
                 returning *
                 """
-            ),
-            {
-                "collection_id": str(uuid4()),
-                "query_id": str(query_id),
-                "user_id": str(user_id),
-                "command_id": command_id,
-                "now": now,
-            },
-        ).mappings().one()
+                ),
+                {
+                    "collection_id": str(uuid4()),
+                    "query_id": str(query_id),
+                    "user_id": str(user_id),
+                    "command_id": command_id,
+                    "now": now,
+                },
+            )
+            .mappings()
+            .one()
+        )
         return row
 
-    def queue_reattempt(
-        self, *, query_id: UUID, user_id: UUID, command_id: str, now: datetime
-    ):
-        row = self._session.execute(
-            text(
-                """
+    def queue_reattempt(self, *, query_id: UUID, user_id: UUID, command_id: str, now: datetime):
+        row = (
+            self._session.execute(
+                text(
+                    """
                 update messaging.ilink_photo_collections set
                   state = 'queued_for_reattempt', command_id = :command_id,
                   reattempt_requested_at = :now, updated_at = :now
@@ -699,19 +744,24 @@ class ILinkRepository:
                   and state in ('collected', 'queued_for_reattempt')
                 returning *
                 """
-            ),
-            {
-                "query_id": str(query_id),
-                "user_id": str(user_id),
-                "command_id": command_id,
-                "now": now,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "query_id": str(query_id),
+                    "user_id": str(user_id),
+                    "command_id": command_id,
+                    "now": now,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             raise ILinkConflict("collection_required")
         return row
 
-    def delete_latest(self, *, query_id: UUID, user_id: UUID, command_id: str, now: datetime) -> None:
+    def delete_latest(
+        self, *, query_id: UUID, user_id: UUID, command_id: str, now: datetime
+    ) -> None:
         self._session.execute(
             text(
                 """
@@ -847,41 +897,6 @@ class ILinkRepository:
         ).rowcount
         return int(links or 0), int(queries or 0), int(collections or 0), refs
 
-    def cursor(self, *, bot_account_id: str):
-        return self._session.execute(
-            text(
-                "select * from messaging.ilink_worker_cursors "
-                "where bot_account_id = :bot"
-            ),
-            {"bot": bot_account_id},
-        ).mappings().one_or_none()
-
-    def save_cursor(
-        self, *, bot_account_id: str, encrypted_buf: str, key_id: str, now: datetime
-    ) -> None:
-        self._session.execute(
-            text(
-                """
-                insert into messaging.ilink_worker_cursors (
-                  bot_account_id, encrypted_updates_buf, encryption_key_id,
-                  revision, updated_at
-                ) values (:bot, :buf, :key_id, 1, :now)
-                on conflict (bot_account_id) do update set
-                  encrypted_updates_buf = excluded.encrypted_updates_buf,
-                  encryption_key_id = excluded.encryption_key_id,
-                  revision = messaging.ilink_worker_cursors.revision + 1,
-                  updated_at = excluded.updated_at
-                """
-            ),
-            {"bot": bot_account_id, "buf": encrypted_buf, "key_id": key_id, "now": now},
-        )
-
-    def clear_cursor(self, *, bot_account_id: str) -> None:
-        self._session.execute(
-            text("delete from messaging.ilink_worker_cursors where bot_account_id = :bot"),
-            {"bot": bot_account_id},
-        )
-
     def recover_stale_object_deletions(self, *, now: datetime) -> int:
         result = self._session.execute(
             text(
@@ -970,9 +985,7 @@ class ILinkRepository:
             },
         ).rowcount
         if changed != 1:
-            raise ILinkConflict(
-                "only the active deletion claim can complete object deletion"
-            )
+            raise ILinkConflict("only the active deletion claim can complete object deletion")
 
     def fail_object_deletion(
         self,

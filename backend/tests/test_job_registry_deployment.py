@@ -51,7 +51,7 @@ HEARTBEAT_ENV_BY_UNIT = {
     "gongkao-dazi-external-learning-worker": ("worker-heartbeat-external-learning.env"),
     "gongkao-dazi-essay-review-worker": "worker-heartbeat-essay-review.env",
     "gongkao-dazi-coach-notification-worker": ("worker-heartbeat-coach-notification.env"),
-    "gongkao-dazi-ilink-worker": "worker-heartbeat-ilink.env",
+    "gongkao-dazi-ilink-object-deletion-worker": "worker-heartbeat-ilink.env",
 }
 PLATFORM_JOB_TYPES = {
     "personal_data_export_v1",
@@ -173,15 +173,10 @@ def test_worker_heartbeat_principal_migration_is_forward_only() -> None:
 
     assert migration.down_revision == "20260730_85"
     assert len(migration.PRINCIPAL_BINDINGS) == 6
-    assert {
-        (
-            binding.database_principal,
-            binding.group_role,
-            binding.consumer_unit,
-            binding.consumer_entrypoint,
-        )
-        for binding in JOB_CONSUMER_PRINCIPALS
-    } == set(migration.PRINCIPAL_BINDINGS)
+    assert migration.PRINCIPAL_BINDINGS[-1][2:] == (
+        "gongkao-dazi-ilink-worker",
+        "app.workers.ilink_channel",
+    )
     with pytest.raises(RuntimeError, match="forward-only"):
         migration.downgrade()
 
@@ -225,6 +220,7 @@ def test_migration_86_requires_all_principal_pairs_atomically(
 def test_migration_86_enforces_the_real_six_by_six_session_user_matrix(
     db_engine_at_revision_85: Engine,
 ) -> None:
+    migration = import_module("migrations.versions.20260730_86_worker_heartbeat_principals")
     with db_engine_at_revision_85.begin() as connection:
         connection.exec_driver_sql(
             """
@@ -265,16 +261,8 @@ def test_migration_86_enforces_the_real_six_by_six_session_user_matrix(
                 )
             ).mappings()
         }
-        assert principal_rows == {
-            (
-                binding.database_principal,
-                binding.group_role,
-                binding.consumer_unit,
-                binding.consumer_entrypoint,
-            )
-            for binding in JOB_CONSUMER_PRINCIPALS
-        }
-        for binding in JOB_CONSUMER_PRINCIPALS:
+        assert principal_rows == set(migration.PRINCIPAL_BINDINGS)
+        for database_principal, _, _, _ in migration.PRINCIPAL_BINDINGS:
             assert (
                 connection.execute(
                     text(
@@ -283,7 +271,7 @@ def test_migration_86_enforces_the_real_six_by_six_session_user_matrix(
                         "'platform.pulse_background_job_consumer_heartbeat"
                         "(text,text,uuid)', 'EXECUTE')"
                     ),
-                    {"principal": binding.database_principal},
+                    {"principal": database_principal},
                 ).scalar_one()
                 is True
             )
@@ -311,7 +299,7 @@ def test_migration_86_enforces_the_real_six_by_six_session_user_matrix(
                     )
                     """
                     ),
-                    {"principal": binding.database_principal},
+                    {"principal": database_principal},
                 ).scalar_one()
                 is True
             )
@@ -361,26 +349,23 @@ def test_migration_86_enforces_the_real_six_by_six_session_user_matrix(
 
     runtime = db_engine_at_revision_85.connect().execution_options(isolation_level="AUTOCOMMIT")
     try:
-        for caller in JOB_CONSUMER_PRINCIPALS:
-            runtime.exec_driver_sql(f"set session authorization {caller.database_principal}")
-            assert (
-                runtime.execute(text("select session_user")).scalar_one()
-                == caller.database_principal
-            )
-            for target in JOB_CONSUMER_PRINCIPALS:
-                if target == caller:
+        for caller_principal, _, caller_unit, caller_entrypoint in migration.PRINCIPAL_BINDINGS:
+            runtime.exec_driver_sql(f"set session authorization {caller_principal}")
+            assert runtime.execute(text("select session_user")).scalar_one() == caller_principal
+            for target_principal, _, target_unit, target_entrypoint in migration.PRINCIPAL_BINDINGS:
+                if target_principal == caller_principal:
                     heartbeat = _pulse_heartbeat(
                         runtime,
-                        consumer_unit=target.consumer_unit,
-                        consumer_entrypoint=target.consumer_entrypoint,
+                        consumer_unit=target_unit,
+                        consumer_entrypoint=target_entrypoint,
                     )
-                    assert heartbeat["consumer_unit"] == caller.consumer_unit
+                    assert heartbeat["consumer_unit"] == caller_unit
                     continue
                 with pytest.raises(DBAPIError) as cross_principal:
                     _pulse_heartbeat(
                         runtime,
-                        consumer_unit=target.consumer_unit,
-                        consumer_entrypoint=target.consumer_entrypoint,
+                        consumer_unit=target_unit,
+                        consumer_entrypoint=target_entrypoint,
                     )
                 assert (
                     getattr(
@@ -399,7 +384,7 @@ def test_migration_86_enforces_the_real_six_by_six_session_user_matrix(
                         where consumer_unit = :consumer_unit
                         """
                     ),
-                    {"consumer_unit": caller.consumer_unit},
+                    {"consumer_unit": caller_unit},
                 )
             assert getattr(direct_write.value.orig, "sqlstate", None) == "42501"
             runtime.exec_driver_sql("reset session authorization")
@@ -412,8 +397,8 @@ def test_migration_86_enforces_the_real_six_by_six_session_user_matrix(
             with pytest.raises(DBAPIError) as forbidden_pulse:
                 _pulse_heartbeat(
                     runtime,
-                    consumer_unit=(JOB_CONSUMER_PRINCIPALS[0].consumer_unit),
-                    consumer_entrypoint=(JOB_CONSUMER_PRINCIPALS[0].consumer_entrypoint),
+                    consumer_unit=migration.PRINCIPAL_BINDINGS[0][2],
+                    consumer_entrypoint=migration.PRINCIPAL_BINDINGS[0][3],
                 )
             assert getattr(forbidden_pulse.value.orig, "sqlstate", None) == "42501"
             runtime.exec_driver_sql("reset session authorization")
@@ -421,8 +406,8 @@ def test_migration_86_enforces_the_real_six_by_six_session_user_matrix(
         with pytest.raises(DBAPIError) as unknown_pulse:
             _pulse_heartbeat(
                 runtime,
-                consumer_unit=(JOB_CONSUMER_PRINCIPALS[0].consumer_unit),
-                consumer_entrypoint=(JOB_CONSUMER_PRINCIPALS[0].consumer_entrypoint),
+                consumer_unit=migration.PRINCIPAL_BINDINGS[0][2],
+                consumer_entrypoint=migration.PRINCIPAL_BINDINGS[0][3],
             )
         assert getattr(unknown_pulse.value.orig, "sqlstate", None) == "42501"
         runtime.exec_driver_sql("reset session authorization")
@@ -458,6 +443,18 @@ def test_migration_86_enforces_the_real_six_by_six_session_user_matrix(
         connection.exec_driver_sql("drop role gongkao_api")
         connection.exec_driver_sql("drop owned by gongkao_unknown_heartbeat_login")
         connection.exec_driver_sql("drop role gongkao_unknown_heartbeat_login")
+
+
+def test_direct_ilink_worker_retirement_migration_is_forward_only() -> None:
+    migration = import_module("migrations.versions.20260808_102_retire_direct_ilink_worker")
+
+    assert migration.down_revision == "20260808_101"
+    assert migration.OLD_UNIT == "gongkao-dazi-ilink-worker"
+    assert migration.NEW_UNIT == "gongkao-dazi-ilink-object-deletion-worker"
+    assert not (APP_ROOT / "workers" / "ilink_channel.py").exists()
+    assert not (SYSTEMD_ROOT / "gongkao-dazi-ilink-worker.service").exists()
+    with pytest.raises(RuntimeError, match="forward-only"):
+        migration.downgrade()
 
 
 def test_migration_84_requires_roles_and_refuses_unknown_legacy_jobs(

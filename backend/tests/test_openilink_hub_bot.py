@@ -213,11 +213,14 @@ def test_hub_bridge_signature_and_event_contract() -> None:
     import hashlib
     import hmac
 
-    signature = "sha256=" + hmac.new(
-        b"b" * 40,
-        b"1786000000:" + body,
-        hashlib.sha256,
-    ).hexdigest()
+    signature = (
+        "sha256="
+        + hmac.new(
+            b"b" * 40,
+            b"1786000000:" + body,
+            hashlib.sha256,
+        ).hexdigest()
+    )
     verify_hub_signature(
         body=body,
         timestamp="1786000000",
@@ -279,8 +282,7 @@ def test_hub_client_waits_until_image_media_is_ready() -> None:
                                     "type": "image",
                                     "media": {
                                         "url": (
-                                            "https://novac2c.cdn.weixin.qq.com/"
-                                            "c2c/download?id=1"
+                                            "https://novac2c.cdn.weixin.qq.com/c2c/download?id=1"
                                         ),
                                         "aes_key": "media-key",
                                         "encrypt_query_param": "encrypted-query",
@@ -302,9 +304,7 @@ def test_hub_client_waits_until_image_media_is_ready() -> None:
         ),
         sleeper=sleeps.append,
     )
-    media = client.wait_for_image_media(
-        bot_id="hub-bot-a", message_id="7491305165594995592"
-    )
+    media = client.wait_for_image_media(bot_id="hub-bot-a", message_id="7491305165594995592")
 
     assert media.encrypted_query_param == "encrypted-query"
     assert media.aes_key == "media-key"
@@ -443,10 +443,7 @@ def test_hub_reply_resolves_all_published_explanation_images_in_source_order(
 
 
 def test_hub_reply_removes_image_directions_only_when_the_asset_is_missing() -> None:
-    reply = (
-        "答案：B\n\n解析：将原展开图按如下图所示进行编号。"
-        "C项不一致（如图中绿线所示），排除。"
-    )
+    reply = "答案：B\n\n解析：将原展开图按如下图所示进行编号。C项不一致（如图中绿线所示），排除。"
 
     result = _without_missing_explanation_image_references(reply)
 
@@ -517,7 +514,6 @@ def test_hub_photo_query_is_account_owned_and_supports_followup_commands(
     db_session.commit()
     photo_settings = replace(
         identity_settings(),
-        bot_token="official-token-secret",
         recognition_route="photo-query-approved-v1",
     )
     workflow = ILinkPhotoWorkflow(
@@ -549,13 +545,17 @@ def test_hub_photo_query_is_account_owned_and_supports_followup_commands(
     assert "答案：C" in reply.reply_text
     assert "不用进小程序" not in reply.reply_text
     assert reply.content_version_id is None
-    query = db_session.execute(
-        text(
-            "select link_id, hub_authorization_id from messaging.ilink_photo_queries "
-            "where user_id = :user_id"
-        ),
-        {"user_id": str(USER_A)},
-    ).mappings().one()
+    query = (
+        db_session.execute(
+            text(
+                "select link_id, hub_authorization_id from messaging.ilink_photo_queries "
+                "where user_id = :user_id"
+            ),
+            {"user_id": str(USER_A)},
+        )
+        .mappings()
+        .one()
+    )
     assert query["link_id"] is None
     assert UUID(str(query["hub_authorization_id"])) == authorization_id
 

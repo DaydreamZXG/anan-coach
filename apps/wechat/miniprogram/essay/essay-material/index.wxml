@@ -50,7 +50,7 @@
         bindtap="selectSegment"
       >
         <view class="material-paragraph__body">
-          <text class="material-paragraph__text" user-select>{{item.text}}</text>
+          <text class="material-paragraph__text" user-select>{{item.displayText}}</text>
           <block wx:for="{{annotations}}" wx:for-item="annotation" wx:key="segmentId">
             <view wx:if="{{item.showAnnotation && annotation.segmentId === item.segmentId}}" class="material-annotation">
               <view class="material-annotation__label">岸岸帮你标过重点</view>

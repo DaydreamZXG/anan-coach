@@ -498,7 +498,7 @@ if [[ "${authority_status}" == "uninitialized" ]]; then
     gongkao-dazi-data-rights-worker.service \
     gongkao-dazi-essay-review-worker.service \
     gongkao-dazi-external-learning-worker.service \
-    gongkao-dazi-ilink-worker.service \
+    gongkao-dazi-ilink-object-deletion-worker.service \
     openilink-hub.service; do
     if systemctl is-active --quiet "${bootstrap_unit}"; then
       printf '%s\n' \

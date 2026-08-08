@@ -37,9 +37,12 @@ WORKERS = {
         "workload_envs": ("worker-coach-notification.env",),
         "heartbeat_env": "worker-heartbeat-coach-notification.env",
     },
-    "gongkao-dazi-ilink-worker": {
+    "gongkao-dazi-ilink-object-deletion-worker": {
         "user": "gongkao-wkr-ilink",
-        "workload_envs": ("ilink-channel.env", "ilink-worker.env"),
+        "workload_envs": (
+            "ilink-channel.env",
+            "worker-ilink-object-deletion.env",
+        ),
         "heartbeat_env": "worker-heartbeat-ilink.env",
     },
 }
@@ -106,11 +109,9 @@ REQUIRED_WORKLOAD_KEYS = {
         "ILINK_BOT_TOKEN",
         "ILINK_IDENTITY_ENCRYPTION_KEY",
     },
-    "ilink-worker.env": {
+    "worker-ilink-object-deletion.env": {
         "TOS_ACCESS_KEY",
         "TOS_SECRET_KEY",
-        "RECOGNITION_PROCESSOR_TOKEN",
-        "AI_API_KEY",
     },
 }
 
@@ -177,11 +178,14 @@ FORBIDDEN_PREFIXES = {
         "WEKNORA_",
         "XFYUN_",
     ),
-    "ilink-worker.env": (
+    "worker-ilink-object-deletion.env": (
+        "AI_",
         "AI_ESSAY_",
         "AI_XINGCE_",
         "CLOUDBASE_",
+        "ILINK_",
         "PACKET_",
+        "RECOGNITION_",
         "UPLOAD_",
         "WECHAT_",
         "WEKNORA_",
@@ -286,7 +290,7 @@ def test_workload_env_contracts_are_secret_scoped_and_separate_from_runtime() ->
     assert _env_example("worker-essay-review.env")["CLOUDBASE_API_KEY"] == ""
     assert _env_example("worker-coach-notification.env")["WECHAT_MINI_APP_SECRET"] == ""
     assert _env_example("ilink-channel.env")["ILINK_BOT_TOKEN"] == ""
-    assert _env_example("ilink-worker.env")["RECOGNITION_PROCESSOR_TOKEN"] == ""
+    assert _env_example("worker-ilink-object-deletion.env")["TOS_ACCESS_KEY"] == ""
 
 
 def test_worker_units_share_a_consistent_process_hardening_floor() -> None:

@@ -85,7 +85,6 @@
   line-height: 1.95;
   overflow-wrap: anywhere;
   text-align: justify;
-  text-indent: 2em;
   word-break: normal;
 }
 

@@ -42,26 +42,18 @@ class ILinkSettings:
             bot_account_id=os.getenv("ILINK_BOT_ACCOUNT_ID", "").strip(),
             bot_token=os.getenv("ILINK_BOT_TOKEN", "").strip(),
             base_url=os.getenv("ILINK_BASE_URL", DEFAULT_ILINK_BASE_URL).rstrip("/"),
-            cdn_base_url=os.getenv(
-                "ILINK_CDN_BASE_URL", DEFAULT_ILINK_CDN_BASE_URL
-            ).rstrip("/"),
+            cdn_base_url=os.getenv("ILINK_CDN_BASE_URL", DEFAULT_ILINK_CDN_BASE_URL).rstrip("/"),
             app_id=os.getenv("ILINK_APP_ID", "bot").strip(),
             app_client_version=_integer("ILINK_APP_CLIENT_VERSION", 132102),
             bot_agent=os.getenv("ILINK_BOT_AGENT", "Anan/1.0").strip(),
             identity_key_id=os.getenv("ILINK_IDENTITY_KEY_ID", "").strip(),
-            identity_encryption_key=os.getenv(
-                "ILINK_IDENTITY_ENCRYPTION_KEY", ""
-            ).strip(),
+            identity_encryption_key=os.getenv("ILINK_IDENTITY_ENCRYPTION_KEY", "").strip(),
             identity_hmac_key=os.getenv("ILINK_IDENTITY_HMAC_KEY", "").strip(),
             binding_ttl_seconds=_integer("ILINK_BINDING_TTL_SECONDS", 600),
             long_poll_timeout_seconds=_float("ILINK_LONG_POLL_TIMEOUT_SECONDS", 35),
             request_timeout_seconds=_float("ILINK_REQUEST_TIMEOUT_SECONDS", 15),
-            maximum_image_bytes=_integer(
-                "ILINK_MAXIMUM_IMAGE_BYTES", 10 * 1024 * 1024
-            ),
-            transient_retention_seconds=_integer(
-                "ILINK_TRANSIENT_RETENTION_SECONDS", 900
-            ),
+            maximum_image_bytes=_integer("ILINK_MAXIMUM_IMAGE_BYTES", 10 * 1024 * 1024),
+            transient_retention_seconds=_integer("ILINK_TRANSIENT_RETENTION_SECONDS", 900),
             query_retention_days=_integer("ILINK_QUERY_RETENTION_DAYS", 30),
             recognition_route=os.getenv(
                 "ILINK_RECOGNITION_ROUTE",
@@ -73,7 +65,13 @@ class ILinkSettings:
         self._validate_common(require_token=False)
 
     def validate_worker(self) -> None:
-        self._validate_common(require_token=True)
+        self.validate_processing()
+        if not self.bot_token:
+            raise ILinkConfigurationError("ILINK_BOT_TOKEN is required")
+
+    def validate_processing(self) -> None:
+        """Validate Hub-side processing without requiring retired transport auth."""
+        self._validate_common(require_token=False)
         if not self.recognition_route:
             raise ILinkConfigurationError("ILINK_RECOGNITION_ROUTE is required")
 
@@ -81,13 +79,9 @@ class ILinkSettings:
         try:
             value = base64.b64decode(self.identity_encryption_key, validate=True)
         except ValueError as exc:
-            raise ILinkConfigurationError(
-                "ILINK_IDENTITY_ENCRYPTION_KEY must be base64"
-            ) from exc
+            raise ILinkConfigurationError("ILINK_IDENTITY_ENCRYPTION_KEY must be base64") from exc
         if len(value) != 32:
-            raise ILinkConfigurationError(
-                "ILINK_IDENTITY_ENCRYPTION_KEY must decode to 32 bytes"
-            )
+            raise ILinkConfigurationError("ILINK_IDENTITY_ENCRYPTION_KEY must decode to 32 bytes")
         return value
 
     def _validate_common(self, *, require_token: bool) -> None:
@@ -105,9 +99,7 @@ class ILinkSettings:
         if require_token and not self.bot_token:
             raise ILinkConfigurationError("ILINK_BOT_TOKEN is required")
         if len(self.identity_hmac_key.encode("utf-8")) < 32:
-            raise ILinkConfigurationError(
-                "ILINK_IDENTITY_HMAC_KEY must contain at least 32 bytes"
-            )
+            raise ILinkConfigurationError("ILINK_IDENTITY_HMAC_KEY must contain at least 32 bytes")
         self.encryption_key_bytes()
         _require_exact_https_origin(
             self.base_url,
@@ -126,15 +118,11 @@ class ILinkSettings:
         if not 1 <= self.maximum_image_bytes <= 20 * 1024 * 1024:
             raise ILinkConfigurationError("ILINK_MAXIMUM_IMAGE_BYTES is outside policy")
         if not 5 <= self.long_poll_timeout_seconds <= 60:
-            raise ILinkConfigurationError(
-                "ILINK_LONG_POLL_TIMEOUT_SECONDS is outside policy"
-            )
+            raise ILinkConfigurationError("ILINK_LONG_POLL_TIMEOUT_SECONDS is outside policy")
         if not 1 <= self.request_timeout_seconds <= 30:
             raise ILinkConfigurationError("ILINK_REQUEST_TIMEOUT_SECONDS is outside policy")
         if not 60 <= self.transient_retention_seconds <= 3600:
-            raise ILinkConfigurationError(
-                "ILINK_TRANSIENT_RETENTION_SECONDS is outside policy"
-            )
+            raise ILinkConfigurationError("ILINK_TRANSIENT_RETENTION_SECONDS is outside policy")
         if not 1 <= self.query_retention_days <= 365:
             raise ILinkConfigurationError("ILINK_QUERY_RETENTION_DAYS is outside policy")
         if self.app_client_version < 1:

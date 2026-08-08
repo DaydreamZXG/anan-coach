@@ -48,7 +48,7 @@ CANDIDATE_COMMIT = "1" * 40
 ROLLBACK_COMMIT = "7" * 40
 BASELINE_RECEIPT = "a" * 64
 ACTIVE_RECEIPT = "b" * 64
-CURRENT_DATABASE_REVISION = "20260808_101"
+CURRENT_DATABASE_REVISION = "20260808_102"
 
 
 def _publication_authority(
@@ -186,9 +186,12 @@ def test_backup_manifest_binds_snapshot_revision_dump_and_critical_tables(
     assert loaded["sourceClusterIdentitySha256"]
     assert loaded["commercialDataPublication"]["activeReceiptSha256"] == ACTIVE_RECEIPT
     assert loaded["backupTargetAuthority"]["targetDeviceMajorMinor"] == "8:17"
-    assert loaded["backupTargetAuthoritySha256"] == backup_artifact.hashlib.sha256(
-        backup_artifact._canonical_json(loaded["backupTargetAuthority"]).encode("utf-8")
-    ).hexdigest()
+    assert (
+        loaded["backupTargetAuthoritySha256"]
+        == backup_artifact.hashlib.sha256(
+            backup_artifact._canonical_json(loaded["backupTargetAuthority"]).encode("utf-8")
+        ).hexdigest()
+    )
 
     legacy_manifest = dict(manifest)
     legacy_manifest["formatVersion"] = backup_artifact.LEGACY_FORMAT_VERSION
@@ -721,12 +724,14 @@ def test_live_mount_binding_selects_top_mount_and_cross_checks_directory_device(
     identity = backup_artifact._live_mount_identity(backup_directory)
 
     assert identity["targetDeviceMajorMinor"] == "8:17"
-    assert identity["targetMountSourceSha256"] == backup_artifact.hashlib.sha256(
-        live_source.encode("utf-8")
-    ).hexdigest()
-    assert identity["targetMountRootSha256"] == backup_artifact.hashlib.sha256(
-        b"/live-root"
-    ).hexdigest()
+    assert (
+        identity["targetMountSourceSha256"]
+        == backup_artifact.hashlib.sha256(live_source.encode("utf-8")).hexdigest()
+    )
+    assert (
+        identity["targetMountRootSha256"]
+        == backup_artifact.hashlib.sha256(b"/live-root").hexdigest()
+    )
 
 
 def test_backup_authority_requires_dedicated_executor_and_private_credentials(
@@ -883,9 +888,7 @@ def test_restore_rejects_self_consistent_tampered_publication_authority(
     manifest = backup_artifact.build_manifest(
         created_at="2026-07-30T01:02:03+00:00",
         source_environment_id="preproduction",
-        backup_target_authority=_backup_target_authority(
-            source_environment_id="preproduction"
-        ),
+        backup_target_authority=_backup_target_authority(source_environment_id="preproduction"),
         source_identity="cluster-1|gongkao|16384",
         source_cluster_identity="cluster-1",
         database_revision=CURRENT_DATABASE_REVISION,
@@ -991,21 +994,15 @@ def test_sigkill_before_atomic_publish_leaves_no_restore_selectable_backup(
     script_directory = release_root / "ops" / "scripts"
     script_directory.mkdir(parents=True)
     backup_script = script_directory / "backup.sh"
-    backup_script_source = (ROOT / "ops" / "scripts" / "backup.sh").read_text(
-        encoding="utf-8"
-    )
+    backup_script_source = (ROOT / "ops" / "scripts" / "backup.sh").read_text(encoding="utf-8")
     for production_path, fixture_path in {
         "/etc/gongkao-dazi/backup-target-authority.json": str(
             tmp_path / "backup-target-authority.json"
         ),
         "/etc/gongkao-dazi/secrets/backup.pgpass": str(tmp_path / "backup.pgpass"),
-        "/etc/gongkao-dazi/secrets/backup-signing.pem": str(
-            tmp_path / "signing.pem"
-        ),
+        "/etc/gongkao-dazi/secrets/backup-signing.pem": str(tmp_path / "signing.pem"),
         "/var/backups/gongkao-dazi/encrypted": str(backup_directory),
-        "/var/lib/gongkao-backup/metrics/anan-backup.prom": str(
-            metrics_directory / "backup.prom"
-        ),
+        "/var/lib/gongkao-backup/metrics/anan-backup.prom": str(metrics_directory / "backup.prom"),
     }.items():
         backup_script_source = backup_script_source.replace(
             production_path,
@@ -1651,10 +1648,7 @@ def test_database_authority_rejects_libpq_environment_overrides(
         "postgresql://backup@db.example.invalid/gongkao",
         "postgresql://backup@db.example.invalid:5432/",
         "postgresql://backup@db.example.invalid:5432/gongkao?hostaddr=127.0.0.1",
-        (
-            "postgresql://backup@db.example.invalid:5432/gongkao"
-            "?options=-csearch_path%3Dshadow"
-        ),
+        ("postgresql://backup@db.example.invalid:5432/gongkao?options=-csearch_path%3Dshadow"),
         (
             "postgresql://backup@db.example.invalid:5432/gongkao"
             "?host=other.example.invalid&port=6543"
@@ -1665,10 +1659,7 @@ def test_database_authority_rejects_libpq_environment_overrides(
             "postgresql://backup@db.example.invalid:5432/gongkao"
             "?host=first.example.invalid&host=second.example.invalid"
         ),
-        (
-            "postgresql://backup@db.example.invalid:5432/gongkao"
-            "?sslmode=require&sslmode=disable"
-        ),
+        ("postgresql://backup@db.example.invalid:5432/gongkao?sslmode=require&sslmode=disable"),
         "postgresql://back%75p@db.example.invalid:5432/gongkao",
         "postgresql://backup@%64b.example.invalid:5432/gongkao",
         "postgresql://backup@db.example.invalid:%35%34%33%32/gongkao",
@@ -1718,9 +1709,7 @@ def test_validated_url_targets_same_database_for_compatibility_and_capture(
     database_authority = f"postgresql://{user}@{rendered_host}:{port}"
     canonical_url = f"{database_authority}/{decoded_database}"
     differential_url = f"{database_authority}/{encoded_database}"
-    literal_seed_url = (
-        f"{database_authority}/{encoded_database.replace('%', '%25')}"
-    )
+    literal_seed_url = f"{database_authority}/{encoded_database.replace('%', '%25')}"
 
     with psycopg.connect(admin_database_url, autocommit=True) as admin_connection:
         for database_name in (decoded_database, literal_database):
@@ -1772,9 +1761,7 @@ def test_validated_url_targets_same_database_for_compatibility_and_capture(
         try:
             with differential_engine.connect() as sqlalchemy_connection:
                 assert (
-                    sqlalchemy_connection.execute(
-                        text("select current_database()")
-                    ).scalar_one()
+                    sqlalchemy_connection.execute(text("select current_database()")).scalar_one()
                     == literal_database
                 )
         finally:
@@ -1786,9 +1773,7 @@ def test_validated_url_targets_same_database_for_compatibility_and_capture(
             "postgresql+psycopg:",
             1,
         )
-        assert current_database_revisions(compatibility_url) == (
-            decoded_revision,
-        )
+        assert current_database_revisions(compatibility_url) == (decoded_revision,)
 
         capture_databases: list[str] = []
 

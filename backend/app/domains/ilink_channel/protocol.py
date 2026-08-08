@@ -76,8 +76,12 @@ class ILinkProtocolClient:
         settings: ILinkSettings,
         *,
         client_factory: Callable[..., httpx.Client] | None = None,
+        require_bot_transport: bool = True,
     ) -> None:
-        settings.validate_worker()
+        if require_bot_transport:
+            settings.validate_worker()
+        else:
+            settings.validate_processing()
         self._settings = settings
         self._client_factory = client_factory or httpx.Client
 
@@ -309,9 +313,7 @@ def parse_inbound_message(payload: dict[str, Any]) -> InboundMessage | None:
 def decrypt_media(ciphertext: bytes, aes_key_base64: str) -> bytes:
     try:
         decoded = base64.b64decode(aes_key_base64, validate=True)
-        if len(decoded) == 32 and all(
-            chr(char) in "0123456789abcdefABCDEF" for char in decoded
-        ):
+        if len(decoded) == 32 and all(chr(char) in "0123456789abcdefABCDEF" for char in decoded):
             decoded = bytes.fromhex(decoded.decode("ascii"))
         if len(decoded) != 16 or not ciphertext or len(ciphertext) % 16:
             raise ValueError("invalid AES media shape")
@@ -378,7 +380,11 @@ def _validated_media_url(media: MediaReference, *, settings: ILinkSettings) -> s
 def _integer(value: object, *, default: int) -> int:
     if isinstance(value, bool):
         return default
-    return int(value) if isinstance(value, (int, str)) and str(value).lstrip("-").isdigit() else default
+    return (
+        int(value)
+        if isinstance(value, (int, str)) and str(value).lstrip("-").isdigit()
+        else default
+    )
 
 
 def _redact_json_field(value: str, field: str) -> str:

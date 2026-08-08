@@ -90,7 +90,7 @@ backend/.venv/bin/python ops/ilink_login.py --output ~/.anan/credentials/ilink.j
 4. 发布并批准支持 JPEG、PNG 的 HTTPS 识图 processor route。候选地址已改为 `https://cpa.ergou.pro/v1`；TLS 与鉴权边界可达不等于处理器已经获批，仍要冻结实际模型、发布版本、零留存/训练禁用声明和场景审批。
 5. 为主答案模型配置 HTTPS 白名单、发布版本、DPA/零留存、训练禁用、请求 ID 与幂等审计；题库命中路径不调用模型。
 6. 跑协议、工作流、小程序和全仓回归；再把 `ILINK_CHANNEL_ENABLED` 从 `false` 改为 `true`。
-7. 安装并启动 `ops/systemd/gongkao-dazi-ilink-worker.service`，观察无内容日志中的轮询、过期、删除队列和凭证失效指标。
+7. 本文最初采用的直连长轮询 worker 已于 2026-08-08 退役；现役消息收发由 OpenILink Hub 承担，后端只运行 `gongkao-dazi-ilink-object-deletion-worker.service` 处理临时私有对象过期与删除。
 8. 用两个真实测试账户验收：未绑定拒绝、绑定唯一性、跨账户隔离、精确/相似/歧义/缺材料、收录/重做/删除、存资料转存与幂等、转存窗口到期删除、今天练什么三分支、重复消息和发送超时。
 
 ## 当前线上阻断项

@@ -164,7 +164,7 @@ create_release_config_snapshot() {
     worker-essay-review.env
     worker-coach-notification.env
     ilink-channel.env
-    ilink-worker.env
+    worker-ilink-object-deletion.env
     worker-heartbeat-data-rights.env
     worker-heartbeat-cause-agent.env
     worker-heartbeat-external-learning.env
@@ -365,7 +365,7 @@ validate_worker_workload_environments() {
     worker-essay-review.env \
     worker-coach-notification.env \
     ilink-channel.env \
-    ilink-worker.env; do
+    worker-ilink-object-deletion.env; do
     path="${config_root}/${name}"
     assert_root_owned_file "${path}"
     if [[ "$(stat -c '%a' "${path}")" != 600 ]]; then
@@ -395,7 +395,7 @@ names = (
     "worker-essay-review.env",
     "worker-coach-notification.env",
     "ilink-channel.env",
-    "ilink-worker.env",
+    "worker-ilink-object-deletion.env",
 )
 key_pattern = re.compile(r"^[A-Z][A-Z0-9_]*$")
 database_required_keys = {
@@ -444,9 +444,9 @@ worker_environment_files = {
         "/etc/gongkao-dazi/worker-heartbeat-coach-notification.env",
         "/etc/gongkao-dazi/release-runtime.env",
     ),
-    "gongkao-dazi-ilink-worker.service": (
+    "gongkao-dazi-ilink-object-deletion-worker.service": (
         "/etc/gongkao-dazi/ilink-channel.env",
-        "/etc/gongkao-dazi/ilink-worker.env",
+        "/etc/gongkao-dazi/worker-ilink-object-deletion.env",
         "/etc/gongkao-dazi/db.env",
         "/etc/gongkao-dazi/worker-heartbeat-ilink.env",
         "/etc/gongkao-dazi/release-runtime.env",
@@ -731,9 +731,9 @@ preflight_worker_configurations() {
   fi
   if [[ "${ilink_channel_enabled}" == true ]]; then
     run_worker_configuration_preflight \
-      'from app.workers.ilink_channel import ILinkWorker; ILinkWorker()' \
+      'from app.workers.ilink_object_deletions import ILinkObjectDeletionWorker; ILinkObjectDeletionWorker()' \
       ilink-channel.env \
-      ilink-worker.env \
+      worker-ilink-object-deletion.env \
       worker-heartbeat-ilink.env
   fi
 }
@@ -1557,11 +1557,12 @@ restore_previous_release() {
       disable_unit_during_recovery gongkao-dazi-commerce-worker
     fi
     if [[ "${ilink_channel_enabled}" == "true" \
-      && -f "${previous_target}/backend/app/workers/ilink_channel.py" ]]; then
-      restore_units+=(gongkao-dazi-ilink-worker)
+      && -f "${previous_target}/backend/app/workers/ilink_object_deletions.py" ]]; then
+      restore_units+=(gongkao-dazi-ilink-object-deletion-worker)
     else
-      disable_unit_during_recovery gongkao-dazi-ilink-worker
+      disable_unit_during_recovery gongkao-dazi-ilink-object-deletion-worker
     fi
+    disable_unit_during_recovery gongkao-dazi-ilink-worker
     if ! systemctl enable "${restore_units[@]}"; then
       printf '%s\n' "failed to re-enable the previous runtime units" >&2
     fi
@@ -1708,7 +1709,7 @@ create_release_config_snapshot
 load_snapshot_environment "${runtime_config_root}/api.env"
 load_snapshot_environment "${runtime_config_root}/db.env"
 load_snapshot_environment "${runtime_config_root}/ilink-channel.env"
-load_snapshot_environment "${runtime_config_root}/ilink-worker.env"
+load_snapshot_environment "${runtime_config_root}/worker-ilink-object-deletion.env"
 essay_review_worker_enabled="$(
   normalize_explicit_boolean \
     ESSAY_REVIEW_WORKER_ENABLED \
@@ -1944,7 +1945,7 @@ fi
 
 case "${ilink_channel_enabled}" in
   true)
-    runtime_units+=(gongkao-dazi-ilink-worker)
+    runtime_units+=(gongkao-dazi-ilink-object-deletion-worker)
     ;;
   false)
     disable_ilink=true
@@ -1979,8 +1980,12 @@ if [[ "${disable_essay_review:-false}" == true ]]; then
   systemctl disable --now gongkao-dazi-essay-review-worker 2>/dev/null || true
 fi
 if [[ "${disable_ilink:-false}" == true ]]; then
-  systemctl disable --now gongkao-dazi-ilink-worker 2>/dev/null || true
+  systemctl disable --now \
+    gongkao-dazi-ilink-object-deletion-worker 2>/dev/null || true
 fi
+# The direct Tencent long-poll worker was superseded by OpenILink Hub. Never
+# revive its stale bot credential during activation.
+systemctl disable --now gongkao-dazi-ilink-worker 2>/dev/null || true
 systemctl restart "${runtime_units[@]}"
 ready=false
 for _ in $(seq 1 30); do

@@ -125,11 +125,14 @@ def verify_hub_signature(
     current = int((now or datetime.now(UTC)).timestamp())
     if abs(current - sent_at) > _MAX_CLOCK_SKEW_SECONDS:
         raise HubBridgeEventError("hub bridge timestamp is stale")
-    expected = "sha256=" + hmac.new(
-        secret.encode("utf-8"),
-        timestamp.encode("ascii") + b":" + body,
-        "sha256",
-    ).hexdigest()
+    expected = (
+        "sha256="
+        + hmac.new(
+            secret.encode("utf-8"),
+            timestamp.encode("ascii") + b":" + body,
+            "sha256",
+        ).hexdigest()
+    )
     if not hmac.compare_digest(expected, signature):
         raise HubBridgeEventError("hub bridge signature is invalid")
 
@@ -147,7 +150,9 @@ def process_hub_event(event: HubBridgeEvent) -> None:
         with get_session_factory()() as session:
             link = OpenILinkHubRepository(session).for_bot(bot_id=event.bot_id)
             if link is None:
-                logger.warning("hub bridge event has no connected account", extra={"bot_id": event.bot_id})
+                logger.warning(
+                    "hub bridge event has no connected account", extra={"bot_id": event.bot_id}
+                )
                 return
             user_id = UUID(str(link["user_id"]))
             receipts = ILinkRepository(session)
@@ -271,9 +276,7 @@ def process_hub_event(event: HubBridgeEvent) -> None:
                 )
 
 
-def _send_with_retry(
-    *, client: OpenILinkHubClient, event: HubBridgeEvent, reply: str
-) -> None:
+def _send_with_retry(*, client: OpenILinkHubClient, event: HubBridgeEvent, reply: str) -> None:
     last_error: OpenILinkHubError | None = None
     for delay in (0.0, 0.5, 2.0):
         if delay:
@@ -325,7 +328,10 @@ def _process_image(
         message_id=event.source_message_id,
     )
     channel_settings = ILinkSettings.from_environment()
-    protocol_client = ILinkProtocolClient(channel_settings)
+    protocol_client = ILinkProtocolClient(
+        channel_settings,
+        require_bot_transport=False,
+    )
     result = ILinkPhotoWorkflow(
         core_settings=core_settings,
         channel_settings=channel_settings,
@@ -369,9 +375,10 @@ def _published_reply_image_urls(
 ) -> tuple[str, ...]:
     if content_version_id is None:
         return ()
-    row = session.execute(
-        text(
-            """
+    row = (
+        session.execute(
+            text(
+                """
             select version.snapshot_payload,
                    explanation.final_analysis_asset_refs
             from product.question_content_versions version
@@ -379,18 +386,19 @@ def _published_reply_image_urls(
               on explanation.question_id = version.question_id
             where version.content_version_id = :content_version_id
             """
-        ),
-        {"content_version_id": content_version_id},
-    ).mappings().one_or_none()
+            ),
+            {"content_version_id": content_version_id},
+        )
+        .mappings()
+        .one_or_none()
+    )
     if row is None:
         return ()
     snapshot = row["snapshot_payload"]
     references = row["final_analysis_asset_refs"]
     if not isinstance(snapshot, dict) or not isinstance(references, dict):
         return ()
-    if str(snapshot.get("analysis_source") or "") != str(
-        references.get("source") or ""
-    ):
+    if str(snapshot.get("analysis_source") or "") != str(references.get("source") or ""):
         return ()
     assets = references.get("assets")
     if not isinstance(assets, list):
@@ -428,9 +436,7 @@ def _process_query_command(
     event: HubBridgeEvent,
 ) -> str:
     try:
-        view = ILinkChannelService(
-            settings=ILinkSettings.from_environment()
-        ).command_latest(
+        view = ILinkChannelService(settings=ILinkSettings.from_environment()).command_latest(
             session,
             user_id=user_id,
             command=event.content,

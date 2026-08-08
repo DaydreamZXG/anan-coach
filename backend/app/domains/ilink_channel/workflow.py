@@ -62,7 +62,7 @@ class ILinkPhotoWorkflow:
         companion_responder: ChannelCompanionResponder | None = None,
         clock=None,
     ) -> None:
-        channel_settings.validate_worker()
+        channel_settings.validate_processing()
         self._settings = channel_settings
         self._service = ILinkChannelService(settings=channel_settings, clock=clock)
         self._resolver = resolver or PhotoQuestionResolver(
@@ -292,24 +292,18 @@ class ILinkPhotoWorkflow:
             session.commit()
         except ILinkNotFound:
             session.rollback()
-            reply = (
-                "还没有可转存的图片。"
-                "请先把讲义、笔记或错题卷拍照发给我，再回复「存资料」。"
-            )
+            reply = "还没有可转存的图片。请先把讲义、笔记或错题卷拍照发给我，再回复「存资料」。"
         except ILinkConflict as exc:
             session.rollback()
             reply = {
                 "material_window_closed": (
-                    "这张图片已超过转存窗口，原图已按约定删除。"
-                    "请重新发送图片后再回复「存资料」。"
+                    "这张图片已超过转存窗口，原图已按约定删除。请重新发送图片后再回复「存资料」。"
                 ),
                 "material_text_missing": (
-                    "这张图片没有识别到可核对的文字。"
-                    "请重拍更清晰的版本后再回复「存资料」。"
+                    "这张图片没有识别到可核对的文字。请重拍更清晰的版本后再回复「存资料」。"
                 ),
                 "material_query_not_answered": (
-                    "最近一次发图没有完成识别，无法转存。"
-                    "请重新发送图片后再回复「存资料」。"
+                    "最近一次发图没有完成识别，无法转存。请重新发送图片后再回复「存资料」。"
                 ),
             }.get(
                 str(exc),
@@ -369,11 +363,7 @@ class ILinkPhotoWorkflow:
         query = repository.query(query_id=query_id)
         if query is None:
             raise ILinkNotFound("query_not_found")
-        if (
-            send_legacy_reply
-            and replayed
-            and query["reply_state"] in {"sent", "uncertain"}
-        ):
+        if send_legacy_reply and replayed and query["reply_state"] in {"sent", "uncertain"}:
             return
         if query["state"] in {"answered", "failed"}:
             if send_legacy_reply:
@@ -391,9 +381,7 @@ class ILinkPhotoWorkflow:
             if query["state"] == "received":
                 assert message.image is not None
                 image = client.download_image(message.image)
-                stored = self._resolver.storage.put(
-                    user_id=user_id, query_id=query_id, image=image
-                )
+                stored = self._resolver.storage.put(user_id=user_id, query_id=query_id, image=image)
                 repository.start_processing(
                     query_id=query_id,
                     object_ref=stored.object_ref,
@@ -448,9 +436,7 @@ class ILinkPhotoWorkflow:
             )
             session.commit()
         except Exception as exc:
-            if not isinstance(
-                exc, (ILinkProtocolError, PhotoResolutionError, ILinkConflict)
-            ):
+            if not isinstance(exc, (ILinkProtocolError, PhotoResolutionError, ILinkConflict)):
                 logger.exception(
                     "unexpected photo query failure",
                     extra={"query_id": str(query_id), "user_id": str(user_id)},
@@ -530,9 +516,7 @@ class ILinkPhotoWorkflow:
             else None
         )
         return HubPhotoResult(
-            reply_text=(
-                reply or "这次图片已在处理，请稍后把原图重发一次。"
-            ),
+            reply_text=(reply or "这次图片已在处理，请稍后把原图重发一次。"),
             content_version_id=content_version_id,
         )
 
@@ -559,9 +543,7 @@ class ILinkPhotoWorkflow:
         repository = ILinkRepository(session)
         if query["reply_state"] in {"sent", "uncertain"}:
             return
-        client_id = str(
-            uuid5(NAMESPACE_URL, f"ilink-reply:{query['query_id']}:{query['version']}")
-        )
+        client_id = str(uuid5(NAMESPACE_URL, f"ilink-reply:{query['query_id']}:{query['version']}"))
         view = query_view(repository, query=query, user_id=user_id)
         encrypted_context = query["encrypted_context_token"]
         context_token = (
@@ -612,9 +594,7 @@ class ILinkPhotoWorkflow:
         purpose: str,
         text: str,
     ) -> None:
-        client_id = str(
-            uuid5(NAMESPACE_URL, f"ilink-direct:{message.message_id}:{purpose}")
-        )
+        client_id = str(uuid5(NAMESPACE_URL, f"ilink-direct:{message.message_id}:{purpose}"))
         client.send_text(
             sender_id=message.sender_id,
             context_token=message.context_token,

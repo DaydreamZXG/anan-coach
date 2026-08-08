@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session, sessionmaker
 from app.core.config import Settings
 from app.domains.ilink_channel.repository import ILinkConflict, ILinkRepository
 from app.domains.ilink_channel.resolver import TosTransientImageStore
-from app.workers.ilink_channel import ILinkWorker
+from app.workers.ilink_object_deletions import ILinkObjectDeletionWorker
 
 
 NOW = datetime(2026, 7, 28, 13, 0, tzinfo=UTC)
@@ -66,13 +66,16 @@ def test_deletion_kill_restart_recovers_expired_lease_and_fences_old_token(
         claim_token=second[0].claim_token,
         now=NOW + timedelta(minutes=6, seconds=1),
     )
-    assert db_session.execute(
-        text(
-            "select count(*) from messaging.ilink_object_deletion_queue "
-            "where object_ref = :object_ref"
-        ),
-        {"object_ref": object_ref},
-    ).scalar_one() == 0
+    assert (
+        db_session.execute(
+            text(
+                "select count(*) from messaging.ilink_object_deletion_queue "
+                "where object_ref = :object_ref"
+            ),
+            {"object_ref": object_ref},
+        ).scalar_one()
+        == 0
+    )
 
 
 def test_legacy_deleting_row_without_lease_is_reclaimed(
@@ -87,13 +90,16 @@ def test_legacy_deleting_row_without_lease_is_reclaimed(
     assert len(claims) == 1
     assert claims[0].object_ref == object_ref
     assert claims[0].claim_token is not None
-    assert db_session.execute(
-        text(
-            "select attempt_count from messaging.ilink_object_deletion_queue "
-            "where object_ref = :object_ref"
-        ),
-        {"object_ref": object_ref},
-    ).scalar_one() == 1
+    assert (
+        db_session.execute(
+            text(
+                "select attempt_count from messaging.ilink_object_deletion_queue "
+                "where object_ref = :object_ref"
+            ),
+            {"object_ref": object_ref},
+        ).scalar_one()
+        == 1
+    )
 
 
 def test_concurrent_deletion_claims_do_not_share_an_object(
@@ -153,7 +159,7 @@ def test_response_loss_then_explicit_404_converges_to_one_logical_completion(
         client=client,
     )
     clock_value = [NOW]
-    worker = ILinkWorker.__new__(ILinkWorker)
+    worker = ILinkObjectDeletionWorker.__new__(ILinkObjectDeletionWorker)
     worker._sessions = db_session_factory
     worker._storage = storage
     worker._clock = lambda: clock_value[0]
@@ -187,10 +193,13 @@ def test_response_loss_then_explicit_404_converges_to_one_logical_completion(
     assert client.deleted is True
     assert len(client.calls) == 2
     with db_session_factory() as check:
-        assert check.execute(
-            text(
-                "select count(*) from messaging.ilink_object_deletion_queue "
-                "where object_ref = :object_ref"
-            ),
-            {"object_ref": object_ref},
-        ).scalar_one() == 0
+        assert (
+            check.execute(
+                text(
+                    "select count(*) from messaging.ilink_object_deletion_queue "
+                    "where object_ref = :object_ref"
+                ),
+                {"object_ref": object_ref},
+            ).scalar_one()
+            == 0
+        )
