@@ -12,6 +12,7 @@ import { scoreRangeLabel } from "../../domain/presentation";
 import { ESSAY_MODULE_BASELINE, XINGCE_MODULE_BASELINE } from "../../domain/module-baselines";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
 import { suppressNativeTabBar } from "../../platform/tab-bar";
+import { appShareMessage, appTimelineShare, enableAppShareMenu } from "../../platform/share";
 import {
   dateTimeLabel,
   errorView,
@@ -64,11 +65,20 @@ Page({
   },
 
   onShow() {
+    enableAppShareMenu();
     suppressNativeTabBar();
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({ active: "ability" });
     }
     void this.loadProfile();
+  },
+
+  onShareAppMessage() {
+    return appShareMessage();
+  },
+
+  onShareTimeline() {
+    return appTimelineShare();
   },
 
   async loadProfile() {

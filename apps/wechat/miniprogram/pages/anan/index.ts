@@ -21,6 +21,7 @@ import { errorView, requireAuthenticatedClient } from "../../features/learning-b
 import { ApiClientError, type ApiClient } from "../../api/client";
 import { stableFingerprint } from "../../platform/command-id";
 import { suppressNativeTabBar } from "../../platform/tab-bar";
+import { appShareMessage, appTimelineShare, enableAppShareMenu } from "../../platform/share";
 import { OperationAttemptStore } from "../../platform/operation-attempt-store";
 import {
   consumeCompanionLaunchContext,
@@ -175,6 +176,7 @@ Page({
   },
 
   onShow() {
+    enableAppShareMenu();
     suppressNativeTabBar();
     if (!currentAuthSession()) {
       void wx.reLaunch({ url: routes.login });
@@ -187,6 +189,14 @@ Page({
       this.applyLaunchContext();
       this.syncAskAvailability();
     }
+  },
+
+  onShareAppMessage() {
+    return appShareMessage();
+  },
+
+  onShareTimeline() {
+    return appTimelineShare();
   },
 
   onUnload() {

@@ -15,6 +15,7 @@ import { clearAuthSession, currentAccessToken, currentAuthSession } from "../../
 import { environment } from "../../config/environment";
 import { consumeLatestTodayDashboard } from "../../features/planning/runtime-state";
 import { suppressNativeTabBar } from "../../platform/tab-bar";
+import { appShareMessage, appTimelineShare, enableAppShareMenu } from "../../platform/share";
 import {
   openWeatherLocationSetting,
   readWeatherLocation,
@@ -136,6 +137,7 @@ Page<TodayPageData, TodayPageCustom>({
   },
 
   onShow() {
+    enableAppShareMenu();
     suppressNativeTabBar();
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({ active: "today" });
@@ -145,6 +147,14 @@ Page<TodayPageData, TodayPageCustom>({
     const latest = consumeLatestTodayDashboard();
     if (latest) controller?.today.acceptLatestDashboard(latest);
     void controller?.today.load();
+  },
+
+  onShareAppMessage() {
+    return appShareMessage();
+  },
+
+  onShareTimeline() {
+    return appTimelineShare();
   },
 
   async loadDashboard() {

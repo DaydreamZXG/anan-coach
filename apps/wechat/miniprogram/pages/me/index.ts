@@ -10,6 +10,7 @@ import type {
 } from "../../api/generated/types.gen";
 import { OnboardingApi } from "../../api/onboarding";
 import { suppressNativeTabBar } from "../../platform/tab-bar";
+import { appShareMessage, appTimelineShare, enableAppShareMenu } from "../../platform/share";
 import { PlanningApi } from "../../api/planning";
 import { QualificationApi } from "../../api/qualification";
 import {
@@ -146,6 +147,7 @@ Page({
   },
 
   onShow() {
+    enableAppShareMenu();
     suppressNativeTabBar();
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({
@@ -159,6 +161,14 @@ Page({
     }
     void this.loadAccount();
     void this.loadProfileContext();
+  },
+
+  onShareAppMessage() {
+    return appShareMessage();
+  },
+
+  onShareTimeline() {
+    return appTimelineShare();
   },
 
   async loadAccount() {
