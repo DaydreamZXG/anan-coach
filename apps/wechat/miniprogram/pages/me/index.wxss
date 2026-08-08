@@ -840,23 +840,81 @@ button.profile-editor__save {
   }
 }
 
-/* 平板宽屏：档案/目标/学习卡两列，资产与服务区满宽。 */
-@media (min-width: 1024px) {
+/*
+ * 平板横屏：把“我的”组成一张备考工作台。
+ * 档案跨两行，与右侧的岗位 + 提醒形成一组；
+ * 学习方式与方法卡社区等高对应，避免自动两列造成的大面积空洞。
+ * 该断点只命中横屏，不改动手机和平板竖屏的单列阅读顺序。
+ */
+@media (min-width: 1024px) and (orientation: landscape) {
   .profile-page {
-    max-width: 1100px;
+    max-width: 1160px;
   }
 
   .profile-content {
     display: grid;
     align-items: start;
     column-gap: 24px;
+    row-gap: 20px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "identity identity"
+      "archive target"
+      "archive coach"
+      "study community"
+      "assets assets"
+      "services services"
+      "error error";
   }
 
-  .identity-block,
-  .asset-section,
-  .service-section,
+  .identity-block {
+    grid-area: identity;
+    margin-bottom: 2px;
+  }
+
+  .archive-card {
+    grid-area: archive;
+  }
+
+  .target-card {
+    grid-area: target;
+  }
+
+  .study-card {
+    grid-area: study;
+  }
+
+  .coach-setting {
+    grid-area: coach;
+  }
+
+  .community-entry {
+    grid-area: community;
+  }
+
+  .asset-section {
+    grid-area: assets;
+  }
+
+  .service-section {
+    grid-area: services;
+  }
+
   .inline-error {
-    grid-column: 1 / -1;
+    grid-area: error;
+  }
+
+  .profile-card,
+  .asset-section,
+  .service-section {
+    margin-top: 0;
+  }
+
+  button.coach-setting {
+    min-height: 100%;
+  }
+
+  .community-entry {
+    min-height: 100%;
   }
 }

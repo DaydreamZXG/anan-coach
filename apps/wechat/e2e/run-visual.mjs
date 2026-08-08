@@ -812,13 +812,21 @@ async function setAuthentication(program, authenticated) {
     if (hasSession) {
       const session = { accessToken: "visual-access-token", userId: "visual-user" };
       wx.setStorageSync(storageKey, session);
-      app.globalData.accessToken = session.accessToken;
-      app.globalData.userId = session.userId;
+      // DevTools can accept an automation connection one frame before App.onLaunch
+      // publishes the app instance. Storage is the source of truth; mirror into memory
+      // only when that instance already exists and let the session module hydrate it
+      // after reLaunch otherwise.
+      if (app?.globalData) {
+        app.globalData.accessToken = session.accessToken;
+        app.globalData.userId = session.userId;
+      }
       return;
     }
     wx.removeStorageSync(storageKey);
-    delete app.globalData.accessToken;
-    delete app.globalData.userId;
+    if (app?.globalData) {
+      delete app.globalData.accessToken;
+      delete app.globalData.userId;
+    }
   }, authenticated);
 }
 
