@@ -350,6 +350,7 @@ def test_task_session_projection_upgrades_from_revision_76_and_remains_replaceab
             ("projection-question-1", True),
             ("projection-question-2", False),
         ],
+        legacy_capacity_schema=True,
     )
     safe_bundle = {
         "questions": [

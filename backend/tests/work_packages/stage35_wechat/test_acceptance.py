@@ -7,6 +7,12 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[4]
 WECHAT = ROOT / "apps" / "wechat"
+COMMUNITY_ROOT = WECHAT / "miniprogram" / "community"
+COMMUNITY_SHARED = COMMUNITY_ROOT / "shared"
+
+
+def _community_page(page_name: str) -> Path:
+    return COMMUNITY_ROOT / page_name
 
 
 def test_stage35_wechat_c21_c24_states_and_boundaries() -> None:
@@ -17,7 +23,7 @@ def test_stage35_wechat_c21_c24_states_and_boundaries() -> None:
         "community-contributions",
     )
     for page_name in page_names:
-        page = WECHAT / "miniprogram" / "pages" / page_name
+        page = _community_page(page_name)
         for suffix in ("ts", "json", "wxml", "wxss"):
             assert (page / f"index.{suffix}").is_file(), f"missing {page_name}.{suffix}"
         markup = (page / "index.wxml").read_text(encoding="utf-8")
@@ -25,8 +31,7 @@ def test_stage35_wechat_c21_c24_states_and_boundaries() -> None:
         assert "state-view" in markup
 
     contracts = (
-        WECHAT
-        / "miniprogram"
+        COMMUNITY_SHARED
         / "features"
         / "community-method-cards"
         / "contracts.ts"
@@ -46,7 +51,7 @@ def test_stage35_wechat_c21_c24_states_and_boundaries() -> None:
     for source in ("text", "voice_transcript", "handwriting_extraction", "reflection"):
         assert f'"{source}"' in contracts
 
-    api = (WECHAT / "miniprogram" / "api" / "community-method-cards.ts").read_text(
+    api = (COMMUNITY_SHARED / "api" / "community-method-cards.ts").read_text(
         encoding="utf-8"
     )
     for operation in (
@@ -101,17 +106,17 @@ def test_stage35_wechat_c21_c24_states_and_boundaries() -> None:
         "questionVersionId",
     }
 
-    trial_markup = (
-        WECHAT / "miniprogram" / "pages" / "community-trial" / "index.wxml"
-    ).read_text(encoding="utf-8")
+    trial_markup = (_community_page("community-trial") / "index.wxml").read_text(
+        encoding="utf-8"
+    )
     for field in ("methodSteps", "exclusions", "pitfalls", "evidenceLabel", "riskLabel"):
         assert field in trial_markup
     assert "commentText" not in trial_markup
     assert "rawVote" not in trial_markup
     assert "voteCount" not in trial_markup
-    trial_page = (
-        WECHAT / "miniprogram" / "pages" / "community-trial" / "index.ts"
-    ).read_text(encoding="utf-8")
+    trial_page = (_community_page("community-trial") / "index.ts").read_text(
+        encoding="utf-8"
+    )
     for client_fact in (
         "correctAfter",
         "durationAfterMs",
@@ -121,11 +126,7 @@ def test_stage35_wechat_c21_c24_states_and_boundaries() -> None:
         assert client_fact not in trial_page
 
     contributions_markup = (
-        WECHAT
-        / "miniprogram"
-        / "pages"
-        / "community-contributions"
-        / "index.wxml"
+        _community_page("community-contributions") / "index.wxml"
     ).read_text(encoding="utf-8")
     assert "当前没有生效规则" in contributions_markup
     assert "policyMessage" in contributions_markup
@@ -137,14 +138,14 @@ def test_stage35_wechat_c21_c24_states_and_boundaries() -> None:
     owned_text = "\n".join(
         path.read_text(encoding="utf-8")
         for path in [
-            WECHAT / "miniprogram" / "api" / "community-method-cards.ts",
+            COMMUNITY_SHARED / "api" / "community-method-cards.ts",
             *(
-                WECHAT / "miniprogram" / "features" / "community-method-cards"
+                COMMUNITY_SHARED / "features" / "community-method-cards"
             ).rglob("*.*"),
             *(
                 path
                 for page_name in page_names
-                for path in (WECHAT / "miniprogram" / "pages" / page_name).rglob("*.*")
+                for path in _community_page(page_name).rglob("*.*")
             ),
         ]
         if path.is_file()

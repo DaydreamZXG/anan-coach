@@ -358,6 +358,7 @@ def _seed_xingce_assessments(
     user_id: str,
     id_prefix: str,
     rows: list[tuple[str, bool]],
+    legacy_capacity_schema: bool = False,
 ) -> None:
     local_date = NOW.date()
     recorded_at = NOW
@@ -420,21 +421,23 @@ def _seed_xingce_assessments(
         ).scalar_one_or_none()
         if capacity_id is None:
             capacity_id = str(uuid4())
+            capacity_focus_column = "" if legacy_capacity_schema else ", xingce_only"
+            capacity_focus_value = "" if legacy_capacity_schema else ", false"
             session.execute(
                 text(
-                    """
+                    f"""
                     insert into learning.daily_capacity_versions (
                       capacity_version_id, command_id, user_id, local_date,
                       version_no, available_minutes, energy_level,
                       stress_level, confidence_level, confirmed, source_type,
                       weekly_preference_version_id, input_fingerprint,
-                      supersedes_capacity_version_id, recorded_at, xingce_only
+                      supersedes_capacity_version_id, recorded_at{capacity_focus_column}
                     ) values (
                       cast(:capacity_id as uuid), :command_id,
                       cast(:user_id as uuid), :local_date, 1, 120, 3, 3, 3,
                       false, 'weekly_preference',
                       cast(:preference_id as uuid), :input_fingerprint,
-                      null, :recorded_at, false
+                      null, :recorded_at{capacity_focus_value}
                     )
                     """
                 ),

@@ -40,7 +40,7 @@ jobs:
           --health-timeout 5s
           --health-retries 10
     env:
-      TEST_DATABASE_URL: postgresql+psycopg://postgres:postgres@127.0.0.1:5432/postgres
+      TEST_DATABASE_URL: postgresql+psycopg://postgres@127.0.0.1:5432/postgres
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -50,6 +50,24 @@ jobs:
         uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
         with:
           version: "0.11.32"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/wechat/package-lock.json
+      - run: npm ci
+        working-directory: apps/wechat
+      - name: Configure isolated PostgreSQL test tools and credentials
+        shell: bash
+        run: |
+          postgres_bindir="$(pg_config --bindir)"
+          test -x "$postgres_bindir/initdb"
+          test -x "$postgres_bindir/pg_ctl"
+          echo "$postgres_bindir" >> "$GITHUB_PATH"
+          pgpass_file="$RUNNER_TEMP/anan-ci.pgpass"
+          printf '127.0.0.1:5432:postgres:postgres:postgres\n' > "$pgpass_file"
+          chmod 600 "$pgpass_file"
+          echo "PGPASSFILE=$pgpass_file" >> "$GITHUB_ENV"
       - run: scripts/verify_backend.sh
 
   wechat:
