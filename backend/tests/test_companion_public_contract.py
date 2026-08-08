@@ -106,7 +106,8 @@ def test_context_sources_separate_model_payload_from_public_summary() -> None:
     }
 
     assert summaries["learner_activity"] == (
-        "已记录 12 道行测练习，其中 3 道错题；已完成 1 次模考；"
+        "历史累计已记录 12 道行测练习，其中 3 道错题；"
+        "今日已记录 0 道作答，其中 0 道错题；已完成 1 次模考；"
         "最近一次模考记录为 118.5 分；目前错题较多的模块包括资料分析。"
     )
     assert summaries["learning_brain"] == (
