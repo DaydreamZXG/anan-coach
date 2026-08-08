@@ -78,6 +78,11 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     )
     revision97 = import_module("migrations.versions.20260805_97_login_terms_consent")
     revision98 = import_module("migrations.versions.20260806_98_method_card_knowledge_nodes")
+    revision99 = import_module("migrations.versions.20260807_99_ilink_hub_photo_queries")
+    revision100 = import_module("migrations.versions.20260807_100_ilink_short_term_memory")
+    revision101 = import_module(
+        "migrations.versions.20260808_101_publish_community_method_policies"
+    )
     script = ScriptDirectory.from_config(Config(str(BACKEND_ROOT / "alembic.ini")))
 
     assert revision71.down_revision == "20260728_70"
@@ -108,7 +113,10 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     assert revision96.down_revision == "20260804_95"
     assert revision97.down_revision == "20260804_96"
     assert revision98.down_revision == "20260805_97"
-    assert script.get_heads() == ["20260807_100"]
+    assert revision99.down_revision == "20260806_98"
+    assert revision100.down_revision == "20260807_99"
+    assert revision101.down_revision == "20260807_100"
+    assert script.get_heads() == ["20260808_101"]
     with pytest.raises(RuntimeError, match="forward-only"):
         revision77.downgrade()
     with pytest.raises(RuntimeError, match="forward-only"):

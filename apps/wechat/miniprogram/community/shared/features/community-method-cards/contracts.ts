@@ -117,11 +117,24 @@ export function mapCommunityError(error: unknown): CommercialErrorView {
       requestId: error.requestId,
     };
   }
+  if (
+    error.statusCode === 503 &&
+    ["community_policy_unavailable", "community_service_unavailable"].includes(
+      error.payload?.code ?? "",
+    )
+  ) {
+    return {
+      state: "error",
+      title: "社区试用还没开放",
+      message: "试用规则尚未发布，这次没有创建或提交任何记录。",
+      requestId: error.requestId,
+    };
+  }
   if (error.statusCode === 0 || error.statusCode >= 500) {
     return {
       state: "recovery",
-      title: "连接暂时中断",
-      message: "已提交的操作可能仍在处理。请按原操作恢复，不要重复创建内容。",
+      title: "还没收到操作结果",
+      message: "页面会核对刚才那次操作，不会重复记录。",
       requestId: error.requestId,
     };
   }

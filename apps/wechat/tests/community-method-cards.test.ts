@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { readFileSync } from "node:fs";
 
 import { ApiClient, ApiClientError } from "../miniprogram/api/client";
 import {
@@ -24,6 +25,7 @@ import {
   rightsOptions,
 } from "../miniprogram/community/shared/features/community-method-cards/contracts";
 import {
+  communityTrialRecoveryView,
   commercialStateView,
   presentTrialCard,
 } from "../miniprogram/community/shared/features/community-method-cards/presentation";
@@ -157,6 +159,36 @@ describe("Stage 3.5 typed commercial boundary", () => {
     expect(mapCommunityError(new ApiClientError("offline", 0, "request-offline"))).toMatchObject({
       state: "recovery",
     });
+    expect(
+      mapCommunityError(
+        new ApiClientError("社区方法服务的已发布策略暂不可用。", 503, "request-policy", {
+          code: "community_policy_unavailable",
+          message: "社区方法服务的已发布策略暂不可用。",
+          requestId: "request-policy",
+        }),
+      ),
+    ).toMatchObject({
+      state: "error",
+      title: "社区试用还没开放",
+      requestId: "request-policy",
+    });
+  });
+
+  it("recovers the exact interrupted trial operation with plain-language actions", () => {
+    expect(communityTrialRecoveryView("load_cards")).toMatchObject({
+      title: "方法还没加载出来",
+      actionLabel: "重新读取方法",
+    });
+    expect(communityTrialRecoveryView("opt_in").actionLabel).toBe("继续加入试用");
+    expect(communityTrialRecoveryView("complete_trial").actionLabel).toBe("继续核验");
+    expect(communityTrialRecoveryView("submit_feedback").description).toContain("只保留一次");
+    expect(communityTrialRecoveryView("submit_report").description).toContain("不会重复受理");
+
+    const pageSource = readFileSync("miniprogram/community/community-trial/index.ts", "utf8");
+    expect(pageSource).toContain('operation === "opt_in") void this.optIn()');
+    expect(pageSource).toContain('operation === "complete_trial") void this.completeTrial()');
+    expect(pageSource).toContain('operation === "submit_feedback") void this.submitFeedback()');
+    expect(pageSource).toContain('operation === "submit_report") void this.submitReport()');
   });
 });
 

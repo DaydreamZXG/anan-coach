@@ -22,8 +22,10 @@ import {
   type CommercialPageState,
 } from "../shared/features/community-method-cards/contracts";
 import {
+  communityTrialRecoveryView,
   commercialStateView,
   presentTrialCard,
+  type CommunityTrialRecoveryOperation,
   type TrialCardView,
 } from "../shared/features/community-method-cards/presentation";
 import {
@@ -82,6 +84,7 @@ interface TrialRuntime extends OwnedRuntime {
   exposure: CommunityExposureReceipt | null;
   trial: CommunityTrialReceipt | null;
   attemptReference: TrialAttemptReference | null;
+  recoveryOperation: CommunityTrialRecoveryOperation | null;
   busy: boolean;
 }
 
@@ -134,6 +137,7 @@ Page<TrialPageData, TrialPageCustom>({
       exposure: null,
       trial: null,
       attemptReference,
+      recoveryOperation: null,
       busy: false,
     });
     this.setData({ evidenceReady: attemptReference !== null });
@@ -158,6 +162,7 @@ Page<TrialPageData, TrialPageCustom>({
   async loadCards() {
     const runtime = runtimes.get(this);
     if (!runtime || runtime.busy) return;
+    runtime.recoveryOperation = "load_cards";
     runtime.busy = true;
     const epoch = ++runtime.requestEpoch;
     setState(this, "loading");
@@ -177,6 +182,7 @@ Page<TrialPageData, TrialPageCustom>({
         feedbackRecorded: false,
         trialMessage: "",
       });
+      runtime.recoveryOperation = null;
       setState(
         this,
         cards.length ? "default" : "empty",
@@ -184,8 +190,7 @@ Page<TrialPageData, TrialPageCustom>({
       );
     } catch (error) {
       if (!runtimes.owns(this, runtime, epoch)) return;
-      const view = mapCommunityError(error);
-      setState(this, view.state, view.message, view.requestId, view.title);
+      setOperationError(this, error, "load_cards");
     } finally {
       if (runtimes.owns(this, runtime, epoch)) runtime.busy = false;
     }
@@ -193,7 +198,14 @@ Page<TrialPageData, TrialPageCustom>({
 
   stateAction() {
     if (this.data.pageState === "expired") void wx.reLaunch({ url: routes.login });
-    else void this.loadCards();
+    else if (this.data.pageState === "recovery") {
+      const operation = runtimes.get(this)?.recoveryOperation ?? "load_cards";
+      if (operation === "opt_in") void this.optIn();
+      else if (operation === "complete_trial") void this.completeTrial();
+      else if (operation === "submit_feedback") void this.submitFeedback();
+      else if (operation === "submit_report") void this.submitReport();
+      else void this.loadCards();
+    } else void this.loadCards();
   },
 
   selectCard(event) {
@@ -203,6 +215,7 @@ Page<TrialPageData, TrialPageCustom>({
     if (!card || !runtime || runtime.busy) return;
     runtime.exposure = null;
     runtime.trial = null;
+    runtime.recoveryOperation = null;
     this.setData({
       activeIndex: index,
       selectedCard: card,
@@ -219,6 +232,7 @@ Page<TrialPageData, TrialPageCustom>({
     const runtime = runtimes.get(this);
     const card = this.data.selectedCard;
     if (!runtime || !card || runtime.busy || !card.canTrial) return;
+    runtime.recoveryOperation = "opt_in";
     runtime.busy = true;
     const epoch = ++runtime.requestEpoch;
     this.setData({ interactionLocked: true, trialMessage: "" });
@@ -231,6 +245,7 @@ Page<TrialPageData, TrialPageCustom>({
       );
       if (!runtimes.owns(this, runtime, epoch)) return;
       runtime.exposure = exposure;
+      runtime.recoveryOperation = null;
       this.setData({
         exposureId: exposure.exposureId,
         trialMessage: runtime.attemptReference
@@ -247,8 +262,7 @@ Page<TrialPageData, TrialPageCustom>({
       if (!runtime.attemptReference) this.setData({ stateActionLabel: "" });
     } catch (error) {
       if (!runtimes.owns(this, runtime, epoch)) return;
-      const view = mapCommunityError(error);
-      setState(this, view.state, view.message, view.requestId, view.title);
+      setOperationError(this, error, "opt_in");
     } finally {
       if (runtimes.owns(this, runtime, epoch)) {
         runtime.busy = false;
@@ -271,6 +285,7 @@ Page<TrialPageData, TrialPageCustom>({
       this.setData({ trialMessage: error instanceof Error ? error.message : "试题证据无效。" });
       return;
     }
+    runtime.recoveryOperation = "complete_trial";
     runtime.busy = true;
     const epoch = ++runtime.requestEpoch;
     this.setData({ interactionLocked: true });
@@ -279,6 +294,7 @@ Page<TrialPageData, TrialPageCustom>({
       const trial = await runtime.api.completeTrial(command);
       if (!runtimes.owns(this, runtime, epoch)) return;
       runtime.trial = trial;
+      runtime.recoveryOperation = null;
       this.setData({
         trialId: trial.trialId,
         feedbackEligible: trial.feedbackEligible,
@@ -289,8 +305,7 @@ Page<TrialPageData, TrialPageCustom>({
       setState(this, "default");
     } catch (error) {
       if (!runtimes.owns(this, runtime, epoch)) return;
-      const view = mapCommunityError(error);
-      setState(this, view.state, view.message, view.requestId, view.title);
+      setOperationError(this, error, "complete_trial");
     } finally {
       if (runtimes.owns(this, runtime, epoch)) {
         runtime.busy = false;
@@ -331,6 +346,7 @@ Page<TrialPageData, TrialPageCustom>({
       this.setData({ trialMessage: error instanceof Error ? error.message : "反馈选择无效。" });
       return;
     }
+    runtime.recoveryOperation = "submit_feedback";
     runtime.busy = true;
     const epoch = ++runtime.requestEpoch;
     this.setData({ interactionLocked: true });
@@ -348,11 +364,11 @@ Page<TrialPageData, TrialPageCustom>({
           ? "反馈已记录。每位用户对同一份方法只保留一次有效反馈。"
           : "反馈未记录。",
       });
+      runtime.recoveryOperation = null;
       setState(this, "default");
     } catch (error) {
       if (!runtimes.owns(this, runtime, epoch)) return;
-      const view = mapCommunityError(error);
-      setState(this, view.state, view.message, view.requestId, view.title);
+      setOperationError(this, error, "submit_feedback");
     } finally {
       if (runtimes.owns(this, runtime, epoch)) {
         runtime.busy = false;
@@ -374,6 +390,7 @@ Page<TrialPageData, TrialPageCustom>({
     const evidenceRef = runtime.trial
       ? `community-trial:${runtime.trial.trialId}`
       : `community-exposure:${runtime.exposure?.exposureId ?? ""}`;
+    runtime.recoveryOperation = "submit_report";
     runtime.busy = true;
     const epoch = ++runtime.requestEpoch;
     this.setData({ interactionLocked: true, reportMessage: "" });
@@ -386,11 +403,11 @@ Page<TrialPageData, TrialPageCustom>({
       );
       if (!runtimes.owns(this, runtime, epoch)) return;
       this.setData({ reportMessage: `举报已受理（${receipt.reportId}），状态由审核结果决定。` });
+      runtime.recoveryOperation = null;
       setState(this, "default");
     } catch (error) {
       if (!runtimes.owns(this, runtime, epoch)) return;
-      const view = mapCommunityError(error);
-      setState(this, view.state, view.message, view.requestId, view.title);
+      setOperationError(this, error, "submit_report");
     } finally {
       if (runtimes.owns(this, runtime, epoch)) {
         runtime.busy = false;
@@ -415,13 +432,35 @@ function setState(
   description?: string,
   requestId = "",
   title?: string,
+  actionLabel?: string,
 ): void {
   const view = commercialStateView(state);
   page.setData({
     pageState: state,
     stateTitle: title ?? view.title,
     stateDescription: description ?? view.description,
-    stateActionLabel: view.actionLabel,
+    stateActionLabel: actionLabel ?? view.actionLabel,
     requestId,
   });
+}
+
+function setOperationError(
+  page: TrialPage,
+  error: unknown,
+  operation: CommunityTrialRecoveryOperation,
+): void {
+  const view = mapCommunityError(error);
+  if (view.state === "recovery") {
+    const recovery = communityTrialRecoveryView(operation);
+    setState(
+      page,
+      view.state,
+      recovery.description,
+      view.requestId,
+      recovery.title,
+      recovery.actionLabel,
+    );
+    return;
+  }
+  setState(page, view.state, view.message, view.requestId, view.title);
 }

@@ -127,39 +127,6 @@ def _seed_card_trial_and_report(connection: object) -> None:
     )
 
 
-def _seed_policy_resources(connection: object) -> None:
-    connection.exec_driver_sql(  # type: ignore[attr-defined]
-        """
-        insert into product.community_method_card_policy_resources (
-          policy_resource_id, operation, policy_version, state, rules,
-          rules_sha256, prompt_version, provider, model,
-          provider_release_id, output_schema_version, published_at, created_at
-        ) values
-          (
-            '00000000-0000-0000-0000-000000000510',
-            'candidate_generation', 'candidate@stage35d', 'published',
-            '{"sourceGrounding":true}'::jsonb, repeat('d', 64),
-            'candidate-prompt@stage35d', 'provider-stage35d', 'model-stage35d',
-            'provider-release@stage35d', 'candidate-schema@stage35d', now(), now()
-          ),
-          (
-            '00000000-0000-0000-0000-000000000511',
-            'automated_review', 'review@stage35d', 'published',
-            '{"checks":5}'::jsonb, repeat('e', 64),
-            'review-prompt@stage35d', 'provider-stage35d', 'model-stage35d',
-            'provider-release@stage35d', 'review-schema@stage35d', now(), now()
-          ),
-          (
-            '00000000-0000-0000-0000-000000000512',
-            'report_decision', 'report@stage35d', 'published',
-            '{"beneficiaryDisclosure":true}'::jsonb, repeat('f', 64),
-            'report-prompt@stage35d', 'provider-stage35d', 'model-stage35d',
-            'provider-release@stage35d', 'report-schema@stage35d', now(), now()
-          );
-        """
-    )
-
-
 def _seed_reward_lots(connection: object) -> None:
     connection.exec_driver_sql(  # type: ignore[attr-defined]
         """
@@ -317,9 +284,31 @@ def test_stage35_production_schema_and_forward_only_downgrade(
     )
 
     with db_engine.connect() as connection:
+        published_operations = set(
+            connection.execute(
+                text(
+                    """
+                    select operation
+                    from product.community_method_card_policy_resources
+                    where state = 'published'
+                    """
+                )
+            ).scalars()
+        )
+        assert published_operations == {
+            "candidate_generation",
+            "automated_review",
+            "report_decision",
+        }
         assert connection.execute(
-            text("select count(*) from product.community_method_card_policy_resources")
-        ).scalar_one() == 0
+            text(
+                """
+                select count(*)
+                from product.community_method_card_effect_policies
+                where state = 'published'
+                """
+            )
+        ).scalar_one() == 1
         assert connection.execute(
             text("select count(*) from commerce.community_reward_policy_scopes")
         ).scalar_one() == 0
@@ -328,7 +317,6 @@ def test_stage35_production_schema_and_forward_only_downgrade(
     transaction = connection.begin()
     try:
         _seed_card_trial_and_report(connection)
-        _seed_policy_resources(connection)
 
         connection.exec_driver_sql(
             """
@@ -429,7 +417,7 @@ def test_stage35_production_schema_and_forward_only_downgrade(
               '00000000-0000-0000-0000-000000000505',
               '00000000-0000-0000-0000-000000000502', 1,
               'confirmed', 'answer_conflict_confirmed',
-              '00000000-0000-0000-0000-000000000512', false, null,
+              'd79eebfa-e577-52e4-a963-852f8ac7869b', false, null,
               '["evidence://stage35d/report"]'::jsonb,
               'moderator:stage35d', now()
             );

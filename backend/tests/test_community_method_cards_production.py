@@ -2,11 +2,17 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 from decimal import Decimal
+import hashlib
+import json
 
 import pytest
 from pydantic import ValidationError
+from sqlalchemy import text
 
-from app.domains.community_method_cards.effects import VersionedTrialEligibility
+from app.domains.community_method_cards.effects import (
+    EffectPolicyRules,
+    VersionedTrialEligibility,
+)
 from app.domains.community_method_cards.moderation import (
     REQUIRED_REVIEW_DIMENSIONS,
     FiveDimensionReviewEngine,
@@ -40,6 +46,67 @@ LEARNER_ID = "9506fa2b-d69c-4e25-a0ec-c6f75b3826a2"
 CARD_ID = "ab0fd634-00ce-4f78-b9b0-077cbbe4a544"
 VERSION_ID = "ed547a91-e73b-4263-bb4a-b35534986447"
 EXPOSURE_ID = "e2f3facf-d86f-4ae4-9677-c5fb861389a1"
+
+
+def test_first_public_community_policy_set_is_complete_and_fingerprinted(
+    db_engine,
+) -> None:
+    with db_engine.connect() as connection:
+        resources = (
+            connection.execute(
+                text(
+                    "select operation, rules, rules_sha256, model, provider_release_id "
+                    "from product.community_method_card_policy_resources "
+                    "where state = 'published' order by operation"
+                )
+            )
+            .mappings()
+            .all()
+        )
+        effect = (
+            connection.execute(
+                text(
+                    "select rules, rules_sha256 "
+                    "from product.community_method_card_effect_policies "
+                    "where state = 'published'"
+                )
+            )
+            .mappings()
+            .one()
+        )
+
+    assert {str(row["operation"]) for row in resources} == {
+        "candidate_generation",
+        "automated_review",
+        "report_decision",
+    }
+    assert (
+        next(row for row in resources if row["operation"] == "candidate_generation")["model"]
+        == "deepseek-v4-flash"
+    )
+    assert (
+        next(row for row in resources if row["operation"] == "candidate_generation")[
+            "provider_release_id"
+        ]
+        == "tokenrhythm-deepseek-v4-flash"
+    )
+    for row in [*resources, effect]:
+        assert (
+            row["rules_sha256"]
+            == hashlib.sha256(
+                json.dumps(
+                    row["rules"],
+                    ensure_ascii=False,
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ).encode("utf-8")
+            ).hexdigest()
+        )
+    rules = EffectPolicyRules.model_validate(effect["rules"])
+    assert rules.minimum_eligible_trials == 5
+    assert rules.minimum_delayed_verified_trials == 2
+    assert rules.minimum_helpful_votes == 3
+    assert rules.require_baseline is True
 
 
 def _service(repository: _MemoryRepository, sink: _MilestoneSink) -> CommunityMethodCardService:

@@ -11,6 +11,9 @@ export interface CommercialStateView {
   actionLabel: string;
 }
 
+export type CommunityTrialRecoveryOperation =
+  "load_cards" | "opt_in" | "complete_trial" | "submit_feedback" | "submit_report";
+
 export interface ContributionVersionView {
   versionId: string;
   versionLabel: string;
@@ -77,6 +80,44 @@ const stateCopies: Record<CommercialPageState, CommercialStateView> = {
 
 export function commercialStateView(state: CommercialPageState): CommercialStateView {
   return stateCopies[state];
+}
+
+/**
+ * 网络中断时不能把所有动作都降级成“重新读取”。
+ * 页面会按原业务键重放同一次操作，后端的稳定 ID/唯一约束
+ * 保证曝光、试用、反馈和举报不会重复记录。
+ */
+export function communityTrialRecoveryView(
+  operation: CommunityTrialRecoveryOperation,
+): CommercialStateView {
+  const views: Record<CommunityTrialRecoveryOperation, CommercialStateView> = {
+    load_cards: {
+      title: "方法还没加载出来",
+      description: "这一步只读取内容，没有创建或提交任何记录。",
+      actionLabel: "重新读取方法",
+    },
+    opt_in: {
+      title: "还没收到加入结果",
+      description: "系统会核对刚才那次加入，不会重复记录试用。",
+      actionLabel: "继续加入试用",
+    },
+    complete_trial: {
+      title: "还没收到核验结果",
+      description: "系统会沿用这道题的原作答记录，不会生成第二份试用结果。",
+      actionLabel: "继续核验",
+    },
+    submit_feedback: {
+      title: "还没收到反馈结果",
+      description: "每人对同一份方法只保留一次有效反馈，系统会核对刚才的提交。",
+      actionLabel: "确认反馈结果",
+    },
+    submit_report: {
+      title: "还没收到举报结果",
+      description: "系统会核对刚才那次举报，不会重复受理。",
+      actionLabel: "确认举报结果",
+    },
+  };
+  return views[operation];
 }
 
 export function cardStateLabel(state: CommunityCardState): string {
