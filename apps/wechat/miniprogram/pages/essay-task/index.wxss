@@ -147,7 +147,7 @@
 }
 
 .prompt-text,
-.segment-paragraph {
+.segment-text {
   min-width: 0;
   color: var(--color-ink-secondary);
   font-family: var(--font-family-reading);
@@ -157,12 +157,9 @@
   text-align: justify;
 }
 
-.segment-paragraph {
-  text-indent: 2em;
-}
-
 .segment-text {
-  display: inline;
+  display: block;
+  text-indent: 2em;
 }
 
 .segment-paragraph + .segment-paragraph {
@@ -1173,7 +1170,7 @@
   }
 
   .prompt-text,
-  .segment-paragraph,
+  .segment-text,
   .essay-input,
   .essay-textarea,
   .essay-select,

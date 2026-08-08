@@ -221,10 +221,12 @@ describe("tablet responsive layout contract", () => {
       /class="segment-header"[\s\S]*?class="segment-index type-data"[\s\S]*?class="segment-label"[\s\S]*?class="segment-body"/u,
     );
     expect(essayTemplate).toContain("{{paragraph.text}}");
-    expect(essayStyles).toMatch(/\.segment-paragraph \{[^}]*text-indent:\s*2em/u);
+    expect(essayStyles).not.toMatch(/\.segment-paragraph \{[^}]*text-indent/u);
     expect(essayStyles).toMatch(/\.material-segment \{[^}]*padding:/u);
     expect(essayStyles).not.toMatch(/\.material-segment \{[^}]*display:\s*flex/u);
-    expect(essayStyles).toMatch(/\.segment-text \{[^}]*display:\s*inline/u);
+    expect(essayStyles).toMatch(
+      /\.segment-text \{[^}]*display:\s*block;[^}]*text-indent:\s*2em/u,
+    );
     expect(essayStyles).toMatch(
       /\.segment-paragraph \+ \.segment-paragraph \{[^}]*margin-top:\s*4rpx/u,
     );
