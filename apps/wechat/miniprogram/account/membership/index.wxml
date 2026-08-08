@@ -1,14 +1,14 @@
 <view class="s9-page s9-page--with-dock membership-page">
   <view class="s9-hero">
-    <view class="s9-title">{{freeColdStart ? '直接使用岸岸' : '第一次付钱，也可以安心试'}}</view>
-    <view class="s9-subtitle">{{freeColdStart ? '当前不需要开通会员，本页也不会发起购买或扣款。' : (offer ? offer.subtitle : '服务期和退款规则，付款前都会给你看清楚。')}}</view>
+    <view class="s9-title">{{freeColdStart ? '公测期免费使用' : '第一次付钱，也可以安心试'}}</view>
+    <view class="s9-subtitle">{{freeColdStart ? '当前不需要开通会员，本页只说明公测和未来的收费方案，不会发起购买或扣款。' : (offer ? offer.subtitle : '服务期和退款规则，付款前都会给你看清楚。')}}</view>
     <view wx:if="{{!freeColdStart}}" class="s9-chip-row">
       <view class="s9-chip s9-chip--gold">创始体验官</view>
       <view class="s9-chip s9-chip--primary">{{offer ? offer.remainingLabel : '名额待确认'}}</view>
     </view>
     <view wx:else class="s9-chip-row">
       <view class="s9-chip s9-chip--primary">无需开通</view>
-      <view class="s9-chip">无自动续费</view>
+      <view class="s9-chip">公测中</view>
     </view>
   </view>
 
@@ -25,17 +25,17 @@
       </view>
 
       <view class="s9-card guarantee-card">
-        <view class="s9-card-kicker">付费边界</view>
-        <view class="s9-card-title">任何付费都要由你主动确认</view>
-        <view class="s9-card-copy">如果以后要收费，会在你付钱之前把价格、服务内容和退款规则单独讲清楚；不会因为看过这一页，就默认你同意任何付费约定。</view>
-        <view class="s9-card-meta">{{commercialModeLabel}}</view>
+        <view class="s9-card-kicker">创始用户权益方案</view>
+        <view class="s9-card-title">正式价预计 ¥29.90 / 30 天</view>
+        <view class="s9-card-copy">计划为公测期加入的用户保留 7 折创始价，即 ¥20.90 / 30 天。公测期内仍然是 0 元，不需要先买。</view>
+        <view class="s9-card-meta">正式开放前，会再明示价格、权益期限和退款规则</view>
       </view>
     </view>
 
     <view class="s9-section">
       <view class="s9-section-head"><view class="s9-section-title">当前服务范围</view><view class="s9-section-meta">{{entitlementPeriod}}</view></view>
       <view class="s9-list">
-        <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">当前没有购买入口</view><view class="s9-list-copy">本页不会创建订单；以后开放时，会先展示完整规则并由你确认。</view></view></view>
+        <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">当前是会员说明入口</view><view class="s9-list-copy">可以查看公测和收费方案，但不会创建订单；正式开放时必须由你再次确认。</view></view></view>
         <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">你的学习数据不会被会员影响</view><view class="s9-list-copy">作答、档案、计划、私人资料和导出属于你的学习数据。</view></view></view>
         <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">服务规则照常生效</view><view class="s9-list-copy">批量爬题、脚本刷题、恶意文件和账号共用，仍会被系统拦下来。</view></view></view>
       </view>

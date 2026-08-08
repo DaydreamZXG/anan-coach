@@ -54,7 +54,7 @@ describe("Xingce mastery queue API and contract", () => {
     });
     expect(masteryQueueActionTarget(reflection)).toEqual({
       mode: "navigateTo",
-      url: "/pages/reflection/index?sessionId=session-a&reviewId=review-a",
+      url: "/pages/reflection/index?sessionId=session-a&reviewId=review-a&returnTo=mastery",
     });
 
     const due = queueItem("due_verification", {
@@ -262,7 +262,7 @@ describe("C08 mastery queue page", () => {
 
     await runtime.page.openItem.call(runtime.page, itemEvent(pendingReady.itemId));
     expect(runtime.navigateTo).toHaveBeenCalledWith({
-      url: "/pages/reflection/index?sessionId=session-a&reviewId=review-a",
+      url: "/pages/reflection/index?sessionId=session-a&reviewId=review-a&returnTo=mastery",
     });
 
     runtime.page.selectBucket.call(runtime.page, bucketEvent("due_verification"));

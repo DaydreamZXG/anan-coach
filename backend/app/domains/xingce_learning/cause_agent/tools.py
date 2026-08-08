@@ -245,6 +245,14 @@ class CauseAgentTools:
                 "firstStrokeAtMs": stroke_at_ms[0] if stroke_at_ms else None,
                 "lastStrokeAtMs": stroke_at_ms[-1] if stroke_at_ms else None,
             }
+            material_stroke_count = sum(
+                1 for stroke in strokes if stroke.get("surface", "question") == "material"
+            )
+            if material_stroke_count > 0:
+                annotation_summary["surfaceCounts"] = {
+                    "question": len(strokes) - material_stroke_count,
+                    "material": material_stroke_count,
+                }
             anchored = _collect_anchored_segments(strokes)
             if anchored is not None:
                 annotation_summary.update(anchored)

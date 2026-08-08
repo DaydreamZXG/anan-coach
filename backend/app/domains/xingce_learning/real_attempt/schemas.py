@@ -59,6 +59,8 @@ class AnnotationStroke(XingceModel):
     """
 
     stroke_id: str = Field(alias="strokeId", min_length=1, max_length=64)
+    # 草稿可画在题目或共享材料上；旧记录缺省仍解释为题目笔迹。
+    surface: Literal["question", "material"] = "question"
     tool: Literal["pen", "highlighter"]
     width: float = Field(gt=0, le=0.2)
     points: list[AnnotationPoint] = Field(min_length=2, max_length=240)

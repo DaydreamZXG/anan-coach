@@ -334,6 +334,80 @@ button.coach-setting {
   font-size: var(--text-body);
 }
 
+.community-entry {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(80, 221, 224, 0.18), transparent 34%),
+    var(--color-surface);
+}
+.community-entry__head {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(24 * var(--rpx));
+}
+.community-entry__icon {
+  display: flex;
+  width: calc(80 * var(--rpx));
+  height: calc(80 * var(--rpx));
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border-radius: var(--radius-32);
+  background: var(--figma-color-cyan-soft);
+}
+.community-entry__image {
+  width: calc(38 * var(--rpx));
+  height: calc(38 * var(--rpx));
+}
+.community-entry__main {
+  min-width: 0;
+  flex: 1;
+}
+.community-entry__kicker {
+  color: var(--color-primary);
+  font-size: var(--text-micro);
+  font-weight: 800;
+}
+.community-entry__title {
+  margin-top: calc(6 * var(--rpx));
+  font-size: var(--text-section);
+  font-weight: 800;
+  line-height: 1.4;
+}
+.community-entry__copy {
+  margin-top: calc(8 * var(--rpx));
+  color: var(--ink-3);
+  font-size: var(--text-caption);
+  line-height: 1.6;
+}
+.community-entry__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
+}
+button.community-entry__button {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: calc(76 * var(--rpx));
+  margin: 0;
+  padding: 0 calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
+  border-radius: var(--radius-32);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: var(--text-body);
+  font-weight: 800;
+  line-height: calc(76 * var(--rpx));
+}
+button.community-entry__button--primary {
+  border-color: transparent;
+  background: var(--ink);
+  color: var(--color-surface);
+}
+.community-entry__button::after {
+  border: 0;
+}
+
 .asset-section,
 .service-section {
   margin-top: calc(48 * var(--rpx));

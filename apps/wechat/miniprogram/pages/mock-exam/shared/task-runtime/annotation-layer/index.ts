@@ -150,6 +150,7 @@ interface AnnotationLayerHost {
     toolbarCollapsed: boolean;
     lassoSelectedCount: number;
     drawnStrokeCount: number;
+    strokePrefix: string;
   };
   setData(patch: Record<string, unknown>): void;
   triggerEvent(name: string, detail?: Record<string, unknown>): void;
@@ -399,6 +400,8 @@ Component({
     scrollTop: { type: Number, value: 0 },
     /** 契约增量 v2：题目内容总高（像素），内容坐标系换算基准。 */
     contentHeight: { type: Number, value: 0 },
+    /** 多内容面共享同一题的 annotations 时，用前缀保证笔迹 ID 与所属画布稳定。 */
+    strokePrefix: { type: String, value: "stroke" },
   },
   data: {
     // 打开草稿先保持题面可滚动、选项可点；用户明确选画笔后才挂载全屏作画层。
@@ -526,7 +529,7 @@ Component({
         // 契约增量 v1：起笔以 Date.now() 为基准，逐点 t 为相对起笔的毫秒偏移。
         state.activeStrokeStartedAt = Date.now();
         state.activeStroke = {
-          strokeId: `stroke-${String(this.data.elapsedSeconds)}-${String(state.strokeSequence)}-${Math.random().toString(36).slice(2, 8)}`,
+          strokeId: `${this.data.strokePrefix || "stroke"}-${String(this.data.elapsedSeconds)}-${String(state.strokeSequence)}-${Math.random().toString(36).slice(2, 8)}`,
           tool,
           width: tool === "highlighter" ? HIGHLIGHTER_WIDTH : PEN_WIDTH,
           points: [capturedPoint(point, 0, pressure)],
@@ -566,8 +569,30 @@ Component({
       const state = runtime(this);
       const tool = this.data.tool;
       if ((tool === "pen" || tool === "highlighter") && state.activeStroke) {
-        const stroke = state.activeStroke;
+        let stroke = state.activeStroke;
         state.activeStroke = null;
+        // 真机上的点、短横和汉字收笔经常只有 touchstart/touchend，没有 touchmove。
+        // 服务端契约要求至少两个点，因此补一个几乎重合的尾点，既保留用户这一笔，
+        // 也不放宽后端数据约束。
+        if (stroke.points.length === 1) {
+          const first = stroke.points[0];
+          if (first) {
+            stroke = {
+              ...stroke,
+              points: [
+                first,
+                {
+                  ...first,
+                  x:
+                    first.x >= 0.9999
+                      ? Math.max(0, first.x - 0.0001)
+                      : Math.min(1, first.x + 0.0001),
+                  t: Math.max(1, first.t ?? 0),
+                },
+              ],
+            };
+          }
+        }
         if (stroke.points.length >= 2) {
           // 契约增量 v2：内容空间最近句段命中 → 给笔画盖 anchor（AI 可见"标记了哪句"）。
           // 只存契约字段（blockId/segmentIndex/segmentText）。

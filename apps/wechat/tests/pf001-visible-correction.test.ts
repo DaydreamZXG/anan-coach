@@ -242,18 +242,19 @@ describe("PF-001 reflection completion page", () => {
       expect(page.data.phase).toBe("completed");
       expect(page.data.hasImmediateVerification).toBe(true);
     });
+    const requestCountBeforeNavigation = request.mock.calls.length;
 
     const first = page.startImmediateVerification.call(page);
     const repeated = page.startImmediateVerification.call(page);
     expect(navigateTo).toHaveBeenCalledTimes(1);
     expect(navigateTo).toHaveBeenCalledWith({ url: verificationUrl });
     expect(page.data.verificationNavigationLocked).toBe(true);
-    expect(request).toHaveBeenCalledTimes(1);
+    expect(request).toHaveBeenCalledTimes(requestCountBeforeNavigation);
     expect(switchTab).not.toHaveBeenCalled();
 
     finishNavigation?.();
     await Promise.all([first, repeated]);
-    expect(request).toHaveBeenCalledTimes(1);
+    expect(request).toHaveBeenCalledTimes(requestCountBeforeNavigation);
     page.onUnload.call(page);
   });
 
@@ -277,11 +278,12 @@ describe("PF-001 reflection completion page", () => {
       expect(page.data.phase).toBe("completed");
       expect(page.data.hasImmediateVerification).toBe(false);
     });
+    const requestCountBeforeNavigation = request.mock.calls.length;
 
     await page.startImmediateVerification.call(page);
     expect(navigateTo).not.toHaveBeenCalled();
     expect(switchTab).toHaveBeenCalledWith({ url: "/pages/today/index" });
-    expect(request).toHaveBeenCalledTimes(1);
+    expect(request).toHaveBeenCalledTimes(requestCountBeforeNavigation);
     page.onUnload.call(page);
   });
 });

@@ -293,6 +293,7 @@ function toRuntimeAttempt(answer: XingceTaskSession["answers"][number]): Questio
       ? {
           annotations: answer.annotations.map((stroke) => ({
             strokeId: stroke.strokeId,
+            surface: stroke.surface ?? "question",
             tool: stroke.tool,
             width: stroke.width,
             points: stroke.points.map((point) => ({

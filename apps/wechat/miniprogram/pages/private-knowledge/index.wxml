@@ -207,8 +207,15 @@
   <ui-sheet visible="{{importPanelOpen}}" title="加入私人资料" copy="内容确认后才会进入你的专属检索库" show-close max-height="82vh" bindclose="closeImportPanel">
     <view wx:if="{{importErrorMessage}}" class="library-inline-error">
       <view>{{importErrorMessage}}</view>
-      <view>请确认文件可以正常打开，再重新选择一种导入方式。</view>
+      <view wx:if="{{importRetryAvailable}}">原文件还在，可以直接重试，不用重新选一遍。</view>
       <view wx:if="{{importRequestId}}">问题编号 · {{importRequestId}}</view>
+      <button
+        wx:if="{{importRetryAvailable}}"
+        hover-class="item--hover"
+        class="library-inline-error__retry"
+        loading="{{busy}}"
+        bindtap="retryImport"
+      >重试这份文件</button>
     </view>
     <input class="import-title-input" value="{{title}}" maxlength="200" placeholder="资料标题（不填则使用文件名）" bindinput="inputTitle" />
     <picker range="{{documentKinds}}" range-key="label" value="{{documentKindIndex}}" bindchange="selectDocumentKind">

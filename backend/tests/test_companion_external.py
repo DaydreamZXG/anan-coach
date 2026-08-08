@@ -750,6 +750,64 @@ def test_companion_ask_is_quota_gated_and_audited(
         assert "context" not in log["metadata"]
 
 
+def test_rest_reply_is_fast_idempotent_and_uses_today_not_historical_total(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id = _seed_user(db_session_factory, token="companion-rest-token")
+    _seed_profile_and_context(db_session_factory, user_id=user_id)
+    with db_session_factory() as session:
+        session.execute(
+            text(
+                """
+                insert into learner.practice_answers (
+                  answer_id, user_id, task_id, question_id, selected_answer,
+                  correct_answer, correct, answered_at
+                )
+                select gen_random_uuid(), cast(:user_id as uuid),
+                       'task-growth-old-' || series::text,
+                       'q_growth_wrong', 'A', 'B', false,
+                       now() - interval '2 days'
+                  from generate_series(1, 89) as series
+                """
+            ),
+            {"user_id": user_id},
+        )
+        session.commit()
+    provider = FakeCompanionAIProvider()
+    client = _make_client(db_session_factory, provider=provider)
+    headers = {
+        "Authorization": "Bearer companion-rest-token",
+        "Idempotency-Key": "companion-rest-fast-1",
+    }
+    body = {
+        "questionText": "不想学了，好累啊",
+        "context": {
+            "routeId": "pages/companion/index",
+            "workspace": "training",
+            "objectRefs": [],
+            "learnerStateVersion": "test-state-v1",
+        },
+    }
+
+    first = client.post("/api/v1/companion/ask", headers=headers, json=body)
+    replay = client.post("/api/v1/companion/ask", headers=headers, json=body)
+    reused = client.post(
+        "/api/v1/companion/ask",
+        headers=headers,
+        json={**body, "questionText": "今天进步了"},
+    )
+
+    assert first.status_code == 200
+    assert replay.status_code == 200
+    assert replay.json() == first.json()
+    assert reused.status_code == 409
+    assert "今天已经留下 1 道作答记录" in first.json()["answer"]
+    assert "90" not in first.json()["answer"]
+    assert first.json()["quota"]["used"] == 0
+    assert provider.billing_count == 0
+    assert provider.attempt_keys == []
+
+
 def test_companion_buttons_use_deterministic_executable_targets() -> None:
     planner = _intent_decision("planner", "plan_explanation")
     position = _intent_decision("position", "position_explanation")

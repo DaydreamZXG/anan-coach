@@ -175,6 +175,27 @@ class CompanionService:
                 request=request,
                 decision=decision,
             )
+        if decision.companion_intent in {"rest", "encouragement"}:
+            context = self._repository.get_context(user_id=user_id, node_id=None)
+            current_state_version = _context_state_version(
+                context,
+                fallback=request.context.learner_state_version,
+            )
+            if current_state_version != request.context.learner_state_version:
+                return self._stale_context_response(
+                    user_id=user_id,
+                    idempotency_key=idempotency_key,
+                    request=request,
+                    decision=decision,
+                    current_state_version=current_state_version,
+                )
+            return self._support_response(
+                user_id=user_id,
+                idempotency_key=idempotency_key,
+                request=request,
+                decision=decision,
+                context=context,
+            )
         existing = self._commands.find(
             self._session,
             user_id=user_id,
@@ -527,6 +548,102 @@ class CompanionService:
             highImpactDecision=None,
             quota=self._current_quota_state(user_id=user_id),
         )
+
+    def _support_response(
+        self,
+        *,
+        user_id: str,
+        idempotency_key: str,
+        request: CompanionAskRequest,
+        decision: IntentDecision,
+        context: CompanionContextRecord,
+    ) -> CompanionAskResponse:
+        progress = (
+            f"今天已经留下 {context.today_practice_answers} 道作答记录，"
+            if context.today_practice_answers > 0
+            else ""
+        )
+        if decision.companion_intent == "rest":
+            answer = (
+                progress
+                + "先停一下，累的时候不用靠硬扛证明自己。离开屏幕休息十分钟，"
+                "回来后只做今天最短的一项；如果还是很累，就把今天收成复盘和休息。"
+            )
+        else:
+            answer = (
+                progress
+                + "这次进步值得记下来。先别急着加量，把刚才做对的方法留成一句话，"
+                "再按原计划完成下一项就好。"
+            )
+        response = CompanionAskResponse(
+            answerId=_deterministic_answer_id(user_id, idempotency_key),
+            semanticState="ready",
+            scenarioKey=decision.scenario_key,
+            respondingAgent=decision.responding_agent,
+            answerType=decision.answer_type,
+            policyDecision=decision.policy_decision,
+            companionIntent=decision.companion_intent,
+            answer=answer,
+            citations=[],
+            confidence="high",
+            limitations=["这条回复不会自动修改你的计划。"],
+            knowledgeFreshness=request.context.learner_state_version,
+            allowedActions=[],
+            highImpactDecision=None,
+            quota=self._current_quota_state(user_id=user_id),
+        )
+        request_payload = request.model_dump(by_alias=True, mode="json")
+        command = self._commands.claim(
+            self._session,
+            user_id=user_id,
+            feature=COMPANION_ASK_FEATURE,
+            idempotency_key=idempotency_key,
+            request_fingerprint=request_fingerprint(
+                user_id=user_id,
+                feature=COMPANION_ASK_FEATURE,
+                contract_version=COMPANION_ASK_REQUEST_CONTRACT,
+                payload=request_payload,
+            ),
+            request_contract_version=COMPANION_ASK_REQUEST_CONTRACT,
+            execution_payload={
+                "contractVersion": "companion-support-v1",
+                "request": request_payload,
+                "routeDecision": decision.model_dump(by_alias=True, mode="json"),
+                "learnerStateVersion": request.context.learner_state_version,
+            },
+            response_contract_version=COMPANION_ASK_RESPONSE_CONTRACT,
+            reservation_key=stable_command_key(
+                user_id=user_id,
+                feature=COMPANION_ASK_FEATURE,
+                idempotency_key=idempotency_key,
+            ),
+            # The existing command ledger requires a stable provider key for
+            # companion_ask rows even when this deterministic branch performs
+            # no external call. Keeping the key preserves replay/conflict
+            # semantics without consuming quota or model cost.
+            provider_idempotency_key=stable_provider_key(
+                user_id=user_id,
+                feature=COMPANION_ASK_FEATURE,
+                idempotency_key=idempotency_key,
+            ),
+        )
+        replay = _terminal_response(command, CompanionAskResponse)
+        if replay is not None:
+            self._session.commit()
+            return replay
+        response_payload = response.model_dump(by_alias=True, mode="json")
+        succeeded = self._commands.succeed(
+            self._session,
+            command_id=command.command_id,
+            response_payload=response_payload,
+        )
+        self._append_completion_event(
+            command=succeeded,
+            user_id=user_id,
+            response_fingerprint=payload_fingerprint(response_payload),
+        )
+        self._session.commit()
+        return response
 
     def _evidence_insufficient_response(
         self,
@@ -1380,7 +1497,10 @@ def _context_payload(context: CompanionContextRecord) -> dict[str, object]:
         "baselineXingceScore": context.baseline_xingce_score,
         "baselineShenlunScore": context.baseline_shenlun_score,
         "practiceAnswers": context.practice_answers,
+        "practiceAnswersScope": "historical_total",
+        "todayPracticeAnswers": context.today_practice_answers,
         "wrongAnswers": context.wrong_answers,
+        "todayWrongAnswers": context.today_wrong_answers,
         "mockExams": context.mock_exams,
         "latestMockScore": context.latest_mock_score,
         "topWrongModules": context.top_wrong_modules,
@@ -1430,6 +1550,8 @@ def _build_persona_prompt() -> str:
         "用户问及「为什么这样排」等排期原因时，引用对应 rationale 解释；pending 存在且用户询问学习安排时，"
         "可主动请其确认，确认前不得当作已生效，也不得把候选写成新的能力事实。"
         "不得把本次回答、用户情绪或未确认候选写成新的能力事实。"
+        "practiceAnswers 和 wrongAnswers 是历史累计，todayPracticeAnswers 和 todayWrongAnswers "
+        "才是上海时区的今日数据；不得把历史累计说成今天或昨天完成。"
         "你同时负责行测和申论：申论建议必须优先引用 grounded review、结构化复盘和今日申论计划；"
         "system_compiled/unverified 评分规程下的单题分数只能称为低置信 AI 训练估分，"
         "不得冒充官方分数，也不得直接据此推断岗位总分差。"
@@ -1445,7 +1567,14 @@ def _display_number(value: object) -> str | None:
 
 def _activity_citation_summary(context: CompanionContextRecord) -> str:
     parts = [
-        f"已记录 {context.practice_answers} 道行测练习，其中 {context.wrong_answers} 道错题",
+        (
+            f"历史累计已记录 {context.practice_answers} 道行测练习，"
+            f"其中 {context.wrong_answers} 道错题"
+        ),
+        (
+            f"今日已记录 {context.today_practice_answers} 道作答，"
+            f"其中 {context.today_wrong_answers} 道错题"
+        ),
         f"已完成 {context.mock_exams} 次模考",
     ]
     if context.latest_mock_score is not None:
@@ -1533,7 +1662,10 @@ def _context_retrieval_candidates(context: CompanionContextRecord) -> tuple[Any,
     candidates: list[Any] = []
     activity = {
         "practiceAnswers": context.practice_answers,
+        "practiceAnswersScope": "historical_total",
+        "todayPracticeAnswers": context.today_practice_answers,
         "wrongAnswers": context.wrong_answers,
+        "todayWrongAnswers": context.today_wrong_answers,
         "mockExams": context.mock_exams,
         "latestMockScore": context.latest_mock_score,
         "topWrongModules": context.top_wrong_modules,

@@ -1,12 +1,55 @@
 @import "../../../../../design-system/primitives/interaction.wxss";
 
 .material-reader__inline {
+  position: relative;
   box-sizing: border-box;
   width: 100%;
   overflow: hidden;
   border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--figma-radius-card);
   background: var(--color-surface);
+}
+
+.material-reader__inline-annotate {
+  position: absolute;
+  z-index: 8;
+  top: calc(16 * var(--rpx));
+  right: calc(16 * var(--rpx));
+  box-sizing: border-box;
+  width: auto;
+  min-height: calc(56 * var(--rpx));
+  margin: 0;
+  padding: 0 calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
+  border-radius: var(--radius-capsule);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink-2);
+  font-size: var(--text-micro);
+  font-weight: 800;
+  line-height: calc(56 * var(--rpx));
+  box-shadow: var(--shadow-soft);
+}
+
+.material-reader__inline-annotate--active {
+  border-color: transparent;
+  background: var(--ink);
+  color: var(--color-surface);
+}
+
+.material-reader__inline-annotate::after {
+  border: 0;
+}
+
+.material-reader__annotation-host {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  pointer-events: none;
+}
+
+.material-reader__annotation-host--fullscreen {
+  top: calc(var(--reader-status-bar, 0px) + calc(116 * var(--rpx)));
+  bottom: calc(176 * var(--rpx) + env(safe-area-inset-bottom));
 }
 
 .material-reader__inline--eye_care {

@@ -519,15 +519,24 @@
     </view>
 
     <!-- Figma 75:2 · 原题轨迹回放：题面 + 笔迹回放 + 底部回放工具栏。 -->
-    <view wx:if="{{replayOpen && activeReviewItem}}" class="replay-surface" catchtouchmove="noop">
+    <view wx:if="{{replayOpen && activeReviewItem}}" class="replay-surface">
       <view class="replay-chip">
         <view class="replay-chip__dot" aria-hidden="true"></view>
         <text>轨迹回放 · {{replayCurrentLabel}}</text>
       </view>
-      <scroll-view class="replay-body" scroll-y enhanced show-scrollbar="{{false}}">
+      <view wx:if="{{replaySurfaceOptions.length > 1}}" class="replay-surface-switch">
+        <button
+          wx:for="{{replaySurfaceOptions}}"
+          wx:key="value"
+          class="replay-surface-switch__item {{replaySurface === item.value ? 'replay-surface-switch__item--active' : ''}}"
+          data-surface="{{item.value}}"
+          bindtap="selectReplaySurface"
+        >{{item.label}}</button>
+      </view>
+      <scroll-view class="replay-body" scroll-y enhanced show-scrollbar="{{false}}" bindscroll="onReplayScroll">
         <view class="replay-question">
           <content-renderer
-            blocks="{{activeReviewItem.stemContent || emptyRichContentBlocks}}"
+            blocks="{{replaySurface === 'material' && activeReviewItem.material ? activeReviewItem.material.content : (activeReviewItem.stemContent || emptyRichContentBlocks)}}"
             zoom="{{1}}"
             preferences="{{displayPreferences}}"
           />
@@ -536,8 +545,10 @@
       <view class="replay-ink" aria-hidden="true">
         <annotation-layer
           mode="replay"
-          strokes="{{activeReviewItem.annotations}}"
+          strokes="{{replayAnnotations}}"
           replayMs="{{replayMs}}"
+          scroll-top="{{replayScrollTop}}"
+          content-height="{{replayContentHeight}}"
         />
       </view>
       <view wx:if="{{replayCurrentEvent}}" class="replay-current-event">
@@ -556,7 +567,19 @@
         </button>
         <view class="replay-dock__middle">
           <view class="replay-dock__track">
-            <view class="replay-dock__track-fill" style="width: {{replayProgressPercent}}%;"></view>
+            <slider
+              class="replay-dock__slider"
+              min="0"
+              max="{{replayDurationMs}}"
+              step="100"
+              value="{{replayMs}}"
+              block-size="16"
+              activeColor="#4f39f6"
+              backgroundColor="#d8dde8"
+              bindchanging="seekReplay"
+              bindchange="seekReplay"
+              aria-label="拖动回放进度"
+            />
             <view
               wx:for="{{replayMarkers}}"
               wx:key="index"

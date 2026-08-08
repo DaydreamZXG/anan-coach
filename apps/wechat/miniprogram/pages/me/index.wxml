@@ -108,6 +108,23 @@
         <image class="link-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" />
       </button>
 
+      <view class="profile-card community-entry fade-slide-in fade-slide-in--4">
+        <view class="community-entry__head">
+          <view class="community-entry__icon">
+            <image class="community-entry__image" src="/assets/icons/profile/knowledge-cards.svg" mode="aspectFit" />
+          </view>
+          <view class="community-entry__main">
+            <view class="community-entry__kicker">方法卡社区</view>
+            <view class="community-entry__title">看看其他考友怎么学</view>
+            <view class="community-entry__copy">只分享方法和验证结果，不交换原题和个人资料。</view>
+          </view>
+        </view>
+        <view class="community-entry__actions">
+          <button hover-class="item--hover" class="community-entry__button community-entry__button--primary" bindtap="openCommunity">去逛逛</button>
+          <button hover-class="item--hover" class="community-entry__button" bindtap="openCommunityContributions">我的贡献</button>
+        </view>
+      </view>
+
       <view class="asset-section">
         <view class="section-title">学习资产</view>
         <view class="asset-grid">
@@ -121,6 +138,7 @@
       <view class="service-section">
         <view class="section-title">数据与服务</view>
         <view class="service-card">
+          <button hover-class="item--hover" class="service-row profile-menu-row" bindtap="openMembership"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/archive-spark.svg" mode="aspectFit" /></view><view class="service-main"><view>公测会员</view><view class="service-main__copy">当前免费 · 查看创始用户权益方案</view></view><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
           <button hover-class="item--hover" class="service-row profile-menu-row" bindtap="openPrivacy"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/privacy.svg" mode="aspectFit" /></view><text>数据与隐私</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
           <button hover-class="item--hover" class="service-row profile-menu-row" bindtap="openWechatChannel"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/authorization.svg" mode="aspectFit" /></view><text>微信发题给岸岸</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
           <button hover-class="item--hover" class="service-row profile-menu-row" bindtap="openAuthorizationSettings"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/authorization.svg" mode="aspectFit" /></view><text>授权管理</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>

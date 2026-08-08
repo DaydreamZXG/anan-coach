@@ -156,6 +156,22 @@
   background: var(--figma-color-surface-subtle);
 }
 
+.practice-material-action--annotate {
+  color: var(--color-primary-deep);
+  background: var(--color-primary-soft);
+}
+
+.practice-material-action--active {
+  color: var(--color-on-primary);
+  background: var(--color-primary-deep);
+}
+
+.practice-material-annotate-glyph {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .practice-material-icon {
   display: block;
   width: calc(36 * var(--rpx));

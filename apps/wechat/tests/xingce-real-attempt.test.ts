@@ -16,7 +16,10 @@ import { XingcePageRuntimeRegistry } from "../miniprogram/pages/practice/feature
 import { presentXingceResult } from "../miniprogram/pages/practice/shared/features/xingce/real_attempt/presentation";
 import {
   clearXingcePendingForUser,
+  clearLocalXingceCheckpointDraft,
+  loadLocalXingceCheckpointDraft,
   loadPendingXingceReflection,
+  storeLocalXingceCheckpointDraft,
   storePendingXingceReflection,
 } from "../miniprogram/pages/practice/shared/features/xingce/real_attempt/pending-store";
 import { reduceTaskRuntime } from "../miniprogram/pages/practice/shared/task-runtime/state/runtime";
@@ -108,6 +111,25 @@ describe("real xingce attempt contracts", () => {
       marked: true,
       materialPosition: { anchorId: "material-1", scrollTop: 320, zoom: 1.25 },
     });
+  });
+
+  it("keeps an unsent local checkpoint isolated by account for crash recovery", () => {
+    const { wxStorage } = createMemoryWechatStorage();
+    vi.stubGlobal("wx", wxStorage);
+    let runtime = runtimeFromXingceSession(activeXingceSession({ revision: 9 }));
+    runtime = reduceTaskRuntime(runtime, { type: "DRAFT_CHANGED", text: "本机还没上传的草稿" });
+    const draft = {
+      kind: "checkpoint_draft" as const,
+      planTaskId: xingceIds.planTask,
+      sessionId: xingceIds.session,
+      command: checkpointCommand(runtime),
+    };
+
+    expect(storeLocalXingceCheckpointDraft("user-a", draft)).toBe(true);
+    expect(loadLocalXingceCheckpointDraft("user-a", xingceIds.session)).toEqual(draft);
+    expect(loadLocalXingceCheckpointDraft("user-b", xingceIds.session)).toBeNull();
+    clearLocalXingceCheckpointDraft("user-a", xingceIds.session);
+    expect(loadLocalXingceCheckpointDraft("user-a", xingceIds.session)).toBeNull();
   });
 
   it("checkpoints material, elimination and mark evidence before an option is selected", () => {

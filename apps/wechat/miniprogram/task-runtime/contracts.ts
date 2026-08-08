@@ -35,6 +35,8 @@ export interface AnnotationPoint {
 
 export interface AnnotationStroke {
   strokeId: string;
+  /** 笔迹所属内容面；旧数据缺省等价题目。 */
+  surface?: "question" | "material";
   tool: "pen" | "highlighter";
   width: number;
   points: AnnotationPoint[];

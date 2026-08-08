@@ -25,6 +25,19 @@ export interface PendingXingceCheckpoint {
   command: XingceCheckpointCommand;
 }
 
+/**
+ * 作答中的本机恢复快照。
+ *
+ * 它和“已经发往服务端、结果未知”的 pending command 分开保存：前者用于防止
+ * 输入框、短笔画在页面卸载前来不及进入 15 秒自动保存；后者仍负责网络幂等重放。
+ */
+export interface LocalXingceCheckpointDraft {
+  kind: "checkpoint_draft";
+  planTaskId: string;
+  sessionId: string;
+  command: XingceCheckpointCommand;
+}
+
 export interface PendingXingceSubmit {
   kind: "submit";
   planTaskId: string;
@@ -93,6 +106,13 @@ interface PendingEnvelope {
   payload: PendingXingceCommand;
 }
 
+interface LocalCheckpointEnvelope {
+  schemaVersion: typeof schemaVersion;
+  ownerUserId: string;
+  storedAt: string;
+  payload: LocalXingceCheckpointDraft;
+}
+
 export function storePendingXingceStart(ownerUserId: string, pending: PendingXingceStart): void {
   store(ownerUserId, "start", pending.planTaskId, pending);
 }
@@ -124,6 +144,46 @@ export function loadPendingXingceCheckpoint(
 
 export function clearPendingXingceCheckpoint(ownerUserId: string, sessionId: string): void {
   clear(ownerUserId, "checkpoint", sessionId);
+}
+
+export function storeLocalXingceCheckpointDraft(
+  ownerUserId: string,
+  draft: LocalXingceCheckpointDraft,
+): boolean {
+  const owner = required(ownerUserId, "userId");
+  const envelope: LocalCheckpointEnvelope = {
+    schemaVersion,
+    ownerUserId: owner,
+    storedAt: new Date().toISOString(),
+    payload: draft,
+  };
+  try {
+    wx.setStorageSync(key(owner, "checkpoint-draft", draft.sessionId), envelope);
+    return true;
+  } catch {
+    // 微信本地存储可能因空间不足失败。调用方会保留内存态并给出可恢复提示，
+    // 不能让一次本机留底失败打断正在进行的书写手势。
+    return false;
+  }
+}
+
+export function loadLocalXingceCheckpointDraft(
+  ownerUserId: string,
+  sessionId: string,
+): LocalXingceCheckpointDraft | null {
+  const owner = required(ownerUserId, "userId");
+  const storageKey = key(owner, "checkpoint-draft", sessionId);
+  const value: unknown = wx.getStorageSync(storageKey);
+  if (value === "" || value === undefined || value === null) return null;
+  if (!isLocalCheckpointEnvelope(value, owner) || !isLocalCheckpointDraft(value.payload)) {
+    wx.removeStorageSync(storageKey);
+    return null;
+  }
+  return value.payload;
+}
+
+export function clearLocalXingceCheckpointDraft(ownerUserId: string, sessionId: string): void {
+  clear(ownerUserId, "checkpoint-draft", sessionId);
 }
 
 export function storePendingXingceSubmit(ownerUserId: string, pending: PendingXingceSubmit): void {
@@ -276,6 +336,32 @@ function isEnvelope(value: unknown, ownerUserId: string): value is PendingEnvelo
     typeof value.storedAt === "string" &&
     !Number.isNaN(new Date(value.storedAt).getTime()) &&
     isRecord(value.payload)
+  );
+}
+
+function isLocalCheckpointEnvelope(
+  value: unknown,
+  ownerUserId: string,
+): value is LocalCheckpointEnvelope {
+  return (
+    isRecord(value) &&
+    value.schemaVersion === schemaVersion &&
+    value.ownerUserId === ownerUserId &&
+    typeof value.storedAt === "string" &&
+    !Number.isNaN(new Date(value.storedAt).getTime()) &&
+    isRecord(value.payload)
+  );
+}
+
+function isLocalCheckpointDraft(value: unknown): value is LocalXingceCheckpointDraft {
+  return (
+    isRecord(value) &&
+    value.kind === "checkpoint_draft" &&
+    typeof value.planTaskId === "string" &&
+    typeof value.sessionId === "string" &&
+    isRecord(value.command) &&
+    typeof value.command.expectedRevision === "number" &&
+    Array.isArray(value.command.answers)
   );
 }
 

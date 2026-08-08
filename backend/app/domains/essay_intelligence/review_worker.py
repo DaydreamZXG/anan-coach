@@ -134,13 +134,21 @@ class GroundedEssayReviewWorker:
         grading_repository: EssayMultiModelGradingRepository | None = None,
     ) -> None:
         self._settings = settings
+        provider_was_injected = provider is not None
         if provider is not None and runtime_plan is not None:
             raise ValueError("Review worker cannot mix legacy and multi-model runtimes")
         if (
-            provider is not None
+            provider_was_injected
             and settings.environment.strip().casefold() == "production"
         ):
             raise ValueError("Production review worker forbids single-model execution")
+        if (
+            provider is None
+            and runtime_plan is None
+            and not settings.ai_essay_grading_plan_release_id.strip()
+        ):
+            provider = GroundedEssayReviewProvider(settings)
+            provider.validate_configuration()
         self._provider = provider
         self._runtime_plan = (
             None
@@ -574,7 +582,7 @@ class GroundedEssayReviewWorker:
         invoke: Callable[[str], GroundedReviewProviderResult],
     ) -> tuple[GroundedReviewProviderResult, ModelCallRecord]:
         if self._provider is None or self._price_card is None:
-            raise RuntimeError("Single-model candidate path is test-only")
+            raise RuntimeError("Single-model review runtime is incomplete")
         saved = self._checkpoints.load(
             session,
             job_id=job.job_id,

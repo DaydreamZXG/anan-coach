@@ -544,6 +544,10 @@ export type AnnotationStroke = {
      */
     strokeId: string;
     /**
+     * Surface
+     */
+    surface?: 'question' | 'material';
+    /**
      * Tool
      */
     tool: 'pen' | 'highlighter';
@@ -27085,6 +27089,77 @@ export type ExportChannelDataApiV2IlinkChannelDataExportGetResponses = {
 };
 
 export type ExportChannelDataApiV2IlinkChannelDataExportGetResponse = ExportChannelDataApiV2IlinkChannelDataExportGetResponses[keyof ExportChannelDataApiV2IlinkChannelDataExportGetResponses];
+
+export type ReceiveHubEventApiV2IlinkChannelHubEventsPostData = {
+    body?: never;
+    headers: {
+        /**
+         * X-Timestamp
+         */
+        'X-Timestamp': string;
+        /**
+         * X-Signature
+         */
+        'X-Signature': string;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/ilink-channel/hub/events';
+};
+
+export type ReceiveHubEventApiV2IlinkChannelHubEventsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ReceiveHubEventApiV2IlinkChannelHubEventsPostError = ReceiveHubEventApiV2IlinkChannelHubEventsPostErrors[keyof ReceiveHubEventApiV2IlinkChannelHubEventsPostErrors];
+
+export type ReceiveHubEventApiV2IlinkChannelHubEventsPostResponses = {
+    /**
+     * Response Receive Hub Event Api V2 Ilink Channel Hub Events Post
+     *
+     * Successful Response
+     */
+    202: {
+        [key: string]: boolean;
+    };
+};
+
+export type ReceiveHubEventApiV2IlinkChannelHubEventsPostResponse = ReceiveHubEventApiV2IlinkChannelHubEventsPostResponses[keyof ReceiveHubEventApiV2IlinkChannelHubEventsPostResponses];
 
 export type IssueLinkCodeApiV2IlinkChannelLinkCodesPostData = {
     body: IssueLinkCommand;

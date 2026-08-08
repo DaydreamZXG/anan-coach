@@ -9,7 +9,10 @@ import { currentAuthSession } from "../../auth/session";
 import { routes } from "../../app/navigation/routes";
 import { navigateBackOr } from "./shared/app/navigation/safe-back";
 import type { LocalSourceArtifactFile } from "../../features/external-learning/contracts";
-import { chooseQuestionImage, chooseQuestionPdf } from "./shared/features/external-learning/platform";
+import {
+  chooseQuestionImage,
+  chooseQuestionPdf,
+} from "./shared/features/external-learning/platform";
 import { createIdempotencyKey } from "../../platform/command-id";
 
 const noReviewableTextMessage = "没有识别到可逐段核对的文字。";
@@ -54,6 +57,7 @@ interface PageData {
   importPanelOpen: boolean;
   importErrorMessage: string;
   importRequestId: string;
+  importRetryAvailable: boolean;
   errorMessage: string;
   requestId: string;
   backgroundProcessing: boolean;
@@ -89,6 +93,7 @@ interface PageCustom {
   currentDocumentKind(): "lecture" | "note" | "summary";
   sourceFromEvent(event: WechatMiniprogram.BaseEvent): PrivateSourceView | null;
   failImport(error: unknown): void;
+  retryImport(): Promise<void>;
   fail(error: unknown, fallback: string): void;
   runInBackground(): void;
   showProgress(): void;
@@ -103,6 +108,10 @@ interface PageCustom {
   goBack(): void;
   noop(): void;
 }
+
+type PrivateKnowledgePageInstance = WechatMiniprogram.Page.Instance<PageData, PageCustom>;
+
+const retryFiles = new WeakMap<PrivateKnowledgePageInstance, LocalSourceArtifactFile>();
 
 function api(): PrivateKnowledgeApi | null {
   const auth = currentAuthSession();
@@ -137,6 +146,7 @@ Page<PageData, PageCustom>({
     importPanelOpen: false,
     importErrorMessage: "",
     importRequestId: "",
+    importRetryAvailable: false,
     errorMessage: "",
     requestId: "",
     backgroundProcessing: false,
@@ -154,6 +164,10 @@ Page<PageData, PageCustom>({
     void this.loadSources().then(() => {
       this.applyInitialSection();
     });
+  },
+
+  onUnload() {
+    retryFiles.delete(this);
   },
 
   async loadSources() {
@@ -264,6 +278,7 @@ Page<PageData, PageCustom>({
   async uploadAndProcess(file: LocalSourceArtifactFile) {
     const gateway = api();
     if (!gateway || this.data.busy) return;
+    retryFiles.set(this, file);
     const title = this.data.title.trim() || file.displayName.replace(/\.[^.]+$/u, "");
     this.setData({
       busy: true,
@@ -301,6 +316,7 @@ Page<PageData, PageCustom>({
           await createIdempotencyKey("private-source-create"),
         );
         this.setData({ busy: false, title: "", importTarget: null, importPanelOpen: false });
+        retryFiles.delete(this);
         await this.loadSources();
         return;
       }
@@ -316,7 +332,9 @@ Page<PageData, PageCustom>({
         reviewSpans,
         reviewArtifactVersionId: uploaded.artifact.artifactVersionId,
         reviewFilename: file.displayName,
+        importRetryAvailable: false,
       });
+      retryFiles.delete(this);
     } catch (error) {
       this.failImport(error);
     }
@@ -378,6 +396,7 @@ Page<PageData, PageCustom>({
         reviewArtifactVersionId: "",
         reviewFilename: "",
       });
+      retryFiles.delete(this);
       await this.loadSources();
     } catch (error) {
       this.setData({ busy: false });
@@ -510,15 +529,22 @@ Page<PageData, PageCustom>({
   },
 
   openImportPanel() {
-    this.setData({ importPanelOpen: true, importErrorMessage: "", importRequestId: "" });
+    this.setData({
+      importPanelOpen: true,
+      importErrorMessage: "",
+      importRequestId: "",
+      importRetryAvailable: false,
+    });
   },
 
   closeImportPanel() {
+    retryFiles.delete(this);
     this.setData({
       importPanelOpen: false,
       importTarget: null,
       importErrorMessage: "",
       importRequestId: "",
+      importRetryAvailable: false,
     });
   },
 
@@ -536,13 +562,22 @@ Page<PageData, PageCustom>({
     const localMessage =
       error instanceof Error && error.message === noReviewableTextMessage
         ? noReviewableTextMessage
-        : "服务暂时没有完成这份资料的处理。";
+        : apiError?.statusCode === 503
+          ? "资料已收到，但这次识别服务暂时不可用。"
+          : (apiError?.message ?? "服务暂时没有完成这份资料的处理。");
     this.setData({
       busy: false,
       importPanelOpen: true,
       importErrorMessage: localMessage,
       importRequestId: apiError?.requestId ?? "",
+      importRetryAvailable: retryFiles.has(this),
     });
+  },
+
+  async retryImport() {
+    const file = retryFiles.get(this);
+    if (!file || this.data.busy) return;
+    await this.uploadAndProcess(file);
   },
 
   fail(error: unknown, fallback: string) {

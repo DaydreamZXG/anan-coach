@@ -6,7 +6,7 @@ import {
   type XingceRescue,
   type XingceTaskSession,
 } from "./shared/api/xingce-learning";
-import { routes } from "../../app/navigation/routes";
+import { routes, type AppRoute } from "../../app/navigation/routes";
 import { navigateBackOr } from "./shared/app/navigation/safe-back";
 import { currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
@@ -131,6 +131,11 @@ interface ReflectionPageData {
   replaySummaryLabel: string;
   replayCurrentEvent: string;
   replayMarkers: Array<{ percent: number; tone: "default" | "warning" }>;
+  replayContentHeight: number;
+  replayScrollTop: number;
+  replaySurface: "question" | "material";
+  replaySurfaceOptions: Array<{ value: "question" | "material"; label: string }>;
+  replayAnnotations: XingceResultItemView["annotations"];
   /** Figma 78:2 · 岸岸动作分析。 */
   analysisOpen: boolean;
   actionAnalysis: {
@@ -231,6 +236,9 @@ interface ReflectionPageCustom {
   openReplay(): void;
   closeReplay(): void;
   toggleReplayPlayback(): void;
+  seekReplay(event: WechatMiniprogram.CustomEvent<{ value: number }>): void;
+  onReplayScroll(event: WechatMiniprogram.ScrollViewScroll): void;
+  selectReplaySurface(event: WechatMiniprogram.BaseEvent): void;
   openActionAnalysis(): void;
   closeActionAnalysis(): void;
   toggleMoreEvidence(): void;
@@ -248,6 +256,7 @@ interface ReflectionRuntime {
   ownerUserId: string;
   sessionId: string;
   reviewId: string;
+  fallbackRoute: AppRoute;
   session: XingceTaskSession | null;
   selectedTags: Set<XingceReflectionTag>;
   selectedInterpretationQuestionIds: Set<string>;
@@ -295,6 +304,11 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     replaySummaryLabel: "",
     replayCurrentEvent: "",
     replayMarkers: [],
+    replayContentHeight: 1,
+    replayScrollTop: 0,
+    replaySurface: "question",
+    replaySurfaceOptions: [],
+    replayAnnotations: [],
     analysisOpen: false,
     actionAnalysis: null,
     rawText: "",
@@ -376,6 +390,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       ownerUserId: auth.userId,
       sessionId,
       reviewId,
+      fallbackRoute: options.returnTo === "mastery" ? routes.xingceMastery : routes.today,
       session: null,
       selectedTags: new Set(),
       selectedInterpretationQuestionIds: new Set(
@@ -479,7 +494,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       });
       if (!result.confirm) return;
     }
-    navigateBackOr(routes.today);
+    const runtime = runtimes.get(this);
+    navigateBackOr(runtime?.fallbackRoute ?? routes.today);
   },
 
   handleBack() {
@@ -655,6 +671,21 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       eraseCount > 0 ? `${String(eraseCount)} 次擦除` : "",
       changeCount > 0 ? `${String(changeCount)} 次回改` : "",
     ].filter(Boolean);
+    const questionAnnotations = item.annotations.filter(
+      (stroke) => stroke.surface !== "material" && !stroke.strokeId.startsWith("material-stroke-"),
+    );
+    const materialAnnotations = item.annotations.filter(
+      (stroke) => stroke.surface === "material" || stroke.strokeId.startsWith("material-stroke-"),
+    );
+    const surfaceOptions = [
+      ...(questionAnnotations.length > 0 || materialAnnotations.length === 0
+        ? [{ value: "question" as const, label: "题目" }]
+        : []),
+      ...(item.material && materialAnnotations.length > 0
+        ? [{ value: "material" as const, label: "材料" }]
+        : []),
+    ];
+    const replaySurface = surfaceOptions[0]?.value ?? "question";
     this.setData({
       replayOpen: true,
       analysisOpen: false,
@@ -673,6 +704,14 @@ Page<ReflectionPageData, ReflectionPageCustom>({
             ? ("warning" as const)
             : ("default" as const),
       })),
+      replayContentHeight: 1,
+      replayScrollTop: 0,
+      replaySurface,
+      replaySurfaceOptions: surfaceOptions,
+      replayAnnotations: replaySurface === "material" ? materialAnnotations : questionAnnotations,
+    });
+    wx.nextTick(() => {
+      measureReplayContent(this);
     });
   },
 
@@ -688,8 +727,45 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       return;
     }
     const restart = this.data.replayMs >= this.data.replayDurationMs;
-    this.setData({ replayPlaying: true, ...(restart ? { replayMs: 0 } : {}) });
+    if (restart) applyReplayPosition(this, 0);
+    this.setData({ replayPlaying: true });
     startReplayTimer(this);
+  },
+
+  seekReplay(event) {
+    stopReplayTimer(this);
+    this.setData({ replayPlaying: false });
+    applyReplayPosition(this, event.detail.value);
+  },
+
+  onReplayScroll(event) {
+    const scrollTop = event.detail.scrollTop;
+    if (Number.isFinite(scrollTop)) this.setData({ replayScrollTop: scrollTop });
+    const scrollHeight = event.detail.scrollHeight;
+    if (Number.isFinite(scrollHeight) && scrollHeight > 0) {
+      this.setData({ replayContentHeight: scrollHeight });
+    }
+  },
+
+  selectReplaySurface(event) {
+    const surface = String(event.currentTarget.dataset.surface ?? "question");
+    if (surface !== "question" && surface !== "material") return;
+    const item = this.data.activeReviewItem;
+    if (!item) return;
+    const replayAnnotations = item.annotations.filter((stroke) =>
+      surface === "material"
+        ? stroke.surface === "material" || stroke.strokeId.startsWith("material-stroke-")
+        : stroke.surface !== "material" && !stroke.strokeId.startsWith("material-stroke-"),
+    );
+    this.setData({
+      replaySurface: surface,
+      replayAnnotations,
+      replayContentHeight: 1,
+      replayScrollTop: 0,
+    });
+    wx.nextTick(() => {
+      measureReplayContent(this);
+    });
   },
 
   // Figma 78:2：从真实动作事实推导的可见轨迹描述，不判断“粗心”或“不会”。
@@ -1903,22 +1979,42 @@ function startReplayTimer(page: ReflectionPageInstance): void {
     }
     const duration = page.data.replayDurationMs;
     const next = Math.min(duration, page.data.replayMs + REPLAY_TICK_MS * 4);
-    const currentEvent = [...item.actionEvents]
-      .reverse()
-      .find((entry) => entry.atMs <= next && next - entry.atMs < 4000);
-    page.setData({
-      replayMs: next,
-      replayProgressPercent: duration > 0 ? Math.min(100, Math.round((next / duration) * 100)) : 0,
-      replayTimeLabel: `${formatReplayTime(next)} / ${formatReplayTime(duration)}`,
-      replayCurrentLabel: formatReplayTime(next),
-      replayCurrentEvent: currentEvent
-        ? `${formatReplayTime(currentEvent.atMs)} · ${actionEventText(currentEvent)}`
-        : "",
-      ...(next >= duration ? { replayPlaying: false } : {}),
-    });
+    applyReplayPosition(page, next);
+    if (next >= duration) page.setData({ replayPlaying: false });
     if (next >= duration) stopReplayTimer(page);
   }, REPLAY_TICK_MS);
   replayTimers.set(page, timer);
+}
+
+function applyReplayPosition(page: ReflectionPageInstance, milliseconds: number): void {
+  const item = page.data.activeReviewItem;
+  const duration = Math.max(0, page.data.replayDurationMs);
+  const next = Math.min(duration, Math.max(0, Number.isFinite(milliseconds) ? milliseconds : 0));
+  const currentEvent = item
+    ? [...item.actionEvents]
+        .reverse()
+        .find((entry) => entry.atMs <= next && next - entry.atMs < 4000)
+    : undefined;
+  page.setData({
+    replayMs: next,
+    replayProgressPercent: duration > 0 ? Math.min(100, Math.round((next / duration) * 100)) : 0,
+    replayTimeLabel: `${formatReplayTime(next)} / ${formatReplayTime(duration)}`,
+    replayCurrentLabel: formatReplayTime(next),
+    replayCurrentEvent: currentEvent
+      ? `${formatReplayTime(currentEvent.atMs)} · ${actionEventText(currentEvent)}`
+      : "",
+  });
+}
+
+function measureReplayContent(page: ReflectionPageInstance): void {
+  if (!page.data.replayOpen) return;
+  const query = page.createSelectorQuery();
+  query.select(".replay-body").fields({ size: true, scrollOffset: true });
+  query.exec((results: Array<{ height?: number; scrollHeight?: number } | null>) => {
+    if (!page.data.replayOpen) return;
+    const height = results[0]?.scrollHeight ?? results[0]?.height ?? 0;
+    if (Number.isFinite(height) && height > 0) page.setData({ replayContentHeight: height });
+  });
 }
 
 function stopReplayTimer(page: ReflectionPageInstance): void {

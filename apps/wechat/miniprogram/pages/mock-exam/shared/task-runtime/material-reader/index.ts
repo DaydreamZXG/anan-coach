@@ -38,6 +38,11 @@ interface MaterialReaderData {
   statusBarHeight: number;
   capsuleReserve: number;
   readPercent: number;
+  annotationOpen: boolean;
+  annotationStrokes: unknown;
+  annotationElapsedSeconds: number;
+  annotationElapsedMs: number;
+  annotationContentHeight: number;
 }
 
 interface MaterialReaderHost {
@@ -60,6 +65,11 @@ type MaterialReaderViewData = Omit<
   | "returnLabel"
   | "annotateAvailable"
   | "annotateActive"
+  | "inlineAnnotateButton"
+  | "annotationOpen"
+  | "annotationStrokes"
+  | "annotationElapsedSeconds"
+  | "annotationElapsedMs"
 >;
 
 const initialReaderData: MaterialReaderViewData = {
@@ -73,6 +83,7 @@ const initialReaderData: MaterialReaderViewData = {
   statusBarHeight: 0,
   capsuleReserve: 0,
   readPercent: 0,
+  annotationContentHeight: 0,
 };
 
 Component({
@@ -88,6 +99,11 @@ Component({
     returnLabel: { type: String, value: "" },
     annotateAvailable: { type: Boolean, value: false },
     annotateActive: { type: Boolean, value: false },
+    inlineAnnotateButton: { type: Boolean, value: false },
+    annotationOpen: { type: Boolean, value: false },
+    annotationStrokes: { type: null, value: [] },
+    annotationElapsedSeconds: { type: Number, value: 0 },
+    annotationElapsedMs: { type: Number, value: -1 },
     blocks: { type: null, value: [] },
     anchors: { type: null, value: [] },
     state: { type: Object, value: createMaterialReaderState() },
@@ -99,12 +115,17 @@ Component({
     },
     readerMode(mode: string) {
       if (mode === "fullscreen") this.measureInitialReadPercent();
+      this.measureAnnotationContent();
+    },
+    blocks() {
+      this.measureAnnotationContent();
     },
   },
   lifetimes: {
     attached() {
       this.setData(measureSystemChrome(8));
       syncReader(this);
+      this.measureAnnotationContent();
     },
   },
   methods: {
@@ -123,6 +144,30 @@ Component({
         scrollTop: event.detail.scrollTop,
       });
       this.measureReadPercent(event.detail.scrollTop, event.detail.scrollHeight);
+      if (
+        Number.isFinite(event.detail.scrollHeight) &&
+        Math.abs(event.detail.scrollHeight - this.data.annotationContentHeight) >= 1
+      ) {
+        this.setData({ annotationContentHeight: event.detail.scrollHeight });
+      }
+    },
+    measureAnnotationContent() {
+      wx.nextTick(() => {
+        const query = this.createSelectorQuery();
+        query
+          .select(
+            this.data.readerMode === "question_first"
+              ? ".material-reader__inline-body"
+              : ".material-reader__body",
+          )
+          .fields({ size: true, scrollOffset: true });
+        query.exec((results: Array<{ height?: number; scrollHeight?: number } | null>) => {
+          const height = results[0]?.scrollHeight ?? results[0]?.height ?? 0;
+          if (height > 0 && Math.abs(height - this.data.annotationContentHeight) >= 1) {
+            this.setData({ annotationContentHeight: height });
+          }
+        });
+      });
     },
     /** 打开沉浸阅读时先量一次，短材料立即显示真实的 100%。 */
     measureInitialReadPercent() {
@@ -212,6 +257,17 @@ Component({
     /** Figma 81:52：批注入口交给宿主页面打开题面批注层。 */
     requestAnnotate() {
       this.triggerEvent("annotate");
+    },
+    onAnnotationStrokesChange(
+      event: WechatMiniprogram.CustomEvent<{ strokes: unknown; action: "added" | "erased" }>,
+    ) {
+      this.triggerEvent("strokeschange", event.detail);
+    },
+    finishAnnotation() {
+      this.triggerEvent("annotatedone");
+    },
+    openAnnotationMore() {
+      this.triggerEvent("annotationmore");
     },
     stopPropagation() {},
   },

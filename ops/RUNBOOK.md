@@ -109,13 +109,13 @@
 - MyScript 必须同时配置精确 HTTPS 识别端点、host 白名单、provider/model/price 版本和已验收 deployment；`MYSCRIPT_APPLICATION_KEY` 与 `MYSCRIPT_HMAC_KEY` 只存在 API 主机的 root-only env，不进入小程序、日志或仓库。
 - 真实笔迹启用前，`processor_release_records` 必须对精确端点指纹、`handwriting_math_recognition` 用途和 `handwriting_strokes` 类别有效批准；现有 blocked 记录不可手工改成 approved，须追加有完整证据的新发布。
 
-## 申论多模型批改 worker
+## 申论批改 worker
 
-- `gongkao-dazi-essay-review-worker` 只允许执行三候选加盲仲裁的正式运行计划，不得改成单模型或静态结果兜底。
-- 启用前必须冻结带版本号的 `AI_ESSAY_GRADING_PLAN_RELEASE_ID`、Gemini/Grok/混元/仲裁四张精确价格卡、各供应商发布与幂等合同、混元云函数发布，以及独立 checkpoint 加密密钥。任一项缺失时保持 `ESSAY_REVIEW_WORKER_ENABLED=false` 且 unit disabled/inactive。
-- 配置完成后先在隔离环境直接构造 `GroundedEssayReviewWorker`，再设置 `ESSAY_REVIEW_WORKER_ENABLED=true`。worker 启动时会再次构造完整运行计划并失败关闭；不得通过注入 legacy provider 绕过。
+- 默认使用一个已配置的结构化评阅模型；只有显式配置了带版本号的 `AI_ESSAY_GRADING_PLAN_RELEASE_ID` 时，worker 才切换到多模型候选与盲仲裁。不再因为尚未配齐多模型而关闭整个评审功能。
+- 单模型模式仍须配置版本化 provider/model、HTTPS 端点、实际价格卡与 checkpoint 密钥；这些用来保证结果可恢复和成本可追溯，不要求用户二次确认。
+- 配置完成后先直接构造 `GroundedEssayReviewWorker`，再设置 `ESSAY_REVIEW_WORKER_ENABLED=true`；worker 启动时会重新验证当前模式。测试代码不得在生产环境注入伪 provider。
 - 常驻进程按 `ESSAY_REVIEW_WORKER_STALE_RECOVERY_SECONDS` 扫描历史 claim，并由领域 worker 原子回收；单次任务异常会写入正式失败/重试状态后进入下一轮，不手工修改 job。
-- 正式开放前必须保存真实四模型黄金集、checkpoint 中断恢复、失败退款、重复命令和重启后续跑的验收证据；只有 systemd active 不代表批改链可用。
+- 正式开放前保存一次真实评阅、checkpoint 中断恢复、失败退回额度和重启后续跑的验收证据；如启用多模型，再额外保存候选与仲裁黄金集。
 
 ## 私人资料与删除
 

@@ -140,7 +140,7 @@
             wx:key="paragraphId"
             class="segment-paragraph"
           >
-            <text class="segment-text" user-select>{{paragraph.displayText}}</text>
+            <text class="segment-text" user-select>{{paragraph.text}}</text>
           </view>
         </view>
       </view>

@@ -703,6 +703,24 @@ button.citation-sheet__close {
   font-weight: 700;
 }
 
+.library-inline-error__retry {
+  box-sizing: border-box;
+  min-height: calc(68 * var(--rpx));
+  margin: calc(16 * var(--rpx)) 0 0;
+  padding: 0 calc(24 * var(--rpx));
+  border: 0;
+  border-radius: var(--radius-capsule);
+  background: var(--color-action);
+  color: var(--color-on-primary);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  line-height: calc(68 * var(--rpx));
+}
+
+.library-inline-error__retry::after {
+  border: 0;
+}
+
 .citation-mask {
   position: fixed;
   inset: 0;

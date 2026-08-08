@@ -43,6 +43,8 @@ class CompanionContextRecord:
     consecutive_days: int | None = None
     xp: int | None = None
     learning_brain_profile: dict[str, object] | None = None
+    today_practice_answers: int = 0
+    today_wrong_answers: int = 0
 
 
 @dataclass(frozen=True)
@@ -116,8 +118,25 @@ class CompanionRepository:
                     select count(*)
                     from learner.practice_answers
                     where user_id = cast(:user_id as uuid)
+                      and answered_at >= date_trunc(
+                        'day', now() at time zone 'Asia/Shanghai'
+                      ) at time zone 'Asia/Shanghai'
+                  ) as today_practice_answers,
+                  (
+                    select count(*)
+                    from learner.practice_answers
+                    where user_id = cast(:user_id as uuid)
                       and correct = false
                   ) as wrong_answers,
+                  (
+                    select count(*)
+                    from learner.practice_answers
+                    where user_id = cast(:user_id as uuid)
+                      and correct = false
+                      and answered_at >= date_trunc(
+                        'day', now() at time zone 'Asia/Shanghai'
+                      ) at time zone 'Asia/Shanghai'
+                  ) as today_wrong_answers,
                   (
                     select count(*)
                     from learner.mock_exam_sessions
@@ -565,7 +584,9 @@ class CompanionRepository:
                 else None
             ),
             practice_answers=int(summary["practice_answers"]),
+            today_practice_answers=int(summary["today_practice_answers"]),
             wrong_answers=int(summary["wrong_answers"]),
+            today_wrong_answers=int(summary["today_wrong_answers"]),
             mock_exams=int(summary["mock_exams"]),
             latest_mock_score=(
                 float(summary["latest_mock_score"])

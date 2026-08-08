@@ -116,6 +116,9 @@ interface MockExamPageData {
   answerSheetOpen: boolean;
   draftOpen: boolean;
   annotationOpen: boolean;
+  annotationSurface: "" | "question" | "material";
+  questionAnnotations: AnnotationStroke[];
+  materialAnnotations: AnnotationStroke[];
   annotationSegments: AnchorSegmentRect[];
   questionScrollPosition: number;
   questionContentHeight: number;
@@ -171,8 +174,15 @@ interface MockExamPageCustom {
   toggleAnswerSheet(): void;
   toggleDraft(): void;
   openAnnotation(): void;
+  openMaterialAnnotation(): void;
   closeAnnotation(): void;
   changeAnnotations(
+    event: WechatMiniprogram.CustomEvent<{
+      strokes: AnnotationStroke[];
+      action: "added" | "erased";
+    }>,
+  ): void;
+  changeMaterialAnnotations(
     event: WechatMiniprogram.CustomEvent<{
       strokes: AnnotationStroke[];
       action: "added" | "erased";
@@ -281,6 +291,9 @@ Page<MockExamPageData, MockExamPageCustom>({
     answerSheetOpen: false,
     draftOpen: false,
     annotationOpen: false,
+    annotationSurface: "",
+    questionAnnotations: [] as AnnotationStroke[],
+    materialAnnotations: [] as AnnotationStroke[],
     annotationSegments: [] as AnchorSegmentRect[],
     questionScrollPosition: 0,
     questionContentHeight: 0,
@@ -678,6 +691,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     if (!runtime?.task || runtime.task.phase !== "answering" || this.data.interactionLocked) return;
     this.setData({
       annotationOpen: true,
+      annotationSurface: "question",
       answerSheetOpen: false,
       draftOpen: false,
       toolsOpen: false,
@@ -691,7 +705,27 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   closeAnnotation() {
-    this.setData({ annotationOpen: false });
+    this.setData({ annotationOpen: false, annotationSurface: "" });
+  },
+
+  openMaterialAnnotation() {
+    const runtime = runtimes.get(this);
+    if (
+      !runtime?.task ||
+      runtime.task.phase !== "answering" ||
+      this.data.interactionLocked ||
+      !this.data.question?.material
+    ) {
+      return;
+    }
+    this.setData({
+      annotationOpen: true,
+      annotationSurface: "material",
+      answerSheetOpen: false,
+      draftOpen: false,
+      toolsOpen: false,
+      helpOpen: false,
+    });
   },
 
   onQuestionScroll(event) {
@@ -728,7 +762,25 @@ Page<MockExamPageData, MockExamPageCustom>({
     markCurrentQuestionDirty(runtime);
     runtime.task = reduceTaskRuntime(runtime.task, {
       type: "ANNOTATIONS_CHANGED",
-      strokes: event.detail.strokes,
+      strokes: [...this.data.materialAnnotations, ...event.detail.strokes],
+      action: event.detail.action,
+    });
+    runtime.mutationVersion += 1;
+    applyRuntimeToPage(this, runtime, "待保存");
+    scheduleAutosave(this, runtime);
+  },
+
+  changeMaterialAnnotations(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime?.task || this.data.interactionLocked) return;
+    const materialStrokes = event.detail.strokes.map((stroke: AnnotationStroke) => ({
+      ...stroke,
+      surface: "material" as const,
+    }));
+    markCurrentQuestionDirty(runtime);
+    runtime.task = reduceTaskRuntime(runtime.task, {
+      type: "ANNOTATIONS_CHANGED",
+      strokes: [...this.data.questionAnnotations, ...materialStrokes],
       action: event.detail.action,
     });
     runtime.mutationVersion += 1;
@@ -1076,6 +1128,7 @@ function resetPageScroll(page: MockExamPageInstance): void {
     questionScrollTop: page.data.questionScrollTop === 0 ? 0.1 : 0,
     questionScrollPosition: 0,
     annotationOpen: false,
+    annotationSurface: "",
     annotationSegments: [],
   });
 }
@@ -1150,6 +1203,15 @@ function applyRuntimeToPage(
       active: index === task.currentQuestionIndex,
     };
   });
+  const annotations = attempt.annotations ?? [];
+  const questionAnnotations = annotations.filter(
+    (stroke) => stroke.surface !== "material" && !stroke.strokeId.startsWith("material-stroke-"),
+  );
+  const materialAnnotations = annotations
+    .filter(
+      (stroke) => stroke.surface === "material" || stroke.strokeId.startsWith("material-stroke-"),
+    )
+    .map((stroke) => ({ ...stroke, surface: "material" as const }));
   page.setData({
     status: "ready",
     showLoginAction: false,
@@ -1166,11 +1228,13 @@ function applyRuntimeToPage(
       })),
       marked: attempt.marked,
       draftText: attempt.draftText,
-      annotations: attempt.annotations ?? [],
+      annotations,
       elapsedSeconds: attempt.elapsedSeconds,
       elapsedMs: attempt.elapsedMs ?? attempt.elapsedSeconds * 1000,
       material,
     },
+    questionAnnotations,
+    materialAnnotations,
     current: task.currentQuestionIndex + 1,
     total: task.questionOrder.length,
     answered: counts.answered,

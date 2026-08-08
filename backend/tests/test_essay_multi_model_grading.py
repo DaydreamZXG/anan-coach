@@ -48,7 +48,7 @@ def test_formal_runtime_fails_closed_without_a_versioned_complete_plan() -> None
         EssayMultiModelRuntimePlan.from_settings(Settings())
 
 
-def test_production_forbids_single_model_worker_and_queue_overrides() -> None:
+def test_production_forbids_injected_worker_and_queue_overrides() -> None:
     settings = Settings(environment="production")
     with pytest.raises(ValueError, match="forbids single-model"):
         GroundedEssayReviewWorker(settings=settings, provider=object())  # type: ignore[arg-type]
@@ -60,6 +60,28 @@ def test_production_forbids_single_model_worker_and_queue_overrides() -> None:
                 model="single-model",
             ),
         )
+
+
+def test_production_defaults_to_the_validated_single_review_provider_without_a_plan() -> None:
+    settings = Settings(
+        environment="production",
+        ai_provider_base_url="https://approved.example/v1",
+        ai_api_key="provider-secret",
+        ai_essay_review_model="approved-model",
+        ai_essay_review_provider_release_id="essay-review-release-v1",
+        ai_essay_review_provider_https_host_allowlist="approved.example",
+        ai_essay_review_provider_idempotency_capability="replayable_queryable",
+        ai_essay_review_provider_idempotency_key_header="X-Idempotency-Key",
+        ai_essay_review_provider_request_id_header="X-Request-Id",
+        ai_essay_review_provider_replay_retention_seconds=604_800,
+        ai_essay_review_max_input_bytes=10_000_000,
+        ai_essay_review_max_output_bytes=1_000_000,
+    )
+
+    identity = EssayReviewWorkflowService(settings=settings)._review_execution_identity()
+
+    assert identity.provider == "openai_compatible@essay-review-release-v1"
+    assert identity.model == "approved-model"
 
 
 def test_identical_independent_candidates_resolve_without_averaging() -> None:

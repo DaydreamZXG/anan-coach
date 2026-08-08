@@ -14,6 +14,10 @@ from app.domains.commerce.repository import (
 )
 from app.domains.commerce.service import CommerceService
 from app.domains.essay_intelligence.grounding import review_input_fingerprint
+from app.domains.essay_intelligence.grounded_provider import (
+    GroundedEssayReviewProvider,
+    GroundedReviewProviderConfigurationError,
+)
 from app.domains.essay_intelligence.multi_model_runtime import (
     EssayMultiModelRuntimeConfigurationError,
     EssayMultiModelRuntimePlan,
@@ -1143,6 +1147,18 @@ class EssayReviewWorkflowService:
     def _review_execution_identity(self) -> EssayReviewExecutionIdentity:
         if self._execution_identity_override is not None:
             return self._execution_identity_override
+        if not self._settings.ai_essay_grading_plan_release_id.strip():
+            try:
+                provider = GroundedEssayReviewProvider(self._settings)
+                provider.validate_configuration()
+                return EssayReviewExecutionIdentity(
+                    provider=provider.provider_name,
+                    model=provider.model,
+                )
+            except GroundedReviewProviderConfigurationError as exc:
+                raise EssayWorkflowContractError(
+                    "Essay review provider is not configured"
+                ) from exc
         try:
             return EssayMultiModelRuntimePlan.from_settings(self._settings).execution_identity
         except EssayMultiModelRuntimeConfigurationError as exc:

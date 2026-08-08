@@ -851,6 +851,7 @@
 
 /* 底栏 2:199 是列布局的最后一段，不参与滚动也不覆盖正文。 */
 .task-shell--xingce .task-footer {
+  box-sizing: border-box;
   position: relative;
   right: auto;
   bottom: auto;

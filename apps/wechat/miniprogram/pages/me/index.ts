@@ -441,6 +441,18 @@ Page({
     void wx.navigateTo({ url: routes.privateKnowledge });
   },
 
+  openCommunity() {
+    void wx.navigateTo({ url: routes.communityTrial });
+  },
+
+  openCommunityContributions() {
+    void wx.navigateTo({ url: routes.communityContributions });
+  },
+
+  openMembership() {
+    void wx.navigateTo({ url: routes.membership });
+  },
+
   openLearningPackets() {
     void wx.navigateTo({ url: routes.learningPackets });
   },

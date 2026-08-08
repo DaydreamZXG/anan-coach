@@ -44,12 +44,15 @@ import {
 } from "./shared/features/xingce/real_attempt/presentation";
 import {
   clearPendingXingceCheckpoint,
+  clearLocalXingceCheckpointDraft,
   clearPendingXingceStart,
   clearPendingXingceSubmit,
   loadPendingXingceCheckpoint,
+  loadLocalXingceCheckpointDraft,
   loadPendingXingceStart,
   loadPendingXingceSubmit,
   storePendingXingceCheckpoint,
+  storeLocalXingceCheckpointDraft,
   storePendingXingceStart,
   storePendingXingceSubmit,
 } from "./shared/features/xingce/real_attempt/pending-store";
@@ -132,6 +135,9 @@ interface PracticePageData {
   ananContextOpen: boolean;
   /** Figma 70:2：题面批注模式。 */
   annotationOpen: boolean;
+  annotationSurface: "" | "question" | "material";
+  questionAnnotations: AnnotationStroke[];
+  materialAnnotations: AnnotationStroke[];
   /** 契约增量 v2：当前题干句段的视口矩形表，喂给批注层做锚定与滚动跟随。 */
   annotationSegments: AnchorSegmentRect[];
   /** 契约增量 v2：题干实时 scrollTop，驱动批注绘制换算（与受控 scroll-top 分离）。 */
@@ -199,8 +205,15 @@ interface PracticePageCustom {
   openAnanContext(): void;
   closeAnanContext(): void;
   openAnnotation(): void;
+  openMaterialAnnotation(): void;
   closeAnnotation(): void;
   changeAnnotations(
+    event: WechatMiniprogram.CustomEvent<{
+      strokes: AnnotationStroke[];
+      action: "added" | "erased";
+    }>,
+  ): void;
+  changeMaterialAnnotations(
     event: WechatMiniprogram.CustomEvent<{
       strokes: AnnotationStroke[];
       action: "added" | "erased";
@@ -320,6 +333,9 @@ Page<PracticePageData, PracticePageCustom>({
     questionTransition: "",
     ananContextOpen: false,
     annotationOpen: false,
+    annotationSurface: "",
+    questionAnnotations: [] as AnnotationStroke[],
+    materialAnnotations: [] as AnnotationStroke[],
     annotationSegments: [] as AnchorSegmentRect[],
     questionScrollPosition: 0,
     questionContentHeight: 0,
@@ -413,6 +429,8 @@ Page<PracticePageData, PracticePageCustom>({
   },
 
   onUnload() {
+    const runtime = runtimes.get(this);
+    if (runtime?.task) flushLocalCheckpoint(this, runtime);
     runtimes.detach(this);
   },
 
@@ -644,6 +662,7 @@ Page<PracticePageData, PracticePageCustom>({
     if (!runtime?.session || runtime.session.state !== "answering") return;
     this.setData({
       annotationOpen: true,
+      annotationSurface: "question",
       toolsOpen: false,
       helpOpen: false,
       disputeOpen: false,
@@ -657,7 +676,23 @@ Page<PracticePageData, PracticePageCustom>({
   },
 
   closeAnnotation() {
-    this.setData({ annotationOpen: false });
+    this.setData({ annotationOpen: false, annotationSurface: "" });
+  },
+
+  openMaterialAnnotation() {
+    const runtime = runtimes.get(this);
+    if (!runtime?.session || runtime.session.state !== "answering") return;
+    this.setData({
+      annotationOpen: true,
+      annotationSurface: "material",
+      toolsOpen: false,
+      helpOpen: false,
+      disputeOpen: false,
+      draftOpen: false,
+      answerSheetOpen: false,
+      ananContextOpen: false,
+      selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
+    });
   },
 
   // 契约增量 v2：内容坐标系下滚动天然跟随 —— 只把 scrollTop 传给批注层做
@@ -700,7 +735,23 @@ Page<PracticePageData, PracticePageCustom>({
     if (!runtime?.task || this.data.interactionLocked) return;
     runtime.task = reduceTaskRuntime(runtime.task, {
       type: "ANNOTATIONS_CHANGED",
-      strokes: event.detail.strokes,
+      strokes: [...this.data.materialAnnotations, ...event.detail.strokes],
+      action: event.detail.action,
+    });
+    render(this, runtime);
+    void autosaveCheckpoint(this, runtime);
+  },
+
+  changeMaterialAnnotations(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime?.task || this.data.interactionLocked) return;
+    const materialStrokes = event.detail.strokes.map((stroke: AnnotationStroke) => ({
+      ...stroke,
+      surface: "material" as const,
+    }));
+    runtime.task = reduceTaskRuntime(runtime.task, {
+      type: "ANNOTATIONS_CHANGED",
+      strokes: [...this.data.questionAnnotations, ...materialStrokes],
       action: event.detail.action,
     });
     render(this, runtime);
@@ -1325,6 +1376,7 @@ Page<PracticePageData, PracticePageCustom>({
       text: event.detail.value,
     });
     render(this, runtime);
+    void autosaveCheckpoint(this, runtime);
   },
 
   toggleMathInk() {
@@ -1590,6 +1642,7 @@ function applySession(
   const retryablePending = session.state === "answering" ? pending : null;
   if (pending && !retryablePending) {
     clearPendingXingceCheckpoint(runtime.ownerUserId, session.sessionId);
+    clearLocalXingceCheckpointDraft(runtime.ownerUserId, session.sessionId);
   }
   runtime.task =
     localOverride ??
@@ -1701,6 +1754,14 @@ function render(
     errorTitle: "",
     errorMessage: "",
     view,
+    questionAnnotations: view.question.annotations.filter(
+      (stroke) => stroke.surface !== "material" && !stroke.strokeId.startsWith("material-stroke-"),
+    ),
+    materialAnnotations: view.question.annotations
+      .filter(
+        (stroke) => stroke.surface === "material" || stroke.strokeId.startsWith("material-stroke-"),
+      )
+      .map((stroke) => ({ ...stroke, surface: "material" as const })),
     sessionState: runtime.session.state,
     canSubmit: runtime.session.state === "answering",
     answerSheetItems,
@@ -2043,6 +2104,8 @@ async function saveCheckpoint(
   conflictRetry = true,
 ): Promise<void> {
   if (!runtime.api || !runtime.task || !runtime.session || runtime.saveInFlight) return;
+  runtime.localCheckpointDirty = true;
+  flushLocalCheckpoint(page, runtime);
   const api = runtime.api;
   const ownerUserId = runtime.ownerUserId;
   const sessionId = runtime.session.sessionId;
@@ -2074,6 +2137,7 @@ async function saveCheckpoint(
     );
     commandConfirmed = true;
     clearPendingXingceCheckpoint(ownerUserId, pending.sessionId);
+    clearLocalXingceCheckpointDraft(ownerUserId, pending.sessionId);
     if (!runtimes.owns(page, runtime)) return;
     if (!currentAccountOwns(runtime)) {
       invalidateForAccountChange(page, runtime);
@@ -2114,6 +2178,7 @@ async function saveCheckpoint(
       if (!runtimes.owns(page, runtime)) return;
       clearPendingXingceCheckpoint(ownerUserId, sessionId);
       if (resolved.conflictChoice === "use_server" || current.data.state !== "answering") {
+        clearLocalXingceCheckpointDraft(ownerUserId, sessionId);
         page.setData({ hasPendingCheckpoint: false, pendingCheckpointMessage: "" });
         applySession(page, runtime, current.data);
         return;
@@ -2156,23 +2221,28 @@ async function acquireEditingForSession(
   }
   if (!runtime.editingApi) throw new Error("设备编辑权服务没有初始化");
   const pending = loadPendingXingceCheckpoint(runtime.ownerUserId, session.sessionId);
+  const localDraft = loadLocalXingceCheckpointDraft(runtime.ownerUserId, session.sessionId);
+  const localCommand = localDraft?.command ?? pending?.command ?? null;
   const ownership = await acquireTaskEditOwnership(
     runtime.editingApi,
     "xingce_task_session",
     session.sessionId,
-    pending?.command.expectedRevision ?? session.revision,
-    pending !== null,
+    localCommand?.expectedRevision ?? session.revision,
+    localCommand !== null,
   );
   runtime.editOwnership = ownership;
   if (ownership.conflictChoice === "use_server") {
     clearPendingXingceCheckpoint(runtime.ownerUserId, session.sessionId);
+    clearLocalXingceCheckpointDraft(runtime.ownerUserId, session.sessionId);
     return null;
   }
-  if (ownership.conflictChoice === "use_this_device" && pending) {
+  if (localCommand) {
     clearPendingXingceCheckpoint(runtime.ownerUserId, session.sessionId);
-    const local = runtimeWithPendingCheckpoint(session, pending.command);
+    const local = runtimeWithPendingCheckpoint(session, localCommand);
     storePendingXingceCheckpoint(runtime.ownerUserId, {
-      ...pending,
+      kind: "checkpoint",
+      planTaskId: session.planTaskId,
+      sessionId: session.sessionId,
       idempotencyKey: await createIdempotencyKey("xingce-save-resolved"),
       command: checkpointCommand(local),
     });
@@ -2193,9 +2263,11 @@ function requiredEditToken(runtime: NonNullable<ReturnType<typeof runtimes.get>>
 async function autosaveCheckpoint(
   page: PracticePageInstance,
   runtime: NonNullable<ReturnType<typeof runtimes.get>>,
-  options: { leaving?: boolean } = {},
+  options: { leaving?: boolean; captureLocal?: boolean } = {},
 ): Promise<void> {
   if (!runtime.task) return;
+  if (options.captureLocal !== false) scheduleLocalCheckpoint(page, runtime);
+  if (options.leaving) flushLocalCheckpoint(page, runtime);
   const decision = decideAutosave(runtime.task, {
     saveInFlight: runtime.saveInFlight,
     lastSavedElapsedSeconds: runtime.lastAutosaveElapsedSeconds,
@@ -2228,7 +2300,7 @@ function startTimer(
     runtime.lastTickAtMs = now;
     runtime.task = reduceTaskRuntime(runtime.task, { type: "TICK", seconds: 1, ms });
     renderTimerTick(page, runtime);
-    void autosaveCheckpoint(page, runtime);
+    void autosaveCheckpoint(page, runtime, { captureLocal: false });
   }, 1_000);
 }
 
@@ -2299,6 +2371,49 @@ function renderRuntimeStatusLeaves(
 function stopTimer(runtime: NonNullable<ReturnType<typeof runtimes.get>>): void {
   if (runtime.timerHandle !== undefined) clearInterval(runtime.timerHandle);
   runtime.timerHandle = undefined;
+}
+
+const LOCAL_CHECKPOINT_DEBOUNCE_MS = 250;
+
+function scheduleLocalCheckpoint(
+  page: PracticePageInstance,
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+): void {
+  runtime.localCheckpointDirty = true;
+  if (runtime.localCheckpointTimer !== undefined) clearTimeout(runtime.localCheckpointTimer);
+  runtime.localCheckpointTimer = setTimeout(() => {
+    runtime.localCheckpointTimer = undefined;
+    if (runtimes.owns(page, runtime)) flushLocalCheckpoint(page, runtime);
+  }, LOCAL_CHECKPOINT_DEBOUNCE_MS);
+}
+
+function flushLocalCheckpoint(
+  page: PracticePageInstance,
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+): void {
+  if (!runtime.task || !runtime.session || !runtime.localCheckpointDirty) return;
+  if (runtime.localCheckpointTimer !== undefined) clearTimeout(runtime.localCheckpointTimer);
+  runtime.localCheckpointTimer = undefined;
+  let command: ReturnType<typeof checkpointCommand>;
+  try {
+    command = checkpointCommand(runtime.task);
+  } catch {
+    return;
+  }
+  const stored = storeLocalXingceCheckpointDraft(runtime.ownerUserId, {
+    kind: "checkpoint_draft",
+    planTaskId: runtime.planTaskId,
+    sessionId: runtime.session.sessionId,
+    command,
+  });
+  if (stored) {
+    runtime.localCheckpointDirty = false;
+    return;
+  }
+  if (!runtime.localCheckpointWarningShown && runtimes.owns(page, runtime)) {
+    runtime.localCheckpointWarningShown = true;
+    void wx.showToast({ title: "本机空间不足，请尽快保存", icon: "none" });
+  }
 }
 
 function handlePageError(page: PracticePageInstance, error: unknown, title: string): void {

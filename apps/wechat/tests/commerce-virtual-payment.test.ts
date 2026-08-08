@@ -127,10 +127,12 @@ describe("WeChat virtual payment", () => {
     expect(membershipSource).not.toContain("requestWechatPayment");
   });
 
-  it("keeps paid code private while purchase is unavailable", () => {
-    expect(meTemplate).not.toContain("会员与保障");
-    expect(meTemplate).not.toContain("openMembership");
+  it("opens a public-beta explanation without exposing a purchase action", () => {
+    expect(meTemplate).toContain("openMembership");
+    expect(meTemplate).toContain("当前免费");
     expect(membershipTemplate).toContain("当前不需要开通会员");
+    expect(membershipTemplate).toContain("公测期免费使用");
+    expect(membershipTemplate).toContain("7 折创始价");
     expect(membershipTemplate).not.toContain("冷启动");
     expect(membershipTemplate).not.toContain("全功能免费");
     expect(membershipTemplate).toContain('wx:elif="{{freeColdStart}}"');

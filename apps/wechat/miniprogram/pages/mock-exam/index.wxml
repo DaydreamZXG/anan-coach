@@ -78,8 +78,19 @@
         blocks="{{question.material.content}}"
         anchors="{{question.material.anchors}}"
         state="{{materialReaderState}}"
+        annotateAvailable="{{true}}"
+        inlineAnnotateButton="{{true}}"
+        annotateActive="{{annotationSurface === 'material'}}"
+        annotationOpen="{{annotationSurface === 'material'}}"
+        annotationStrokes="{{materialAnnotations}}"
+        annotationElapsedSeconds="{{question.elapsedSeconds}}"
+        annotationElapsedMs="{{question.elapsedMs || -1}}"
         bindstatechange="updateMaterialReaderState"
         bindpositionchange="updateMaterialPosition"
+        bindannotate="openMaterialAnnotation"
+        bindstrokeschange="changeMaterialAnnotations"
+        bindannotatedone="closeAnnotation"
+        bindannotationmore="toggleTools"
       />
 
       <!-- 题目舞台同时承载滚动题面与草稿层；平板双栏时草稿不会再伸进左侧材料栏。 -->
@@ -171,8 +182,8 @@
       <!-- 与行测练习页共用的题面草稿：同一组件、同一笔迹契约、同一检查点保存链路。 -->
       <view class="mock-annotation-host {{annotationOpen ? 'mock-annotation-host--active' : ''}}">
         <annotation-layer
-          mode="{{annotationOpen ? 'annotate' : (question.annotations.length ? 'static' : 'hidden')}}"
-          strokes="{{question.annotations}}"
+          mode="{{annotationSurface === 'question' ? 'annotate' : (questionAnnotations.length ? 'static' : 'hidden')}}"
+          strokes="{{questionAnnotations}}"
           elapsedSeconds="{{question.elapsedSeconds}}"
           elapsedMs="{{question.elapsedMs || -1}}"
           segments="{{annotationSegments}}"

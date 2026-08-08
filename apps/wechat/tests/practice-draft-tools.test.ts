@@ -363,6 +363,23 @@ describe("practice drawable draft tools", () => {
     expect(detail.strokes[0]?.points[0]).toEqual(expect.objectContaining({ x: 0.25, y: 0.1 }));
     expect(detail.strokes[0]?.points[1]).toEqual(expect.objectContaining({ x: 0.35, y: 0.2 }));
   });
+
+  it("keeps a tap or very short handwriting stroke instead of swallowing it", async () => {
+    const definition = await captureAnnotationComponent();
+    const triggerEvent = vi.fn();
+    const host = annotationObserverHost(definition, { mode: "annotate" }, drawableCanvasContext());
+    host.triggerEvent = triggerEvent;
+    definition.observers["mode, strokes, replayMs"].call(host);
+    host.data.tool = "pen";
+
+    definition.methods.onTouchStart.call(host, clientTouch(80, 140));
+    definition.methods.onTouchEnd.call(host);
+
+    const detail = triggerEvent.mock.calls.at(-1)?.[1] as { strokes: AnnotationStroke[] };
+    expect(detail.strokes).toHaveLength(1);
+    expect(detail.strokes[0]?.points).toHaveLength(2);
+    expect(detail.strokes[0]?.points[1]?.t).toBeGreaterThanOrEqual(1);
+  });
 });
 
 async function captureAnnotationComponent(

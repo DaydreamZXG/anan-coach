@@ -180,6 +180,42 @@ def test_action_trace_collects_anchored_segments_in_stroke_order_and_dedupes(
     assert trace["evidenceRefs"] == [f"action-trace:{first}"]
 
 
+def test_action_trace_keeps_question_and_material_scratch_surfaces_distinct(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _client_obj, _auth, submitted, question_ids = _submitted_attempt_with_trace(
+        db_session_factory,
+        token="cause-material-surface-token",
+        first_question_annotations=[
+            {
+                "strokeId": "stroke-question-1",
+                "tool": "pen",
+                "width": 0.01,
+                "surface": "question",
+                "points": [{"x": 0.1, "y": 0.2}, {"x": 0.2, "y": 0.3}],
+                "atMs": 2_000,
+            },
+            {
+                "strokeId": "material-stroke-1",
+                "tool": "highlighter",
+                "width": 0.05,
+                "surface": "material",
+                "points": [{"x": 0.4, "y": 0.5}, {"x": 0.6, "y": 0.5}],
+                "atMs": 4_000,
+            },
+        ],
+    )
+    session_id = str(submitted["sessionId"])
+    with db_session_factory() as session:
+        trace = _tools(session, session_id).load_action_trace(_scope(session, session_id))
+
+    first = next(item for item in trace["items"] if item["questionId"] == question_ids[0])
+    assert first["annotationSummary"]["surfaceCounts"] == {
+        "question": 1,
+        "material": 1,
+    }
+
+
 def test_ink_formula_tool_returns_current_confirmed_and_candidate_heads(
     db_session_factory: sessionmaker[Session],
 ) -> None:

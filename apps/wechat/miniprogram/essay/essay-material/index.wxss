@@ -62,7 +62,7 @@
 }
 
 .material-paragraph {
-  padding: var(--figma-space-12) 0;
+  padding: var(--figma-space-8) 0;
   scroll-margin-top: calc(180 * var(--rpx));
 }
 
@@ -77,17 +77,20 @@
 
 .material-paragraph__text {
   display: block;
+  min-width: 0;
   color: var(--color-ink);
   font-family: var(--font-family-reading);
   font-size: var(--text-body-lg);
   letter-spacing: calc(0.5 * var(--rpx));
   line-height: 1.95;
+  overflow-wrap: anywhere;
   text-align: justify;
   text-indent: 2em;
+  word-break: normal;
 }
 
 .material-paragraph + .material-paragraph {
-  margin-top: var(--figma-space-8);
+  margin-top: var(--figma-space-4);
 }
 
 .material-annotation {

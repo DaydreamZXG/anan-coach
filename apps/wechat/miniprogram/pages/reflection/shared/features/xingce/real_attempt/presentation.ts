@@ -713,6 +713,7 @@ function presentResultItem(
     explanationSource: explanationSourceLabel(item.explanationSource),
     annotations: (answer?.annotations ?? []).map((stroke) => ({
       strokeId: stroke.strokeId,
+      surface: stroke.surface ?? "question",
       tool: stroke.tool,
       width: stroke.width,
       points: stroke.points.map((point) => ({
@@ -720,11 +721,21 @@ function presentResultItem(
         y: point.y,
         // 契约增量 v1：逐点毫秒偏移随回放数据透传。
         ...(point.t !== undefined && point.t !== null ? { t: point.t } : {}),
+        ...(point.p !== undefined && point.p !== null ? { p: point.p } : {}),
       })),
       atMs: stroke.atMs,
       // 契约增量 v1：擦除墓碑透传，回放在 replayMs >= erasedAtMs 时让笔画消失。
       ...(stroke.erasedAtMs !== undefined && stroke.erasedAtMs !== null
         ? { erasedAtMs: stroke.erasedAtMs }
+        : {}),
+      ...(stroke.anchor
+        ? {
+            anchor: {
+              blockId: stroke.anchor.blockId,
+              segmentIndex: stroke.anchor.segmentIndex,
+              segmentText: stroke.anchor.segmentText,
+            },
+          }
         : {}),
     })),
     actionEvents: (answer?.actionEvents ?? []).map((entry) => ({

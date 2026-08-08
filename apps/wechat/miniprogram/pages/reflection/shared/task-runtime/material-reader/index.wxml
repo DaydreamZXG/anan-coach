@@ -3,6 +3,13 @@
     wx:if="{{readerMode === 'question_first'}}"
     class="material-reader__inline material-reader__inline--{{preferences.colorMode}}"
   >
+    <button
+      wx:if="{{annotateAvailable && inlineAnnotateButton}}"
+      hover-class="item--hover"
+      class="material-reader__inline-annotate {{annotationOpen || annotateActive ? 'material-reader__inline-annotate--active' : ''}}"
+      aria-label="在材料上写草稿"
+      bindtap="requestAnnotate"
+    >✎ 材料</button>
     <view wx:if="{{inlineHeaderAvailable}}" class="material-reader__inline-header">
       <view class="material-reader__inline-heading">
         <view class="material-reader__inline-kicker">共享材料</view>
@@ -46,6 +53,20 @@
         </view>
       </view>
     </scroll-view>
+    <view class="material-reader__annotation-host">
+      <annotation-layer
+        mode="{{annotationOpen ? 'annotate' : (annotationStrokes.length ? 'static' : 'hidden')}}"
+        strokes="{{annotationStrokes}}"
+        elapsedSeconds="{{annotationElapsedSeconds}}"
+        elapsedMs="{{annotationElapsedMs}}"
+        scroll-top="{{position.scrollTop}}"
+        content-height="{{annotationContentHeight}}"
+        strokePrefix="material-stroke"
+        bindstrokeschange="onAnnotationStrokesChange"
+        binddone="finishAnnotation"
+        bindmore="openAnnotationMore"
+      />
+    </view>
   </view>
 
   <!--
@@ -93,6 +114,21 @@
       </view>
     </scroll-view>
 
+    <view class="material-reader__annotation-host material-reader__annotation-host--fullscreen">
+      <annotation-layer
+        mode="{{annotationOpen ? 'annotate' : (annotationStrokes.length ? 'static' : 'hidden')}}"
+        strokes="{{annotationStrokes}}"
+        elapsedSeconds="{{annotationElapsedSeconds}}"
+        elapsedMs="{{annotationElapsedMs}}"
+        scroll-top="{{position.scrollTop}}"
+        content-height="{{annotationContentHeight}}"
+        strokePrefix="material-stroke"
+        bindstrokeschange="onAnnotationStrokesChange"
+        binddone="finishAnnotation"
+        bindmore="openAnnotationMore"
+      />
+    </view>
+
     <view class="material-reader__progress" aria-label="已读 {{readPercent}}%">
       <view class="material-reader__progress-dot" aria-hidden="true"></view>
       <text>已读 {{readPercent}}%</text>
@@ -117,7 +153,7 @@
       </button>
       <button hover-class="item--hover"
         wx:if="{{annotateAvailable}}"
-        class="material-reader__dock-tool {{annotateActive ? 'material-reader__dock-tool--active' : ''}}"
+        class="material-reader__dock-tool {{annotationOpen || annotateActive ? 'material-reader__dock-tool--active' : ''}}"
         aria-label="批注材料"
         bindtap="requestAnnotate"
       >

@@ -148,11 +148,17 @@
 
 .prompt-text,
 .segment-paragraph {
+  min-width: 0;
   color: var(--color-ink-secondary);
   font-family: var(--font-family-reading);
   font-size: var(--text-body-lg);
   line-height: 1.9;
+  overflow-wrap: anywhere;
   text-align: justify;
+}
+
+.segment-paragraph {
+  text-indent: 2em;
 }
 
 .segment-text {
@@ -160,7 +166,7 @@
 }
 
 .segment-paragraph + .segment-paragraph {
-  margin-top: calc(8 * var(--rpx));
+  margin-top: calc(4 * var(--rpx));
 }
 
 .requirement-box {

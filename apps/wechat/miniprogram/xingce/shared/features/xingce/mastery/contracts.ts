@@ -94,7 +94,7 @@ export function masteryQueueActionTarget(
     ) {
       return null;
     }
-    return registeredNavigationTarget(item.action.startUrl);
+    return registeredNavigationTarget(`${item.action.startUrl}&returnTo=mastery`);
   }
 
   if (item.bucket === "due_verification") {

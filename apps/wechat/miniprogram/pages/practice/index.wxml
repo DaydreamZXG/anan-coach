@@ -62,6 +62,15 @@
             </view>
             <view class="practice-material-actions">
               <button
+                class="practice-material-action practice-material-action--annotate {{annotationSurface === 'material' ? 'practice-material-action--active' : ''}}"
+                hover-class="item--hover"
+                disabled="{{interactionLocked}}"
+                aria-label="在材料上写草稿"
+                bindtap="openMaterialAnnotation"
+              >
+                <text class="practice-material-annotate-glyph" aria-hidden="true">✎</text>
+              </button>
+              <button
                 class="practice-material-action practice-material-action--collapse"
                 hover-class="item--hover"
                 disabled="{{interactionLocked}}"
@@ -89,7 +98,17 @@
             blocks="{{view && view.question && view.question.material && view.question.material.content ? view.question.material.content : emptyRichContentBlocks}}"
             anchors="{{view && view.question && view.question.material && view.question.material.anchors ? view.question.material.anchors : emptyContentAnchors}}"
             state="{{materialReaderState}}"
+            annotateAvailable="{{true}}"
+            annotateActive="{{annotationSurface === 'material'}}"
+            annotationOpen="{{annotationSurface === 'material'}}"
+            annotationStrokes="{{materialAnnotations}}"
+            annotationElapsedSeconds="{{view.question.elapsedSeconds}}"
+            annotationElapsedMs="{{view.question.elapsedMs || -1}}"
             bindstatechange="updateMaterialReader"
+            bindannotate="openMaterialAnnotation"
+            bindstrokeschange="changeMaterialAnnotations"
+            bindannotatedone="closeAnnotation"
+            bindannotationmore="openTaskTools"
           />
         </view>
 
@@ -218,8 +237,8 @@
         <!-- 草稿直接覆盖在题面上；非绘写时已有笔迹静态显示且触摸穿透。 -->
         <view class="practice-annotation-host {{annotationOpen ? 'practice-annotation-host--active' : ''}}">
           <annotation-layer
-            mode="{{annotationOpen ? 'annotate' : (view.question.annotations.length ? 'static' : 'hidden')}}"
-            strokes="{{view.question.annotations}}"
+            mode="{{annotationSurface === 'question' ? 'annotate' : (questionAnnotations.length ? 'static' : 'hidden')}}"
+            strokes="{{questionAnnotations}}"
             elapsedSeconds="{{view.question.elapsedSeconds}}"
             elapsedMs="{{view.question.elapsedMs || -1}}"
             segments="{{annotationSegments}}"
