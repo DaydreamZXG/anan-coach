@@ -639,7 +639,7 @@ with __import__("psycopg").connect(database_url, autocommit=True) as connection:
     environment["MIGRATION_DATABASE_URL"] = _database_url(db_engine)
     process = subprocess.Popen(
         [
-            str(REPOSITORY_ROOT / "backend" / ".venv" / "bin" / "python"),
+            sys.executable,
             str(SCRIPT_PATH),
             "exec-exclusive",
             "--request-digest",
@@ -647,9 +647,9 @@ with __import__("psycopg").connect(database_url, autocommit=True) as connection:
             "--ready-file",
             str(ready),
             "--",
-            str(REPOSITORY_ROOT / "backend" / ".venv" / "bin" / "python"),
+            sys.executable,
             str(controller),
-            str(REPOSITORY_ROOT / "backend" / ".venv" / "bin" / "python"),
+            sys.executable,
             str(SCRIPT_PATH),
             str(first_mutation),
             _libpq_url(db_engine),

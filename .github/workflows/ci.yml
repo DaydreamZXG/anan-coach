@@ -30,8 +30,8 @@ jobs:
         image: postgres:17
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
         ports:
           - 5432:5432
         options: >-
@@ -57,17 +57,13 @@ jobs:
           cache-dependency-path: apps/wechat/package-lock.json
       - run: npm ci
         working-directory: apps/wechat
-      - name: Configure isolated PostgreSQL test tools and credentials
+      - name: Expose isolated PostgreSQL test tools
         shell: bash
         run: |
           postgres_bindir="$(pg_config --bindir)"
           test -x "$postgres_bindir/initdb"
           test -x "$postgres_bindir/pg_ctl"
           echo "$postgres_bindir" >> "$GITHUB_PATH"
-          pgpass_file="$RUNNER_TEMP/anan-ci.pgpass"
-          printf '127.0.0.1:5432:postgres:postgres:postgres\n' > "$pgpass_file"
-          chmod 600 "$pgpass_file"
-          echo "PGPASSFILE=$pgpass_file" >> "$GITHUB_ENV"
       - run: scripts/verify_backend.sh
 
   wechat:
