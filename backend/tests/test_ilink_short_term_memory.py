@@ -3,9 +3,13 @@ from __future__ import annotations
 from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
+import pytest
 from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
+from app.domains.ilink_channel import hub_bridge
+from app.domains.ilink_channel.hub_bridge import HubBridgeEvent
 from app.domains.ilink_channel.short_term_memory import ILinkShortTermMemory
 
 
@@ -125,3 +129,161 @@ def test_account_disable_erases_short_term_memory(db_session: Session) -> None:
         ),
         {"user_id": str(USER_A)},
     ).scalar_one() == 0
+
+
+class _NestedTransaction:
+    def __enter__(self) -> None:
+        return None
+
+    def __exit__(self, *args: object) -> None:
+        del args
+
+
+class _NestedSession:
+    def begin_nested(self) -> _NestedTransaction:
+        return _NestedTransaction()
+
+
+class _FailingMemory:
+    def __init__(self, session: object) -> None:
+        del session
+
+    def recent_messages(self, *, user_id: UUID) -> tuple[()]:
+        del user_id
+        raise SQLAlchemyError("read failed")
+
+    def remember(self, **kwargs: object) -> None:
+        del kwargs
+        raise SQLAlchemyError("write failed")
+
+
+def test_ilink_memory_read_and_write_fail_open(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(hub_bridge, "ILinkShortTermMemory", _FailingMemory)
+    session = _NestedSession()
+
+    history = hub_bridge._recent_short_term_history(  # type: ignore[arg-type]
+        session,
+        user_id=USER_A,
+    )
+    hub_bridge._remember_short_term_turn(  # type: ignore[arg-type]
+        session,
+        user_id=USER_A,
+        source_message_id="message-fail-open",
+        user_text="继续聊",
+        assistant_text="继续。",
+    )
+
+    assert history == ()
+
+
+def test_hub_bridge_remembers_only_after_text_delivery(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    events: list[str] = []
+
+    class _Session:
+        def __enter__(self) -> "_Session":
+            return self
+
+        def __exit__(self, *args: object) -> None:
+            del args
+
+        def commit(self) -> None:
+            events.append("commit")
+
+        def rollback(self) -> None:
+            events.append("rollback")
+
+    sessions = [_Session(), _Session()]
+
+    class _SessionFactory:
+        def __call__(self) -> _Session:
+            return sessions.pop(0)
+
+    class _FactoryProvider:
+        def __call__(self) -> _SessionFactory:
+            return _SessionFactory()
+
+    class _HubSettings:
+        @classmethod
+        def from_environment(cls) -> object:
+            return object()
+
+    class _HubClient:
+        def __init__(self, settings: object) -> None:
+            del settings
+
+    class _HubRepository:
+        def __init__(self, session: _Session) -> None:
+            del session
+
+        def for_bot(self, *, bot_id: str) -> dict[str, str]:
+            del bot_id
+            return {"user_id": str(USER_A)}
+
+    class _ReceiptRepository:
+        def __init__(self, session: _Session) -> None:
+            del session
+
+        def lock_command(self, *, command_id: str) -> None:
+            del command_id
+
+        def command_receipt(self, *, command_id: str) -> None:
+            del command_id
+            return None
+
+        def save_command_receipt(self, **kwargs: object) -> None:
+            del kwargs
+            events.append("receipt")
+
+    class _ControlPlane:
+        def handle(self, *args: object, **kwargs: object) -> None:
+            del args, kwargs
+            return None
+
+    class _Responder:
+        def __init__(self, *, settings: object) -> None:
+            del settings
+
+        def reply(self, *args: object, **kwargs: object) -> str:
+            del args, kwargs
+            return "先做资料分析。"
+
+    monkeypatch.setattr(hub_bridge, "get_settings", lambda: object())
+    monkeypatch.setattr(hub_bridge, "OpenILinkHubSettings", _HubSettings)
+    monkeypatch.setattr(hub_bridge, "OpenILinkHubClient", _HubClient)
+    monkeypatch.setattr(hub_bridge, "get_session_factory", _FactoryProvider())
+    monkeypatch.setattr(hub_bridge, "OpenILinkHubRepository", _HubRepository)
+    monkeypatch.setattr(hub_bridge, "ILinkRepository", _ReceiptRepository)
+    monkeypatch.setattr(hub_bridge, "ILinkControlPlane", _ControlPlane)
+    monkeypatch.setattr(hub_bridge, "AccountScopedCompanionResponder", _Responder)
+    monkeypatch.setattr(
+        hub_bridge,
+        "_recent_short_term_history",
+        lambda *args, **kwargs: (),
+    )
+    monkeypatch.setattr(
+        hub_bridge,
+        "_send_with_retry",
+        lambda **kwargs: events.append("send"),
+    )
+    monkeypatch.setattr(
+        hub_bridge,
+        "_remember_short_term_turn",
+        lambda *args, **kwargs: events.append("remember"),
+    )
+
+    hub_bridge.process_hub_event(
+        HubBridgeEvent(
+            event_id="event-1",
+            event_type="message.text",
+            trace_id="trace-1",
+            installation_id="installation-1",
+            bot_id="bot-1",
+            sender_id="sender-1",
+            source_message_id="message-1",
+            content="接下来做什么？",
+        )
+    )
+
+    assert events.index("send") < events.index("remember") < events.index("receipt")

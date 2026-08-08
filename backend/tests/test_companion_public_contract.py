@@ -3,13 +3,14 @@ from uuid import uuid4
 
 import pytest
 
-from app.domains.companion.repository import CompanionContextRecord
-from app.domains.companion.schemas import CompanionAskRequest
-from app.domains.companion.service import (
+from app.domains.companion.context import (
+    CompanionContextAssembler,
     _build_persona_prompt,
     _context_retrieval_candidates,
     _selected_citations,
 )
+from app.domains.companion.repository import CompanionContextRecord
+from app.domains.companion.schemas import CompanionAskRequest
 
 
 def _context() -> CompanionContextRecord:
@@ -196,3 +197,15 @@ def test_persona_forbids_internal_identifiers_in_user_answers() -> None:
 
     assert "不得输出 JSON" in prompt
     assert "版本号或内部来源标识" in prompt
+
+
+def test_context_snapshot_resolves_state_before_retrieval() -> None:
+    context = _context()
+    assembler = CompanionContextAssembler(session=object())  # type: ignore[arg-type]
+
+    snapshot = assembler.snapshot(
+        context,
+        fallback_state_version="request-state",
+    )
+
+    assert snapshot.state_version == context.learning_brain_profile["profileVersionId"]

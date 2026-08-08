@@ -121,6 +121,8 @@ def test_hunyuan_companion_ignores_the_advisory_action_protocol() -> None:
 
     assert result.answer == "已识别为今晚 90 分钟。"
     assert result.source_refs == ["source-1"]
+    assert not hasattr(result, "requested_actions")
+    assert not hasattr(result, "next_actions")
 
 
 def test_hunyuan_companion_ignores_unknown_advisory_actions_without_losing_answer() -> None:
@@ -140,6 +142,7 @@ def test_hunyuan_companion_ignores_unknown_advisory_actions_without_losing_answe
 
     assert result.answer == "可以开始资料分析。"
     assert result.source_refs == ["source-1"]
+    assert not hasattr(result, "requested_actions")
 
 
 def test_hunyuan_companion_keeps_grounding_strict_but_tolerates_advisory_shape_drift() -> None:
