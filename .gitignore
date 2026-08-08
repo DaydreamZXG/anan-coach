@@ -28,6 +28,8 @@ apps/wechat/miniprogram_npm/
 .v0/
 .workbuddy/
 .product-governance/
+# Local agent worktrees and session state
+.claude/
 
 # Generated release/export artifacts
 dist/

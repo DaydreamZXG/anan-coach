@@ -50,6 +50,14 @@ class GateRuntimeContractTests(unittest.TestCase):
         self.assertNotIn("PYTHON=", backend)
         self.assertIn("- run: scripts/verify_wechat.sh", wechat)
 
+    def test_backend_ci_uses_the_session_isolated_postgres_runtime(self) -> None:
+        workflow = CI_WORKFLOW.read_text(encoding="utf-8")
+        backend = job_block(workflow, "backend", "wechat")
+
+        self.assertIn("Expose isolated PostgreSQL test tools", backend)
+        self.assertNotIn("services:", backend)
+        self.assertNotIn("TEST_DATABASE_URL", backend)
+
     def test_backend_gate_defaults_to_one_sanitized_locked_uv_runtime(self) -> None:
         gate_source = BACKEND_GATE.read_text(encoding="utf-8")
         self.assertNotIn(".venv/bin/python", gate_source)
