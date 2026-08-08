@@ -1,0 +1,35 @@
+{
+  "summary": {
+    "mainUnreachableBytes": 760317,
+    "subpackageOnlyBytes": 0,
+    "unreferencedBytes": 760317
+  },
+  "subpackageOnly": [],
+  "unreferenced": [
+    {
+      "path": "api/generated/types.gen.ts",
+      "bytes": 741215,
+      "usedBy": []
+    },
+    {
+      "path": "api/external-learning-contracts.ts",
+      "bytes": 10085,
+      "usedBy": []
+    },
+    {
+      "path": "task-runtime/contracts.ts",
+      "bytes": 7205,
+      "usedBy": []
+    },
+    {
+      "path": "domain/contracts.ts",
+      "bytes": 1673,
+      "usedBy": []
+    },
+    {
+      "path": "features/onboarding/types.ts",
+      "bytes": 139,
+      "usedBy": []
+    }
+  ]
+}

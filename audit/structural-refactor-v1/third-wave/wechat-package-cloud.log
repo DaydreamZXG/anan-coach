@@ -1,0 +1,70 @@
+$ npm run subpackage-shared:check
+
+> @gongkao/wechat-mini-program@0.1.0 subpackage-shared:check
+> node scripts/sync-subpackage-shared.mjs --check
+
+Validated 263 generated targets (including 140 cross-package replicas).
+$ npm run package:validate
+
+> @gongkao/wechat-mini-program@0.1.0 package:validate
+> node scripts/validate-package-boundaries.mjs && node scripts/analyze-package-runtime.mjs --check && node scripts/sync-subpackage-shared.mjs --check
+
+Validated 15 subpackages. Image/audio resources: 188390 / 204800 bytes. Final compiled main-package size still requires the official WeChat packaging receipt.
+Validated runtime package placement: 0 subpackage-only files in main, 0 cross-subpackage imports.
+Validated 263 generated targets (including 140 cross-package replicas).
+$ npm run test:node
+
+> @gongkao/wechat-mini-program@0.1.0 test:node
+> node --test scripts/*.node-test.mjs
+
+✔ only pages that render workbench components declare them (20.301004ms)
+✔ network status listener is removable and detached while hidden (0.474896ms)
+✔ accepts a class selector bound to its declared handler (1.743063ms)
+✔ accepts single-quoted event attributes in any order (1.248886ms)
+✔ accepts a confirm interaction on the selected input that binds its handler (0.472846ms)
+✔ accepts a custom component action event on the selected component (0.204389ms)
+✔ rejects a selected element with the wrong handler (0.944886ms)
+✔ rejects a confirm contract that uses bindtap (0.282598ms)
+✔ rejects a selector when the declared handler is on a different element (0.27351ms)
+✔ rejects a confirm selector when another element owns the handler (0.258882ms)
+✔ rejects a missing exact class selector (0.44229ms)
+✔ does not accept selector text embedded in another attribute value (0.769168ms)
+✔ matches only exact class tokens (0.273599ms)
+✔ rejects an unknown interaction event kind (0.23553ms)
+✔ classifies all 60 registered routes as business pages (3.229427ms)
+✔ preserves the route inventory when a business page moves between main and subpackage (0.288205ms)
+✔ reports the exact missing business-page artifact (0.984471ms)
+✔ reports the exact missing registered-page component dependency (0.38909ms)
+✔ reports the exact business route when its visual scenario is deleted (1.325723ms)
+✔ reports the exact business route when its interaction contract is deleted (0.462771ms)
+✔ rejects internal asset hosts from both registration and manifest classifications (0.522171ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 122.846185
+$ npm run test:cloud
+
+> @gongkao/wechat-mini-program@0.1.0 test:cloud
+> node --test cloudfunctions/hunyuan-essay-grader/runtime.test.js
+
+✔ returns a fingerprinted response while keeping model ownership in the function (2.781948ms)
+✔ rejects unknown fields and unknown purposes (0.72189ms)
+✔ accepts formal scoring only with the closed two-message contract (0.361369ms)
+✔ accepts companion answers only through the server-owned two-message contract (1.039735ms)
+✔ normalizes documented Hunyuan companion type drift without inventing content (0.544687ms)
+✔ rejects companion content that cannot be normalized to the closed contract (0.504481ms)
+✔ removes only the CloudBase gateway context before closed validation (0.405018ms)
+✔ rejects unsupported roles and oversized input (0.37159ms)
+✔ does not return partial or oversized provider output (1.91071ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 117.832238

@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "kind": "structural-refactor-v1-third-wave-verification",
+  "commit": "52568db3d8cf231e09eb3f3dedbfd088deb12a23",
+  "projectPath": "/Users/zxg/Documents/新项目",
+  "productCodeOrConfigModified": false,
+  "prohibitedActionsNotUsed": [
+    "backend deploy",
+    "wechat preview",
+    "wechat auto-preview",
+    "wechat upload",
+    "remote push"
+  ],
+  "backend": {
+    "finalRelatedSuite": {
+      "commit": "52568db3d8cf231e09eb3f3dedbfd088deb12a23",
+      "command": "backend/.venv/bin/pytest -q tests/test_xingce_attempt_completion_boundary.py tests/test_xingce_completion_state_machine.py tests/test_xingce_planning_closure.py tests/test_planning_contracts.py tests/test_planning_routes.py tests/test_planning_xingce_assessment_facts.py tests/test_xingce_cause_agent_action_evidence.py tests/test_xingce_targeted_knowledge_selection.py tests/test_companion_agent.py tests/test_hunyuan_companion.py tests/test_ilink_short_term_memory.py tests/test_companion_public_contract.py tests/test_companion_external.py",
+      "passed": 146,
+      "failed": 0,
+      "warnings": 1,
+      "durationSeconds": 574.74,
+      "evidence": "backend-final-targeted.json",
+      "includesResolvedSelector": "tests/test_xingce_targeted_knowledge_selection.py::test_invalid_first_ninety_six_candidates_still_fetches_later_valid_questions"
+    },
+    "historicalFullSuite": {
+      "commit": "660546761aa3030f5dbe9a8fba09e0d03db919e7",
+      "command": "cd backend && .venv/bin/python -m pytest -q tests",
+      "passed": 1738,
+      "failed": 5,
+      "warnings": 108,
+      "durationSeconds": 4948.44,
+      "evidence": "backend-full.log",
+      "knownBaselineFailures": [
+        "tests/test_commercial_data_publication_protocol.py::test_shared_checkout_blocks_exclusive_until_existing_work_drains",
+        "tests/test_commercial_data_publication_protocol.py::test_runtime_guard_binds_application_commit_and_environment",
+        "tests/test_commercial_data_publication_protocol.py::test_companion_checkpoint_inherits_the_production_publication_guard",
+        "tests/test_commercial_data_publication_protocol.py::test_companion_checkpoint_inherits_timeouts_and_releases_on_row_lock"
+      ],
+      "resolvedBeforeFinalCommit": [
+        {
+          "nodeId": "tests/test_xingce_targeted_knowledge_selection.py::test_invalid_first_ninety_six_candidates_still_fetches_later_valid_questions",
+          "error": "AttributeError: app.domains.xingce_learning.real_attempt.repository has no attribute validate_learner_question",
+          "resolution": "The monkeypatch target was moved to the neutral owner app.domains.task_runtime.xingce_attempt.question_repository and the selector passed inside the final 146-test related suite.",
+          "resolutionEvidence": "backend-final-targeted.json"
+        }
+      ],
+      "finalCommitFullSuiteRerun": false,
+      "scopeNote": "This historical full-suite result is retained for disclosure only. It must not be read as a full backend rerun on the final commit."
+    }
+  },
+  "wechat": {
+    "finalCheck": {
+      "commit": "52568db3d8cf231e09eb3f3dedbfd088deb12a23",
+      "command": "cd apps/wechat && npm run check",
+      "result": "passed",
+      "vitestFilesPassed": 130,
+      "vitestTestsPassed": 907,
+      "nodeTestsPassed": 21,
+      "cloudTestsPassed": 9,
+      "generatedTargetsValidated": 269,
+      "crossPackageReplicasValidated": 146,
+      "subpackagesValidated": 15,
+      "evidence": "wechat-final-check.json"
+    },
+    "static": {
+      "evidenceCommit": "660546761aa3030f5dbe9a8fba09e0d03db919e7",
+      "commands": [
+        "npm run format:check",
+        "npm run typecheck",
+        "npm run lint"
+      ],
+      "result": "passed",
+      "evidence": "wechat-static.log"
+    },
+    "frozenSelectors": {
+      "evidenceCommit": "660546761aa3030f5dbe9a8fba09e0d03db919e7",
+      "testFilesPassed": 5,
+      "testsPassed": 62,
+      "failed": 0,
+      "evidence": "wechat-frozen-selectors.log"
+    },
+    "vitestFull": {
+      "evidenceCommit": "660546761aa3030f5dbe9a8fba09e0d03db919e7",
+      "command": "npm run test",
+      "testFilesPassed": 130,
+      "testsPassed": 900,
+      "failed": 0,
+      "durationSeconds": 36.24,
+      "evidence": "wechat-vitest-full.log"
+    },
+    "packageAndCloud": {
+      "evidenceCommit": "660546761aa3030f5dbe9a8fba09e0d03db919e7",
+      "commands": [
+        "npm run subpackage-shared:check",
+        "npm run package:validate",
+        "npm run test:node",
+        "npm run test:cloud"
+      ],
+      "generatedTargetsValidated": 263,
+      "crossPackageReplicasValidated": 140,
+      "subpackagesValidated": 15,
+      "subpackageOnlyRuntimeFilesInMain": 0,
+      "crossSubpackageImports": 0,
+      "nodeTestsPassed": 21,
+      "cloudTestsPassed": 9,
+      "failed": 0,
+      "evidence": "wechat-package-cloud.log"
+    }
+  },
+  "wechatDevTools": {
+    "toolVersion": "2.02.2608062",
+    "SDKVersion": "3.17.0",
+    "projectPath": "/Users/zxg/Documents/新项目/apps/wechat",
+    "compiledPackageGate": {
+      "commit": "52568db3d8cf231e09eb3f3dedbfd088deb12a23",
+      "checkId": "PACKAGE_SIZE_LIMIT",
+      "threshold": "<1.5M",
+      "result": "passed",
+      "exactBytes": null,
+      "exactBytesStatus": "not_exposed_by_panel",
+      "receipt": "devtools-main-package-compiled-size.json",
+      "screenshot": "devtools-main-package-compiled-size.png"
+    },
+    "rawDependencyDiagnostic": {
+      "commit": "660546761aa3030f5dbe9a8fba09e0d03db919e7",
+      "totalLocalCode": "4646 KB",
+      "mainPackage": "1626.3 KB",
+      "releaseDecisionMetric": false,
+      "receipt": "devtools-main-package-receipt.json",
+      "screenshot": "devtools-main-package-dependency.png"
+    },
+    "simulatorProfiles": [
+      {
+        "commit": "52568db3d8cf231e09eb3f3dedbfd088deb12a23",
+        "profile": "phone",
+        "model": "iPhone 12/13 mini",
+        "viewport": "375x812",
+        "orientation": "portrait",
+        "checksPassed": 4,
+        "runtimeFailures": 0,
+        "receipt": "phone/receipt.json"
+      },
+      {
+        "commit": "52568db3d8cf231e09eb3f3dedbfd088deb12a23",
+        "profile": "tablet-portrait",
+        "model": "iPad",
+        "viewport": "768x1024",
+        "orientation": "portrait",
+        "checksPassed": 4,
+        "runtimeFailures": 0,
+        "receipt": "tablet-portrait/receipt.json"
+      },
+      {
+        "commit": "52568db3d8cf231e09eb3f3dedbfd088deb12a23",
+        "profile": "tablet-landscape",
+        "model": "iPad",
+        "viewport": "1024x768",
+        "orientation": "landscape",
+        "checksPassed": 4,
+        "runtimeFailures": 0,
+        "receipt": "tablet-landscape/receipt.json"
+      }
+    ]
+  },
+  "overallResult": "final_targeted_and_devtools_passed_full_backend_not_rerun"
+}

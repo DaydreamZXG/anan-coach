@@ -1,0 +1,16 @@
+$ npm run format:check
+
+> @gongkao/wechat-mini-program@0.1.0 format:check
+> prettier --check "**/*.{ts,js,json,mjs,md,html,css}"
+
+Checking formatting...
+All matched files use Prettier code style!
+$ npm run typecheck
+
+> @gongkao/wechat-mini-program@0.1.0 typecheck
+> tsc --noEmit
+
+$ npm run lint
+
+> @gongkao/wechat-mini-program@0.1.0 lint
+> eslint . --max-warnings 0

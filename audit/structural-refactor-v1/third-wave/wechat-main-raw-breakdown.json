@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "kind": "raw-main-source-breakdown",
+  "commit": "660546761aa3",
+  "scope": "miniprogram files outside every declared subpackage root",
+  "warning": "Raw source accounting is diagnostic only; official DevTools local code dependency analysis is the authoritative 1626.3 KB observation and final packaging may differ.",
+  "fileCount": 216,
+  "totalRawBytes": 1665378,
+  "byExtension": {
+    ".ts": 1217236,
+    ".wxss": 186962,
+    ".png": 92642,
+    ".svg": 58581,
+    ".wxml": 55292,
+    ".jpg": 37167,
+    ".json": 17498
+  },
+  "topFiles": [
+    {
+      "path": "api/generated/types.gen.ts",
+      "bytes": 741215,
+      "extension": ".ts"
+    },
+    {
+      "path": "assets/wechat-support-qr.jpg",
+      "bytes": 37167,
+      "extension": ".jpg"
+    },
+    {
+      "path": "features/positions/page-shell.wxss",
+      "bytes": 35651,
+      "extension": ".wxss"
+    },
+    {
+      "path": "pages/anan/index.ts",
+      "bytes": 34175,
+      "extension": ".ts"
+    },
+    {
+      "path": "pages/me/index.ts",
+      "bytes": 23497,
+      "extension": ".ts"
+    },
+    {
+      "path": "features/onboarding/pending-store.ts",
+      "bytes": 21367,
+      "extension": ".ts"
+    },
+    {
+      "path": "pages/me/index.wxss",
+      "bytes": 20877,
+      "extension": ".wxss"
+    },
+    {
+      "path": "features/companion/presentation.ts",
+      "bytes": 20408,
+      "extension": ".ts"
+    },
+    {
+      "path": "api/external-learning.ts",
+      "bytes": 20276,
+      "extension": ".ts"
+    },
+    {
+      "path": "pages/today/index.wxss",
+      "bytes": 19977,
+      "extension": ".wxss"
+    },
+    {
+      "path": "pages/today/presentation.ts",
+      "bytes": 19527,
+      "extension": ".ts"
+    },
+    {
+      "path": "features/essay-task/drafting.ts",
+      "bytes": 17547,
+      "extension": ".ts"
+    },
+    {
+      "path": "features/xingce/real_attempt/contracts.ts",
+      "bytes": 16492,
+      "extension": ".ts"
+    },
+    {
+      "path": "pages/anan/index.wxss",
+      "bytes": 15845,
+      "extension": ".wxss"
+    },
+    {
+      "path": "pages/today/index.ts",
+      "bytes": 15201,
+      "extension": ".ts"
+    },
+    {
+      "path": "pages/me/index.wxml",
+      "bytes": 14297,
+      "extension": ".wxml"
+    },
+    {
+      "path": "features/planning/today-controller.ts",
+      "bytes": 13434,
+      "extension": ".ts"
+    },
+    {
+      "path": "app/navigation/routes.ts",
+      "bytes": 13338,
+      "extension": ".ts"
+    },
+    {
+      "path": "pages/today/index.wxml",
+      "bytes": 12936,
+      "extension": ".wxml"
+    },
+    {
+      "path": "platform/operation-attempt-store.ts",
+      "bytes": 12472,
+      "extension": ".ts"
+    },
+    {
+      "path": "pages/ability/index.ts",
+      "bytes": 12237,
+      "extension": ".ts"
+    },
+    {
+      "path": "api/source-artifact.ts",
+      "bytes": 11922,
+      "extension": ".ts"
+    },
+    {
+      "path": "pages/anan/index.wxml",
+      "bytes": 10815,
+      "extension": ".wxml"
+    },
+    {
+      "path": "pages/ability/index.wxss",
+      "bytes": 10550,
+      "extension": ".wxss"
+    },
+    {
+      "path": "api/external-learning-contracts.ts",
+      "bytes": 10085,
+      "extension": ".ts"
+    },
+    {
+      "path": "auth/session.ts",
+      "bytes": 9763,
+      "extension": ".ts"
+    },
+    {
+      "path": "app/navigation/auth-return.ts",
+      "bytes": 9633,
+      "extension": ".ts"
+    },
+    {
+      "path": "features/external-learning/contracts.ts",
+      "bytes": 9551,
+      "extension": ".ts"
+    },
+    {
+      "path": "platform/product-font.ts",
+      "bytes": 9488,
+      "extension": ".ts"
+    },
+    {
+      "path": "assets/design-file.manifest.json",
+      "bytes": 9188,
+      "extension": ".json"
+    }
+  ],
+  "componentConfigs": [
+    {
+      "path": "pages/me/index.json",
+      "bytes": 345,
+      "componentCount": 4
+    },
+    {
+      "path": "pages/ability/index.json",
+      "bytes": 287,
+      "componentCount": 3
+    },
+    {
+      "path": "pages/today/index.json",
+      "bytes": 213,
+      "componentCount": 2
+    },
+    {
+      "path": "pages/login/index.json",
+      "bytes": 156,
+      "componentCount": 1
+    },
+    {
+      "path": "pages/anan/index.json",
+      "bytes": 144,
+      "componentCount": 1
+    },
+    {
+      "path": "components/ilink-bot-sheet/index.json",
+      "bytes": 116,
+      "componentCount": 1
+    },
+    {
+      "path": "design-system/primitives/state-view/index.json",
+      "bytes": 90,
+      "componentCount": 1
+    }
+  ]
+}

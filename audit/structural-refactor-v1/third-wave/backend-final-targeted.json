@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "commit": "52568db3d8cf231e09eb3f3dedbfd088deb12a23",
+  "executedAt": "2026-08-09T00:47:00+08:00",
+  "command": "backend/.venv/bin/pytest -q tests/test_xingce_attempt_completion_boundary.py tests/test_xingce_completion_state_machine.py tests/test_xingce_planning_closure.py tests/test_planning_contracts.py tests/test_planning_routes.py tests/test_planning_xingce_assessment_facts.py tests/test_xingce_cause_agent_action_evidence.py tests/test_xingce_targeted_knowledge_selection.py tests/test_companion_agent.py tests/test_hunyuan_companion.py tests/test_ilink_short_term_memory.py tests/test_companion_public_contract.py tests/test_companion_external.py",
+  "passed": 146,
+  "failed": 0,
+  "warnings": 1,
+  "durationSeconds": 574.74,
+  "notes": [
+    "The warning is the existing StarletteDeprecationWarning emitted by fastapi.testclient.",
+    "This is a final related-suite run, not a claim that the entire backend suite was rerun after the final fix."
+  ]
+}

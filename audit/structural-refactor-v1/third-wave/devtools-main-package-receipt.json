@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "kind": "wechat-devtools-local-code-dependency-analysis",
+  "observedAt": "2026-08-08T23:56:03+08:00",
+  "commit": "660546761aa3030f5dbe9a8fba09e0d03db919e7",
+  "projectPath": "/Users/zxg/Documents/新项目/apps/wechat",
+  "tool": {
+    "name": "微信开发者工具 Nightly",
+    "version": "2.02.2608062",
+    "SDKVersion": "3.17.0"
+  },
+  "source": {
+    "panel": "基本信息 -> 本地代码 -> 代码依赖分析",
+    "screenshot": "devtools-main-package-dependency.png",
+    "projectPathConfirmation": "The panel's 本地目录 copy action returned /Users/zxg/Documents/新项目/apps/wechat.",
+    "prohibitedCommandsNotUsed": [
+      "preview",
+      "auto-preview",
+      "upload"
+    ]
+  },
+  "displayed": {
+    "totalLocalCode": {
+      "value": 4646,
+      "unitLabel": "KB"
+    },
+    "mainPackage": {
+      "value": 1626.3,
+      "unitLabel": "KB"
+    },
+    "visiblePackageRows": [
+      {
+        "path": "/xingce/",
+        "value": 188.3,
+        "unitLabel": "KB"
+      },
+      {
+        "path": "/reports/",
+        "value": 119.6,
+        "unitLabel": "KB"
+      },
+      {
+        "path": "/plans/",
+        "value": 171.3,
+        "unitLabel": "KB"
+      },
+      {
+        "path": "/pages/reflection/",
+        "value": 409.2,
+        "unitLabel": "KB"
+      },
+      {
+        "path": "/pages/profile/",
+        "value": 21.9,
+        "unitLabel": "KB"
+      },
+      {
+        "path": "/pages/private-knowledge/",
+        "value": 90.6,
+        "unitLabel": "KB"
+      }
+    ]
+  },
+  "unitReconciliation": {
+    "rawMainBytes": 1665378,
+    "rawMainBytesDividedBy1024": 1626.345703,
+    "conclusion": "The panel label is KB, while its displayed value matches raw bytes divided by 1024 (KiB-style accounting) to one decimal place.",
+    "diagnosticBreakdown": "wechat-main-raw-breakdown.json"
+  },
+  "thresholds": {
+    "onePointFiveMiBBytes": 1572864,
+    "bytesOverOnePointFiveMiB": 92514,
+    "onePointFiveDecimalMBBytes": 1500000,
+    "bytesOverOnePointFiveDecimalMB": 165378
+  },
+  "result": "raw_metric_above_threshold_not_release_decision",
+  "reason": "The dependency-analysis panel counts raw source ownership. Its 1626.3 KB value includes type-only and other non-runtime-reachable source and therefore cannot determine the compiled-package acceptance gate.",
+  "scopeCaveat": "This is the official DevTools local-code dependency analysis, not compiledPkg and not the PACKAGE_SIZE_LIMIT result. The separate code-quality receipt records the official compiledPkg gate. Preview and upload were not invoked."
+}

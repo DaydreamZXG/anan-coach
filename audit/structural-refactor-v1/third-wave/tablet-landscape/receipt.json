@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "kind": "local-devtools-structural-smoke",
+  "commit": "52568db3d8cf231e09eb3f3dedbfd088deb12a23",
+  "profile": "tablet-landscape",
+  "projectPath": "/Users/zxg/Documents/新项目/apps/wechat",
+  "toolInfo": {
+    "version": "2.02.2608062",
+    "SDKVersion": "3.17.0"
+  },
+  "systemInfo": {
+    "brand": "devtools",
+    "model": "iPad",
+    "system": "iOS 10.0.1",
+    "platform": "devtools",
+    "benchmarkLevel": -1,
+    "pixelRatio": 2,
+    "screenWidth": 1024,
+    "screenHeight": 768,
+    "windowWidth": 1024,
+    "windowHeight": 768,
+    "statusBarHeight": 20,
+    "safeArea": {
+      "top": 0,
+      "left": 0,
+      "right": 1024,
+      "bottom": 768,
+      "width": 1024,
+      "height": 768
+    },
+    "language": "zh_CN",
+    "version": "8.0.5",
+    "fontSizeSetting": 16,
+    "SDKVersion": "3.17.0",
+    "host": {
+      "env": "WeChat"
+    },
+    "enableDebug": false,
+    "mode": "default",
+    "deviceOrientation": "landscape",
+    "bluetoothEnabled": true,
+    "locationEnabled": true,
+    "wifiEnabled": true,
+    "albumAuthorized": true,
+    "cameraAuthorized": true,
+    "locationAuthorized": true,
+    "microphoneAuthorized": true,
+    "notificationAuthorized": true,
+    "notificationAlertAuthorized": true,
+    "notificationBadgeAuthorized": true,
+    "notificationSoundAuthorized": true,
+    "phoneCalendarAuthorized": true,
+    "bluetoothAuthorized": true,
+    "locationReducedAccuracy": true,
+    "devicePixelRatio": 2
+  },
+  "networkMode": "deterministic local wx.request mocks only",
+  "prohibitedCommands": [
+    "preview",
+    "auto-preview",
+    "upload"
+  ],
+  "runtimeFailures": [],
+  "checks": [
+    {
+      "id": "practice-draft-save-restore-swipe-scroll",
+      "status": "passed",
+      "evidence": {
+        "recoveredQuestion": 2,
+        "recoveredDraft": "断网恢复草稿：第二题保留计算式",
+        "pendingCheckpoint": true,
+        "materialStrokeRecovered": true,
+        "verticalScrollBeforeSwipe": 360,
+        "questionScrollResetAfterSwipe": true
+      },
+      "screenshots": [
+        "practice-before-offline-recovery.png",
+        "practice-recovered-offline.png"
+      ]
+    },
+    {
+      "id": "practice-compiled-draft-question-material-annotation",
+      "status": "passed",
+      "screenshot": "practice-runtime.png",
+      "evidence": {
+        "draftOpen": true,
+        "questionStrokes": 2,
+        "materialStrokes": 2,
+        "questionScrollPosition": 280
+      }
+    },
+    {
+      "id": "mock-material-annotation-table-horizontal-scroll",
+      "status": "passed",
+      "screenshot": "mock-material-table.png",
+      "evidence": {
+        "materialStrokes": 1,
+        "tableColumns": 8,
+        "viewportWidth": 420.75,
+        "contentWidth": 1679,
+        "horizontallyScrollable": true,
+        "restoredMaterialPosition": {
+          "anchorId": "third-wave-regional-table",
+          "scrollTop": 111,
+          "zoom": 1
+        }
+      }
+    },
+    {
+      "id": "reflection-replay-seek-unload",
+      "status": "passed",
+      "screenshot": "reflection-replay.png",
+      "evidence": {
+        "replaySeekMs": 42000,
+        "replayDurationMs": 82000,
+        "unloadDestination": "pages/today/index",
+        "runtimeFailuresAfterUnload": 0
+      }
+    }
+  ]
+}

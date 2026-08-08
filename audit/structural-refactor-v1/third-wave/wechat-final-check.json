@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "commit": "52568db3d8cf231e09eb3f3dedbfd088deb12a23",
+  "executedAt": "2026-08-09T00:46:00+08:00",
+  "command": "cd apps/wechat && npm run check",
+  "result": "passed",
+  "formatCheck": "passed",
+  "typecheck": "passed",
+  "lint": "passed",
+  "openApiCheck": "passed",
+  "subpackagesValidated": 15,
+  "generatedTargetsValidated": 269,
+  "crossPackageReplicasValidated": 146,
+  "subpackageOnlyRuntimeFilesInMain": 0,
+  "crossSubpackageImports": 0,
+  "nodeTestsPassed": 21,
+  "vitestFilesPassed": 130,
+  "vitestTestsPassed": 907,
+  "cloudTestsPassed": 9,
+  "failed": 0,
+  "note": "The local package validator delegates the final compiled main-package threshold to the separately recorded official WeChat DevTools PACKAGE_SIZE_LIMIT receipt."
+}

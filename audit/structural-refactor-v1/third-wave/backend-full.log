@@ -1,0 +1,761 @@
+........................................................................ [  4%]
+........................................................................ [  8%]
+........................................................................ [ 12%]
+........................................................................ [ 16%]
+.................................................FF........FF........... [ 20%]
+........................................................................ [ 24%]
+........................................................................ [ 28%]
+........................................................................ [ 33%]
+........................................................................ [ 37%]
+........................................................................ [ 41%]
+........................................................................ [ 45%]
+........................................................................ [ 49%]
+........................................................................ [ 53%]
+........................................................................ [ 57%]
+........................................................................ [ 61%]
+........................................................................ [ 66%]
+........................................................................ [ 70%]
+........................................................................ [ 74%]
+........................................................................ [ 78%]
+........................................................................ [ 82%]
+........................................................................ [ 86%]
+........................................................................ [ 90%]
+........................................................................ [ 95%]
+.................................................................F...... [ 99%]
+...............                                                          [100%]
+=================================== FAILURES ===================================
+_______ test_shared_checkout_blocks_exclusive_until_existing_work_drains _______
+
+db_engine = Engine(postgresql+psycopg://postgres@127.0.0.1:50081/postgres)
+
+    def test_shared_checkout_blocks_exclusive_until_existing_work_drains(
+        db_engine: Engine,
+    ) -> None:
+        first_request = _request()
+        _activate(
+            db_engine,
+            request=first_request,
+            previous_receipt=BASELINE_RECEIPT,
+            receipt=FIRST_RECEIPT,
+        )
+        guarded = install_commercial_data_publication_guard(
+            create_engine(_database_url(db_engine), pool_pre_ping=True, future=True)
+        )
+>       checked_out = guarded.connect()
+                      ^^^^^^^^^^^^^^^^^
+
+tests/test_commercial_data_publication_protocol.py:140:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:3295: in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:144: in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:3319: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:448: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:1371: in _checkout
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:1326: in _checkout
+    pool.dispatch.checkout(
+.venv/lib/python3.12/site-packages/sqlalchemy/event/attr.py:516: in __call__
+    fn(*args, **kw)
+app/db/session.py:251: in checkout_with_runtime_identity
+    _publication_guard_checkout(
+app/db/session.py:333: in _publication_guard_checkout
+    _validate_runtime_publication(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _validate_runtime_publication(
+        *,
+        rows: list[tuple[Any, ...]],
+        revisions: list[str],
+        runtime_environment: str = "local",
+        application_git_commit: str = "",
+        data_receipt_sha256: str = "",
+    ) -> None:
+        if len(rows) != 1:
+            raise DatabasePublicationUnavailable(
+                "commercial data publication authority must contain one row"
+            )
+        (
+            singleton_key,
+            state,
+            stored_request_digest,
+            encoded_request,
+            publication_digest,
+            previous_receipt,
+            active_receipt,
+            expected_revision,
+            encoded_commits,
+            activated_at,
+        ) = rows[0]
+        try:
+            request = json.loads(encoded_request)
+            commits = json.loads(encoded_commits)
+        except (TypeError, json.JSONDecodeError) as exc:
+            raise DatabasePublicationUnavailable(
+                "commercial data publication authority JSON is invalid"
+            ) from exc
+        actual_request_digest = sha256(
+            json.dumps(
+                request,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
+        expected_commits = [
+            request.get("candidateApplicationCommit"),
+            request.get("rollbackApplicationCommit"),
+        ]
+        expected_publication_digest = sha256(
+            json.dumps(
+                {
+                    "schemaVersion": "commercial-data-publication@v1",
+                    "requestDigest": stored_request_digest,
+                    "activeReceiptSha256": active_receipt,
+                },
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
+        if (
+            singleton_key is not True
+            or state != "active"
+            or not isinstance(stored_request_digest, str)
+            or stored_request_digest != actual_request_digest
+            or not isinstance(publication_digest, str)
+            or not _SHA256.fullmatch(publication_digest)
+            or not isinstance(previous_receipt, str)
+            or not _SHA256.fullmatch(previous_receipt)
+            or not isinstance(active_receipt, str)
+            or not _SHA256.fullmatch(active_receipt)
+            or publication_digest != expected_publication_digest
+            or activated_at is None
+            or not isinstance(expected_revision, str)
+            or request.get("schemaVersion") != "commercial-data-publication-request@v1"
+            or request.get("expectedDatabaseRevision") != expected_revision
+            or commits != expected_commits
+            or revisions != [expected_revision]
+        ):
+>           raise DatabasePublicationUnavailable(
+                "commercial data publication authority is not active and exact"
+            )
+E           app.db.session.DatabasePublicationUnavailable: commercial data publication authority is not active and exact
+
+app/db/session.py:461: DatabasePublicationUnavailable
+---------------------------- Captured stderr setup -----------------------------
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running stamp_revision  -> 20260727_69
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260727_69 -> 20260728_70, Approve the server-owned CloudBase Hunyuan Companion release.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_70 -> 20260728_71, Expand Xingce commands for review-verdict receipts.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_71 -> 20260728_72, Add the JOB-LEASE@v1 database compatibility window.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_72 -> 20260728_73, Allow exact method-card replay without weakening immutable releases.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_73 -> 20260728_74, Add account-scoped Xingce question favorites and exact-replay receipts.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_74 -> 20260729_75, Speed up account-scoped Xingce delivery candidate selection.
+INFO  [alembic.runtime.migration] Running upgrade 20260729_75 -> 20260729_76, Allow tag-only Xingce reflection while preserving truthful user text.
+INFO  [alembic.runtime.migration] Running upgrade 20260729_76 -> 20260730_77, Add indexed distribution and exposure projections for Xingce selection.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_77 -> 20260730_78, Add audited business windows to position-rule releases.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_78 -> 20260730_79, Keep immutable, release-bound position import snapshots.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_79 -> 20260730_80, Add the database authority for background consumer liveness.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_80 -> 20260730_81, Add the fail-closed commercial data publication authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_81 -> 20260730_82, Harden immutable position authority and current learner projections.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_82 -> 20260730_83, Harden runtime access to commercial publication authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_83 -> 20260730_84, Harden background-job registration and consumer heartbeat authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_84 -> 20260730_85, Close OLD/NEW version escapes in frozen position score snapshots.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_85 -> 20260730_86, Bind every worker heartbeat to one immutable database principal.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_86 -> 20260730_87, Make OCR dispatch intent durable before external provider I/O.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_87 -> 20260730_88, Close stale OCR dispatches with explicit terminal and usage outcomes.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_88 -> 20260731_89, Adopt the major catalog tables into the migration chain.
+INFO  [alembic.runtime.migration] Running upgrade 20260731_89 -> 20260801_90, Add perceptual hash columns to question_visual_fingerprints.
+INFO  [alembic.runtime.migration] Running upgrade 20260801_90 -> 20260801_91, Bring question-bank import fields into the Alembic authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260801_91 -> 20260802_92, Allow evidence-first Xingce reflection without manual cause tags.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_92 -> 20260802_93, Allow TokenRhythm essay candidates without rewriting historical Grok facts.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_93 -> 20260802_94, Persist gender as a versioned qualification fact.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_94 -> 20260804_95, Allow a learner to override today's Xingce focus without rewriting study preferences.
+INFO  [alembic.runtime.migration] Running upgrade 20260804_95 -> 20260804_96, Add the central-brain weekly strategy directive inference and per-day suggestion guard.
+INFO  [alembic.runtime.migration] Running upgrade 20260804_96 -> 20260805_97, Seed the login terms policy version used to record login consent events.
+INFO  [alembic.runtime.migration] Running upgrade 20260805_97 -> 20260806_98, Add knowledge_nodes AI mapping to product.method_cards.
+INFO  [alembic.runtime.migration] Running upgrade 20260806_98 -> 20260807_99, Allow photo queries to originate from an account-bound OpeniLink Hub bot.
+INFO  [alembic.runtime.migration] Running upgrade 20260807_99 -> 20260807_100, Add expiring account-scoped short-term memory for the WeChat channel.
+INFO  [alembic.runtime.migration] Running upgrade 20260807_100 -> 20260808_101, Publish the first production community-method policy set.
+INFO  [alembic.runtime.migration] Running upgrade 20260808_101 -> 20260808_102, Retire the direct iLink transport worker identity.
+_________ test_runtime_guard_binds_application_commit_and_environment __________
+
+db_engine = Engine(postgresql+psycopg://postgres@127.0.0.1:50081/postgres)
+
+    def test_runtime_guard_binds_application_commit_and_environment(
+        db_engine: Engine,
+    ) -> None:
+        _activate(
+            db_engine,
+            request=_request(),
+            previous_receipt=BASELINE_RECEIPT,
+            receipt=FIRST_RECEIPT,
+        )
+        valid = install_commercial_data_publication_guard(
+            create_engine(_database_url(db_engine), pool_pre_ping=True, future=True),
+            runtime_environment="preproduction",
+            application_git_commit=CANDIDATE_COMMIT,
+            data_receipt_sha256=FIRST_RECEIPT,
+        )
+        wrong_commit = install_commercial_data_publication_guard(
+            create_engine(_database_url(db_engine), pool_pre_ping=True, future=True),
+            runtime_environment="preproduction",
+            application_git_commit="3" * 40,
+            data_receipt_sha256=FIRST_RECEIPT,
+        )
+        wrong_environment = install_commercial_data_publication_guard(
+            create_engine(_database_url(db_engine), pool_pre_ping=True, future=True),
+            runtime_environment="production",
+            application_git_commit=CANDIDATE_COMMIT,
+            data_receipt_sha256=FIRST_RECEIPT,
+        )
+        wrong_receipt = install_commercial_data_publication_guard(
+            create_engine(_database_url(db_engine), pool_pre_ping=True, future=True),
+            runtime_environment="preproduction",
+            application_git_commit=CANDIDATE_COMMIT,
+            data_receipt_sha256=SECOND_RECEIPT,
+        )
+        try:
+>           with valid.connect() as connection:
+                 ^^^^^^^^^^^^^^^
+
+tests/test_commercial_data_publication_protocol.py:212:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:3295: in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:144: in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:3319: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:448: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:1371: in _checkout
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:1326: in _checkout
+    pool.dispatch.checkout(
+.venv/lib/python3.12/site-packages/sqlalchemy/event/attr.py:516: in __call__
+    fn(*args, **kw)
+app/db/session.py:251: in checkout_with_runtime_identity
+    _publication_guard_checkout(
+app/db/session.py:333: in _publication_guard_checkout
+    _validate_runtime_publication(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _validate_runtime_publication(
+        *,
+        rows: list[tuple[Any, ...]],
+        revisions: list[str],
+        runtime_environment: str = "local",
+        application_git_commit: str = "",
+        data_receipt_sha256: str = "",
+    ) -> None:
+        if len(rows) != 1:
+            raise DatabasePublicationUnavailable(
+                "commercial data publication authority must contain one row"
+            )
+        (
+            singleton_key,
+            state,
+            stored_request_digest,
+            encoded_request,
+            publication_digest,
+            previous_receipt,
+            active_receipt,
+            expected_revision,
+            encoded_commits,
+            activated_at,
+        ) = rows[0]
+        try:
+            request = json.loads(encoded_request)
+            commits = json.loads(encoded_commits)
+        except (TypeError, json.JSONDecodeError) as exc:
+            raise DatabasePublicationUnavailable(
+                "commercial data publication authority JSON is invalid"
+            ) from exc
+        actual_request_digest = sha256(
+            json.dumps(
+                request,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
+        expected_commits = [
+            request.get("candidateApplicationCommit"),
+            request.get("rollbackApplicationCommit"),
+        ]
+        expected_publication_digest = sha256(
+            json.dumps(
+                {
+                    "schemaVersion": "commercial-data-publication@v1",
+                    "requestDigest": stored_request_digest,
+                    "activeReceiptSha256": active_receipt,
+                },
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
+        if (
+            singleton_key is not True
+            or state != "active"
+            or not isinstance(stored_request_digest, str)
+            or stored_request_digest != actual_request_digest
+            or not isinstance(publication_digest, str)
+            or not _SHA256.fullmatch(publication_digest)
+            or not isinstance(previous_receipt, str)
+            or not _SHA256.fullmatch(previous_receipt)
+            or not isinstance(active_receipt, str)
+            or not _SHA256.fullmatch(active_receipt)
+            or publication_digest != expected_publication_digest
+            or activated_at is None
+            or not isinstance(expected_revision, str)
+            or request.get("schemaVersion") != "commercial-data-publication-request@v1"
+            or request.get("expectedDatabaseRevision") != expected_revision
+            or commits != expected_commits
+            or revisions != [expected_revision]
+        ):
+>           raise DatabasePublicationUnavailable(
+                "commercial data publication authority is not active and exact"
+            )
+E           app.db.session.DatabasePublicationUnavailable: commercial data publication authority is not active and exact
+
+app/db/session.py:461: DatabasePublicationUnavailable
+---------------------------- Captured stderr setup -----------------------------
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running stamp_revision  -> 20260727_69
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260727_69 -> 20260728_70, Approve the server-owned CloudBase Hunyuan Companion release.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_70 -> 20260728_71, Expand Xingce commands for review-verdict receipts.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_71 -> 20260728_72, Add the JOB-LEASE@v1 database compatibility window.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_72 -> 20260728_73, Allow exact method-card replay without weakening immutable releases.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_73 -> 20260728_74, Add account-scoped Xingce question favorites and exact-replay receipts.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_74 -> 20260729_75, Speed up account-scoped Xingce delivery candidate selection.
+INFO  [alembic.runtime.migration] Running upgrade 20260729_75 -> 20260729_76, Allow tag-only Xingce reflection while preserving truthful user text.
+INFO  [alembic.runtime.migration] Running upgrade 20260729_76 -> 20260730_77, Add indexed distribution and exposure projections for Xingce selection.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_77 -> 20260730_78, Add audited business windows to position-rule releases.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_78 -> 20260730_79, Keep immutable, release-bound position import snapshots.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_79 -> 20260730_80, Add the database authority for background consumer liveness.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_80 -> 20260730_81, Add the fail-closed commercial data publication authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_81 -> 20260730_82, Harden immutable position authority and current learner projections.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_82 -> 20260730_83, Harden runtime access to commercial publication authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_83 -> 20260730_84, Harden background-job registration and consumer heartbeat authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_84 -> 20260730_85, Close OLD/NEW version escapes in frozen position score snapshots.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_85 -> 20260730_86, Bind every worker heartbeat to one immutable database principal.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_86 -> 20260730_87, Make OCR dispatch intent durable before external provider I/O.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_87 -> 20260730_88, Close stale OCR dispatches with explicit terminal and usage outcomes.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_88 -> 20260731_89, Adopt the major catalog tables into the migration chain.
+INFO  [alembic.runtime.migration] Running upgrade 20260731_89 -> 20260801_90, Add perceptual hash columns to question_visual_fingerprints.
+INFO  [alembic.runtime.migration] Running upgrade 20260801_90 -> 20260801_91, Bring question-bank import fields into the Alembic authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260801_91 -> 20260802_92, Allow evidence-first Xingce reflection without manual cause tags.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_92 -> 20260802_93, Allow TokenRhythm essay candidates without rewriting historical Grok facts.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_93 -> 20260802_94, Persist gender as a versioned qualification fact.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_94 -> 20260804_95, Allow a learner to override today's Xingce focus without rewriting study preferences.
+INFO  [alembic.runtime.migration] Running upgrade 20260804_95 -> 20260804_96, Add the central-brain weekly strategy directive inference and per-day suggestion guard.
+INFO  [alembic.runtime.migration] Running upgrade 20260804_96 -> 20260805_97, Seed the login terms policy version used to record login consent events.
+INFO  [alembic.runtime.migration] Running upgrade 20260805_97 -> 20260806_98, Add knowledge_nodes AI mapping to product.method_cards.
+INFO  [alembic.runtime.migration] Running upgrade 20260806_98 -> 20260807_99, Allow photo queries to originate from an account-bound OpeniLink Hub bot.
+INFO  [alembic.runtime.migration] Running upgrade 20260807_99 -> 20260807_100, Add expiring account-scoped short-term memory for the WeChat channel.
+INFO  [alembic.runtime.migration] Running upgrade 20260807_100 -> 20260808_101, Publish the first production community-method policy set.
+INFO  [alembic.runtime.migration] Running upgrade 20260808_101 -> 20260808_102, Retire the direct iLink transport worker identity.
+_____ test_companion_checkpoint_inherits_the_production_publication_guard ______
+
+db_engine = Engine(postgresql+psycopg://postgres@127.0.0.1:50081/postgres)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x110daa000>
+
+    def test_companion_checkpoint_inherits_the_production_publication_guard(
+        db_engine: Engine,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        _activate(
+            db_engine,
+            request=_request(),
+            previous_receipt=BASELINE_RECEIPT,
+            receipt=FIRST_RECEIPT,
+        )
+        monkeypatch.setattr(
+            operations_router,
+            "get_settings",
+            lambda: Settings(operations_metrics_token="publication-metrics-token"),
+        )
+        with Session(bind=db_engine) as metrics_session:
+            payload = operations_router.metrics(
+                metrics_session,
+                authorization="Bearer publication-metrics-token",
+            )
+        assert "anan_commercial_data_publication_active 1" in payload
+>       assert "anan_commercial_data_publication_exact 1" in payload
+E       assert 'anan_commercial_data_publication_exact 1' in 'anan_database_ready 1\nanan_wechat_payment_uncertain_orders 0\nanan_wechat_stale_refunds 0\nanan_background_jobs_queu...ype="community_method_card_review_v2"} 0\nanan_job_consumer_heartbeat_healthy{job_type="ilink_object_deletion_v1"} 0\n'
+
+tests/test_commercial_data_publication_protocol.py:1025: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running stamp_revision  -> 20260727_69
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260727_69 -> 20260728_70, Approve the server-owned CloudBase Hunyuan Companion release.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_70 -> 20260728_71, Expand Xingce commands for review-verdict receipts.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_71 -> 20260728_72, Add the JOB-LEASE@v1 database compatibility window.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_72 -> 20260728_73, Allow exact method-card replay without weakening immutable releases.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_73 -> 20260728_74, Add account-scoped Xingce question favorites and exact-replay receipts.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_74 -> 20260729_75, Speed up account-scoped Xingce delivery candidate selection.
+INFO  [alembic.runtime.migration] Running upgrade 20260729_75 -> 20260729_76, Allow tag-only Xingce reflection while preserving truthful user text.
+INFO  [alembic.runtime.migration] Running upgrade 20260729_76 -> 20260730_77, Add indexed distribution and exposure projections for Xingce selection.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_77 -> 20260730_78, Add audited business windows to position-rule releases.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_78 -> 20260730_79, Keep immutable, release-bound position import snapshots.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_79 -> 20260730_80, Add the database authority for background consumer liveness.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_80 -> 20260730_81, Add the fail-closed commercial data publication authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_81 -> 20260730_82, Harden immutable position authority and current learner projections.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_82 -> 20260730_83, Harden runtime access to commercial publication authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_83 -> 20260730_84, Harden background-job registration and consumer heartbeat authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_84 -> 20260730_85, Close OLD/NEW version escapes in frozen position score snapshots.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_85 -> 20260730_86, Bind every worker heartbeat to one immutable database principal.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_86 -> 20260730_87, Make OCR dispatch intent durable before external provider I/O.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_87 -> 20260730_88, Close stale OCR dispatches with explicit terminal and usage outcomes.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_88 -> 20260731_89, Adopt the major catalog tables into the migration chain.
+INFO  [alembic.runtime.migration] Running upgrade 20260731_89 -> 20260801_90, Add perceptual hash columns to question_visual_fingerprints.
+INFO  [alembic.runtime.migration] Running upgrade 20260801_90 -> 20260801_91, Bring question-bank import fields into the Alembic authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260801_91 -> 20260802_92, Allow evidence-first Xingce reflection without manual cause tags.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_92 -> 20260802_93, Allow TokenRhythm essay candidates without rewriting historical Grok facts.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_93 -> 20260802_94, Persist gender as a versioned qualification fact.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_94 -> 20260804_95, Allow a learner to override today's Xingce focus without rewriting study preferences.
+INFO  [alembic.runtime.migration] Running upgrade 20260804_95 -> 20260804_96, Add the central-brain weekly strategy directive inference and per-day suggestion guard.
+INFO  [alembic.runtime.migration] Running upgrade 20260804_96 -> 20260805_97, Seed the login terms policy version used to record login consent events.
+INFO  [alembic.runtime.migration] Running upgrade 20260805_97 -> 20260806_98, Add knowledge_nodes AI mapping to product.method_cards.
+INFO  [alembic.runtime.migration] Running upgrade 20260806_98 -> 20260807_99, Allow photo queries to originate from an account-bound OpeniLink Hub bot.
+INFO  [alembic.runtime.migration] Running upgrade 20260807_99 -> 20260807_100, Add expiring account-scoped short-term memory for the WeChat channel.
+INFO  [alembic.runtime.migration] Running upgrade 20260807_100 -> 20260808_101, Publish the first production community-method policy set.
+INFO  [alembic.runtime.migration] Running upgrade 20260808_101 -> 20260808_102, Retire the direct iLink transport worker identity.
+_____ test_companion_checkpoint_inherits_timeouts_and_releases_on_row_lock _____
+
+db_engine = Engine(postgresql+psycopg://postgres@127.0.0.1:50081/postgres)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x110b22de0>
+
+    def test_companion_checkpoint_inherits_timeouts_and_releases_on_row_lock(
+        db_engine: Engine,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        _activate(
+            db_engine,
+            request=_request(),
+            previous_receipt=BASELINE_RECEIPT,
+            receipt=FIRST_RECEIPT,
+        )
+        settings = Settings(
+            database_statement_timeout_ms=1_000,
+            database_lock_timeout_ms=200,
+            database_idle_transaction_timeout_ms=1_500,
+        )
+        monkeypatch.setattr(
+            companion_commands,
+            "get_settings",
+            lambda: settings,
+        )
+        main_options: dict[str, Any] = {
+            "pool_pre_ping": True,
+            "future": True,
+        }
+        main_options.update(_postgres_engine_options(settings))
+        guarded = install_commercial_data_publication_guard(
+            create_engine(_database_url(db_engine), **main_options)
+        )
+        with db_engine.begin() as connection:
+            connection.execute(
+                text(
+                    "create table platform.checkpoint_timeout_probe ("
+                    "probe_id integer primary key, value integer not null)"
+                )
+            )
+            connection.execute(text("insert into platform.checkpoint_timeout_probe values (1, 0)"))
+
+        with Session(bind=guarded) as session:
+            checkpoint = _new_checkpoint_engine(session)
+        blocker = psycopg.connect(_libpq_url(db_engine))
+        try:
+>           with guarded.connect() as main_connection:
+                 ^^^^^^^^^^^^^^^^^
+
+tests/test_commercial_data_publication_protocol.py:1083:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:3295: in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:144: in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:3319: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:448: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:1371: in _checkout
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:1326: in _checkout
+    pool.dispatch.checkout(
+.venv/lib/python3.12/site-packages/sqlalchemy/event/attr.py:516: in __call__
+    fn(*args, **kw)
+app/db/session.py:251: in checkout_with_runtime_identity
+    _publication_guard_checkout(
+app/db/session.py:333: in _publication_guard_checkout
+    _validate_runtime_publication(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _validate_runtime_publication(
+        *,
+        rows: list[tuple[Any, ...]],
+        revisions: list[str],
+        runtime_environment: str = "local",
+        application_git_commit: str = "",
+        data_receipt_sha256: str = "",
+    ) -> None:
+        if len(rows) != 1:
+            raise DatabasePublicationUnavailable(
+                "commercial data publication authority must contain one row"
+            )
+        (
+            singleton_key,
+            state,
+            stored_request_digest,
+            encoded_request,
+            publication_digest,
+            previous_receipt,
+            active_receipt,
+            expected_revision,
+            encoded_commits,
+            activated_at,
+        ) = rows[0]
+        try:
+            request = json.loads(encoded_request)
+            commits = json.loads(encoded_commits)
+        except (TypeError, json.JSONDecodeError) as exc:
+            raise DatabasePublicationUnavailable(
+                "commercial data publication authority JSON is invalid"
+            ) from exc
+        actual_request_digest = sha256(
+            json.dumps(
+                request,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
+        expected_commits = [
+            request.get("candidateApplicationCommit"),
+            request.get("rollbackApplicationCommit"),
+        ]
+        expected_publication_digest = sha256(
+            json.dumps(
+                {
+                    "schemaVersion": "commercial-data-publication@v1",
+                    "requestDigest": stored_request_digest,
+                    "activeReceiptSha256": active_receipt,
+                },
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
+        if (
+            singleton_key is not True
+            or state != "active"
+            or not isinstance(stored_request_digest, str)
+            or stored_request_digest != actual_request_digest
+            or not isinstance(publication_digest, str)
+            or not _SHA256.fullmatch(publication_digest)
+            or not isinstance(previous_receipt, str)
+            or not _SHA256.fullmatch(previous_receipt)
+            or not isinstance(active_receipt, str)
+            or not _SHA256.fullmatch(active_receipt)
+            or publication_digest != expected_publication_digest
+            or activated_at is None
+            or not isinstance(expected_revision, str)
+            or request.get("schemaVersion") != "commercial-data-publication-request@v1"
+            or request.get("expectedDatabaseRevision") != expected_revision
+            or commits != expected_commits
+            or revisions != [expected_revision]
+        ):
+>           raise DatabasePublicationUnavailable(
+                "commercial data publication authority is not active and exact"
+            )
+E           app.db.session.DatabasePublicationUnavailable: commercial data publication authority is not active and exact
+
+app/db/session.py:461: DatabasePublicationUnavailable
+---------------------------- Captured stderr setup -----------------------------
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running stamp_revision  -> 20260727_69
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260727_69 -> 20260728_70, Approve the server-owned CloudBase Hunyuan Companion release.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_70 -> 20260728_71, Expand Xingce commands for review-verdict receipts.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_71 -> 20260728_72, Add the JOB-LEASE@v1 database compatibility window.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_72 -> 20260728_73, Allow exact method-card replay without weakening immutable releases.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_73 -> 20260728_74, Add account-scoped Xingce question favorites and exact-replay receipts.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_74 -> 20260729_75, Speed up account-scoped Xingce delivery candidate selection.
+INFO  [alembic.runtime.migration] Running upgrade 20260729_75 -> 20260729_76, Allow tag-only Xingce reflection while preserving truthful user text.
+INFO  [alembic.runtime.migration] Running upgrade 20260729_76 -> 20260730_77, Add indexed distribution and exposure projections for Xingce selection.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_77 -> 20260730_78, Add audited business windows to position-rule releases.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_78 -> 20260730_79, Keep immutable, release-bound position import snapshots.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_79 -> 20260730_80, Add the database authority for background consumer liveness.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_80 -> 20260730_81, Add the fail-closed commercial data publication authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_81 -> 20260730_82, Harden immutable position authority and current learner projections.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_82 -> 20260730_83, Harden runtime access to commercial publication authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_83 -> 20260730_84, Harden background-job registration and consumer heartbeat authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_84 -> 20260730_85, Close OLD/NEW version escapes in frozen position score snapshots.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_85 -> 20260730_86, Bind every worker heartbeat to one immutable database principal.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_86 -> 20260730_87, Make OCR dispatch intent durable before external provider I/O.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_87 -> 20260730_88, Close stale OCR dispatches with explicit terminal and usage outcomes.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_88 -> 20260731_89, Adopt the major catalog tables into the migration chain.
+INFO  [alembic.runtime.migration] Running upgrade 20260731_89 -> 20260801_90, Add perceptual hash columns to question_visual_fingerprints.
+INFO  [alembic.runtime.migration] Running upgrade 20260801_90 -> 20260801_91, Bring question-bank import fields into the Alembic authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260801_91 -> 20260802_92, Allow evidence-first Xingce reflection without manual cause tags.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_92 -> 20260802_93, Allow TokenRhythm essay candidates without rewriting historical Grok facts.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_93 -> 20260802_94, Persist gender as a versioned qualification fact.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_94 -> 20260804_95, Allow a learner to override today's Xingce focus without rewriting study preferences.
+INFO  [alembic.runtime.migration] Running upgrade 20260804_95 -> 20260804_96, Add the central-brain weekly strategy directive inference and per-day suggestion guard.
+INFO  [alembic.runtime.migration] Running upgrade 20260804_96 -> 20260805_97, Seed the login terms policy version used to record login consent events.
+INFO  [alembic.runtime.migration] Running upgrade 20260805_97 -> 20260806_98, Add knowledge_nodes AI mapping to product.method_cards.
+INFO  [alembic.runtime.migration] Running upgrade 20260806_98 -> 20260807_99, Allow photo queries to originate from an account-bound OpeniLink Hub bot.
+INFO  [alembic.runtime.migration] Running upgrade 20260807_99 -> 20260807_100, Add expiring account-scoped short-term memory for the WeChat channel.
+INFO  [alembic.runtime.migration] Running upgrade 20260807_100 -> 20260808_101, Publish the first production community-method policy set.
+INFO  [alembic.runtime.migration] Running upgrade 20260808_101 -> 20260808_102, Retire the direct iLink transport worker identity.
+_ test_invalid_first_ninety_six_candidates_still_fetches_later_valid_questions _
+
+db_session_factory = sessionmaker(class_='Session', autocommit=False, future=True, bind=Engine(postgresql+psycopg://postgres@127.0.0.1:50081/postgres), autoflush=False, expire_on_commit=False)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113a32b70>
+
+    def test_invalid_first_ninety_six_candidates_still_fetches_later_valid_questions(
+        db_session_factory: sessionmaker[Session],
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        now = datetime.now(UTC)
+        question_ids = {index: f"validation-window-{index:04d}" for index in range(1, 121)}
+        _seed_targeted_learner(
+            db_session_factory,
+            token="targeted-validation-window-token",
+            now=now,
+            nodes=(
+                _node(
+                    "validation-window-node",
+                    "knowledge_point",
+                    "knowledge_point",
+                    "语句排序",
+                    0.89,
+                    120,
+                ),
+            ),
+            tags={"语句排序": tuple(range(1, 121))},
+            question_ids_by_index=question_ids,
+        )
+>       original_validate = repository_module.validate_learner_question
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'app.domains.xingce_learning.real_attempt.repository' has no attribute 'validate_learner_question'
+
+tests/test_xingce_targeted_knowledge_selection.py:585: AttributeError
+---------------------------- Captured stderr setup -----------------------------
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running stamp_revision  -> 20260727_69
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260727_69 -> 20260728_70, Approve the server-owned CloudBase Hunyuan Companion release.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_70 -> 20260728_71, Expand Xingce commands for review-verdict receipts.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_71 -> 20260728_72, Add the JOB-LEASE@v1 database compatibility window.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_72 -> 20260728_73, Allow exact method-card replay without weakening immutable releases.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_73 -> 20260728_74, Add account-scoped Xingce question favorites and exact-replay receipts.
+INFO  [alembic.runtime.migration] Running upgrade 20260728_74 -> 20260729_75, Speed up account-scoped Xingce delivery candidate selection.
+INFO  [alembic.runtime.migration] Running upgrade 20260729_75 -> 20260729_76, Allow tag-only Xingce reflection while preserving truthful user text.
+INFO  [alembic.runtime.migration] Running upgrade 20260729_76 -> 20260730_77, Add indexed distribution and exposure projections for Xingce selection.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_77 -> 20260730_78, Add audited business windows to position-rule releases.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_78 -> 20260730_79, Keep immutable, release-bound position import snapshots.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_79 -> 20260730_80, Add the database authority for background consumer liveness.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_80 -> 20260730_81, Add the fail-closed commercial data publication authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_81 -> 20260730_82, Harden immutable position authority and current learner projections.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_82 -> 20260730_83, Harden runtime access to commercial publication authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_83 -> 20260730_84, Harden background-job registration and consumer heartbeat authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_84 -> 20260730_85, Close OLD/NEW version escapes in frozen position score snapshots.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_85 -> 20260730_86, Bind every worker heartbeat to one immutable database principal.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_86 -> 20260730_87, Make OCR dispatch intent durable before external provider I/O.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_87 -> 20260730_88, Close stale OCR dispatches with explicit terminal and usage outcomes.
+INFO  [alembic.runtime.migration] Running upgrade 20260730_88 -> 20260731_89, Adopt the major catalog tables into the migration chain.
+INFO  [alembic.runtime.migration] Running upgrade 20260731_89 -> 20260801_90, Add perceptual hash columns to question_visual_fingerprints.
+INFO  [alembic.runtime.migration] Running upgrade 20260801_90 -> 20260801_91, Bring question-bank import fields into the Alembic authority.
+INFO  [alembic.runtime.migration] Running upgrade 20260801_91 -> 20260802_92, Allow evidence-first Xingce reflection without manual cause tags.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_92 -> 20260802_93, Allow TokenRhythm essay candidates without rewriting historical Grok facts.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_93 -> 20260802_94, Persist gender as a versioned qualification fact.
+INFO  [alembic.runtime.migration] Running upgrade 20260802_94 -> 20260804_95, Allow a learner to override today's Xingce focus without rewriting study preferences.
+INFO  [alembic.runtime.migration] Running upgrade 20260804_95 -> 20260804_96, Add the central-brain weekly strategy directive inference and per-day suggestion guard.
+INFO  [alembic.runtime.migration] Running upgrade 20260804_96 -> 20260805_97, Seed the login terms policy version used to record login consent events.
+INFO  [alembic.runtime.migration] Running upgrade 20260805_97 -> 20260806_98, Add knowledge_nodes AI mapping to product.method_cards.
+INFO  [alembic.runtime.migration] Running upgrade 20260806_98 -> 20260807_99, Allow photo queries to originate from an account-bound OpeniLink Hub bot.
+INFO  [alembic.runtime.migration] Running upgrade 20260807_99 -> 20260807_100, Add expiring account-scoped short-term memory for the WeChat channel.
+INFO  [alembic.runtime.migration] Running upgrade 20260807_100 -> 20260808_101, Publish the first production community-method policy set.
+INFO  [alembic.runtime.migration] Running upgrade 20260808_101 -> 20260808_102, Retire the direct iLink transport worker identity.
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/zxg/Documents/新项目/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/domains/external_ingestion/recognition/test_mineru_ocr.py: 12 warnings
+tests/domains/external_ingestion/recognition/test_visual_hash.py: 30 warnings
+tests/scripts/test_generate_visual_fingerprints.py: 10 warnings
+  /Users/zxg/Documents/新项目/backend/app/domains/external_ingestion/recognition/visual_hash.py:30: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    return list(gray.getdata())
+
+tests/domains/external_ingestion/recognition/test_mineru_ocr.py: 6 warnings
+tests/domains/external_ingestion/recognition/test_visual_hash.py: 15 warnings
+tests/scripts/test_generate_visual_fingerprints.py: 5 warnings
+  /Users/zxg/Documents/新项目/backend/app/domains/external_ingestion/recognition/visual_hash.py:48: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    px = list(gray.getdata())
+
+tests/domains/external_ingestion/recognition/test_mineru_ocr.py: 6 warnings
+tests/domains/external_ingestion/recognition/test_visual_hash.py: 15 warnings
+tests/scripts/test_generate_visual_fingerprints.py: 5 warnings
+  /Users/zxg/Documents/新项目/backend/app/domains/external_ingestion/recognition/visual_hash.py:87: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    px = list(resized.getdata())
+
+tests/domains/external_ingestion/recognition/test_recognition_runtime.py::test_runtime_constructs_release_pinned_modal_processor
+  /Users/zxg/Documents/新项目/backend/.venv/lib/python3.12/site-packages/tos/utils.py:1041: DeprecationWarning: setDaemon() is deprecated, set the daemon attribute instead
+    t.setDaemon(True)
+
+tests/domains/external_ingestion/upload/test_tos_sdk.py::test_official_sdk_presign_binds_every_single_and_part_integrity_header
+tests/domains/external_ingestion/upload/test_tos_sdk.py::test_official_sdk_presign_binds_every_single_and_part_integrity_header
+  /Users/zxg/Documents/新项目/backend/.venv/lib/python3.12/site-packages/tos/auth.py:162: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    date = datetime.datetime.utcnow().strftime(DATE_FORMAT)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_commercial_data_publication_protocol.py::test_shared_checkout_blocks_exclusive_until_existing_work_drains
+FAILED tests/test_commercial_data_publication_protocol.py::test_runtime_guard_binds_application_commit_and_environment
+FAILED tests/test_commercial_data_publication_protocol.py::test_companion_checkpoint_inherits_the_production_publication_guard
+FAILED tests/test_commercial_data_publication_protocol.py::test_companion_checkpoint_inherits_timeouts_and_releases_on_row_lock
+FAILED tests/test_xingce_targeted_knowledge_selection.py::test_invalid_first_ninety_six_candidates_still_fetches_later_valid_questions
+5 failed, 1738 passed, 108 warnings in 4948.44s (1:22:28)

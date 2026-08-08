@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "kind": "wechat-devtools-package-size-limit",
+  "observedAt": "2026-08-09T01:11:00+08:00",
+  "commit": "52568db3d8cf231e09eb3f3dedbfd088deb12a23",
+  "projectPath": "/Users/zxg/Documents/新项目/apps/wechat",
+  "tool": {
+    "name": "微信开发者工具 Nightly",
+    "version": "2.02.2608062",
+    "SDKVersion": "3.17.0"
+  },
+  "source": {
+    "panel": "性能质量 -> 本地性能 -> 代码质量 -> 主包",
+    "checkId": "PACKAGE_SIZE_LIMIT",
+    "screenshot": "devtools-main-package-compiled-size.png",
+    "scanAction": "重新扫描",
+    "displayedScanTime": "2026/08/09 01:11",
+    "projectPathConfirmation": "The same open DevTools project reported 本地目录 /Users/zxg/Documents/新项目/apps/wechat.",
+    "prohibitedCommandsNotUsed": [
+      "preview",
+      "auto-preview",
+      "upload"
+    ]
+  },
+  "measurement": {
+    "metric": "compiledPkg excluding .js.map",
+    "threshold": "<1.5M",
+    "mainPackageBytes": null,
+    "totalPackageBytes": null,
+    "exactBytesStatus": "not_exposed_by_panel",
+    "displayedMessage": "主包尺寸（不包含插件）应小于 1.5 M",
+    "displayedResult": "已通过"
+  },
+  "result": "passed",
+  "rawDependencyMetric": {
+    "commit": "660546761aa3030f5dbe9a8fba09e0d03db919e7",
+    "totalLocalCode": "4646 KB",
+    "mainPackage": "1626.3 KB",
+    "interpretation": "historical raw source dependency/ownership metric from the earlier commit; not compiledPkg, not remeasured for the final commit, and not a substitute for PACKAGE_SIZE_LIMIT",
+    "receipt": "devtools-main-package-receipt.json"
+  },
+  "notes": "The code-quality scan was explicitly rerun after opening the final commit locally. The official panel also reports no JS files or components used only by subpackages remaining in the main package. No preview or upload command was used to obtain this result."
+}

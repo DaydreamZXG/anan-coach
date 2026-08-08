@@ -1,0 +1,151 @@
+
+> @gongkao/wechat-mini-program@0.1.0 test
+> vitest run --reporter=default
+
+
+ RUN  v4.1.10 /Users/zxg/Documents/新项目/apps/wechat
+
+ ✓ tests/essay-task-page-lifecycle.test.ts (9 tests) 806ms
+     ✓ ignores an unloaded instance response while a second instance finishes normally  731ms
+ ✓ tests/xingce-practice-page-lifecycle.test.ts (25 tests) 879ms
+     ✓ remeasures the question content after an orientation change  635ms
+ ✓ tests/position-page-lifecycle.test.ts (34 tests) 1044ms
+     ✓ 'workspace' skips the first onShow refresh, refreshes on return, and never writes after unload  301ms
+ ✓ tests/coach-notifications.test.ts (29 tests) 1101ms
+ ✓ tests/today-capacity.test.ts (36 tests) 524ms
+ ✓ tests/pf001-visible-correction.test.ts (23 tests) 421ms
+     ✓ 重复点击只导航一次，并且不会为即时复测新增后端或模型请求  322ms
+ ✓ tests/learning-media-reflection.test.ts (20 tests) 248ms
+ ✓ tests/stage2-mock-exam.test.ts (28 tests) 461ms
+ ✓ tests/external-learning/capture-import-back.test.ts (2 tests) 251ms
+ ✓ tests/profile-logout.test.ts (1 test) 185ms
+ ✓ tests/work_packages/vj-01-real-today-r2/vj-01-real-today-r2-as-03.test.ts (8 tests) 251ms
+ ✓ tests/xingce-task-intro.test.ts (9 tests) 189ms
+ ✓ tests/task-runtime.test.ts (21 tests) 431ms
+     ✓ treats every package copy as generated from a neutral source  371ms
+ ✓ tests/xingce-mastery-queue.test.ts (8 tests) 253ms
+ ✓ tests/question-favorites-ui.test.ts (10 tests) 174ms
+ ✓ tests/onboarding-page-lifecycle.test.ts (2 tests) 160ms
+ ✓ tests/xingce-async-cause-navigation.test.ts (2 tests) 235ms
+ ✓ tests/work_packages/vj-02-real-xingce-wechat/vj-02-real-xingce-wechat-as-04.test.ts (4 tests) 192ms
+ ✓ tests/practice-draft-tools.test.ts (11 tests) 78ms
+ ✓ tests/stage6-reporting.test.ts (11 tests) 129ms
+ ✓ tests/anan-agent-v2.test.ts (2 tests) 106ms
+ ✓ tests/visual-delivery-contracts.test.ts (5 tests) 44ms
+ ✓ tests/operation-attempt-store.test.ts (33 tests) 57ms
+ ✓ tests/xingce-stage3-factored-results.test.ts (18 tests) 297ms
+stderr | tests/stage10-daily-opening.test.ts > today page start action > collapses only after navigation succeeds and stays expanded on failure
+opening navigation failed navigateTo:fail timeout
+
+ ✓ tests/stage10-daily-opening.test.ts (8 tests) 122ms
+ ✓ tests/work_packages/vj-01-real-today-r2/vj-01-real-today-r2-as-02.test.ts (4 tests) 59ms
+ ✓ tests/position-controllers.test.ts (41 tests) 73ms
+ ✓ tests/ilink-bot-sheet.test.ts (2 tests) 85ms
+ ✓ tests/qualification-onboarding.test.ts (6 tests) 37ms
+ ✓ tests/xingce-real-attempt.test.ts (12 tests) 46ms
+ ✓ tests/login-controller.test.ts (16 tests) 23ms
+ ✓ tests/today-dual-track.test.ts (23 tests) 38ms
+ ✓ tests/anan-agent-plan.test.ts (3 tests) 52ms
+ ✓ tests/external-learning/api.test.ts (11 tests) 43ms
+ ✓ tests/onboarding-qualification-controller.test.ts (6 tests) 53ms
+ ✓ tests/essay-closure-wechat.test.ts (9 tests) 22ms
+ ✓ tests/essay-task.test.ts (19 tests) 32ms
+ ✓ tests/work_packages/vj-02-real-xingce-wechat/vj-02-real-xingce-wechat-as-02.test.ts (3 tests) 18ms
+ ✓ tests/onboarding-pending-store.test.ts (5 tests) 25ms
+ ✓ tests/qualification-profile-editor-controller.test.ts (1 test) 23ms
+ ✓ tests/external-learning/capture-controller.test.ts (9 tests) 46ms
+ ✓ tests/external-learning/packets-controller.test.ts (6 tests) 17ms
+ ✓ tests/onboarding-result-presentation.test.ts (4 tests) 9ms
+ ✓ tests/commerce-virtual-payment.test.ts (6 tests) 16ms
+ ✓ tests/capture-responsive-layout.test.ts (16 tests) 13ms
+ ✓ tests/auth-session.test.ts (13 tests) 18ms
+ ✓ tests/api-client.test.ts (9 tests) 23ms
+ ✓ tests/hunyuan-cloud-function.test.ts (4 tests) 42ms
+ ✓ tests/onboarding-study-preference-controller.test.ts (3 tests) 12ms
+ ✓ tests/external-learning/answer-controller.test.ts (6 tests) 14ms
+ ✓ tests/auth-return.test.ts (9 tests) 14ms
+ ✓ tests/work_packages/vj-02-real-xingce-wechat/vj-02-real-xingce-wechat-as-03.test.ts (3 tests) 19ms
+ ✓ tests/product-font.test.ts (5 tests) 15ms
+ ✓ tests/share-entry.test.ts (3 tests) 9ms
+ ✓ tests/onboarding-ability-baseline-controller.test.ts (3 tests) 15ms
+ ✓ tests/community-method-cards.test.ts (9 tests) 15ms
+ ✓ tests/native-camera.test.ts (4 tests) 11ms
+ ✓ tests/work_packages/vj-01-real-today-r2/vj-01-real-today-r2-as-06.test.ts (4 tests) 16ms
+ ✓ tests/qualification-api.test.ts (8 tests) 13ms
+ ✓ tests/stage2-content-renderer.test.ts (5 tests) 15ms
+ ✓ tests/position-presentation.test.ts (9 tests) 12ms
+ ✓ tests/position-briefing.test.ts (3 tests) 10ms
+ ✓ tests/question-favorites-api.test.ts (5 tests) 10ms
+ ✓ tests/tablet-layout.test.ts (8 tests) 11ms
+ ✓ tests/ability-api.test.ts (3 tests) 9ms
+ ✓ tests/onboarding-result-controller.test.ts (3 tests) 12ms
+ ✓ tests/stage5-essay-workbench.test.ts (5 tests) 10ms
+ ✓ tests/today-plan-workload-defaults.test.ts (3 tests) 13ms
+ ✓ tests/essay-task-page-runtime.test.ts (4 tests) 11ms
+ ✓ tests/data-mode.test.ts (3 tests) 8ms
+ ✓ tests/companion-public-presentation.test.ts (3 tests) 8ms
+ ✓ tests/ilink-channel.test.ts (4 tests) 9ms
+ ✓ tests/external-learning/navigation.test.ts (3 tests) 9ms
+ ✓ tests/safe-back-navigation.test.ts (4 tests) 9ms
+ ✓ tests/work_packages/vj-01-real-today-r2/vj-01-real-today-r2-as-05.test.ts (2 tests) 18ms
+ ✓ tests/onboarding-preparation-experience-controller.test.ts (2 tests) 9ms
+ ✓ tests/work_packages/vj-02-real-xingce-wechat/vj-02-real-xingce-wechat-as-01.test.ts (2 tests) 10ms
+ ✓ tests/task-editing.test.ts (3 tests) 11ms
+ ✓ tests/ui-ux-third-layer.test.ts (8 tests) 9ms
+ ✓ tests/stage4-learning-brain.test.ts (4 tests) 9ms
+ ✓ tests/planning-api.test.ts (3 tests) 9ms
+ ✓ tests/account-api.test.ts (4 tests) 9ms
+ ✓ tests/design-file-core-tabs.test.ts (5 tests) 7ms
+ ✓ tests/count-up-runtime.test.ts (5 tests) 8ms
+ ✓ tests/annotation-anchor.test.ts (7 tests) 7ms
+ ✓ tests/onboarding-ability-baseline.test.ts (4 tests) 7ms
+ ✓ tests/xfyun-learning-media.test.ts (3 tests) 8ms
+ ✓ tests/annotation-strokes.test.ts (5 tests) 14ms
+ ✓ tests/xingce-navigation.test.ts (8 tests) 12ms
+ ✓ tests/essay-pending-store.test.ts (5 tests) 9ms
+ ✓ tests/position-routes.test.ts (3 tests) 11ms
+ ✓ tests/mock-material-annotation.test.ts (6 tests) 13ms
+ ✓ tests/external-learning/page-runtime.test.ts (1 test) 5ms
+ ✓ tests/onboarding-study-preference.test.ts (5 tests) 21ms
+ ✓ tests/study-preference-active-visibility.test.ts (6 tests) 7ms
+ ✓ tests/stage2-global-help.test.ts (3 tests) 10ms
+ ✓ tests/presentation.test.ts (3 tests) 6ms
+ ✓ tests/stage2-material-reader.test.ts (4 tests) 8ms
+ ✓ tests/swipe-nav.test.ts (11 tests) 8ms
+ ✓ tests/runtime-layout-foundation.test.ts (6 tests) 7ms
+ ✓ tests/essay-drafting-store.test.ts (4 tests) 8ms
+ ✓ tests/native-tab-suppression.test.ts (1 test) 8ms
+ ✓ tests/retake-controller.test.ts (1 test) 10ms
+ ✓ tests/task-shell.test.ts (3 tests) 14ms
+ ✓ tests/route-map-coverage.test.ts (2 tests) 6ms
+ ✓ tests/anan-agent-actions.test.ts (4 tests) 7ms
+ ✓ tests/work_packages/vj-01-real-today-r2/vj-01-real-today-r2-as-01-client.test.ts (1 test) 8ms
+ ✓ tests/external-learning/error.test.ts (4 tests) 29ms
+ ✓ tests/capacity-preview.test.ts (2 tests) 6ms
+ ✓ tests/ability-reporting.test.ts (2 tests) 6ms
+ ✓ tests/stage2-tool-policy.test.ts (3 tests) 8ms
+ ✓ tests/button-runtime-layout.test.ts (5 tests) 7ms
+ ✓ tests/release-review-compliance.test.ts (2 tests) 5ms
+ ✓ tests/math-ink-contract.test.ts (1 test) 6ms
+ ✓ tests/ability-zero-baseline.test.ts (3 tests) 7ms
+ ✓ tests/xingce-option-prefix-strip.test.ts (5 tests) 6ms
+ ✓ tests/external-learning/sha256.test.ts (1 test) 11ms
+ ✓ tests/page-registration-authority.test.ts (1 test) 5ms
+ ✓ tests/transparent-action-docks.test.ts (2 tests) 5ms
+ ✓ tests/stage9-login.test.ts (2 tests) 14ms
+ ✓ tests/ability-presentation.test.ts (2 tests) 5ms
+ ✓ tests/binary-data.test.ts (3 tests) 5ms
+ ✓ tests/external-learning/match-presentation.test.ts (1 test) 18ms
+ ✓ tests/today-information-architecture.test.ts (4 tests) 5ms
+ ✓ tests/support-contact.test.ts (2 tests) 4ms
+ ✓ tests/position-release-lifecycle-ui.test.ts (2 tests) 4ms
+ ✓ tests/ability-history.test.ts (2 tests) 5ms
+ ✓ tests/essay-material-reading.test.ts (3 tests) 5ms
+ ✓ tests/private-knowledge-retry.test.ts (1 test) 3ms
+ ✓ tests/generate-api-readonly.test.mjs (4 tests) 35851ms
+     ✓ ignores mismatched venvs and preserves repository metadata across concurrent checks  35594ms
+
+ Test Files  130 passed (130)
+      Tests  900 passed (900)
+   Start at  22:54:49
+   Duration  36.24s (transform 7.11s, setup 0ms, import 8.56s, tests 46.10s, environment 35ms)
