@@ -926,7 +926,7 @@ def _materialize_plan_task_start_url(start_url: str, *, task_id: str) -> str:
     parts = urlsplit(start_url)
     if parts.path not in {
         "/pages/essay-task/index",
-        "/xingce/xingce-task-intro/index",
+        "/pages/xingce-task-intro/index",
         "/pages/mock-exam/index",
     }:
         return start_url
