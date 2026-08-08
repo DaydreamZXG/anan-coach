@@ -1,0 +1,2 @@
+<text class="count-up">{{display}}</text>
+<view class="count-up__probe" aria-hidden="true"></view>

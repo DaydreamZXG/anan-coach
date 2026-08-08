@@ -94,7 +94,6 @@ test("accepts companion answers only through the server-owned two-message contra
         return {
           text: JSON.stringify({
             answer: "先复盘今天的错因。",
-            nextActions: ["完成一道同类题"],
             sourceRefs: ["source-1"],
             confidence: "high",
             limitations: [],
@@ -135,7 +134,6 @@ test("normalizes documented Hunyuan companion type drift without inventing conte
       generateText: async () => ({
         text: JSON.stringify({
           answer: "今晚先练资料分析。",
-          nextActions: "完成一道同类题",
           sourceRefs: ["source-1", "source-1"],
           confidence: 0.95,
           limitations: "仅依据当前计划。",
@@ -156,7 +154,6 @@ test("normalizes documented Hunyuan companion type drift without inventing conte
 
   assert.deepEqual(JSON.parse(result.text), {
     answer: "今晚先练资料分析。",
-    nextActions: ["完成一道同类题"],
     sourceRefs: ["source-1"],
     confidence: "high",
     limitations: ["仅依据当前计划。"],
@@ -169,7 +166,6 @@ test("rejects companion content that cannot be normalized to the closed contract
       generateText: async () => ({
         text: JSON.stringify({
           answer: "今晚先练资料分析。",
-          nextActions: [],
           sourceRefs: [],
           confidence: "certain",
           limitations: [],

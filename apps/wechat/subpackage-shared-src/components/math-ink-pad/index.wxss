@@ -1,0 +1,49 @@
+@import "../../../miniprogram/design-system/primitives/interaction.wxss";
+
+.ink-pad {
+  overflow: hidden;
+  border: calc(1 * var(--rpx)) solid var(--color-primary-a16);
+  border-radius: var(--radius-24);
+  background: var(--color-surface-soft);
+}
+.ink-canvas {
+  width: 100%;
+  height: calc(310 * var(--rpx));
+  background-image:
+    linear-gradient(
+      var(--color-primary-a08) calc(1 * var(--rpx)),
+      transparent calc(1 * var(--rpx))
+    ),
+    linear-gradient(
+      90deg,
+      var(--color-primary-a08) calc(1 * var(--rpx)),
+      transparent calc(1 * var(--rpx))
+    );
+  background-size: calc(40 * var(--rpx)) calc(40 * var(--rpx));
+}
+.ink-actions {
+  display: flex;
+  gap: calc(16 * var(--rpx));
+  padding: calc(16 * var(--rpx));
+  border-top: calc(1 * var(--rpx)) solid var(--color-line);
+}
+.ink-clear,
+.ink-recognize {
+  flex: 1;
+  margin: 0;
+  border-radius: var(--radius-16);
+  font-size: var(--text-caption);
+  line-height: calc(72 * var(--rpx));
+}
+.ink-clear {
+  color: var(--color-ink-secondary);
+  background: var(--color-canvas);
+}
+.ink-recognize {
+  color: var(--color-surface);
+  background: var(--color-primary);
+}
+.ink-clear::after,
+.ink-recognize::after {
+  border: 0;
+}

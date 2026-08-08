@@ -70,6 +70,55 @@ Component({
     },
   },
   methods: {
+    /** 表格横滚使用完整内容宽度存 x；把视口/scrollLeft 测量交给批注层换算。 */
+    measureHorizontalRegions() {
+      const query = this.createSelectorQuery();
+      query
+        .selectAll(".content-table__scroll")
+        .fields({ dataset: true, rect: true, size: true, scrollOffset: true });
+      query.selectAll(".content-table__grid").fields({ size: true });
+      query.exec(
+        (
+          results: Array<
+            Array<{
+              dataset?: Record<string, unknown>;
+              left?: number;
+              top?: number;
+              width?: number;
+              height?: number;
+              scrollLeft?: number;
+            } | null>
+          >,
+        ) => {
+          const scrolls = results[0] ?? [];
+          const grids = results[1] ?? [];
+          const regions = scrolls.flatMap((scroll, index) => {
+            const rawBlockId = scroll?.dataset?.blockId;
+            const rawLabel = scroll?.dataset?.label;
+            const blockId = typeof rawBlockId === "string" ? rawBlockId : "";
+            const viewportWidth = scroll?.width ?? 0;
+            const contentWidth = grids[index]?.width ?? viewportWidth;
+            if (!blockId || viewportWidth <= 0 || contentWidth <= 0) return [];
+            return [
+              {
+                blockId,
+                label: typeof rawLabel === "string" ? rawLabel : "资料表格",
+                viewportLeft: scroll?.left ?? 0,
+                viewportTop: scroll?.top ?? 0,
+                viewportWidth,
+                viewportHeight: scroll?.height ?? 0,
+                contentWidth,
+                scrollLeft: scroll?.scrollLeft ?? 0,
+              },
+            ];
+          });
+          this.triggerEvent("horizontalregions", { regions });
+        },
+      );
+    },
+    onTableScroll() {
+      this.measureHorizontalRegions();
+    },
     /** 契约增量 v2：把题干可选中句段的视口矩形上报给宿主（批注锚定用）。 */
     measureSegmentRects() {
       if (!this.data.selectable) return;
@@ -201,6 +250,9 @@ function syncContent(host: ContentRendererHost): void {
       (host as unknown as { measureSegmentRects?: () => void }).measureSegmentRects?.();
     });
   }
+  wx.nextTick(() => {
+    (host as unknown as { measureHorizontalRegions?: () => void }).measureHorizontalRegions?.();
+  });
 }
 
 function normalizeBlocks(value: unknown): RichContentBlock[] {

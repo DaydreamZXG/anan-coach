@@ -1,4 +1,9 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+// @ts-expect-error The generator manifest is executable ESM without TypeScript declarations.
+import { subpackageSharedFiles } from "../scripts/subpackage-shared-manifest.mjs";
+// @ts-expect-error The generator is an executable ESM module without TypeScript declarations.
+import * as subpackageGenerator from "../scripts/sync-subpackage-shared.mjs";
 import {
   decideAutosave,
   decideExit,
@@ -9,6 +14,60 @@ import {
   TaskTransitionError,
   unansweredQuestionIds,
 } from "../miniprogram/pages/practice/shared/task-runtime/state/runtime";
+
+interface SharedManifestEntry {
+  source: string;
+  path: string;
+  packages: string[];
+}
+
+interface GeneratedTarget {
+  entry: SharedManifestEntry;
+  packageName: string;
+  packageIndex: number;
+  targetRelative: string;
+}
+
+const manifestEntries = subpackageSharedFiles as unknown as SharedManifestEntry[];
+const generator = subpackageGenerator as unknown as {
+  generatedTargetPlan(entries: SharedManifestEntry[]): GeneratedTarget[];
+  expectedGeneratedTarget(entry: SharedManifestEntry, packageName: string): Promise<string>;
+  generatedTargetIsStale(expected: string, actual: string): boolean;
+};
+
+describe("subpackage shared generator", () => {
+  it("treats every package copy as generated from a neutral source", async () => {
+    const plan = generator.generatedTargetPlan(manifestEntries);
+    const firstTargets = plan.filter(({ packageIndex }) => packageIndex === 0);
+    const crossPackageTargets = plan.filter(({ packageIndex }) => packageIndex > 0);
+
+    expect(plan).toHaveLength(263);
+    expect(firstTargets).toHaveLength(123);
+    expect(crossPackageTargets).toHaveLength(140);
+    expect(
+      manifestEntries.every(
+        ({ source }) =>
+          source.startsWith("subpackage-shared-src/") && !source.startsWith("miniprogram/"),
+      ),
+    ).toBe(true);
+    expect(manifestEntries.some(({ packages }) => packages.length === 1)).toBe(true);
+    for (const { source } of manifestEntries) {
+      expect(readFileSync(source, "utf8").length).toBeGreaterThan(0);
+    }
+
+    const firstTarget = firstTargets[0];
+    if (!firstTarget) throw new Error("at least one generated target is required");
+    const expected = await generator.expectedGeneratedTarget(
+      firstTarget.entry,
+      firstTarget.packageName,
+    );
+    const actual = readFileSync(`miniprogram/${firstTarget.targetRelative}`, "utf8");
+    expect(generator.generatedTargetIsStale(expected, actual)).toBe(false);
+    expect(
+      generator.generatedTargetIsStale(expected, `${actual}\n// simulated index-0 drift`),
+    ).toBe(true);
+  });
+});
 
 describe("task runtime", () => {
   it("records answer evidence without mutating prior state", () => {

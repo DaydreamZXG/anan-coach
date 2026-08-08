@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "ui-sheet": "../../../miniprogram/design-system/primitives/ui-sheet/index"
+  }
+}

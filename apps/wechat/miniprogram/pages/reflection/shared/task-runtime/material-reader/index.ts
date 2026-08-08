@@ -4,6 +4,7 @@ import {
   type ContentDisplayPreferences,
 } from "../content-renderer/model";
 import { measureSystemChrome } from "../../../../../components/safe-top/metrics";
+import type { HorizontalAnnotationRegion } from "../annotation-layer/anchor";
 import {
   createMaterialReaderState,
   cycleFontScale,
@@ -43,6 +44,7 @@ interface MaterialReaderData {
   annotationElapsedSeconds: number;
   annotationElapsedMs: number;
   annotationContentHeight: number;
+  horizontalRegions: HorizontalAnnotationRegion[];
 }
 
 interface MaterialReaderHost {
@@ -84,6 +86,7 @@ const initialReaderData: MaterialReaderViewData = {
   capsuleReserve: 0,
   readPercent: 0,
   annotationContentHeight: 0,
+  horizontalRegions: [],
 };
 
 Component({
@@ -262,6 +265,18 @@ Component({
       event: WechatMiniprogram.CustomEvent<{ strokes: unknown; action: "added" | "erased" }>,
     ) {
       this.triggerEvent("strokeschange", event.detail);
+    },
+    onHorizontalRegions(
+      event: WechatMiniprogram.CustomEvent<{
+        regions: Array<Omit<HorizontalAnnotationRegion, "measuredScrollTop">>;
+      }>,
+    ) {
+      this.setData({
+        horizontalRegions: event.detail.regions.map((region) => ({
+          ...region,
+          measuredScrollTop: this.data.position.scrollTop,
+        })),
+      });
     },
     finishAnnotation() {
       this.triggerEvent("annotatedone");

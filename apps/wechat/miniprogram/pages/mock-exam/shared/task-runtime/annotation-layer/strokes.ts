@@ -1,5 +1,56 @@
 import type { AnnotationPoint, AnnotationStroke } from "../../../../../task-runtime/contracts";
 
+export interface AnnotationSurfaces {
+  question: AnnotationStroke[];
+  material: AnnotationStroke[];
+}
+
+/** 旧会话没有 surface，但 material-stroke 前缀已经是冻结的历史识别方式。 */
+export function isMaterialAnnotation(stroke: AnnotationStroke): boolean {
+  return stroke.surface === "material" || stroke.strokeId.startsWith("material-stroke-");
+}
+
+export function splitAnnotationSurfaces(
+  strokes: readonly AnnotationStroke[] | null | undefined,
+): AnnotationSurfaces {
+  const question: AnnotationStroke[] = [];
+  const material: AnnotationStroke[] = [];
+  for (const stroke of strokes ?? []) {
+    if (isMaterialAnnotation(stroke)) material.push({ ...stroke, surface: "material" });
+    else question.push(stroke);
+  }
+  return { question, material };
+}
+
+export function materialAnnotationStrokes(
+  strokes: readonly AnnotationStroke[],
+): AnnotationStroke[] {
+  return strokes.map((stroke) => ({ ...stroke, surface: "material" as const }));
+}
+
+export function mergeAnnotationSurfaces(
+  question: readonly AnnotationStroke[],
+  material: readonly AnnotationStroke[],
+): AnnotationStroke[] {
+  return [...question, ...materialAnnotationStrokes(material)];
+}
+
+/** 保持旧页面的 question-change 排序：材料笔画在前，题面完整替换在后。 */
+export function replaceQuestionAnnotations(
+  current: readonly AnnotationStroke[],
+  question: readonly AnnotationStroke[],
+): AnnotationStroke[] {
+  return [...splitAnnotationSurfaces(current).material, ...question];
+}
+
+/** 保持旧页面的 material-change 排序：题面笔画在前，材料完整替换在后。 */
+export function replaceMaterialAnnotations(
+  current: readonly AnnotationStroke[],
+  material: readonly AnnotationStroke[],
+): AnnotationStroke[] {
+  return [...splitAnnotationSurfaces(current).question, ...materialAnnotationStrokes(material)];
+}
+
 /**
  * 契约增量 v1：擦除墓碑与压感采集的纯逻辑。
  * 橡皮/套索不再物理删除笔画，改为盖 erasedAtMs；渲染与回放据此过滤。

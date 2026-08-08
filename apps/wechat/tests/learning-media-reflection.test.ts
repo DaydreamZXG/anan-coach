@@ -23,6 +23,14 @@ import {
   type LearningMediaUploadGateway,
 } from "../miniprogram/pages/reflection/shared/features/learning-media/upload-controller";
 import {
+  advanceTrajectoryReplay,
+  createTrajectoryReplayState,
+  ReplayClock,
+  seekTrajectoryReplay,
+  selectTrajectoryReplaySurface,
+  type ReplaySource,
+} from "../miniprogram/pages/reflection/features/replay-runtime";
+import {
   apiSuccess,
   reflectedXingceSession,
   submittedXingceSession,
@@ -33,9 +41,83 @@ const content = new Uint8Array([0x61, 0x62, 0x63]).buffer;
 const digest = sha256Hex(content);
 
 afterEach(() => {
+  vi.useRealTimers();
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
   vi.resetModules();
+});
+
+describe("reflection trajectory replay runtime", () => {
+  const source: ReplaySource = {
+    elapsedSeconds: 2,
+    materialAvailable: true,
+    annotations: [
+      {
+        strokeId: "question-stroke-1",
+        tool: "pen",
+        width: 0.006,
+        points: [{ x: 0.1, y: 0.2, t: 0 }],
+        atMs: 500,
+        erasedAtMs: 4_500,
+      },
+      {
+        strokeId: "material-stroke-legacy",
+        tool: "highlighter",
+        width: 0.03,
+        points: [{ x: 0.3, y: 0.4, t: 0 }],
+        atMs: 1_000,
+      },
+    ],
+    actionEvents: [
+      { type: "option_changed", atMs: 3_000 },
+      { type: "annotation_erased", atMs: 4_500 },
+    ],
+  };
+
+  it("builds one frozen replay timeline including legacy material strokes and erase time", () => {
+    const initial = createTrajectoryReplayState(source);
+    expect(initial).toMatchObject({
+      durationMs: 4_500,
+      replayMs: 0,
+      playing: false,
+      surface: "question",
+      summaryLabel: "1 次擦除 · 1 次回改",
+    });
+    expect(initial.surfaceOptions.map((entry) => entry.value)).toEqual(["question", "material"]);
+    expect(initial.annotations.map((stroke) => stroke.strokeId)).toEqual(["question-stroke-1"]);
+    expect(
+      selectTrajectoryReplaySurface(initial, source, "material").annotations.map(
+        (stroke) => stroke.strokeId,
+      ),
+    ).toEqual(["material-stroke-legacy"]);
+  });
+
+  it("pauses on seek, clamps the slider, and stops exactly at the frozen duration", () => {
+    const initial = { ...createTrajectoryReplayState(source), playing: true };
+    expect(seekTrajectoryReplay(initial, 9_999)).toMatchObject({
+      replayMs: 4_500,
+      playing: false,
+    });
+    expect(advanceTrajectoryReplay({ ...initial, replayMs: 4_200 }, 480)).toMatchObject({
+      replayMs: 4_500,
+      playing: false,
+    });
+  });
+
+  it("owns one timer per page and releases it on stop/unload", () => {
+    vi.useFakeTimers();
+    const owner = {};
+    const clock = new ReplayClock();
+    const tick = vi.fn(() => true);
+    clock.start(owner, tick, 120);
+    vi.advanceTimersByTime(240);
+    expect(tick).toHaveBeenCalledTimes(2);
+    expect(clock.active(owner)).toBe(true);
+    clock.stop(owner);
+    vi.advanceTimersByTime(240);
+    expect(tick).toHaveBeenCalledTimes(2);
+    expect(clock.active(owner)).toBe(false);
+  });
 });
 
 describe("reflection learning-media upload chain", () => {

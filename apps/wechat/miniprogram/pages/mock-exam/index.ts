@@ -26,6 +26,11 @@ import { environment } from "../../config/environment";
 import { createIdempotencyKey, stableFingerprint } from "../../platform/command-id";
 import type { TaskRuntimeState } from "../../task-runtime/contracts";
 import type { AnnotationStroke } from "../../task-runtime/contracts";
+import {
+  replaceMaterialAnnotations,
+  replaceQuestionAnnotations,
+  splitAnnotationSurfaces,
+} from "./shared/task-runtime/annotation-layer/strokes";
 import type { AnchorSegmentRect } from "./shared/task-runtime/annotation-layer/anchor";
 import type { ContentDisplayPreferences } from "./shared/task-runtime/content-renderer/model";
 import { stripOptionContentPrefix } from "./shared/task-runtime/option-presentation";
@@ -41,11 +46,11 @@ import {
 } from "./shared/task-runtime/material-reader/state";
 import { reduceTaskRuntime } from "./shared/task-runtime/state/runtime";
 import {
-  resolveSwipeNav,
-  swipeSampleFromTouchEnd,
-  swipeSampleFromTouchMove,
-  swipeSampleFromTouchStart,
-  type SwipeNavSample,
+  beginSwipeGesture,
+  finishSwipeGesture,
+  idleSwipeGesture,
+  moveSwipeGesture,
+  type SwipeGestureState,
 } from "./shared/task-runtime/swipe-nav";
 import { taskToolPolicy, type TaskToolPolicy } from "./shared/task-runtime/tool-policy/index";
 import {
@@ -244,10 +249,8 @@ interface PageRuntime {
   trajectoryPromise?: Promise<boolean>;
   nextTrajectoryEventSeq: number;
   submitInFlight: boolean;
-  /** 快滑切题手势的起点采样；多指或松手后置回 null。 */
-  swipeStart: SwipeNavSample | null;
-  /** scroll-view 以 touchcancel 收尾时使用的最后一个有效移动点。 */
-  swipeLatest: SwipeNavSample | null;
+  /** 中立运行时统一持有起点/末点；多指或松手后整体复位。 */
+  swipeGesture: SwipeGestureState;
 }
 
 type MockSubmitOutcome =
@@ -602,37 +605,22 @@ Page<MockExamPageData, MockExamPageCustom>({
   onQuestionTouchStart(event) {
     const runtime = runtimes.get(this);
     if (!runtime || runtime.disposed) return;
-    const sample = swipeSampleFromTouchStart(event);
-    runtime.swipeStart = sample;
-    runtime.swipeLatest = sample;
+    runtime.swipeGesture = beginSwipeGesture(event);
   },
 
   onQuestionTouchMove(event) {
     const runtime = runtimes.get(this);
-    if (!runtime?.swipeStart) return;
-    // 第二根手指落下（表格缩放/双指滚动）即放弃本次切题手势。
-    if (event.touches.length > 1) {
-      runtime.swipeStart = null;
-      runtime.swipeLatest = null;
-      return;
-    }
-    runtime.swipeLatest = swipeSampleFromTouchMove(event) ?? runtime.swipeLatest;
+    if (!runtime?.swipeGesture.start) return;
+    runtime.swipeGesture = moveSwipeGesture(runtime.swipeGesture, event);
   },
 
   onQuestionTouchEnd(event) {
     const runtime = runtimes.get(this);
     if (!runtime || runtime.disposed) return;
-    const start = runtime.swipeStart;
-    // 微信原生 scroll-view 的 touchcancel 可能把 changedTouches 补成 (0,0)，
-    // 该坐标不是手指终点；取消事件只能使用最后一个真实 touchmove 采样。
-    const end =
-      event.type === "touchcancel"
-        ? runtime.swipeLatest
-        : (swipeSampleFromTouchEnd(event) ?? runtime.swipeLatest);
-    runtime.swipeStart = null;
-    runtime.swipeLatest = null;
-    if (!start || swipeNavigationBlocked(this)) return;
-    const direction = resolveSwipeNav(start, end);
+    const settled = finishSwipeGesture(runtime.swipeGesture, event);
+    runtime.swipeGesture = settled.state;
+    if (swipeNavigationBlocked(this)) return;
+    const direction = settled.direction;
     if (!direction) return;
     if (direction === "prev") {
       if (this.data.current <= 1) {
@@ -762,7 +750,11 @@ Page<MockExamPageData, MockExamPageCustom>({
     markCurrentQuestionDirty(runtime);
     runtime.task = reduceTaskRuntime(runtime.task, {
       type: "ANNOTATIONS_CHANGED",
-      strokes: [...this.data.materialAnnotations, ...event.detail.strokes],
+      strokes: replaceQuestionAnnotations(
+        runtime.task.attempts[runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""]
+          ?.annotations ?? [],
+        event.detail.strokes,
+      ),
       action: event.detail.action,
     });
     runtime.mutationVersion += 1;
@@ -773,14 +765,14 @@ Page<MockExamPageData, MockExamPageCustom>({
   changeMaterialAnnotations(event) {
     const runtime = runtimes.get(this);
     if (!runtime?.task || this.data.interactionLocked) return;
-    const materialStrokes = event.detail.strokes.map((stroke: AnnotationStroke) => ({
-      ...stroke,
-      surface: "material" as const,
-    }));
     markCurrentQuestionDirty(runtime);
     runtime.task = reduceTaskRuntime(runtime.task, {
       type: "ANNOTATIONS_CHANGED",
-      strokes: [...this.data.questionAnnotations, ...materialStrokes],
+      strokes: replaceMaterialAnnotations(
+        runtime.task.attempts[runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""]
+          ?.annotations ?? [],
+        event.detail.strokes,
+      ),
       action: event.detail.action,
     });
     runtime.mutationVersion += 1;
@@ -1203,15 +1195,9 @@ function applyRuntimeToPage(
       active: index === task.currentQuestionIndex,
     };
   });
-  const annotations = attempt.annotations ?? [];
-  const questionAnnotations = annotations.filter(
-    (stroke) => stroke.surface !== "material" && !stroke.strokeId.startsWith("material-stroke-"),
+  const { question: questionAnnotations, material: materialAnnotations } = splitAnnotationSurfaces(
+    attempt.annotations,
   );
-  const materialAnnotations = annotations
-    .filter(
-      (stroke) => stroke.surface === "material" || stroke.strokeId.startsWith("material-stroke-"),
-    )
-    .map((stroke) => ({ ...stroke, surface: "material" as const }));
   page.setData({
     status: "ready",
     showLoginAction: false,
@@ -1228,7 +1214,7 @@ function applyRuntimeToPage(
       })),
       marked: attempt.marked,
       draftText: attempt.draftText,
-      annotations,
+      annotations: attempt.annotations ?? [],
       elapsedSeconds: attempt.elapsedSeconds,
       elapsedMs: attempt.elapsedMs ?? attempt.elapsedSeconds * 1000,
       material,
@@ -2036,8 +2022,7 @@ function bindMockSession(
     dirtyQuestionIds: new Set<string>(),
     nextTrajectoryEventSeq: 1,
     submitInFlight: false,
-    swipeStart: null,
-    swipeLatest: null,
+    swipeGesture: idleSwipeGesture(),
   };
   runtimes.set(page, runtime);
   page.setData({
@@ -2136,8 +2121,7 @@ function persistAuthRecoveryCheckpoint(runtime: PageRuntime): void {
 function disposeRuntime(runtime: PageRuntime): void {
   runtime.disposed = true;
   runtime.visible = false;
-  runtime.swipeStart = null;
-  runtime.swipeLatest = null;
+  runtime.swipeGesture = idleSwipeGesture();
   stopClock(runtime);
   clearAutosave(runtime);
 }

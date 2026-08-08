@@ -123,7 +123,15 @@
           </button>
         </view>
       </view>
-      <scroll-view class="content-table__scroll" scroll-x enhanced show-scrollbar>
+      <scroll-view
+        class="content-table__scroll"
+        scroll-x
+        enhanced
+        show-scrollbar
+        data-block-id="{{item.blockId}}"
+        data-label="{{item.resolvedCaption}}"
+        bindscroll="onTableScroll"
+      >
         <view class="content-table__grid" style="{{item.gridStyle}}">
           <view
             wx:for="{{item.cells}}"

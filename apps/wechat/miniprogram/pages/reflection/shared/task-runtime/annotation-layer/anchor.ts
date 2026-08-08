@@ -33,6 +33,69 @@ export interface NormalizedSegmentRect extends AnchorSegmentMeta {
   height: number;
 }
 
+export interface HorizontalAnnotationRegion {
+  blockId: string;
+  label: string;
+  viewportLeft: number;
+  viewportTop: number;
+  viewportWidth: number;
+  viewportHeight: number;
+  contentWidth: number;
+  scrollLeft: number;
+  measuredScrollTop: number;
+}
+
+export interface AnnotationCanvasMetrics {
+  left: number;
+  top: number;
+  width: number;
+  contentHeight: number;
+  scrollTop: number;
+}
+
+export function horizontalRegionAtPoint(
+  regions: readonly HorizontalAnnotationRegion[],
+  metrics: AnnotationCanvasMetrics,
+  clientX: number,
+  clientY: number,
+): HorizontalAnnotationRegion | null {
+  const contentY = clientY - metrics.top + metrics.scrollTop;
+  return (
+    regions.find((region) => {
+      const contentTop = region.viewportTop - metrics.top + region.measuredScrollTop;
+      const contentBottom = contentTop + region.viewportHeight;
+      return (
+        clientX >= region.viewportLeft &&
+        clientX <= region.viewportLeft + region.viewportWidth &&
+        contentY >= contentTop &&
+        contentY <= contentBottom
+      );
+    }) ?? null
+  );
+}
+
+export function capturedHorizontalX(region: HorizontalAnnotationRegion, clientX: number): number {
+  if (region.contentWidth <= 0) return 0;
+  return clamp((clientX - region.viewportLeft + region.scrollLeft) / region.contentWidth);
+}
+
+export function renderedHorizontalX(
+  region: HorizontalAnnotationRegion,
+  metrics: Pick<AnnotationCanvasMetrics, "left">,
+  normalizedX: number,
+): number {
+  return (
+    region.viewportLeft -
+    metrics.left +
+    clamp(normalizedX) * region.contentWidth -
+    region.scrollLeft
+  );
+}
+
+function clamp(value: number): number {
+  return Math.min(1, Math.max(0, Number.isFinite(value) ? value : 0));
+}
+
 /** 笔迹离句段多远内算命中；0.1 ≈ 画面高度的一成，宽容覆盖划线/下划线/圈画。 */
 export const ANCHOR_MATCH_DISTANCE = 0.1;
 

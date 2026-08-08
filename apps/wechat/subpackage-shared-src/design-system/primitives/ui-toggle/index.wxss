@@ -1,0 +1,49 @@
+button.ui-toggle {
+  position: relative;
+  display: block;
+  width: calc(92 * var(--rpx));
+  min-width: calc(92 * var(--rpx));
+  height: calc(52 * var(--rpx));
+  min-height: calc(52 * var(--rpx));
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-capsule);
+  background: var(--color-line-strong);
+  transition:
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.ui-toggle::after {
+  border: 0;
+}
+
+.ui-toggle--checked {
+  background: var(--color-primary);
+  box-shadow: 0 calc(8 * var(--rpx)) calc(22 * var(--rpx)) var(--color-primary-a18);
+}
+
+.ui-toggle__thumb {
+  position: absolute;
+  top: calc(6 * var(--rpx));
+  left: calc(6 * var(--rpx));
+  width: calc(40 * var(--rpx));
+  height: calc(40 * var(--rpx));
+  border-radius: 50%;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-control);
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ui-toggle--checked .ui-toggle__thumb {
+  transform: translateX(calc(40 * var(--rpx)));
+}
+
+.ui-toggle--hover {
+  opacity: 0.84;
+}
+
+.ui-toggle--disabled {
+  opacity: 0.45;
+}

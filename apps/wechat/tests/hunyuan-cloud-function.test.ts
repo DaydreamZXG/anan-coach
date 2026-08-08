@@ -77,4 +77,65 @@ describe("CloudBase Hunyuan function contract", () => {
       "purpose is not enabled in this release",
     );
   });
+
+  it("returns the companion answer contract without the discarded nextActions chain", async () => {
+    const generateText = vi.fn(() =>
+      Promise.resolve({
+        text: JSON.stringify({
+          answer: "先复盘今天的错因。",
+          sourceRefs: ["source-1"],
+          confidence: "high",
+          limitations: [],
+        }),
+      }),
+    );
+    const handle = runtime.createHandler({ createModel: () => ({ generateText }) });
+    const result = await handle(
+      request({
+        purpose: "companion_answer",
+        messages: [
+          { role: "system", content: "server-owned companion contract" },
+          { role: "user", content: "minimized learner context" },
+        ],
+      }),
+    );
+
+    expect(JSON.parse(String(result.text))).toEqual({
+      answer: "先复盘今天的错因。",
+      sourceRefs: ["source-1"],
+      confidence: "high",
+      limitations: [],
+    });
+    expect(String(result.text)).not.toContain("nextActions");
+  });
+
+  it("rejects rather than returning the retired companion nextActions field", async () => {
+    const handle = runtime.createHandler({
+      createModel: () => ({
+        generateText: ({ messages }: Record<string, unknown>) =>
+          Promise.resolve({
+            text: Array.isArray(messages)
+              ? JSON.stringify({
+                  answer: "先做一道题。",
+                  nextActions: ["旧动作"],
+                  sourceRefs: ["source-1"],
+                  confidence: "medium",
+                  limitations: [],
+                })
+              : '{"score":{}}',
+          }),
+      }),
+    });
+    await expect(
+      handle(
+        request({
+          purpose: "companion_answer",
+          messages: [
+            { role: "system", content: "server-owned companion contract" },
+            { role: "user", content: "minimized learner context" },
+          ],
+        }),
+      ),
+    ).rejects.toThrow("does not match the response contract");
+  });
 });

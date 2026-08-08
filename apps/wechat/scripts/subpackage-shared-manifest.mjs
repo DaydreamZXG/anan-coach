@@ -4,7 +4,7 @@ const componentFiles = (directory, packages) =>
     packages,
   }));
 
-export const subpackageSharedFiles = [
+const declaredSubpackageSharedFiles = [
   { path: "api/mock-exam.ts", packages: ["reports", "mock-exam"] },
   { path: "api/xingce-learning.ts", packages: ["xingce", "practice", "reflection"] },
   { path: "api/community-method-cards.ts", packages: ["community"] },
@@ -204,6 +204,16 @@ export const subpackageSharedFiles = [
   ...componentFiles("task-runtime/question-toolbar", ["practice", "mock-exam"]),
   ...componentFiles("components/math-ink-pad", ["practice"]),
 ];
+
+/**
+ * 中立源位于 miniprogramRoot 之外，不参与微信主包打包。
+ * 每个导出条目都携带明确 source；packages 只描述生成目标，
+ * 数组顺序不再表示“业务母版”。
+ */
+export const subpackageSharedFiles = declaredSubpackageSharedFiles.map((entry) => ({
+  ...entry,
+  source: `subpackage-shared-src/${entry.path}`,
+}));
 
 export function subpackageSharedDestination(path, packageName) {
   if (path === "features/essay-task/forms.ts") return "pages/essay-task/features/forms.ts";

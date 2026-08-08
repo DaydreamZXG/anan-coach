@@ -94,12 +94,21 @@ import {
   type MaterialReaderState,
 } from "./shared/task-runtime/material-reader/state";
 import {
-  resolveSwipeNav,
-  swipeSampleFromTouchEnd,
-  swipeSampleFromTouchMove,
-  swipeSampleFromTouchStart,
-  type SwipeNavSample,
+  beginSwipeGesture,
+  finishSwipeGesture,
+  idleSwipeGesture,
+  moveSwipeGesture,
+  type SwipeGestureState,
 } from "./shared/task-runtime/swipe-nav";
+import {
+  advanceTrajectoryReplay,
+  createTrajectoryReplayState,
+  ReplayClock,
+  seekTrajectoryReplay,
+  selectTrajectoryReplaySurface,
+  type ReplaySource,
+  type TrajectoryReplayState,
+} from "./features/replay-runtime";
 
 type ReflectionStatus = "loading" | "ready" | "error" | "unavailable";
 type ReflectionPhase =
@@ -274,8 +283,7 @@ interface ReflectionRuntime {
   causePollCount: number;
   reviewFormEntered: boolean;
   verificationNavigationStarted: boolean;
-  swipeStart: SwipeNavSample | null;
-  swipeLatest: SwipeNavSample | null;
+  swipeGesture: SwipeGestureState;
 }
 
 type ReflectionPageInstance = WechatMiniprogram.Page.Instance<
@@ -410,8 +418,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       causePollCount: 0,
       reviewFormEntered: hasReflectionDraft(mediaDraft),
       verificationNavigationStarted: false,
-      swipeStart: null,
-      swipeLatest: null,
+      swipeGesture: idleSwipeGesture(),
     };
     runtimes.set(this, runtime);
     syncVoiceView(this, runtime);
@@ -441,6 +448,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     runtime.recorder?.dispose();
     runtime.preview?.dispose();
     runtime.speechPreview?.dispose();
+    replayClock.stop(this);
     runtimes.delete(this);
   },
 
@@ -600,34 +608,22 @@ Page<ReflectionPageData, ReflectionPageCustom>({
   onReviewTouchStart(event) {
     const runtime = runtimes.get(this);
     if (!runtime || runtime.disposed || reviewSwipeBlocked(this)) return;
-    const sample = swipeSampleFromTouchStart(event);
-    runtime.swipeStart = sample;
-    runtime.swipeLatest = sample;
+    runtime.swipeGesture = beginSwipeGesture(event);
   },
 
   onReviewTouchMove(event) {
     const runtime = runtimes.get(this);
-    if (!runtime?.swipeStart) return;
-    if (event.touches.length > 1) {
-      runtime.swipeStart = null;
-      runtime.swipeLatest = null;
-      return;
-    }
-    runtime.swipeLatest = swipeSampleFromTouchMove(event) ?? runtime.swipeLatest;
+    if (!runtime?.swipeGesture.start) return;
+    runtime.swipeGesture = moveSwipeGesture(runtime.swipeGesture, event);
   },
 
   onReviewTouchEnd(event) {
     const runtime = runtimes.get(this);
     if (!runtime || runtime.disposed) return;
-    const start = runtime.swipeStart;
-    const end =
-      event.type === "touchcancel"
-        ? runtime.swipeLatest
-        : (swipeSampleFromTouchEnd(event) ?? runtime.swipeLatest);
-    runtime.swipeStart = null;
-    runtime.swipeLatest = null;
-    if (!start || reviewSwipeBlocked(this)) return;
-    const direction = resolveSwipeNav(start, end);
+    const settled = finishSwipeGesture(runtime.swipeGesture, event);
+    runtime.swipeGesture = settled.state;
+    if (reviewSwipeBlocked(this)) return;
+    const direction = settled.direction;
     if (!direction) return;
     const nextIndex = this.data.currentReviewIndex + (direction === "next" ? 1 : -1);
     if (nextIndex < 0 || nextIndex >= this.data.reviewItems.length) {
@@ -655,60 +651,24 @@ Page<ReflectionPageData, ReflectionPageCustom>({
   openReplay() {
     const item = this.data.activeReviewItem;
     if (!item?.trajectoryAvailable) return;
-    const durationMs = Math.max(
-      item.elapsedSeconds * 1000,
-      ...item.actionEvents.map((entry) => entry.atMs),
-      ...item.annotations.map((stroke) => stroke.atMs),
-      // 契约增量 v1：擦除墓碑也在时间线上，回放要走到擦除时刻。
-      ...item.annotations.map((stroke) => stroke.erasedAtMs ?? 0),
-      1000,
-    );
-    const eraseCount = item.actionEvents.filter(
-      (entry) => entry.type === "annotation_erased",
-    ).length;
-    const changeCount = item.actionEvents.filter((entry) => entry.type === "option_changed").length;
-    const summaryParts = [
-      eraseCount > 0 ? `${String(eraseCount)} 次擦除` : "",
-      changeCount > 0 ? `${String(changeCount)} 次回改` : "",
-    ].filter(Boolean);
-    const questionAnnotations = item.annotations.filter(
-      (stroke) => stroke.surface !== "material" && !stroke.strokeId.startsWith("material-stroke-"),
-    );
-    const materialAnnotations = item.annotations.filter(
-      (stroke) => stroke.surface === "material" || stroke.strokeId.startsWith("material-stroke-"),
-    );
-    const surfaceOptions = [
-      ...(questionAnnotations.length > 0 || materialAnnotations.length === 0
-        ? [{ value: "question" as const, label: "题目" }]
-        : []),
-      ...(item.material && materialAnnotations.length > 0
-        ? [{ value: "material" as const, label: "材料" }]
-        : []),
-    ];
-    const replaySurface = surfaceOptions[0]?.value ?? "question";
+    const replay = createTrajectoryReplayState(replaySource(item));
     this.setData({
       replayOpen: true,
       analysisOpen: false,
       replayPlaying: false,
       replayMs: 0,
-      replayDurationMs: durationMs,
+      replayDurationMs: replay.durationMs,
       replayProgressPercent: 0,
-      replayTimeLabel: `00:00 / ${formatReplayTime(durationMs)}`,
+      replayTimeLabel: `00:00 / ${formatReplayTime(replay.durationMs)}`,
       replayCurrentLabel: "00:00",
-      replaySummaryLabel: summaryParts.join(" · ") || `${String(item.actionEvents.length)} 个动作`,
+      replaySummaryLabel: replay.summaryLabel,
       replayCurrentEvent: "",
-      replayMarkers: item.actionEvents.map((entry) => ({
-        percent: Math.min(100, Math.round((entry.atMs / durationMs) * 100)),
-        tone:
-          entry.type === "option_changed" || entry.type === "annotation_erased"
-            ? ("warning" as const)
-            : ("default" as const),
-      })),
+      replayMarkers: replay.markers,
       replayContentHeight: 1,
       replayScrollTop: 0,
-      replaySurface,
-      replaySurfaceOptions: surfaceOptions,
-      replayAnnotations: replaySurface === "material" ? materialAnnotations : questionAnnotations,
+      replaySurface: replay.surface,
+      replaySurfaceOptions: replay.surfaceOptions,
+      replayAnnotations: replay.annotations,
     });
     wx.nextTick(() => {
       measureReplayContent(this);
@@ -716,13 +676,13 @@ Page<ReflectionPageData, ReflectionPageCustom>({
   },
 
   closeReplay() {
-    stopReplayTimer(this);
+    replayClock.stop(this);
     this.setData({ replayOpen: false, replayPlaying: false });
   },
 
   toggleReplayPlayback() {
     if (this.data.replayPlaying) {
-      stopReplayTimer(this);
+      replayClock.stop(this);
       this.setData({ replayPlaying: false });
       return;
     }
@@ -733,9 +693,10 @@ Page<ReflectionPageData, ReflectionPageCustom>({
   },
 
   seekReplay(event) {
-    stopReplayTimer(this);
-    this.setData({ replayPlaying: false });
-    applyReplayPosition(this, event.detail.value);
+    replayClock.stop(this);
+    const replay = seekTrajectoryReplay(replayStateFromPage(this), event.detail.value);
+    this.setData({ replayPlaying: replay.playing });
+    applyReplayPosition(this, replay.replayMs);
   },
 
   onReplayScroll(event) {
@@ -752,14 +713,14 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     if (surface !== "question" && surface !== "material") return;
     const item = this.data.activeReviewItem;
     if (!item) return;
-    const replayAnnotations = item.annotations.filter((stroke) =>
-      surface === "material"
-        ? stroke.surface === "material" || stroke.strokeId.startsWith("material-stroke-")
-        : stroke.surface !== "material" && !stroke.strokeId.startsWith("material-stroke-"),
+    const replay = selectTrajectoryReplaySurface(
+      replayStateFromPage(this),
+      replaySource(item),
+      surface,
     );
     this.setData({
-      replaySurface: surface,
-      replayAnnotations,
+      replaySurface: replay.surface,
+      replayAnnotations: replay.annotations,
       replayContentHeight: 1,
       replayScrollTop: 0,
     });
@@ -1965,25 +1926,25 @@ function invalidateForAccountChange(
 
 /* ===== Figma 75:2/78:2 · 轨迹回放与动作分析 ===== */
 
-const replayTimers = new WeakMap<object, ReturnType<typeof setInterval>>();
+const replayClock = new ReplayClock();
 
 const REPLAY_TICK_MS = 120;
 
 function startReplayTimer(page: ReflectionPageInstance): void {
-  stopReplayTimer(page);
-  const timer = setInterval(() => {
-    const item = page.data.activeReviewItem;
-    if (!page.data.replayOpen || !page.data.replayPlaying || !item) {
-      stopReplayTimer(page);
-      return;
-    }
-    const duration = page.data.replayDurationMs;
-    const next = Math.min(duration, page.data.replayMs + REPLAY_TICK_MS * 4);
-    applyReplayPosition(page, next);
-    if (next >= duration) page.setData({ replayPlaying: false });
-    if (next >= duration) stopReplayTimer(page);
-  }, REPLAY_TICK_MS);
-  replayTimers.set(page, timer);
+  replayClock.start(
+    page,
+    () => {
+      const item = page.data.activeReviewItem;
+      if (!page.data.replayOpen || !page.data.replayPlaying || !item) {
+        return false;
+      }
+      const replay = advanceTrajectoryReplay(replayStateFromPage(page), REPLAY_TICK_MS * 4);
+      applyReplayPosition(page, replay.replayMs);
+      if (!replay.playing) page.setData({ replayPlaying: false });
+      return replay.playing;
+    },
+    REPLAY_TICK_MS,
+  );
 }
 
 function applyReplayPosition(page: ReflectionPageInstance, milliseconds: number): void {
@@ -2017,12 +1978,26 @@ function measureReplayContent(page: ReflectionPageInstance): void {
   });
 }
 
-function stopReplayTimer(page: ReflectionPageInstance): void {
-  const timer = replayTimers.get(page);
-  if (timer !== undefined) {
-    clearInterval(timer);
-    replayTimers.delete(page);
-  }
+function replaySource(item: XingceResultItemView): ReplaySource {
+  return {
+    elapsedSeconds: item.elapsedSeconds,
+    annotations: item.annotations,
+    actionEvents: item.actionEvents,
+    materialAvailable: Boolean(item.material),
+  };
+}
+
+function replayStateFromPage(page: ReflectionPageInstance): TrajectoryReplayState {
+  return {
+    durationMs: page.data.replayDurationMs,
+    replayMs: page.data.replayMs,
+    playing: page.data.replayPlaying,
+    surface: page.data.replaySurface,
+    surfaceOptions: page.data.replaySurfaceOptions,
+    annotations: page.data.replayAnnotations,
+    markers: page.data.replayMarkers,
+    summaryLabel: page.data.replaySummaryLabel,
+  };
 }
 
 function formatReplayTime(milliseconds: number): string {

@@ -1,150 +1,120 @@
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  readdirSync,
-  renameSync,
-  statSync,
-  writeFileSync,
-} from "node:fs";
-import { dirname, extname, relative, resolve, sep } from "node:path";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, extname, relative, resolve } from "node:path";
+import { format, resolveConfig } from "prettier";
 
 import {
   subpackageSharedDestination,
   subpackageSharedFiles,
 } from "./subpackage-shared-manifest.mjs";
 
-const appRoot = resolve(import.meta.dirname, "..", "miniprogram");
-const appConfig = JSON.parse(readFileSync(resolve(appRoot, "app.json"), "utf8"));
-const packages = (appConfig.subPackages ?? appConfig.subpackages ?? []).map((entry) => ({
-  name: entry.name ?? entry.root,
-  root: entry.root,
-}));
-const migratable = subpackageSharedFiles
-  .map((entry) => ({
-    ...entry,
-    destination: subpackageSharedDestination(entry.path, entry.packages[0]),
-  }))
-  .filter((entry) => existsSync(resolve(appRoot, entry.path)));
+const projectRoot = resolve(import.meta.dirname, "..");
+const appRoot = resolve(projectRoot, "miniprogram");
+const prettierOptions = (await resolveConfig(appRoot)) ?? {};
+const destinationToLogicalSource = new Map();
+const logicalSourceToEntry = new Map(subpackageSharedFiles.map((entry) => [entry.path, entry]));
 
-const movingBySource = new Map(migratable.map((entry) => [entry.path, entry]));
-const textExtensions = new Set([".ts", ".js", ".json", ".wxml", ".wxss"]);
-const projectFiles = allFiles(appRoot).filter((path) => textExtensions.has(extname(path)));
-
-for (const file of projectFiles.filter((path) => extname(path) === ".ts")) {
-  const sourceRelative = relative(appRoot, file).replaceAll(sep, "/");
-  const source = readFileSync(file, "utf8");
-  const generatedTypes = relative(dirname(sourceRelative), "api/generated/types.gen").replaceAll(
-    sep,
-    "/",
-  );
-  const normalizedGeneratedTypes = generatedTypes.startsWith(".")
-    ? generatedTypes
-    : `./${generatedTypes}`;
-  const rewritten = source.replace(
-    /(["'])(\.{1,2}\/[^"'\s]*generated\/types\.gen)\1/gu,
-    `$1${normalizedGeneratedTypes}$1`,
-  );
-  if (rewritten !== source) writeFileSync(file, rewritten);
-}
-
-const testsRoot = resolve(appRoot, "..", "tests");
-for (const file of allFiles(testsRoot).filter((path) => textExtensions.has(extname(path)))) {
-  let source = readFileSync(file, "utf8");
-  for (const entry of subpackageSharedFiles) {
-    const oldPath = `miniprogram/${stripKnownExtension(entry.path)}`;
-    const newPath = `miniprogram/${stripKnownExtension(
-      subpackageSharedDestination(entry.path, entry.packages[0]),
-    )}`;
-    source = source.replaceAll(oldPath, newPath);
-  }
-  writeFileSync(file, source);
-}
-
-if (migratable.length === 0) {
-  process.stdout.write("Updated shared-package references; no files need migration.\n");
-  process.exit(0);
-}
-
-for (const file of projectFiles) {
-  const sourceRelative = relative(appRoot, file).replaceAll(sep, "/");
-  const futureSource = movingBySource.get(sourceRelative)?.destination ?? sourceRelative;
-  const source = readFileSync(file, "utf8");
-  const rewritten = source.replace(/(["'])(\.{1,2}\/[^"'\s]+)\1/gu, (full, quote, rawSpecifier) => {
-    const queryIndex = rawSpecifier.indexOf("?");
-    const pathPart = queryIndex >= 0 ? rawSpecifier.slice(0, queryIndex) : rawSpecifier;
-    const query = queryIndex >= 0 ? rawSpecifier.slice(queryIndex) : "";
-    const target = resolveProjectFile(resolve(appRoot, dirname(sourceRelative), pathPart));
-    if (!target) return full;
-    const targetRelative = relative(appRoot, target).replaceAll(sep, "/");
-    const movingTarget = movingBySource.get(targetRelative);
-    let futureTarget = targetRelative;
-    if (movingTarget) {
-      const owner = packageOwner(futureSource);
-      const targetPackage =
-        owner && movingTarget.packages.includes(owner) ? owner : movingTarget.packages[0];
-      futureTarget = subpackageSharedDestination(movingTarget.path, targetPackage);
+for (const entry of subpackageSharedFiles) {
+  for (const packageName of entry.packages) {
+    const destination = `miniprogram/${subpackageSharedDestination(entry.path, packageName)}`;
+    destinationToLogicalSource.set(stripKnownExtension(destination), entry.path);
+    if (/\/index\.(?:ts|js)$/u.test(destination)) {
+      destinationToLogicalSource.set(destination.replace(/\/index\.(?:ts|js)$/u, ""), entry.path);
     }
-    if (!textExtensions.has(extname(pathPart))) {
-      futureTarget = futureTarget.replace(/\.(?:ts|js|json|wxml|wxss)$/u, "");
-    }
-    let nextSpecifier = relative(dirname(futureSource), futureTarget).replaceAll(sep, "/");
-    if (!nextSpecifier.startsWith(".")) nextSpecifier = `./${nextSpecifier}`;
-    return `${quote}${nextSpecifier}${query}${quote}`;
-  });
-  if (rewritten !== source) writeFileSync(file, rewritten);
+  }
 }
 
-for (const entry of migratable) {
-  const source = resolve(appRoot, entry.path);
-  const destination = resolve(appRoot, entry.destination);
-  if (existsSync(destination)) {
-    throw new Error(`Destination already exists: ${entry.destination}`);
+let created = 0;
+let existing = 0;
+for (const entry of subpackageSharedFiles) {
+  const neutralPath = resolve(projectRoot, entry.source);
+  if (existsSync(neutralPath)) {
+    existing += 1;
+    continue;
   }
-  mkdirSync(dirname(destination), { recursive: true });
-  renameSync(source, destination);
+
+  const normalizedTargets = [];
+  for (const packageName of entry.packages) {
+    const destination = subpackageSharedDestination(entry.path, packageName);
+    const targetProjectPath = `miniprogram/${destination}`;
+    const target = readFileSync(resolve(appRoot, destination), "utf8");
+    normalizedTargets.push(
+      await formatNeutral(
+        rewriteTargetReferences(target, targetProjectPath, entry.source),
+        entry.source,
+      ),
+    );
+  }
+  const [neutral, ...otherTargets] = normalizedTargets;
+  if (neutral === undefined) throw new Error(`Shared entry has no targets: ${entry.path}`);
+  if (otherTargets.some((candidate) => candidate !== neutral)) {
+    throw new Error(`Existing package targets disagree before neutral migration: ${entry.path}`);
+  }
+  mkdirSync(dirname(neutralPath), { recursive: true });
+  writeFileSync(neutralPath, neutral);
+  created += 1;
 }
 
 process.stdout.write(
-  `Migrated ${String(migratable.length)} shared files out of the main package.\n`,
+  `Created ${String(created)} neutral shared sources; ${String(existing)} already existed.\n`,
 );
 
-function packageOwner(path) {
-  return packages
-    .filter(({ root }) => path === root || path.startsWith(`${root}/`))
-    .sort((left, right) => right.root.length - left.root.length)[0]?.name;
+async function formatNeutral(content, sourceProjectPath) {
+  return [".ts", ".js"].includes(extname(sourceProjectPath))
+    ? format(content, {
+        ...prettierOptions,
+        filepath: resolve(projectRoot, sourceProjectPath),
+      })
+    : content;
 }
 
-function resolveProjectFile(path) {
-  const extension = extname(path);
-  const base = extension ? path.slice(0, -extension.length) : path;
+function rewriteTargetReferences(content, targetProjectPath, sourceProjectPath) {
+  return content.replace(/(["'])(\.{1,2}\/[^"'\s]+)\1/gu, (full, quote, rawSpecifier) => {
+    const queryIndex = rawSpecifier.indexOf("?");
+    const pathPart = queryIndex >= 0 ? rawSpecifier.slice(0, queryIndex) : rawSpecifier;
+    const query = queryIndex >= 0 ? rawSpecifier.slice(queryIndex) : "";
+    const resolvedTarget = normalize(`${dirname(targetProjectPath)}/${pathPart}`);
+    const logicalSource = resolveLogicalSource(resolvedTarget);
+    const targetEntry = logicalSource ? logicalSourceToEntry.get(logicalSource) : undefined;
+    let resolvedSource = targetEntry?.source ?? resolvedTarget;
+    if (!hasKnownExtension(pathPart)) resolvedSource = stripKnownExtension(resolvedSource);
+    let rewritten = relative(dirname(sourceProjectPath), resolvedSource).replaceAll("\\", "/");
+    if (!rewritten.startsWith(".")) rewritten = `./${rewritten}`;
+    return `${quote}${rewritten}${query}${quote}`;
+  });
+}
+
+function resolveLogicalSource(path) {
   for (const candidate of [
     path,
+    stripKnownExtension(path),
     `${path}.ts`,
     `${path}.js`,
     `${path}.json`,
     `${path}.wxml`,
     `${path}.wxss`,
-    `${base}.ts`,
-    `${base}.js`,
-    `${base}.json`,
-    `${base}.wxml`,
-    `${base}.wxss`,
-    resolve(path, "index.ts"),
-    resolve(path, "index.js"),
+    `${path}/index.ts`,
+    `${path}/index.js`,
   ]) {
-    if (existsSync(candidate) && statSync(candidate).isFile()) return candidate;
+    const source = destinationToLogicalSource.get(candidate);
+    if (source) return source;
   }
   return null;
+}
+
+function normalize(path) {
+  const parts = [];
+  for (const part of path.replaceAll("\\", "/").split("/")) {
+    if (!part || part === ".") continue;
+    if (part === "..") parts.pop();
+    else parts.push(part);
+  }
+  return parts.join("/");
 }
 
 function stripKnownExtension(path) {
   return path.replace(/\.(?:ts|js|json|wxml|wxss)$/u, "");
 }
 
-function allFiles(directory) {
-  return readdirSync(directory).flatMap((name) => {
-    const path = resolve(directory, name);
-    return statSync(path).isDirectory() ? allFiles(path) : [path];
-  });
+function hasKnownExtension(path) {
+  return /\.(?:ts|js|json|wxml|wxss)$/u.test(path);
 }

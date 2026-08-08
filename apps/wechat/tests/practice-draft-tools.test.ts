@@ -1,6 +1,21 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import type { AnnotationStroke } from "../miniprogram/task-runtime/contracts";
+import {
+  checkpointCommand,
+  runtimeFromXingceSession,
+  runtimeWithPendingCheckpoint,
+} from "../miniprogram/pages/practice/features/xingce/real_attempt/controller";
+import {
+  loadLocalXingceCheckpointDraft,
+  storeLocalXingceCheckpointDraft,
+} from "../miniprogram/pages/practice/shared/features/xingce/real_attempt/pending-store";
+import { reduceTaskRuntime } from "../miniprogram/pages/practice/shared/task-runtime/state/runtime";
+import {
+  activeXingceSession,
+  createMemoryWechatStorage,
+  xingceIds,
+} from "./work_packages/vj-02-real-xingce-wechat/harness";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import annotationTemplate from "../miniprogram/pages/practice/shared/task-runtime/annotation-layer/index.wxml?raw";
 
@@ -86,6 +101,60 @@ interface CanvasContext {
 afterEach(() => {
   vi.unstubAllGlobals();
   vi.resetModules();
+});
+
+describe("practice draft save and retry", () => {
+  it("restores text and point evidence from the exact local checkpoint before retry", () => {
+    const { wxStorage } = createMemoryWechatStorage();
+    vi.stubGlobal("wx", wxStorage);
+    const session = activeXingceSession({ revision: 7 });
+    let runtime = runtimeFromXingceSession(session);
+    runtime = reduceTaskRuntime(runtime, { type: "DRAFT_CHANGED", text: "增长率 = 增量 ÷ 基期" });
+    runtime = reduceTaskRuntime(runtime, {
+      type: "ANNOTATIONS_CHANGED",
+      action: "added",
+      strokes: [
+        {
+          strokeId: "material-stroke-retry",
+          surface: "material",
+          tool: "pen",
+          width: 0.006,
+          points: [
+            { x: 0.4, y: 0.25, t: 0 },
+            { x: 0.4001, y: 0.25, t: 1 },
+          ],
+          atMs: 600,
+          anchor: { blockId: "table-1", segmentIndex: 0, segmentText: "资料表格" },
+        },
+      ],
+    });
+    const command = checkpointCommand(runtime);
+    const draft = {
+      kind: "checkpoint_draft" as const,
+      planTaskId: xingceIds.planTask,
+      sessionId: xingceIds.session,
+      command,
+    };
+
+    expect(storeLocalXingceCheckpointDraft("user-a", draft)).toBe(true);
+    const restored = loadLocalXingceCheckpointDraft("user-a", xingceIds.session);
+    expect(restored?.command.answers[0]).toMatchObject({
+      draftText: "增长率 = 增量 ÷ 基期",
+      annotations: [
+        expect.objectContaining({
+          strokeId: "material-stroke-retry",
+          surface: "material",
+          anchor: { blockId: "table-1", segmentIndex: 0, segmentText: "资料表格" },
+        }),
+      ],
+    });
+
+    const retry = runtimeWithPendingCheckpoint(session, restored?.command ?? command);
+    expect(checkpointCommand(retry).answers[0]).toEqual(command.answers[0]);
+    expect(command.answers[0]?.actionEvents?.map((event) => event.type)).toEqual(
+      expect.arrayContaining(["draft_edited", "annotation_added"]),
+    );
+  });
 });
 
 describe("practice drawable draft tools", () => {

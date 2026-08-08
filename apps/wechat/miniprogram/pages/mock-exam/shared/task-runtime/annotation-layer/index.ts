@@ -1,8 +1,12 @@
 import type { AnnotationStroke } from "../../../../../task-runtime/contracts";
 import {
+  capturedHorizontalX,
+  horizontalRegionAtPoint,
   normalizeSegmentRects,
+  renderedHorizontalX,
   resolveStrokeAnchor,
   type AnchorSegmentRect,
+  type HorizontalAnnotationRegion,
   type NormalizedSegmentRect,
 } from "./anchor";
 import {
@@ -63,6 +67,7 @@ interface LayerRuntime {
    * 滚动后依然一致，不需要滚动补偿。缺省空表 → 笔迹照常绘制但不做锚定。
    */
   segments: NormalizedSegmentRect[];
+  horizontalRegions: HorizontalAnnotationRegion[];
   /** 题目内容总高（px），来自宿主；笔迹/句段的内容坐标换算基准。 */
   contentHeight: number;
   /** 当前滚动位置（px），只影响绘制换算，不改变任何存储坐标。 */
@@ -96,6 +101,7 @@ function runtime(instance: object): LayerRuntime {
       selectedStrokeIds: new Set(),
       strokeSequence: 0,
       segments: [],
+      horizontalRegions: [],
       contentHeight: 0,
       scrollTop: 0,
       lastMode: "hidden",
@@ -144,6 +150,7 @@ interface AnnotationLayerHost {
     elapsedMs: number;
     replayMs: number;
     segments: unknown;
+    horizontalRegions: unknown;
     scrollTop: number;
     contentHeight: number;
     tool: string;
@@ -191,8 +198,13 @@ function drawStroke(state: LayerRuntime, stroke: AnnotationStroke, selected: boo
       : PEN_COLOR;
   context.lineWidth = Math.max(1, stroke.width * state.width);
   context.beginPath();
+  const horizontalRegion = stroke.anchor
+    ? state.horizontalRegions.find((region) => region.blockId === stroke.anchor?.blockId)
+    : undefined;
   stroke.points.forEach((point, index) => {
-    const x = point.x * state.width;
+    const x = horizontalRegion
+      ? renderedHorizontalX(horizontalRegion, state, point.x)
+      : point.x * state.width;
     const y = contentToViewport(state, point.y);
     // 完全在视口外的段直接跳过，减少滚动时的绘制成本。
     if (y < -state.height || y > state.height * 2) return;
@@ -365,17 +377,28 @@ function touchForce(event: WechatMiniprogram.TouchEvent): number | undefined {
 function contentPoint(
   host: AnnotationLayerHost,
   event: WechatMiniprogram.TouchEvent,
-): NormalizedPoint | null {
+  activeHorizontalBlockId?: string,
+): { point: NormalizedPoint; horizontalRegion: HorizontalAnnotationRegion | null } | null {
   const state = runtime(host);
   const touch = (event.touches[0] ?? event.changedTouches[0]) as TouchPointLike | undefined;
   if (!touch || state.width <= 0 || state.contentHeight <= 0) return null;
   // TouchEvent 的 client 坐标和 selectorQuery.rect 都以可视区域为基准。
   // 不能使用自定义组件 currentTarget.offset*：它是组件局部口径，平板竖屏
   // 会把整笔平移。旋转后的 rect 由 resize 生命周期重新测量。
-  const x = ((touch.clientX ?? touch.x ?? 0) - state.left) / state.width;
-  const y = ((touch.clientY ?? touch.y ?? 0) - state.top + state.scrollTop) / state.contentHeight;
+  const clientX = touch.clientX ?? touch.x ?? 0;
+  const clientY = touch.clientY ?? touch.y ?? 0;
+  const horizontalRegion = activeHorizontalBlockId
+    ? (state.horizontalRegions.find((region) => region.blockId === activeHorizontalBlockId) ?? null)
+    : horizontalRegionAtPoint(state.horizontalRegions, state, clientX, clientY);
+  const x = horizontalRegion
+    ? capturedHorizontalX(horizontalRegion, clientX)
+    : (clientX - state.left) / state.width;
+  const y = (clientY - state.top + state.scrollTop) / state.contentHeight;
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
-  return { x: Math.min(1, Math.max(0, x)), y: Math.min(1, Math.max(0, y)) };
+  return {
+    point: { x: Math.min(1, Math.max(0, x)), y: Math.min(1, Math.max(0, y)) },
+    horizontalRegion,
+  };
 }
 
 Component({
@@ -400,6 +423,8 @@ Component({
     scrollTop: { type: Number, value: 0 },
     /** 契约增量 v2：题目内容总高（像素），内容坐标系换算基准。 */
     contentHeight: { type: Number, value: 0 },
+    /** 表格横滚视口；仅影响 x 换算，持久化仍沿用 AnnotationPoint。 */
+    horizontalRegions: { type: null, value: [] },
     /** 多内容面共享同一题的 annotations 时，用前缀保证笔迹 ID 与所属画布稳定。 */
     strokePrefix: { type: String, value: "stroke" },
   },
@@ -447,6 +472,12 @@ Component({
         scheduleRedraw(this);
       }
     },
+    horizontalRegions(this: AnnotationLayerHost) {
+      runtime(this).horizontalRegions = Array.isArray(this.data.horizontalRegions)
+        ? (this.data.horizontalRegions as HorizontalAnnotationRegion[])
+        : [];
+      scheduleRedraw(this);
+    },
     // 滚动只更新绘制偏移，重绘即可（同步、零重测、零坐标写入）。
     scrollTop(this: AnnotationLayerHost) {
       runtime(this).scrollTop = this.data.scrollTop;
@@ -456,6 +487,9 @@ Component({
   lifetimes: {
     // 属性观察器不会为初始值触发；attach 后必须补一次首绘。
     attached() {
+      runtime(this).horizontalRegions = Array.isArray(this.data.horizontalRegions)
+        ? this.data.horizontalRegions
+        : [];
       scheduleRedraw(this, true);
     },
     detached() {
@@ -511,11 +545,12 @@ Component({
 
     onTouchStart(event: WechatMiniprogram.TouchEvent) {
       const state = runtime(this);
-      const point = contentPoint(this, event);
-      if (!point) {
+      const touch = contentPoint(this, event);
+      if (!touch) {
         ensureCanvas(this, () => {});
         return;
       }
+      const { point, horizontalRegion } = touch;
       const tool = this.data.tool;
       if (tool === "pen" || tool === "highlighter") {
         // 契约增量 v1：读 touch.force 采集压感（iOS 满压 3.3333 归一到 (0..1]）。
@@ -534,9 +569,18 @@ Component({
           width: tool === "highlighter" ? HIGHLIGHTER_WIDTH : PEN_WIDTH,
           points: [capturedPoint(point, 0, pressure)],
           atMs: nowMs(this),
+          ...(horizontalRegion
+            ? {
+                anchor: {
+                  blockId: horizontalRegion.blockId,
+                  segmentIndex: 0,
+                  segmentText: horizontalRegion.label || "资料表格",
+                },
+              }
+            : {}),
         };
       } else if (tool === "eraser") {
-        this.eraseAt(point);
+        this.eraseAt(point, horizontalRegion);
       } else if (tool === "lasso") {
         state.lassoPath = [point];
       }
@@ -544,8 +588,9 @@ Component({
 
     onTouchMove(event: WechatMiniprogram.TouchEvent) {
       const state = runtime(this);
-      const point = contentPoint(this, event);
-      if (!point) return;
+      const touch = contentPoint(this, event, state.activeStroke?.anchor?.blockId);
+      if (!touch) return;
+      const { point, horizontalRegion } = touch;
       const tool = this.data.tool;
       if ((tool === "pen" || tool === "highlighter") && state.activeStroke) {
         if (state.activeStroke.points.length < 240) {
@@ -558,7 +603,7 @@ Component({
         }
         redraw(this);
       } else if (tool === "eraser") {
-        this.eraseAt(point);
+        this.eraseAt(point, horizontalRegion);
       } else if (tool === "lasso") {
         state.lassoPath.push(point);
         redraw(this);
@@ -596,7 +641,7 @@ Component({
         if (stroke.points.length >= 2) {
           // 契约增量 v2：内容空间最近句段命中 → 给笔画盖 anchor（AI 可见"标记了哪句"）。
           // 只存契约字段（blockId/segmentIndex/segmentText）。
-          const anchor = resolveStrokeAnchor(stroke, state.segments);
+          const anchor = stroke.anchor ? null : resolveStrokeAnchor(stroke, state.segments);
           const anchored = anchor
             ? {
                 ...stroke,
@@ -630,17 +675,25 @@ Component({
       }
     },
 
-    eraseAt(point: NormalizedPoint) {
+    eraseAt(point: NormalizedPoint, horizontalRegion: HorizontalAnnotationRegion | null) {
       // 契约增量 v1：橡皮不物理删除，命中的活笔画盖 erasedAtMs 墓碑。
       // 内容坐标统一，命中与滚动无关。
+      const state = runtime(this);
       const strokes = currentStrokes(this);
       const next = tombstoneStrokes(
         strokes,
-        (stroke) =>
-          stroke.points.some(
+        (stroke) => {
+          const strokeHorizontalRegion = stroke.anchor
+            ? state.horizontalRegions.find((region) => region.blockId === stroke.anchor?.blockId)
+            : undefined;
+          if ((strokeHorizontalRegion?.blockId ?? null) !== (horizontalRegion?.blockId ?? null)) {
+            return false;
+          }
+          return stroke.points.some(
             (candidate) =>
               Math.hypot(candidate.x - point.x, candidate.y - point.y) < ERASE_DISTANCE,
-          ),
+          );
+        },
         nowMs(this),
       );
       if (next !== strokes) {

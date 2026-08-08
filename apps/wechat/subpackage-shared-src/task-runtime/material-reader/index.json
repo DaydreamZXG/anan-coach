@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "content-renderer": "../content-renderer/index",
+    "annotation-layer": "../annotation-layer/index"
+  }
+}

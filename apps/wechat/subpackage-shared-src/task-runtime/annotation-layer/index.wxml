@@ -1,0 +1,72 @@
+<!--
+  草稿与原题轨迹回放共用的笔迹层。
+  mode:
+    - static   只显示已有笔迹，触摸完全穿透（题面可正常阅读与滚动）
+    - annotate 显示工具栏；滑动工具下触摸穿透，其余工具捕获触摸作画
+    - replay   按 replayMs 回放笔迹，触摸穿透
+-->
+<view wx:if="{{mode !== 'hidden'}}" class="annotation-layer annotation-layer--{{mode}}">
+  <canvas
+    type="2d"
+    id="annotation-canvas"
+    class="annotation-layer__canvas"
+    disable-scroll="{{mode === 'annotate' && tool !== 'pan'}}"
+  ></canvas>
+
+  <!-- 触摸捕获层：只有作画工具需要拦截触摸。 -->
+  <view
+    wx:if="{{mode === 'annotate' && tool !== 'pan'}}"
+    class="annotation-layer__capture"
+    catchtouchstart="onTouchStart"
+    catchtouchmove="onTouchMove"
+    catchtouchend="onTouchEnd"
+    catchtouchcancel="onTouchEnd"
+  ></view>
+
+  <view wx:if="{{mode === 'annotate' && lassoSelectedCount > 0}}" class="annotation-layer__lasso-bar">
+    <text>已圈选 {{lassoSelectedCount}} 笔</text>
+    <button hover-class="item--hover" class="annotation-layer__lasso-delete" catchtap="deleteLassoSelection">删除所选</button>
+  </view>
+
+  <!-- 草稿工具栏只暴露必要动作；阅读时可收成一个不拦截滚动的小胶囊。 -->
+  <view wx:if="{{mode === 'annotate' && !toolbarCollapsed}}" class="annotation-layer__toolbar">
+    <view class="annotation-layer__tools">
+      <button hover-class="item--hover"
+        wx:for="{{tools}}"
+        wx:key="value"
+        class="annotation-layer__tool {{tool === item.value ? 'annotation-layer__tool--active' : ''}}"
+        data-tool="{{item.value}}"
+        catchtap="selectTool"
+      >
+        <view class="annotation-layer__tool-glyph">{{item.glyph}}</view>
+        <view class="annotation-layer__tool-label">{{item.label}}</view>
+      </button>
+    </view>
+    <view class="annotation-layer__actions">
+      <button hover-class="item--hover" class="annotation-layer__secondary-action" catchtap="undo">撤销</button>
+      <button hover-class="item--hover" class="annotation-layer__secondary-action annotation-layer__secondary-action--danger" catchtap="clearAll">清空</button>
+      <button hover-class="item--hover" class="annotation-layer__secondary-action" catchtap="openMore">更多</button>
+      <button hover-class="item--hover" class="annotation-layer__secondary-action" catchtap="collapseToolbar">收起</button>
+      <button hover-class="item--hover" class="annotation-layer__done" catchtap="finish">完成</button>
+    </view>
+  </view>
+
+  <view
+    wx:if="{{mode === 'annotate' && toolbarCollapsed}}"
+    class="annotation-layer__dock"
+    aria-label="草稿工具已收起"
+  >
+    <button
+      hover-class="item--hover"
+      class="annotation-layer__dock-expand"
+      aria-label="展开草稿工具"
+      catchtap="expandToolbar"
+    >
+      <text class="annotation-layer__dock-glyph">✎</text>
+      <text>草稿</text>
+      <text class="annotation-layer__dock-hint">展开</text>
+    </button>
+    <view class="annotation-layer__dock-divider" aria-hidden="true"></view>
+    <button hover-class="item--hover" class="annotation-layer__dock-done" catchtap="finish">完成</button>
+  </view>
+</view>

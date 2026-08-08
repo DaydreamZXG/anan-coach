@@ -1,0 +1,75 @@
+@import "../../../miniprogram/design-system/tokens/component-host.tokens.wxss";
+@import "../../../miniprogram/design-system/primitives/interaction.wxss";
+
+.workbench-nav-placeholder {
+  width: 100%;
+}
+
+.workbench-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  display: grid;
+  align-items: center;
+  border-bottom: calc(1 * var(--rpx)) solid var(--figma-color-line);
+  background: var(--figma-color-canvas);
+}
+
+.workbench-nav__back {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  grid-column: 1;
+  width: calc(64 * var(--rpx));
+  height: calc(64 * var(--rpx));
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  margin-left: calc(16 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--figma-color-line);
+  border-radius: 50%;
+  background: var(--figma-color-surface-subtle);
+}
+
+.workbench-nav__back-icon {
+  width: calc(16 * var(--rpx));
+  height: calc(16 * var(--rpx));
+  transform: translateX(calc(3 * var(--rpx))) rotate(45deg);
+  border-bottom: calc(3 * var(--rpx)) solid var(--figma-color-ink);
+  border-left: calc(3 * var(--rpx)) solid var(--figma-color-ink);
+}
+
+.workbench-nav__title {
+  grid-column: 2;
+  overflow: hidden;
+  color: var(--figma-color-ink);
+  font-size: var(--text-section);
+  font-weight: 700;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workbench-nav__spacer {
+  grid-column: 3;
+}
+
+.workbench-nav--dark {
+  border-bottom-color: transparent;
+  background: var(--figma-color-ink);
+}
+
+.workbench-nav--dark .workbench-nav__back {
+  border-color: transparent;
+  background: transparent;
+}
+
+.workbench-nav--dark .workbench-nav__back-icon {
+  border-color: var(--figma-color-surface);
+}
+
+.workbench-nav--dark .workbench-nav__title {
+  color: var(--figma-color-surface);
+}

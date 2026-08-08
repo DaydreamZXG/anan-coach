@@ -63,7 +63,12 @@ import {
 } from "./shared/features/task-editing/coordinator";
 import { createIdempotencyKey } from "../../platform/command-id";
 import { decideAutosave, decideExit } from "./features/task-runtime/state/autosave";
-import { appendStrokeWithinLimit } from "./shared/task-runtime/annotation-layer/strokes";
+import {
+  appendStrokeWithinLimit,
+  replaceMaterialAnnotations,
+  replaceQuestionAnnotations,
+  splitAnnotationSurfaces,
+} from "./shared/task-runtime/annotation-layer/strokes";
 import type { AnnotationStroke } from "../../task-runtime/contracts";
 import type { AnchorSegmentRect } from "./shared/task-runtime/annotation-layer/anchor";
 import { reduceTaskRuntime, unansweredQuestionIds } from "./shared/task-runtime/state/runtime";
@@ -82,10 +87,9 @@ import {
   type MaterialReaderState,
 } from "./shared/task-runtime/material-reader/state";
 import {
-  resolveSwipeNav,
-  swipeSampleFromTouchEnd,
-  swipeSampleFromTouchMove,
-  swipeSampleFromTouchStart,
+  beginSwipeGesture,
+  finishSwipeGesture,
+  moveSwipeGesture,
 } from "./shared/task-runtime/swipe-nav";
 import { taskToolPolicy, type TaskToolPolicy } from "./shared/task-runtime/tool-policy/index";
 
@@ -735,7 +739,11 @@ Page<PracticePageData, PracticePageCustom>({
     if (!runtime?.task || this.data.interactionLocked) return;
     runtime.task = reduceTaskRuntime(runtime.task, {
       type: "ANNOTATIONS_CHANGED",
-      strokes: [...this.data.materialAnnotations, ...event.detail.strokes],
+      strokes: replaceQuestionAnnotations(
+        runtime.task.attempts[runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""]
+          ?.annotations ?? [],
+        event.detail.strokes,
+      ),
       action: event.detail.action,
     });
     render(this, runtime);
@@ -745,13 +753,13 @@ Page<PracticePageData, PracticePageCustom>({
   changeMaterialAnnotations(event) {
     const runtime = runtimes.get(this);
     if (!runtime?.task || this.data.interactionLocked) return;
-    const materialStrokes = event.detail.strokes.map((stroke: AnnotationStroke) => ({
-      ...stroke,
-      surface: "material" as const,
-    }));
     runtime.task = reduceTaskRuntime(runtime.task, {
       type: "ANNOTATIONS_CHANGED",
-      strokes: [...this.data.questionAnnotations, ...materialStrokes],
+      strokes: replaceMaterialAnnotations(
+        runtime.task.attempts[runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""]
+          ?.annotations ?? [],
+        event.detail.strokes,
+      ),
       action: event.detail.action,
     });
     render(this, runtime);
@@ -1486,37 +1494,22 @@ Page<PracticePageData, PracticePageCustom>({
   onQuestionTouchStart(event) {
     const runtime = runtimes.get(this);
     if (!runtime) return;
-    const sample = swipeSampleFromTouchStart(event);
-    runtime.swipeStart = sample;
-    runtime.swipeLatest = sample;
+    runtime.swipeGesture = beginSwipeGesture(event);
   },
 
   onQuestionTouchMove(event) {
     const runtime = runtimes.get(this);
-    if (!runtime?.swipeStart) return;
-    // 第二根手指落下（表格缩放/双指滚动）即放弃本次切题手势。
-    if (event.touches.length > 1) {
-      runtime.swipeStart = null;
-      runtime.swipeLatest = null;
-      return;
-    }
-    runtime.swipeLatest = swipeSampleFromTouchMove(event) ?? runtime.swipeLatest;
+    if (!runtime?.swipeGesture.start) return;
+    runtime.swipeGesture = moveSwipeGesture(runtime.swipeGesture, event);
   },
 
   onQuestionTouchEnd(event) {
     const runtime = runtimes.get(this);
     if (!runtime) return;
-    const start = runtime.swipeStart;
-    // 微信原生 scroll-view 的 touchcancel 可能把 changedTouches 补成 (0,0)，
-    // 该坐标不是手指终点；取消事件只能使用最后一个真实 touchmove 采样。
-    const end =
-      event.type === "touchcancel"
-        ? runtime.swipeLatest
-        : (swipeSampleFromTouchEnd(event) ?? runtime.swipeLatest);
-    runtime.swipeStart = null;
-    runtime.swipeLatest = null;
-    if (!start || swipeNavigationBlocked(this)) return;
-    const direction = resolveSwipeNav(start, end);
+    const settled = finishSwipeGesture(runtime.swipeGesture, event);
+    runtime.swipeGesture = settled.state;
+    if (swipeNavigationBlocked(this)) return;
+    const direction = settled.direction;
     const view = this.data.view;
     if (!direction || !view) return;
     if (direction === "prev") {
@@ -1749,19 +1742,14 @@ function render(
   const answerSheetModuleCounts = `${String(answerSheetLegend.answered)} 已答 · ${String(answerSheetLegend.unanswered)} 未答 · 1 当前`;
   const alreadyReady = page.data.status === "ready";
   const favoriteQuestionChanged = page.data.favoriteQuestionId !== currentQuestionId;
+  const annotationSurfaces = splitAnnotationSurfaces(view.question.annotations);
   page.setData({
     ...(alreadyReady ? { status: "ready" as const } : {}),
     errorTitle: "",
     errorMessage: "",
     view,
-    questionAnnotations: view.question.annotations.filter(
-      (stroke) => stroke.surface !== "material" && !stroke.strokeId.startsWith("material-stroke-"),
-    ),
-    materialAnnotations: view.question.annotations
-      .filter(
-        (stroke) => stroke.surface === "material" || stroke.strokeId.startsWith("material-stroke-"),
-      )
-      .map((stroke) => ({ ...stroke, surface: "material" as const })),
+    questionAnnotations: annotationSurfaces.question,
+    materialAnnotations: annotationSurfaces.material,
     sessionState: runtime.session.state,
     canSubmit: runtime.session.state === "answering",
     answerSheetItems,

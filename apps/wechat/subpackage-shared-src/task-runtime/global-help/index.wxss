@@ -1,0 +1,81 @@
+@import "../../../miniprogram/design-system/primitives/interaction.wxss";
+
+.help-panel {
+  box-sizing: border-box;
+  padding: calc(32 * var(--rpx));
+  border-radius: var(--radius-32) var(--radius-32) 0 0;
+  background: var(--color-surface);
+}
+
+.help-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: calc(24 * var(--rpx));
+}
+
+.help-title {
+  font-size: var(--text-section);
+  font-weight: 800;
+}
+.help-copy {
+  margin-top: calc(8 * var(--rpx));
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+  line-height: 1.55;
+}
+.help-close {
+  flex: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+}
+.help-close::after {
+  border: 0;
+}
+.help-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
+}
+
+.help-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: calc(96 * var(--rpx));
+  margin: 0;
+  padding: calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
+  border-radius: var(--radius-compact);
+  background: var(--color-surface-soft);
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
+  line-height: 1.4;
+  text-align: left;
+}
+
+.help-option--active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+}
+.help-kind {
+  flex: none;
+  margin-left: calc(12 * var(--rpx));
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+}
+.help-submit {
+  margin-top: calc(24 * var(--rpx));
+  border-radius: var(--radius-control);
+  background: var(--gradient-brand);
+  color: var(--color-surface);
+  font-weight: 800;
+}
+.help-submit--disabled {
+  opacity: 0.45;
+}

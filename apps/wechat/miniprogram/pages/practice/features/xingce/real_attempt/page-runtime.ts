@@ -4,7 +4,7 @@ import type {
   XingceTaskSession,
 } from "../../../shared/api/xingce-learning";
 import type { TaskRuntimeState } from "../../../../../task-runtime/contracts";
-import type { SwipeNavSample } from "../../../shared/task-runtime/swipe-nav";
+import { idleSwipeGesture, type SwipeGestureState } from "../../../shared/task-runtime/swipe-nav";
 import type { TaskEditingApi } from "../../../shared/api/task-editing";
 import type { QuestionFavoritesApi } from "../../../shared/api/question-favorites";
 import type { TaskEditOwnership } from "../../../shared/features/task-editing/coordinator";
@@ -29,10 +29,8 @@ export interface XingcePageRuntime {
   localCheckpointDirty: boolean;
   localCheckpointWarningShown: boolean;
   submitInFlight: boolean;
-  /** 快滑切题手势的起点采样；多指或松手后置回 null。 */
-  swipeStart: SwipeNavSample | null;
-  /** scroll-view 以 touchcancel 收尾时使用的最后一个有效移动点。 */
-  swipeLatest: SwipeNavSample | null;
+  /** 中立运行时统一持有起点/末点；多指或松手后整体复位。 */
+  swipeGesture: SwipeGestureState;
   lastAutosaveElapsedSeconds: number;
   visible: boolean;
   disposed: boolean;
@@ -67,8 +65,7 @@ function createRuntime(): XingcePageRuntime {
     localCheckpointDirty: false,
     localCheckpointWarningShown: false,
     submitInFlight: false,
-    swipeStart: null,
-    swipeLatest: null,
+    swipeGesture: idleSwipeGesture(),
     lastAutosaveElapsedSeconds: 0,
     visible: false,
     disposed: false,

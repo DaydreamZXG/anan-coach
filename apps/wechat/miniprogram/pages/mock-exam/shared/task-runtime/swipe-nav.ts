@@ -19,6 +19,11 @@ export interface SwipeNavSample {
 
 export type SwipeNavDirection = "prev" | "next";
 
+export interface SwipeGestureState {
+  start: SwipeNavSample | null;
+  latest: SwipeNavSample | null;
+}
+
 export interface SwipeNavThresholds {
   /** 横向位移下限（px，严格大于才算命中）。 */
   minDistancePx: number;
@@ -91,6 +96,34 @@ export function swipeSampleFromTouchMove(event: SwipeNavTouchEventLike): SwipeNa
 /** touchend 采样；结束事件的终点在 changedTouches 里。 */
 export function swipeSampleFromTouchEnd(event: SwipeNavTouchEventLike): SwipeNavSample | null {
   return sampleFromTouch(event.changedTouches?.[0] ?? event.touches?.[0], event.timeStamp);
+}
+
+export const idleSwipeGesture = (): SwipeGestureState => ({ start: null, latest: null });
+
+export function beginSwipeGesture(event: SwipeNavTouchEventLike): SwipeGestureState {
+  const sample = swipeSampleFromTouchStart(event);
+  return { start: sample, latest: sample };
+}
+
+export function moveSwipeGesture(
+  state: SwipeGestureState,
+  event: SwipeNavTouchEventLike,
+): SwipeGestureState {
+  if (!state.start) return state;
+  if ((event.touches?.length ?? 0) > 1) return idleSwipeGesture();
+  return { ...state, latest: swipeSampleFromTouchMove(event) ?? state.latest };
+}
+
+export function finishSwipeGesture(
+  state: SwipeGestureState,
+  event: SwipeNavTouchEventLike & { type?: string },
+): { state: SwipeGestureState; direction: SwipeNavDirection | null } {
+  const end =
+    event.type === "touchcancel" ? state.latest : (swipeSampleFromTouchEnd(event) ?? state.latest);
+  return {
+    state: idleSwipeGesture(),
+    direction: resolveSwipeNav(state.start, end),
+  };
 }
 
 function sampleFromTouch(

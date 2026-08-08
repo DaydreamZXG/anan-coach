@@ -12,13 +12,7 @@ const DEFAULT_MAX_INPUT_BYTES = 196608;
 const DEFAULT_MAX_OUTPUT_BYTES = 262144;
 const REQUEST_ID_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$/;
 const MESSAGE_ROLES = new Set(["system", "user", "assistant"]);
-const COMPANION_RESPONSE_KEYS = [
-  "answer",
-  "nextActions",
-  "sourceRefs",
-  "confidence",
-  "limitations",
-];
+const COMPANION_RESPONSE_KEYS = ["answer", "sourceRefs", "confidence", "limitations"];
 
 class HunyuanTransportError extends Error {
   constructor(code, message) {
@@ -225,10 +219,6 @@ function normalizeCompanionText(text) {
   }
   return JSON.stringify({
     answer: payload.answer.trim(),
-    nextActions: normalizeCompanionList(payload.nextActions, {
-      minimum: 1,
-      maximum: 3,
-    }),
     sourceRefs: normalizeCompanionList(payload.sourceRefs, {
       minimum: 1,
       maximum: 8,
