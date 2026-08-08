@@ -110,12 +110,11 @@ describe("xingce practice page lifecycle", () => {
     );
     expect(failedAnswer).toMatchObject({
       draftText: "先圈分母，再核对增长率。",
-      annotations: [questionStroke, materialStroke],
-      actionEvents: expect.arrayContaining([
-        expect.objectContaining({ type: "draft_edited" }),
-        expect.objectContaining({ type: "annotation_added" }),
-      ]),
     });
+    expect(failedAnswer?.annotations).toEqual([questionStroke, materialStroke]);
+    const failedActionTypes = failedAnswer?.actionEvents?.map(({ type }) => type) ?? [];
+    expect(failedActionTypes).toContain("draft_edited");
+    expect(failedActionTypes).toContain("annotation_added");
 
     await runtime.page.retryPendingCheckpoint.call(runtime.page);
     await flushMicrotasks();
@@ -140,18 +139,17 @@ describe("xingce practice page lifecycle", () => {
     const finalCheckpoint = [...runtime.requests]
       .reverse()
       .find((request) => request.method === "PUT" && request.url.endsWith("/checkpoint"));
-    const finalAnswer = (
-      finalCheckpoint?.data as XingceCheckpointCommand | undefined
-    )?.answers.find(({ questionId }) => questionId === "q-1");
+    const finalCommand = finalCheckpoint?.data as XingceCheckpointCommand | undefined;
+    if (!finalCommand) throw new Error("final checkpoint command was not captured");
+    const finalAnswer = finalCommand.answers.find(({ questionId }) => questionId === "q-1");
     expect(finalAnswer).toMatchObject({
       questionId: "q-1",
       draftText: "先圈分母，再核对增长率。",
       annotations: [questionStroke, materialStroke],
     });
     const submission = runtime.requests.find((request) => request.url.endsWith("/submit"));
-    expect((submission?.data as { expectedRevision?: number } | undefined)?.expectedRevision).toBe(
-      (finalCheckpoint?.data as XingceCheckpointCommand | undefined)?.expectedRevision! + 1,
-    );
+    const submissionCommand = submission?.data as { expectedRevision?: number } | undefined;
+    expect(submissionCommand?.expectedRevision).toBe(finalCommand.expectedRevision + 1);
     runtime.page.onUnload.call(runtime.page);
   });
 

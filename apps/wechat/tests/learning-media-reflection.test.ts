@@ -781,7 +781,9 @@ async function createReflectionPage(
     redirectTo: vi.fn(() => Promise.resolve()),
     switchTab: vi.fn(() => Promise.resolve()),
     navigateBack: vi.fn(() => Promise.resolve()),
-    nextTick: (callback: () => void) => callback(),
+    nextTick: (callback: () => void) => {
+      callback();
+    },
   });
   storeReflectionLearningMediaDraft("user-a", xingceIds.review, {
     rawText: "我当时忽略了否定词。",
