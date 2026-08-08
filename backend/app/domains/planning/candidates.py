@@ -7,7 +7,7 @@ from uuid import UUID
 
 from app.domains.planning.engine import PriorityBreakdown, TaskCandidate
 from app.domains.planning.cause_training import ConfirmedCauseDirection
-from app.domains.xingce_learning.contracts import (
+from app.domains.task_runtime.xingce_attempt.contracts import (
     XINGCE_QUICK_QUESTION_BUNDLE_SIZE,
     XINGCE_MINUTES_PER_QUESTION,
     xingce_practice_minutes,

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import ast
 import importlib
+from pathlib import Path
 from typing import Any
 from uuid import uuid4
 
@@ -17,6 +19,37 @@ from tests.test_xingce_learning_routes import (
     _xingce_task,
 )
 from tests.task_editing_helpers import claim_task_edit_headers
+from app.domains.task_runtime.xingce_attempt.question_repository import (
+    XingceQuestionRepository,
+)
+from app.domains.xingce_learning.real_attempt.repository import (
+    XingceAttemptRepository,
+)
+
+
+def test_planning_has_no_xingce_learning_imports() -> None:
+    planning_root = Path(__file__).parents[1] / "app" / "domains" / "planning"
+    violations: list[str] = []
+    for source_path in sorted(planning_root.rglob("*.py")):
+        tree = ast.parse(source_path.read_text(encoding="utf-8"), filename=str(source_path))
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ImportFrom) and (
+                node.module or ""
+            ).startswith("app.domains.xingce_learning"):
+                violations.append(f"{source_path.name}:{node.lineno}:{node.module}")
+            if isinstance(node, ast.Import):
+                violations.extend(
+                    f"{source_path.name}:{node.lineno}:{alias.name}"
+                    for alias in node.names
+                    if alias.name.startswith("app.domains.xingce_learning")
+                )
+    assert violations == []
+
+
+def test_xingce_attempt_repository_reuses_neutral_question_selector() -> None:
+    assert issubclass(XingceAttemptRepository, XingceQuestionRepository)
+    assert "select_frozen_questions" not in XingceAttemptRepository.__dict__
+    assert "select_targeted_frozen_questions" not in XingceAttemptRepository.__dict__
 
 
 def test_all_correct_reflection_rejects_unsupported_cause_and_completes_plan(

@@ -10,7 +10,7 @@ def test_legacy_session_missing_completion_is_backfilled_at_cause_decision(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     """2026-08-04 之前的历史会话：执行事实尚未 complete、evidence 仍是
-    pending_reflection、completion_payload 为空。decide_cause 必须把它幂等补齐：
+    pending_reflection、代际标记与 completion replay 为空。decide_cause 必须把它幂等补齐：
     写入 complete 执行事实并 settle 证据，且不破坏主决策流程。
     """
     client, auth, task, submitted = _submitted_attempt(
@@ -105,9 +105,9 @@ def test_legacy_session_missing_completion_is_backfilled_at_cause_decision(
 def test_new_session_does_not_rewrite_completion_at_cause_decision(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    """2026-08-04 之后的新会话：交卷时已写入 complete 执行事实并嵌入
-    completion_payload。decide_cause 必须幂等：不再重复写入执行事实，
-    evidence 只 settle 一次，completion 沿用交卷时的那份。
+    """带 v1 代际标记的新会话：交卷时已写入 complete 执行事实并保存
+    completion replay。decide_cause 必须幂等：不再重复写入执行事实，
+    evidence 只 settle 一次，公开 completion receipt 沿用交卷时的那份。
     """
     client, auth, task, submitted = _submitted_attempt(
         db_session_factory,
@@ -185,8 +185,8 @@ def test_cause_decision_revision_does_not_resettle_completion(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     """decide_cause 的 is_revision 分支（review 已是 immediate_verification_due）
-    不进入 _settle_historical_completion：不重复写入执行事实、不再 settle 证据，
-    completion 仍由 _projection 从 completion_payload 回填。
+    不进入 completion coordinator：不重复写入执行事实、不再 settle 证据，
+    completion 仍由 _projection 从 replay payload 回填。
     """
     client, auth, task, submitted = _submitted_attempt(
         db_session_factory,
@@ -268,6 +268,68 @@ def test_cause_decision_revision_does_not_resettle_completion(
         )
 
 
+def test_submit_replay_stale_revision_and_same_key_payload_drift_do_not_duplicate_facts(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    client, auth, _task, submitted = _submitted_attempt(
+        db_session_factory,
+        token="submit-retry-state-machine-token",
+        choices=["A", "B", "C"],
+    )
+    session_id = submitted["sessionId"]
+    submit_payload = {
+        "expectedRevision": submitted["revision"] - 1,
+        "totalElapsedSeconds": submitted["totalElapsedSeconds"],
+    }
+    with db_session_factory() as session:
+        counts_before = _completion_fact_counts(session)
+
+    replay = client.post(
+        f"/api/v2/xingce/task-sessions/{session_id}/submit",
+        headers={**auth, "Idempotency-Key": "submit-submit-retry-state-machine-token"},
+        json=submit_payload,
+    )
+    assert replay.status_code == 200, replay.text
+    assert replay.json()["data"] == submitted
+
+    drifted = client.post(
+        f"/api/v2/xingce/task-sessions/{session_id}/submit",
+        headers={**auth, "Idempotency-Key": "submit-submit-retry-state-machine-token"},
+        json={**submit_payload, "totalElapsedSeconds": submit_payload["totalElapsedSeconds"] + 1},
+    )
+    assert drifted.status_code == 409, drifted.text
+    assert drifted.json()["code"] == "idempotency_key_reused"
+
+    stale = client.post(
+        f"/api/v2/xingce/task-sessions/{session_id}/submit",
+        headers={**auth, "Idempotency-Key": "stale-submit-state-machine"},
+        json=submit_payload,
+    )
+    assert stale.status_code == 409, stale.text
+    with db_session_factory() as session:
+        assert _completion_fact_counts(session) == counts_before
+
+
+def _completion_fact_counts(session: Session) -> dict[str, int]:
+    return {
+        "attempts": session.execute(
+            text("select count(*) from learning.xingce_attempt_records")
+        ).scalar_one(),
+        "assessments": session.execute(
+            text("select count(*) from learning.xingce_assessments")
+        ).scalar_one(),
+        "executions": session.execute(
+            text("select count(*) from learning.task_execution_versions")
+        ).scalar_one(),
+        "evidence": session.execute(
+            text("select count(*) from learning.xingce_plan_evidence_versions")
+        ).scalar_one(),
+        "outbox": session.execute(
+            text("select count(*) from platform.outbox_events")
+        ).scalar_one(),
+    }
+
+
 def _rewind_to_legacy_pending_completion(
     factory: sessionmaker[Session],
     *,
@@ -275,13 +337,22 @@ def _rewind_to_legacy_pending_completion(
     session_id: str,
 ) -> None:
     """把新会话回退到 2026-08-04 之前的历史状态：
+    - scoring_bundle 去掉新会话显式代际标记；
     - xingce_commands 中 attempt_submit 的 response_payload 去掉 completion，
-      使 completion_payload 判定为空（旧会话交卷时根本没有完成事实）；
+      模拟旧会话没有可回放的完成 receipt；
     - 删除交卷写入的 complete 执行事实，仅保留 in_progress 起始事实；
     - evidence 保持 pending_reflection（旧会话证据确实没被 settle）。
     """
     submit_command_id = f"submit-{token}"
     with factory.begin() as session:
+        session.execute(
+            text(
+                "update learning.xingce_task_sessions "
+                "set scoring_bundle = scoring_bundle - 'sessionGeneration' "
+                "where session_id = cast(:session_id as uuid)"
+            ),
+            {"session_id": session_id},
+        )
         session.execute(
             text(
                 "alter table learning.xingce_commands "

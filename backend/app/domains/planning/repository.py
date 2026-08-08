@@ -27,8 +27,12 @@ from app.domains.planning.cause_training import (
     leading_confirmed_cause_index,
 )
 from app.domains.planning.errors import PlanningContractError
-from app.domains.xingce_learning.contracts import XINGCE_MAX_QUESTION_BUNDLE_SIZE
-from app.domains.xingce_learning.real_attempt.repository import XingceAttemptRepository
+from app.domains.task_runtime.xingce_attempt.contracts import (
+    XINGCE_MAX_QUESTION_BUNDLE_SIZE,
+)
+from app.domains.task_runtime.xingce_attempt.question_repository import (
+    XingceQuestionRepository,
+)
 
 
 @dataclass(frozen=True)
@@ -112,12 +116,8 @@ class ActiveStrategyDecision:
 
 
 class PlanningRepository:
-    def __init__(
-        self,
-        *,
-        xingce_repository: XingceAttemptRepository | None = None,
-    ) -> None:
-        self._xingce_repository = xingce_repository or XingceAttemptRepository()
+    def __init__(self) -> None:
+        self._question_repository = XingceQuestionRepository()
 
     def lock_user(self, session: Session, *, user_id: str) -> None:
         owner = session.execute(
@@ -908,7 +908,7 @@ class PlanningRepository:
         verification_question_count = 0
         if baseline_required:
             baseline_question_count = len(
-                self._xingce_repository.select_frozen_questions(
+                self._question_repository.select_frozen_questions(
                     session,
                     module_name=None,
                     limit=XINGCE_MAX_QUESTION_BUNDLE_SIZE,
@@ -916,7 +916,7 @@ class PlanningRepository:
                 )
             )
         else:
-            targeted_selection = self._xingce_repository.select_targeted_frozen_questions(
+            targeted_selection = self._question_repository.select_targeted_frozen_questions(
                 session,
                 module_name=str(weakest) if weakest else None,
                 limit=3,
@@ -929,7 +929,7 @@ class PlanningRepository:
                 # module instead of shrinking the whole day to one 3-question
                 # node.
                 targeted_question_count = len(
-                    self._xingce_repository.select_frozen_questions(
+                    self._question_repository.select_frozen_questions(
                         session,
                         module_name=targeted_selection.module_name,
                         limit=XINGCE_MAX_QUESTION_BUNDLE_SIZE,
@@ -938,7 +938,7 @@ class PlanningRepository:
                 )
         if first_mastery is not None:
             verification_question_count = len(
-                self._xingce_repository.select_frozen_questions(
+                self._question_repository.select_frozen_questions(
                     session,
                     module_name=(
                         str(first_mastery["module_name"]) if first_mastery["module_name"] else None

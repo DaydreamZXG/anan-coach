@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import datetime
 from hashlib import sha256
 import json
 from math import ceil
+from typing import Literal
 from uuid import uuid4
 
 from sqlalchemy import text
@@ -11,33 +13,35 @@ from sqlalchemy.engine import RowMapping
 from sqlalchemy.orm import Session
 
 from app.domains.planning.repository import PlanningContractError, PlanningRepository
+from app.domains.planning.schemas import TodayDashboard
 from app.domains.planning.service import PlanningService
-from app.domains.planning.xingce_evidence import settle_xingce_evidence
-from app.domains.xingce_learning.real_attempt.repository import XingceAttemptRepository
-from app.domains.xingce_learning.real_attempt.schemas import XingceCompletionReceipt
 from app.platform.outbox import OutboxRepository
+
+
+@dataclass(frozen=True)
+class XingcePlanCompletion:
+    """Planning-owned completion fact; Xingce owns the public evidence receipt."""
+
+    receipt_id: str
+    settlement_status: Literal["completed", "late_evidence_linked"]
+    execution_version_id: str
+    plan: TodayDashboard
 
 
 def complete_xingce_plan_task(
     session: Session,
     *,
-    repository: XingceAttemptRepository,
     user_id: str,
     task_session: RowMapping,
     command_id: str,
     completed_at: datetime,
-    settle_planning_evidence: bool = True,
-) -> XingceCompletionReceipt:
-    task = _source_task_for_started_session(
+) -> XingcePlanCompletion:
+    """Append the canonical planning completion fact inside the caller transaction."""
+    task = _required_source_task(
         session,
         user_id=user_id,
-        work_item_key=str(task_session["work_item_key"]),
-        source_plan_task_id=str(task_session["source_plan_task_id"]),
-        source_plan_version_id=str(task_session["source_plan_version_id"]),
+        task_session=task_session,
     )
-    if task is None:
-        raise PlanningContractError("Current Xingce plan task does not exist")
-
     planning_repository = PlanningRepository()
     current = planning_repository.current_task_execution(
         session,
@@ -51,7 +55,6 @@ def complete_xingce_plan_task(
     if current["status"] == "abandoned":
         return _link_late_evidence(
             session,
-            repository=repository,
             planning_repository=planning_repository,
             user_id=user_id,
             task=task,
@@ -59,7 +62,6 @@ def complete_xingce_plan_task(
             execution=current,
             command_id=command_id,
             completed_at=completed_at,
-            settle_planning_evidence=settle_planning_evidence,
         )
     if current["status"] != "in_progress":
         raise PlanningContractError("Terminal Xingce plan task cannot be rewritten")
@@ -103,7 +105,9 @@ def complete_xingce_plan_task(
                 1440,
                 ceil(int(task_session["total_elapsed_seconds"]) / 60),
             ),
-            "evidence_refs": json.dumps([evidence_ref], ensure_ascii=False, sort_keys=True),
+            "evidence_refs": json.dumps(
+                [evidence_ref], ensure_ascii=False, sort_keys=True
+            ),
             "abandonment_reason": None,
             "input_fingerprint": input_fingerprint,
             "supersedes_execution_version_id": str(current["execution_version_id"]),
@@ -121,26 +125,76 @@ def complete_xingce_plan_task(
         task_session=task_session,
         occurred_at=completed_at,
     )
-    receipt_id = str(row["execution_version_id"])
-    if settle_planning_evidence:
-        receipt = settle_xingce_evidence(
-            session,
-            repository=repository,
-            command_id=command_id,
-            user_id=user_id,
-            task_session=task_session,
-            execution_version_id=str(row["execution_version_id"]),
-            created_at=completed_at,
-        )
-        receipt_id = str(receipt["evidence_version_id"])
     plan = PlanningService(repository=planning_repository).get_or_create_today(
         session,
         user_id=user_id,
         now=completed_at,
     )
-    return XingceCompletionReceipt(
-        receiptId=receipt_id,
-        settlementStatus="completed",
+    return XingcePlanCompletion(
+        receipt_id=str(row["execution_version_id"]),
+        settlement_status="completed",
+        execution_version_id=str(row["execution_version_id"]),
+        plan=plan,
+    )
+
+
+def current_xingce_plan_completion(
+    session: Session,
+    *,
+    user_id: str,
+    task_session: RowMapping,
+    observed_at: datetime,
+) -> XingcePlanCompletion:
+    """Read and validate the terminal planning fact for an already submitted session."""
+    task = _required_source_task(
+        session,
+        user_id=user_id,
+        task_session=task_session,
+    )
+    planning_repository = PlanningRepository()
+    current = planning_repository.current_task_execution(
+        session,
+        user_id=user_id,
+        work_item_key=str(task["work_item_key"]),
+    )
+    if current is None or current["status"] not in {"complete", "abandoned"}:
+        raise PlanningContractError(
+            "Submitted Xingce session is missing its canonical terminal planning fact"
+        )
+    receipt_id = str(current["execution_version_id"])
+    settlement_status: Literal["completed", "late_evidence_linked"] = "completed"
+    if current["status"] == "abandoned":
+        late_evidence_id = session.execute(
+            text(
+                """
+                select late_evidence_id::text
+                from learning.plan_task_late_evidence_versions
+                where user_id = cast(:user_id as uuid)
+                  and session_id = cast(:session_id as uuid)
+                  and source_execution_version_id = cast(:execution_version_id as uuid)
+                """
+            ),
+            {
+                "user_id": user_id,
+                "session_id": str(task_session["session_id"]),
+                "execution_version_id": str(current["execution_version_id"]),
+            },
+        ).scalar_one_or_none()
+        if late_evidence_id is None:
+            raise PlanningContractError(
+                "Abandoned Xingce execution is missing its canonical late evidence fact"
+            )
+        receipt_id = str(late_evidence_id)
+        settlement_status = "late_evidence_linked"
+    plan = PlanningService(repository=planning_repository).get_or_create_today(
+        session,
+        user_id=user_id,
+        now=observed_at,
+    )
+    return XingcePlanCompletion(
+        receipt_id=receipt_id,
+        settlement_status=settlement_status,
+        execution_version_id=str(current["execution_version_id"]),
         plan=plan,
     )
 
@@ -148,7 +202,6 @@ def complete_xingce_plan_task(
 def _link_late_evidence(
     session: Session,
     *,
-    repository: XingceAttemptRepository,
     planning_repository: PlanningRepository,
     user_id: str,
     task: RowMapping,
@@ -156,8 +209,7 @@ def _link_late_evidence(
     execution: RowMapping,
     command_id: str,
     completed_at: datetime,
-    settle_planning_evidence: bool,
-) -> XingceCompletionReceipt:
+) -> XingcePlanCompletion:
     late_evidence_id = str(uuid4())
     session_id = str(task_session["session_id"])
     execution_id = str(execution["execution_version_id"])
@@ -203,24 +255,15 @@ def _link_late_evidence(
         .mappings()
         .one()
     )
-    if settle_planning_evidence:
-        settle_xingce_evidence(
-            session,
-            repository=repository,
-            command_id=command_id,
-            user_id=user_id,
-            task_session=task_session,
-            execution_version_id=execution_id,
-            created_at=completed_at,
-        )
     plan = PlanningService(repository=planning_repository).get_or_create_today(
         session,
         user_id=user_id,
         now=completed_at,
     )
-    return XingceCompletionReceipt(
-        receiptId=str(row["late_evidence_id"]),
-        settlementStatus="late_evidence_linked",
+    return XingcePlanCompletion(
+        receipt_id=str(row["late_evidence_id"]),
+        settlement_status="late_evidence_linked",
+        execution_version_id=execution_id,
         plan=plan,
     )
 
@@ -265,12 +308,32 @@ def _append_plan_state_event(
     OutboxRepository().append(
         session,
         event_id=event_id,
-        deduplication_key=f"{event_type}:{execution_id}:{current['version_no']}",
+        deduplication_key=(
+            f"{event_type}:{execution_id}:{current['version_no']}"
+        ),
         aggregate_type="planning_task_execution",
         aggregate_id=execution_id,
         event_type=event_type,
         payload=payload,
     )
+
+
+def _required_source_task(
+    session: Session,
+    *,
+    user_id: str,
+    task_session: RowMapping,
+) -> RowMapping:
+    task = _source_task_for_started_session(
+        session,
+        user_id=user_id,
+        work_item_key=str(task_session["work_item_key"]),
+        source_plan_task_id=str(task_session["source_plan_task_id"]),
+        source_plan_version_id=str(task_session["source_plan_version_id"]),
+    )
+    if task is None:
+        raise PlanningContractError("Current Xingce plan task does not exist")
+    return task
 
 
 def _source_task_for_started_session(
