@@ -63,7 +63,7 @@ const declaredSubpackageSharedFiles = [
   { path: "features/essay-task/material-paragraphs.ts", packages: ["essay", "essay-task"] },
   {
     path: "platform/source-image.ts",
-    packages: ["xingce", "reports", "capture-import", "private-knowledge", "essay-task"],
+    packages: ["xingce", "reports", "capture-import", "private-knowledge", "essay-task", "essay"],
   },
   { path: "platform/payment-platform.ts", packages: ["account"] },
   {
@@ -116,7 +116,10 @@ const declaredSubpackageSharedFiles = [
     "reflection",
   ]),
   { path: "api/math-ink.ts", packages: ["practice"] },
-  { path: "api/task-editing.ts", packages: ["practice", "mock-exam"] },
+  {
+    path: "api/task-editing.ts",
+    packages: ["practice", "mock-exam", "reports", "xingce", "reflection"],
+  },
   { path: "api/task-help.ts", packages: ["practice", "mock-exam"] },
   { path: "api/learning-media.ts", packages: ["reflection", "essay-task"] },
   { path: "features/essay-task/forms.ts", packages: ["essay-task"] },
@@ -157,7 +160,7 @@ const declaredSubpackageSharedFiles = [
   },
   {
     path: "task-runtime/content-renderer/model.ts",
-    packages: ["practice", "mock-exam", "reflection"],
+    packages: ["practice", "mock-exam", "reflection", "reports", "xingce"],
   },
   {
     path: "task-runtime/material-reader/index.ts",

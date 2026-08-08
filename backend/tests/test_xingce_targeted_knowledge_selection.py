@@ -16,12 +16,12 @@ from sqlalchemy.orm import Session, sessionmaker
 from app.domains.auth.repository import token_hash_for_tests
 from app.domains.planning.repository import PlanningRepository
 from app.domains.planning.service import PlanningService
+import app.domains.task_runtime.xingce_attempt.question_repository as repository_module
 from app.domains.xingce_learning.real_attempt.repository import (
     XingceAttemptRepository,
     _bounded_question_candidate_batch_size,
     _stable_question_distribution_key,
 )
-import app.domains.xingce_learning.real_attempt.repository as repository_module
 from app.domains.task_content.service import TaskContentContractError
 from app.domains.xingce_learning.real_attempt.service import (
     XingceAttemptError,

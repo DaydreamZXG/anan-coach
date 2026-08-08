@@ -10,7 +10,7 @@ import type {
   RecognitionCandidatePayload,
   TextSpan,
 } from "../../../api/generated/types.gen";
-import type { LocalSourceImageFile } from "../../../xingce/shared/platform/source-image";
+import type { LocalSourceImageFile } from "../platform/source-image";
 
 export interface EssayHandwritingUploadProgress {
   sentBytes: number;

@@ -12,6 +12,10 @@ import {
   submittedXingceSession,
   xingceIds,
 } from "./work_packages/vj-02-real-xingce-wechat/harness";
+import {
+  loadLocalXingceCheckpointDraft,
+  loadPendingXingceCheckpoint,
+} from "../miniprogram/pages/practice/shared/features/xingce/real_attempt/pending-store";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
@@ -59,6 +63,147 @@ describe("xingce practice page lifecycle", () => {
     ).toHaveLength(0);
     expect(vi.getTimerCount()).toBe(0);
     runtime.page.onUnload.call(runtime.page);
+  });
+
+  it("retries a failed draft and both scratch surfaces with the same checkpoint command", async () => {
+    vi.useFakeTimers();
+    let checkpointAttempts = 0;
+    const runtime = await createPracticePage(
+      (options) => {
+        if (options.method === "PUT" && options.url.endsWith("/checkpoint")) {
+          checkpointAttempts += 1;
+          if (checkpointAttempts === 1) {
+            options.fail?.(requestFailure());
+            return true;
+          }
+        }
+        if (options.url.endsWith("/submit")) {
+          options.success?.(apiSuccess(submittedXingceSession("incorrect")));
+          return true;
+        }
+        return false;
+      },
+      "targeted",
+      { sharedMaterial: true },
+    );
+    const questionStroke = annotationStroke("question-stroke-retry", "question");
+    const materialStroke = annotationStroke("material-stroke-retry", "material");
+
+    runtime.page.inputDraft.call(runtime.page, inputEvent("先圈分母，再核对增长率。"));
+    runtime.page.changeAnnotations.call(runtime.page, annotationEvent(questionStroke));
+    runtime.page.changeMaterialAnnotations.call(runtime.page, annotationEvent(materialStroke));
+    runtime.page.onHide.call(runtime.page);
+    await flushMicrotasks();
+
+    const failed = runtime.requests.find(
+      (request) => request.method === "PUT" && request.url.endsWith("/checkpoint"),
+    );
+    const failedCommand = failed?.data as XingceCheckpointCommand | undefined;
+    const failedAnswer = failedCommand?.answers.find(({ questionId }) => questionId === "q-1");
+    expect(runtime.page.data.hasPendingCheckpoint).toBe(true);
+    expect(vi.getTimerCount()).toBe(0);
+    expect(loadPendingXingceCheckpoint("user-a", xingceIds.session)?.command).toEqual(
+      failedCommand,
+    );
+    expect(loadLocalXingceCheckpointDraft("user-a", xingceIds.session)?.command).toEqual(
+      failedCommand,
+    );
+    expect(failedAnswer).toMatchObject({
+      draftText: "先圈分母，再核对增长率。",
+      annotations: [questionStroke, materialStroke],
+      actionEvents: expect.arrayContaining([
+        expect.objectContaining({ type: "draft_edited" }),
+        expect.objectContaining({ type: "annotation_added" }),
+      ]),
+    });
+
+    await runtime.page.retryPendingCheckpoint.call(runtime.page);
+    await flushMicrotasks();
+    const checkpoints = runtime.requests.filter(
+      (request) => request.method === "PUT" && request.url.endsWith("/checkpoint"),
+    );
+    expect(checkpoints).toHaveLength(2);
+    expect(checkpoints[1]?.header?.["Idempotency-Key"]).toBe(
+      checkpoints[0]?.header?.["Idempotency-Key"],
+    );
+    expect(checkpoints[1]?.data).toEqual(checkpoints[0]?.data);
+    expect(loadPendingXingceCheckpoint("user-a", xingceIds.session)).toBeNull();
+    expect(loadLocalXingceCheckpointDraft("user-a", xingceIds.session)).toBeNull();
+
+    runtime.page.onShow.call(runtime.page);
+    runtime.page.selectOption.call(runtime.page, {
+      currentTarget: { dataset: { optionid: "B" } },
+    } as unknown as WechatMiniprogram.BaseEvent);
+    await flushMicrotasks();
+    await runtime.page.submitAttempt.call(runtime.page);
+    await flushMicrotasks();
+    const finalCheckpoint = [...runtime.requests]
+      .reverse()
+      .find((request) => request.method === "PUT" && request.url.endsWith("/checkpoint"));
+    const finalAnswer = (
+      finalCheckpoint?.data as XingceCheckpointCommand | undefined
+    )?.answers.find(({ questionId }) => questionId === "q-1");
+    expect(finalAnswer).toMatchObject({
+      questionId: "q-1",
+      draftText: "先圈分母，再核对增长率。",
+      annotations: [questionStroke, materialStroke],
+    });
+    const submission = runtime.requests.find((request) => request.url.endsWith("/submit"));
+    expect((submission?.data as { expectedRevision?: number } | undefined)?.expectedRevision).toBe(
+      (finalCheckpoint?.data as XingceCheckpointCommand | undefined)?.expectedRevision! + 1,
+    );
+    runtime.page.onUnload.call(runtime.page);
+  });
+
+  it("rebuilds a page from the failed command with a new resolved idempotency key", async () => {
+    vi.useFakeTimers();
+    let checkpointAttempts = 0;
+    const storage = createMemoryWechatStorage();
+    const intercept: RequestInterceptor = (options) => {
+      if (options.method !== "PUT" || !options.url.endsWith("/checkpoint")) return false;
+      checkpointAttempts += 1;
+      if (checkpointAttempts === 1) {
+        options.fail?.(requestFailure());
+        return true;
+      }
+      return false;
+    };
+    const first = await createPracticePage(intercept, "targeted", {
+      sharedMaterial: true,
+      storage,
+    });
+    const questionStroke = annotationStroke("question-stroke-rebuild", "question");
+    const materialStroke = annotationStroke("material-stroke-rebuild", "material");
+    first.page.inputDraft.call(first.page, inputEvent("重建后也要保留的草稿"));
+    first.page.changeAnnotations.call(first.page, annotationEvent(questionStroke));
+    first.page.changeMaterialAnnotations.call(first.page, annotationEvent(materialStroke));
+    first.page.onHide.call(first.page);
+    await flushMicrotasks();
+    const failed = first.requests.find(
+      (request) => request.method === "PUT" && request.url.endsWith("/checkpoint"),
+    );
+    first.page.onUnload.call(first.page);
+
+    vi.resetModules();
+    const rebuilt = await createPracticePage(intercept, "targeted", {
+      sharedMaterial: true,
+      storage,
+    });
+    const recovered = rebuilt.requests.find(
+      (request) => request.method === "PUT" && request.url.endsWith("/checkpoint"),
+    );
+    expect(recovered?.data).toEqual(failed?.data);
+    expect(recovered?.header?.["Idempotency-Key"]).not.toBe(failed?.header?.["Idempotency-Key"]);
+    expect(recovered?.header?.["Idempotency-Key"]).toContain("xingce-save-resolved");
+    const view = rebuilt.page.data.view as {
+      question: { draftText: string; annotations: Array<{ strokeId: string }> };
+    };
+    expect(view.question.draftText).toBe("重建后也要保留的草稿");
+    expect(view.question.annotations.map(({ strokeId }) => strokeId)).toEqual([
+      "question-stroke-rebuild",
+      "material-stroke-rebuild",
+    ]);
+    rebuilt.page.onUnload.call(rebuilt.page);
   });
 
   it("updates only timer leaves each second instead of rerendering the complete question", async () => {
@@ -609,11 +754,19 @@ type RequestInterceptor = (
 async function createPracticePage(
   intercept?: RequestInterceptor,
   mode: XingceTaskMode = "targeted",
+  options: {
+    sharedMaterial?: boolean;
+    storage?: ReturnType<typeof createMemoryWechatStorage>;
+  } = {},
 ) {
   let captured: CapturedPracticePage | undefined;
-  let session = activeXingceSession({ mode });
+  let session = activeXingceSession({
+    mode,
+    ...(options.sharedMaterial === undefined ? {} : { sharedMaterial: options.sharedMaterial }),
+  });
   const requests: WechatMiniprogram.RequestOption[] = [];
-  const { wxStorage } = createMemoryWechatStorage();
+  const storage = options.storage ?? createMemoryWechatStorage();
+  const { wxStorage } = storage;
   const globalData = {
     accessToken: "real-token",
     userId: "user-a",
@@ -679,13 +832,10 @@ async function createPracticePage(
     }
     if (options.method === "PUT") {
       const command = options.data as XingceCheckpointCommand;
-      session = activeXingceSession({
-        mode,
-        revision: command.expectedRevision + 1,
-        answers: command.answers,
-      });
       session = {
         ...session,
+        revision: command.expectedRevision + 1,
+        answers: command.answers,
         currentQuestionId: command.currentQuestionId,
         totalElapsedSeconds: command.totalElapsedSeconds,
       };
@@ -726,7 +876,7 @@ async function createPracticePage(
   page.onShow.call(page);
   await flushMicrotasks();
   expect(page.data.status).toBe("ready");
-  return { page, requests, setData, globalData };
+  return { page, requests, setData, globalData, storage };
 }
 
 interface CapturedPracticePage {
@@ -738,6 +888,12 @@ interface CapturedPracticePage {
   onResize(this: TestPracticePage): void;
   loadTask(this: TestPracticePage): Promise<void>;
   inputDraft(this: TestPracticePage, event: WechatMiniprogram.Input): void;
+  changeAnnotations(this: TestPracticePage, event: ReturnType<typeof annotationEvent>): void;
+  changeMaterialAnnotations(
+    this: TestPracticePage,
+    event: ReturnType<typeof annotationEvent>,
+  ): void;
+  retryPendingCheckpoint(this: TestPracticePage): Promise<void>;
   nextQuestion(this: TestPracticePage): void;
   selectQuestion(this: TestPracticePage, event: WechatMiniprogram.BaseEvent): void;
   onQuestionTouchStart(this: TestPracticePage, event: WechatMiniprogram.TouchEvent): void;
@@ -802,6 +958,29 @@ function requestFailure(): WechatMiniprogram.RequestFailCallbackErr {
     exception: { reasons: [], retryCount: 0 },
     useHttpDNS: false,
   };
+}
+
+function annotationStroke(strokeId: string, surface: "question" | "material") {
+  return {
+    strokeId,
+    surface,
+    tool: "pen" as const,
+    width: 0.008,
+    points: [
+      { x: 0.1, y: 0.2, t: 0 },
+      { x: 0.3, y: 0.4, t: 80 },
+    ],
+    atMs: 1_200,
+  };
+}
+
+function annotationEvent(stroke: ReturnType<typeof annotationStroke>) {
+  return {
+    detail: { strokes: [stroke], action: "added" as const },
+  } as WechatMiniprogram.CustomEvent<{
+    strokes: Array<ReturnType<typeof annotationStroke>>;
+    action: "added";
+  }>;
 }
 
 function apiFailure(

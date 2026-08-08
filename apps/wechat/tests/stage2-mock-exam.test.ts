@@ -334,6 +334,12 @@ describe("stage 2 F02 mock exam", () => {
       ],
       atMs: 1_200,
     };
+    const materialStroke = {
+      ...stroke,
+      strokeId: "material-stroke-mock-1",
+      surface: "material" as const,
+      atMs: 1_600,
+    };
 
     harness.page.openAnnotation.call(harness.page);
     expect(harness.page.data.annotationOpen).toBe(true);
@@ -343,10 +349,45 @@ describe("stage 2 F02 mock exam", () => {
     } as WechatMiniprogram.CustomEvent<{ strokes: [typeof stroke]; action: "added" }>);
     expect(harness.page.data.question).toMatchObject({ annotations: [stroke] });
 
+    harness.page.openMaterialAnnotation.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      annotationOpen: true,
+      annotationSurface: "material",
+    });
+    harness.page.changeMaterialAnnotations.call(harness.page, {
+      detail: { strokes: [materialStroke], action: "added" },
+    } as WechatMiniprogram.CustomEvent<{
+      strokes: [typeof materialStroke];
+      action: "added";
+    }>);
+    const materialReaderState = {
+      mode: "fullscreen" as const,
+      position: { anchorId: "material-start", scrollTop: 320, zoom: 1.25 },
+      preferences: { fontScale: 1.15, colorMode: "eye_care" as const, lineSpacing: 1.3 },
+    };
+    harness.page.updateMaterialReaderState.call(harness.page, {
+      detail: { state: materialReaderState },
+    } as WechatMiniprogram.CustomEvent<{ state: typeof materialReaderState }>);
+    harness.page.updateMaterialPosition.call(harness.page, {
+      detail: { position: materialReaderState.position },
+    } as WechatMiniprogram.CustomEvent<{ position: typeof materialReaderState.position }>);
+    expect(harness.page.data).toMatchObject({
+      materialOpen: true,
+      contentPreferences: materialReaderState.preferences,
+      materialReaderState,
+    });
+
     await vi.advanceTimersByTimeAsync(800);
     await flushMicrotasks();
     const checkpoint = harness.requests.find((request) => request.url.endsWith("/checkpoint"));
-    expect(checkpoint?.data).toMatchObject({ answers: [{ annotations: [stroke] }] });
+    expect(checkpoint?.data).toMatchObject({
+      answers: [
+        {
+          annotations: [stroke, materialStroke],
+          materialPosition: materialReaderState.position,
+        },
+      ],
+    });
 
     harness.page.closeAnnotation.call(harness.page);
     expect(harness.page.data.annotationOpen).toBe(false);
@@ -1270,6 +1311,7 @@ interface CapturedMockPage {
   exit(this: TestMockPage): Promise<void>;
   inputDraft(this: TestMockPage, event: WechatMiniprogram.Input): void;
   openAnnotation(this: TestMockPage): void;
+  openMaterialAnnotation(this: TestMockPage): void;
   closeAnnotation(this: TestMockPage): void;
   changeAnnotations(
     this: TestMockPage,
@@ -1282,6 +1324,40 @@ interface CapturedMockPage {
         atMs: number;
       }>;
       action: "added" | "erased";
+    }>,
+  ): void;
+  changeMaterialAnnotations(
+    this: TestMockPage,
+    event: WechatMiniprogram.CustomEvent<{
+      strokes: Array<{
+        strokeId: string;
+        surface?: "question" | "material";
+        tool: "pen" | "highlighter";
+        width: number;
+        points: Array<{ x: number; y: number }>;
+        atMs: number;
+      }>;
+      action: "added" | "erased";
+    }>,
+  ): void;
+  updateMaterialReaderState(
+    this: TestMockPage,
+    event: WechatMiniprogram.CustomEvent<{
+      state: {
+        mode: "question_first" | "drawer" | "fullscreen";
+        position: { anchorId: string; scrollTop: number; zoom: number };
+        preferences: {
+          fontScale: number;
+          colorMode: "standard" | "eye_care";
+          lineSpacing: number;
+        };
+      };
+    }>,
+  ): void;
+  updateMaterialPosition(
+    this: TestMockPage,
+    event: WechatMiniprogram.CustomEvent<{
+      position: { anchorId: string; scrollTop: number; zoom: number };
     }>,
   ): void;
   selectOption(this: TestMockPage, event: WechatMiniprogram.BaseEvent): void;

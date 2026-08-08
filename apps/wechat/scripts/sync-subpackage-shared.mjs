@@ -61,16 +61,21 @@ export function subpackageSharedPlanViolations(
     generatedOwnedTargets = generatedOwnedRoots.flatMap((root) =>
       listFiles(resolve(appRoot, root), root),
     ),
+    sourceContents,
   } = {},
 ) {
   const violations = [];
   const logicalPaths = new Set();
   const sourcePaths = new Set();
   const destinations = new Set();
+  const sourceLookup = new Map();
+  const entriesByLogicalPath = new Map();
 
   for (const entry of entries) {
     recordUnique(violations, logicalPaths, "logical path", entry.path);
     recordUnique(violations, sourcePaths, "neutral source", entry.source);
+    registerLogicalSource(sourceLookup, entry.source, entry.path);
+    if (!entriesByLogicalPath.has(entry.path)) entriesByLogicalPath.set(entry.path, entry);
     if (!Array.isArray(entry.packages) || entry.packages.length === 0) {
       violations.push(`Manifest entry has no packages: ${entry.path}`);
       continue;
@@ -98,6 +103,31 @@ export function subpackageSharedPlanViolations(
   for (const target of generatedOwnedTargets) {
     if (!plannedTargets.has(target)) {
       violations.push(`Unclaimed generated target: ${target}`);
+    }
+  }
+  for (const entry of entries) {
+    let content = sourceContents?.[entry.source];
+    if (content === undefined) {
+      try {
+        content = readFileSync(resolve(projectRoot, entry.source), "utf8");
+      } catch {
+        continue;
+      }
+    }
+    for (const rawSpecifier of relativeSpecifiers(content)) {
+      const queryIndex = rawSpecifier.indexOf("?");
+      const pathPart = queryIndex >= 0 ? rawSpecifier.slice(0, queryIndex) : rawSpecifier;
+      const resolvedSource = normalize(`${dirname(entry.source)}/${pathPart}`);
+      const logicalSource = resolveLogicalSource(resolvedSource, sourceLookup);
+      const dependency = logicalSource ? entriesByLogicalPath.get(logicalSource) : undefined;
+      if (!dependency) continue;
+      for (const packageName of entry.packages) {
+        if (!dependency.packages.includes(packageName)) {
+          violations.push(
+            `Missing package closure: ${entry.path} requires ${dependency.path} in ${packageName}`,
+          );
+        }
+      }
     }
   }
 
@@ -194,9 +224,12 @@ function rewriteNeutralReferences(content, sourceProjectPath, targetProjectPath,
     const resolvedSource = normalize(`${dirname(sourceProjectPath)}/${pathPart}`);
     const logicalSource = resolveLogicalSource(resolvedSource, sourcePathToLogicalSource);
     const targetEntry = logicalSource ? logicalSourceToEntry.get(logicalSource) : undefined;
-    const targetPackage = targetEntry?.packages.includes(packageName)
-      ? packageName
-      : targetEntry?.packages[0];
+    if (targetEntry && !targetEntry.packages.includes(packageName)) {
+      throw new Error(
+        `Missing package closure: ${sourceProjectPath} requires ${targetEntry.path} in ${packageName}`,
+      );
+    }
+    const targetPackage = targetEntry ? packageName : undefined;
     let resolvedTarget =
       logicalSource && targetPackage
         ? `miniprogram/${subpackageSharedDestination(logicalSource, targetPackage)}`
@@ -260,4 +293,15 @@ function listFiles(root, projectPrefix) {
 function recordUnique(violations, seen, label, value) {
   if (seen.has(value)) violations.push(`Duplicate ${label}: ${value}`);
   else seen.add(value);
+}
+
+function registerLogicalSource(lookup, source, logicalPath) {
+  lookup.set(stripKnownExtension(source), logicalPath);
+  if (/\/index\.(?:ts|js)$/u.test(source)) {
+    lookup.set(source.replace(/\/index\.(?:ts|js)$/u, ""), logicalPath);
+  }
+}
+
+function relativeSpecifiers(content) {
+  return [...content.matchAll(/(["'])(\.{1,2}\/[^"'\s]+)\1/gu)].map((match) => match[2]);
 }

@@ -8,8 +8,8 @@ import type {
   ContentAnchor,
   RichContentBlock,
   TableContentCell,
-} from "../../../pages/practice/shared/task-runtime/content-renderer/model";
-import type { TaskEditLeaseToken } from "../../../pages/practice/shared/api/task-editing";
+} from "../task-runtime/content-renderer/model";
+import type { TaskEditLeaseToken } from "./task-editing";
 
 export interface MockExamLearnerOption {
   optionId: string;

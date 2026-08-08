@@ -30,7 +30,9 @@ import {
   selectTrajectoryReplaySurface,
   type ReplaySource,
 } from "../miniprogram/pages/reflection/features/replay-runtime";
+import { strokesVisibleAtReplay } from "../miniprogram/pages/reflection/shared/task-runtime/annotation-layer/strokes";
 import {
+  activeXingceSession,
   apiSuccess,
   reflectedXingceSession,
   submittedXingceSession,
@@ -568,6 +570,67 @@ describe("reflection page voice binding", () => {
       icon: "none",
     });
   });
+
+  it("drives replay playback, seek, surfaces and unload through the real page lifecycle", async () => {
+    const runtime = await createReflectionPage(availableSegment(), trajectorySession());
+    vi.useFakeTimers();
+
+    runtime.page.openReplay.call(runtime.page);
+    expect(runtime.page.data).toMatchObject({
+      replayOpen: true,
+      replayMs: 0,
+      replayDurationMs: 4_500,
+      replaySurface: "question",
+      replayContentHeight: 1_600,
+    });
+    expect(
+      (runtime.page.data.replayAnnotations as Array<{ strokeId: string }>).map(
+        (stroke) => stroke.strokeId,
+      ),
+    ).toEqual(["question-stroke-1"]);
+
+    runtime.page.toggleReplayPlayback.call(runtime.page);
+    await vi.advanceTimersByTimeAsync(240);
+    expect(runtime.page.data.replayMs).toBe(960);
+    expect(vi.getTimerCount()).toBe(1);
+    runtime.page.toggleReplayPlayback.call(runtime.page);
+    await vi.advanceTimersByTimeAsync(240);
+    expect(runtime.page.data.replayMs).toBe(960);
+    expect(vi.getTimerCount()).toBe(0);
+
+    runtime.page.toggleReplayPlayback.call(runtime.page);
+    runtime.page.seekReplay.call(runtime.page, {
+      detail: { value: 3_000 },
+    } as WechatMiniprogram.CustomEvent<{ value: number }>);
+    expect(runtime.page.data).toMatchObject({ replayMs: 3_000, replayPlaying: false });
+    expect(runtime.page.data.replayCurrentEvent).toContain("改答");
+    expect(vi.getTimerCount()).toBe(0);
+    const questionStrokes = runtime.page.data.replayAnnotations as Parameters<
+      typeof strokesVisibleAtReplay
+    >[0];
+    expect(strokesVisibleAtReplay(questionStrokes, 4_499)).toHaveLength(1);
+    expect(strokesVisibleAtReplay(questionStrokes, 4_500)).toHaveLength(0);
+
+    runtime.page.selectReplaySurface.call(runtime.page, {
+      currentTarget: { dataset: { surface: "material" } },
+    } as unknown as WechatMiniprogram.BaseEvent);
+    expect(runtime.page.data.replaySurface).toBe("material");
+    expect(
+      (runtime.page.data.replayAnnotations as Array<{ strokeId: string }>).map(
+        (stroke) => stroke.strokeId,
+      ),
+    ).toEqual(["material-stroke-1"]);
+
+    runtime.page.toggleReplayPlayback.call(runtime.page);
+    expect(vi.getTimerCount()).toBe(1);
+    runtime.page.onUnload.call(runtime.page);
+    const writesAfterUnload = runtime.setData.mock.calls.length;
+    const replayAfterUnload = runtime.page.data.replayMs;
+    await vi.advanceTimersByTimeAsync(480);
+    expect(runtime.setData).toHaveBeenCalledTimes(writesAfterUnload);
+    expect(runtime.page.data.replayMs).toBe(replayAfterUnload);
+    expect(vi.getTimerCount()).toBe(0);
+  });
 });
 
 function coordinatorWith(gateway: LearningMediaUploadGateway): ReflectionVoiceUploadCoordinator {
@@ -664,13 +727,29 @@ interface ReflectionPageDefinition {
   onLoad(this: ReflectionTestPage, options: Record<string, string>): void;
   onUnload(this: ReflectionTestPage): void;
   submitReflection(this: ReflectionTestPage): Promise<void>;
+  openReplay(this: ReflectionTestPage): void;
+  closeReplay(this: ReflectionTestPage): void;
+  toggleReplayPlayback(this: ReflectionTestPage): void;
+  seekReplay(
+    this: ReflectionTestPage,
+    event: WechatMiniprogram.CustomEvent<{ value: number }>,
+  ): void;
+  selectReplaySurface(this: ReflectionTestPage, event: WechatMiniprogram.BaseEvent): void;
 }
 
 interface ReflectionTestPage extends ReflectionPageDefinition {
   setData(patch: Record<string, unknown>): void;
+  createSelectorQuery(): {
+    select(selector: string): unknown;
+    fields(options: Record<string, boolean>): unknown;
+    exec(callback: (results: Array<{ height: number; scrollHeight: number }>) => void): void;
+  };
 }
 
-async function createReflectionPage(segment: ReflectionVoiceSegment) {
+async function createReflectionPage(
+  segment: ReflectionVoiceSegment,
+  session = submittedXingceSession(),
+) {
   let captured: ReflectionPageDefinition | undefined;
   const requests: WechatMiniprogram.RequestOption[] = [];
   const storage = memoryStorage();
@@ -686,7 +765,7 @@ async function createReflectionPage(segment: ReflectionVoiceSegment) {
     request: (request: WechatMiniprogram.RequestOption) => {
       requests.push(request);
       if (request.method === "GET") {
-        request.success?.(apiSuccess(submittedXingceSession()));
+        request.success?.(apiSuccess(session));
         return;
       }
       if (request.url.includes("/reflection")) {
@@ -702,6 +781,7 @@ async function createReflectionPage(segment: ReflectionVoiceSegment) {
     redirectTo: vi.fn(() => Promise.resolve()),
     switchTab: vi.fn(() => Promise.resolve()),
     navigateBack: vi.fn(() => Promise.resolve()),
+    nextTick: (callback: () => void) => callback(),
   });
   storeReflectionLearningMediaDraft("user-a", xingceIds.review, {
     rawText: "我当时忽略了否定词。",
@@ -713,18 +793,70 @@ async function createReflectionPage(segment: ReflectionVoiceSegment) {
   });
   await import("../miniprogram/pages/reflection/index");
   if (!captured) throw new Error("reflection page was not registered");
+  const setData = vi.fn(function (this: ReflectionTestPage, patch: Record<string, unknown>) {
+    Object.assign(this.data, patch);
+  });
+  const query = {
+    select: vi.fn(() => query),
+    fields: vi.fn(() => query),
+    exec: vi.fn((callback: (results: Array<{ height: number; scrollHeight: number }>) => void) => {
+      callback([{ height: 640, scrollHeight: 1_600 }]);
+    }),
+  };
   const page: ReflectionTestPage = {
     ...captured,
     data: JSON.parse(JSON.stringify(captured.data)) as Record<string, unknown>,
-    setData(patch) {
-      Object.assign(this.data, patch);
-    },
+    setData,
+    createSelectorQuery: () => query,
   };
   page.onLoad.call(page, { sessionId: xingceIds.session, reviewId: xingceIds.review });
   await vi.waitFor(() => {
     expect(page.data.status).toBe("ready");
   });
-  return { page, requests, showToast };
+  return { page, requests, showToast, setData, query };
+}
+
+function trajectorySession() {
+  const session = submittedXingceSession();
+  session.bundle = activeXingceSession({ sharedMaterial: true }).bundle;
+  const firstAnswer = session.answers[0];
+  if (!firstAnswer) throw new Error("trajectory answer fixture is required");
+  const firstResult = session.result?.items[0];
+  if (!firstResult) throw new Error("trajectory result fixture is required");
+  const timing = firstResult.timingEvidence;
+  if (!timing) throw new Error("trajectory timing fixture is required");
+  firstResult.timingEvidence = {
+    status: timing.status,
+    elapsedSeconds: 2,
+    advisorySeconds: timing.advisorySeconds,
+  };
+  session.answers[0] = {
+    ...firstAnswer,
+    elapsedSeconds: 2,
+    annotations: [
+      {
+        strokeId: "question-stroke-1",
+        tool: "pen",
+        width: 0.006,
+        points: [{ x: 0.1, y: 0.2, t: 0 }],
+        atMs: 500,
+        erasedAtMs: 4_500,
+      },
+      {
+        strokeId: "material-stroke-1",
+        surface: "material",
+        tool: "highlighter",
+        width: 0.03,
+        points: [{ x: 0.3, y: 0.4, t: 0 }],
+        atMs: 1_000,
+      },
+    ],
+    actionEvents: [
+      { type: "option_changed", optionId: "C", atMs: 3_000 },
+      { type: "annotation_erased", atMs: 4_500 },
+    ],
+  };
+  return session;
 }
 
 function memoryStorage() {

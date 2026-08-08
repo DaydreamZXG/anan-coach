@@ -32,7 +32,7 @@ import type {
 } from "../../../../api/generated/types.gen";
 import type { ApiClient } from "../../../../api/client";
 import type { ApiEnvelope } from "../../../../domain/contracts";
-import type { TaskEditLeaseToken } from "../../../practice/shared/api/task-editing";
+import type { TaskEditLeaseToken } from "./task-editing";
 import type { ContentAnchor, RichContentBlock } from "../task-runtime/content-renderer/model";
 
 export type XingceTaskMode = "practice" | "targeted" | "baseline" | "verification";

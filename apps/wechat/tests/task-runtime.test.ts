@@ -38,6 +38,7 @@ const generator = subpackageGenerator as unknown as {
     options?: {
       neutralFiles?: string[];
       generatedOwnedTargets?: string[];
+      sourceContents?: Record<string, string>;
     },
   ): string[];
 };
@@ -48,9 +49,9 @@ describe("subpackage shared generator", () => {
     const firstTargets = plan.filter(({ packageIndex }) => packageIndex === 0);
     const crossPackageTargets = plan.filter(({ packageIndex }) => packageIndex > 0);
 
-    expect(plan).toHaveLength(263);
+    expect(plan).toHaveLength(269);
     expect(firstTargets).toHaveLength(123);
-    expect(crossPackageTargets).toHaveLength(140);
+    expect(crossPackageTargets).toHaveLength(146);
     expect(
       manifestEntries.every(
         ({ source }) =>
@@ -103,6 +104,10 @@ describe("subpackage shared generator", () => {
         ...generator.generatedTargetPlan(entries).map(({ targetRelative }) => targetRelative),
         "pages/practice/shared/task-runtime/orphan.ts",
       ],
+      sourceContents: {
+        "subpackage-shared-src/task-runtime/a.ts": 'import { b } from "./b";',
+        "subpackage-shared-src/task-runtime/b.ts": "export const b = true;",
+      },
     });
 
     expect(violations).toEqual(
@@ -113,6 +118,7 @@ describe("subpackage shared generator", () => {
         "Duplicate generated target: pages/practice/shared/task-runtime/a.ts",
         "Unclaimed neutral source: subpackage-shared-src/task-runtime/orphan.ts",
         "Unclaimed generated target: pages/practice/shared/task-runtime/orphan.ts",
+        "Missing package closure: task-runtime/a.ts requires task-runtime/b.ts in practice",
       ]),
     );
   });
