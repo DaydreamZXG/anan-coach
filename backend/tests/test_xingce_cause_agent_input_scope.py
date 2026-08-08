@@ -73,6 +73,11 @@ class _Repository:
             "scoring_bundle": {},
         }
 
+    def ink_formula_evidence(
+        self, *_args: Any, **_kwargs: Any
+    ) -> list[dict[str, Any]]:
+        return []
+
 
 def test_auto_finalized_unanswered_items_do_not_enter_cause_model_evidence() -> None:
     tools = CauseAgentTools(

@@ -169,10 +169,11 @@ class CauseAgentEvidence(CauseModel):
     reflection: dict
     explanations: dict
     taxonomy: dict
-    # 契约增量：v1 冻结证据没有下面两段；回放旧会话时缺省为空，
-    # 不伪造轨迹或公式，evidenceRefs 子集校验自然不放行对应命名空间。
+    # 契约增量：v1 冻结证据没有下面三段；回放旧会话时缺省为空，
+    # 不伪造轨迹、公式或草稿思路，evidenceRefs 子集校验不放行新命名空间。
     action_trace: dict = Field(default_factory=dict, alias="actionTrace")
     ink_formulas: dict = Field(default_factory=dict, alias="inkFormulas")
+    scratch_reasoning: dict = Field(default_factory=dict, alias="scratchReasoning")
 
     @property
     def allowed_evidence_refs(self) -> set[str]:
@@ -184,6 +185,7 @@ class CauseAgentEvidence(CauseModel):
             self.taxonomy,
             self.action_trace,
             self.ink_formulas,
+            self.scratch_reasoning,
         ):
             refs.update(str(item) for item in section.get("evidenceRefs", []))
         return refs

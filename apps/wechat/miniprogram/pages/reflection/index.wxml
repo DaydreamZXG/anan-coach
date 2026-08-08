@@ -65,6 +65,15 @@
           </view>
           <view class="summary-insight__next">{{result.group.nextActionLabel}}</view>
           <view wx:if="{{result.verification}}" class="summary-insight__verification">{{result.verification.stageLabel}} · {{result.verification.evidenceLabel}} · {{result.verification.evidenceDescription}}</view>
+          <view wx:if="{{result.processEvidence}}" class="summary-evidence">
+            <view class="summary-evidence__title">{{result.processEvidence.hasEvidence ? '这次系统实际读到' : '这次没有留下过程证据'}}</view>
+            <view wx:if="{{result.processEvidence.hasEvidence}}" class="summary-evidence__counts">
+              <view class="summary-evidence__count">文字草稿 {{result.processEvidence.draftQuestionCount}} 题</view>
+              <view class="summary-evidence__count">原文标记 {{result.processEvidence.anchoredSegmentCount}} 处</view>
+              <view class="summary-evidence__count">自由笔迹 {{result.processEvidence.freeStrokeCount}} 画</view>
+            </view>
+            <view class="summary-evidence__copy">{{result.processEvidence.scopeDescription}}</view>
+          </view>
         </view>
         <button hover-class="item--hover" class="summary-insight__toggle" bindtap="toggleSummaryBasis">{{summaryBasisOpen ? '收起依据' : '看看依据'}}⌄</button>
       </view>
@@ -73,11 +82,34 @@
         <view class="summary-legacy__copy">只保留当时的成绩，不再重新推测缺失的作答过程。</view>
       </view>
 
-      <!-- 题号一览按客观结果分色：答错红、猜对/计算失误橙、稳定答对绿、证据未记录灰。 -->
-      <view wx:if="{{result.items.length}}" class="summary-question-strip">
-        <view wx:for="{{result.items}}" wx:key="questionId" class="summary-question-strip__item">
-          <view class="summary-question-dot summary-question-dot--{{item.resultTone}}">{{item.positionNumber}}</view>
-          <view class="summary-question-label summary-question-label--{{item.resultTone}}">{{item.resultLabel}}</view>
+      <!-- 题号只负责定位，诊断结论按组说一次，避免 30 个重复标签挤在一起。 -->
+      <view wx:if="{{result.questionGroups.length}}" class="summary-question-map">
+        <view class="summary-question-map__head">
+          <view class="summary-question-map__title">题目分区</view>
+          <view class="summary-question-map__hint">先看要处理的题，再看已经稳住的题</view>
+        </view>
+        <view
+          wx:for="{{result.questionGroups}}"
+          wx:for-item="group"
+          wx:key="code"
+          class="summary-question-group summary-question-group--{{group.tone}}"
+        >
+          <view class="summary-question-group__head">
+            <view class="summary-question-group__identity">
+              <view class="summary-question-group__signal summary-question-group__signal--{{group.tone}}"></view>
+              <text>{{group.label}}</text>
+            </view>
+            <view class="summary-question-group__count type-data">{{group.count}} 题</view>
+          </view>
+          <view class="summary-question-group__description">{{group.description}}</view>
+          <view class="summary-question-group__numbers">
+            <view
+              wx:for="{{group.items}}"
+              wx:for-item="question"
+              wx:key="questionId"
+              class="summary-question-number summary-question-number--{{group.tone}}"
+            >{{question.positionNumber}}</view>
+          </view>
         </view>
       </view>
 

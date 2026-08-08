@@ -40,7 +40,7 @@
 .summary-card,
 .summary-insight,
 .summary-legacy,
-.summary-question-strip {
+.summary-question-map {
   box-sizing: border-box;
   margin-top: var(--figma-space-16);
   border: calc(1 * var(--rpx)) solid var(--color-line);
@@ -219,6 +219,43 @@
   color: var(--color-muted);
 }
 
+.summary-evidence {
+  margin-top: var(--figma-space-10);
+  padding: var(--figma-space-12);
+  border: calc(1 * var(--rpx)) solid var(--color-line);
+  border-radius: var(--figma-radius-small);
+  background: var(--color-surface);
+}
+
+.summary-evidence__title {
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
+.summary-evidence__counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--figma-space-6);
+  margin-top: var(--figma-space-8);
+}
+
+.summary-evidence__count {
+  padding: var(--figma-space-4) var(--figma-space-8);
+  border-radius: var(--figma-radius-pill);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+  font-size: var(--text-micro);
+  font-weight: 600;
+}
+
+.summary-evidence__copy {
+  margin-top: var(--figma-space-8);
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+  line-height: 1.65;
+}
+
 /* Figma 13:119：左对齐的文字链接。 */
 .summary-insight__toggle {
   display: flex;
@@ -247,84 +284,125 @@
   line-height: 1.65;
 }
 
-.summary-question-strip {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  align-items: start;
-  gap: var(--figma-space-12) var(--figma-space-6);
-  padding: var(--figma-space-16) var(--figma-space-12);
+.summary-question-map {
+  padding: var(--figma-space-16);
   border-radius: var(--figma-radius-card);
 }
 
-.summary-question-strip__item {
+.summary-question-map__head,
+.summary-question-group__head,
+.summary-question-group__identity {
   display: flex;
-  min-width: 0;
   align-items: center;
-  flex-direction: column;
-  gap: var(--figma-space-4);
 }
 
-/* 题号颜色只表达客观结果强度，不能把所有“需复盘”都渲染成答错。 */
-.summary-question-dot {
+.summary-question-map__head,
+.summary-question-group__head {
+  justify-content: space-between;
+  gap: var(--figma-space-10);
+}
+
+.summary-question-map__title {
+  color: var(--color-ink);
+  font-size: var(--text-body);
+  font-weight: 700;
+}
+
+.summary-question-map__hint {
+  color: var(--color-faint);
+  font-size: var(--text-micro);
+  text-align: right;
+}
+
+.summary-question-group {
+  margin-top: var(--figma-space-12);
+  padding-top: var(--figma-space-12);
+  border-top: calc(1 * var(--rpx)) solid var(--color-line);
+}
+
+.summary-question-group__identity {
+  gap: var(--figma-space-6);
+  color: var(--color-ink-secondary);
+  font-size: var(--text-body);
+  font-weight: 700;
+}
+
+.summary-question-group__signal {
+  width: var(--figma-space-6);
+  height: var(--figma-space-6);
+  border-radius: var(--figma-radius-pill);
+  background: var(--color-faint);
+}
+
+.summary-question-group__signal--danger {
+  background: var(--color-danger);
+}
+
+.summary-question-group__signal--warning {
+  background: var(--color-warning);
+}
+
+.summary-question-group__signal--success {
+  background: var(--figma-color-success-bright);
+}
+
+.summary-question-group__count {
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
+.summary-question-group__description {
+  margin-top: var(--figma-space-4);
+  color: var(--color-faint);
+  font-size: var(--text-micro);
+  line-height: 1.55;
+}
+
+.summary-question-group__numbers {
   display: flex;
-  width: calc(80 * var(--rpx));
-  height: calc(80 * var(--rpx));
+  flex-wrap: wrap;
+  gap: var(--figma-space-8);
+  margin-top: var(--figma-space-10);
+}
+
+/* 题号只编码所属分区，不再逐题重复“不会·答错”等长标签。 */
+.summary-question-number {
+  display: flex;
+  width: calc(64 * var(--rpx));
+  height: calc(64 * var(--rpx));
   align-items: center;
   justify-content: center;
   border: calc(1 * var(--rpx)) solid var(--figma-color-line);
   border-radius: var(--figma-radius-pill);
   background: var(--figma-color-surface-subtle);
   color: var(--figma-color-ink);
-  font-size: var(--text-body);
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
-.summary-question-dot--danger {
+.summary-question-number--danger {
   border-color: var(--figma-color-danger-soft-strong);
   background: var(--figma-color-danger-soft);
   color: var(--figma-color-danger-deep);
 }
 
-.summary-question-dot--warning {
+.summary-question-number--warning {
   border-color: var(--color-warning-a42);
   background: var(--figma-color-warning-soft);
   color: var(--figma-color-warning-deep);
 }
 
-.summary-question-dot--success {
+.summary-question-number--success {
   border-color: var(--figma-color-success);
   background: var(--figma-color-success-soft);
   color: var(--figma-color-success);
 }
 
-.summary-question-dot--neutral {
+.summary-question-number--neutral {
   border-color: var(--figma-color-line);
   background: var(--figma-color-surface-subtle);
   color: var(--figma-color-ink);
-}
-
-.summary-question-label {
-  overflow: hidden;
-  width: 100%;
-  height: 2.6em;
-  color: var(--figma-color-muted);
-  font-size: var(--text-micro);
-  font-weight: 500;
-  line-height: 1.3;
-  text-align: center;
-  word-break: break-all;
-}
-
-.summary-question-label--danger {
-  color: var(--figma-color-danger);
-}
-
-.summary-question-label--warning {
-  color: var(--figma-color-warning-deep);
-}
-
-.summary-question-label--neutral {
-  color: var(--figma-color-muted);
 }
 
 .summary-actions {
@@ -1420,8 +1498,8 @@ button.voice-item__play {
 }
 
 @media (min-width: 700px) {
-  .summary-question-strip {
-    grid-template-columns: repeat(10, minmax(0, 1fr));
+  .summary-question-map {
+    padding: var(--figma-space-20);
   }
 
   .review-content,

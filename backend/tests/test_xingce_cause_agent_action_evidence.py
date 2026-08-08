@@ -44,7 +44,7 @@ def test_action_trace_tool_reports_only_recorded_behavior(
             _scope(session, session_id)
         )
 
-    assert trace["contractVersion"] == "xingce-action-trace@v2"
+    assert trace["contractVersion"] == "xingce-action-trace@v3"
     items = {item["questionId"]: item for item in trace["items"]}
     assert set(items) == set(question_ids)
 
@@ -141,7 +141,7 @@ def test_action_trace_collects_anchored_segments_in_stroke_order_and_dedupes(
     with db_session_factory() as session:
         trace = _tools(session, session_id).load_action_trace(_scope(session, session_id))
 
-    assert trace["contractVersion"] == "xingce-action-trace@v2"
+    assert trace["contractVersion"] == "xingce-action-trace@v3"
     traced = next(item for item in trace["items"] if item["questionId"] == first)
     # 旧式统计字段保持原样，锚定段按首次标记时间升序、同段去重计数。
     assert traced["annotationSummary"] == {
@@ -299,7 +299,11 @@ def test_candidate_citing_action_trace_and_ink_formula_refs_passes_grounding(
         submitted["review"],
         key="cause-trace-grounding-reflection",
     )
-    cited_refs = [f"action-trace:{first}", f"ink-formula:{first}"]
+    cited_refs = [
+        f"action-trace:{first}",
+        f"ink-formula:{first}",
+        f"scratch-reasoning:{first}",
+    ]
     _run_one(db_session_factory, _TraceCitingProvider(cited_refs))
 
     current = client.get(
@@ -316,13 +320,26 @@ def test_candidate_citing_action_trace_and_ink_formula_refs_passes_grounding(
             text("select result from platform.background_jobs")
         ).scalar_one()
         evidence = job_result["evidence"]
-        assert evidence["actionTrace"]["contractVersion"] == "xingce-action-trace@v2"
+        assert evidence["actionTrace"]["contractVersion"] == "xingce-action-trace@v3"
         assert f"action-trace:{first}" in evidence["actionTrace"]["evidenceRefs"]
         assert evidence["inkFormulas"]["contractVersion"] == "xingce-ink-formula@v1"
         assert any(
             item["latex"] == "x^{2}+1"
             for item in evidence["inkFormulas"]["items"]
         )
+        assert evidence["scratchReasoning"]["contractVersion"] == (
+            "xingce-scratch-reasoning@v1"
+        )
+        scratch = next(
+            item
+            for item in evidence["scratchReasoning"]["items"]
+            if item["questionId"] == first
+        )
+        assert scratch["inputFingerprint"]
+        assert scratch["unknownFreehandCount"] == 2
+        assert f"scratch-reasoning:{first}" in evidence["scratchReasoning"][
+            "evidenceRefs"
+        ]
 
 
 class _TraceCitingProvider(SequenceProvider):

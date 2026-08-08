@@ -93,6 +93,8 @@ def test_provider_sends_idempotency_key_and_parses_structured_output() -> None:
     assert captured["headers"]["idempotency-key"] == "xingce-cause:run-1:round:0"
     assert captured["body"]["model"] == "gemini-3.5-flash"
     assert captured["body"]["response_format"]["type"] == "json_schema"
+    assert "scratchReasoning" in captured["body"]["messages"][1]["content"]
+    assert "freehand_unknown" in captured["body"]["messages"][0]["content"]
     assert (
         captured["body"]["response_format"]["json_schema"]["schema"]["properties"]
         ["output"]
@@ -127,5 +129,16 @@ def _evidence() -> CauseAgentEvidence:
         taxonomy={
             "evidenceRefs": ["cause-taxonomy:v1"],
             "causes": [{"code": "stem_misread"}],
+        },
+        scratch_reasoning={
+            "contractVersion": "xingce-scratch-reasoning@v1",
+            "items": [
+                {
+                    "questionId": "q-1",
+                    "coverage": "partial",
+                    "observations": [{"kind": "freehand_unknown"}],
+                }
+            ],
+            "evidenceRefs": ["scratch-reasoning:q-1"],
         },
     )

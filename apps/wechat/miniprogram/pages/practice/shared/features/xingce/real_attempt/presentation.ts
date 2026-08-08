@@ -105,6 +105,8 @@ export interface XingceResultItemView {
   correctAnswerText: string;
   explanation: string;
   explanationSource: string;
+  /** 用户键入的草稿；错因 Agent 可读取，结果页只用于过程证据回执。 */
+  draftText: string;
   /** Figma 75:2/78:2：本题的批注笔迹与动作事实（缺失时为空数组）。 */
   annotations: AnnotationStroke[];
   actionEvents: AttemptActionEvent[];
@@ -130,6 +132,23 @@ export interface XingceVerificationOutcomeView {
   evidenceDescription: string;
   stageLabel: string;
   sourceVersionLabel: string;
+}
+
+export interface XingceResultQuestionGroupView {
+  code: "review" | "fragile" | "pending" | "mastered";
+  label: string;
+  description: string;
+  tone: XingceResultItemView["resultTone"];
+  count: number;
+  items: Array<Pick<XingceResultItemView, "questionId" | "positionNumber">>;
+}
+
+export interface XingceProcessEvidenceView {
+  hasEvidence: boolean;
+  draftQuestionCount: number;
+  anchoredSegmentCount: number;
+  freeStrokeCount: number;
+  scopeDescription: string;
 }
 
 /** 逐题候选错因 chip：纯展示，不承载任何决策交互。 */
@@ -189,6 +208,8 @@ export interface XingceResultView {
     tone: "success" | "primary" | "warning" | "danger";
   }>;
   items: XingceResultItemView[];
+  questionGroups: XingceResultQuestionGroupView[];
+  processEvidence: XingceProcessEvidenceView;
   group: XingceGroupSummaryView | null;
   verification: XingceVerificationOutcomeView | null;
   reviewId: string;
@@ -296,6 +317,8 @@ export function presentXingceResult(session: XingceTaskSession): XingceResultVie
       ],
       confidenceCalibration: [],
       items: [],
+      questionGroups: [],
+      processEvidence: processEvidence([]),
       group: null,
       verification: null,
       reviewId: review.reviewId,
@@ -321,6 +344,18 @@ export function presentXingceResult(session: XingceTaskSession): XingceResultVie
     if (!item) throw new Error("行测结果与题组顺序不一致。");
     return item;
   });
+  const presentedItems = orderedResultItems.map((item, index) => {
+    const question = questions.get(item.questionId);
+    if (!question) throw new Error("行测结果与题目内容不一致。");
+    return presentResultItem(
+      item,
+      index,
+      interpreted.has(item.questionId),
+      question,
+      answers.get(item.questionId),
+      session.bundle.materials,
+    );
+  });
   return {
     availability: "factored",
     headline: groupHeadline(group),
@@ -329,18 +364,9 @@ export function presentXingceResult(session: XingceTaskSession): XingceResultVie
     totalCount: result.totalCount,
     metrics: resultMetrics(result, session.totalElapsedSeconds, session.answers),
     confidenceCalibration: confidenceCalibration(result),
-    items: orderedResultItems.map((item, index) => {
-      const question = questions.get(item.questionId);
-      if (!question) throw new Error("行测结果与题目内容不一致。");
-      return presentResultItem(
-        item,
-        index,
-        interpreted.has(item.questionId),
-        question,
-        answers.get(item.questionId),
-        session.bundle.materials,
-      );
-    }),
+    items: presentedItems,
+    questionGroups: resultQuestionGroups(presentedItems),
+    processEvidence: processEvidence(presentedItems),
     group: presentGroupSummary(group, result.totalCount),
     verification: session.verificationOutcome
       ? presentVerificationOutcome(session.verificationOutcome)
@@ -711,6 +737,7 @@ function presentResultItem(
     correctAnswerText: answerText(item.correctOptionIds, question),
     explanation: item.explanation ?? "这道题暂时没有解析。",
     explanationSource: explanationSourceLabel(item.explanationSource),
+    draftText: answer?.draftText ?? "",
     annotations: (answer?.annotations ?? []).map((stroke) => ({
       strokeId: stroke.strokeId,
       surface: stroke.surface ?? "question",
@@ -750,6 +777,93 @@ function presentResultItem(
     elapsedSeconds: timing.elapsedSeconds,
     trajectoryAvailable:
       (answer?.annotations?.length ?? 0) > 0 || (answer?.actionEvents?.length ?? 0) > 0,
+  };
+}
+
+function resultQuestionGroups(
+  items: readonly XingceResultItemView[],
+): XingceResultQuestionGroupView[] {
+  const definitions: Array<{
+    code: XingceResultQuestionGroupView["code"];
+    label: string;
+    description: string;
+    tone: XingceResultQuestionGroupView["tone"];
+    match: (item: XingceResultItemView) => boolean;
+  }> = [
+    {
+      code: "review",
+      label: "优先回炉",
+      description: "答错、未答或主动放弃，先把这些题问明白。",
+      tone: "danger",
+      match: (item) => item.objectiveVerdict !== "correct" || item.disposition === "active_abandon",
+    },
+    {
+      code: "fragile",
+      label: "答对但不稳",
+      description: "这次猜对了，下一次还要验证是不是已经掌握。",
+      tone: "warning",
+      match: (item) =>
+        item.objectiveVerdict === "correct" &&
+        (item.confidenceEvidence === "low" || item.resultTone === "warning"),
+    },
+    {
+      code: "pending",
+      label: "答对待确认",
+      description: "答案对了，但当时没有记录信心，不急着算真会。",
+      tone: "neutral",
+      match: (item) =>
+        item.objectiveVerdict === "correct" && item.confidenceEvidence === "unreported",
+    },
+    {
+      code: "mastered",
+      label: "真会",
+      description: "答对且有中高信心证据，继续复测再巩固。",
+      tone: "success",
+      match: (item) =>
+        item.objectiveVerdict === "correct" &&
+        (item.confidenceEvidence === "medium" || item.confidenceEvidence === "high") &&
+        item.resultTone === "success",
+    },
+  ];
+  return definitions.flatMap((definition) => {
+    const grouped = items.filter(definition.match).map((item) => ({
+      questionId: item.questionId,
+      positionNumber: item.positionNumber,
+    }));
+    return grouped.length
+      ? [
+          {
+            code: definition.code,
+            label: definition.label,
+            description: definition.description,
+            tone: definition.tone,
+            count: grouped.length,
+            items: grouped,
+          },
+        ]
+      : [];
+  });
+}
+
+function processEvidence(items: readonly XingceResultItemView[]): XingceProcessEvidenceView {
+  const liveStrokes = items.flatMap((item) =>
+    item.annotations.filter((stroke) => stroke.erasedAtMs === undefined),
+  );
+  const anchoredSegments = new Set(
+    liveStrokes.flatMap((stroke) =>
+      stroke.anchor ? [`${stroke.anchor.blockId}:${String(stroke.anchor.segmentIndex)}`] : [],
+    ),
+  );
+  const draftQuestionCount = items.filter((item) => item.draftText.trim().length > 0).length;
+  const anchoredSegmentCount = anchoredSegments.size;
+  const freeStrokeCount = liveStrokes.filter((stroke) => !stroke.anchor).length;
+  return {
+    hasEvidence: draftQuestionCount + anchoredSegmentCount + freeStrokeCount > 0,
+    draftQuestionCount,
+    anchoredSegmentCount,
+    freeStrokeCount,
+    scopeDescription:
+      "文字草稿、已确认公式和原文标记会直接进入错因分析；自由笔迹会提取圈选、划线、划掉和擦改顺序。公式须经“手写公式”确认后才作为已识别内容；无法可靠辨认的笔迹会明确标记为未知，不会猜字或猜公式。",
   };
 }
 

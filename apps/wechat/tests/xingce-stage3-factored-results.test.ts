@@ -56,26 +56,66 @@ describe("stage 3 factored result presentation", () => {
     expect(reflectionTemplate).not.toContain("确认错因，看下一题");
   });
 
-  it("按真实结果分色，不把所有需复盘题统一显示成红色", () => {
+  it("把重复的逐题长标签收束成诊断分区，题号只负责定位", () => {
+    expect(reflectionTemplate).toContain('wx:for="{{result.questionGroups}}"');
     expect(reflectionTemplate).toContain(
-      "summary-question-dot summary-question-dot--{{item.resultTone}}",
+      "summary-question-number summary-question-number--{{group.tone}}",
     );
-    expect(reflectionTemplate).toContain(
-      "summary-question-label summary-question-label--{{item.resultTone}}",
-    );
-    expect(reflectionTemplate).toContain(">{{item.resultLabel}}</view>");
-    expect(reflectionTemplate).not.toContain("复盘·{{item.resultLabel}}");
+    expect(reflectionTemplate).toContain("{{group.label}}");
+    expect(reflectionTemplate).toContain("{{question.positionNumber}}");
+    expect(reflectionTemplate).not.toContain("{{item.resultLabel}}");
     expect(reflectionStyles).toMatch(
-      /\.summary-question-strip \{[^}]*display:\s*grid;[^}]*grid-template-columns:\s*repeat\(6, minmax\(0, 1fr\)\);/u,
+      /\.summary-question-group__numbers \{[^}]*flex-wrap:\s*wrap;/u,
     );
-    expect(reflectionStyles).toMatch(
-      /@media \(min-width: 700px\) \{[^]*?\.summary-question-strip \{[^}]*grid-template-columns:\s*repeat\(10, minmax\(0, 1fr\)\);/u,
-    );
-    expect(reflectionStyles).not.toMatch(/\.summary-question-strip__item \{[^}]*flex:\s*1;/u);
     for (const tone of ["danger", "warning", "success", "neutral"]) {
-      expect(reflectionStyles).toContain(`.summary-question-dot--${tone}`);
+      expect(reflectionStyles).toContain(`.summary-question-number--${tone}`);
     }
-    expect(reflectionStyles).not.toContain(".summary-question-dot--review");
+    expect(reflectionStyles).not.toContain(".summary-question-label");
+  });
+
+  it("结果页明确回执草稿消费边界，不把自由涂画冒充成已识别内容", () => {
+    const session = submittedXingceSession("incorrect");
+    const firstAnswer = session.answers[0];
+    if (!firstAnswer) throw new Error("fixture answer is required");
+    firstAnswer.draftText = "先算增长量";
+    firstAnswer.annotations = [
+      {
+        strokeId: "anchored-stroke",
+        surface: "material",
+        tool: "highlighter",
+        width: 0.03,
+        points: [
+          { x: 0.1, y: 0.2 },
+          { x: 0.8, y: 0.2 },
+        ],
+        atMs: 1_200,
+        anchor: {
+          blockId: "material-block-1",
+          segmentIndex: 0,
+          segmentText: "同比增长 12%",
+        },
+      },
+      {
+        strokeId: "free-stroke",
+        surface: "question",
+        tool: "pen",
+        width: 0.02,
+        points: [
+          { x: 0.2, y: 0.3 },
+          { x: 0.4, y: 0.5 },
+        ],
+        atMs: 1_800,
+      },
+    ];
+
+    const evidence = presentXingceResult(session)?.processEvidence;
+    expect(evidence).toMatchObject({
+      hasEvidence: true,
+      draftQuestionCount: 1,
+      anchoredSegmentCount: 1,
+      freeStrokeCount: 1,
+    });
+    expect(evidence?.scopeDescription).toContain("公式须经“手写公式”确认后");
   });
 
   it("把真会、猜对、不会、主动放弃和方法对计算错作为独立事实", () => {
@@ -103,6 +143,32 @@ describe("stage 3 factored result presentation", () => {
     ];
     interpreted.result.groupSummary.methodCorrectCalculationError = 1;
     expect(presentXingceResult(interpreted)?.items[0]?.resultLabel).toBe("方法正确但计算错误");
+  });
+
+  it("把回炉、答对但不稳、待确认和真会分成互斥题号组", () => {
+    const wrong = presentXingceResult(submittedXingceSession("incorrect"));
+    const guessed = presentXingceResult(submittedXingceSession("guessed_correct"));
+    const mastered = presentXingceResult(submittedXingceSession("correct"));
+    expect(wrong?.questionGroups).toEqual([
+      expect.objectContaining({ code: "review", label: "优先回炉", count: 3 }),
+    ]);
+    expect(guessed?.questionGroups).toEqual([
+      expect.objectContaining({ code: "fragile", label: "答对但不稳", count: 3 }),
+    ]);
+    expect(mastered?.questionGroups).toEqual([
+      expect.objectContaining({ code: "mastered", label: "真会", count: 3 }),
+    ]);
+
+    const pendingSession = submittedXingceSession("correct");
+    if (!pendingSession.result?.groupSummary) throw new Error("fixture group is required");
+    pendingSession.result.items.forEach((item) => {
+      item.confidenceEvidence = "unreported";
+    });
+    pendingSession.result.groupSummary.genuineCorrect = 0;
+    pendingSession.result.groupSummary.outcome = "not_attained";
+    expect(presentXingceResult(pendingSession)?.questionGroups).toEqual([
+      expect.objectContaining({ code: "pending", label: "答对待确认", count: 3 }),
+    ]);
   });
 
   it("超建议用时只是计时事实，不改写客观判定或分类", () => {

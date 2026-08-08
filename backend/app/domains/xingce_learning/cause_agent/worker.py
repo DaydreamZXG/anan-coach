@@ -390,6 +390,9 @@ class CauseAgentWorker:
             taxonomy=results["load_cause_taxonomy"],
             action_trace=results["load_action_trace"],
             ink_formulas=results["load_ink_formulas"],
+            scratch_reasoning=results["load_action_trace"].get(
+                "scratchReasoning", {}
+            ),
         )
         self._jobs.checkpoint(
             session,

@@ -325,6 +325,35 @@ const xingceFactoredResult = {
       explanationSource: "2027 国考题库解析",
     },
   ],
+  questionGroups: [
+    {
+      code: "review",
+      label: "优先回炉",
+      description: "答错、未答或主动放弃，先把这些题问明白。",
+      tone: "danger",
+      count: 2,
+      items: [
+        { questionId: "question-2", positionNumber: 2 },
+        { questionId: "question-3", positionNumber: 3 },
+      ],
+    },
+    {
+      code: "fragile",
+      label: "答对但不稳",
+      description: "这次猜对了，下一次还要验证是不是已经掌握。",
+      tone: "warning",
+      count: 1,
+      items: [{ questionId: "question-1", positionNumber: 1 }],
+    },
+  ],
+  processEvidence: {
+    hasEvidence: false,
+    draftQuestionCount: 0,
+    anchoredSegmentCount: 0,
+    freeStrokeCount: 0,
+    scopeDescription:
+      "文字草稿会进入错因分析；标到原文上的圈画会告诉岸岸你关注了哪句；自由涂画只保留回放和动作线索。公式须经“手写公式”确认后，系统才会读懂。",
+  },
   group: {
     outcome: "not_attained",
     outcomeLabel: "3 题组未达成",

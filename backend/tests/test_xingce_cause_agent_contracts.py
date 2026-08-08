@@ -66,11 +66,30 @@ def test_new_evidence_namespaces_are_grounded_only_when_tools_returned_them() ->
     )
     validate_grounded_output(output=grounded, evidence=evidence, followup_round=0)
 
+    scratch_grounded = grounded.model_copy(
+        update={"evidence_refs": ["assessment:1", "scratch-reasoning:q-1"]}
+    )
+    validate_grounded_output(
+        output=scratch_grounded,
+        evidence=evidence,
+        followup_round=0,
+    )
+
     outside = grounded.model_copy(
         update={"evidence_refs": ["action-trace:q-never-traced"]}
     )
     with pytest.raises(ValueError, match="outside the frozen tool results"):
         validate_grounded_output(output=outside, evidence=evidence, followup_round=0)
+
+    invented_scratch = grounded.model_copy(
+        update={"evidence_refs": ["scratch-reasoning:q-never-traced"]}
+    )
+    with pytest.raises(ValueError, match="outside the frozen tool results"):
+        validate_grounded_output(
+            output=invented_scratch,
+            evidence=evidence,
+            followup_round=0,
+        )
 
 
 def test_v1_frozen_evidence_replays_without_new_sections() -> None:
@@ -89,6 +108,7 @@ def test_v1_frozen_evidence_replays_without_new_sections() -> None:
     )
     assert replayed.action_trace == {}
     assert replayed.ink_formulas == {}
+    assert replayed.scratch_reasoning == {}
     assert replayed.allowed_evidence_refs == {
         "assessment:1",
         "reflection-version:1",
@@ -322,6 +342,7 @@ def _evidence() -> CauseAgentEvidence:
         },
         action_trace={"evidenceRefs": ["action-trace:q-1"]},
         ink_formulas={"evidenceRefs": ["ink-formula:q-1"]},
+        scratch_reasoning={"evidenceRefs": ["scratch-reasoning:q-1"]},
     )
 
 
