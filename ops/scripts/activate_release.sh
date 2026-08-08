@@ -445,7 +445,6 @@ worker_environment_files = {
         "/etc/gongkao-dazi/release-runtime.env",
     ),
     "gongkao-dazi-ilink-object-deletion-worker.service": (
-        "/etc/gongkao-dazi/ilink-channel.env",
         "/etc/gongkao-dazi/worker-ilink-object-deletion.env",
         "/etc/gongkao-dazi/db.env",
         "/etc/gongkao-dazi/worker-heartbeat-ilink.env",
@@ -732,7 +731,6 @@ preflight_worker_configurations() {
   if [[ "${ilink_channel_enabled}" == true ]]; then
     run_worker_configuration_preflight \
       'from app.workers.ilink_object_deletions import ILinkObjectDeletionWorker; ILinkObjectDeletionWorker()' \
-      ilink-channel.env \
       worker-ilink-object-deletion.env \
       worker-heartbeat-ilink.env
   fi

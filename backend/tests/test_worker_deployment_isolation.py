@@ -39,10 +39,7 @@ WORKERS = {
     },
     "gongkao-dazi-ilink-object-deletion-worker": {
         "user": "gongkao-wkr-ilink",
-        "workload_envs": (
-            "ilink-channel.env",
-            "worker-ilink-object-deletion.env",
-        ),
+        "workload_envs": ("worker-ilink-object-deletion.env",),
         "heartbeat_env": "worker-heartbeat-ilink.env",
     },
 }
@@ -112,6 +109,8 @@ REQUIRED_WORKLOAD_KEYS = {
     "worker-ilink-object-deletion.env": {
         "TOS_ACCESS_KEY",
         "TOS_SECRET_KEY",
+        "PRIVATE_OBJECT_TRANSIENT_RETENTION_SECONDS",
+        "PRIVATE_QUERY_RETENTION_DAYS",
     },
 }
 

@@ -409,7 +409,6 @@ def test_runtime_units_consume_the_sealed_snapshot_after_atomic_config_rotation(
             "release-runtime.env",
         ),
         "gongkao-dazi-ilink-object-deletion-worker.service": (
-            "ilink-channel.env",
             "worker-ilink-object-deletion.env",
             "db.env",
             "worker-heartbeat-ilink.env",

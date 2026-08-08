@@ -9,7 +9,6 @@ User=gongkao-wkr-ilink
 Group=gongkao-wkr-ilink
 WorkingDirectory=/srv/gongkao-dazi/current/backend
 Environment=PYTHONDONTWRITEBYTECODE=1
-EnvironmentFile=/etc/gongkao-dazi/ilink-channel.env
 EnvironmentFile=/etc/gongkao-dazi/worker-ilink-object-deletion.env
 EnvironmentFile=/etc/gongkao-dazi/db.env
 EnvironmentFile=/etc/gongkao-dazi/worker-heartbeat-ilink.env
