@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, extname, relative, resolve } from "node:path";
 import { format, resolveConfig } from "prettier";
@@ -10,6 +10,13 @@ import {
 
 const projectRoot = resolve(import.meta.dirname, "..");
 const appRoot = resolve(projectRoot, "miniprogram");
+const neutralRoot = resolve(projectRoot, "subpackage-shared-src");
+const generatedOwnedRoots = [
+  "pages/practice/shared/task-runtime",
+  "pages/mock-exam/shared/task-runtime",
+  "pages/reflection/shared/task-runtime",
+  "pages/essay-task/shared/task-runtime",
+];
 const prettierOptions = (await resolveConfig(appRoot)) ?? {};
 const destinationToLogicalSource = new Map();
 const sourcePathToLogicalSource = new Map();
@@ -47,6 +54,56 @@ export function generatedTargetIsStale(expected, actual) {
   return expected !== actual;
 }
 
+export function subpackageSharedPlanViolations(
+  entries = subpackageSharedFiles,
+  {
+    neutralFiles = listFiles(neutralRoot, "subpackage-shared-src"),
+    generatedOwnedTargets = generatedOwnedRoots.flatMap((root) =>
+      listFiles(resolve(appRoot, root), root),
+    ),
+  } = {},
+) {
+  const violations = [];
+  const logicalPaths = new Set();
+  const sourcePaths = new Set();
+  const destinations = new Set();
+
+  for (const entry of entries) {
+    recordUnique(violations, logicalPaths, "logical path", entry.path);
+    recordUnique(violations, sourcePaths, "neutral source", entry.source);
+    if (!Array.isArray(entry.packages) || entry.packages.length === 0) {
+      violations.push(`Manifest entry has no packages: ${entry.path}`);
+      continue;
+    }
+    const packages = new Set();
+    for (const packageName of entry.packages) {
+      recordUnique(violations, packages, `package for ${entry.path}`, packageName);
+      recordUnique(
+        violations,
+        destinations,
+        "generated target",
+        subpackageSharedDestination(entry.path, packageName),
+      );
+    }
+  }
+
+  for (const neutralFile of neutralFiles) {
+    if (!sourcePaths.has(neutralFile)) {
+      violations.push(`Unclaimed neutral source: ${neutralFile}`);
+    }
+  }
+  const plannedTargets = new Set(
+    generatedTargetPlan(entries).map(({ targetRelative }) => targetRelative),
+  );
+  for (const target of generatedOwnedTargets) {
+    if (!plannedTargets.has(target)) {
+      violations.push(`Unclaimed generated target: ${target}`);
+    }
+  }
+
+  return [...new Set(violations)].sort();
+}
+
 export async function expectedGeneratedTarget(entry, packageName) {
   const sourcePath = resolve(projectRoot, entry.source);
   let source;
@@ -67,6 +124,21 @@ export async function runSubpackageSharedSync({ checkOnly = false } = {}) {
   const mismatches = [];
   const plan = generatedTargetPlan();
   const crossPackageReplicaCount = plan.filter(({ packageIndex }) => packageIndex > 0).length;
+  const planViolations = subpackageSharedPlanViolations();
+  if (planViolations.length > 0) {
+    process.stderr.write(
+      `Subpackage shared manifest is invalid:\n${planViolations
+        .map((violation) => `- ${violation}`)
+        .join("\n")}\n`,
+    );
+    process.exitCode = 1;
+    return {
+      mismatches,
+      planViolations,
+      targetCount: plan.length,
+      crossPackageReplicaCount,
+    };
+  }
   for (const { entry, packageName, targetRelative } of plan) {
     const expected = await expectedGeneratedTarget(entry, packageName);
     const targetPath = resolve(appRoot, targetRelative);
@@ -98,7 +170,7 @@ export async function runSubpackageSharedSync({ checkOnly = false } = {}) {
     `${checkOnly ? "Validated" : "Synchronized"} ${String(plan.length)} generated targets ` +
       `(including ${String(crossPackageReplicaCount)} cross-package replicas).\n`,
   );
-  return { mismatches, targetCount: plan.length, crossPackageReplicaCount };
+  return { mismatches, planViolations, targetCount: plan.length, crossPackageReplicaCount };
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -170,4 +242,22 @@ function stripKnownExtension(path) {
 
 function hasKnownExtension(path) {
   return /\.(?:ts|js|json|wxml|wxss)$/u.test(path);
+}
+
+function listFiles(root, projectPrefix) {
+  try {
+    return readdirSync(root, { withFileTypes: true }).flatMap((entry) => {
+      const projectPath = `${projectPrefix}/${entry.name}`;
+      return entry.isDirectory()
+        ? listFiles(resolve(root, entry.name), projectPath)
+        : [projectPath];
+    });
+  } catch {
+    return [];
+  }
+}
+
+function recordUnique(violations, seen, label, value) {
+  if (seen.has(value)) violations.push(`Duplicate ${label}: ${value}`);
+  else seen.add(value);
 }

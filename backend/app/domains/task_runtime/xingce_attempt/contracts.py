@@ -12,6 +12,10 @@ XINGCE_SESSION_GENERATION_KEY = "sessionGeneration"
 XINGCE_SESSION_GENERATION_V1 = "xingce-plan-completion-at-submit@v1"
 
 
+class XingceSessionGenerationError(ValueError):
+    """Raised when a stored session claims an unsupported generation."""
+
+
 def xingce_question_count(*, mode: str, estimated_minutes: int) -> int:
     """Derive the frozen bundle size from the immutable plan task."""
     if mode == "verification":
@@ -46,13 +50,18 @@ def xingce_practice_minutes(*, available_minutes: int, question_supply: int) -> 
 
 
 def is_current_xingce_session(task_session: object) -> bool:
-    """Return whether a task-session row carries the explicit v1 generation."""
+    """Classify missing markers as historical and reject every unknown marker."""
     try:
         scoring_bundle = task_session["scoring_bundle"]  # type: ignore[index]
     except (KeyError, TypeError):
         return False
-    return (
-        isinstance(scoring_bundle, dict)
-        and scoring_bundle.get(XINGCE_SESSION_GENERATION_KEY)
-        == XINGCE_SESSION_GENERATION_V1
+    if not isinstance(scoring_bundle, dict):
+        raise XingceSessionGenerationError("Xingce scoring bundle is malformed")
+    if XINGCE_SESSION_GENERATION_KEY not in scoring_bundle:
+        return False
+    marker = scoring_bundle[XINGCE_SESSION_GENERATION_KEY]
+    if marker == XINGCE_SESSION_GENERATION_V1:
+        return True
+    raise XingceSessionGenerationError(
+        f"Unsupported Xingce session generation: {marker!r}"
     )

@@ -12,6 +12,7 @@ from app.domains.planning.xingce_completion import (
     current_xingce_plan_completion,
 )
 from app.domains.task_runtime.xingce_attempt.contracts import (
+    XingceSessionGenerationError,
     is_current_xingce_session,
 )
 from app.domains.task_runtime.xingce_attempt.repository import (
@@ -43,7 +44,13 @@ def settle_completion_after_cause(
     recorded_at: datetime,
 ) -> XingceCompletionReceipt:
     """Settle Xingce evidence without letting replay payloads classify sessions."""
-    if not is_current_xingce_session(task_session):
+    try:
+        current_session = is_current_xingce_session(task_session)
+    except XingceSessionGenerationError as exc:
+        raise PlanningContractError(
+            "Submitted Xingce session has an unsupported generation marker"
+        ) from exc
+    if not current_session:
         return _settle_historical_completion(
             session,
             repository=repository,

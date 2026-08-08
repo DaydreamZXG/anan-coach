@@ -33,6 +33,13 @@ const generator = subpackageGenerator as unknown as {
   generatedTargetPlan(entries: SharedManifestEntry[]): GeneratedTarget[];
   expectedGeneratedTarget(entry: SharedManifestEntry, packageName: string): Promise<string>;
   generatedTargetIsStale(expected: string, actual: string): boolean;
+  subpackageSharedPlanViolations(
+    entries: SharedManifestEntry[],
+    options?: {
+      neutralFiles?: string[];
+      generatedOwnedTargets?: string[];
+    },
+  ): string[];
 };
 
 describe("subpackage shared generator", () => {
@@ -66,6 +73,48 @@ describe("subpackage shared generator", () => {
     expect(
       generator.generatedTargetIsStale(expected, `${actual}\n// simulated index-0 drift`),
     ).toBe(true);
+    expect(generator.subpackageSharedPlanViolations(manifestEntries)).toEqual([]);
+  });
+
+  it("fails closed for manifest conflicts, orphans and package closure gaps", () => {
+    const entries: SharedManifestEntry[] = [
+      {
+        path: "task-runtime/a.ts",
+        source: "subpackage-shared-src/task-runtime/a.ts",
+        packages: ["practice", "practice"],
+      },
+      {
+        path: "task-runtime/a.ts",
+        source: "subpackage-shared-src/task-runtime/a.ts",
+        packages: ["mock-exam"],
+      },
+      {
+        path: "task-runtime/b.ts",
+        source: "subpackage-shared-src/task-runtime/b.ts",
+        packages: ["mock-exam"],
+      },
+    ];
+    const violations = generator.subpackageSharedPlanViolations(entries, {
+      neutralFiles: [
+        ...entries.map(({ source }) => source),
+        "subpackage-shared-src/task-runtime/orphan.ts",
+      ],
+      generatedOwnedTargets: [
+        ...generator.generatedTargetPlan(entries).map(({ targetRelative }) => targetRelative),
+        "pages/practice/shared/task-runtime/orphan.ts",
+      ],
+    });
+
+    expect(violations).toEqual(
+      expect.arrayContaining([
+        "Duplicate logical path: task-runtime/a.ts",
+        "Duplicate neutral source: subpackage-shared-src/task-runtime/a.ts",
+        "Duplicate package for task-runtime/a.ts: practice",
+        "Duplicate generated target: pages/practice/shared/task-runtime/a.ts",
+        "Unclaimed neutral source: subpackage-shared-src/task-runtime/orphan.ts",
+        "Unclaimed generated target: pages/practice/shared/task-runtime/orphan.ts",
+      ]),
+    );
   });
 });
 
