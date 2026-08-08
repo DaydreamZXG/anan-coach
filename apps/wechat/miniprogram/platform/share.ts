@@ -22,5 +22,8 @@ export function appTimelineShare() {
 }
 
 export function enableAppShareMenu(): void {
+  if (typeof wx.showShareMenu !== "function") {
+    return;
+  }
   void wx.showShareMenu({ menus: ["shareAppMessage", "shareTimeline"] });
 }

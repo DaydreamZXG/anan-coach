@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const showShareMenu = vi.fn();
 
@@ -15,6 +15,11 @@ import {
 } from "../miniprogram/platform/share";
 
 describe("public app sharing", () => {
+  beforeEach(() => {
+    showShareMenu.mockClear();
+    vi.stubGlobal("wx", { showShareMenu });
+  });
+
   it("shares a public entry without current learning data", () => {
     expect(appShareMessage()).toEqual({
       title: "和岸岸一起，把备考计划落到今天",
@@ -39,5 +44,13 @@ describe("public app sharing", () => {
     const profile = readFileSync("miniprogram/pages/me/index.wxml", "utf8");
     expect(profile).toContain('open-type="share"');
     expect(profile).toContain("只分享小程序，不带出你的学习资料");
+  });
+
+  it("keeps page lifecycle usable when native sharing is unavailable", () => {
+    vi.stubGlobal("wx", {});
+
+    expect(() => {
+      enableAppShareMenu();
+    }).not.toThrow();
   });
 });
