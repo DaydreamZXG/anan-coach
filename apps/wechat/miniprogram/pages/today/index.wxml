@@ -132,7 +132,7 @@
 
           <view class="primary-task__body">
             <view class="primary-task__head">
-              <view>
+              <view class="compact-task__copy">
                 <view class="task-meta">
                   <text class="task-tag">{{item.kindLabel}}</text>
                   <text class="task-duration">· 预计 {{item.estimatedMinutes}} 分钟</text>

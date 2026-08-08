@@ -14,7 +14,7 @@ function dashboardWithVerbalGroups(groupCount = 13): TodayDashboard {
     estimatedMinutes: 30,
     priority: index + 4,
     priorityScore: 0.7 - index * 0.01,
-    startUrl: "/pages/xingce-task-intro/index?mode=targeted",
+    startUrl: "/xingce/xingce-task-intro/index?mode=targeted",
   }));
   return {
     ...prototypeToday,
@@ -28,6 +28,7 @@ function dashboardWithVerbalGroups(groupCount = 13): TodayDashboard {
   };
 }
 
+// This suite is the durable behavior lock for the governed today-plan projection.
 describe("today workload defaults", () => {
   it("projects repeated atomic practice groups as one transparent queue", () => {
     const dashboard = dashboardWithVerbalGroups();
@@ -81,6 +82,11 @@ describe("today workload defaults", () => {
     expect(template).toContain('wx:for="{{view.secondaryTasks}}"');
     expect(template).toContain('data-id="{{item.id}}"');
     expect(template).toContain("{{item.queueMetaLabel}}");
+    expect(template).toContain('class="compact-task__copy"');
     expect(template).not.toContain('wx:if="{{index > 0}}"');
+
+    const stylesheet = readFileSync("miniprogram/pages/today/index.wxss", "utf8");
+    expect(stylesheet).toMatch(/\.compact-task__action\s*\{[^}]*flex:\s*none;/s);
+    expect(stylesheet).toMatch(/\.compact-task__action\s*\{[^}]*white-space:\s*nowrap;/s);
   });
 });
