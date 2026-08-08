@@ -60,6 +60,7 @@ class Settings:
     recognition_processor_max_pages: int = 0
     recognition_processor_https_host_allowlist: str = ""
     recognition_processor_approvals_json: str = "[]"
+    recognition_release_gate_enabled: bool = False
     recognition_operation_reconciliation_age_seconds: int = 900
     recognition_operation_reconciliation_batch_size: int = 100
     recognition_default_import_route: str = ""
@@ -150,6 +151,8 @@ class Settings:
     ai_community_candidate_provider_replay_retention_seconds: int = 0
     ai_community_candidate_max_input_bytes: int = 0
     ai_community_candidate_max_output_bytes: int = 0
+    ai_essay_primary_base_url: str = ""
+    ai_essay_primary_api_key: str = ""
     ai_essay_review_model: str = "gemini-3.5-flash"
     ai_essay_rubric_generator_model: str = ""
     ai_essay_rubric_critic_model: str = ""
@@ -259,9 +262,7 @@ def get_settings() -> Settings:
         upload_maximum_stored_bytes_per_user=int(
             os.getenv("UPLOAD_MAXIMUM_STORED_BYTES_PER_USER", "0")
         ),
-        upload_malware_scan_enabled=_environment_bool(
-            "UPLOAD_MALWARE_SCAN_ENABLED", default=False
-        ),
+        upload_malware_scan_enabled=_environment_bool("UPLOAD_MALWARE_SCAN_ENABLED", default=False),
         upload_scanner_base_url=os.getenv("UPLOAD_SCANNER_BASE_URL", ""),
         upload_scanner_api_key=os.getenv("UPLOAD_SCANNER_API_KEY", ""),
         upload_scanner_release_id=os.getenv("UPLOAD_SCANNER_RELEASE_ID", ""),
@@ -298,6 +299,9 @@ def get_settings() -> Settings:
         ),
         recognition_processor_approvals_json=os.getenv(
             "RECOGNITION_PROCESSOR_APPROVALS_JSON", "[]"
+        ),
+        recognition_release_gate_enabled=_environment_bool(
+            "RECOGNITION_RELEASE_GATE_ENABLED", default=False
         ),
         recognition_operation_reconciliation_age_seconds=int(
             os.getenv("RECOGNITION_OPERATION_RECONCILIATION_AGE_SECONDS", "900")
@@ -447,9 +451,7 @@ def get_settings() -> Settings:
         ),
         ai_xingce_cause_max_input_bytes=int(os.getenv("AI_XINGCE_CAUSE_MAX_INPUT_BYTES", "0")),
         ai_xingce_cause_max_output_bytes=int(os.getenv("AI_XINGCE_CAUSE_MAX_OUTPUT_BYTES", "0")),
-        ai_xingce_cause_timeout_seconds=float(
-            os.getenv("AI_XINGCE_CAUSE_TIMEOUT_SECONDS", "150")
-        ),
+        ai_xingce_cause_timeout_seconds=float(os.getenv("AI_XINGCE_CAUSE_TIMEOUT_SECONDS", "150")),
         ai_learning_brain_agent_model=os.getenv(
             "AI_LEARNING_BRAIN_AGENT_MODEL",
             os.getenv("AI_MODEL", "gemini-3.5-flash"),
@@ -530,6 +532,8 @@ def get_settings() -> Settings:
         ai_community_candidate_max_output_bytes=int(
             os.getenv("AI_COMMUNITY_CANDIDATE_MAX_OUTPUT_BYTES", "0")
         ),
+        ai_essay_primary_base_url=os.getenv("AI_ESSAY_PRIMARY_BASE_URL", ""),
+        ai_essay_primary_api_key=os.getenv("AI_ESSAY_PRIMARY_API_KEY", ""),
         ai_essay_review_model=os.getenv(
             "AI_ESSAY_REVIEW_MODEL",
             os.getenv("AI_MODEL", "gemini-3.5-flash"),
@@ -621,8 +625,12 @@ def get_settings() -> Settings:
                 "0",
             )
         ),
-        ai_essay_tokenrhythm_max_input_bytes=int(os.getenv("AI_ESSAY_TOKENRHYTHM_MAX_INPUT_BYTES", "0")),
-        ai_essay_tokenrhythm_max_output_bytes=int(os.getenv("AI_ESSAY_TOKENRHYTHM_MAX_OUTPUT_BYTES", "0")),
+        ai_essay_tokenrhythm_max_input_bytes=int(
+            os.getenv("AI_ESSAY_TOKENRHYTHM_MAX_INPUT_BYTES", "0")
+        ),
+        ai_essay_tokenrhythm_max_output_bytes=int(
+            os.getenv("AI_ESSAY_TOKENRHYTHM_MAX_OUTPUT_BYTES", "0")
+        ),
         ai_price_version=os.getenv("AI_PRICE_VERSION", ""),
         ai_input_cny_per_million_tokens=os.getenv(
             "AI_INPUT_CNY_PER_MILLION_TOKENS",

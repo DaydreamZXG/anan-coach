@@ -175,27 +175,6 @@ class CompanionService:
                 request=request,
                 decision=decision,
             )
-        if decision.companion_intent in {"rest", "encouragement"}:
-            context = self._repository.get_context(user_id=user_id, node_id=None)
-            current_state_version = _context_state_version(
-                context,
-                fallback=request.context.learner_state_version,
-            )
-            if current_state_version != request.context.learner_state_version:
-                return self._stale_context_response(
-                    user_id=user_id,
-                    idempotency_key=idempotency_key,
-                    request=request,
-                    decision=decision,
-                    current_state_version=current_state_version,
-                )
-            return self._support_response(
-                user_id=user_id,
-                idempotency_key=idempotency_key,
-                request=request,
-                decision=decision,
-                context=context,
-            )
         existing = self._commands.find(
             self._session,
             user_id=user_id,
@@ -223,11 +202,18 @@ class CompanionService:
                 )
             context_payload = _context_payload(context)
             try:
+                context_sources = _context_retrieval_candidates(context)
+                if decision.companion_intent in {"rest", "encouragement"}:
+                    context_sources = tuple(
+                        item
+                        for item in context_sources
+                        if item.reference.kind in {"learner_activity", "daily_plan"}
+                    )
                 retrieval = AuthorizedHybridRetriever(self._session).retrieve(
                     user_id=user_id,
                     question=request.question_text,
                     context=request.context,
-                    context_sources=_context_retrieval_candidates(context),
+                    context_sources=context_sources,
                 )
             except ObjectAuthorizationError as exc:
                 self._session.rollback()
@@ -268,9 +254,7 @@ class CompanionService:
                 provider_kwargs["conversation_history"] = short_term_history_payload(
                     short_term_history
                 )
-            provider_request = self._ai_provider.prepare_companion_question(
-                **provider_kwargs
-            )
+            provider_request = self._ai_provider.prepare_companion_question(**provider_kwargs)
             execution_payload = {
                 "contractVersion": COMPANION_ASK_EXECUTION_CONTRACT,
                 "request": request_payload,
@@ -548,102 +532,6 @@ class CompanionService:
             highImpactDecision=None,
             quota=self._current_quota_state(user_id=user_id),
         )
-
-    def _support_response(
-        self,
-        *,
-        user_id: str,
-        idempotency_key: str,
-        request: CompanionAskRequest,
-        decision: IntentDecision,
-        context: CompanionContextRecord,
-    ) -> CompanionAskResponse:
-        progress = (
-            f"今天已经留下 {context.today_practice_answers} 道作答记录，"
-            if context.today_practice_answers > 0
-            else ""
-        )
-        if decision.companion_intent == "rest":
-            answer = (
-                progress
-                + "先停一下，累的时候不用靠硬扛证明自己。离开屏幕休息十分钟，"
-                "回来后只做今天最短的一项；如果还是很累，就把今天收成复盘和休息。"
-            )
-        else:
-            answer = (
-                progress
-                + "这次进步值得记下来。先别急着加量，把刚才做对的方法留成一句话，"
-                "再按原计划完成下一项就好。"
-            )
-        response = CompanionAskResponse(
-            answerId=_deterministic_answer_id(user_id, idempotency_key),
-            semanticState="ready",
-            scenarioKey=decision.scenario_key,
-            respondingAgent=decision.responding_agent,
-            answerType=decision.answer_type,
-            policyDecision=decision.policy_decision,
-            companionIntent=decision.companion_intent,
-            answer=answer,
-            citations=[],
-            confidence="high",
-            limitations=["这条回复不会自动修改你的计划。"],
-            knowledgeFreshness=request.context.learner_state_version,
-            allowedActions=[],
-            highImpactDecision=None,
-            quota=self._current_quota_state(user_id=user_id),
-        )
-        request_payload = request.model_dump(by_alias=True, mode="json")
-        command = self._commands.claim(
-            self._session,
-            user_id=user_id,
-            feature=COMPANION_ASK_FEATURE,
-            idempotency_key=idempotency_key,
-            request_fingerprint=request_fingerprint(
-                user_id=user_id,
-                feature=COMPANION_ASK_FEATURE,
-                contract_version=COMPANION_ASK_REQUEST_CONTRACT,
-                payload=request_payload,
-            ),
-            request_contract_version=COMPANION_ASK_REQUEST_CONTRACT,
-            execution_payload={
-                "contractVersion": "companion-support-v1",
-                "request": request_payload,
-                "routeDecision": decision.model_dump(by_alias=True, mode="json"),
-                "learnerStateVersion": request.context.learner_state_version,
-            },
-            response_contract_version=COMPANION_ASK_RESPONSE_CONTRACT,
-            reservation_key=stable_command_key(
-                user_id=user_id,
-                feature=COMPANION_ASK_FEATURE,
-                idempotency_key=idempotency_key,
-            ),
-            # The existing command ledger requires a stable provider key for
-            # companion_ask rows even when this deterministic branch performs
-            # no external call. Keeping the key preserves replay/conflict
-            # semantics without consuming quota or model cost.
-            provider_idempotency_key=stable_provider_key(
-                user_id=user_id,
-                feature=COMPANION_ASK_FEATURE,
-                idempotency_key=idempotency_key,
-            ),
-        )
-        replay = _terminal_response(command, CompanionAskResponse)
-        if replay is not None:
-            self._session.commit()
-            return replay
-        response_payload = response.model_dump(by_alias=True, mode="json")
-        succeeded = self._commands.succeed(
-            self._session,
-            command_id=command.command_id,
-            response_payload=response_payload,
-        )
-        self._append_completion_event(
-            command=succeeded,
-            user_id=user_id,
-            response_fingerprint=payload_fingerprint(response_payload),
-        )
-        self._session.commit()
-        return response
 
     def _evidence_insufficient_response(
         self,
@@ -1670,20 +1558,19 @@ def _context_retrieval_candidates(context: CompanionContextRecord) -> tuple[Any,
         "latestMockScore": context.latest_mock_score,
         "topWrongModules": context.top_wrong_modules,
     }
-    if any((context.practice_answers, context.wrong_answers, context.mock_exams)):
-        candidates.append(
-            context_candidate(
-                kind="learner_activity",
-                source_id="learner-activity-summary",
-                version=_stable_payload_version(activity),
-                anchor="current-summary",
-                title="行测与模考学习记录",
-                text_value=json.dumps(activity, ensure_ascii=False, sort_keys=True),
-                trust_scope="learner_activity",
-                source_weight=0.9,
-                display_summary=_activity_citation_summary(context),
-            )
+    candidates.append(
+        context_candidate(
+            kind="learner_activity",
+            source_id="learner-activity-summary",
+            version=_stable_payload_version(activity),
+            anchor="current-summary",
+            title="行测与模考学习记录",
+            text_value=json.dumps(activity, ensure_ascii=False, sort_keys=True),
+            trust_scope="learner_activity",
+            source_weight=0.9,
+            display_summary=_activity_citation_summary(context),
         )
+    )
     if context.learning_brain_profile is not None:
         profile = context.learning_brain_profile
         candidates.append(

@@ -96,17 +96,16 @@ class RecognitionService:
         if existing is not None:
             self._assert_replay(existing, request_hash)
             return existing
-        if (
-            self._repository.head(
-                artifact_version_id=artifact_version_id,
-                owner_user_id=owner_user_id,
-                recognition_kind=recognition_kind.value,
-            )
-            is not None
-        ):
-            raise RecognitionVersionConflict(
-                "initial recognition already exists; use correction or a distinct kind"
-            )
+        current = self._repository.head(
+            artifact_version_id=artifact_version_id,
+            owner_user_id=owner_user_id,
+            recognition_kind=recognition_kind.value,
+        )
+        if current is not None:
+            # Starting recognition is an idempotent "ensure result" command.
+            # A lost client receipt or a second import click must recover the
+            # current immutable revision instead of forcing another upload.
+            return current
 
         artifact = self._repository.artifact(
             artifact_version_id=artifact_version_id,

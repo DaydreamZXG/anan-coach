@@ -59,6 +59,62 @@ class EssayMultiModelRuntimePlan:
         return tuple(slot.slot_id for slot in self.candidate_slots)
 
     @classmethod
+    def execution_identity_from_settings(
+        cls,
+        settings: Settings,
+    ) -> EssayReviewExecutionIdentity:
+        """Build the queue identity from non-secret release metadata only.
+
+        The API queues work but does not call the three grading providers, so
+        it must not need worker-only credentials merely to fingerprint a job.
+        The worker still constructs the full runtime and validates every key.
+        """
+        release_id = settings.ai_essay_grading_plan_release_id.strip()
+        if _RELEASE_PATTERN.fullmatch(release_id) is None:
+            raise EssayMultiModelRuntimeConfigurationError(
+                "AI_ESSAY_GRADING_PLAN_RELEASE_ID is required and must be versioned"
+            )
+        prices = _price_cards(settings.ai_essay_grading_price_cards_json)
+        primary = _primary_settings(settings)
+        secondary = _tokenrhythm_settings(settings)
+        hunyuan = HunyuanCloudFunctionSettings.from_environment()
+        adjudicator = BlindAdjudicatorSettings.from_environment()
+        candidates = (
+            ("gemini", primary.ai_essay_review_provider_release_id, primary.ai_essay_review_model),
+            (
+                "tokenrhythm",
+                secondary.ai_essay_review_provider_release_id,
+                secondary.ai_essay_review_model,
+            ),
+            ("hunyuan", hunyuan.release_id, hunyuan.model),
+        )
+        for slot_id, provider_release, model in candidates:
+            if _RELEASE_PATTERN.fullmatch(provider_release.strip()) is None or not model.strip():
+                raise EssayMultiModelRuntimeConfigurationError(
+                    f"{slot_id} essay candidate identity is incomplete"
+                )
+        adjudicator_release = adjudicator.provider_release_id.strip()
+        if _RELEASE_PATTERN.fullmatch(adjudicator_release) is None or not adjudicator.model.strip():
+            raise EssayMultiModelRuntimeConfigurationError(
+                "essay adjudicator identity is incomplete"
+            )
+        identities = {
+            (provider_release.casefold(), model.casefold())
+            for _, provider_release, model in candidates
+        }
+        if len(identities) != 3:
+            raise EssayMultiModelRuntimeConfigurationError(
+                "Formal essay candidate releases must be independent"
+            )
+        return _execution_identity(
+            release_id=release_id,
+            candidates=candidates,
+            price_versions={key: value.version for key, value in prices.items()},
+            adjudicator_release=adjudicator_release,
+            adjudicator_model=adjudicator.model,
+        )
+
+    @classmethod
     def from_settings(cls, settings: Settings) -> "EssayMultiModelRuntimePlan":
         release_id = settings.ai_essay_grading_plan_release_id.strip()
         if _RELEASE_PATTERN.fullmatch(release_id) is None:
@@ -67,8 +123,9 @@ class EssayMultiModelRuntimePlan:
             )
         prices = _price_cards(settings.ai_essay_grading_price_cards_json)
         try:
-            validate_grounded_review_provider_security(settings)
-            primary = GroundedEssayReviewProvider(settings)
+            primary_settings = _primary_settings(settings)
+            validate_grounded_review_provider_security(primary_settings)
+            primary = GroundedEssayReviewProvider(primary_settings)
             primary.validate_configuration()
             secondary_settings = _tokenrhythm_settings(settings)
             validate_grounded_review_provider_security(secondary_settings)
@@ -116,43 +173,75 @@ class EssayMultiModelRuntimePlan:
             raise EssayMultiModelRuntimeConfigurationError(
                 "Formal essay candidate releases must be independent"
             )
-        plan_document = {
-            "releaseId": release_id,
-            "candidates": [
-                {
-                    "slotId": slot.slot_id,
-                    "providerReleaseId": slot.provider.provider_release_id,
-                    "model": slot.provider.model,
-                    "promptVersion": slot.prompt_version,
-                    "schemaVersion": slot.schema_version,
-                    "priceVersion": slot.price_card.version,
-                }
-                for slot in slots
-            ],
-            "adjudicator": {
-                "providerReleaseId": adjudicator.provider_release_id,
-                "model": adjudicator.model,
-                "priceVersion": prices["adjudicator"].version,
-            },
-        }
-        fingerprint = sha256(
-            json.dumps(
-                plan_document,
-                ensure_ascii=False,
-                sort_keys=True,
-                separators=(",", ":"),
-            ).encode("utf-8")
-        ).hexdigest()
         return cls(
             release_id=release_id,
             candidate_slots=slots,
             adjudicator_provider=adjudicator,
             adjudicator_price_card=prices["adjudicator"],
-            execution_identity=EssayReviewExecutionIdentity(
-                provider=f"essay-multi-model@{release_id}",
-                model=f"plan-sha256:{fingerprint}",
+            execution_identity=_execution_identity(
+                release_id=release_id,
+                candidates=tuple(
+                    (
+                        slot.slot_id,
+                        slot.provider.provider_release_id,
+                        slot.provider.model,
+                    )
+                    for slot in slots
+                ),
+                price_versions={key: value.version for key, value in prices.items()},
+                adjudicator_release=adjudicator.provider_release_id,
+                adjudicator_model=adjudicator.model,
             ),
         )
+
+
+def _primary_settings(settings: Settings) -> Settings:
+    return replace(
+        settings,
+        ai_provider_base_url=(settings.ai_essay_primary_base_url or settings.ai_provider_base_url),
+        ai_api_key=settings.ai_essay_primary_api_key or settings.ai_api_key,
+    )
+
+
+def _execution_identity(
+    *,
+    release_id: str,
+    candidates: tuple[tuple[str, str, str], ...],
+    price_versions: dict[str, str],
+    adjudicator_release: str,
+    adjudicator_model: str,
+) -> EssayReviewExecutionIdentity:
+    plan_document = {
+        "releaseId": release_id,
+        "candidates": [
+            {
+                "slotId": slot_id,
+                "providerReleaseId": provider_release,
+                "model": model,
+                "promptVersion": GROUNDED_REVIEW_PROMPT_VERSION,
+                "schemaVersion": GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
+                "priceVersion": price_versions[slot_id],
+            }
+            for slot_id, provider_release, model in candidates
+        ],
+        "adjudicator": {
+            "providerReleaseId": adjudicator_release,
+            "model": adjudicator_model,
+            "priceVersion": price_versions["adjudicator"],
+        },
+    }
+    fingerprint = sha256(
+        json.dumps(
+            plan_document,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    return EssayReviewExecutionIdentity(
+        provider=f"essay-multi-model@{release_id}",
+        model=f"plan-sha256:{fingerprint}",
+    )
 
 
 def _tokenrhythm_settings(settings: Settings) -> Settings:
@@ -161,9 +250,7 @@ def _tokenrhythm_settings(settings: Settings) -> Settings:
         ai_provider_base_url=settings.ai_essay_tokenrhythm_base_url,
         ai_api_key=settings.ai_essay_tokenrhythm_api_key,
         ai_essay_review_model=settings.ai_essay_tokenrhythm_model,
-        ai_essay_review_provider_release_id=(
-            settings.ai_essay_tokenrhythm_provider_release_id
-        ),
+        ai_essay_review_provider_release_id=(settings.ai_essay_tokenrhythm_provider_release_id),
         ai_essay_review_provider_https_host_allowlist=(
             settings.ai_essay_tokenrhythm_provider_https_host_allowlist
         ),
@@ -214,9 +301,7 @@ def _price_cards(raw: str) -> dict[str, ModelPriceCard]:
             result[key] = ModelPriceCard(
                 version=str(item["version"]),
                 input_cny_per_million=Decimal(str(item["inputCnyPerMillion"])),
-                cached_input_cny_per_million=Decimal(
-                    str(item["cachedInputCnyPerMillion"])
-                ),
+                cached_input_cny_per_million=Decimal(str(item["cachedInputCnyPerMillion"])),
                 output_cny_per_million=Decimal(str(item["outputCnyPerMillion"])),
             )
         except (InvalidOperation, ModelCostConfigurationError, ValueError) as exc:

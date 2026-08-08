@@ -3,6 +3,7 @@ from __future__ import annotations
 from app.core.config import Settings, get_settings
 from app.domains.essay_intelligence.multi_model_runtime import (
     _price_cards,
+    _primary_settings,
     _tokenrhythm_settings,
 )
 from app.domains.essay_intelligence.review_checkpoint import (
@@ -50,6 +51,23 @@ def test_tokenrhythm_candidate_settings_map_to_grounded_provider_contract() -> N
     assert mapped.ai_essay_review_model == "deepseek-v4-flash"
     assert mapped.ai_essay_review_provider_release_id == "tokenrhythm-deepseek-v4-flash"
     assert mapped.ai_essay_review_provider_request_id_header == "x-trace-id"
+
+
+def test_essay_primary_credentials_are_isolated_from_generic_deepseek_runtime() -> None:
+    settings = Settings(
+        ai_provider_base_url="https://tokenrhythm.studio/v1",
+        ai_api_key="generic-deepseek-key",
+        ai_essay_primary_base_url="https://gemini.example.com/v1",
+        ai_essay_primary_api_key="gemini-only-key",
+        ai_essay_review_model="gemini-3.5-flash",
+    )
+
+    mapped = _primary_settings(settings)
+
+    assert mapped.ai_provider_base_url == "https://gemini.example.com/v1"
+    assert mapped.ai_api_key == "gemini-only-key"
+    assert settings.ai_provider_base_url == "https://tokenrhythm.studio/v1"
+    assert settings.ai_api_key == "generic-deepseek-key"
 
 
 def test_price_contract_requires_tokenrhythm_instead_of_grok() -> None:

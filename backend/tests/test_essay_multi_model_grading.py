@@ -62,7 +62,7 @@ def test_production_forbids_injected_worker_and_queue_overrides() -> None:
         )
 
 
-def test_production_defaults_to_the_validated_single_review_provider_without_a_plan() -> None:
+def test_production_fails_closed_instead_of_using_single_review_provider_without_plan() -> None:
     settings = Settings(
         environment="production",
         ai_provider_base_url="https://approved.example/v1",
@@ -78,10 +78,16 @@ def test_production_defaults_to_the_validated_single_review_provider_without_a_p
         ai_essay_review_max_output_bytes=1_000_000,
     )
 
-    identity = EssayReviewWorkflowService(settings=settings)._review_execution_identity()
-
-    assert identity.provider == "openai_compatible@essay-review-release-v1"
-    assert identity.model == "approved-model"
+    with pytest.raises(
+        EssayWorkflowContractError,
+        match="three-candidate",
+    ):
+        EssayReviewWorkflowService(settings=settings)._review_execution_identity()
+    with pytest.raises(
+        EssayMultiModelRuntimeConfigurationError,
+        match="PLAN_RELEASE_ID",
+    ):
+        GroundedEssayReviewWorker(settings=settings)
 
 
 def test_identical_independent_candidates_resolve_without_averaging() -> None:
@@ -128,7 +134,9 @@ def test_overlapping_nonidentical_candidates_require_brand_blind_adjudication() 
     assert comparison.state == "minor_disagreement"
     dumped = json.dumps(request.model_dump(by_alias=True, mode="json"))
     assert "gemini" not in dumped and "grok" not in dumped
-    selected_ref = next(ref for ref, candidate_id in mapping.items() if candidate_id == candidates[1].candidate_id)
+    selected_ref = next(
+        ref for ref, candidate_id in mapping.items() if candidate_id == candidates[1].candidate_id
+    )
     decision = _decision(selected_ref, second)
     resolved = resolve_essay_grading(
         candidates=candidates,
@@ -389,6 +397,4 @@ def _payload() -> EssayProviderReviewPayload:
 
 
 def _parse_payload(document: dict[str, object]) -> EssayProviderReviewPayload:
-    return EssayProviderReviewPayload.model_validate_json(
-        json.dumps(document, ensure_ascii=False)
-    )
+    return EssayProviderReviewPayload.model_validate_json(json.dumps(document, ensure_ascii=False))

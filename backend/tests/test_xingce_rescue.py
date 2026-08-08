@@ -278,11 +278,11 @@ def test_rescue_returns_method_card_and_similar_question_for_method_selection(
     _seed_rescue_learner(db_session_factory, token=token)
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
-    submitted, auth = _run_attempt(db_session_factory, client, auth, token=token, choices=["D", "B", "C"])
+    submitted, auth = _run_attempt(
+        db_session_factory, client, auth, token=token, choices=["D", "B", "C"]
+    )
     review = submitted["review"]
-    question_ids = [
-        str(question["questionId"]) for question in submitted["bundle"]["questions"]
-    ]
+    question_ids = [str(question["questionId"]) for question in submitted["bundle"]["questions"]]
     _reflect(client, auth, review, key="rescue-method-reflection")
     _run_one(db_session_factory, _MethodSelectionProvider(question_ids[:2]))
 
@@ -291,6 +291,12 @@ def test_rescue_returns_method_card_and_similar_question_for_method_selection(
         headers=auth,
     ).json()["data"]
     candidate = view["review"]["aiCandidate"]
+    before_confirmation = client.get(
+        f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/rescue",
+        headers=auth,
+    )
+    assert before_confirmation.status_code == 200
+    assert before_confirmation.json()["data"]["items"] == []
     decision = client.put(
         f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/cause-decision",
         headers={**auth, "Idempotency-Key": "rescue-method-decision"},
@@ -335,7 +341,9 @@ def test_rescue_applies_session_cause_to_all_wrong_questions_without_per_questio
     _seed_rescue_learner(db_session_factory, token=token)
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
-    submitted, auth = _run_attempt(db_session_factory, client, auth, token=token, choices=["D", "B", "C"])
+    submitted, auth = _run_attempt(
+        db_session_factory, client, auth, token=token, choices=["D", "B", "C"]
+    )
     review = submitted["review"]
     _reflect(client, auth, review, key="rescue-session-reflection")
 
@@ -363,9 +371,7 @@ def test_rescue_applies_session_cause_to_all_wrong_questions_without_per_questio
         headers=auth,
     ).json()["data"]
     assert rescue["items"]
-    assert all(
-        item["causeCode"] == "method_selection" for item in rescue["items"]
-    )
+    assert all(item["causeCode"] == "method_selection" for item in rescue["items"])
 
 
 class _SessionMethodSelectionProvider(SequenceProvider):
@@ -413,7 +419,9 @@ def test_rescue_skips_non_rescuable_causes(
     _seed_rescue_learner(db_session_factory, token=token)
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
-    submitted, auth = _run_attempt(db_session_factory, client, auth, token=token, choices=["D", "B", "C"])
+    submitted, auth = _run_attempt(
+        db_session_factory, client, auth, token=token, choices=["D", "B", "C"]
+    )
     review = submitted["review"]
     _reflect(client, auth, review, key="rescue-time-reflection")
     _run_one(db_session_factory, _TimePressureProvider())

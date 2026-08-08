@@ -203,6 +203,7 @@ class SQLRecognitionOperationCoordinator:
                     input_fingerprint=spec.input_fingerprint,
                     production_authorization_required=(
                         self._settings.environment.strip().casefold() == "production"
+                        and self._settings.recognition_release_gate_enabled
                     ),
                     dispatched_at=spec.started_at,
                 )
@@ -465,6 +466,11 @@ class SQLRecognitionOperationCoordinator:
     ) -> tuple[UUID | None, str]:
         if self._settings.environment.strip().casefold() != "production":
             return None, "local_unreleased"
+        if not self._settings.recognition_release_gate_enabled:
+            # This personal beta pins provider, route, MIME, size and expiry in
+            # ProcessorApproval. Keep the durable operation/dispatch ledgers,
+            # but do not require a second, empty database release registry.
+            return None, "runtime_approved"
         try:
             deployment_id = AIGovernanceRepository().require_current_deployment(
                 session,

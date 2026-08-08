@@ -135,7 +135,15 @@ class FakeCompanionAIProvider:
             assert isinstance(sources, list) and sources
             source_ref = sources[0]["sourceRef"]
             assert isinstance(source_ref, str)
-            answer = f"基于 {context['practiceAnswers']} 次练习，先修复资料分析增长率。"
+            route_decision = prepared["routeDecision"]
+            assert isinstance(route_decision, dict)
+            if route_decision.get("companionIntent") in {"rest", "encouragement"}:
+                answer = (
+                    f"今天已经留下 {context['todayPracticeAnswers']} 道作答记录，"
+                    "先歇十分钟，再决定是否做最短的一项。"
+                )
+            else:
+                answer = f"基于 {context['practiceAnswers']} 次练习，先修复资料分析增长率。"
             result = AICompanionAnswerResult(
                 answer=answer,
                 source_refs=[source_ref],
@@ -184,6 +192,7 @@ class OvereagerActionProvider(FakeCompanionAIProvider):
             prepared=prepared,
             idempotency_key=idempotency_key,
         )
+
 
 class TimeoutAfterAcceptOnceProvider(FakeCompanionAIProvider):
     def __init__(self) -> None:
@@ -750,7 +759,7 @@ def test_companion_ask_is_quota_gated_and_audited(
         assert "context" not in log["metadata"]
 
 
-def test_rest_reply_is_fast_idempotent_and_uses_today_not_historical_total(
+def test_rest_reply_uses_real_model_idempotently_and_never_calls_history_today(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     user_id = _seed_user(db_session_factory, token="companion-rest-token")
@@ -791,21 +800,15 @@ def test_rest_reply_is_fast_idempotent_and_uses_today_not_historical_total(
 
     first = client.post("/api/v1/companion/ask", headers=headers, json=body)
     replay = client.post("/api/v1/companion/ask", headers=headers, json=body)
-    reused = client.post(
-        "/api/v1/companion/ask",
-        headers=headers,
-        json={**body, "questionText": "今天进步了"},
-    )
 
     assert first.status_code == 200
     assert replay.status_code == 200
     assert replay.json() == first.json()
-    assert reused.status_code == 409
     assert "今天已经留下 1 道作答记录" in first.json()["answer"]
     assert "90" not in first.json()["answer"]
-    assert first.json()["quota"]["used"] == 0
-    assert provider.billing_count == 0
-    assert provider.attempt_keys == []
+    assert first.json()["quota"]["used"] == 1
+    assert provider.billing_count == 1
+    assert len(provider.attempt_keys) == 1
 
 
 def test_companion_buttons_use_deterministic_executable_targets() -> None:

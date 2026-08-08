@@ -12,6 +12,7 @@ import zipfile
 import httpx
 from PIL import Image
 from pydantic import BaseModel, ConfigDict, Field
+from pypdf import PdfReader
 
 from app.domains.external_ingestion.recognition.errors import (
     ProcessorConfigurationError,
@@ -215,7 +216,27 @@ class MinerURecognitionProcessor:
     def _prepare_pdf(
         self, source: Path, *, mime_type: str
     ) -> tuple[bytes, bytes, tuple[VisualFeatureHash, ...]]:
-        """把源文件统一转成单页 PDF 再喂 MinerU（它对 PDF/文档的解析最稳）。"""
+        """Keep native PDFs multi-page; convert camera images to one PDF page."""
+        if mime_type == "application/pdf":
+            pdf = source.read_bytes()
+            if not pdf.startswith(b"%PDF-"):
+                raise ProcessorResponseError("MinerU PDF signature is invalid")
+            if len(pdf) > self._maximum_input_bytes:
+                raise ProcessorResponseError("MinerU PDF exceeds its approved input capacity")
+            try:
+                reader = PdfReader(BytesIO(pdf), strict=False)
+                if reader.is_encrypted:
+                    raise ProcessorResponseError("MinerU encrypted PDF is unsupported")
+                page_count = len(reader.pages)
+            except ProcessorResponseError:
+                raise
+            except Exception as exc:
+                raise ProcessorResponseError("MinerU PDF cannot be decoded") from exc
+            if page_count <= 0:
+                raise ProcessorResponseError("MinerU PDF has no pages")
+            if page_count > self._maximum_pages:
+                raise ProcessorResponseError("MinerU PDF exceeds its approved page capacity")
+            return pdf, b"", ()
         try:
             with Image.open(source) as opened:
                 prepared = prepare_for_ocr(opened, enable_crop=True, max_long_edge=2200)
@@ -353,7 +374,7 @@ def _apply_formula_enrichment(
     primary_spans: tuple[TextSpan, ...],
     provider_request_id: str,
 ) -> tuple[tuple[TextSpan, ...], str]:
-    if formula_client is None:
+    if formula_client is None or not image:
         return primary_spans, provider_request_id
     try:
         result = formula_client.recognize(image)

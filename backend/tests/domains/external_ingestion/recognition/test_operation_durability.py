@@ -203,6 +203,7 @@ def _production_ocr_settings() -> Settings:
     approval_payload = _approval().model_dump(by_alias=True, mode="json")
     return Settings(
         environment="production",
+        recognition_release_gate_enabled=True,
         recognition_processor_enabled=True,
         recognition_processor_endpoint=PRODUCTION_OCR_ENDPOINT,
         recognition_processor_token="test-ocr-token",
@@ -212,6 +213,47 @@ def _production_ocr_settings() -> Settings:
         recognition_processor_approvals_json=json.dumps([approval_payload]),
         recognition_default_import_route="ocr-primary",
     )
+
+
+def test_personal_beta_runtime_approval_does_not_require_empty_release_registry(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    settings = replace(
+        _production_ocr_settings(),
+        recognition_release_gate_enabled=False,
+    )
+    coordinator = SQLRecognitionOperationCoordinator(
+        session_factory=db_session_factory,
+        settings=settings,
+        processor_endpoint_fingerprint=endpoint_fingerprint(PRODUCTION_OCR_ENDPOINT),
+    )
+    with db_session_factory() as session:
+        deployment_id, evaluation_state = coordinator._deployment(
+            session=session,
+            spec=RecognitionOperationSpec(
+                operation_id=uuid4(),
+                operation_key="recognition:runtime-approved:test",
+                owner_user_id=uuid4(),
+                artifact_version_id=uuid4(),
+                scenario_key="recognition_printed_ocr",
+                operation="recognition_process",
+                provider="vendor",
+                provider_release=CountingProcessor.provider_release,
+                prompt_version="recognition-processor-policy@v1",
+                model="ocr-model@v1",
+                schema_version="recognition-processor-output@v1",
+                price_version="ocr-price@v1",
+                billing_unit="image",
+                unit_count=1,
+                unit_price_cny=Decimal("0.01"),
+                input_fingerprint="1" * 64,
+                request_hash="2" * 64,
+                started_at=NOW,
+            ),
+        )
+
+    assert deployment_id is None
+    assert evaluation_state == "runtime_approved"
 
 
 def _insert_active_ocr_release(session: Session) -> None:
@@ -351,8 +393,7 @@ def test_readiness_and_durable_coordinator_share_price_compatible_deployment(
         session.commit()
 
     assert [
-        (UUID(str(row["deployment_id"])), str(row["price_version"]))
-        for row in current_leaves
+        (UUID(str(row["deployment_id"])), str(row["price_version"])) for row in current_leaves
     ] == [
         (incompatible_id, "ocr-price@v2"),
         (compatible_id, "ocr-price@v1"),
@@ -369,9 +410,7 @@ def test_readiness_and_durable_coordinator_share_price_compatible_deployment(
             operations=SQLRecognitionOperationCoordinator(
                 session_factory=db_session_factory,
                 settings=settings,
-                processor_endpoint_fingerprint=endpoint_fingerprint(
-                    PRODUCTION_OCR_ENDPOINT
-                ),
+                processor_endpoint_fingerprint=endpoint_fingerprint(PRODUCTION_OCR_ENDPOINT),
             ),
             processors=ProcessorRegistry(
                 (_approval(),),
@@ -441,18 +480,14 @@ def test_readiness_and_durable_coordinator_share_price_compatible_deployment(
     assert incompatible_passed == 0
 
     blocked_owner, blocked_artifact = _seed_owner_artifact(db_session_factory)
-    unapproved_price = _approval().model_copy(
-        update={"price_version": "ocr-price@unapproved"}
-    )
+    unapproved_price = _approval().model_copy(update={"price_version": "ocr-price@unapproved"})
     with db_session_factory() as session:
         blocked_service = RecognitionService(
             repository=SQLRecognitionRepository(session),
             operations=SQLRecognitionOperationCoordinator(
                 session_factory=db_session_factory,
                 settings=settings,
-                processor_endpoint_fingerprint=endpoint_fingerprint(
-                    PRODUCTION_OCR_ENDPOINT
-                ),
+                processor_endpoint_fingerprint=endpoint_fingerprint(PRODUCTION_OCR_ENDPOINT),
             ),
             processors=ProcessorRegistry(
                 (unapproved_price,),

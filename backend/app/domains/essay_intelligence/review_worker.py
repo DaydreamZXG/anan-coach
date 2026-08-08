@@ -137,15 +137,13 @@ class GroundedEssayReviewWorker:
         provider_was_injected = provider is not None
         if provider is not None and runtime_plan is not None:
             raise ValueError("Review worker cannot mix legacy and multi-model runtimes")
-        if (
-            provider_was_injected
-            and settings.environment.strip().casefold() == "production"
-        ):
+        if provider_was_injected and settings.environment.strip().casefold() == "production":
             raise ValueError("Production review worker forbids single-model execution")
         if (
             provider is None
             and runtime_plan is None
             and not settings.ai_essay_grading_plan_release_id.strip()
+            and settings.environment.strip().casefold() != "production"
         ):
             provider = GroundedEssayReviewProvider(settings)
             provider.validate_configuration()
@@ -156,18 +154,14 @@ class GroundedEssayReviewWorker:
             else runtime_plan or EssayMultiModelRuntimePlan.from_settings(settings)
         )
         self._price_card = (
-            price_card or ModelPriceCard.from_settings(settings)
-            if provider is not None
-            else None
+            price_card or ModelPriceCard.from_settings(settings) if provider is not None else None
         )
         self._workflow = workflow_repository or EssayReviewWorkflowRepository()
         self._jobs = jobs or BackgroundJobRepository()
         self._ledger = ledger or ModelCallLedgerRepository()
         self._outbox = outbox or OutboxRepository()
         self._application = application or GroundedReviewApplicationService()
-        self._checkpoints = checkpoints or EssayReviewCheckpointRepository.from_settings(
-            settings
-        )
+        self._checkpoints = checkpoints or EssayReviewCheckpointRepository.from_settings(settings)
         self._grading = grading_repository or EssayMultiModelGradingRepository()
 
     def recover_stale_claims(
@@ -309,9 +303,7 @@ class GroundedEssayReviewWorker:
             candidate=initial,
             execution=execution,
         )
-        calls: list[tuple[ModelCallRecord, str, int]] = [
-            (initial_call, "initial", 1)
-        ]
+        calls: list[tuple[ModelCallRecord, str, int]] = [(initial_call, "initial", 1)]
         final_application = initial_application
         if initial_application.response.status != "completed":
             code = initial_application.response.readiness.blocking_codes[0]
@@ -333,9 +325,7 @@ class GroundedEssayReviewWorker:
                     "phase": "repair",
                     "violationCode": code,
                     "violationDetail": detail,
-                    "rejectedContentSha256": sha256(
-                        rejected.encode("utf-8")
-                    ).hexdigest(),
+                    "rejectedContentSha256": sha256(rejected.encode("utf-8")).hexdigest(),
                 }
             )
             try:
@@ -603,12 +593,8 @@ class GroundedEssayReviewWorker:
                     usage=_zero_usage(),
                     latency_ms=0,
                     output_fingerprint=saved.output_fingerprint,
-                    provider_request_id_header=(
-                        saved.provider_request_id_header
-                    ),
-                    provider_request_id_fingerprint=(
-                        saved.provider_request_id_fingerprint
-                    ),
+                    provider_request_id_header=(saved.provider_request_id_header),
+                    provider_request_id_fingerprint=(saved.provider_request_id_fingerprint),
                 ),
                 record,
             )
@@ -643,14 +629,10 @@ class GroundedEssayReviewWorker:
                 evidence_refs=_job_evidence_refs(job),
                 retrieval_bundle_id=None,
                 reservation_id=UUID(str(job.payload["quotaReservation"]["reservationId"])),
-                reservation_source=str(
-                    job.payload["quotaReservation"].get("source", "catalog")
-                ),
+                reservation_source=str(job.payload["quotaReservation"].get("source", "catalog")),
                 enforce_evaluated_deployment=False,
             ),
-            processor_release_id=(
-                self._settings.ai_essay_review_provider_release_id.strip()
-            ),
+            processor_release_id=(self._settings.ai_essay_review_provider_release_id.strip()),
             processor_endpoint_fingerprint=endpoint_fingerprint(
                 self._settings.ai_provider_base_url
             ),
@@ -668,10 +650,7 @@ class GroundedEssayReviewWorker:
         except GroundedReviewMeteredProviderError as exc:
             # The provider completed a billable call. Domain rejection and quota
             # refund must not erase the real model cost or leave the ledger open.
-            if (
-                record.status == "succeeded"
-                and record.output_fingerprint != exc.output_fingerprint
-            ):
+            if record.status == "succeeded" and record.output_fingerprint != exc.output_fingerprint:
                 violation = GroundedReviewProviderError(
                     "provider_idempotency_violation",
                     "Provider changed output for an already completed idempotent call",
@@ -791,9 +770,7 @@ class GroundedEssayReviewWorker:
             payload=candidate.payload,
             output_fingerprint=candidate.output_fingerprint,
             provider_request_id_header=candidate.provider_request_id_header,
-            provider_request_id_fingerprint=(
-                candidate.provider_request_id_fingerprint
-            ),
+            provider_request_id_fingerprint=(candidate.provider_request_id_fingerprint),
         )
         current_job = self._jobs.by_id(session, job_id=job.job_id)
         checkpoint_metadata = dict(current_job.result or {}) if current_job else {}
@@ -805,12 +782,8 @@ class GroundedEssayReviewWorker:
         if candidate.provider_request_id_fingerprint is not None:
             phase_metadata.update(
                 {
-                    "providerRequestIdHeader": (
-                        candidate.provider_request_id_header
-                    ),
-                    "providerRequestIdFingerprint": (
-                        candidate.provider_request_id_fingerprint
-                    ),
+                    "providerRequestIdHeader": (candidate.provider_request_id_header),
+                    "providerRequestIdFingerprint": (candidate.provider_request_id_fingerprint),
                 }
             )
         checkpoint_metadata[phase] = phase_metadata
@@ -920,9 +893,7 @@ class GroundedEssayReviewWorker:
             raise JobContractError("Review job lost its claim")
         now = datetime.now(UTC)
         response = result.response
-        canonical_output = (
-            response.audit.output_fingerprint if response.audit else None
-        )
+        canonical_output = response.audit.output_fingerprint if response.audit else None
         provider_request_ids = self._provider_request_audit(
             session,
             job_id=job.job_id,
@@ -1256,20 +1227,12 @@ class GroundedEssayReviewWorker:
                     }
                 )
                 continue
-            phase_metadata = (
-                job_result.get(phase)
-                if isinstance(job_result, dict)
-                else None
-            )
+            phase_metadata = job_result.get(phase) if isinstance(job_result, dict) else None
             if not isinstance(phase_metadata, dict):
                 continue
             header = phase_metadata.get("providerRequestIdHeader")
             fingerprint = phase_metadata.get("providerRequestIdFingerprint")
-            if (
-                not isinstance(header, str)
-                or not header
-                or not _is_sha256_fingerprint(fingerprint)
-            ):
+            if not isinstance(header, str) or not header or not _is_sha256_fingerprint(fingerprint):
                 continue
             result.append(
                 {
@@ -1324,11 +1287,7 @@ def _provider_request_audit_pair_valid(
 ) -> bool:
     if header is None and fingerprint is None:
         return True
-    return (
-        isinstance(header, str)
-        and bool(header.strip())
-        and _is_sha256_fingerprint(fingerprint)
-    )
+    return isinstance(header, str) and bool(header.strip()) and _is_sha256_fingerprint(fingerprint)
 
 
 def _is_sha256_fingerprint(value: object) -> bool:

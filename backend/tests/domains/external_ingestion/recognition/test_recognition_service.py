@@ -304,6 +304,19 @@ def test_recognition_replay_returns_same_revision_without_recalling_provider() -
     assert len(repo.revisions) == 1
 
 
+def test_new_idempotency_key_recovers_current_revision_without_reupload_or_reprocessing() -> None:
+    repo = Repo()
+    processor = Processor()
+    pipeline = service(repo, processor)
+
+    first = recognize(pipeline, key="first-client-command")
+    recovered = recognize(pipeline, key="retry-after-lost-receipt")
+
+    assert recovered == first
+    assert processor.calls == 1
+    assert len(repo.revisions) == 1
+
+
 def test_provider_replay_key_is_server_namespaced_and_cross_owner_isolated() -> None:
     first_repo = Repo()
     first_processor = Processor()

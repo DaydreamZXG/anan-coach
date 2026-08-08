@@ -143,6 +143,7 @@ class AuthorizedHybridRetriever:
             )
             if score > 0.20 or candidate.trust_scope in {
                 "learning_brain",
+                "learner_activity",
                 "target_position",
                 "authorized_question",
                 "owned_attempt",

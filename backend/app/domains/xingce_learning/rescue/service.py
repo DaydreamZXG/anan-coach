@@ -31,9 +31,8 @@ class XingceRescueService:
     在知识树上的考点节点，经节点 method_card_ids 取方法卡，再从题库按考点
     选一道同类题。触发点在完成一组题、确认错因之后，不打断做题节奏。
 
-    错因来源两层：
-    1. 候选 payload 的逐题错因（questionCandidates）——能精确定位到题；
-    2. 会话级已确认错因码——旧候选没有逐题字段时，把它应用到所有错题。
+    错因权威只有已确认错因。候选 payload 的逐题字段只能在其 causeCode
+    同时出现在当前已确认集合时帮助定位到题，不能独立触发方法卡。
     """
 
     def __init__(self, repository: RescueRepository | None = None) -> None:
@@ -64,7 +63,7 @@ class XingceRescueService:
         )
         repository = self._repository(session)
 
-        # 1. 错因：逐题候选优先，回退到会话级已确认码。
+        # 1. 错因：只有当前已确认原因能触发；逐题候选仅用于定位。
         per_question = repository.per_question_candidate_codes(
             candidate_version_id=candidate_version_id,
         )
@@ -72,9 +71,8 @@ class XingceRescueService:
             user_id=user_id,
             review_id=review_id,
         )
-        rescusable_session_codes = [
-            code for code in session_codes if code in RESCUABLE_CAUSE_CODES
-        ]
+        rescusable_session_codes = [code for code in session_codes if code in RESCUABLE_CAUSE_CODES]
+        confirmed_codes = set(rescusable_session_codes)
         wrong_question_ids = repository.wrong_question_ids_for_review(
             user_id=user_id,
             session_id=session_id,
@@ -85,7 +83,7 @@ class XingceRescueService:
         cause_by_question: dict[str, str] = {}
         for question_id in wrong_question_ids:
             per_question_code = per_question.get(question_id)
-            if per_question_code in RESCUABLE_CAUSE_CODES:
+            if per_question_code in confirmed_codes:
                 cause_by_question[question_id] = per_question_code
         # 会话级可救场错因应用到仍未命中的错题。
         if rescusable_session_codes and not cause_by_question:
@@ -122,11 +120,7 @@ class XingceRescueService:
                 cards = repository.method_cards_by_ids(
                     list(node.method_card_ids),
                 )
-                first = (
-                    cards[node.method_card_ids[0]]
-                    if node.method_card_ids[0] in cards
-                    else None
-                )
+                first = cards[node.method_card_ids[0]] if node.method_card_ids[0] in cards else None
                 if first is not None:
                     method_card = RescueMethodCard(
                         cardId=first.card_id,
@@ -206,9 +200,7 @@ def _focus_label(display_path: str) -> str:
 
 
 def _summary(item_count: int) -> str:
-    return (
-        f"这次有 {item_count} 道题可以先补一补，方法卡看懂后再做同类题。"
-    )
+    return f"这次有 {item_count} 道题可以先补一补，方法卡看懂后再做同类题。"
 
 
 def _empty_rescue(*, review_id: str, session_id: str) -> XingceRescue:
