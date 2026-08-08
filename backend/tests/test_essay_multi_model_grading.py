@@ -80,7 +80,7 @@ def test_production_fails_closed_instead_of_using_single_review_provider_without
 
     with pytest.raises(
         EssayWorkflowContractError,
-        match="three-candidate",
+        match="multi-model",
     ):
         EssayReviewWorkflowService(settings=settings)._review_execution_identity()
     with pytest.raises(

@@ -1147,7 +1147,7 @@ class EssayReviewWorkflowService:
             return EssayMultiModelRuntimePlan.execution_identity_from_settings(self._settings)
         except EssayMultiModelRuntimeConfigurationError as exc:
             raise EssayWorkflowContractError(
-                "Formal three-candidate essay grading plan is not configured"
+                "Formal multi-model essay grading plan is not configured"
             ) from exc
 
     def _record_execution_command(

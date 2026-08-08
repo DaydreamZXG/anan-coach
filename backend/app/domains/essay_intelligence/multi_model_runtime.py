@@ -33,7 +33,7 @@ from app.domains.essay_intelligence.review_contracts import (
 
 
 _RELEASE_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
-_PRICE_KEYS = frozenset({"gemini", "tokenrhythm", "hunyuan", "adjudicator"})
+_PRICE_KEYS = frozenset({"tokenrhythm", "hunyuan", "adjudicator"})
 
 
 class EssayMultiModelRuntimeConfigurationError(RuntimeError):
@@ -65,7 +65,7 @@ class EssayMultiModelRuntimePlan:
     ) -> EssayReviewExecutionIdentity:
         """Build the queue identity from non-secret release metadata only.
 
-        The API queues work but does not call the three grading providers, so
+        The API queues work but does not call the grading providers, so
         it must not need worker-only credentials merely to fingerprint a job.
         The worker still constructs the full runtime and validates every key.
         """
@@ -75,12 +75,10 @@ class EssayMultiModelRuntimePlan:
                 "AI_ESSAY_GRADING_PLAN_RELEASE_ID is required and must be versioned"
             )
         prices = _price_cards(settings.ai_essay_grading_price_cards_json)
-        primary = _primary_settings(settings)
         secondary = _tokenrhythm_settings(settings)
         hunyuan = HunyuanCloudFunctionSettings.from_environment()
         adjudicator = BlindAdjudicatorSettings.from_environment()
         candidates = (
-            ("gemini", primary.ai_essay_review_provider_release_id, primary.ai_essay_review_model),
             (
                 "tokenrhythm",
                 secondary.ai_essay_review_provider_release_id,
@@ -102,7 +100,7 @@ class EssayMultiModelRuntimePlan:
             (provider_release.casefold(), model.casefold())
             for _, provider_release, model in candidates
         }
-        if len(identities) != 3:
+        if len(identities) != len(candidates):
             raise EssayMultiModelRuntimeConfigurationError(
                 "Formal essay candidate releases must be independent"
             )
@@ -123,10 +121,6 @@ class EssayMultiModelRuntimePlan:
             )
         prices = _price_cards(settings.ai_essay_grading_price_cards_json)
         try:
-            primary_settings = _primary_settings(settings)
-            validate_grounded_review_provider_security(primary_settings)
-            primary = GroundedEssayReviewProvider(primary_settings)
-            primary.validate_configuration()
             secondary_settings = _tokenrhythm_settings(settings)
             validate_grounded_review_provider_security(secondary_settings)
             secondary = GroundedEssayReviewProvider(secondary_settings)
@@ -143,13 +137,6 @@ class EssayMultiModelRuntimePlan:
             raise EssayMultiModelRuntimeConfigurationError(str(exc)) from exc
 
         slots = (
-            EssayCandidateSlot(
-                slot_id="gemini",
-                provider=primary,
-                price_card=prices["gemini"],
-                prompt_version=GROUNDED_REVIEW_PROMPT_VERSION,
-                schema_version=GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
-            ),
             EssayCandidateSlot(
                 slot_id="tokenrhythm",
                 provider=secondary,
@@ -283,7 +270,7 @@ def _price_cards(raw: str) -> dict[str, ModelPriceCard]:
         ) from exc
     if not isinstance(document, dict) or set(document) != _PRICE_KEYS:
         raise EssayMultiModelRuntimeConfigurationError(
-            "Essay grading price cards must define gemini, tokenrhythm, hunyuan, and adjudicator"
+            "Essay grading price cards must define tokenrhythm, hunyuan, and adjudicator"
         )
     result: dict[str, ModelPriceCard] = {}
     for key in sorted(_PRICE_KEYS):

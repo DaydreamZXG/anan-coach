@@ -52,15 +52,14 @@ AI_SETTINGS = {
     "AI_COMMUNITY_CANDIDATE_PROVIDER_REPLAY_RETENTION_SECONDS": "0",
     "AI_COMMUNITY_CANDIDATE_MAX_INPUT_BYTES": "1048576",
     "AI_COMMUNITY_CANDIDATE_MAX_OUTPUT_BYTES": "262144",
-    "AI_ESSAY_PRIMARY_BASE_URL": "https://gemini-web2api.ergouapi.co/v1",
-    "AI_ESSAY_REVIEW_MODEL": "gemini-3.5-flash",
+    "AI_ESSAY_REVIEW_MODEL": "deepseek-v4-flash",
     "AI_ESSAY_RUBRIC_GENERATOR_MODEL": "deepseek-v4-flash",
     "AI_ESSAY_RUBRIC_CRITIC_MODEL": "deepseek-v4-flash",
     "AI_ESSAY_RUBRIC_PROVIDER_RELEASE_ID": "tokenrhythm-deepseek-v4-flash",
     "AI_ESSAY_RUBRIC_MAX_INPUT_BYTES": "8388608",
     "AI_ESSAY_RUBRIC_MAX_OUTPUT_BYTES": "2097152",
-    "AI_ESSAY_REVIEW_PROVIDER_RELEASE_ID": "gemini-web2api-review-2026-07-18.1",
-    "AI_ESSAY_REVIEW_PROVIDER_HTTPS_HOST_ALLOWLIST": "gemini-web2api.ergouapi.co",
+    "AI_ESSAY_REVIEW_PROVIDER_RELEASE_ID": "tokenrhythm-deepseek-v4-flash",
+    "AI_ESSAY_REVIEW_PROVIDER_HTTPS_HOST_ALLOWLIST": "tokenrhythm.studio",
     "AI_ESSAY_REVIEW_PROVIDER_DPA_CONFIRMED": "false",
     "AI_ESSAY_REVIEW_PROVIDER_IDEMPOTENCY_CAPABILITY": "nonreplayable_audited",
     "AI_ESSAY_REVIEW_PROVIDER_IDEMPOTENCY_KEY_HEADER": "Idempotency-Key",
@@ -68,7 +67,7 @@ AI_SETTINGS = {
     "AI_ESSAY_REVIEW_PROVIDER_REPLAY_RETENTION_SECONDS": "0",
     "AI_ESSAY_REVIEW_MAX_INPUT_BYTES": "8388608",
     "AI_ESSAY_REVIEW_MAX_OUTPUT_BYTES": "2097152",
-    "AI_ESSAY_GRADING_PLAN_RELEASE_ID": "essay-grading-3model-2026-08-08.1",
+    "AI_ESSAY_GRADING_PLAN_RELEASE_ID": "essay-grading-2model-2026-08-08.1",
     "AI_ESSAY_TOKENRHYTHM_BASE_URL": "https://tokenrhythm.studio/v1",
     "AI_ESSAY_TOKENRHYTHM_MODEL": "deepseek-v4-flash",
     "AI_ESSAY_TOKENRHYTHM_PROVIDER_RELEASE_ID": "tokenrhythm-deepseek-v4-flash",
@@ -109,7 +108,7 @@ _ESSAY_PRICE_CARD = {
 AI_SETTINGS["AI_ESSAY_GRADING_PRICE_CARDS_JSON"] = json.dumps(
     {
         key: _ESSAY_PRICE_CARD
-        for key in ("gemini", "tokenrhythm", "hunyuan", "adjudicator")
+        for key in ("tokenrhythm", "hunyuan", "adjudicator")
     },
     separators=(",", ":"),
     sort_keys=True,
@@ -120,6 +119,11 @@ DEFERRED_PAYMENT_SECRETS = {
     "WECHAT_VIRTUAL_PAY_APP_KEY",
     "WECHAT_VIRTUAL_PAY_MESSAGE_TOKEN",
     "WECHAT_VIRTUAL_PAY_MESSAGE_ENCODING_AES_KEY",
+}
+
+RETIRED_GEMINI_ESSAY_SETTINGS = {
+    "AI_ESSAY_PRIMARY_BASE_URL",
+    "AI_ESSAY_PRIMARY_API_KEY",
 }
 
 def _key(line: str) -> str | None:
@@ -191,15 +195,11 @@ def configure(env_file: Path, api_key: str) -> None:
     if not api_key.strip():
         raise SystemExit("AI API key must not be empty")
     original = env_file.read_text(encoding="utf-8").splitlines(keepends=True)
-    required_existing = (
-        "AI_ESSAY_PRIMARY_API_KEY",
-        "CLOUDBASE_ENV_ID",
-        "CLOUDBASE_API_KEY",
-    )
+    required_existing = ("CLOUDBASE_ENV_ID", "CLOUDBASE_API_KEY")
     missing = [name for name in required_existing if not _existing_value(original, name)]
     if missing:
         raise SystemExit(
-            "three-model essay secrets are incomplete: " + ", ".join(missing)
+            "two-model essay secrets are incomplete: " + ", ".join(missing)
         )
     operations_token = _existing_value(original, "OPERATIONS_METRICS_TOKEN")
     desired = dict(AI_SETTINGS)
@@ -212,7 +212,7 @@ def configure(env_file: Path, api_key: str) -> None:
         env_file,
         desired,
         managed_comment="Production text AI contract (managed by configure_production_ai.py)",
-        omitted_names=DEFERRED_PAYMENT_SECRETS,
+        omitted_names=DEFERRED_PAYMENT_SECRETS | RETIRED_GEMINI_ESSAY_SETTINGS,
     )
 
 

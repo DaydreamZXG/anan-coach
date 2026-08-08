@@ -424,7 +424,7 @@
 
 #### 3. 智能批改
 
-- **产品意图**:批改本质是「把用户作答、题干、材料全文、评分标准(量表)打包成上下文集,交给模型打分并输出结构化 JSON」。review_worker 支持两套运行时:生产强制多模型方案——gemini/tokenrhythm/hunyuan 三个独立 slot 各自打分,然后对比分差:一致则直接取,轻微/重大分歧则把候选匿名化(blind)交给第四个 adjudicator 裁判,杜绝单个模型结论被直接采信;测试环境可退化为单模型 generate→repair 两段。每次模型调用都写 model_call_ledger(计量+计费)、checkpoint 加密保存、校验 provider_request_id 审计对,最终评审(分数区间/维度/要点覆盖/findings/改写建议)整体过 grounded 校验后才落 learning.essay_review_versions,失败或越界只落 blocked/failed 状态并退额度。
+- **产品意图**:批改本质是「把用户作答、题干、材料全文、评分标准(量表)打包成上下文集,交给模型打分并输出结构化 JSON」。review_worker 支持两套运行时:生产强制多模型方案——TokenRhythm 与混元两个独立 slot 各自打分,然后对比分差:一致则直接取,轻微/重大分歧则把候选匿名化(blind)交给 adjudicator 裁判,杜绝单个模型结论被直接采信;测试环境可退化为单模型 generate→repair 两段。每次模型调用都写 model_call_ledger(计量+计费)、checkpoint 加密保存、校验 provider_request_id 审计对,最终评审(分数区间/维度/要点覆盖/findings/改写建议)整体过 grounded 校验后才落 learning.essay_review_versions,失败或越界只落 blocked/failed 状态并退额度。
 - **调用链**:review_worker.process_next:180 -> claim_next(platform.background_jobs) -> _process_claim:201 校验 input_fingerprint -> _process_multi_model_claim:381 -> EssayMultiModelGradingCoordinator.execute(multi_model_grading_coordinator.py:76) -> 每个 slot LedgeredEssayCandidateRunner.run_candidate(multi_model_candidate_runner.py:133) -> compare_essay_grading_candidates(multi_model_grading.py:138) 判 consistent/minor/major/unable -> 分歧时 build_blind_adjudication_request + LedgeredEssayBlindAdjudicator.adjudicate -> resolve_essay_grading -> _apply_candidate:854 -> _persist_result:896 insert_review + insert_grading_bundle + link_model_call + consume_quota + outbox
 - **关键文件**:
   - `backend/app/domains/essay_intelligence/review_worker.py:381`
@@ -438,7 +438,7 @@
 - **核心表**: `learning.essay_review_versions`, `ai_audit.essay_review_model_calls`, `ai_audit.essay_review_checkpoints`, `ai_audit.essay_grading_runs`, `ai_audit.essay_grading_candidates`, `ai_audit.essay_grading_adjudications`, `ai_audit.essay_review_grading_bindings`
 - **易错点**:
   - 生产环境禁止单模型执行:构造 GroundedEssayReviewWorker 时若 provider 与 multi-model plan 同时传入直接抛 ValueError,且 production 强制走 multi-model;测试要单模型必须显式传 provider。
-  - slot 相位表硬编码 3 处:review_worker.py:1236-1241(_provider_request_audit 的相位清单)、review_checkpoint.py:23(_CHECKPOINT_PHASE_PATTERN)、multi_model_runtime.py:90-104(slot 定义)——注意相位清单还残留 'candidate:grok',与运行时实际 slot(gemini/tokenrhythm/hunyuan)不一致,新增/改 slot 必须三处同步。
+  - slot 相位表硬编码 3 处:review_worker.py(_provider_request_audit 的相位清单)、review_checkpoint.py(_CHECKPOINT_PHASE_PATTERN)、multi_model_runtime.py(slot 定义)。相位清单保留旧 slot 仅用于历史审计读取；当前正式写入 slot 为 tokenrhythm/hunyuan，新增或改 slot 必须三处同步。
   - 同一 job 的 provider 调用跨重试用固定 call_key(essay-review:{job_id}:{phase})保证幂等,provider 返回的 output_fingerprint 变了视为 idempotency violation 非重试;不要改 call_key 构成。
   - 评审结果无论成败都会退款/消费额度,且 checkpoint 在成功路径 delete_for_job;中途改动 quota 语义会破坏计费对账。
 - **关联**: 提交与批改队列、评审证据链、ai/model_cost(价格卡)与 ai/governance(AI 治理证据)

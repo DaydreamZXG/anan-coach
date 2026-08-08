@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import json
+
 from app.core.config import Settings, get_settings
 from app.domains.essay_intelligence.multi_model_runtime import (
+    EssayMultiModelRuntimePlan,
     _price_cards,
     _primary_settings,
     _tokenrhythm_settings,
@@ -81,7 +84,6 @@ def test_price_contract_requires_tokenrhythm_instead_of_grok() -> None:
     prices = _price_cards(
         __import__("json").dumps(
             {
-                "gemini": item,
                 "tokenrhythm": item,
                 "hunyuan": item,
                 "adjudicator": item,
@@ -89,7 +91,42 @@ def test_price_contract_requires_tokenrhythm_instead_of_grok() -> None:
         )
     )
 
-    assert set(prices) == {"gemini", "tokenrhythm", "hunyuan", "adjudicator"}
+    assert set(prices) == {"tokenrhythm", "hunyuan", "adjudicator"}
+
+
+def test_formal_execution_identity_no_longer_requires_gemini(monkeypatch) -> None:
+    item = {
+        "version": "2026-08-08",
+        "inputCnyPerMillion": "1",
+        "cachedInputCnyPerMillion": "0.2",
+        "outputCnyPerMillion": "2",
+    }
+    monkeypatch.setenv(
+        "CLOUDBASE_HUNYUAN_RELEASE_ID",
+        "hunyuan-cloud-function-2026-08-08.1",
+    )
+    monkeypatch.setenv("CLOUDBASE_HUNYUAN_MODEL", "hunyuan-2.0-instruct-20251111")
+    monkeypatch.setenv(
+        "AI_ESSAY_ADJUDICATOR_PROVIDER_RELEASE_ID",
+        "tokenrhythm-deepseek-v4-flash-adjudicator",
+    )
+    monkeypatch.setenv("AI_ESSAY_ADJUDICATOR_MODEL", "deepseek-v4-flash")
+    settings = Settings(
+        ai_essay_grading_plan_release_id="essay-grading-2model-2026-08-08.1",
+        ai_essay_grading_price_cards_json=json.dumps(
+            {key: item for key in ("tokenrhythm", "hunyuan", "adjudicator")}
+        ),
+        ai_essay_tokenrhythm_model="deepseek-v4-flash",
+        ai_essay_tokenrhythm_provider_release_id="tokenrhythm-deepseek-v4-flash",
+        ai_essay_primary_base_url="",
+        ai_essay_primary_api_key="",
+        ai_essay_review_provider_release_id="",
+    )
+
+    identity = EssayMultiModelRuntimePlan.execution_identity_from_settings(settings)
+
+    assert identity.provider == "essay-multi-model@essay-grading-2model-2026-08-08.1"
+    assert identity.model.startswith("plan-sha256:")
 
 
 def test_checkpoint_contract_reads_grok_history_and_writes_tokenrhythm() -> None:
