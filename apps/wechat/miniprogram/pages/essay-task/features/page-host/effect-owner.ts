@@ -1,11 +1,7 @@
 import { sameSessionOwner, type ActiveAuthSession } from "../../../../auth/session";
 
 export type EssayTaskEffectLane =
-  | "workspace"
-  | "submission"
-  | "review-poll"
-  | "voice"
-  | "handwriting";
+  "workspace" | "submission" | "review-poll" | "voice" | "handwriting";
 
 export type EssayTaskVisibilityPolicy = "visible-only" | "background-settle";
 
@@ -22,6 +18,7 @@ export const essayTaskEffectPolicies: Readonly<
 export interface EssayTaskEffectLease {
   readonly lane: EssayTaskEffectLane;
   readonly laneGeneration: number;
+  readonly replacedActive: boolean;
   readonly owner: ActiveAuthSession;
   readonly page: object;
   readonly visibilityPolicy: EssayTaskVisibilityPolicy;
@@ -75,12 +72,14 @@ export class EssayTaskEffectOwner {
     current: ActiveAuthSession | undefined,
   ): EssayTaskEffectLease | null {
     if (!this.visible || !this.matches(page, current)) return null;
+    const replacedActive = this.activeLaneGenerations.has(lane);
     const laneGeneration = (this.laneGenerations.get(lane) ?? 0) + 1;
     this.laneGenerations.set(lane, laneGeneration);
     this.activeLaneGenerations.set(lane, laneGeneration);
     return {
       lane,
       laneGeneration,
+      replacedActive,
       owner: this.owner,
       page: this.page,
       visibilityPolicy: essayTaskEffectPolicies[lane],
@@ -92,9 +91,15 @@ export class EssayTaskEffectOwner {
     lease: EssayTaskEffectLease | null,
     current: ActiveAuthSession | undefined,
   ): boolean {
+    return sameSessionOwner(current, this.owner) && this.ownsOrigin(page, lease);
+  }
+
+  /** Allows only the originating lease to process the 401 that cleared its own session. */
+  ownsOrigin(page: object, lease: EssayTaskEffectLease | null): boolean {
     return (
       lease !== null &&
-      this.matches(page, current) &&
+      !this.disposed &&
+      page === this.page &&
       lease.page === this.page &&
       sameSessionOwner(lease.owner, this.owner) &&
       this.activeLaneGenerations.get(lease.lane) === lease.laneGeneration &&
@@ -104,6 +109,16 @@ export class EssayTaskEffectOwner {
 
   hasActive(lane: EssayTaskEffectLane): boolean {
     return !this.disposed && this.activeLaneGenerations.has(lane);
+  }
+
+  finish(
+    page: object,
+    lease: EssayTaskEffectLease | null,
+    current: ActiveAuthSession | undefined,
+  ): boolean {
+    if (!this.owns(page, lease, current) || !lease) return false;
+    this.activeLaneGenerations.delete(lease.lane);
+    return true;
   }
 
   invalidate(lane: EssayTaskEffectLane): boolean {

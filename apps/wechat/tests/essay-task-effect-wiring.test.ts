@@ -7,13 +7,7 @@ import runtimeSource from "../miniprogram/pages/essay-task/features/page-runtime
 
 describe("essay task per-lane page wiring", () => {
   it("uses five explicit lanes without the global request epoch", () => {
-    for (const lane of [
-      "workspace",
-      "submission",
-      "review-poll",
-      "voice",
-      "handwriting",
-    ]) {
+    for (const lane of ["workspace", "submission", "review-poll", "voice", "handwriting"]) {
       expect(pageSource).toContain(`beginEffect(this, runtime, "${lane}")`);
     }
     expect(pageSource).not.toContain("requestEpoch");
@@ -39,7 +33,8 @@ describe("essay task per-lane page wiring", () => {
   });
 
   it("keeps the existing 401 recovery path behind an owned effect", () => {
-    expect(pageSource).toContain("enterEssayAuthRequired(this, runtime, error)");
+    expect(pageSource).toContain("enterEssayAuthRequiredForEffect(this, runtime, effect, error)");
+    expect(pageSource).toContain("pageRuntimes.isEffectCurrentOrSessionCleared(");
     expect(pageSource).toContain("pageRuntimes.invalidateAll(runtime)");
     expect(pageSource).toContain('status: "unavailable"');
     expect(pageSource).toContain("showLoginAction: true");

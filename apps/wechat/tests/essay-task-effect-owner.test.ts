@@ -35,6 +35,19 @@ describe("essay task per-lane effect owner", () => {
     expect(owner.owns(page, workspace, sessionA)).toBe(true);
   });
 
+  it("settles only the current lane lease", () => {
+    const page = {};
+    const owner = visibleOwner(page);
+    const poll = owner.begin(page, "review-poll", sessionA);
+    const voice = owner.begin(page, "voice", sessionA);
+
+    expect(owner.finish(page, poll, sessionA)).toBe(true);
+    expect(owner.hasActive("review-poll")).toBe(false);
+    expect(owner.hasActive("voice")).toBe(true);
+    expect(owner.finish(page, poll, sessionA)).toBe(false);
+    expect(owner.owns(page, voice, sessionA)).toBe(true);
+  });
+
   it("invalidates visible-only lanes on hide while allowing an active submission to settle", () => {
     const page = {};
     const owner = visibleOwner(page);
@@ -95,6 +108,18 @@ describe("essay task per-lane effect owner", () => {
     handwritingProgress();
 
     expect(writes).not.toHaveBeenCalled();
+  });
+
+  it("lets only the active originating lease handle the 401 that cleared its session", () => {
+    const page = {};
+    const owner = visibleOwner(page);
+    const expired = owner.begin(page, "submission", sessionA);
+
+    expect(owner.owns(page, expired, undefined)).toBe(false);
+    expect(owner.ownsOrigin(page, expired)).toBe(true);
+
+    owner.begin(page, "submission", sessionA);
+    expect(owner.ownsOrigin(page, expired)).toBe(false);
   });
 });
 
@@ -159,10 +184,42 @@ describe("essay task cancelled transient state", () => {
     expect(patch).not.toHaveProperty("submissionStatus");
     expect(patch).toMatchObject({ voiceRecording: false, voicePlayingSegmentId: "" });
   });
+
+  it("resets a submitting state when an account change invalidates the submission lane", () => {
+    const patch = cancelledVisibleEffectPatch(
+      {
+        submissionStatus: "submitting",
+        submissionMessage: "正在存答案…",
+        voiceRecording: false,
+        voicePlayingSegmentId: "",
+        handwriting: emptyHandwriting(),
+      },
+      {
+        reviewPoll: false,
+        voice: false,
+        handwriting: false,
+        submission: true,
+        submissionContinues: false,
+      },
+    );
+
+    expect(patch).toMatchObject({ submissionStatus: "idle", submissionMessage: "" });
+  });
 });
 
 function visibleOwner(page: object): EssayTaskEffectOwner {
   const owner = new EssayTaskEffectOwner(page, sessionA);
   expect(owner.show(page, sessionA)).toBe(true);
   return owner;
+}
+
+function emptyHandwriting() {
+  return {
+    phase: "idle" as const,
+    localImagePath: "",
+    progressPercent: 0,
+    message: "",
+    revision: null,
+    spans: [],
+  };
 }

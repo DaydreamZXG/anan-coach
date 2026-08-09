@@ -1,7 +1,4 @@
-import {
-  emptyHandwritingState,
-  type EssayHandwritingState,
-} from "../essay-handwriting/workflow";
+import { emptyHandwritingState, type EssayHandwritingState } from "../essay-handwriting/workflow";
 
 type SubmissionStatus = "idle" | "submitting" | "saved" | "error";
 
@@ -17,6 +14,7 @@ export interface CancelledVisibleEffects {
   reviewPoll: boolean;
   voice: boolean;
   handwriting: boolean;
+  submission?: boolean;
   submissionContinues: boolean;
 }
 
@@ -37,7 +35,7 @@ export function cancelledVisibleEffectPatch(
   if (
     state.submissionStatus === "submitting" &&
     !cancelled.submissionContinues &&
-    (cancelled.reviewPoll || cancelled.voice || cancelled.handwriting)
+    (cancelled.reviewPoll || cancelled.voice || cancelled.handwriting || cancelled.submission)
   ) {
     patch.submissionStatus = cancelled.reviewPoll ? "saved" : "idle";
     if (!cancelled.reviewPoll) patch.submissionMessage = "";

@@ -105,6 +105,7 @@ import {
   type ReviewDisplay,
 } from "./features/review-presentation";
 import { EssayTaskPageRuntimeRegistry, type EssayTaskPageRuntime } from "./features/page-runtime";
+import { cancelledVisibleEffectPatch } from "./features/page-host/transient-state";
 import {
   clearLegacyEssayPending,
   clearPendingDraftingSubmission as clearStoredDraftingSubmission,
@@ -443,9 +444,13 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       return;
     }
     if (!runtime.api) return;
+    if (!pageRuntimes.show(this, runtime, session)) return;
     runtime.pageVisible = true;
     if (runtime.startedAt > 0) startTimer(this, runtime);
-    if (this.data.status === "ready" && runtime.activeReviewJobId) {
+    if (runtime.workspaceRefreshOnShow) {
+      runtime.workspaceRefreshOnShow = false;
+      void this.loadWorkspace();
+    } else if (this.data.status === "ready" && runtime.activeReviewJobId) {
       scheduleReviewPoll(this, runtime, 0);
     } else if (
       this.data.status === "ready" &&
@@ -466,11 +471,22 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const runtime = pageRuntimes.get(this);
     if (!runtime) return;
     flushDraftingAutosave(this, runtime);
+    const invalidated = pageRuntimes.hide(runtime);
+    runtime.workspaceRefreshOnShow = invalidated.has("workspace");
     runtime.pageVisible = false;
     stopTimer(runtime);
     stopReviewPoll(runtime);
+    runtime.reviewPollInFlight = false;
     runtime.voiceRecorder?.stop();
     runtime.voicePreview?.stop();
+    this.setData(
+      cancelledVisibleEffectPatch(this.data, {
+        reviewPoll: invalidated.has("review-poll"),
+        voice: invalidated.has("voice"),
+        handwriting: invalidated.has("handwriting"),
+        submissionContinues: pageRuntimes.hasActiveEffect(runtime, "submission"),
+      }),
+    );
   },
 
   onUnload() {
@@ -488,14 +504,15 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (!runtime?.api || !runtime.activeStage || !runtime.activeTaskVersionId) {
       return;
     }
-    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    const effect = pageRuntimes.beginEffect(this, runtime, "workspace");
+    if (!effect) return;
     const api = runtime.api;
     const activeStage = runtime.activeStage;
     const activeTaskVersionId = runtime.activeTaskVersionId;
     this.setData({ status: "loading", errorTitle: "", errorMessage: "" });
     try {
       const workspace = (await api.getWorkspace(activeTaskVersionId)).data;
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const pendingReview = reviewRecovery(runtime.pendingDraftingSubmission);
       runtime.activeReviewIntent = workspace.progression.reviewIntent ?? null;
       runtime.activeReviewJobId =
@@ -614,14 +631,16 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         void this.loadClosureContext();
       }
     } catch (error) {
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
-      if (enterEssayAuthRequired(this, runtime, error)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const apiError = error instanceof ApiClientError ? error : null;
       this.setData({
         status: "error",
         errorTitle: apiError?.statusCode === 404 ? "这道题暂时看不了" : "申论任务没加载出来",
         errorMessage: apiError ? apiError.message : "申论任务没加载出来，别急，再试一次就好。",
       });
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -1084,17 +1103,23 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
   async chooseHandwritingImage(event: WechatMiniprogram.BaseEvent) {
     const runtime = pageRuntimes.get(this);
     if (!runtime?.essayHandwritingApi || this.data.handwriting.phase === "uploading") return;
+    const effect = pageRuntimes.beginEffect(this, runtime, "handwriting");
+    if (!effect) return;
     const source = event.currentTarget.dataset.source === "camera" ? "camera" : "album";
     try {
       if (source === "camera") {
         let permission = await ensureCameraPermission();
-        if (permission === "denied" && (await requestCameraSetting())) permission = "granted";
+        if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
+        if (permission === "denied") {
+          if (await requestCameraSetting()) permission = "granted";
+          if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
+        }
         if (permission !== "granted") {
           throw new EssayHandwritingError("未获得相机权限，没有上传任何手写答案。");
         }
       }
       const file = await chooseSourceImage(source, "申论手写答案.jpg");
-      if (!file) return;
+      if (!file || !pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       this.setData({
         handwriting: {
           ...emptyHandwritingState(),
@@ -1104,11 +1129,12 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         },
       });
       const idempotencyKey = await createIdempotencyKey("essay-handwriting");
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const revision = await runtime.essayHandwritingApi.createRecognition(
         file,
         idempotencyKey,
         (progress) => {
-          if (!pageRuntimes.owns(this, runtime)) return;
+          if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
           this.setData({
             handwriting: {
               ...this.data.handwriting,
@@ -1117,11 +1143,11 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           });
         },
       );
-      if (!pageRuntimes.owns(this, runtime)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       this.setData({ handwriting: reviewingHandwritingState(revision, file.localPath) });
     } catch (error) {
-      if (!pageRuntimes.owns(this, runtime)) return;
-      if (enterEssayAuthRequired(this, runtime, error)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       this.setData({
         handwriting: {
           ...this.data.handwriting,
@@ -1129,6 +1155,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           message: handwritingErrorMessage(error),
         },
       });
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -1152,6 +1180,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const runtime = pageRuntimes.get(this);
     const sourceRevision = this.data.handwriting.revision;
     if (!runtime?.essayHandwritingApi || !sourceRevision) return;
+    const effect = pageRuntimes.beginEffect(this, runtime, "handwriting");
+    if (!effect) return;
     try {
       const spans = correctionSpans(this.data.handwriting);
       const answerText = canonicalHandwritingText(this.data.handwriting);
@@ -1164,17 +1194,22 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       });
       let candidate = sourceRevision;
       if (needsRecognitionCorrection(this.data.handwriting)) {
+        const correctionKey = await createIdempotencyKey("essay-handwriting-correct");
+        if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
         candidate = await runtime.essayHandwritingApi.correctRecognition(
           sourceRevision,
           spans,
-          await createIdempotencyKey("essay-handwriting-correct"),
+          correctionKey,
         );
+        if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       }
+      const confirmationKey = await createIdempotencyKey("essay-handwriting-confirm");
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const confirmed = await runtime.essayHandwritingApi.confirmRecognition(
         candidate,
-        await createIdempotencyKey("essay-handwriting-confirm"),
+        confirmationKey,
       );
-      if (!pageRuntimes.owns(this, runtime)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const binding = confirmedHandwritingBinding(confirmed);
       if (runtime.activeStage === "essay_drafting") {
         this.setData({
@@ -1219,8 +1254,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         submissionMessage: "核对好的手写文字已经填进当前答案。",
       });
     } catch (error) {
-      if (!pageRuntimes.owns(this, runtime)) return;
-      if (enterEssayAuthRequired(this, runtime, error)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       this.setData({
         handwriting: {
           ...this.data.handwriting,
@@ -1228,6 +1263,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           message: handwritingErrorMessage(error),
         },
       });
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -1248,12 +1285,13 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const runtime = pageRuntimes.get(this);
     const workspace = this.data.workspace;
     if (!runtime?.api || !runtime.writerContext || !workspace) return;
-    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    const effect = pageRuntimes.beginEffect(this, runtime, "workspace");
+    if (!effect) return;
     try {
       if (runtime.writerContext.kind === "rewrite") {
         const context = runtime.writerContext;
         const review = (await runtime.api.getGroundedReview(context.baseReviewVersionId)).data;
-        if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+        if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
         if (
           review.status !== "completed" ||
           review.attemptId !== context.attemptId ||
@@ -1300,7 +1338,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         throw new EssayClosureError("新题或新材料与当前计划不一致，请重新进入。");
       }
       const mastery = (await runtime.api.getMastery()).data;
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const sourceItems = mastery.items.filter(
         (item) =>
           item.state === "transfer_due" &&
@@ -1320,7 +1358,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         throw new EssayClosureError("没有找到上一次完整评阅，请从今日计划重新进入。");
       }
       const sourceReview = (await runtime.api.getGroundedReview(sourceReviewVersionId)).data;
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       if (sourceReview.status !== "completed") {
         throw new EssayClosureError("上一次评阅还没有完整完成，暂时不能进行迁移比较。");
       }
@@ -1330,7 +1368,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       let transferReview: EssayReviewResponse | null = null;
       if (transferDraft.reviewVersionId) {
         transferReview = (await runtime.api.getGroundedReview(transferDraft.reviewVersionId)).data;
-        if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+        if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
         runtime.transferReview = transferReview;
       }
       this.setData({
@@ -1355,14 +1393,16 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         scheduleTransferPoll(this, runtime, 0);
       }
     } catch (error) {
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
-      if (enterEssayAuthRequired(this, runtime, error)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       this.setData({
         canSubmit: false,
         submissionStatus: "error",
         submissionMessage: closureErrorMessage(error),
         blockingReason: closureErrorMessage(error),
       });
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -1526,7 +1566,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     ) {
       return;
     }
-    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    const effect = pageRuntimes.beginEffect(this, runtime, "submission");
+    if (!effect) return;
     try {
       const existing = runtime.closureDraft?.kind === "rewrite" ? runtime.closureDraft : null;
       let atomicCommand = existing?.atomicCommand;
@@ -1545,7 +1586,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           runtime.basedOnExecutionVersionId,
         );
         idempotencyKey = await createIdempotencyKey("essay-rewrite-complete-plan-task");
-        if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+        if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
         runtime.closureDraft = {
           kind: "rewrite",
           taskVersionId: runtime.activeTaskVersionId,
@@ -1565,14 +1606,14 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       });
       const result = (await runtime.api.completeRewritePlanTask(atomicCommand, idempotencyKey))
         .data;
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       publishLatestTodayDashboard(result.completion.plan);
       clearEssayClosureDraft(runtime.activeUserId, runtime.activePlanTaskId);
       runtime.closureDraft = null;
       applyRewriteResult(this, result);
     } catch (error) {
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
-      if (enterEssayAuthRequired(this, runtime, error)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const terminalConflict = isTerminalClosureConflict(error);
       if (terminalConflict && runtime.closureDraft?.kind === "rewrite") {
         runtime.closureDraft = { ...runtime.closureDraft, terminalConflict: true };
@@ -1590,6 +1631,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           ? { blockingReason: "这次的改写依据已经更新，不会反复重试旧命令。" }
           : {}),
       });
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -1608,7 +1651,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     ) {
       return;
     }
-    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    const effect = pageRuntimes.beginEffect(this, runtime, "submission");
+    if (!effect) return;
     let draft = this.data.transferDraft;
     try {
       this.setData({
@@ -1633,7 +1677,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           draft = nextDraft;
           persistTransferDraft(this, nextDraft);
         },
-        isActive: () => pageRuntimes.isCurrent(this, runtime, requestEpoch),
+        isActive: () => pageRuntimes.isEffectCurrent(this, runtime, effect),
       });
       if (flow.state === "stale") return;
       draft = flow.draft;
@@ -1655,8 +1699,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         masteryLabel: masterySummary(flow.result.masteryVersions),
       });
     } catch (error) {
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
-      if (enterEssayAuthRequired(this, runtime, error)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const terminalConflict = isTerminalClosureConflict(error);
       if (terminalConflict) {
         draft = { ...draft, phase: "context_invalid" };
@@ -1674,6 +1718,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           ? { blockingReason: "这次的换题依据已经更新，不会反复重试旧命令。" }
           : {}),
       });
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -1690,14 +1736,15 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     ) {
       return;
     }
-    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    const effect = pageRuntimes.beginEffect(this, runtime, "review-poll");
+    if (!effect) return;
     runtime.reviewPollInFlight = true;
     stopReviewPoll(runtime);
     try {
       const sourceReview = runtime.transferSourceReview;
       if (!sourceReview) throw new EssayClosureError("源评阅尚未加载。");
       const poll = await pollEssayTransferReview(runtime.api, draft, sourceReview);
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       if (poll.state === "pending") {
         this.setData({
           submissionStatus: "submitting",
@@ -1719,8 +1766,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         canSubmit: true,
       });
     } catch (error) {
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
-      if (enterEssayAuthRequired(this, runtime, error)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       this.setData({
         submissionStatus: "error",
         submissionMessage: closureErrorMessage(error),
@@ -1728,7 +1775,10 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         draftLocked: true,
       });
     } finally {
-      runtime.reviewPollInFlight = false;
+      if (pageRuntimes.isEffectCurrent(this, runtime, effect)) {
+        runtime.reviewPollInFlight = false;
+      }
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -1737,61 +1787,85 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (!runtime?.voiceRecorder || this.data.voiceRecording || !this.data.voiceSummary.canRecord) {
       return;
     }
-    let permission = await ensureRecordPermission();
-    if (permission === "denied" && (await requestRecordSetting())) permission = "granted";
-    if (permission !== "granted") {
-      this.setData({
-        submissionStatus: "error",
-        submissionMessage: "没拿到麦克风权限，所以没有录到声音。去系统设置里打开麦克风就行。",
-      });
-      return;
-    }
-    this.setData({ voiceRecording: true, submissionMessage: "正在录制这次复盘…" });
-    runtime.voiceRecorder.start(
-      (recorded) => {
-        void (async () => {
-          try {
-            const localPath = await persistRecordedVoice(recorded.tempFilePath);
-            if (!pageRuntimes.owns(this, runtime)) return;
-            const segmentId = await createIdempotencyKey("essay-reflection-voice");
-            if (!pageRuntimes.owns(this, runtime)) return;
-            const segment: ReflectionVoiceSegment = {
-              segmentId,
-              localPath,
-              originalFilename: `reflection-${segmentId.slice(-20)}.mp3`,
-              mimeType: recorded.mimeType,
-              byteSize: recorded.byteSize,
-              durationMilliseconds: recorded.durationMilliseconds,
-              state: "local",
-            };
-            const segments = [...this.data.voiceSegments, segment];
-            validateVoiceCollection(segments);
-            persistVoiceSegments(runtime, segments);
-            applyVoiceSegments(this, segments);
-            this.setData({
-              voiceRecording: false,
-              submissionStatus: "idle",
-              submissionMessage: "录音已存成本地草稿，提交前要先上传、等检查通过。",
-            });
-          } catch (error) {
-            if (!pageRuntimes.owns(this, runtime)) return;
+    const effect = pageRuntimes.beginEffect(this, runtime, "voice");
+    if (!effect) return;
+    cancelReplacedVoiceEffect(this, runtime, effect.replacedActive);
+    try {
+      let permission = await ensureRecordPermission();
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
+      if (permission === "denied") {
+        if (await requestRecordSetting()) permission = "granted";
+        if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
+      }
+      if (permission !== "granted") {
+        this.setData({
+          submissionStatus: "error",
+          submissionMessage: "没拿到麦克风权限，所以没有录到声音。去系统设置里打开麦克风就行。",
+        });
+        pageRuntimes.finishEffect(this, runtime, effect);
+        return;
+      }
+      this.setData({ voiceRecording: true, submissionMessage: "正在录制这次复盘…" });
+      runtime.voiceRecorder.start(
+        (recorded) => {
+          if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
+          void (async () => {
+            try {
+              const localPath = await persistRecordedVoice(recorded.tempFilePath);
+              if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
+              const segmentId = await createIdempotencyKey("essay-reflection-voice");
+              if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
+              const segment: ReflectionVoiceSegment = {
+                segmentId,
+                localPath,
+                originalFilename: `reflection-${segmentId.slice(-20)}.mp3`,
+                mimeType: recorded.mimeType,
+                byteSize: recorded.byteSize,
+                durationMilliseconds: recorded.durationMilliseconds,
+                state: "local",
+              };
+              const segments = [...this.data.voiceSegments, segment];
+              validateVoiceCollection(segments);
+              persistVoiceSegments(runtime, segments);
+              applyVoiceSegments(this, segments);
+              this.setData({
+                voiceRecording: false,
+                submissionStatus: "idle",
+                submissionMessage: "录音已存成本地草稿，提交前要先上传、等检查通过。",
+              });
+            } catch (error) {
+              if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
+              this.setData({
+                voiceRecording: false,
+                submissionStatus: "error",
+                submissionMessage: closureErrorMessage(error),
+              });
+            } finally {
+              pageRuntimes.finishEffect(this, runtime, effect);
+            }
+          })();
+        },
+        (error) => {
+          if (pageRuntimes.isEffectCurrent(this, runtime, effect)) {
             this.setData({
               voiceRecording: false,
               submissionStatus: "error",
-              submissionMessage: closureErrorMessage(error),
+              submissionMessage: error.message,
             });
           }
-        })();
-      },
-      (error) => {
-        if (!pageRuntimes.owns(this, runtime)) return;
+          pageRuntimes.finishEffect(this, runtime, effect);
+        },
+      );
+    } catch (error) {
+      if (pageRuntimes.isEffectCurrent(this, runtime, effect)) {
         this.setData({
           voiceRecording: false,
           submissionStatus: "error",
-          submissionMessage: error.message,
+          submissionMessage: closureErrorMessage(error),
         });
-      },
-    );
+      }
+      pageRuntimes.finishEffect(this, runtime, effect);
+    }
   },
 
   stopVoiceRecording() {
@@ -1801,7 +1875,9 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
   async uploadVoiceSegments() {
     const runtime = pageRuntimes.get(this);
     if (!runtime?.voiceUploadCoordinator || !this.data.voiceSegments.length) return;
-    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    const effect = pageRuntimes.beginEffect(this, runtime, "voice");
+    if (!effect) return;
+    cancelReplacedVoiceEffect(this, runtime, effect.replacedActive);
     this.setData({
       submissionStatus: "submitting",
       submissionMessage: "正在上传复盘录音，等检查通过…",
@@ -1810,13 +1886,13 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       const segments = await runtime.voiceUploadCoordinator.uploadAll(
         this.data.voiceSegments,
         (next) => {
-          if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+          if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
           persistVoiceSegments(runtime, next);
           applyVoiceSegments(this, next);
         },
-        () => pageRuntimes.isCurrent(this, runtime, requestEpoch),
+        () => pageRuntimes.isEffectCurrent(this, runtime, effect),
       );
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       persistVoiceSegments(runtime, segments);
       applyVoiceSegments(this, segments);
       const failed = segments.some((segment) => segment.state !== "available");
@@ -1827,9 +1903,11 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           : "录音都通过检查了，可以随复盘一起提交。",
       });
     } catch (error) {
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
-      if (enterEssayAuthRequired(this, runtime, error)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       this.setData({ submissionStatus: "error", submissionMessage: closureErrorMessage(error) });
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -1838,22 +1916,43 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const segmentId = String(event.currentTarget.dataset.segmentId ?? "");
     const segment = this.data.voiceSegments.find((item) => item.segmentId === segmentId);
     if (!runtime?.voicePreview || !segment) return;
-    runtime.voicePreview.play(
-      segment.localPath,
-      () => {
-        this.setData({ voicePlayingSegmentId: "" });
-      },
-      (error) => {
+    const stopping = this.data.voicePlayingSegmentId === segmentId;
+    const effect = pageRuntimes.beginEffect(this, runtime, "voice");
+    if (!effect) return;
+    cancelReplacedVoiceEffect(this, runtime, effect.replacedActive);
+    if (stopping) {
+      pageRuntimes.finishEffect(this, runtime, effect);
+      return;
+    }
+    try {
+      runtime.voicePreview.play(
+        segment.localPath,
+        () => {
+          if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
+          this.setData({ voicePlayingSegmentId: "" });
+          pageRuntimes.finishEffect(this, runtime, effect);
+        },
+        (error) => {
+          if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
+          this.setData({
+            voicePlayingSegmentId: "",
+            submissionStatus: "error",
+            submissionMessage: error.message,
+          });
+          pageRuntimes.finishEffect(this, runtime, effect);
+        },
+      );
+      this.setData({ voicePlayingSegmentId: segmentId });
+    } catch (error) {
+      if (pageRuntimes.isEffectCurrent(this, runtime, effect)) {
         this.setData({
           voicePlayingSegmentId: "",
           submissionStatus: "error",
-          submissionMessage: error.message,
+          submissionMessage: closureErrorMessage(error),
         });
-      },
-    );
-    this.setData({
-      voicePlayingSegmentId: this.data.voicePlayingSegmentId === segmentId ? "" : segmentId,
-    });
+      }
+      pageRuntimes.finishEffect(this, runtime, effect);
+    }
   },
 
   async removeVoiceSegment(event: WechatMiniprogram.BaseEvent) {
@@ -1862,20 +1961,26 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const segment = this.data.voiceSegments.find((item) => item.segmentId === segmentId);
     if (!runtime || !segment || ["authorizing", "uploading", "scanning"].includes(segment.state))
       return;
-    const confirm = await wx.showModal({
-      title: "删除这段录音？",
-      content: "删掉后这次申论就不会带上它，本机的录音也会一起清掉。",
-      confirmText: "确认删除",
-    });
-    if (!confirm.confirm || !pageRuntimes.owns(this, runtime)) return;
+    const effect = pageRuntimes.beginEffect(this, runtime, "voice");
+    if (!effect) return;
+    cancelReplacedVoiceEffect(this, runtime, effect.replacedActive);
     try {
+      const confirm = await wx.showModal({
+        title: "删除这段录音？",
+        content: "删掉后这次申论就不会带上它，本机的录音也会一起清掉。",
+        confirmText: "确认删除",
+      });
+      if (!confirm.confirm || !pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       await deleteLocalVoice(segment.localPath);
-      if (!pageRuntimes.owns(this, runtime)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const segments = this.data.voiceSegments.filter((item) => item.segmentId !== segmentId);
       persistVoiceSegments(runtime, segments);
       applyVoiceSegments(this, segments);
     } catch (error) {
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       this.setData({ submissionStatus: "error", submissionMessage: closureErrorMessage(error) });
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -1907,7 +2012,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     ) {
       return;
     }
-    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    const effect = pageRuntimes.beginEffect(this, runtime, "submission");
+    if (!effect) return;
     try {
       if (!runtime.pendingDraftingSubmission) {
         if (this.data.voiceSegments.some((segment) => segment.state !== "available")) {
@@ -1934,7 +2040,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           },
         );
         const idempotencyKey = await createIdempotencyKey("essay-drafting-complete");
-        if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+        if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
         runtime.pendingDraftingSubmission = {
           phase: "completion_pending",
           taskVersionId: runtime.activeTaskVersionId,
@@ -1951,12 +2057,14 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       }
       await this.resumeDraftingSubmission();
     } catch (error) {
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const message =
         error instanceof EssayDraftingError
           ? error.message
           : "作答命令尚未建立，请检查输入后重试。";
       this.setData({ submissionStatus: "error", submissionMessage: message });
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -1973,7 +2081,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       await this.resumeCurrentReview();
       return;
     }
-    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    const effect = pageRuntimes.beginEffect(this, runtime, "submission");
+    if (!effect) return;
     const api = runtime.api;
     this.setData({
       submissionStatus: "submitting",
@@ -1989,7 +2098,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           completionPending.completion.idempotencyKey,
         )
       ).data;
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const receipt: DraftingCompletionReceipt = {
         attemptId: result.attempt.attemptId,
         answerVersionId: result.answer.answerVersionId,
@@ -2026,8 +2135,11 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       });
       await this.resumeCurrentReview();
     } catch (error) {
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       handleDraftingRequestError(this, runtime, error);
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -2049,12 +2161,13 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       if (runtime.activeReviewJobId) scheduleReviewPoll(this, runtime, 0);
       return;
     }
-    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    const effect = pageRuntimes.beginEffect(this, runtime, "submission");
+    if (!effect) return;
     let ensure = pending?.ensure;
     try {
       if (!ensure) {
         const idempotencyKey = await createIdempotencyKey("essay-review-ensure");
-        if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+        if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
         ensure = { idempotencyKey };
         if (pending) {
           runtime.pendingDraftingSubmission = { ...pending, ensure };
@@ -2073,7 +2186,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           ensure.idempotencyKey,
         )
       ).data;
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       if (result.intent.status === "queued" && !result.job) {
         throw new EssayDraftingError("评阅任务已排队，但没拿到处理记录，重新加载看看。");
       }
@@ -2110,8 +2223,11 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       if (result.job) applyReviewJob(this, runtime, result.job);
       else applyReviewIntent(this, runtime, result.intent);
     } catch (error) {
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       handleDraftingRequestError(this, runtime, error);
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -2123,13 +2239,14 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (!runtime?.api || !jobId || runtime.reviewPollInFlight || !runtime.pageVisible) {
       return;
     }
-    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    const effect = pageRuntimes.beginEffect(this, runtime, "review-poll");
+    if (!effect) return;
     const api = runtime.api;
     runtime.reviewPollInFlight = true;
     stopReviewPoll(runtime);
     try {
       const job = (await api.getGroundedReviewJob(jobId)).data;
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       runtime.activeReviewJobId = job.jobId;
       const pendingReview = reviewRecovery(runtime.pendingDraftingSubmission);
       const ensure = pendingReview?.ensure;
@@ -2145,8 +2262,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       }
       applyReviewJob(this, runtime, job);
     } catch (error) {
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
-      if (enterEssayAuthRequired(this, runtime, error)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const apiError = error instanceof ApiClientError ? error : null;
       this.setData({
         submissionStatus: "error",
@@ -2157,7 +2274,10 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       });
       scheduleReviewPoll(this, runtime, 5_000);
     } finally {
-      runtime.reviewPollInFlight = false;
+      if (pageRuntimes.isEffectCurrent(this, runtime, effect)) {
+        runtime.reviewPollInFlight = false;
+      }
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -2170,7 +2290,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     ) {
       return;
     }
-    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    const effect = pageRuntimes.beginEffect(this, runtime, "submission");
+    if (!effect) return;
     const api = runtime.api;
     const sourceJobId = runtime.activeReviewJobId;
     const idempotencyKey = `essay-review-regenerate:${sourceJobId}`;
@@ -2182,7 +2303,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     });
     try {
       const job = (await api.regenerateGroundedReview(sourceJobId, idempotencyKey)).data;
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       runtime.activeReviewJobId = job.jobId;
       const pendingReview = reviewRecovery(runtime.pendingDraftingSubmission);
       if (pendingReview?.ensure) {
@@ -2199,8 +2320,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       }
       applyReviewJob(this, runtime, job);
     } catch (error) {
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
-      if (enterEssayAuthRequired(this, runtime, error)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const apiError = error instanceof ApiClientError ? error : null;
       this.setData({
         submissionStatus: "error",
@@ -2209,17 +2330,20 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           : "刚才的重评结果还没确认，原评阅进度还留着，直接再试就行。",
         canRegenerateReview: true,
       });
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
   async loadExistingReview(reviewVersionId: string) {
     const runtime = pageRuntimes.get(this);
     if (!runtime?.api) return;
-    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    const effect = pageRuntimes.beginEffect(this, runtime, "workspace");
+    if (!effect) return;
     const api = runtime.api;
     try {
       const review = (await api.getGroundedReview(reviewVersionId)).data;
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const display = presentGroundedReview(review);
       this.setData({
         reviewDisplay: display,
@@ -2233,13 +2357,15 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           (display.state === "blocked" || display.state === "failed"),
       });
     } catch (error) {
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
-      if (enterEssayAuthRequired(this, runtime, error)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const apiError = error instanceof ApiClientError ? error : null;
       this.setData({
         submissionStatus: "error",
         submissionMessage: apiError ? `评阅没加载出来：${apiError.message}` : "评阅没加载出来。",
       });
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 
@@ -2254,7 +2380,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     ) {
       return;
     }
-    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    const effect = pageRuntimes.beginEffect(this, runtime, "submission");
+    if (!effect) return;
     const api = runtime.api;
     const activeStage = runtime.activeStage;
     try {
@@ -2277,7 +2404,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
             : {}),
         };
         const idempotencyKey = await createIdempotencyKey("essay-complete");
-        if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+        if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
         runtime.pendingCompletion = {
           taskVersionId: runtime.activeTaskVersionId,
           stage: activeStage,
@@ -2299,7 +2426,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           runtime.pendingCompletion.idempotencyKey,
         )
       ).data;
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       clearStoredPlanTaskCompletion(runtime.activeUserId, runtime.activePlanTaskId);
       runtime.pendingCompletion = null;
       publishLatestTodayDashboard(result.completion.plan);
@@ -2327,8 +2454,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         submissionMessage: "这次的学习记录已存好，今天的任务完成了。",
       });
     } catch (error) {
-      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
-      if (enterEssayAuthRequired(this, runtime, error)) return;
+      if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
+      if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
       const apiError = error instanceof ApiClientError ? error : null;
       const conflict = apiError?.statusCode === 409;
       const taskExpired = apiError?.payload?.code === "plan_task_expired";
@@ -2353,6 +2480,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           ? "任务确实已经过期啦，回今日页重新进一次；你填的内容都在本机留着。"
           : this.data.blockingReason,
       });
+    } finally {
+      pageRuntimes.finishEffect(this, runtime, effect);
     }
   },
 });
@@ -2366,9 +2495,21 @@ function bindEssaySession(
   if (runtime.activeUserId && runtime.activeUserId !== session.userId) {
     flushDraftingAutosave(page, runtime);
   }
-  pageRuntimes.beginRequest(runtime);
+  const invalidated = pageRuntimes.invalidateAll(runtime);
+  page.setData(
+    cancelledVisibleEffectPatch(page.data, {
+      reviewPoll: invalidated.has("review-poll"),
+      voice: invalidated.has("voice"),
+      handwriting: invalidated.has("handwriting"),
+      submission: invalidated.has("submission"),
+      submissionContinues: false,
+    }),
+  );
+  pageRuntimes.bindEffects(page, runtime, session);
+  runtime.workspaceRefreshOnShow = false;
   stopTimer(runtime);
   stopReviewPoll(runtime);
+  runtime.reviewPollInFlight = false;
   runtime.voiceRecorder?.dispose();
   runtime.voicePreview?.dispose();
   runtime.activeUserId = session.userId;
@@ -2442,7 +2583,7 @@ function enterEssayAuthRequired(
   if (!pageRuntimes.owns(page, runtime)) return true;
 
   flushDraftingAutosave(page, runtime);
-  pageRuntimes.beginRequest(runtime);
+  pageRuntimes.invalidateAll(runtime);
   runtime.pageVisible = false;
   stopTimer(runtime);
   stopReviewPoll(runtime);
@@ -2466,6 +2607,20 @@ function enterEssayAuthRequired(
     canSubmit: false,
   });
   return true;
+}
+
+function enterEssayAuthRequiredForEffect(
+  page: EssayTaskPageInstance,
+  runtime: EssayTaskPageRuntime,
+  effect: Parameters<typeof pageRuntimes.isEffectCurrent>[2],
+  error: unknown,
+): boolean {
+  return (
+    error instanceof ApiClientError &&
+    error.statusCode === 401 &&
+    pageRuntimes.isEffectCurrentOrSessionCleared(page, runtime, effect) &&
+    enterEssayAuthRequired(page, runtime, error)
+  );
 }
 
 function essayTaskReturnUrl(
@@ -2677,6 +2832,24 @@ function essayWorkbenchLinks(
 
 function isTerminalClosureConflict(error: unknown): boolean {
   return error instanceof ApiClientError && error.statusCode === 409;
+}
+
+function cancelReplacedVoiceEffect(
+  page: EssayTaskPageInstance,
+  runtime: EssayTaskPageRuntime,
+  replacedActive: boolean,
+): void {
+  if (!replacedActive) return;
+  runtime.voiceRecorder?.stop();
+  runtime.voicePreview?.stop();
+  page.setData(
+    cancelledVisibleEffectPatch(page.data, {
+      reviewPoll: false,
+      voice: true,
+      handwriting: false,
+      submissionContinues: pageRuntimes.hasActiveEffect(runtime, "submission"),
+    }),
+  );
 }
 
 function voiceDraftScope(planTaskId: string): string {
