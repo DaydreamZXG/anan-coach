@@ -1,6 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
 
 import { PrivateKnowledgeRequestOwner } from "../miniprogram/pages/private-knowledge/features/page-runtime/request-owner";
+// @ts-expect-error Vite exposes mini-program sources through its raw asset loader.
+import pageSource from "../miniprogram/pages/private-knowledge/index.ts?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import pageStyles from "../miniprogram/pages/private-knowledge/index.wxss?raw";
 
 const sessionA = {
   userId: "user-a",
@@ -44,5 +48,24 @@ describe("private knowledge request owner", () => {
     } finally {
       vi.useRealTimers();
     }
+  });
+
+  it("guards list, search, import and deletion polling at the page boundary", () => {
+    expect(pageSource).toContain('beginRequest(this, "sources")');
+    expect(pageSource).toContain('beginRequest(this, "search")');
+    expect(pageSource).toContain('beginRequest(this, "import")');
+    expect(pageSource).toContain('beginRequest(this, "delete")');
+    expect(pageSource).toContain("pageRuntimes.get(this)?.requests.hide()");
+    expect(pageSource).toContain("request.runtime.requests.delay(");
+    expect(pageSource).toContain(
+      "request.runtime.requests.owns(request.lease, currentAuthSession())",
+    );
+  });
+
+  it("uses width-only compact, medium and wide layout boundaries", () => {
+    expect(pageStyles).toContain("@media (min-width: 600px)");
+    expect(pageStyles).toContain("@media (min-width: 1024px)");
+    expect(pageStyles).not.toMatch(/min-width:\s*(700|768)px/u);
+    expect(pageStyles).not.toContain("orientation:");
   });
 });

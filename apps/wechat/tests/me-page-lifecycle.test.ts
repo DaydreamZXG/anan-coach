@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
 import { MePageRequestOwner } from "../miniprogram/pages/me/features/request-owner";
+// @ts-expect-error Vite exposes mini-program sources through its raw asset loader.
+import pageSource from "../miniprogram/pages/me/index.ts?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import pageStyles from "../miniprogram/pages/me/index.wxss?raw";
 
 const sessionA = {
   userId: "user-a",
@@ -37,5 +41,20 @@ describe("me page request owner", () => {
     owner.unload();
     expect(owner.owns(afterShow, sessionA)).toBe(false);
     expect(owner.show(sessionA)).toBe(false);
+  });
+
+  it("guards page requests and destroys the owner with the page instance", () => {
+    expect(pageSource).toContain('beginRequest(this, "account")');
+    expect(pageSource).toContain('beginRequest(this, "profile-context")');
+    expect(pageSource).toContain("requestOwners.get(this)?.hide()");
+    expect(pageSource).toContain("requestOwners.get(this)?.unload()");
+    expect(pageSource).toContain("request.runtime.owns(request.lease, currentAuthSession())");
+  });
+
+  it("uses width-only compact, medium and wide layout boundaries", () => {
+    expect(pageStyles).toContain("@media (min-width: 600px)");
+    expect(pageStyles).toContain("@media (min-width: 1024px)");
+    expect(pageStyles).not.toMatch(/min-width:\s*(700|768)px/u);
+    expect(pageStyles).not.toContain("orientation:");
   });
 });

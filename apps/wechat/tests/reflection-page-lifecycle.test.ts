@@ -4,6 +4,10 @@ import {
   ReflectionSessionLifecycle,
   type ReflectionActivityCleanup,
 } from "../miniprogram/pages/reflection/features/session-owner";
+// @ts-expect-error Vite exposes mini-program sources through its raw asset loader.
+import pageSource from "../miniprogram/pages/reflection/index.ts?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import pageStyles from "../miniprogram/pages/reflection/index.wxss?raw";
 
 const sessionA = {
   userId: "user-a",
@@ -49,6 +53,21 @@ describe("reflection page session lifecycle", () => {
     const lifecycle = new ReflectionSessionLifecycle(sessionA);
     expect(lifecycle.show({ ...sessionA, accessToken: "token-b" })).toBe(false);
     expect(lifecycle.beginRequest(sessionA)).toBeNull();
+  });
+
+  it("wires hide/unload and every late request or media commit through the lifecycle", () => {
+    expect(pageSource).toContain("lifecycle: new ReflectionSessionLifecycle(auth)");
+    expect(pageSource).toContain("runtime.lifecycle.hide(reflectionCleanup(this, runtime))");
+    expect(pageSource).toContain("runtime.lifecycle.unload(reflectionCleanup(this, runtime))");
+    expect(pageSource).toContain("runtime.lifecycle.ownsRequest(epoch, currentAuthSession())");
+    expect(pageSource).toContain("runtime.lifecycle.ownsMedia(epoch, currentAuthSession())");
+    expect(pageSource).not.toContain("currentAuthSession()?.userId ===");
+  });
+
+  it("uses the width-only 600px medium layout boundary", () => {
+    expect(pageStyles).toContain("@media (min-width: 600px)");
+    expect(pageStyles).not.toMatch(/min-width:\s*(700|768)px/u);
+    expect(pageStyles).not.toContain("orientation:");
   });
 });
 
