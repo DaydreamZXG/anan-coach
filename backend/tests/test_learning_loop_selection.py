@@ -253,6 +253,27 @@ def test_real_confirmed_question_candidate_drives_exact_selection_intent(
     ]
     first_question_id = question_ids[0]
     review = submitted["review"]
+    with db_session_factory.begin() as session:
+        session.execute(
+            text(
+                """
+                update learning.xingce_task_sessions task_session
+                   set safe_bundle = jsonb_set(
+                     task_session.safe_bundle,
+                     '{questions}',
+                     (
+                       select jsonb_agg(question.item - 'questionType'
+                                        order by question.position)
+                       from jsonb_array_elements(
+                         task_session.safe_bundle -> 'questions'
+                       ) with ordinality question(item, position)
+                     )
+                   )
+                 where task_session.session_id = cast(:session_id as uuid)
+                """
+            ),
+            {"session_id": session_id},
+        )
     _reflect(client, auth, review, key="learning-loop-grounded-cause-reflection")
     _run_one(
         db_session_factory,

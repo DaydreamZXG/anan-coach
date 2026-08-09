@@ -365,10 +365,42 @@ class CandidateInputRepositoryMixin:
                 != cause_module
             ):
                 continue
-            if isinstance(frozen_question, dict) and frozen_question.get(
-                "questionType"
+            question_type = (
+                str(frozen_question["questionType"])
+                if isinstance(frozen_question, dict)
+                and frozen_question.get("questionType")
+                else None
+            )
+            if (
+                question_type is None
+                and isinstance(frozen_question, dict)
+                and frozen_question.get("contentVersionId")
             ):
-                result["questionType"] = str(frozen_question["questionType"])
+                # Pre-Companion safe bundles did not expose questionType.
+                # Recover it only from the exact immutable content version
+                # already frozen into that bundle; never consult the live head.
+                question_type = session.execute(
+                    text(
+                        """
+                        select coalesce(
+                          content.snapshot_payload ->> 'question_type',
+                          content.snapshot_payload ->> 'questionType'
+                        )
+                        from product.question_content_versions content
+                        where content.question_id = :question_id
+                          and content.content_version_id = :content_version_id
+                          and content.track = 'xingce'
+                        """
+                    ),
+                    {
+                        "question_id": question_id,
+                        "content_version_id": str(
+                            frozen_question["contentVersionId"]
+                        ),
+                    },
+                ).scalar_one_or_none()
+            if question_type:
+                result["questionType"] = str(question_type)
             if binding["node_type"] == "micro_skill":
                 result["microSkillNode"] = {
                     "releaseId": vocabulary.release_id,
