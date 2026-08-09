@@ -9,6 +9,7 @@ import { LearningBrainApi } from "../../api/learning-brain";
 import { OnboardingApi } from "../../api/onboarding";
 import { PlanningApi } from "../../api/planning";
 import { routes } from "../../app/navigation/routes";
+import { PageEffectOwner } from "../../app/runtime/page-effect-owner";
 import {
   companionAnswerView,
   companionContextView,
@@ -54,6 +55,7 @@ interface CompanionContextRuntime {
 }
 
 const contextRuntimeByPage = new WeakMap<object, CompanionContextRuntime>();
+const askOwners = new WeakMap<object, PageEffectOwner>();
 
 interface CompanionAskDraft {
   question: string;
@@ -178,10 +180,19 @@ Page({
   onShow() {
     enableAppShareMenu();
     suppressNativeTabBar();
-    if (!currentAuthSession()) {
+    const auth = currentAuthSession();
+    if (!auth) {
+      askOwners.get(this)?.unload();
+      askOwners.delete(this);
       void wx.reLaunch({ url: routes.login });
       return;
     }
+    const previous = askOwners.get(this);
+    const askOwner = previous?.matches(auth) ? previous : new PageEffectOwner(auth);
+    if (previous && previous !== askOwner) previous.unload();
+    askOwners.set(this, askOwner);
+    askOwner.show(auth);
+    if (this.data.submitting) this.setData({ submitting: false });
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({ active: "anan" });
     }
@@ -189,6 +200,10 @@ Page({
       this.applyLaunchContext();
       this.syncAskAvailability();
     }
+  },
+
+  onHide() {
+    askOwners.get(this)?.hide();
   },
 
   onShareAppMessage() {
@@ -200,6 +215,8 @@ Page({
   },
 
   onUnload() {
+    askOwners.get(this)?.unload();
+    askOwners.delete(this);
     const runtime = contextRuntimeByPage.get(this);
     if (!runtime) return;
     runtime.profileGeneration += 1;
@@ -481,6 +498,9 @@ Page({
     const auth = currentAuthSession();
     const client = requireAuthenticatedClient();
     if (!auth || !client || this.data.submitting) return;
+    const askOwner = askOwners.get(this);
+    const askEffect = askOwner?.begin("ask", auth) ?? null;
+    if (!askOwner || !askEffect) return;
     const question = this.data.question.trim();
     if (!/[\u3400-\u9fffA-Za-z0-9]/u.test(question)) {
       this.setData({ errorMessage: "写一个词或一句话，让岸岸知道你想问什么。" });
@@ -531,16 +551,14 @@ Page({
         idempotencyKeyPrefix: "companion",
         expiresAtMs: Date.now() + companionAttemptTtlMs,
       });
+      if (!askOwner.owns(askEffect, currentAuthSession())) return;
       const { data } = await askCompanionWithOutcomeRecovery(
         new CompanionApi(client),
         command,
         attempt.idempotencyKey,
       );
       attempts.markSucceeded(companionAskScope, attempt.idempotencyKey);
-      if (!sameSessionOwner(currentAuthSession(), auth)) {
-        this.recoverExpiredSession();
-        return;
-      }
+      if (!askOwner.owns(askEffect, currentAuthSession())) return;
       this.setData({
         submitting: false,
         askAvailable: this.data.profileAskAvailable,
@@ -558,10 +576,7 @@ Page({
           attempts.markTransportUnknown(companionAskScope, attempt.idempotencyKey);
         else attempts.markTerminal(companionAskScope, attempt.idempotencyKey);
       }
-      if (!sameSessionOwner(currentAuthSession(), auth)) {
-        this.recoverExpiredSession();
-        return;
-      }
+      if (!askOwner.owns(askEffect, currentAuthSession())) return;
       const view = unknownOutcome ? transportUnknownView(error) : companionFailureView(error);
       this.setData({
         submitting: false,
