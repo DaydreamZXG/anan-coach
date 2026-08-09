@@ -28,6 +28,9 @@ provider release。任意一项变更都会产生新的输入指纹和调用键�
 使用 prompt v13 的新键并在同一次运行内完成生成、复核、编译和发布；它不得复用
 历史单阶段或 v12 dry-run 占用过的 generator 幂等键。供应商回放能力必须另行
 整改，不能通过删除账本或放松输出指纹校验来掩盖。
+prompt v14 / critic v10 进一步要求每个材料 quote 都是对应 segment 中连续存在的
+4 至 80 字逐字符子串；critic 必须重新复制无法定位的候选引用，不能用语义相似或
+模糊匹配替代原文证据。
 发现器会继续接受当前官方 rubric；旧的 `system_compiled` rubric 如果没有
 pipeline v3 的 generator/critic 双调用审计，则视为待升级并只追加发布 successor，
 不修改或删除旧版本。

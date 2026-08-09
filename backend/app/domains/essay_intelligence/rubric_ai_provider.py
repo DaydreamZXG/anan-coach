@@ -483,7 +483,9 @@ def _http_error_summary(response: httpx.Response) -> str:
 _GENERATOR_PROMPT = (
     "你是国考申论评分规程生成器。输入只包含一个已发布题目和它的完整材料。"
     "必须基于全部材料返回完整 json 评分规程；不得裁剪、概括替代材料，不得引用"
-    "外部知识。每个材料得分点只需给出 materialId、segmentId 和逐字 quote；"
+    "外部知识。每个材料得分点只需给出 materialId、segmentId 和逐字 quote；quote 必须是"
+    "对应 segment.text 中连续存在、逐字符完全相同的 4 至 80 字子串，直接复制原文，不能改写、"
+    "纠错、补字、删字或替换标点；"
     "字符偏移与 SHA-256 由服务端计算，禁止模型生成。criterion 总分必须等于题目总分，材料型 criterion 的"
     "point 分值必须完全守恒；结构、表达等非材料维度可不生成 point。"
     "同一原文切片不得重复给分。不要输出 official、verified"
@@ -493,8 +495,10 @@ _GENERATOR_PROMPT = (
 _CRITIC_PROMPT = (
     "你是独立的国考申论评分规程 critic/reviser。只返回完整 json。逐项核验候选规程与完整题目材料，"
     "修正引用、重复要点、分类和分值守恒，并始终返回一份完整终稿，禁止只返回"
-    "补丁。引用只返回 materialId、segmentId 和逐字 quote，不生成偏移或哈希。"
-    "只有终稿中每个引用都能逐字定位、所有分值守恒且无重复计分时才可"
+    "补丁。引用只返回 materialId、segmentId 和逐字 quote，不生成偏移或哈希。逐条忽略候选中"
+    "无法定位的 quote，回到对应 segment.text 重新复制一个连续存在、逐字符完全相同的 4 至 80 字"
+    "短句；不得改写、纠错、补字、删字或替换标点。输出前必须对每个 quote 在对应 segment.text"
+    "中做逐字符查找。只有终稿中每个引用都能逐字定位、所有分值守恒且无重复计分时才可"
     "approved=true；否则 approved=false 并列出 rejectionCodes。不得声称规程是"
     "官方或已验证，不得输出用户、考生或答案字段。"
 )

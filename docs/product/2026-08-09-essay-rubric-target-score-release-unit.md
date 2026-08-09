@@ -36,6 +36,7 @@ This is a bounded release unit. It does not redesign essay review, position elig
 
 - `backend/app/domains/essay_intelligence/rubric_ai_pipeline.py`
 - `backend/app/domains/essay_intelligence/rubric_ai_contracts.py`
+- `backend/app/domains/essay_intelligence/rubric_ai_provider.py`
 - `backend/tests/test_essay_rubric_ai_pipeline.py`
 - `backend/app/domains/position_decision/learner_target_score.py`
 - `backend/app/domains/position_decision/learner_target_runtime.py`
