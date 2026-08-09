@@ -29,10 +29,51 @@ def upgrade() -> None:
         ),
         schema="learning",
     )
+    # The table is append-only at runtime.  Existing rows still need a
+    # deterministic value for this newly introduced projection, so suspend
+    # only this table's immutability trigger for the transactional backfill.
+    # PostgreSQL rolls the trigger change back together with the migration if
+    # any later statement fails.
+    op.execute(
+        """
+        do $$
+        begin
+          if exists (
+            select 1
+            from pg_trigger
+            where tgrelid = 'learning.daily_capacity_versions'::regclass
+              and tgname = 'daily_capacity_versions_append_only'
+              and not tgisinternal
+          ) then
+            alter table learning.daily_capacity_versions
+              disable trigger daily_capacity_versions_append_only;
+          end if;
+        end;
+        $$
+        """
+    )
     op.execute(
         "update learning.daily_capacity_versions "
         "set preferred_track = 'xingce' "
         "where preferred_xingce_module is not null"
+    )
+    op.execute(
+        """
+        do $$
+        begin
+          if exists (
+            select 1
+            from pg_trigger
+            where tgrelid = 'learning.daily_capacity_versions'::regclass
+              and tgname = 'daily_capacity_versions_append_only'
+              and not tgisinternal
+          ) then
+            alter table learning.daily_capacity_versions
+              enable trigger daily_capacity_versions_append_only;
+          end if;
+        end;
+        $$
+        """
     )
     op.create_check_constraint(
         "daily_capacity_preferred_track_check",
