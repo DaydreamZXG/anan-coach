@@ -394,7 +394,15 @@ function goalView(result: AbilityGoalLoadResult) {
     goalName: gap.positionName ?? "主目标岗位",
     targetScoreLabel: scoreRangeLabel(targetScore.lower, targetScore.upper),
     currentScoreLabel: scoreRangeLabel(currentScore.lower, currentScore.upper),
-    scoreGapLabel: `${String(baselineGap)} 分`,
-    goalBoundaryLabel: "用于备考定位，不代表录取结果。",
+    scoreGapLabel: stableLineGapLabel(baselineGap),
+    goalBoundaryLabel: gap.evidenceSummary || "用于备考定位，不代表录取结果。",
   };
+}
+
+function stableLineGapLabel(gap: number): string {
+  const absolute = Math.abs(gap);
+  const value = Number.isInteger(absolute) ? String(absolute) : absolute.toFixed(1);
+  if (gap > 0) return `还差 ${value} 分`;
+  if (gap < 0) return `已高出 ${value} 分`;
+  return "已达到";
 }

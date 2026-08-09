@@ -95,6 +95,22 @@ class PlanningService:
         projection = self._learner_target.projection(session, user_id=user_id)
         if projection.status != "available" or projection.target_score is None:
             return snapshot
+        target_basis = (
+            f"面向 {projection.target_year} 年备考：引用 {projection.reference_year} 年"
+            f"同口径岗位 {projection.sample_count} 个，历史 P80 "
+            f"{projection.historical_p80:g} 分、P95 {projection.historical_p95:g} 分、"
+            f"偏好地区最高 {projection.cohort_maximum:g} 分；"
+            f"全国硬条件可报同专业大类 {projection.coverage_sample_count} 个岗位，"
+            f"最高 {projection.historical_maximum:g} 分。"
+        )
+        if projection.trend_reference_year is not None:
+            target_basis += (
+                f"对比 {projection.trend_reference_year} 年同口径"
+                f" {projection.trend_sample_count} 个样本，目标上抛"
+                f" {projection.trend_uplift:g} 分（仅一年对照，置信度有限）。"
+            )
+        else:
+            target_basis += "没有足量同口径上年度样本，本次未加入趋势上抛。"
         return replace(
             snapshot,
             goal_version_id=projection.version_id,
@@ -107,6 +123,7 @@ class PlanningService:
             target_valid_until=None,
             target_owner="learner_target_score",
             target_entity_type="learner_target_score_version",
+            target_evidence_summary=target_basis,
         )
 
     def set_today_capacity(
@@ -1204,7 +1221,15 @@ def goal_gap(snapshot: GoalAbilitySnapshot, now: datetime) -> GoalGap:
         readiness = "complete"
         count = (snapshot.evidence_summary or {}).get("evidenceCount", 0)
         if snapshot.target_owner == "learner_target_score":
-            summary = f"引用历史同类岗位目标分版本与能力估计版本，共 {count} 条当前成绩证据。"
+            summary = snapshot.target_evidence_summary or (
+                "引用历史同类岗位目标分版本与能力估计版本。"
+            )
+            if snapshot.target_recommended is not None and snapshot.total_recommended is not None:
+                summary += (
+                    f" 当前差距按稳妥线 {snapshot.target_recommended:g} 分减去"
+                    f"当前推荐估计 {snapshot.total_recommended:g} 分计算；"
+                    f"能力区间共引用 {count} 条当前成绩证据。"
+                )
         else:
             summary = f"引用岗位目标版本与能力估计版本，共 {count} 条当前成绩证据。"
     baseline_gap = (

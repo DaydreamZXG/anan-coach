@@ -77,6 +77,7 @@ class GoalAbilitySnapshot:
     evidence_summary: dict[str, Any] | None
     target_owner: str = "position_goal"
     target_entity_type: str = "position_goal_version"
+    target_evidence_summary: str | None = None
 
 
 @dataclass(frozen=True)
@@ -92,7 +93,6 @@ class ActiveStrategyDecision:
     effective_until: datetime
     review_at: datetime
     input_fingerprint: str
-
 
 
 def _preference_snapshot(row: RowMapping) -> PreferenceSnapshot:

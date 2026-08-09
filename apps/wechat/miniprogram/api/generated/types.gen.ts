@@ -7062,9 +7062,29 @@ export type LearnerProfileUpdate = {
  */
 export type LearnerTargetScoreProjection = {
     /**
+     * Cohortmaximum
+     */
+    cohortMaximum?: number | null;
+    /**
+     * Coveragesamplecount
+     */
+    coverageSampleCount?: number;
+    /**
      * Fallbacklevel
      */
     fallbackLevel: string | null;
+    /**
+     * Historicalmaximum
+     */
+    historicalMaximum?: number | null;
+    /**
+     * Historicalp80
+     */
+    historicalP80?: number | null;
+    /**
+     * Historicalp95
+     */
+    historicalP95?: number | null;
     /**
      * Limitations
      */
@@ -7098,6 +7118,22 @@ export type LearnerTargetScoreProjection = {
      */
     status: 'available' | 'unavailable';
     targetScore: LearnerTargetScoreRange | null;
+    /**
+     * Targetyear
+     */
+    targetYear: number;
+    /**
+     * Trendreferenceyear
+     */
+    trendReferenceYear?: number | null;
+    /**
+     * Trendsamplecount
+     */
+    trendSampleCount?: number;
+    /**
+     * Trenduplift
+     */
+    trendUplift?: number;
     /**
      * Versionid
      */

@@ -368,8 +368,8 @@ def test_retryable_generator_failure_replays_with_original_price_snapshot(
         result = second_pipeline.run_source(session, source=source, dry_run=True)
 
     assert result.generator_replayed is False
-    assert result.critic_replayed is None
-    assert provider.phases == ["generator", "generator"]
+    assert result.critic_replayed is False
+    assert provider.phases == ["generator", "generator", "critic"]
     assert provider.idempotency_keys[0] == provider.idempotency_keys[1]
     with db_session_factory() as session:
         calls = (
@@ -382,12 +382,19 @@ def test_retryable_generator_failure_replays_with_original_price_snapshot(
             .mappings()
             .all()
         )
-        assert [item["operation"] for item in calls] == ["rubric_generator"]
-        assert [item["status"] for item in calls] == ["succeeded"]
+        assert [item["operation"] for item in calls] == [
+            "rubric_critic",
+            "rubric_generator",
+        ]
+        assert [item["status"] for item in calls] == ["succeeded", "succeeded"]
         by_operation = {item["operation"]: item for item in calls}
         assert by_operation["rubric_generator"]["price_version"] == (original_price.version)
         assert by_operation["rubric_generator"]["total_cost_cny"] == (
             original_price.cost(provider.usage).total_cost_cny
+        )
+        assert by_operation["rubric_critic"]["price_version"] == replacement_price.version
+        assert by_operation["rubric_critic"]["total_cost_cny"] == (
+            replacement_price.cost(provider.usage).total_cost_cny
         )
 
 
@@ -414,7 +421,7 @@ def test_pipeline_dry_run_replay_cost_audit_and_append_only_publish(
         )
         dry_run = pipeline.run_source(session, source=source, dry_run=True)
     assert dry_run.publish_result.versions[0].action == "would_insert"
-    assert provider.phases == ["generator"]
+    assert provider.phases == ["generator", "critic"]
 
     with db_session_factory() as session:
         assert (
@@ -433,16 +440,20 @@ def test_pipeline_dry_run_replay_cost_audit_and_append_only_publish(
             .all()
         )
         ledger_snapshot = [dict(item) for item in calls]
-        assert [item["operation"] for item in calls] == ["rubric_generator"]
+        assert [item["operation"] for item in calls] == [
+            "rubric_critic",
+            "rubric_generator",
+        ]
         assert all(item["status"] == "succeeded" for item in calls)
         assert all(item["total_cost_cny"] > 0 for item in calls)
 
     with db_session_factory() as session:
         published = pipeline.run_source(session, source=source, dry_run=False)
     assert published.generator_replayed is True
-    assert published.critic_replayed is None
-    assert provider.phases == ["generator", "generator"]
-    assert provider.idempotency_keys[0] == provider.idempotency_keys[1]
+    assert published.critic_replayed is True
+    assert provider.phases == ["generator", "critic", "generator", "critic"]
+    assert provider.idempotency_keys[0] == provider.idempotency_keys[2]
+    assert provider.idempotency_keys[1] == provider.idempotency_keys[3]
 
     with db_session_factory() as session:
         unchanged = pipeline.run_source(session, source=source, dry_run=False)
@@ -450,9 +461,17 @@ def test_pipeline_dry_run_replay_cost_audit_and_append_only_publish(
     assert unchanged.publish_result.unchanged_count == 1
     assert unchanged.publish_result.versions[0].action == "unchanged"
     assert unchanged.generator_replayed is True
-    assert unchanged.critic_replayed is None
-    assert provider.phases == ["generator", "generator", "generator"]
-    assert provider.idempotency_keys[0] == provider.idempotency_keys[2]
+    assert unchanged.critic_replayed is True
+    assert provider.phases == [
+        "generator",
+        "critic",
+        "generator",
+        "critic",
+        "generator",
+        "critic",
+    ]
+    assert provider.idempotency_keys[0] == provider.idempotency_keys[4]
+    assert provider.idempotency_keys[1] == provider.idempotency_keys[5]
 
     with db_session_factory() as session:
         rubric = (
@@ -467,10 +486,16 @@ def test_pipeline_dry_run_replay_cost_audit_and_append_only_publish(
         )
         assert rubric["source_kind"] == "system_compiled"
         assert rubric["verification_status"] == "unverified"
-        assert rubric["compilation_audit"].get("pipelineAudit") is None
+        audit = rubric["compilation_audit"]["pipelineAudit"]
+        assert audit["criticApproved"] is True
+        assert audit["generator"]["providerRequestIdSha256"] == _hash("generator-request-id")
+        assert audit["critic"]["providerRequestIdSha256"] == _hash("critic-request-id")
+        serialized_audit = json.dumps(audit)
+        assert "generator-request-id" not in serialized_audit
+        assert "critic-request-id" not in serialized_audit
         assert (
             session.execute(text("select count(*) from ai_audit.model_call_ledger")).scalar_one()
-            == 1
+            == 2
         )
         replayed_ledger = (
             session.execute(
@@ -487,32 +512,32 @@ def test_pipeline_dry_run_replay_cost_audit_and_append_only_publish(
         assert pipeline.discover_pending_sources(session) == ()
 
 
-def test_pipeline_does_not_require_a_second_critic_call(
+def test_critic_rejection_is_audited_and_never_published(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     source = _seed_source(db_session_factory, suffix="rejected")
     provider = FakeRubricProvider(source=source, critic_approved=False)
 
     with db_session_factory() as session:
-        result = _pipeline(provider).run_source(session, source=source, dry_run=False)
-    assert result.publish_result.inserted_count == 1
-    assert result.critic_call_id is None
-    assert provider.phases == ["generator"]
+        with pytest.raises(RubricAIPipelineError, match="Critic rejected") as error:
+            _pipeline(provider).run_source(session, source=source, dry_run=False)
+    assert error.value.code == "rubric_critic_rejected"
+    assert provider.phases == ["generator", "critic"]
     with db_session_factory() as session:
         assert (
             session.execute(text("select count(*) from product.essay_rubric_versions")).scalar_one()
-            == 1
+            == 0
         )
         assert (
             session.execute(
                 text("select count(*) from ai_audit.model_call_ledger where status = 'succeeded'")
             ).scalar_one()
-            == 1
+            == 2
         )
 
 
 @pytest.mark.parametrize("invalid", ["quote", "score"])
-def test_deterministic_compiler_blocks_invalid_generator_output(
+def test_deterministic_compiler_blocks_invalid_approved_critic_output(
     db_session_factory: sessionmaker[Session],
     invalid: str,
 ) -> None:
@@ -522,7 +547,7 @@ def test_deterministic_compiler_blocks_invalid_generator_output(
     with db_session_factory() as session:
         with pytest.raises(EssayRubricCompilationError):
             _pipeline(provider).run_source(session, source=source, dry_run=False)
-    assert provider.phases == ["generator"]
+    assert provider.phases == ["generator", "critic"]
     with db_session_factory() as session:
         assert (
             session.execute(text("select count(*) from product.essay_rubric_versions")).scalar_one()
@@ -530,7 +555,7 @@ def test_deterministic_compiler_blocks_invalid_generator_output(
         )
         assert (
             session.execute(text("select count(*) from ai_audit.model_call_ledger")).scalar_one()
-            == 1
+            == 2
         )
 
 
@@ -548,7 +573,7 @@ def test_stable_provider_key_returning_changed_output_hard_fails(
         with pytest.raises(RubricAIPipelineError) as error:
             pipeline.run_source(session, source=source, dry_run=False)
     assert error.value.code == "rubric_provider_replay_mismatch"
-    assert provider.phases == ["generator", "generator"]
+    assert provider.phases == ["generator", "critic", "generator"]
     with db_session_factory() as session:
         assert (
             session.execute(text("select count(*) from product.essay_rubric_versions")).scalar_one()
@@ -556,7 +581,7 @@ def test_stable_provider_key_returning_changed_output_hard_fails(
         )
         assert (
             session.execute(text("select count(*) from ai_audit.model_call_ledger")).scalar_one()
-            == 1
+            == 2
         )
 
 

@@ -7,12 +7,10 @@ from app.domains.qualification.compiler import certification_labels_from_text
 
 
 def test_target_score_reuses_qualification_certificate_normalization() -> None:
-    assert certification_labels_from_text(
-        "大学英语六级考试成绩达到425分以上"
-    ) == ("大学英语六级425分及以上",)
-    assert certification_labels_from_text("雅思6.5分以上") == (
-        "雅思6.5分及以上",
+    assert certification_labels_from_text("大学英语六级考试成绩达到425分以上") == (
+        "大学英语六级425分及以上",
     )
+    assert certification_labels_from_text("雅思6.5分以上") == ("雅思6.5分及以上",)
 
 
 def _profile(*, gender: str = "男") -> LearnerTargetProfile:
@@ -78,7 +76,7 @@ def test_gender_restricted_positions_only_enter_matching_cohort() -> None:
     assert {item.position_id for item in female.reference_positions} == {"p-1", "p-2", "p-4"}
 
 
-def test_sufficient_2026_exact_cohort_does_not_blend_older_or_national_rows() -> None:
+def test_sufficient_local_cohort_keeps_national_eligible_maximum_as_coverage_line() -> None:
     samples = [
         _sample("1", 120),
         _sample("2", 126),
@@ -92,8 +90,52 @@ def test_sufficient_2026_exact_cohort_does_not_blend_older_or_national_rows() ->
     assert target is not None
     assert target.fallback_level == "latest_local_exact_major"
     assert target.sample_count == 3
+    assert target.target_year == 2027
     assert target.lower <= target.recommended <= target.upper
-    assert all(item.score_year == 2026 and item.region == "山东" for item in target.reference_positions)
+    assert target.cohort_maximum == 132
+    assert target.historical_maximum == 180
+    assert target.upper == 180
+    assert target.reference_positions[0].position_id == "p-national"
+    assert target.reference_positions[0].region == "北京"
+
+
+def test_next_exam_range_uses_high_quantiles_maximum_and_comparable_year_uplift() -> None:
+    current = [
+        _sample(f"current-{index}", score)
+        for index, score in enumerate((110, 120, 130, 140, 150), start=1)
+    ]
+    prior = [
+        _sample(f"prior-{index}", score, year=2025)
+        for index, score in enumerate((100, 110, 120, 130, 140), start=1)
+    ]
+
+    target = derive_learner_target_score(profile=_profile(), samples=[*current, *prior])
+
+    assert target is not None
+    assert target.historical_p80 == 142
+    assert target.historical_p95 == 148
+    assert target.cohort_maximum == 150
+    assert target.historical_maximum == 150
+    assert target.coverage_sample_count == 5
+    assert target.trend_reference_year == 2025
+    assert target.trend_sample_count == 5
+    assert target.trend_uplift == 10
+    assert (target.lower, target.recommended, target.upper) == (152, 158, 160)
+    assert [item.entry_score for item in target.reference_positions[:3]] == [150, 140, 130]
+    assert "置信度有限" in "".join(target.limitations)
+
+
+def test_next_exam_range_does_not_invent_uplift_without_comparable_prior_cohort() -> None:
+    target = derive_learner_target_score(
+        profile=_profile(),
+        samples=[_sample("1", 120), _sample("2", 126), _sample("3", 132)],
+    )
+
+    assert target is not None
+    assert target.trend_uplift == 0
+    assert target.trend_reference_year is None
+    assert target.upper == 132
+    assert "暂未加入趋势上抛" in "".join(target.limitations)
 
 
 def test_returns_unavailable_instead_of_inventing_score_for_too_few_samples() -> None:

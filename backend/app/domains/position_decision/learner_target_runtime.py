@@ -52,7 +52,11 @@ class LearnerTargetScoreRuntime:
         regions = tuple(preference.preferred_regions) if preference is not None else ()
         missing = [
             label
-            for label, value in (("major", major), ("education", education), ("preferredRegions", regions))
+            for label, value in (
+                ("major", major),
+                ("education", education),
+                ("preferredRegions", regions),
+            )
             if not value
         ]
         if missing:
@@ -62,6 +66,7 @@ class LearnerTargetScoreRuntime:
                 model_version=MODEL_VERSION,
                 profile_version=profile_version,
                 reference_year=reference_year,
+                target_year=reference_year + 1,
                 target_score=None,
                 fallback_level=None,
                 sample_count=0,
@@ -99,6 +104,7 @@ class LearnerTargetScoreRuntime:
                 model_version=MODEL_VERSION,
                 profile_version=profile_version,
                 reference_year=reference_year,
+                target_year=reference_year + 1,
                 target_score=None,
                 fallback_level=None,
                 sample_count=0,
@@ -111,11 +117,20 @@ class LearnerTargetScoreRuntime:
             model_version=target.model_version,
             profile_version=target.profile_version,
             reference_year=target.reference_year,
+            target_year=target.target_year,
             target_score=LearnerTargetScoreRange(
                 lower=target.lower,
                 recommended=target.recommended,
                 upper=target.upper,
             ),
+            historical_p80=target.historical_p80,
+            historical_p95=target.historical_p95,
+            cohort_maximum=target.cohort_maximum,
+            historical_maximum=target.historical_maximum,
+            coverage_sample_count=target.coverage_sample_count,
+            trend_uplift=target.trend_uplift,
+            trend_reference_year=target.trend_reference_year,
+            trend_sample_count=target.trend_sample_count,
             fallback_level=target.fallback_level,
             sample_count=target.sample_count,
             reference_positions=[
@@ -135,9 +150,10 @@ class LearnerTargetScoreRuntime:
         )
 
     def _major_family(self, session: Session, *, major: str) -> tuple[str, ...]:
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 select category.name as category_name, sub.name as sub_name
                 from product.major_catalog major
                 join product.major_sub_categories sub on sub.code = major.sub_category_code
@@ -146,9 +162,12 @@ class LearnerTargetScoreRuntime:
                 order by major.code
                 limit 1
                 """
-            ),
-            {"major": major, "major_without_suffix": major.removesuffix("专业")},
-        ).mappings().one_or_none()
+                ),
+                {"major": major, "major_without_suffix": major.removesuffix("专业")},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             return ()
         return tuple(str(row[key]) for key in ("sub_name", "category_name") if row[key])
@@ -162,9 +181,10 @@ class LearnerTargetScoreRuntime:
     ) -> list[HistoricalPositionSample]:
         major_terms = tuple(dict.fromkeys((profile.major, *profile.major_family)))
         major_patterns = [f"%{term.removesuffix('专业')}%" for term in major_terms if term]
-        rows = session.execute(
-            text(
-                """
+        rows = (
+            session.execute(
+                text(
+                    """
                 with raw_scores as (
                   select link.position_id, evidence.year as score_year,
                          evidence.entry_score_min::numeric as entry_score
@@ -197,9 +217,12 @@ class LearnerTargetScoreRuntime:
                 order by score.score_year desc, position.position_id
                 limit 5000
                 """
-            ),
-            {"reference_year": reference_year, "major_patterns": major_patterns},
-        ).mappings().all()
+                ),
+                {"reference_year": reference_year, "major_patterns": major_patterns},
+            )
+            .mappings()
+            .all()
+        )
         return [
             HistoricalPositionSample(
                 position_id=str(row["position_id"]),
@@ -211,12 +234,8 @@ class LearnerTargetScoreRuntime:
                 region=str(row["region"]),
                 city=str(row["city"]) if row["city"] else None,
                 education=str(row["education_min"]) if row["education_min"] else None,
-                major_requirement=(
-                    str(row["major_required"]) if row["major_required"] else None
-                ),
-                political_requirement=(
-                    str(row["political_req"]) if row["political_req"] else None
-                ),
+                major_requirement=(str(row["major_required"]) if row["major_required"] else None),
+                political_requirement=(str(row["political_req"]) if row["political_req"] else None),
                 hukou_requirement=str(row["hukou_req"]) if row["hukou_req"] else None,
                 certifications=_certification_requirements(row["remark"]),
                 gender_restriction=_gender_restriction(row["remark"]),

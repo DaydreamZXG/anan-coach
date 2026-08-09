@@ -24,13 +24,17 @@ from app.domains.ai.governance.repository import (
 from app.domains.essay_intelligence.rubric_ai_contracts import (
     RUBRIC_AI_COMPILATION_PROMPT_VERSION,
     RUBRIC_AI_COMPILER_VERSION,
+    RUBRIC_AI_CRITIC_PROMPT_VERSION,
+    RUBRIC_AI_CRITIC_SCHEMA_VERSION,
     RUBRIC_AI_GENERATOR_PROMPT_VERSION,
     RUBRIC_AI_GENERATOR_SCHEMA_VERSION,
+    RUBRIC_AI_PIPELINE_VERSION,
     RubricAICriticOutput,
     RubricAIGeneratorOutput,
     RubricAIPoint,
     RubricAIProviderDocument,
     build_rubric_ai_provider_document,
+    rubric_ai_critic_input_fingerprint,
     rubric_ai_generator_input_fingerprint,
 )
 from app.domains.essay_intelligence.rubric_ai_provider import (
@@ -43,6 +47,7 @@ from app.domains.essay_intelligence.rubric_ai_provider import (
 from app.domains.essay_intelligence.rubric_compiler import (
     RUBRIC_COMPILATION_CONTRACT_VERSION,
     RubricAICompilationCallAudit,
+    RubricAIPipelineCompilationAudit,
     EssayRubricCompilationError,
     RubricCompilationIssue,
     RubricCompilationSource,
@@ -109,9 +114,9 @@ class RubricAITaskRunResult:
     task_version_id: str
     material_bundle_version_id: str
     generator_call_id: str
-    critic_call_id: str | None
+    critic_call_id: str
     generator_replayed: bool
-    critic_replayed: bool | None
+    critic_replayed: bool
     publish_result: EssayRubricPublishResult
 
 
@@ -265,12 +270,47 @@ class GuokaoRubricAIPipeline:
             candidate = generator.result.payload
             _require_source_binding(source=source, payload=candidate)
 
+            critic_input = rubric_ai_critic_input_fingerprint(
+                document=document,
+                candidate=candidate,
+                provider=provider_name,
+                model=self._provider.critic_model,
+            )
+            critic = self._execute_call(
+                session,
+                phase="critic",
+                model=self._provider.critic_model,
+                prompt_version=RUBRIC_AI_CRITIC_PROMPT_VERSION,
+                schema_version=RUBRIC_AI_CRITIC_SCHEMA_VERSION,
+                input_fingerprint=critic_input,
+                invoke=lambda key: self._provider.criticize_and_revise(
+                    document=document,
+                    candidate=candidate,
+                    idempotency_key=key,
+                ),
+            )
+            if not isinstance(critic.result.payload, RubricAICriticOutput):
+                raise RubricAIPipelineError(
+                    "rubric_critic_payload_type_invalid",
+                    "Critic returned the wrong structured payload type",
+                )
+            final = critic.result.payload
+            _require_source_binding(source=source, payload=final)
+            if not final.approved:
+                raise RubricAIPipelineError(
+                    "rubric_critic_rejected",
+                    "Critic rejected the complete revised rubric: "
+                    + ",".join(final.rejection_codes),
+                )
+
             grounded_points = _ground_rubric_points(
                 source=source,
-                points=candidate.points,
+                points=final.points,
             )
 
-            model_release = f"generator={self._provider.generator_model}"
+            model_release = (
+                f"generator={self._provider.generator_model};critic={self._provider.critic_model}"
+            )
             compilation_input = rubric_input_fingerprint(
                 source=source,
                 compiler_version=RUBRIC_AI_COMPILER_VERSION,
@@ -291,10 +331,29 @@ class GuokaoRubricAIPipeline:
                 input_fingerprint=compilation_input,
                 source_kind="system_compiled",
                 verification_status="unverified",
-                total_maximum=candidate.total_maximum,
-                criteria=candidate.criteria,
+                total_maximum=final.total_maximum,
+                criteria=final.criteria,
                 points=grounded_points,
-                pipeline_audit=None,
+                pipeline_audit=RubricAIPipelineCompilationAudit(
+                    pipeline_version=RUBRIC_AI_PIPELINE_VERSION,
+                    generator=_call_audit(
+                        outcome=generator,
+                        prompt_version=RUBRIC_AI_GENERATOR_PROMPT_VERSION,
+                        schema_version=RUBRIC_AI_GENERATOR_SCHEMA_VERSION,
+                        provider=provider_name,
+                        model=self._provider.generator_model,
+                        input_fingerprint=generator_input,
+                    ),
+                    critic=_call_audit(
+                        outcome=critic,
+                        prompt_version=RUBRIC_AI_CRITIC_PROMPT_VERSION,
+                        schema_version=RUBRIC_AI_CRITIC_SCHEMA_VERSION,
+                        provider=provider_name,
+                        model=self._provider.critic_model,
+                        input_fingerprint=critic_input,
+                    ),
+                    critic_approved=True,
+                ),
             )
             # The deterministic compiler is the authority. AI approval alone never
             # reaches publication.
@@ -313,9 +372,9 @@ class GuokaoRubricAIPipeline:
                 task_version_id=str(source.task_version_id),
                 material_bundle_version_id=str(source.material_bundle_version_id),
                 generator_call_id=str(generator.record.call_id),
-                critic_call_id=None,
+                critic_call_id=str(critic.record.call_id),
                 generator_replayed=generator.replayed,
-                critic_replayed=None,
+                critic_replayed=critic.replayed,
                 publish_result=publish_result,
             )
         finally:

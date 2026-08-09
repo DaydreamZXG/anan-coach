@@ -41,7 +41,7 @@
             <view class="metric-value type-data">{{targetScoreLabel}}</view>
           </view>
           <view class="goal-metric">
-            <view class="metric-label">当前差距</view>
+            <view class="metric-label">距稳妥线</view>
             <view class="metric-value type-data">{{scoreGapLabel}}</view>
           </view>
         </view>

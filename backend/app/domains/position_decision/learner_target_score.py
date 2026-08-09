@@ -6,9 +6,10 @@ import json
 from typing import Literal, Sequence
 
 
-MODEL_VERSION = "historical-position-cohort-v4"
+MODEL_VERSION = "historical-position-cohort-v5"
 PRIMARY_REFERENCE_YEAR = 2026
 MIN_REFERENCE_POSITIONS = 3
+MAX_GUOKAO_TOTAL_SCORE = 200.0
 
 Gender = Literal["男", "女"]
 GenderRestriction = Literal["男", "女", "unrestricted"]
@@ -70,7 +71,16 @@ class LearnerTargetScore:
     model_version: str
     profile_version: int
     reference_year: int
+    target_year: int
     fallback_level: FallbackLevel
+    historical_p80: float
+    historical_p95: float
+    cohort_maximum: float
+    historical_maximum: float
+    coverage_sample_count: int
+    trend_uplift: float
+    trend_reference_year: int | None
+    trend_sample_count: int
     lower: float
     recommended: float
     upper: float
@@ -147,9 +157,44 @@ def derive_learner_target_score(
         return None
 
     scores = sorted(item.entry_score for item in selected)
-    lower = round(_quantile(scores, 0.5), 2)
-    recommended = round(_quantile(scores, 0.67), 2)
-    upper = round(_quantile(scores, 0.8), 2)
+    historical_p80 = round(_quantile(scores, 0.8), 2)
+    historical_p95 = round(_quantile(scores, 0.95), 2)
+    cohort_maximum = round(max(scores), 2)
+    coverage = _latest_score_per_position(
+        [
+            item
+            for item in eligible
+            if item.score_year == reference_year
+            and _major_family_match(profile, item.major_requirement)
+        ]
+    )
+    historical_maximum = round(
+        max(item.entry_score for item in coverage) if coverage else cohort_maximum,
+        2,
+    )
+    trend_uplift, trend_reference_year, trend_sample_count = _trend_uplift(
+        profile=profile,
+        eligible=eligible,
+        selected_level=selected_level,
+        selected_scores=scores,
+        reference_year=reference_year,
+    )
+    lower = round(min(MAX_GUOKAO_TOTAL_SCORE, historical_p80 + trend_uplift), 2)
+    recommended = round(min(MAX_GUOKAO_TOTAL_SCORE, historical_p95 + trend_uplift), 2)
+    upper = round(min(MAX_GUOKAO_TOTAL_SCORE, historical_maximum + trend_uplift), 2)
+    selected_references = sorted(
+        selected,
+        key=lambda row: (row.entry_score, row.position_id),
+        reverse=True,
+    )
+    coverage_maximum = max(
+        coverage or selected,
+        key=lambda row: (row.entry_score, row.position_id),
+    )
+    reference_rows = [coverage_maximum]
+    reference_rows.extend(
+        item for item in selected_references if item.position_id != coverage_maximum.position_id
+    )
     references = tuple(
         ReferencePosition(
             position_id=item.position_id,
@@ -160,14 +205,32 @@ def derive_learner_target_score(
             entry_score=item.entry_score,
             matched_reasons=_matched_reasons(profile, item),
         )
-        for item in sorted(selected, key=lambda row: (row.entry_score, row.position_id))[:8]
+        for item in reference_rows[:8]
     )
-    limitations = _limitations(selected_level, selected, reference_year)
+    limitations = _limitations(
+        selected_level,
+        selected,
+        reference_year,
+        trend_uplift=trend_uplift,
+        trend_reference_year=trend_reference_year,
+        trend_sample_count=trend_sample_count,
+    )
     version_payload = {
         "modelVersion": MODEL_VERSION,
         "profileVersion": profile.profile_version,
         "referenceYear": reference_year,
+        "targetYear": reference_year + 1,
         "fallbackLevel": selected_level,
+        "historicalP80": historical_p80,
+        "historicalP95": historical_p95,
+        "cohortMaximum": cohort_maximum,
+        "historicalMaximum": historical_maximum,
+        "coverageSamples": [
+            [item.position_id, item.score_year, round(item.entry_score, 3)]
+            for item in sorted(coverage, key=lambda row: (row.position_id, row.score_year))
+        ],
+        "trendUplift": trend_uplift,
+        "trendReferenceYear": trend_reference_year,
         "samples": [
             [item.position_id, item.score_year, round(item.entry_score, 3)]
             for item in sorted(selected, key=lambda row: (row.position_id, row.score_year))
@@ -181,7 +244,16 @@ def derive_learner_target_score(
         model_version=MODEL_VERSION,
         profile_version=profile.profile_version,
         reference_year=reference_year,
+        target_year=reference_year + 1,
         fallback_level=selected_level,
+        historical_p80=historical_p80,
+        historical_p95=historical_p95,
+        cohort_maximum=cohort_maximum,
+        historical_maximum=historical_maximum,
+        coverage_sample_count=len(coverage),
+        trend_uplift=trend_uplift,
+        trend_reference_year=trend_reference_year,
+        trend_sample_count=trend_sample_count,
         lower=lower,
         recommended=recommended,
         upper=upper,
@@ -189,6 +261,67 @@ def derive_learner_target_score(
         reference_positions=references,
         limitations=limitations,
     )
+
+
+def _trend_uplift(
+    *,
+    profile: LearnerTargetProfile,
+    eligible: Sequence[HistoricalPositionSample],
+    selected_level: FallbackLevel,
+    selected_scores: Sequence[float],
+    reference_year: int,
+) -> tuple[float, int | None, int]:
+    """Derive one transparent next-exam allowance from comparable high quantiles.
+
+    A single extreme position must not determine the trend.  P80 and P95 preserve
+    the high-score preparation intent while remaining comparable across cohorts.
+    The whole-point floor deliberately avoids claiming decimal forecast precision
+    from only one year-over-year comparison.
+    """
+
+    prior_year = reference_year - 1
+    prior = _latest_score_per_position(
+        _cohort_for_level(
+            profile=profile,
+            eligible=eligible,
+            level=selected_level,
+            score_year=prior_year,
+        )
+    )
+    if len(prior) < MIN_REFERENCE_POSITIONS:
+        return 0.0, None, 0
+    prior_scores = sorted(item.entry_score for item in prior)
+    p80_delta = _quantile(selected_scores, 0.8) - _quantile(prior_scores, 0.8)
+    p95_delta = _quantile(selected_scores, 0.95) - _quantile(prior_scores, 0.95)
+    uplift = float(max(0, int((p80_delta + p95_delta) / 2)))
+    return uplift, prior_year, len(prior)
+
+
+def _cohort_for_level(
+    *,
+    profile: LearnerTargetProfile,
+    eligible: Sequence[HistoricalPositionSample],
+    level: FallbackLevel,
+    score_year: int,
+) -> list[HistoricalPositionSample]:
+    rows = [item for item in eligible if item.score_year == score_year]
+    if level == "latest_local_exact_major":
+        return [
+            item
+            for item in rows
+            if item.region in profile.preferred_regions
+            and _exact_major(profile.major, item.major_requirement)
+        ]
+    if level == "latest_local_major_family":
+        return [
+            item
+            for item in rows
+            if item.region in profile.preferred_regions
+            and _major_family_match(profile, item.major_requirement)
+        ]
+    if level == "latest_national_exact_major":
+        return [item for item in rows if _exact_major(profile.major, item.major_requirement)]
+    return []
 
 
 def _hard_conditions_match(
@@ -203,12 +336,17 @@ def _hard_conditions_match(
     if sample.education and not _education_compatible(profile.education, sample.education):
         return False
     if sample.political_requirement and not _unrestricted(sample.political_requirement):
-        if not profile.political_status or profile.political_status not in sample.political_requirement:
+        if (
+            not profile.political_status
+            or profile.political_status not in sample.political_requirement
+        ):
             return False
     if sample.hukou_requirement and not _unrestricted(sample.hukou_requirement):
         if not profile.hukou or profile.hukou not in sample.hukou_requirement:
             return False
-    if sample.certifications and not set(sample.certifications).intersection(profile.certifications):
+    if sample.certifications and not set(sample.certifications).intersection(
+        profile.certifications
+    ):
         return False
     return True
 
@@ -286,6 +424,10 @@ def _limitations(
     level: FallbackLevel,
     samples: Sequence[HistoricalPositionSample],
     reference_year: int,
+    *,
+    trend_uplift: float,
+    trend_reference_year: int | None,
+    trend_sample_count: int,
 ) -> tuple[str, ...]:
     messages: list[str] = []
     if level == "latest_local_major_family":
@@ -299,4 +441,11 @@ def _limitations(
     years = sorted({item.score_year for item in samples})
     if years != [reference_year]:
         messages.append(f"实际引用分数年份：{', '.join(str(year) for year in years)}。")
+    if trend_reference_year is None:
+        messages.append("缺少至少 3 个同口径上年度样本，下一届目标暂未加入趋势上抛。")
+    else:
+        messages.append(
+            f"对比 {trend_reference_year} 年同口径 {trend_sample_count} 个样本，"
+            f"下一届目标上抛 {trend_uplift:g} 分；该趋势仅有一年对照，置信度有限。"
+        )
     return tuple(messages)

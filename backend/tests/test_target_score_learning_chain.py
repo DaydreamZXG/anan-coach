@@ -61,10 +61,19 @@ def test_planning_uses_historical_target_without_primary_position_goal() -> None
                 status="available",
                 reasonCode="historical_cohort_ready",
                 versionId="b" * 64,
-                modelVersion="historical-position-cohort-v4",
+                modelVersion="historical-position-cohort-v5",
                 profileVersion=2,
                 referenceYear=2026,
+                targetYear=2027,
                 targetScore=LearnerTargetScoreRange(lower=120, recommended=126, upper=132),
+                historicalP80=120,
+                historicalP95=126,
+                cohortMaximum=132,
+                historicalMaximum=132,
+                coverageSampleCount=3,
+                trendUplift=0,
+                trendReferenceYear=None,
+                trendSampleCount=0,
                 fallbackLevel="latest_local_exact_major",
                 sampleCount=3,
                 referencePositions=[],
@@ -109,6 +118,8 @@ def test_planning_uses_historical_target_without_primary_position_goal() -> None
     assert gap.readiness == "complete"
     assert gap.goal_id == "b" * 64
     assert gap.baseline_gap == 1
+    assert "面向 2027 年备考" in gap.evidence_summary
+    assert "稳妥线 126 分" in gap.evidence_summary
 
 
 def _seed_target_profile(

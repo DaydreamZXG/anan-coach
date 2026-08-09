@@ -10,6 +10,14 @@ import radarLogic from "../miniprogram/design-system/reporting/ability-radar/ind
 import baselinesSource from "../miniprogram/domain/module-baselines.ts?raw";
 
 describe("ability zero baseline", () => {
+  it("labels the preparation gap against the stable line and explains its evidence", () => {
+    expect(abilityTemplate).toContain("距稳妥线");
+    expect(abilityLogic).toContain("stableLineGapLabel");
+    expect(abilityLogic).toContain("还差 ${value} 分");
+    expect(abilityLogic).toContain("goalBoundaryLabel: gap.evidenceSummary");
+    expect(abilityTemplate).not.toContain("当前差距");
+  });
+
   it("keeps the six canonical xingce axes visible before evidence exists", () => {
     for (const moduleName of [
       "政治理论",
