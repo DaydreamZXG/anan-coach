@@ -72,6 +72,14 @@ import {
 import type { AnnotationStroke } from "../../task-runtime/contracts";
 import type { AnchorSegmentRect } from "./shared/task-runtime/annotation-layer/anchor";
 import { reduceTaskRuntime, unansweredQuestionIds } from "./shared/task-runtime/state/runtime";
+import {
+  createTaskInteractionState,
+  projectTaskInteraction,
+  reduceTaskInteraction,
+  type TaskInteractionAction,
+  type TaskInteractionProjection,
+  type TaskInteractionState,
+} from "./shared/task-runtime/interaction/state";
 import type {
   ContentAnchor,
   ContentDisplayPreferences,
@@ -95,7 +103,7 @@ import { taskToolPolicy, type TaskToolPolicy } from "./shared/task-runtime/tool-
 
 type PageStatus = "loading" | "ready" | "error" | "unavailable";
 
-interface PracticePageData {
+interface PracticePageData extends TaskInteractionProjection {
   status: PageStatus;
   errorTitle: string;
   errorMessage: string;
@@ -117,9 +125,7 @@ interface PracticePageData {
   displayPreferences: ContentDisplayPreferences;
   emptyRichContentBlocks: RichContentBlock[];
   emptyContentAnchors: ContentAnchor[];
-  toolsOpen: boolean;
-  helpOpen: boolean;
-  disputeOpen: boolean;
+  interactionState: TaskInteractionState;
   toolPolicy: TaskToolPolicy;
   helpReference: TaskHelpPageObjectReference | null;
   helpSyncState: TaskHelpCommand["diagnostics"]["syncState"];
@@ -131,15 +137,10 @@ interface PracticePageData {
   disputeSubmitting: boolean;
   disputeReceipt: string;
   disputeCategories: Array<{ value: XingceQuestionDisputeCategory; label: string }>;
-  answerSheetOpen: boolean;
   /** 切题后题干滚动区回顶；0 与 0.1 交替绕过 scroll-top 同值不触发。 */
   questionScrollTop: number;
   /** 快滑切题的一次性转场方向（motion-question-in--*），动画结束即清空。 */
   questionTransition: "" | "prev" | "next";
-  ananContextOpen: boolean;
-  /** Figma 70:2：题面批注模式。 */
-  annotationOpen: boolean;
-  annotationSurface: "" | "question" | "material";
   questionAnnotations: AnnotationStroke[];
   materialAnnotations: AnnotationStroke[];
   /** 契约增量 v2：当前题干句段的视口矩形表，喂给批注层做锚定与滚动跟随。 */
@@ -164,14 +165,12 @@ interface PracticePageData {
   ananReplyTitle: string;
   ananError: string;
   learnerStateVersion: string;
-  draftOpen: boolean;
   mathInkOpen: boolean;
   mathInkRecognizing: boolean;
   mathInkCandidate: FormulaVersion | null;
   mathInkLatex: string;
   mathInkError: string;
   taskPaused: boolean;
-  interactionLocked: boolean;
   canSubmit: boolean;
   hasPendingCheckpoint: boolean;
   pendingCheckpointMessage: string;
@@ -287,6 +286,10 @@ interface PracticePageCustom {
 type PracticePageInstance = WechatMiniprogram.Page.Instance<PracticePageData, PracticePageCustom>;
 
 const runtimes = new XingcePageRuntimeRegistry<PracticePageInstance>();
+const initialPracticeInteractionState = createTaskInteractionState();
+const initialPracticeInteractionProjection = projectTaskInteraction(
+  initialPracticeInteractionState,
+);
 
 Page<PracticePageData, PracticePageCustom>({
   data: {
@@ -311,9 +314,8 @@ Page<PracticePageData, PracticePageCustom>({
     displayPreferences: { fontScale: 1, colorMode: "standard" },
     emptyRichContentBlocks: [],
     emptyContentAnchors: [],
-    toolsOpen: false,
-    helpOpen: false,
-    disputeOpen: false,
+    interactionState: initialPracticeInteractionState,
+    ...initialPracticeInteractionProjection,
     toolPolicy: taskToolPolicy("targeted", "answering"),
     helpReference: null,
     helpSyncState: "unknown",
@@ -332,12 +334,8 @@ Page<PracticePageData, PracticePageCustom>({
       { value: "image_unreadable", label: "图片不清" },
       { value: "other", label: "其他" },
     ],
-    answerSheetOpen: false,
     questionScrollTop: 0,
     questionTransition: "",
-    ananContextOpen: false,
-    annotationOpen: false,
-    annotationSurface: "",
     questionAnnotations: [] as AnnotationStroke[],
     materialAnnotations: [] as AnnotationStroke[],
     annotationSegments: [] as AnchorSegmentRect[],
@@ -350,14 +348,12 @@ Page<PracticePageData, PracticePageCustom>({
     ananReplyTitle: "",
     ananError: "",
     learnerStateVersion: "",
-    draftOpen: false,
     mathInkOpen: false,
     mathInkRecognizing: false,
     mathInkCandidate: null,
     mathInkLatex: "",
     mathInkError: "",
     taskPaused: false,
-    interactionLocked: false,
     canSubmit: false,
     hasPendingCheckpoint: false,
     pendingCheckpointMessage: "",
@@ -388,13 +384,17 @@ Page<PracticePageData, PracticePageCustom>({
     }
     const auth = currentAuthSession();
     if (!auth) {
-      this.setData({
-        status: "unavailable",
-        errorTitle: "登录后就能开始训练啦",
-        errorMessage: "做题进度和复盘要跟着账号走，先登录一下哦。",
-        showLoginAction: true,
-        showTodayAction: false,
-      });
+      transitionPracticeInteraction(
+        this,
+        { type: "ACCOUNT_CHANGED" },
+        {
+          status: "unavailable",
+          errorTitle: "登录后就能开始训练啦",
+          errorMessage: "做题进度和复盘要跟着账号走，先登录一下哦。",
+          showLoginAction: true,
+          showTodayAction: false,
+        },
+      );
       return;
     }
     runtime.ownerUserId = auth.userId;
@@ -407,6 +407,7 @@ Page<PracticePageData, PracticePageCustom>({
   },
 
   onShow() {
+    transitionPracticeInteraction(this, { type: "PAGE_SHOWN" });
     const runtime = runtimes.get(this);
     if (!runtime || runtime.disposed) return;
     runtime.visible = true;
@@ -424,6 +425,7 @@ Page<PracticePageData, PracticePageCustom>({
   },
 
   onHide() {
+    transitionPracticeInteraction(this, { type: "PAGE_HIDDEN" });
     const runtime = runtimes.get(this);
     if (!runtime) return;
     runtime.visible = false;
@@ -433,6 +435,7 @@ Page<PracticePageData, PracticePageCustom>({
   },
 
   onUnload() {
+    transitionPracticeInteraction(this, { type: "PAGE_UNLOADED" });
     const runtime = runtimes.get(this);
     if (runtime?.task) flushLocalCheckpoint(this, runtime);
     runtimes.detach(this);
@@ -456,13 +459,17 @@ Page<PracticePageData, PracticePageCustom>({
     const runtime = runtimes.get(this);
     if (!runtime?.api || !runtime.requestedMode) return;
     const epoch = runtimes.beginRequest(runtime);
-    this.setData({
-      status: "loading",
-      errorTitle: "",
-      errorMessage: "",
-      showLoginAction: false,
-      showTodayAction: false,
-    });
+    transitionPracticeInteraction(
+      this,
+      { type: "SESSION_LOADING" },
+      {
+        status: "loading",
+        errorTitle: "",
+        errorMessage: "",
+        showLoginAction: false,
+        showTodayAction: false,
+      },
+    );
     try {
       if (runtime.session) {
         const response = await runtime.api.getSession(runtime.session.sessionId);
@@ -510,24 +517,32 @@ Page<PracticePageData, PracticePageCustom>({
     } catch (error) {
       if (!runtimes.isCurrent(this, runtime, epoch)) return;
       if (error instanceof TaskEditTakeoverDeclined) {
-        this.setData({
-          status: "unavailable",
-          errorTitle: "另一台设备正在作答",
-          errorMessage: "想在这台设备继续的话，重新进入并确认接管就行。",
-        });
+        transitionPracticeInteraction(
+          this,
+          { type: "SESSION_SUSPENDED" },
+          {
+            status: "unavailable",
+            errorTitle: "另一台设备正在作答",
+            errorMessage: "想在这台设备继续的话，重新进入并确认接管就行。",
+          },
+        );
         return;
       }
       if (
         error instanceof XingcePageContractError &&
         error.message === "当前今日计划没有与入口匹配的可执行行测任务。"
       ) {
-        this.setData({
-          status: "unavailable",
-          errorTitle: "今天没有合适的行测任务",
-          errorMessage: "回到今日计划，从任务卡进一项能做的就行。",
-          showLoginAction: false,
-          showTodayAction: true,
-        });
+        transitionPracticeInteraction(
+          this,
+          { type: "SESSION_SUSPENDED" },
+          {
+            status: "unavailable",
+            errorTitle: "今天没有合适的行测任务",
+            errorMessage: "回到今日计划，从任务卡进一项能做的就行。",
+            showLoginAction: false,
+            showTodayAction: true,
+          },
+        );
         return;
       }
       handlePageError(this, error, "这次训练还没准备好");
@@ -626,16 +641,13 @@ Page<PracticePageData, PracticePageCustom>({
   openTaskTools() {
     const runtime = runtimes.get(this);
     if (!runtime?.session || runtime.session.state !== "answering") return;
-    this.setData({
-      toolsOpen: true,
-      helpOpen: false,
-      disputeOpen: false,
-      draftOpen: false,
-      answerSheetOpen: false,
-      annotationOpen: false,
-      ananContextOpen: false,
-      selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
-    });
+    transitionPracticeInteraction(
+      this,
+      { type: "OVERLAY_OPENED", overlay: "tools" },
+      {
+        selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
+      },
+    );
   },
 
   openFocusTool() {
@@ -646,57 +658,46 @@ Page<PracticePageData, PracticePageCustom>({
   openAnanContext() {
     const runtime = runtimes.get(this);
     if (!runtime?.session || runtime.session.state !== "answering") return;
-    this.setData({
-      ananContextOpen: true,
-      toolsOpen: false,
-      helpOpen: false,
-      disputeOpen: false,
-      draftOpen: false,
-      answerSheetOpen: false,
-    });
+    transitionPracticeInteraction(this, { type: "OVERLAY_OPENED", overlay: "companion" });
   },
 
   closeAnanContext() {
-    this.setData({ ananContextOpen: false, ananAsking: false });
+    transitionPracticeInteraction(
+      this,
+      { type: "OVERLAY_CLOSED", overlay: "companion" },
+      { ananAsking: false },
+    );
   },
 
   // Figma 70:2：进入题面批注模式（笔迹随检查点自动保存）。
   openAnnotation() {
     const runtime = runtimes.get(this);
     if (!runtime?.session || runtime.session.state !== "answering") return;
-    this.setData({
-      annotationOpen: true,
-      annotationSurface: "question",
-      toolsOpen: false,
-      helpOpen: false,
-      disputeOpen: false,
-      draftOpen: false,
-      answerSheetOpen: false,
-      ananContextOpen: false,
-      selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
-    });
+    transitionPracticeInteraction(
+      this,
+      { type: "ANNOTATION_OPENED", surface: "question" },
+      {
+        selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
+      },
+    );
     // 契约增量 v2：打开批注即触发句段重测，确保批注层拿到的 anchors 是最新位置。
     requestSegmentRects(this);
   },
 
   closeAnnotation() {
-    this.setData({ annotationOpen: false, annotationSurface: "" });
+    transitionPracticeInteraction(this, { type: "ANNOTATION_CLOSED" });
   },
 
   openMaterialAnnotation() {
     const runtime = runtimes.get(this);
     if (!runtime?.session || runtime.session.state !== "answering") return;
-    this.setData({
-      annotationOpen: true,
-      annotationSurface: "material",
-      toolsOpen: false,
-      helpOpen: false,
-      disputeOpen: false,
-      draftOpen: false,
-      answerSheetOpen: false,
-      ananContextOpen: false,
-      selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
-    });
+    transitionPracticeInteraction(
+      this,
+      { type: "ANNOTATION_OPENED", surface: "material" },
+      {
+        selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
+      },
+    );
   },
 
   // 契约增量 v2：内容坐标系下滚动天然跟随 —— 只把 scrollTop 传给批注层做
@@ -892,7 +893,7 @@ Page<PracticePageData, PracticePageCustom>({
         });
         render(this, runtime);
         void autosaveCheckpoint(this, runtime);
-        this.setData({ ananContextOpen: false });
+        transitionPracticeInteraction(this, { type: "OVERLAY_CLOSED", overlay: "companion" });
         void wx.showToast({ title: "已在题面标出", icon: "none" });
       },
     );
@@ -992,25 +993,20 @@ Page<PracticePageData, PracticePageCustom>({
   },
 
   closeTaskOverlay() {
-    this.setData({
-      toolsOpen: false,
-      helpOpen: false,
-      disputeOpen: false,
-      draftOpen: false,
-      ananContextOpen: false,
-    });
+    transitionPracticeInteraction(this, { type: "INTERACTIONS_CLOSED" });
   },
 
   openTaskHelp() {
     const runtime = runtimes.get(this);
     if (!runtime?.session) return;
-    this.setData({
-      toolsOpen: false,
-      helpOpen: true,
-      disputeOpen: false,
-      helpReference: taskHelpReference(runtime.session),
-      helpGuidance: "",
-    });
+    transitionPracticeInteraction(
+      this,
+      { type: "OVERLAY_OPENED", overlay: "help" },
+      {
+        helpReference: taskHelpReference(runtime.session),
+        helpGuidance: "",
+      },
+    );
   },
 
   async submitTaskHelp(event) {
@@ -1078,10 +1074,13 @@ Page<PracticePageData, PracticePageCustom>({
         const refreshed = await runtime.api.getSession(runtime.session.sessionId);
         if (!runtimes.owns(this, runtime) || !currentAccountOwns(runtime)) return;
         applySession(this, runtime, refreshed.data);
-        this.setData({
-          disputeOpen: true,
-          disputeReceipt: "记下啦；这次复测的结果先不计入水平判断。",
-        });
+        transitionPracticeInteraction(
+          this,
+          { type: "OVERLAY_OPENED", overlay: "dispute" },
+          {
+            disputeReceipt: "记下啦；这次复测的结果先不计入水平判断。",
+          },
+        );
       }
     } catch (error) {
       this.setData({ disputeReceipt: errorMessage(error) });
@@ -1118,43 +1117,35 @@ Page<PracticePageData, PracticePageCustom>({
   },
 
   toggleAnswerSheet() {
-    this.setData({
-      answerSheetOpen: !this.data.answerSheetOpen,
-      draftOpen: false,
-      toolsOpen: false,
-      helpOpen: false,
-      disputeOpen: false,
-    });
+    transitionPracticeInteraction(this, { type: "OVERLAY_TOGGLED", overlay: "answer_sheet" });
   },
 
   toggleDraft() {
     const runtime = runtimes.get(this);
     if (!runtime?.session || runtime.session.state !== "answering") return;
     const closing = this.data.draftOpen;
-    this.setData({
-      draftOpen: !this.data.draftOpen,
-      // 关闭草稿时一并收起手写面板，避免 ui-sheet 销毁重建画布后
-      // math-ink-pad 仍保持展开、重新初始化时抢不到节点而画不出来。
-      ...(closing ? { mathInkOpen: false, mathInkCandidate: null, mathInkLatex: "" } : {}),
-      answerSheetOpen: false,
-      toolsOpen: false,
-      helpOpen: false,
-      disputeOpen: false,
-    });
+    transitionPracticeInteraction(
+      this,
+      { type: "OVERLAY_TOGGLED", overlay: "draft" },
+      {
+        // 关闭草稿时一并收起手写面板，避免 ui-sheet 销毁重建画布后
+        // math-ink-pad 仍保持展开、重新初始化时抢不到节点而画不出来。
+        ...(closing ? { mathInkOpen: false, mathInkCandidate: null, mathInkLatex: "" } : {}),
+      },
+    );
   },
 
   toggleTaskPause() {
     const runtime = runtimes.get(this);
     if (!runtime?.task || runtime.task.phase !== "answering") return;
     const taskPaused = !this.data.taskPaused;
-    this.setData({
-      taskPaused,
-      answerSheetOpen: false,
-      draftOpen: false,
-      toolsOpen: false,
-      helpOpen: false,
-      disputeOpen: false,
-    });
+    transitionPracticeInteraction(
+      this,
+      { type: "INTERACTIONS_CLOSED" },
+      {
+        taskPaused,
+      },
+    );
     // Figma 78:2：暂停/继续是可见的作答动作事实。
     runtime.task = reduceTaskRuntime(runtime.task, {
       type: "ACTION_LOGGED",
@@ -1537,7 +1528,7 @@ Page<PracticePageData, PracticePageCustom>({
   async submitAttempt() {
     const runtime = runtimes.get(this);
     if (!runtime?.api || !runtime.task || !runtime.session || runtime.submitInFlight) return;
-    this.setData({ answerSheetOpen: false });
+    transitionPracticeInteraction(this, { type: "INTERACTIONS_CLOSED" });
     const missing = unansweredQuestionIds(runtime.task);
     if (missing.length > 0) {
       // 用户在答题卡上已看到未答数并点击交卷：这一次确认就是对
@@ -1549,7 +1540,7 @@ Page<PracticePageData, PracticePageCustom>({
     if (runtime.task.syncState !== "saved") await saveCheckpoint(this, runtime);
     if (runtime.task.syncState !== "saved") return;
     runtime.submitInFlight = true;
-    this.setData({ interactionLocked: true });
+    transitionPracticeInteraction(this, { type: "SUBMIT_STARTED" });
     try {
       let pending = loadPendingXingceSubmit(runtime.ownerUserId, runtime.session.sessionId);
       if (!pending) {
@@ -1592,10 +1583,13 @@ Page<PracticePageData, PracticePageCustom>({
     } finally {
       runtime.submitInFlight = false;
       if (runtimes.owns(this, runtime)) {
-        this.setData({
-          interactionLocked:
-            runtime.session.state === "answering" && runtime.editOwnership === null,
-        });
+        if (runtime.session.state !== "answering") {
+          transitionPracticeInteraction(this, { type: "SESSION_TERMINAL" });
+        } else if (runtime.editOwnership === null) {
+          transitionPracticeInteraction(this, { type: "SESSION_SUSPENDED" });
+        } else {
+          transitionPracticeInteraction(this, { type: "SUBMIT_FAILED" });
+        }
       }
     }
   },
@@ -1610,15 +1604,16 @@ Page<PracticePageData, PracticePageCustom>({
 });
 
 function showDispute(page: PracticePageInstance, questionId: string): void {
-  page.setData({
-    toolsOpen: false,
-    helpOpen: false,
-    disputeOpen: true,
-    disputeQuestionId: questionId,
-    disputeCategory: "other",
-    disputeDescription: "",
-    disputeReceipt: "",
-  });
+  transitionPracticeInteraction(
+    page,
+    { type: "OVERLAY_OPENED", overlay: "dispute" },
+    {
+      disputeQuestionId: questionId,
+      disputeCategory: "other",
+      disputeDescription: "",
+      disputeReceipt: "",
+    },
+  );
 }
 
 function applySession(
@@ -1645,13 +1640,16 @@ function applySession(
   if (!retryablePending) {
     runtime.lastAutosaveElapsedSeconds = runtime.task.totalElapsedSeconds;
   }
-  page.setData({
-    hasPendingCheckpoint: retryablePending !== null,
-    pendingCheckpointMessage: retryablePending
-      ? "有一次保存没确认，已把当时的草稿找回来；再点一次重试就好。"
-      : "",
-    interactionLocked: retryablePending !== null,
-  });
+  transitionPracticeInteraction(
+    page,
+    retryablePending ? { type: "SESSION_SUSPENDED" } : { type: "SESSION_READY" },
+    {
+      hasPendingCheckpoint: retryablePending !== null,
+      pendingCheckpointMessage: retryablePending
+        ? "有一次保存没确认，已把当时的草稿找回来；再点一次重试就好。"
+        : "",
+    },
+  );
   if (session.state !== "answering") {
     stopTimer(runtime);
     redirectToReflection(page, runtime);
@@ -1674,13 +1672,16 @@ function redirectToReflection(
   }
   if (runtime.reflectionNavigationStarted) return;
   runtime.reflectionNavigationStarted = true;
-  page.setData({
-    status: "loading",
-    errorTitle: "",
-    errorMessage: "",
-    sessionState: session.state,
-    interactionLocked: true,
-  });
+  transitionPracticeInteraction(
+    page,
+    { type: "SESSION_TERMINAL" },
+    {
+      status: "loading",
+      errorTitle: "",
+      errorMessage: "",
+      sessionState: session.state,
+    },
+  );
   const url =
     routes.reflection +
     "?sessionId=" +
@@ -1837,13 +1838,16 @@ async function loadCurrentQuestionFavorite(
     }
     if (error instanceof ApiClientError && error.statusCode === 401) {
       stopTimer(runtime);
-      page.setData({
-        status: "unavailable",
-        errorTitle: "登录状态已失效",
-        errorMessage: "别担心，当前进度都还在本机；重新登录后从今日计划接着做就行。",
-        showLoginAction: true,
-        interactionLocked: true,
-      });
+      transitionPracticeInteraction(
+        page,
+        { type: "ACCOUNT_CHANGED" },
+        {
+          status: "unavailable",
+          errorTitle: "登录状态已失效",
+          errorMessage: "别担心，当前进度都还在本机；重新登录后从今日计划接着做就行。",
+          showLoginAction: true,
+        },
+      );
       return;
     }
     applyPracticeFavoriteState(page, {
@@ -1973,16 +1977,9 @@ function swipeNavigationBlocked(page: PracticePageInstance): boolean {
   return (
     data.status !== "ready" ||
     data.sessionState !== "answering" ||
-    data.interactionLocked ||
     data.taskPaused ||
-    data.annotationOpen ||
     data.materialOpen ||
-    data.answerSheetOpen ||
-    data.draftOpen ||
-    data.toolsOpen ||
-    data.helpOpen ||
-    data.disputeOpen ||
-    data.ananContextOpen
+    data.swipeBlocked
   );
 }
 
@@ -1991,11 +1988,13 @@ function selectQuestionAtIndex(page: PracticePageInstance, index: number): void 
   if (!runtime?.task || page.data.interactionLocked) return;
   const previousIndex = runtime.task.currentQuestionIndex;
   runtime.task = reduceTaskRuntime(runtime.task, { type: "QUESTION_CHANGED", index });
-  page.setData({
-    answerSheetOpen: false,
-    annotationOpen: false,
-    selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
-  });
+  transitionPracticeInteraction(
+    page,
+    { type: "QUESTION_CHANGED" },
+    {
+      selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
+    },
+  );
   render(page, runtime);
   if (runtime.task.currentQuestionIndex !== previousIndex) resetQuestionScroll(page);
   void saveCheckpointIfPossible(page, runtime);
@@ -2007,11 +2006,13 @@ function changeQuestion(page: PracticePageInstance, delta: number): void {
   const next = runtime.task.currentQuestionIndex + delta;
   if (next < 0 || next >= runtime.task.questionOrder.length) return;
   runtime.task = reduceTaskRuntime(runtime.task, { type: "QUESTION_CHANGED", index: next });
-  page.setData({
-    selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
-    // 契约增量 v2：切题后题干 DOM 整体替换，退出批注模式避免旧矩形错配新题。
-    annotationOpen: false,
-  });
+  transitionPracticeInteraction(
+    page,
+    { type: "QUESTION_CHANGED" },
+    {
+      selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
+    },
+  );
   render(page, runtime);
   resetQuestionScroll(page);
   void saveCheckpointIfPossible(page, runtime);
@@ -2101,7 +2102,7 @@ async function saveCheckpoint(
   stopTimer(runtime);
   runtime.task = reduceTaskRuntime(runtime.task, { type: "SAVE_REQUESTED" });
   renderRuntimeStatusLeaves(page, runtime);
-  page.setData({ interactionLocked: true });
+  transitionPracticeInteraction(page, { type: "LOCK_CHANGED", locked: true });
   const localDraft = runtime.task;
   let commandConfirmed = false;
   let pending = loadPendingXingceCheckpoint(ownerUserId, sessionId);
@@ -2136,14 +2137,17 @@ async function saveCheckpoint(
   } catch (error) {
     if (!runtimes.owns(page, runtime)) return;
     if (commandConfirmed) {
-      page.setData({
-        status: "error",
-        errorTitle: "保存成功了，页面没跟上",
-        errorMessage: "刚才的保存已经确认，别担心；重新进一下当前作答就能继续。",
-        hasPendingCheckpoint: false,
-        pendingCheckpointMessage: "",
-        interactionLocked: true,
-      });
+      transitionPracticeInteraction(
+        page,
+        { type: "SESSION_SUSPENDED" },
+        {
+          status: "error",
+          errorTitle: "保存成功了，页面没跟上",
+          errorMessage: "刚才的保存已经确认，别担心；重新进一下当前作答就能继续。",
+          hasPendingCheckpoint: false,
+          pendingCheckpointMessage: "",
+        },
+      );
       return;
     }
     if (
@@ -2186,15 +2190,18 @@ async function saveCheckpoint(
     });
     render(page, runtime);
     handleInlineError(page, runtime, error, "哎，这次没保存上，别急，本机留着呢，再点一次就好。");
-    page.setData({
-      hasPendingCheckpoint: true,
-      pendingCheckpointMessage: "这次保存还没确认，重试后才能继续改，别急。",
-      interactionLocked: true,
-    });
+    transitionPracticeInteraction(
+      page,
+      { type: "SESSION_SUSPENDED" },
+      {
+        hasPendingCheckpoint: true,
+        pendingCheckpointMessage: "这次保存还没确认，重试后才能继续改，别急。",
+      },
+    );
   } finally {
     runtime.saveInFlight = false;
     if (runtimes.owns(page, runtime) && !page.data.hasPendingCheckpoint) {
-      page.setData({ interactionLocked: false });
+      transitionPracticeInteraction(page, { type: "LOCK_CHANGED", locked: false });
     }
   }
 }
@@ -2330,12 +2337,15 @@ function applySavedCheckpoint(
   runtime.planTaskId = session.planTaskId;
   runtime.task = runtimeFromXingceSession(session);
   runtime.lastAutosaveElapsedSeconds = runtime.task.totalElapsedSeconds;
-  page.setData({
-    hasPendingCheckpoint: false,
-    pendingCheckpointMessage: "",
-    interactionLocked: false,
-    sessionState: session.state,
-  });
+  transitionPracticeInteraction(
+    page,
+    { type: "LOCK_CHANGED", locked: false },
+    {
+      hasPendingCheckpoint: false,
+      pendingCheckpointMessage: "",
+      sessionState: session.state,
+    },
+  );
   renderRuntimeStatusLeaves(page, runtime);
   if (runtime.visible) startTimer(page, runtime);
 }
@@ -2406,12 +2416,16 @@ function flushLocalCheckpoint(
 
 function handlePageError(page: PracticePageInstance, error: unknown, title: string): void {
   const expired = error instanceof ApiClientError && error.statusCode === 401;
-  page.setData({
-    status: expired ? "unavailable" : "error",
-    errorTitle: expired ? "登录状态已失效" : title,
-    errorMessage: errorMessage(error),
-    showLoginAction: expired,
-  });
+  transitionPracticeInteraction(
+    page,
+    expired ? { type: "ACCOUNT_CHANGED" } : { type: "SESSION_SUSPENDED" },
+    {
+      status: expired ? "unavailable" : "error",
+      errorTitle: expired ? "登录状态已失效" : title,
+      errorMessage: errorMessage(error),
+      showLoginAction: expired,
+    },
+  );
 }
 
 function handleInlineError(
@@ -2422,12 +2436,16 @@ function handleInlineError(
 ): void {
   const expired = error instanceof ApiClientError && error.statusCode === 401;
   if (expired) {
-    page.setData({
-      status: "unavailable",
-      errorTitle: "登录状态已失效",
-      errorMessage: "别担心，待提交的内容还按原账号存着，重新登录后就能继续。",
-      showLoginAction: true,
-    });
+    transitionPracticeInteraction(
+      page,
+      { type: "ACCOUNT_CHANGED" },
+      {
+        status: "unavailable",
+        errorTitle: "登录状态已失效",
+        errorMessage: "别担心，待提交的内容还按原账号存着，重新登录后就能继续。",
+        showLoginAction: true,
+      },
+    );
     stopTimer(runtime);
     return;
   }
@@ -2436,7 +2454,15 @@ function handleInlineError(
 }
 
 function failPage(page: PracticePageInstance, title: string, message: string): void {
-  page.setData({ status: "error", errorTitle: title, errorMessage: message });
+  transitionPracticeInteraction(
+    page,
+    { type: "SESSION_SUSPENDED" },
+    {
+      status: "error",
+      errorTitle: title,
+      errorMessage: message,
+    },
+  );
 }
 
 function errorMessage(error: unknown): string {
@@ -2456,22 +2482,38 @@ function invalidateForAccountChange(
 ): void {
   if (!runtimes.owns(page, runtime)) return;
   runtimes.detach(page);
+  transitionPracticeInteraction(
+    page,
+    { type: "ACCOUNT_CHANGED" },
+    {
+      status: "unavailable",
+      errorTitle: "账号已经变更",
+      errorMessage: "旧账号的题目和进度已从本页清除；用当前账号重新进今日计划就行。",
+      showLoginAction: true,
+      view: null,
+      favoriteStatus: "idle",
+      favoriteState: "not_favorited",
+      favoriteQuestionId: "",
+      favoriteDesiredState: "",
+      favoriteButtonLabel: "收藏",
+      favoriteAriaLabel: "收藏本题",
+      favoriteMessage: "",
+      favoriteRequestId: "",
+      sessionState: "",
+    },
+  );
+}
+
+function transitionPracticeInteraction(
+  page: PracticePageInstance,
+  action: TaskInteractionAction,
+  patch: Partial<PracticePageData> = {},
+): void {
+  const interactionState = reduceTaskInteraction(page.data.interactionState, action);
   page.setData({
-    status: "unavailable",
-    errorTitle: "账号已经变更",
-    errorMessage: "旧账号的题目和进度已从本页清除；用当前账号重新进今日计划就行。",
-    showLoginAction: true,
-    view: null,
-    favoriteStatus: "idle",
-    favoriteState: "not_favorited",
-    favoriteQuestionId: "",
-    favoriteDesiredState: "",
-    favoriteButtonLabel: "收藏",
-    favoriteAriaLabel: "收藏本题",
-    favoriteMessage: "",
-    favoriteRequestId: "",
-    sessionState: "",
-    interactionLocked: true,
+    ...patch,
+    interactionState,
+    ...projectTaskInteraction(interactionState),
   });
 }
 
