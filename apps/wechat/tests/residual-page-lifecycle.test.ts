@@ -1,10 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 import { ApiClientError } from "../miniprogram/api/client";
-import type {
-  OnboardingProgress,
-  TodayDashboard,
-} from "../miniprogram/api/generated/types.gen";
+import type { OnboardingProgress, TodayDashboard } from "../miniprogram/api/generated/types.gen";
 import type { AuthSession } from "../miniprogram/auth/session";
 import {
   TodayController,
@@ -52,14 +49,14 @@ describe("residual page owner wiring", () => {
     expect(abilitySource).toContain("onUnload()");
 
     expect(archiveSource).toContain('begin("archive"');
-    expect(archiveSource.match(/requestOwner\.owns\(/gu)).toHaveLength(3);
+    expect(String(archiveSource).match(/requestOwner\.owns\(/gu)).toHaveLength(3);
     expect(archiveSource).toContain("onHide()");
     expect(archiveSource).toContain("onUnload()");
   });
 
   it("guards companion ask completion by page visibility and exact session owner", () => {
     expect(ananSource).toContain('begin("ask"');
-    expect(ananSource.match(/askOwner\.owns\(/gu)).toHaveLength(3);
+    expect(String(ananSource).match(/askOwner\.owns\(/gu)).toHaveLength(3);
     expect(ananSource).toContain("onHide()");
     expect(ananSource).toContain("askOwners.get(this)?.unload()");
   });
@@ -101,12 +98,18 @@ describe("today canonical auth generation ownership", () => {
       clearSession: vi.fn(),
       reauthenticate: vi.fn(),
       navigateOnboarding: vi.fn(),
-      publish: (state) => states.push(state),
+      publish: (state) => {
+        states.push(state);
+      },
     });
 
     const firstLoad = controller.load();
-    await vi.waitFor(() => expect(getToday).toHaveBeenCalledTimes(1));
-    session.current = { ...session.current!, generation: "generation-b" };
+    await vi.waitFor(() => {
+      expect(getToday).toHaveBeenCalledTimes(1);
+    });
+    const current = session.current;
+    if (!current) throw new Error("Expected an active Today session");
+    session.current = { ...current, generation: "generation-b" };
     const latestLoad = controller.load();
 
     try {

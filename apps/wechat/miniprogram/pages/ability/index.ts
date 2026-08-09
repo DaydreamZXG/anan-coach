@@ -1,8 +1,4 @@
-import type {
-  LearningBrainProfileVersion,
-  ModuleAbility,
-  TodayDashboard,
-} from "../../api/generated/types.gen";
+import type { LearningBrainProfileVersion, ModuleAbility } from "../../api/generated/types.gen";
 import { LearningBrainApi } from "../../api/learning-brain";
 import { OnboardingApi } from "../../api/onboarding";
 import { PlanningApi } from "../../api/planning";
@@ -170,9 +166,7 @@ Page({
       this.setData({
         status: "ready",
         errorMessage:
-          goalResult.kind === "failed"
-            ? "岗位对照暂时没加载出来，能力档案仍可查看。"
-            : "",
+          goalResult.kind === "failed" ? "岗位对照暂时没加载出来，能力档案仍可查看。" : "",
         requestId: goalResult.kind === "failed" ? goalResult.requestId : "",
         profile,
         totalScoreLabel: score(estimate?.total),

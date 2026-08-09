@@ -1,9 +1,6 @@
 import { currentAuthSession } from "../../auth/session";
 import { loginUrlForReturn } from "../../app/navigation/auth-return";
-import {
-  PageEffectOwner,
-  type PageEffectLease,
-} from "../../app/runtime/page-effect-owner";
+import { PageEffectOwner, type PageEffectLease } from "../../app/runtime/page-effect-owner";
 import {
   answerIngestionUrl,
   captureImportUrl,
