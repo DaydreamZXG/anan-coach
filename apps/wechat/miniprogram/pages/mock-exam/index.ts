@@ -422,7 +422,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     if (!runtime || runtime.disposed) return;
     transitionMockInteraction(
       this,
-      { type: "LOCK_CHANGED", locked: true },
+      { type: "SESSION_LOADING" },
       {
         status: "loading",
         errorTitle: "",
@@ -1299,7 +1299,7 @@ async function performCheckpointSave(
       });
       transitionMockInteraction(
         page,
-        { type: "LOCK_CHANGED", locked: true },
+        { type: "SESSION_SUSPENDED" },
         {
           syncLabel: "另一台设备已接管",
           errorMessage: "别担心，本机的草稿都还在；重新进入并确认接管后，你可以选用哪一份进度。",
@@ -1471,7 +1471,7 @@ async function executeSubmit(
     }
     transitionMockInteraction(
       page,
-      lostEditing ? { type: "LOCK_CHANGED", locked: true } : { type: "SUBMIT_FAILED" },
+      lostEditing ? { type: "SESSION_SUSPENDED" } : { type: "SUBMIT_FAILED" },
       {
         syncLabel: lostEditing ? "另一台设备已接管" : "提交结果待确认",
         errorMessage: lostEditing
@@ -1947,7 +1947,7 @@ function dataset(event: WechatMiniprogram.BaseEvent, name: string): string {
 function failPage(page: MockExamPageInstance, error: unknown, title: string): void {
   transitionMockInteraction(
     page,
-    { type: "LOCK_CHANGED", locked: true },
+    { type: "SESSION_SUSPENDED" },
     {
       status: "error",
       errorTitle: title,

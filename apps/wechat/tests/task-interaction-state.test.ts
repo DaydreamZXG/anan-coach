@@ -127,4 +127,27 @@ describe("task interaction authority", () => {
       touchOwner: "question",
     });
   });
+
+  it("preserves the active surface across a temporary checkpoint lock", () => {
+    const drawing = reduceTaskInteraction(createTaskInteractionState(), {
+      type: "ANNOTATION_OPENED",
+      surface: "question",
+    });
+    const saving = reduceTaskInteraction(drawing, { type: "LOCK_CHANGED", locked: true });
+    expect(projectTaskInteraction(saving)).toMatchObject({
+      annotationOpen: true,
+      annotationSurface: "question",
+      touchOwner: "annotation",
+      interactionLocked: true,
+      swipeBlocked: true,
+    });
+
+    const suspended = reduceTaskInteraction(saving, { type: "SESSION_SUSPENDED" });
+    expect(projectTaskInteraction(suspended)).toMatchObject({
+      annotationOpen: false,
+      annotationSurface: "",
+      touchOwner: "none",
+      interactionLocked: true,
+    });
+  });
 });

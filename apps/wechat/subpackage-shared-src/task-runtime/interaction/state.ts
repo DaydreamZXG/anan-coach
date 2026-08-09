@@ -31,6 +31,8 @@ export type TaskInteractionAction =
   | { type: "PAGE_HIDDEN" }
   | { type: "PAGE_UNLOADED" }
   | { type: "ACCOUNT_CHANGED" }
+  | { type: "SESSION_LOADING" }
+  | { type: "SESSION_SUSPENDED" }
   | { type: "SESSION_READY" }
   | { type: "SESSION_TERMINAL" }
   | { type: "SUBMIT_STARTED" }
@@ -103,6 +105,8 @@ export function reduceTaskInteraction(
     case "PAGE_UNLOADED":
       return { ...closeSurface(state), lifecycle: "unloaded", locked: true };
     case "ACCOUNT_CHANGED":
+    case "SESSION_LOADING":
+    case "SESSION_SUSPENDED":
     case "SUBMIT_STARTED":
     case "SESSION_TERMINAL":
       return { ...closeSurface(state), locked: true };
@@ -110,7 +114,7 @@ export function reduceTaskInteraction(
     case "SUBMIT_FAILED":
       return state.lifecycle === "unloaded" ? state : { ...closeSurface(state), locked: false };
     case "LOCK_CHANGED":
-      return action.locked ? { ...closeSurface(state), locked: true } : { ...state, locked: false };
+      return { ...state, locked: action.locked };
   }
 }
 
@@ -118,17 +122,20 @@ export function projectTaskInteraction(
   state: TaskInteractionState,
 ): TaskInteractionProjection {
   const interactionLocked = state.locked || state.lifecycle !== "visible";
+  const visible = state.lifecycle === "visible";
   const annotationSurface =
-    !interactionLocked && state.annotationSurface !== "none" ? state.annotationSurface : "";
+    visible && state.annotationSurface !== "none" ? state.annotationSurface : "";
   const annotationOpen = annotationSurface !== "";
-  const overlay = interactionLocked ? "none" : state.overlay;
-  const touchOwner: TaskTouchOwner = interactionLocked
+  const overlay = visible ? state.overlay : "none";
+  const touchOwner: TaskTouchOwner = !visible
     ? "none"
     : annotationOpen
       ? "annotation"
       : overlay !== "none"
         ? "overlay"
-        : "question";
+        : state.locked
+          ? "none"
+          : "question";
 
   return {
     overlay,
