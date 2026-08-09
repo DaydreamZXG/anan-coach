@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "capabilities": [
+    {
+      "capability": "evidence",
+      "tracks": {
+        "frontend-lifecycle": {
+          "status": "unknown",
+          "producer": null,
+          "consumers": [],
+          "contract": null,
+          "evidenceRefs": [],
+          "decisionRef": null
+        }
+      }
+    },
+    {
+      "capability": "attempt",
+      "tracks": {
+        "frontend-lifecycle": {
+          "status": "unknown",
+          "producer": null,
+          "consumers": [],
+          "contract": null,
+          "evidenceRefs": [],
+          "decisionRef": null
+        }
+      }
+    },
+    {
+      "capability": "reflection",
+      "tracks": {
+        "frontend-lifecycle": {
+          "status": "unknown",
+          "producer": null,
+          "consumers": [],
+          "contract": null,
+          "evidenceRefs": [],
+          "decisionRef": null
+        }
+      }
+    },
+    {
+      "capability": "mastery",
+      "tracks": {
+        "frontend-lifecycle": {
+          "status": "unknown",
+          "producer": null,
+          "consumers": [],
+          "contract": null,
+          "evidenceRefs": [],
+          "decisionRef": null
+        }
+      }
+    },
+    {
+      "capability": "ability_estimate",
+      "tracks": {
+        "frontend-lifecycle": {
+          "status": "unknown",
+          "producer": null,
+          "consumers": [],
+          "contract": null,
+          "evidenceRefs": [],
+          "decisionRef": null
+        }
+      }
+    },
+    {
+      "capability": "planning",
+      "tracks": {
+        "frontend-lifecycle": {
+          "status": "unknown",
+          "producer": null,
+          "consumers": [],
+          "contract": null,
+          "evidenceRefs": [],
+          "decisionRef": null
+        }
+      }
+    },
+    {
+      "capability": "report",
+      "tracks": {
+        "frontend-lifecycle": {
+          "status": "unknown",
+          "producer": null,
+          "consumers": [],
+          "contract": null,
+          "evidenceRefs": [],
+          "decisionRef": null
+        }
+      }
+    },
+    {
+      "capability": "global_ask",
+      "tracks": {
+        "frontend-lifecycle": {
+          "status": "unknown",
+          "producer": null,
+          "consumers": [],
+          "contract": null,
+          "evidenceRefs": [],
+          "decisionRef": null
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "runs": [
+    {
+      "id": "RU-FRONTEND-LIFECYCLE-001/WP-FRONTEND-LIFECYCLE-001@2026-08-09T02:59:22.721551+00:00",
+      "packageId": "WP-FRONTEND-LIFECYCLE-001",
+      "baselineCommit": "a46e655cd246b5ce72a1cc3fa2f49f40d06e535b",
+      "baselineTreeHash": "sha256:0f855ad6318f24fb981bbc775644d81142dad2bff7efc1d6f615e6ca6b97e925",
+      "baselineSnapshotPath": "execution/baselines/644c40ca11ec024d.d65fa698a4779499f92d.json",
+      "baselineSnapshotSha256": "sha256:977ef7457238cdd1202e30964cc1b6c25bb78001a4ebe5e495b9b5f9828fb2bc",
+      "assignedTo": "codex-frontend-lifecycle-window",
+      "status": "in_progress",
+      "startedAt": "2026-08-09T02:59:22.721551+00:00",
+      "finishedAt": null,
+      "reportPath": null,
+      "reportSha256": null,
+      "releaseUnitId": "RU-FRONTEND-LIFECYCLE-001",
+      "releaseUnitHash": "sha256:abed67a4ab24662dcc11ec2afbbbd013f2fb4155959073da39b305e51062e711"
+    }
+  ]
+}

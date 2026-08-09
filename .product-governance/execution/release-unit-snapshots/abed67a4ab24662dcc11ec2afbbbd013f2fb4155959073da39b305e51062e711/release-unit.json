@@ -1,0 +1,711 @@
+{
+  "schemaVersion": 1,
+  "releaseUnitId": "RU-FRONTEND-LIFECYCLE-001",
+  "releaseUnitHash": "sha256:abed67a4ab24662dcc11ec2afbbbd013f2fb4155959073da39b305e51062e711",
+  "decisionId": "DEC-FREEZE-RU-FRONTEND-LIFECYCLE-001",
+  "objective": "冻结且只授权 reflection、me、private-knowledge 的页面实例/session 生命周期重构；不扩大为全产品冻结或生产发布单元。",
+  "dependsOnReleaseUnits": [],
+  "supersedesReleaseUnits": [],
+  "roots": {
+    "workPackages": [
+      "WP-FRONTEND-LIFECYCLE-001"
+    ],
+    "requirements": [],
+    "nonFunctionalRequirements": [],
+    "domains": [],
+    "contracts": [],
+    "stateMachines": [],
+    "pages": [],
+    "journeys": [],
+    "dataLifecycleResources": [],
+    "aiScenarios": [],
+    "entitlements": [],
+    "trackCoverage": []
+  },
+  "commit": "a46e655cd246b5ce72a1cc3fa2f49f40d06e535b",
+  "frozenAt": "2026-08-09T02:59:14.177187+00:00",
+  "catalogManifest": {
+    "schemaVersion": 1,
+    "product": {
+      "name": "岸岸小程序前端生命周期重构单元",
+      "createdAt": "2026-08-09T02:51:09.269724+00:00"
+    },
+    "authority": {
+      "bundleRoot": ".product-governance",
+      "precedence": [
+        "user_confirmed",
+        "applicable_policy",
+        "frozen_decision",
+        "code_observed",
+        "existing_document",
+        "inferred",
+        "proposed"
+      ]
+    },
+    "tracks": [
+      "frontend-lifecycle"
+    ],
+    "trackDecisionRefs": {
+      "frontend-lifecycle": "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001"
+    },
+    "requiredPageStates": [
+      "default",
+      "loading",
+      "empty",
+      "partial",
+      "error",
+      "expired",
+      "conflict",
+      "recovery",
+      "processing"
+    ],
+    "dualTrackCapabilities": [
+      "evidence",
+      "attempt",
+      "reflection",
+      "mastery",
+      "ability_estimate",
+      "planning",
+      "report",
+      "global_ask"
+    ],
+    "requiredNfrCategories": [
+      "security",
+      "privacy",
+      "reliability",
+      "observability",
+      "performance",
+      "capacity",
+      "accessibility",
+      "ai_quality",
+      "ai_cost",
+      "commerce",
+      "migration",
+      "backup_restore",
+      "operations"
+    ]
+  },
+  "closure": {
+    "workPackages": [
+      "WP-FRONTEND-LIFECYCLE-001"
+    ],
+    "requirements": [
+      "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001"
+    ],
+    "nonFunctionalRequirements": [],
+    "domains": [
+      "wechat_frontend_lifecycle"
+    ],
+    "contracts": [
+      "wechat-page-request-owner@v1"
+    ],
+    "stateMachines": [],
+    "pages": [],
+    "pageStateProfiles": [],
+    "journeys": [],
+    "actors": [],
+    "dataLifecycleResources": [],
+    "aiScenarios": [],
+    "entitlements": [],
+    "trackCoverage": [],
+    "evidence": [
+      "E-CODE-AUTH-SESSION-OWNER-001",
+      "E-CODE-BASELINE-001",
+      "E-CODE-ME-REQUEST-GAP-001",
+      "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001",
+      "E-CODE-REFLECTION-OWNER-GAP-001",
+      "E-USER-FRONTEND-LIFECYCLE-UNIT-001"
+    ],
+    "decisions": [
+      "DEC-FREEZE-RU-FRONTEND-LIFECYCLE-001",
+      "DEC-FRONTEND-LAYOUT-BREAKPOINTS-001",
+      "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001"
+    ],
+    "conflicts": [],
+    "glossaryTerms": [],
+    "resources": [],
+    "tracks": [
+      "frontend-lifecycle"
+    ]
+  },
+  "deferredSnapshot": {
+    "schemaVersion": 1,
+    "catalogHash": "sha256:3c0ab35453811874d187f5a356a07effaef54a473751c4c30e76dadd2ae3ce33",
+    "items": [
+      {
+        "subjectKind": "actors",
+        "subjectId": "*",
+        "message": "No product actors are defined"
+      },
+      {
+        "subjectKind": "aiScenarios",
+        "subjectId": "*",
+        "message": "No AI scenarios are defined"
+      },
+      {
+        "subjectKind": "entitlements",
+        "subjectId": "*",
+        "message": "No entitlement capabilities are defined"
+      },
+      {
+        "subjectKind": "glossaryTerms",
+        "subjectId": "*",
+        "message": "No canonical glossary terms are defined"
+      },
+      {
+        "subjectKind": "journeys",
+        "subjectId": "*",
+        "message": "No end-to-end journeys are defined"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-accessibility",
+        "message": "High-impact non-functional requirement is unresolved: NFR-accessibility (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-ai_cost",
+        "message": "High-impact non-functional requirement is unresolved: NFR-ai_cost (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-ai_quality",
+        "message": "High-impact non-functional requirement is unresolved: NFR-ai_quality (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-backup_restore",
+        "message": "High-impact non-functional requirement is unresolved: NFR-backup_restore (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-capacity",
+        "message": "High-impact non-functional requirement is unresolved: NFR-capacity (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-commerce",
+        "message": "High-impact non-functional requirement is unresolved: NFR-commerce (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-migration",
+        "message": "High-impact non-functional requirement is unresolved: NFR-migration (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-observability",
+        "message": "High-impact non-functional requirement is unresolved: NFR-observability (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-operations",
+        "message": "High-impact non-functional requirement is unresolved: NFR-operations (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-performance",
+        "message": "High-impact non-functional requirement is unresolved: NFR-performance (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-privacy",
+        "message": "High-impact non-functional requirement is unresolved: NFR-privacy (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-reliability",
+        "message": "High-impact non-functional requirement is unresolved: NFR-reliability (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-security",
+        "message": "High-impact non-functional requirement is unresolved: NFR-security (unknown)"
+      },
+      {
+        "subjectKind": "pages",
+        "subjectId": "*",
+        "message": "No pages are defined"
+      },
+      {
+        "subjectKind": "stateMachines",
+        "subjectId": "*",
+        "message": "No canonical state machines are defined"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "ability_estimate::frontend-lifecycle",
+        "message": "Capability ability_estimate/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "attempt::frontend-lifecycle",
+        "message": "Capability attempt/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "evidence::frontend-lifecycle",
+        "message": "Capability evidence/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "global_ask::frontend-lifecycle",
+        "message": "Capability global_ask/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "mastery::frontend-lifecycle",
+        "message": "Capability mastery/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "planning::frontend-lifecycle",
+        "message": "Capability planning/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "reflection::frontend-lifecycle",
+        "message": "Capability reflection/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "report::frontend-lifecycle",
+        "message": "Capability report/frontend-lifecycle remains unknown"
+      }
+    ]
+  },
+  "artifacts": {
+    "evidenceLedger": {
+      "schemaVersion": 1,
+      "entries": [
+        {
+          "id": "E-CODE-AUTH-SESSION-OWNER-001",
+          "claim": "当前认证模块将 session owner 定义为 accessToken、userId 与 generation 三者完全相等，并提供 sameSessionOwner。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/auth/session.ts:83",
+          "observedAt": "2026-08-09T10:55:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": []
+        },
+        {
+          "id": "E-CODE-BASELINE-001",
+          "claim": "本单元起点是干净的 a46e655cd246b5ce72a1cc3fa2f49f40d06e535b，来源分支 codex/structural-refactor-v2。",
+          "class": "code_observed",
+          "locator": "command:git-status-and-log:2026-08-09T10:50:00+08:00",
+          "observedAt": "2026-08-09T10:50:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": []
+        },
+        {
+          "id": "E-CODE-ME-REQUEST-GAP-001",
+          "claim": "当前 me 页面每次请求只读取 token，没有页面实例 owner、onUnload 保护或重复 onShow 请求世代。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/pages/me/index.ts:143",
+          "observedAt": "2026-08-09T10:55:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": []
+        },
+        {
+          "id": "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001",
+          "claim": "当前 private-knowledge 页面按操作重新读取当前认证创建 API gateway，onUnload 只删除 retry file，列表、搜索、上传、删除轮询均没有页面实例/session request owner。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/pages/private-knowledge/index.ts:111",
+          "observedAt": "2026-08-09T10:55:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": []
+        },
+        {
+          "id": "E-CODE-REFLECTION-OWNER-GAP-001",
+          "claim": "当前 reflection runtime 只保存 ownerUserId，currentAccountOwns 也只比较 userId；同 user 更换 token 或 generation 不会使旧页面失去 owner。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/pages/reflection/index.ts:261",
+          "observedAt": "2026-08-09T10:55:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": []
+        },
+        {
+          "id": "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+          "claim": "当前独立 worktree 只实施 reflection、me 与 private-knowledge 页面生命周期重构；owner 必须绑定 user、token、generation，覆盖重复 onShow、账号切换、快速切页、onHide/onUnload、资源清理和迟到响应隔离；不部署、不上传、不推送。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-09:delegated-frontend-lifecycle-unit",
+          "observedAt": "2026-08-09T10:45:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": []
+        }
+      ]
+    },
+    "conflictRegister": {
+      "schemaVersion": 1,
+      "conflicts": []
+    },
+    "decisionRegister": {
+      "schemaVersion": 1,
+      "decisions": [
+        {
+          "id": "DEC-FREEZE-RU-FRONTEND-LIFECYCLE-001",
+          "question": "是否授权该最小后继 release unit 进入实现？",
+          "choice": "授权 RU-FRONTEND-LIFECYCLE-001，仅覆盖一个无共享文件冲突的前端生命周期工作包；全产品、生产、部署与后续公式候选集成继续保持 deferred。",
+          "status": "accepted",
+          "decidedBy": "user",
+          "decidedAt": "2026-08-09T10:45:00+08:00",
+          "evidenceRefs": [
+            "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+            "E-CODE-BASELINE-001"
+          ]
+        },
+        {
+          "id": "DEC-FRONTEND-LAYOUT-BREAKPOINTS-001",
+          "question": "本单元页面布局断点如何解释？",
+          "choice": "compact 小于 600px、medium 大于等于 600px、wide 大于等于 1024px；断点只表达布局层级，不推断设备、平台或方向身份。",
+          "status": "accepted",
+          "decidedBy": "user",
+          "decidedAt": "2026-08-09T10:45:00+08:00",
+          "evidenceRefs": [
+            "E-USER-FRONTEND-LIFECYCLE-UNIT-001"
+          ]
+        },
+        {
+          "id": "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001",
+          "question": "本并行窗口允许改变哪些 owner 与页面行为？",
+          "choice": "只在 reflection、me、private-knowledge 页面及其页面私有 runtime/test 内建立 user+token+generation owner；onHide/onUnload 立即使请求、轮询、录音、试听、speech、replay 与 timer 失效，重复 onShow 只接受最新请求。API、存储 key、路由、支付、data_rights、业务智能和其他窗口文件均不改变。",
+          "status": "accepted",
+          "decidedBy": "user",
+          "decidedAt": "2026-08-09T10:45:00+08:00",
+          "evidenceRefs": [
+            "E-USER-FRONTEND-LIFECYCLE-UNIT-001"
+          ]
+        }
+      ]
+    },
+    "glossary": {
+      "schemaVersion": 1,
+      "terms": []
+    },
+    "requirements": {
+      "schemaVersion": 1,
+      "requirements": [
+        {
+          "id": "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001",
+          "statement": "reflection、me 与 private-knowledge 的异步页面状态只能由当前页面实例且 userId、accessToken、generation 全部匹配的可见 session owner 更新；更新的 onShow、onHide、onUnload 或账号切换必须使旧响应与资源失效。",
+          "scope": "target",
+          "impact": "high",
+          "state": "confirmed",
+          "owner": "wechat_frontend_lifecycle",
+          "evidenceRefs": [
+            "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+            "E-CODE-AUTH-SESSION-OWNER-001",
+            "E-CODE-REFLECTION-OWNER-GAP-001",
+            "E-CODE-ME-REQUEST-GAP-001",
+            "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001"
+          ],
+          "acceptance": [
+            "同 user 更换 token 或 generation 后，旧请求、回调、timer 与媒体回调不能 setData。",
+            "账号 A 切换到 B、快速切页、onHide、onUnload 后，A 或旧页面实例的迟到响应不能改变当前页面。",
+            "重复 onShow 的列表/档案加载仅最新请求可提交页面状态。",
+            "reflection 隐藏或卸载时停止 replay、cause poll、录音、试听和 speech preview，并使进行中的 media/speech 请求失效。",
+            "private-knowledge 删除轮询的等待 timer 在隐藏或卸载时被清理且等待正常结束。",
+            "页面 WXSS 只使用 600px 与 1024px 布局层级断点，不用方向或设备身份决定 wide 布局。"
+          ]
+        }
+      ]
+    },
+    "journeys": {
+      "schemaVersion": 1,
+      "actors": [],
+      "journeys": []
+    },
+    "domains": {
+      "schemaVersion": 1,
+      "domains": [
+        {
+          "id": "wechat_frontend_lifecycle",
+          "owner": "apps/wechat/miniprogram/pages",
+          "scope": "target",
+          "trackScope": [
+            "frontend-lifecycle"
+          ],
+          "invariants": [
+            "页面 session owner 由 userId、accessToken、generation 与页面实例共同确定，展示名不参与 owner。",
+            "只有当前可见页面实例的最新 lane request 才能提交 setData；hide、unload 或 owner 变化单调失效旧 lease。",
+            "页面 owner 只拥有客户端瞬时生命周期，不拥有 API、认证事实、存储 key 或业务事实。"
+          ]
+        }
+      ]
+    },
+    "stateMachines": {
+      "schemaVersion": 1,
+      "machines": []
+    },
+    "contracts": {
+      "schemaVersion": 1,
+      "contracts": [
+        {
+          "id": "wechat-page-request-owner@v1",
+          "kind": "file",
+          "owner": "wechat_frontend_lifecycle",
+          "consumers": [
+            "reflection-page",
+            "me-page",
+            "private-knowledge-page"
+          ],
+          "schemaLocator": "inline://contracts.json#/contracts/wechat-page-request-owner@v1",
+          "inputSchema": {
+            "type": "object",
+            "description": "One page-owned asynchronous effect lease evaluated before a client-side state commit.",
+            "properties": {
+              "userId": {
+                "type": "string",
+                "description": "Authenticated user owner."
+              },
+              "accessToken": {
+                "type": "string",
+                "description": "Exact token owner; never logged by the runtime."
+              },
+              "generation": {
+                "type": "string",
+                "description": "Exact authenticated session generation."
+              },
+              "pageInstanceGeneration": {
+                "type": "integer",
+                "description": "Monotonic page visibility generation."
+              },
+              "requestGeneration": {
+                "type": "integer",
+                "description": "Monotonic request generation within the lane."
+              },
+              "lane": {
+                "type": "string",
+                "description": "Page-private latest-wins request lane."
+              }
+            },
+            "required": [
+              "userId",
+              "accessToken",
+              "generation",
+              "pageInstanceGeneration",
+              "requestGeneration",
+              "lane"
+            ],
+            "additionalProperties": false
+          },
+          "outputSchema": {
+            "type": "object",
+            "description": "Deterministic decision whether the effect may update the current page instance.",
+            "properties": {
+              "accepted": {
+                "type": "boolean",
+                "description": "True only for the current visible exact owner and latest lane request."
+              },
+              "reason": {
+                "type": "string",
+                "description": "Stable rejection or acceptance reason.",
+                "enum": [
+                  "current",
+                  "hidden",
+                  "unloaded",
+                  "owner_changed",
+                  "superseded"
+                ]
+              }
+            },
+            "required": [
+              "accepted",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "dataClasses": [
+            "personal",
+            "sensitive"
+          ],
+          "authorization": "Local-only guard: currentAuthSession must exactly match userId, accessToken and generation before any page state commit.",
+          "idempotency": "Latest-wins per page instance and lane; invalidation is monotonic within a visibility generation.",
+          "compatibility": "v1 changes no API or storage contract; adding or weakening owner fields requires a new contract version and release unit.",
+          "errorSemantics": [
+            "HIDDEN",
+            "UNLOADED",
+            "OWNER_CHANGED",
+            "SUPERSEDED"
+          ],
+          "requirementRefs": [
+            "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001"
+          ],
+          "evidenceRefs": [
+            "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+            "E-CODE-AUTH-SESSION-OWNER-001"
+          ],
+          "observability": {
+            "correlation": "The lane and monotonic request generation correlate local effects without exposing the access token.",
+            "audit": "No persistent audit record or token logging is added; executable tests prove accepted and rejected transitions.",
+            "metrics": "No production metric is added in this scoped unit; tests count accepted versus stale effects deterministically."
+          },
+          "status": "specified"
+        }
+      ]
+    },
+    "pageMatrix": {
+      "schemaVersion": 1,
+      "stateProfiles": [],
+      "pages": []
+    },
+    "trackCoverage": {
+      "schemaVersion": 1,
+      "capabilities": []
+    },
+    "dataLifecycle": {
+      "schemaVersion": 1,
+      "resources": []
+    },
+    "aiScenarios": {
+      "schemaVersion": 1,
+      "scenarios": []
+    },
+    "entitlements": {
+      "schemaVersion": 1,
+      "capabilities": []
+    },
+    "nonFunctionalRequirements": {
+      "schemaVersion": 1,
+      "requirements": []
+    },
+    "workPackages": {
+      "schemaVersion": 1,
+      "packages": [
+        {
+          "id": "WP-FRONTEND-LIFECYCLE-001",
+          "wave": "consumer",
+          "owner": "wechat-frontend-lifecycle-window",
+          "riskClass": "high",
+          "objective": "为 reflection、me 与 private-knowledge 建立页面实例/session owner、生命周期资源清理和迟到响应隔离。",
+          "deliverables": [
+            "reflection 完整 session owner 与统一 suspend/dispose 清理",
+            "me 页面私有 request owner 与重复 onShow 去重",
+            "private-knowledge 页面私有 request owner、可取消删除轮询与重复 onShow 去重",
+            "三个页面的独立竞态测试和 600/1024 布局断点"
+          ],
+          "requirementRefs": [
+            "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001"
+          ],
+          "decisionRefs": [
+            "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001",
+            "DEC-FRONTEND-LAYOUT-BREAKPOINTS-001",
+            "DEC-FREEZE-RU-FRONTEND-LIFECYCLE-001"
+          ],
+          "blockingDecisionRefs": [],
+          "nonGoals": [
+            "不修改 practice、mock-exam、essay-task 或 subpackage-shared-src/task-runtime",
+            "不修改 backend、API/OpenAPI、生成类型、存储 key、导航注册、支付或 data_rights",
+            "不修改岸岸、抽题、公式识别、错因智能逻辑",
+            "不集成尚未稳定的阶段三公式候选接口",
+            "不部署、不上传、不推送，不声明全产品或生产就绪"
+          ],
+          "dependsOn": [],
+          "allowedPaths": [
+            "apps/wechat/miniprogram/pages/reflection/**",
+            "apps/wechat/miniprogram/pages/me/index.ts",
+            "apps/wechat/miniprogram/pages/me/index.wxss",
+            "apps/wechat/miniprogram/pages/me/features/**",
+            "apps/wechat/miniprogram/pages/private-knowledge/index.ts",
+            "apps/wechat/miniprogram/pages/private-knowledge/index.wxss",
+            "apps/wechat/miniprogram/pages/private-knowledge/features/page-runtime/**",
+            "apps/wechat/tests/reflection-page-lifecycle.test.ts",
+            "apps/wechat/tests/me-page-lifecycle.test.ts",
+            "apps/wechat/tests/private-knowledge-page-lifecycle.test.ts"
+          ],
+          "forbiddenPaths": [
+            ".product-governance/**",
+            "apps/wechat/miniprogram/pages/practice/**",
+            "apps/wechat/miniprogram/pages/mock-exam/**",
+            "apps/wechat/miniprogram/pages/essay-task/**",
+            "apps/wechat/miniprogram/subpackage-shared-src/task-runtime/**",
+            "backend/**",
+            "apps/wechat/miniprogram/api/**",
+            "apps/wechat/miniprogram/app/navigation/**",
+            "apps/wechat/miniprogram/features/data-rights/**"
+          ],
+          "migrationPolicy": {
+            "mode": "none",
+            "ownedPaths": [],
+            "dataBackfill": "No schema, storage-key, or data migration belongs to this package.",
+            "rollback": "Revert only files in allowedPaths; no persistent user data is rewritten."
+          },
+          "compatibilityPolicy": {
+            "strategy": "Keep existing API payloads, routes, storage keys and visible business semantics; only reject stale page-owned effects.",
+            "supportedVersions": "Existing WeChat page and API contracts at baseline a46e655cd.",
+            "removalGate": "Any API, route, storage or business-semantic change requires a new release unit and owner approval."
+          },
+          "inputContracts": [],
+          "outputContracts": [
+            "wechat-page-request-owner@v1"
+          ],
+          "acceptanceCommands": [
+            {
+              "id": "frontend-lifecycle-reflection",
+              "kind": "scenario_test",
+              "adapter": "vitest-json@1",
+              "selector": "tests/reflection-page-lifecycle.test.ts",
+              "cwd": "apps/wechat",
+              "timeoutSeconds": 300
+            },
+            {
+              "id": "frontend-lifecycle-me",
+              "kind": "scenario_test",
+              "adapter": "vitest-json@1",
+              "selector": "tests/me-page-lifecycle.test.ts",
+              "cwd": "apps/wechat",
+              "timeoutSeconds": 300
+            },
+            {
+              "id": "frontend-lifecycle-private-knowledge",
+              "kind": "scenario_test",
+              "adapter": "vitest-json@1",
+              "selector": "tests/private-knowledge-page-lifecycle.test.ts",
+              "cwd": "apps/wechat",
+              "timeoutSeconds": 300
+            }
+          ],
+          "requiredAcceptanceScenarios": [
+            {
+              "id": "WP-FRONTEND-LIFECYCLE-001-AS-01",
+              "assertion": "reflection rejects same-user token/generation and account-switch late effects and clears replay, poll, recording, preview, speech and timers on hide/unload",
+              "testSelector": "tests/reflection-page-lifecycle.test.ts",
+              "acceptanceCommandId": "frontend-lifecycle-reflection"
+            },
+            {
+              "id": "WP-FRONTEND-LIFECYCLE-001-AS-02",
+              "assertion": "me accepts only the newest visible request for the current page instance and exact session owner",
+              "testSelector": "tests/me-page-lifecycle.test.ts",
+              "acceptanceCommandId": "frontend-lifecycle-me"
+            },
+            {
+              "id": "WP-FRONTEND-LIFECYCLE-001-AS-03",
+              "assertion": "private-knowledge accepts only the newest visible exact-owner request and cancels deletion polling waits on hide/unload",
+              "testSelector": "tests/private-knowledge-page-lifecycle.test.ts",
+              "acceptanceCommandId": "frontend-lifecycle-private-knowledge"
+            }
+          ],
+          "verificationOnly": false,
+          "stopConditions": [
+            "A required change falls outside allowedPaths or touches another window's tests",
+            "A required behavior changes API, storage, route, payment, data_rights or business-intelligence contracts",
+            "The stage-three formula candidate interface is not stable",
+            "A destructive, deployment, upload or push action is required"
+          ],
+          "status": "planned"
+        }
+      ]
+    }
+  }
+}

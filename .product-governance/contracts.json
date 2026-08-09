@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "contractLifecycle": ["draft", "specified", "implemented", "verified", "deprecated"],
+  "contracts": [
+    {
+      "id": "wechat-page-request-owner@v1",
+      "kind": "file",
+      "owner": "wechat_frontend_lifecycle",
+      "consumers": ["reflection-page", "me-page", "private-knowledge-page"],
+      "schemaLocator": "inline://contracts.json#/contracts/wechat-page-request-owner@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "One page-owned asynchronous effect lease evaluated before a client-side state commit.",
+        "properties": {
+          "userId": { "type": "string", "description": "Authenticated user owner." },
+          "accessToken": { "type": "string", "description": "Exact token owner; never logged by the runtime." },
+          "generation": { "type": "string", "description": "Exact authenticated session generation." },
+          "pageInstanceGeneration": { "type": "integer", "description": "Monotonic page visibility generation." },
+          "requestGeneration": { "type": "integer", "description": "Monotonic request generation within the lane." },
+          "lane": { "type": "string", "description": "Page-private latest-wins request lane." }
+        },
+        "required": [
+          "userId",
+          "accessToken",
+          "generation",
+          "pageInstanceGeneration",
+          "requestGeneration",
+          "lane"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Deterministic decision whether the effect may update the current page instance.",
+        "properties": {
+          "accepted": { "type": "boolean", "description": "True only for the current visible exact owner and latest lane request." },
+          "reason": {
+            "type": "string",
+            "description": "Stable rejection or acceptance reason.",
+            "enum": ["current", "hidden", "unloaded", "owner_changed", "superseded"]
+          }
+        },
+        "required": ["accepted", "reason"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["personal", "sensitive"],
+      "authorization": "Local-only guard: currentAuthSession must exactly match userId, accessToken and generation before any page state commit.",
+      "idempotency": "Latest-wins per page instance and lane; invalidation is monotonic within a visibility generation.",
+      "compatibility": "v1 changes no API or storage contract; adding or weakening owner fields requires a new contract version and release unit.",
+      "errorSemantics": ["HIDDEN", "UNLOADED", "OWNER_CHANGED", "SUPERSEDED"],
+      "requirementRefs": ["REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001"],
+      "evidenceRefs": ["E-USER-FRONTEND-LIFECYCLE-UNIT-001", "E-CODE-AUTH-SESSION-OWNER-001"],
+      "observability": {
+        "correlation": "The lane and monotonic request generation correlate local effects without exposing the access token.",
+        "audit": "No persistent audit record or token logging is added; executable tests prove accepted and rejected transitions.",
+        "metrics": "No production metric is added in this scoped unit; tests count accepted versus stale effects deterministically."
+      },
+      "status": "specified"
+    }
+  ]
+}

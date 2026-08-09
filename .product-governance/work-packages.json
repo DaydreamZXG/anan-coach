@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "packages": [
+    {
+      "id": "WP-FRONTEND-LIFECYCLE-001",
+      "wave": "consumer",
+      "owner": "wechat-frontend-lifecycle-window",
+      "riskClass": "high",
+      "objective": "为 reflection、me 与 private-knowledge 建立页面实例/session owner、生命周期资源清理和迟到响应隔离。",
+      "deliverables": [
+        "reflection 完整 session owner 与统一 suspend/dispose 清理",
+        "me 页面私有 request owner 与重复 onShow 去重",
+        "private-knowledge 页面私有 request owner、可取消删除轮询与重复 onShow 去重",
+        "三个页面的独立竞态测试和 600/1024 布局断点"
+      ],
+      "requirementRefs": ["REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001"],
+      "decisionRefs": [
+        "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001",
+        "DEC-FRONTEND-LAYOUT-BREAKPOINTS-001",
+        "DEC-FREEZE-RU-FRONTEND-LIFECYCLE-001"
+      ],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不修改 practice、mock-exam、essay-task 或 subpackage-shared-src/task-runtime",
+        "不修改 backend、API/OpenAPI、生成类型、存储 key、导航注册、支付或 data_rights",
+        "不修改岸岸、抽题、公式识别、错因智能逻辑",
+        "不集成尚未稳定的阶段三公式候选接口",
+        "不部署、不上传、不推送，不声明全产品或生产就绪"
+      ],
+      "dependsOn": [],
+      "allowedPaths": [
+        "apps/wechat/miniprogram/pages/reflection/**",
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/me/index.wxss",
+        "apps/wechat/miniprogram/pages/me/features/**",
+        "apps/wechat/miniprogram/pages/private-knowledge/index.ts",
+        "apps/wechat/miniprogram/pages/private-knowledge/index.wxss",
+        "apps/wechat/miniprogram/pages/private-knowledge/features/page-runtime/**",
+        "apps/wechat/tests/reflection-page-lifecycle.test.ts",
+        "apps/wechat/tests/me-page-lifecycle.test.ts",
+        "apps/wechat/tests/private-knowledge-page-lifecycle.test.ts"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "apps/wechat/miniprogram/pages/practice/**",
+        "apps/wechat/miniprogram/pages/mock-exam/**",
+        "apps/wechat/miniprogram/pages/essay-task/**",
+        "apps/wechat/miniprogram/subpackage-shared-src/task-runtime/**",
+        "backend/**",
+        "apps/wechat/miniprogram/api/**",
+        "apps/wechat/miniprogram/app/navigation/**",
+        "apps/wechat/miniprogram/features/data-rights/**"
+      ],
+      "migrationPolicy": {
+        "mode": "none",
+        "ownedPaths": [],
+        "dataBackfill": "No schema, storage-key, or data migration belongs to this package.",
+        "rollback": "Revert only files in allowedPaths; no persistent user data is rewritten."
+      },
+      "compatibilityPolicy": {
+        "strategy": "Keep existing API payloads, routes, storage keys and visible business semantics; only reject stale page-owned effects.",
+        "supportedVersions": "Existing WeChat page and API contracts at baseline a46e655cd.",
+        "removalGate": "Any API, route, storage or business-semantic change requires a new release unit and owner approval."
+      },
+      "inputContracts": [],
+      "outputContracts": ["wechat-page-request-owner@v1"],
+      "acceptanceCommands": [
+        {
+          "id": "frontend-lifecycle-reflection",
+          "kind": "scenario_test",
+          "adapter": "vitest-json@1",
+          "selector": "tests/reflection-page-lifecycle.test.ts",
+          "cwd": "apps/wechat",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "frontend-lifecycle-me",
+          "kind": "scenario_test",
+          "adapter": "vitest-json@1",
+          "selector": "tests/me-page-lifecycle.test.ts",
+          "cwd": "apps/wechat",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "frontend-lifecycle-private-knowledge",
+          "kind": "scenario_test",
+          "adapter": "vitest-json@1",
+          "selector": "tests/private-knowledge-page-lifecycle.test.ts",
+          "cwd": "apps/wechat",
+          "timeoutSeconds": 300
+        }
+      ],
+      "requiredAcceptanceScenarios": [
+        {
+          "id": "WP-FRONTEND-LIFECYCLE-001-AS-01",
+          "assertion": "reflection rejects same-user token/generation and account-switch late effects and clears replay, poll, recording, preview, speech and timers on hide/unload",
+          "testSelector": "tests/reflection-page-lifecycle.test.ts",
+          "acceptanceCommandId": "frontend-lifecycle-reflection"
+        },
+        {
+          "id": "WP-FRONTEND-LIFECYCLE-001-AS-02",
+          "assertion": "me accepts only the newest visible request for the current page instance and exact session owner",
+          "testSelector": "tests/me-page-lifecycle.test.ts",
+          "acceptanceCommandId": "frontend-lifecycle-me"
+        },
+        {
+          "id": "WP-FRONTEND-LIFECYCLE-001-AS-03",
+          "assertion": "private-knowledge accepts only the newest visible exact-owner request and cancels deletion polling waits on hide/unload",
+          "testSelector": "tests/private-knowledge-page-lifecycle.test.ts",
+          "acceptanceCommandId": "frontend-lifecycle-private-knowledge"
+        }
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "A required change falls outside allowedPaths or touches another window's tests",
+        "A required behavior changes API, storage, route, payment, data_rights or business-intelligence contracts",
+        "The stage-three formula candidate interface is not stable",
+        "A destructive, deployment, upload or push action is required"
+      ],
+      "status": "planned"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "resources": [
+    {
+      "id": "wechat-page-session-owner",
+      "owner": "wechat_frontend_lifecycle",
+      "classification": "sensitive",
+      "state": "confirmed",
+      "purpose": "Reject stale client effects across page instances and authenticated sessions.",
+      "source": "currentAuthSession in process memory.",
+      "retention": "Memory only for the page instance; invalidated on hide and discarded on unload or owner change.",
+      "deletion": "Discarded synchronously with page runtime invalidation; no new persistent copy exists.",
+      "export": "Not exported because it is transient authorization-control metadata, not a new user fact.",
+      "encryption": "Uses the existing authenticated session in memory; no additional at-rest representation is created.",
+      "residency": "Client process memory only.",
+      "evidenceRefs": ["E-USER-FRONTEND-LIFECYCLE-UNIT-001", "E-CODE-AUTH-SESSION-OWNER-001"],
+      "derivedFrom": [],
+      "dataSubjects": ["authenticated-user"],
+      "dataElements": ["userId", "accessToken", "session-generation", "page-request-generation"],
+      "processingPurposes": ["client-session-isolation", "stale-response-rejection"],
+      "vendorRefs": [],
+      "deletionPropagation": ["page-runtime", "pending-timer-registry"],
+      "lineageKeys": ["page-instance", "request-lane", "request-generation"],
+      "blockingReasons": [],
+      "legalBasisState": "not_applicable",
+      "visibility": "account_private",
+      "modelTrainingUse": "prohibited",
+      "classificationByState": {
+        "active": "sensitive",
+        "invalidated": "internal"
+      },
+      "minorPolicyRef": "No new collection; inherits the existing authenticated-account policy.",
+      "backupDisposition": "Not backed up; transient page memory only.",
+      "legalHoldSemantics": "Not applicable to transient control metadata; canonical account facts remain with the existing owner.",
+      "correctionSemantics": "Session changes invalidate the owner instead of mutating it in place."
+    }
+  ]
+}
