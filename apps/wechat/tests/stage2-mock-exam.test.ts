@@ -342,7 +342,13 @@ describe("stage 2 F02 mock exam", () => {
     };
 
     harness.page.openAnnotation.call(harness.page);
-    expect(harness.page.data.annotationOpen).toBe(true);
+    expect(harness.page.data).toMatchObject({
+      annotationOpen: true,
+      annotationSurface: "question",
+      annotationMode: "annotate",
+      touchOwner: "annotation",
+      swipeBlocked: true,
+    });
 
     harness.page.changeAnnotations.call(harness.page, {
       detail: { strokes: [stroke], action: "added" },
@@ -390,8 +396,117 @@ describe("stage 2 F02 mock exam", () => {
     });
 
     harness.page.closeAnnotation.call(harness.page);
-    expect(harness.page.data.annotationOpen).toBe(false);
+    expect(harness.page.data).toMatchObject({
+      annotationOpen: false,
+      annotationSurface: "",
+      annotationMode: "static",
+      materialOpen: true,
+      touchOwner: "material",
+      swipeBlocked: true,
+    });
+    harness.page.toggleMaterial.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      materialOpen: false,
+      touchOwner: "question",
+      swipeBlocked: false,
+    });
     harness.page.onUnload.call(harness.page);
+  });
+
+  it("releases annotation touch ownership on hide, unload and question changes", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:10:00.000Z"));
+    const harness = await createMockPage(twoQuestionSessionPayload());
+
+    expect(mockExamTemplate).toContain('data-touch-owner="{{touchOwner}}"');
+    expect(mockExamTemplate).toContain('interactionActive="{{materialCaptureActive}}"');
+    expect(mockExamTemplate).toContain(
+      "wx:if=\"{{annotationMode === 'annotate' || questionAnnotations.length}}\"",
+    );
+    expect(mockExamTemplate).toContain(
+      "mode=\"{{annotationMode === 'annotate' && annotationSurface === 'question' ? 'annotate' : 'static'}}\"",
+    );
+
+    harness.page.openAnnotation.call(harness.page);
+    harness.page.nextQuestion.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      current: 2,
+      annotationOpen: false,
+      annotationSurface: "",
+      touchOwner: "question",
+    });
+
+    harness.page.openAnnotation.call(harness.page);
+    harness.page.onHide.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      annotationOpen: false,
+      annotationSurface: "",
+      interactionLocked: true,
+      touchOwner: "none",
+    });
+
+    harness.page.onShow.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      interactionLocked: false,
+      touchOwner: "question",
+    });
+    harness.page.onUnload.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      annotationOpen: false,
+      interactionLocked: true,
+      touchOwner: "none",
+    });
+  });
+
+  it("projects material capture and releases it on question and lifecycle boundaries", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:10:00.000Z"));
+    const harness = await createMockPage(twoQuestionSessionPayload());
+
+    harness.page.toggleMaterial.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      interactionMode: "material",
+      materialOpen: true,
+      materialCaptureActive: true,
+      captureLayer: "material",
+      touchOwner: "material",
+      swipeBlocked: true,
+    });
+
+    harness.page.onHide.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      materialOpen: true,
+      materialCaptureActive: false,
+      captureLayer: "none",
+      touchOwner: "none",
+    });
+    harness.page.onShow.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      materialOpen: true,
+      materialCaptureActive: true,
+      captureLayer: "material",
+      touchOwner: "material",
+    });
+
+    harness.page.nextQuestion.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      current: 2,
+      interactionMode: "question",
+      materialOpen: false,
+      materialCaptureActive: false,
+      captureLayer: "none",
+      touchOwner: "question",
+    });
+
+    harness.page.toggleMaterial.call(harness.page);
+    harness.page.onUnload.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      interactionMode: "question",
+      materialOpen: false,
+      materialCaptureActive: false,
+      captureLayer: "none",
+      touchOwner: "none",
+    });
   });
 
   it("auto-submits at the absolute deadline without requiring every question to be answered", async () => {
@@ -677,24 +792,59 @@ describe("stage 2 F02 mock exam", () => {
     vi.setSystemTime(new Date("2026-07-15T02:10:00.000Z"));
     const harness = await createMockPage(twoQuestionSessionPayload());
 
-    const guards = [
-      { answerSheetOpen: true },
-      { draftOpen: true },
-      { toolsOpen: true },
-      { helpOpen: true },
-      { disputeOpen: true },
-      { submitConfirmOpen: true },
-      { materialOpen: true },
-      { interactionLocked: true },
+    const overlays: Array<[string, () => void, () => void]> = [
+      [
+        "answer sheet",
+        () => harness.page.toggleAnswerSheet.call(harness.page),
+        () => harness.page.toggleAnswerSheet.call(harness.page),
+      ],
+      [
+        "draft",
+        () => harness.page.toggleDraft.call(harness.page),
+        () => harness.page.toggleDraft.call(harness.page),
+      ],
+      [
+        "tools",
+        () => harness.page.toggleTools.call(harness.page),
+        () => harness.page.toggleTools.call(harness.page),
+      ],
+      [
+        "help",
+        () => harness.page.openHelp.call(harness.page),
+        () => harness.page.closeHelp.call(harness.page),
+      ],
+      [
+        "dispute",
+        () => harness.page.reportDispute.call(harness.page),
+        () => harness.page.closeDispute.call(harness.page),
+      ],
+      [
+        "submit",
+        () => harness.page.submitExam.call(harness.page),
+        () => harness.page.closeSubmitConfirm.call(harness.page),
+      ],
+      [
+        "annotation",
+        () => harness.page.openAnnotation.call(harness.page),
+        () => harness.page.closeAnnotation.call(harness.page),
+      ],
     ];
-    for (const guard of guards) {
-      const previous: Record<string, unknown> = {};
-      for (const key of Object.keys(guard)) previous[key] = harness.page.data[key];
-      Object.assign(harness.page.data, guard);
+    for (const [label, open, close] of overlays) {
+      open();
+      expect(harness.page.data.touchOwner, label).not.toBe("question");
       swipeOnQuestion(harness.page, { fromX: 300, toX: 140, y: 400 });
       expect(harness.page.data.current).toBe(1);
-      Object.assign(harness.page.data, previous);
+      close();
     }
+    harness.page.toggleMaterial.call(harness.page);
+    swipeOnQuestion(harness.page, { fromX: 300, toX: 140, y: 400 });
+    expect(harness.page.data.current).toBe(1);
+    harness.page.toggleMaterial.call(harness.page);
+
+    harness.page.onHide.call(harness.page);
+    swipeOnQuestion(harness.page, { fromX: 300, toX: 140, y: 400 });
+    expect(harness.page.data.current).toBe(1);
+    harness.page.onShow.call(harness.page);
     // 守卫恢复后同一手势立即生效，证明守卫矩阵是唯一拦截原因。
     swipeOnQuestion(harness.page, { fromX: 300, toX: 140, y: 400 });
     expect(harness.page.data.current).toBe(2);
@@ -1313,6 +1463,15 @@ interface CapturedMockPage {
   openAnnotation(this: TestMockPage): void;
   openMaterialAnnotation(this: TestMockPage): void;
   closeAnnotation(this: TestMockPage): void;
+  toggleAnswerSheet(this: TestMockPage): void;
+  toggleDraft(this: TestMockPage): void;
+  toggleTools(this: TestMockPage): void;
+  openHelp(this: TestMockPage): void;
+  closeHelp(this: TestMockPage): void;
+  reportDispute(this: TestMockPage): void;
+  closeDispute(this: TestMockPage): void;
+  closeSubmitConfirm(this: TestMockPage): void;
+  toggleMaterial(this: TestMockPage): void;
   changeAnnotations(
     this: TestMockPage,
     event: WechatMiniprogram.CustomEvent<{

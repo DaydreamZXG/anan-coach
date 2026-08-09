@@ -257,7 +257,8 @@
   background: var(--color-primary);
 }
 
-@media (min-width: 768px) {
+/* Host layout tiers: compact <600, medium >=600, wide >=1024. */
+@media (min-width: 600px) {
   .answer-card__sheet {
     right: 50%;
     left: auto;

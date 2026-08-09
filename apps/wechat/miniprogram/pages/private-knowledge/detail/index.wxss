@@ -389,14 +389,14 @@ button.delete-sheet__background {
   font-weight: 700;
 }
 
-@media (min-width: 700px) {
+@media (min-width: 600px) {
   .detail-content {
     padding-right: max(calc(40 * var(--rpx)), calc((100vw - 860px) / 2));
     padding-left: max(calc(40 * var(--rpx)), calc((100vw - 860px) / 2));
   }
 
   .delete-sheet {
-    right: calc((100vw - 720px) / 2);
-    left: calc((100vw - 720px) / 2);
+    right: max(0px, calc((100vw - 720px) / 2));
+    left: max(0px, calc((100vw - 720px) / 2));
   }
 }

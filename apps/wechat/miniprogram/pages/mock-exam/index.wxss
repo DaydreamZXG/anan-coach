@@ -414,7 +414,8 @@
   margin-top: calc(24 * var(--rpx));
 }
 
-@media (min-width: 768px) {
+/* Layout capability tiers: compact <600, medium >=600, wide >=1024. */
+@media (min-width: 600px) {
   .mock-paper,
   .submitted-workspace,
   .page-state,

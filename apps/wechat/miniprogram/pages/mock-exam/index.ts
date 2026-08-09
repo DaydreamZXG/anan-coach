@@ -46,6 +46,14 @@ import {
 } from "./shared/task-runtime/material-reader/state";
 import { reduceTaskRuntime } from "./shared/task-runtime/state/runtime";
 import {
+  createTaskInteractionState,
+  projectTaskInteraction,
+  reduceTaskInteraction,
+  type TaskInteractionAction,
+  type TaskInteractionProjection,
+  type TaskInteractionState,
+} from "./shared/task-runtime/interaction/state";
+import {
   beginSwipeGesture,
   finishSwipeGesture,
   idleSwipeGesture,
@@ -103,7 +111,7 @@ interface MockAnswerSheetItem {
   active: boolean;
 }
 
-interface MockExamPageData {
+interface MockExamPageData extends TaskInteractionProjection {
   status: PageStatus;
   errorTitle: string;
   errorMessage: string;
@@ -118,19 +126,12 @@ interface MockExamPageData {
   remainingLabel: string;
   syncLabel: string;
   answerSheetItems: MockAnswerSheetItem[];
-  answerSheetOpen: boolean;
-  draftOpen: boolean;
-  annotationOpen: boolean;
-  annotationSurface: "" | "question" | "material";
+  interactionState: TaskInteractionState;
   questionAnnotations: AnnotationStroke[];
   materialAnnotations: AnnotationStroke[];
   annotationSegments: AnchorSegmentRect[];
   questionScrollPosition: number;
   questionContentHeight: number;
-  materialOpen: boolean;
-  toolsOpen: boolean;
-  helpOpen: boolean;
-  interactionLocked: boolean;
   fontScale: FontScale;
   eyeCare: boolean;
   contentPreferences: ContentDisplayPreferences;
@@ -140,7 +141,6 @@ interface MockExamPageData {
   pageObjectReference: TaskHelpCommand["pageObjectReference"] | null;
   helpStatus: "idle" | "submitting" | "resolved" | "error";
   helpMessage: string;
-  disputeOpen: boolean;
   disputeCategories: Array<{ value: MockExamDisputeCategory; label: string }>;
   disputeCategory: MockExamDisputeCategory;
   disputeDescription: string;
@@ -150,7 +150,6 @@ interface MockExamPageData {
   receipt: MockExamSubmitReceipt | null;
   reportSessionId: string;
   /** Figma 98:173 交卷确认面板。 */
-  submitConfirmOpen: boolean;
   submitElapsedLabel: string;
   submitMissingLabels: string[];
   /** 内部题目 scroll-view 的受控位置；0/0.1 交替保证重复切题也能回顶。 */
@@ -266,6 +265,8 @@ interface MockExamLaunchContext {
 const runtimes = new WeakMap<MockExamPageInstance, PageRuntime>();
 const launchContexts = new WeakMap<MockExamPageInstance, MockExamLaunchContext>();
 const mockAnsweringPolicy = taskToolPolicy("mock", "answering");
+const initialMockInteractionState = createTaskInteractionState();
+const initialMockInteractionProjection = projectTaskInteraction(initialMockInteractionState);
 const disputeCategories: MockExamPageData["disputeCategories"] = [
   { value: "stem_error", label: "题干错误" },
   { value: "option_error", label: "选项错误" },
@@ -291,19 +292,13 @@ Page<MockExamPageData, MockExamPageCustom>({
     remainingLabel: "02:00:00",
     syncLabel: "正在连接",
     answerSheetItems: [],
-    answerSheetOpen: false,
-    draftOpen: false,
-    annotationOpen: false,
-    annotationSurface: "",
+    interactionState: initialMockInteractionState,
+    ...initialMockInteractionProjection,
     questionAnnotations: [] as AnnotationStroke[],
     materialAnnotations: [] as AnnotationStroke[],
     annotationSegments: [] as AnchorSegmentRect[],
     questionScrollPosition: 0,
     questionContentHeight: 0,
-    materialOpen: false,
-    toolsOpen: false,
-    helpOpen: false,
-    interactionLocked: false,
     fontScale: "standard",
     eyeCare: false,
     contentPreferences: { fontScale: 1, colorMode: "standard" },
@@ -313,7 +308,6 @@ Page<MockExamPageData, MockExamPageCustom>({
     pageObjectReference: null,
     helpStatus: "idle",
     helpMessage: "",
-    disputeOpen: false,
     disputeCategories,
     disputeCategory: "stem_error",
     disputeDescription: "",
@@ -322,7 +316,6 @@ Page<MockExamPageData, MockExamPageCustom>({
     disputeReceipt: null,
     receipt: null,
     reportSessionId: "",
-    submitConfirmOpen: false,
     submitElapsedLabel: "",
     submitMissingLabels: [],
     questionScrollTop: 0,
@@ -368,6 +361,7 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   onShow() {
+    transitionMockInteraction(this, { type: "PAGE_SHOWN" });
     const context = launchContexts.get(this);
     if (!context) return;
     const auth = currentAuthSession();
@@ -398,6 +392,7 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   onHide() {
+    transitionMockInteraction(this, { type: "PAGE_HIDDEN" });
     const runtime = runtimes.get(this);
     if (!runtime) return;
     runtime.visible = false;
@@ -413,6 +408,7 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   onUnload() {
+    transitionMockInteraction(this, { type: "PAGE_UNLOADED" });
     const runtime = runtimes.get(this);
     if (runtime) disposeRuntime(runtime);
     runtimes.delete(this);
@@ -422,12 +418,16 @@ Page<MockExamPageData, MockExamPageCustom>({
   async loadExam() {
     const runtime = runtimes.get(this);
     if (!runtime || runtime.disposed) return;
-    this.setData({
-      status: "loading",
-      errorTitle: "",
-      errorMessage: "",
-      showLoginAction: false,
-    });
+    transitionMockInteraction(
+      this,
+      { type: "SESSION_LOADING" },
+      {
+        status: "loading",
+        errorTitle: "",
+        errorMessage: "",
+        showLoginAction: false,
+      },
+    );
     try {
       const session = runtime.requestedSessionId
         ? await runtime.api.getSession(runtime.requestedSessionId)
@@ -654,37 +654,19 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   toggleAnswerSheet() {
-    this.setData({
-      answerSheetOpen: !this.data.answerSheetOpen,
-      draftOpen: false,
-      annotationOpen: false,
-      toolsOpen: false,
-      helpOpen: false,
-    });
+    transitionMockInteraction(this, { type: "OVERLAY_TOGGLED", overlay: "answer_sheet" });
   },
 
   toggleDraft() {
     if (this.data.status !== "ready" || !this.data.question) return;
-    this.setData({
-      draftOpen: !this.data.draftOpen,
-      answerSheetOpen: false,
-      toolsOpen: false,
-      helpOpen: false,
-    });
+    transitionMockInteraction(this, { type: "OVERLAY_TOGGLED", overlay: "draft" });
   },
 
   // 与行测练习共用题面批注层；笔迹进入同一个 TaskRuntime 检查点。
   openAnnotation() {
     const runtime = runtimes.get(this);
     if (!runtime?.task || runtime.task.phase !== "answering" || this.data.interactionLocked) return;
-    this.setData({
-      annotationOpen: true,
-      annotationSurface: "question",
-      answerSheetOpen: false,
-      draftOpen: false,
-      toolsOpen: false,
-      helpOpen: false,
-    });
+    transitionMockInteraction(this, { type: "ANNOTATION_OPENED", surface: "question" });
     afterRenderTick(() => {
       if (runtimes.get(this) !== runtime) return;
       measureQuestionContent(this, runtime);
@@ -693,7 +675,7 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   closeAnnotation() {
-    this.setData({ annotationOpen: false, annotationSurface: "" });
+    transitionMockInteraction(this, { type: "ANNOTATION_CLOSED" });
   },
 
   openMaterialAnnotation() {
@@ -706,14 +688,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     ) {
       return;
     }
-    this.setData({
-      annotationOpen: true,
-      annotationSurface: "material",
-      answerSheetOpen: false,
-      draftOpen: false,
-      toolsOpen: false,
-      helpOpen: false,
-    });
+    transitionMockInteraction(this, { type: "ANNOTATION_OPENED", surface: "material" });
   },
 
   onQuestionScroll(event) {
@@ -787,10 +762,11 @@ Page<MockExamPageData, MockExamPageCustom>({
       this.data.materialReaderState,
       this.data.materialOpen ? { type: "RETURN_TO_QUESTION" } : { type: "OPEN_DRAWER" },
     );
-    this.setData({
-      materialOpen: materialReaderState.mode !== "question_first",
-      materialReaderState,
-    });
+    transitionMockInteraction(
+      this,
+      { type: opening ? "MATERIAL_OPENED" : "MATERIAL_CLOSED" },
+      { materialReaderState },
+    );
     // 契约增量 v1：展开材料是可见的作答动作事实（与真实训练同套采集）。
     const runtime = runtimes.get(this);
     if (opening && runtime?.task && runtime.task.phase === "answering") {
@@ -805,13 +781,19 @@ Page<MockExamPageData, MockExamPageCustom>({
     const preferencesChanged =
       event.detail.state.preferences.fontScale !== this.data.contentPreferences.fontScale ||
       event.detail.state.preferences.colorMode !== this.data.contentPreferences.colorMode;
-    this.setData({
-      materialReaderState: event.detail.state,
-      materialOpen: event.detail.state.mode !== "question_first",
-      contentPreferences: event.detail.state.preferences,
-      fontScale: event.detail.state.preferences.fontScale > 1 ? "large" : "standard",
-      eyeCare: event.detail.state.preferences.colorMode === "eye_care",
-    });
+    transitionMockInteraction(
+      this,
+      {
+        type:
+          event.detail.state.mode === "question_first" ? "MATERIAL_CLOSED" : "MATERIAL_OPENED",
+      },
+      {
+        materialReaderState: event.detail.state,
+        contentPreferences: event.detail.state.preferences,
+        fontScale: event.detail.state.preferences.fontScale > 1 ? "large" : "standard",
+        eyeCare: event.detail.state.preferences.colorMode === "eye_care",
+      },
+    );
     if (preferencesChanged) storeTaskDisplayPreferences(event.detail.state.preferences);
   },
 
@@ -829,13 +811,7 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   toggleTools() {
-    this.setData({
-      toolsOpen: !this.data.toolsOpen,
-      answerSheetOpen: false,
-      draftOpen: false,
-      annotationOpen: false,
-      helpOpen: false,
-    });
+    transitionMockInteraction(this, { type: "OVERLAY_TOGGLED", overlay: "tools" });
   },
 
   openFocusedTool() {
@@ -843,17 +819,11 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   openHelp() {
-    this.setData({
-      helpOpen: true,
-      toolsOpen: false,
-      answerSheetOpen: false,
-      draftOpen: false,
-      annotationOpen: false,
-    });
+    transitionMockInteraction(this, { type: "OVERLAY_OPENED", overlay: "help" });
   },
 
   closeHelp() {
-    this.setData({ helpOpen: false });
+    transitionMockInteraction(this, { type: "OVERLAY_CLOSED", overlay: "help" });
   },
 
   async submitHelp(event) {
@@ -907,19 +877,20 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   reportDispute() {
-    this.setData({
-      disputeOpen: true,
-      toolsOpen: false,
-      helpOpen: false,
-      disputeStatus: "idle",
-      disputeMessage: "",
-      disputeReceipt: null,
-    });
+    transitionMockInteraction(
+      this,
+      { type: "OVERLAY_OPENED", overlay: "dispute" },
+      {
+        disputeStatus: "idle",
+        disputeMessage: "",
+        disputeReceipt: null,
+      },
+    );
   },
 
   closeDispute() {
     if (this.data.disputeStatus === "submitting") return;
-    this.setData({ disputeOpen: false });
+    transitionMockInteraction(this, { type: "OVERLAY_CLOSED", overlay: "dispute" });
   },
 
   selectDisputeCategory(event) {
@@ -980,29 +951,27 @@ Page<MockExamPageData, MockExamPageCustom>({
       }))
       .filter((item) => !item.answered)
       .map((item) => item.label);
-    this.setData({
-      submitConfirmOpen: true,
-      submitElapsedLabel: formatRemainingTime(task.totalElapsedSeconds),
-      submitMissingLabels: missingLabels,
-      answerSheetOpen: false,
-      annotationOpen: false,
-      toolsOpen: false,
-      helpOpen: false,
-      disputeOpen: false,
-    });
+    transitionMockInteraction(
+      this,
+      { type: "OVERLAY_OPENED", overlay: "submit_confirm" },
+      {
+        submitElapsedLabel: formatRemainingTime(task.totalElapsedSeconds),
+        submitMissingLabels: missingLabels,
+      },
+    );
   },
 
   closeSubmitConfirm() {
-    this.setData({ submitConfirmOpen: false });
+    transitionMockInteraction(this, { type: "OVERLAY_CLOSED", overlay: "submit_confirm" });
   },
 
   async confirmSubmitExam() {
     if (this.data.status !== "ready" || this.data.interactionLocked) {
-      this.setData({ submitConfirmOpen: false });
+      transitionMockInteraction(this, { type: "OVERLAY_CLOSED", overlay: "submit_confirm" });
       return;
     }
     const runtime = requiredRuntime(this);
-    this.setData({ submitConfirmOpen: false });
+    transitionMockInteraction(this, { type: "OVERLAY_CLOSED", overlay: "submit_confirm" });
     await executeSubmit(this, runtime);
   },
 
@@ -1043,22 +1012,11 @@ function mutateTask(
  */
 function swipeNavigationBlocked(page: MockExamPageInstance): boolean {
   const data = page.data;
-  return (
-    data.status !== "ready" ||
-    data.question === null ||
-    data.interactionLocked ||
-    data.materialOpen ||
-    data.answerSheetOpen ||
-    data.draftOpen ||
-    data.annotationOpen ||
-    data.toolsOpen ||
-    data.helpOpen ||
-    data.disputeOpen ||
-    data.submitConfirmOpen
-  );
+  return data.status !== "ready" || data.question === null || data.swipeBlocked;
 }
 
 function moveQuestion(page: MockExamPageInstance, delta: number): void {
+  if (page.data.interactionLocked) return;
   const runtime = requiredRuntime(page);
   const task = requiredTask(runtime);
   const index = task.currentQuestionIndex + delta;
@@ -1068,6 +1026,7 @@ function moveQuestion(page: MockExamPageInstance, delta: number): void {
   markCurrentQuestionDirty(runtime);
   runtime.task = reduceTaskRuntime(task, { type: "QUESTION_CHANGED", index });
   runtime.mutationVersion += 1;
+  transitionMockInteraction(page, { type: "QUESTION_CHANGED" });
   applyRuntimeToPage(page, runtime, "待保存");
   resetPageScroll(page);
   scheduleAutosave(page, runtime);
@@ -1083,7 +1042,7 @@ function selectMockQuestionAtIndex(page: MockExamPageInstance, index: number): v
   markCurrentQuestionDirty(runtime);
   runtime.task = reduceTaskRuntime(requiredTask(runtime), { type: "QUESTION_CHANGED", index });
   runtime.mutationVersion += 1;
-  page.setData({ answerSheetOpen: false, submitConfirmOpen: false });
+  transitionMockInteraction(page, { type: "QUESTION_CHANGED" });
   applyRuntimeToPage(page, runtime, "待保存");
   if (requiredTask(runtime).currentQuestionIndex !== previousIndex) resetPageScroll(page);
   scheduleAutosave(page, runtime);
@@ -1119,8 +1078,6 @@ function resetPageScroll(page: MockExamPageInstance): void {
   page.setData({
     questionScrollTop: page.data.questionScrollTop === 0 ? 0.1 : 0,
     questionScrollPosition: 0,
-    annotationOpen: false,
-    annotationSurface: "",
     annotationSegments: [],
   });
 }
@@ -1184,6 +1141,9 @@ function applyRuntimeToPage(
           },
           page.data.contentPreferences,
         );
+  const projectedMaterialReaderState = page.data.materialOpen
+    ? materialReaderState
+    : reduceMaterialReader(materialReaderState, { type: "RETURN_TO_QUESTION" });
   const answerSheetItems = task.questionOrder.map((questionId, index): MockAnswerSheetItem => {
     const item = task.attempts[questionId];
     if (!item) throw new Error("Mock answer sheet is incomplete");
@@ -1198,52 +1158,51 @@ function applyRuntimeToPage(
   const { question: questionAnnotations, material: materialAnnotations } = splitAnnotationSurfaces(
     attempt.annotations,
   );
-  page.setData({
-    status: "ready",
-    showLoginAction: false,
-    interactionLocked: false,
-    title: session.title,
-    reportSessionId: session.sessionId,
-    question: {
-      ...question,
-      options: question.options.map((option) => ({
-        ...option,
-        content: stripOptionContentPrefix(option.content, option.label),
-        selected: attempt.selectedOptionIds.includes(option.optionId),
-        eliminated: attempt.eliminatedOptionIds.includes(option.optionId),
-      })),
-      marked: attempt.marked,
-      draftText: attempt.draftText,
-      annotations: attempt.annotations ?? [],
-      elapsedSeconds: attempt.elapsedSeconds,
-      elapsedMs: attempt.elapsedMs ?? attempt.elapsedSeconds * 1000,
-      material,
+  transitionMockInteraction(
+    page,
+    { type: "LOCK_CHANGED", locked: false },
+    {
+      status: "ready",
+      showLoginAction: false,
+      title: session.title,
+      reportSessionId: session.sessionId,
+      question: {
+        ...question,
+        options: question.options.map((option) => ({
+          ...option,
+          content: stripOptionContentPrefix(option.content, option.label),
+          selected: attempt.selectedOptionIds.includes(option.optionId),
+          eliminated: attempt.eliminatedOptionIds.includes(option.optionId),
+        })),
+        marked: attempt.marked,
+        draftText: attempt.draftText,
+        annotations: attempt.annotations ?? [],
+        elapsedSeconds: attempt.elapsedSeconds,
+        elapsedMs: attempt.elapsedMs ?? attempt.elapsedSeconds * 1000,
+        material,
+      },
+      questionAnnotations,
+      materialAnnotations,
+      current: task.currentQuestionIndex + 1,
+      total: task.questionOrder.length,
+      answered: counts.answered,
+      unanswered: counts.unanswered,
+      marked: counts.marked,
+      syncLabel,
+      answerSheetItems,
+      materialReaderState: projectedMaterialReaderState,
+      materialQuestionId: question.questionId,
+      pageObjectReference: {
+        pageCode: "F02",
+        route: "/pages/mock-exam/index",
+        track: "xingce",
+        objectType: "task_session",
+        objectId: session.sessionId,
+        taskMode: "mock",
+        lifecycle: "answering",
+      },
     },
-    questionAnnotations,
-    materialAnnotations,
-    current: task.currentQuestionIndex + 1,
-    total: task.questionOrder.length,
-    answered: counts.answered,
-    unanswered: counts.unanswered,
-    marked: counts.marked,
-    syncLabel,
-    answerSheetItems,
-    materialReaderState,
-    materialQuestionId: question.questionId,
-    materialOpen:
-      page.data.materialQuestionId === question.questionId && Boolean(material)
-        ? page.data.materialOpen
-        : false,
-    pageObjectReference: {
-      pageCode: "F02",
-      route: "/pages/mock-exam/index",
-      track: "xingce",
-      objectType: "task_session",
-      objectId: session.sessionId,
-      taskMode: "mock",
-      lifecycle: "answering",
-    },
-  });
+  );
   afterRenderTick(() => {
     if (runtimes.get(page) !== runtime) return;
     measureQuestionContent(page, runtime);
@@ -1341,11 +1300,14 @@ async function performCheckpointSave(
         type: "SAVE_FAILED",
         requestId: error.requestId,
       });
-      page.setData({
-        interactionLocked: true,
-        syncLabel: "另一台设备已接管",
-        errorMessage: "别担心，本机的草稿都还在；重新进入并确认接管后，你可以选用哪一份进度。",
-      });
+      transitionMockInteraction(
+        page,
+        { type: "SESSION_SUSPENDED" },
+        {
+          syncLabel: "另一台设备已接管",
+          errorMessage: "别担心，本机的草稿都还在；重新进入并确认接管后，你可以选用哪一份进度。",
+        },
+      );
       return false;
     }
     if (
@@ -1428,7 +1390,7 @@ async function executeSubmit(
     return;
   }
   runtime.submitInFlight = true;
-  page.setData({ interactionLocked: true, syncLabel: "正在提交" });
+  transitionMockInteraction(page, { type: "SUBMIT_STARTED" }, { syncLabel: "正在提交" });
   try {
     if (skipCheckpoint) {
       clearAutosave(runtime);
@@ -1439,7 +1401,7 @@ async function executeSubmit(
       const saved = await saveCheckpoint(page, runtime);
       if (runtimes.get(page) !== runtime) return;
       if (!saved) {
-        page.setData({ interactionLocked: false });
+        transitionMockInteraction(page, { type: "SUBMIT_FAILED" });
         return;
       }
     }
@@ -1479,27 +1441,26 @@ async function executeSubmit(
       type: "TASK_SUBMITTED",
       submittedAt: receipt.review.submittedAt,
     });
-    page.setData({
-      status: "submitted",
-      interactionLocked: true,
-      answerSheetOpen: false,
-      annotationOpen: false,
-      toolsOpen: false,
-      helpOpen: false,
-      syncLabel: "已提交",
-      receipt,
-      reportSessionId: committedSession.sessionId,
-      toolPolicy: taskToolPolicy("mock", "submitted"),
-      pageObjectReference: {
-        pageCode: "F02",
-        route: "/pages/mock-exam/index",
-        track: "xingce",
-        objectType: "task_session",
-        objectId: committedSession.sessionId,
-        taskMode: "mock",
-        lifecycle: "submitted",
+    transitionMockInteraction(
+      page,
+      { type: "SESSION_TERMINAL" },
+      {
+        status: "submitted",
+        syncLabel: "已提交",
+        receipt,
+        reportSessionId: committedSession.sessionId,
+        toolPolicy: taskToolPolicy("mock", "submitted"),
+        pageObjectReference: {
+          pageCode: "F02",
+          route: "/pages/mock-exam/index",
+          track: "xingce",
+          objectType: "task_session",
+          objectId: committedSession.sessionId,
+          taskMode: "mock",
+          lifecycle: "submitted",
+        },
       },
-    });
+    );
   } catch (error) {
     if (runtimes.get(page) !== runtime) return;
     if (enterMockAuthRequired(page, runtime, error)) return;
@@ -1511,13 +1472,16 @@ async function executeSubmit(
       delete runtime.editOwnership;
       stopClock(runtime);
     }
-    page.setData({
-      interactionLocked: lostEditing,
-      syncLabel: lostEditing ? "另一台设备已接管" : "提交结果待确认",
-      errorMessage: lostEditing
-        ? "别担心，本机的提交还保留着；重新进入并确认接管后再交一次就行。"
-        : errorMessage(error, "提交结果暂时未知，已原样保留，恢复后会接着确认。"),
-    });
+    transitionMockInteraction(
+      page,
+      lostEditing ? { type: "SESSION_SUSPENDED" } : { type: "SUBMIT_FAILED" },
+      {
+        syncLabel: lostEditing ? "另一台设备已接管" : "提交结果待确认",
+        errorMessage: lostEditing
+          ? "别担心，本机的提交还保留着；重新进入并确认接管后再交一次就行。"
+          : errorMessage(error, "提交结果暂时未知，已原样保留，恢复后会接着确认。"),
+      },
+    );
   } finally {
     runtime.submitInFlight = false;
   }
@@ -1944,39 +1908,34 @@ function convergeToTerminalSession(
   clearAutosave(runtime);
   clearPendingMockSubmit(runtime.ownerUserId, session.sessionId);
   clearPendingMockCheckpoint(runtime.ownerUserId, session.sessionId);
-  page.setData({
-    status: "submitted",
-    title: session.title,
-    errorTitle: reviewed ? "本场模考已完成" : "本场模考已经提交",
-    errorMessage: reviewed
-      ? "已确认提交成功，模考报告可以接着看啦。"
-      : "已确认提交成功，可以进模考报告看了。",
-    showLoginAction: false,
-    question: null,
-    interactionLocked: true,
-    syncLabel: reviewed ? "批改已完成" : "提交已确认",
-    answerSheetOpen: false,
-    draftOpen: false,
-    annotationOpen: false,
-    materialOpen: false,
-    toolsOpen: false,
-    helpOpen: false,
-    disputeOpen: false,
-    submitConfirmOpen: false,
-    questionTransition: "",
-    receipt: null,
-    reportSessionId: session.sessionId,
-    toolPolicy: taskToolPolicy("mock", "submitted"),
-    pageObjectReference: {
-      pageCode: "F02",
-      route: "/pages/mock-exam/index",
-      track: "xingce",
-      objectType: "task_session",
-      objectId: session.sessionId,
-      taskMode: "mock",
-      lifecycle: "submitted",
+  transitionMockInteraction(
+    page,
+    { type: "SESSION_TERMINAL" },
+    {
+      status: "submitted",
+      title: session.title,
+      errorTitle: reviewed ? "本场模考已完成" : "本场模考已经提交",
+      errorMessage: reviewed
+        ? "已确认提交成功，模考报告可以接着看啦。"
+        : "已确认提交成功，可以进模考报告看了。",
+      showLoginAction: false,
+      question: null,
+      syncLabel: reviewed ? "批改已完成" : "提交已确认",
+      questionTransition: "",
+      receipt: null,
+      reportSessionId: session.sessionId,
+      toolPolicy: taskToolPolicy("mock", "submitted"),
+      pageObjectReference: {
+        pageCode: "F02",
+        route: "/pages/mock-exam/index",
+        track: "xingce",
+        objectType: "task_session",
+        objectId: session.sessionId,
+        taskMode: "mock",
+        lifecycle: "submitted",
+      },
     },
-  });
+  );
 }
 
 function dataset(event: WechatMiniprogram.BaseEvent, name: string): string {
@@ -1988,11 +1947,15 @@ function dataset(event: WechatMiniprogram.BaseEvent, name: string): string {
 }
 
 function failPage(page: MockExamPageInstance, error: unknown, title: string): void {
-  page.setData({
-    status: "error",
-    errorTitle: title,
-    errorMessage: errorMessage(error, "没找到能继续做的整套卷。"),
-  });
+  transitionMockInteraction(
+    page,
+    { type: "SESSION_SUSPENDED" },
+    {
+      status: "error",
+      errorTitle: title,
+      errorMessage: errorMessage(error, "没找到能继续做的整套卷。"),
+    },
+  );
 }
 
 function bindMockSession(
@@ -2025,17 +1988,14 @@ function bindMockSession(
     swipeGesture: idleSwipeGesture(),
   };
   runtimes.set(page, runtime);
-  page.setData({
-    showLoginAction: false,
-    interactionLocked: false,
-    question: null,
-    answerSheetOpen: false,
-    annotationOpen: false,
-    materialOpen: false,
-    toolsOpen: false,
-    helpOpen: false,
-    disputeOpen: false,
-  });
+  transitionMockInteraction(
+    page,
+    { type: "ACCOUNT_CHANGED" },
+    {
+      showLoginAction: false,
+      question: null,
+    },
+  );
   return runtime;
 }
 
@@ -2067,23 +2027,32 @@ function showMockLoginRequired(
   expired: boolean,
   requestId?: string,
 ): void {
+  transitionMockInteraction(
+    page,
+    { type: "ACCOUNT_CHANGED" },
+    {
+      status: "unavailable",
+      errorTitle: expired ? "登录状态已过期" : "登录后就能开始模考啦",
+      errorMessage: expired
+        ? `别担心，本机的进度都还在，重新登录就能继续。${requestId ? `（请求 ${requestId}）` : ""}`
+        : "模考进度和提交记录要跟着账号走，先登录一下哦。",
+      showLoginAction: true,
+      question: null,
+      syncLabel: expired ? "等你重新登录" : "还没登录",
+    },
+  );
+}
+
+function transitionMockInteraction(
+  page: MockExamPageInstance,
+  action: TaskInteractionAction,
+  patch: Partial<MockExamPageData> = {},
+): void {
+  const interactionState = reduceTaskInteraction(page.data.interactionState, action);
   page.setData({
-    status: "unavailable",
-    errorTitle: expired ? "登录状态已过期" : "登录后就能开始模考啦",
-    errorMessage: expired
-      ? `别担心，本机的进度都还在，重新登录就能继续。${requestId ? `（请求 ${requestId}）` : ""}`
-      : "模考进度和提交记录要跟着账号走，先登录一下哦。",
-    showLoginAction: true,
-    question: null,
-    interactionLocked: true,
-    syncLabel: expired ? "等你重新登录" : "还没登录",
-    answerSheetOpen: false,
-    annotationOpen: false,
-    materialOpen: false,
-    toolsOpen: false,
-    helpOpen: false,
-    disputeOpen: false,
-    submitConfirmOpen: false,
+    ...patch,
+    interactionState,
+    ...projectTaskInteraction(interactionState),
   });
 }
 

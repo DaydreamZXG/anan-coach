@@ -335,7 +335,7 @@ button.preference-primary {
   width: 100%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .preference-content {
     width: 100%;
     max-width: 560px;

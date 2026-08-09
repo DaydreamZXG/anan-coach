@@ -463,7 +463,7 @@
   pointer-events: auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .task-shell {
     width: 100%;
     max-width: var(--layout-workbench-max);
@@ -905,7 +905,7 @@
   height: calc(36 * var(--rpx));
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .task-shell--xingce {
     padding-right: 0;
     padding-left: 0;

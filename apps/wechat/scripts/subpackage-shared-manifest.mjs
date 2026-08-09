@@ -142,6 +142,7 @@ const declaredSubpackageSharedFiles = [
     packages: ["practice", "reflection"],
   },
   { path: "task-runtime/state/runtime.ts", packages: ["practice", "mock-exam"] },
+  { path: "task-runtime/interaction/state.ts", packages: ["practice", "mock-exam"] },
   {
     path: "task-runtime/annotation-layer/index.ts",
     packages: ["practice", "mock-exam", "reflection"],

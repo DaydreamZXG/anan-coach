@@ -32,7 +32,7 @@ button.onboarding-save-action[disabled] {
   color: var(--ink-3);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .onboarding-scroll-content.onboarding-scroll-content {
     width: 100%;
     max-width: var(--layout-readable-max);
@@ -539,7 +539,7 @@ button.eligibility-primary {
   width: 100%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .eligibility-content {
     width: 100%;
     max-width: 560px;

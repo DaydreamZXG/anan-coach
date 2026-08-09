@@ -98,9 +98,10 @@
             blocks="{{view && view.question && view.question.material && view.question.material.content ? view.question.material.content : emptyRichContentBlocks}}"
             anchors="{{view && view.question && view.question.material && view.question.material.anchors ? view.question.material.anchors : emptyContentAnchors}}"
             state="{{materialReaderState}}"
+            interactionActive="{{materialCaptureActive}}"
             annotateAvailable="{{true}}"
-            annotateActive="{{annotationSurface === 'material'}}"
-            annotationOpen="{{annotationSurface === 'material'}}"
+            annotateActive="{{annotationMode === 'annotate' && annotationSurface === 'material'}}"
+            annotationOpen="{{annotationMode === 'annotate' && annotationSurface === 'material'}}"
             annotationStrokes="{{materialAnnotations}}"
             annotationElapsedSeconds="{{view.question.elapsedSeconds}}"
             annotationElapsedMs="{{view.question.elapsedMs || -1}}"
@@ -121,6 +122,7 @@
         -->
         <scroll-view
           class="practice-question-pane"
+          data-touch-owner="{{touchOwner}}"
           scroll-y
           scroll-top="{{questionScrollTop}}"
           enhanced
@@ -235,9 +237,10 @@
         </scroll-view>
 
         <!-- 草稿直接覆盖在题面上；非绘写时已有笔迹静态显示且触摸穿透。 -->
-        <view class="practice-annotation-host {{annotationOpen ? 'practice-annotation-host--active' : ''}}">
+        <view class="practice-annotation-host {{touchOwner === 'annotation' && annotationSurface === 'question' ? 'practice-annotation-host--active' : ''}}">
           <annotation-layer
-            mode="{{annotationSurface === 'question' ? 'annotate' : (questionAnnotations.length ? 'static' : 'hidden')}}"
+            wx:if="{{annotationMode === 'annotate' || questionAnnotations.length}}"
+            mode="{{annotationMode === 'annotate' && annotationSurface === 'question' ? 'annotate' : 'static'}}"
             strokes="{{questionAnnotations}}"
             elapsedSeconds="{{view.question.elapsedSeconds}}"
             elapsedMs="{{view.question.elapsedMs || -1}}"
@@ -381,7 +384,7 @@
       </ui-sheet>
 
       <!-- Figma 82:155/82:156：暂停卡位于屏幕视觉中心，背景题目降权保留。 -->
-      <view wx:if="{{taskPaused}}" class="pause-mask motion-mask" catchtouchmove="noop">
+      <view wx:if="{{pauseCaptureActive}}" class="pause-mask motion-mask" catchtouchmove="noop">
         <view class="pause-card">
           <view class="pause-icon" aria-hidden="true">
             <view class="pause-icon__bar"></view>

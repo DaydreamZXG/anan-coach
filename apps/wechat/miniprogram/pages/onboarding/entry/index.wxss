@@ -102,7 +102,7 @@ button.entry-action {
   width: 100%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .entry-content {
     max-width: 560px;
     padding: 32px 48px;

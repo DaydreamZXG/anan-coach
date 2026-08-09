@@ -827,7 +827,8 @@ button.submit-button {
   gap: calc(16 * var(--rpx));
 }
 
-@media (min-width: 768px) {
+/* Layout capability tiers: compact <600, medium >=600, wide >=1024. */
+@media (min-width: 600px) {
   .practice-workspace,
   .page-state,
   .capability-state,

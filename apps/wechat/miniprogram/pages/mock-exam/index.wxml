@@ -78,10 +78,11 @@
         blocks="{{question.material.content}}"
         anchors="{{question.material.anchors}}"
         state="{{materialReaderState}}"
+        interactionActive="{{materialCaptureActive}}"
         annotateAvailable="{{true}}"
         inlineAnnotateButton="{{true}}"
-        annotateActive="{{annotationSurface === 'material'}}"
-        annotationOpen="{{annotationSurface === 'material'}}"
+        annotateActive="{{annotationMode === 'annotate' && annotationSurface === 'material'}}"
+        annotationOpen="{{annotationMode === 'annotate' && annotationSurface === 'material'}}"
         annotationStrokes="{{materialAnnotations}}"
         annotationElapsedSeconds="{{question.elapsedSeconds}}"
         annotationElapsedMs="{{question.elapsedMs || -1}}"
@@ -101,6 +102,7 @@
       -->
       <scroll-view
         class="mock-question-pane"
+        data-touch-owner="{{touchOwner}}"
         scroll-y
         scroll-top="{{questionScrollTop}}"
         enhanced
@@ -180,9 +182,10 @@
       </scroll-view>
 
       <!-- 与行测练习页共用的题面草稿：同一组件、同一笔迹契约、同一检查点保存链路。 -->
-      <view class="mock-annotation-host {{annotationOpen ? 'mock-annotation-host--active' : ''}}">
+      <view class="mock-annotation-host {{touchOwner === 'annotation' && annotationSurface === 'question' ? 'mock-annotation-host--active' : ''}}">
         <annotation-layer
-          mode="{{annotationSurface === 'question' ? 'annotate' : (questionAnnotations.length ? 'static' : 'hidden')}}"
+          wx:if="{{annotationMode === 'annotate' || questionAnnotations.length}}"
+          mode="{{annotationMode === 'annotate' && annotationSurface === 'question' ? 'annotate' : 'static'}}"
           strokes="{{questionAnnotations}}"
           elapsedSeconds="{{question.elapsedSeconds}}"
           elapsedMs="{{question.elapsedMs || -1}}"
