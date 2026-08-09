@@ -1942,7 +1942,9 @@ function reflectionCleanup(
   runtime: ReflectionRuntime,
 ): ReflectionActivityCleanup {
   return {
-    clearCausePoll: () => clearCausePoll(runtime),
+    clearCausePoll: () => {
+      clearCausePoll(runtime);
+    },
     stopRecorder: () => {
       runtime.recorder?.dispose();
       runtime.recorder = null;
@@ -1955,7 +1957,9 @@ function reflectionCleanup(
       runtime.speechPreview?.dispose();
       runtime.speechPreview = null;
     },
-    stopReplay: () => replayClock.stop(page),
+    stopReplay: () => {
+      replayClock.stop(page);
+    },
   };
 }
 
