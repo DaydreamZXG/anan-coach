@@ -23,6 +23,8 @@ repair 或降级。网络中断、429/5xx 及无法确认计费的响应保持�
 
 generator/critic 各自有稳定的 prompt version、schema version、模型名和
 provider release。任意一项变更都会产生新的输入指纹和调用键，不会篡改旧审计。
+恢复独立 critic 的链路使用 pipeline v3 / generator prompt v12；它不得复用
+历史单阶段链路占用过的 generator 幂等键。
 
 ## provider 数据边界与安全门禁
 

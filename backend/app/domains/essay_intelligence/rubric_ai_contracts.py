@@ -17,13 +17,13 @@ from app.domains.essay_intelligence.schemas import (
 )
 
 
-RUBRIC_AI_PIPELINE_VERSION = "guokao-essay-rubric-ai-pipeline-v2"
-RUBRIC_AI_GENERATOR_PROMPT_VERSION = "guokao-essay-rubric-generator-prompt-v11"
+RUBRIC_AI_PIPELINE_VERSION = "guokao-essay-rubric-ai-pipeline-v3"
+RUBRIC_AI_GENERATOR_PROMPT_VERSION = "guokao-essay-rubric-generator-prompt-v12"
 RUBRIC_AI_GENERATOR_SCHEMA_VERSION = "guokao-essay-rubric-generator-schema-v3"
 RUBRIC_AI_CRITIC_PROMPT_VERSION = "guokao-essay-rubric-critic-prompt-v9"
 RUBRIC_AI_CRITIC_SCHEMA_VERSION = "guokao-essay-rubric-critic-schema-v3"
 RUBRIC_AI_COMPILER_VERSION = "guokao-essay-rubric-compiler-v3"
-RUBRIC_AI_COMPILATION_PROMPT_VERSION = "guokao-essay-rubric-generator-v11"
+RUBRIC_AI_COMPILATION_PROMPT_VERSION = "guokao-essay-rubric-generator-v12"
 
 
 class RubricAIProviderSegment(EssayContractModel):
@@ -34,7 +34,7 @@ class RubricAIProviderSegment(EssayContractModel):
 
 
 class RubricAIProviderDocument(EssayContractModel):
-    pipeline_version: Literal["guokao-essay-rubric-ai-pipeline-v2"] = Field(alias="pipelineVersion")
+    pipeline_version: Literal["guokao-essay-rubric-ai-pipeline-v3"] = Field(alias="pipelineVersion")
     task_version_id: UUID = Field(alias="taskVersionId")
     task_key: str = Field(alias="taskKey", min_length=1, max_length=160)
     question_type: QuestionType = Field(alias="questionType")

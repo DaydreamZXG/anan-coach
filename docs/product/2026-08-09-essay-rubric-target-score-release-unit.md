@@ -23,6 +23,7 @@ This is a bounded release unit. It does not redesign essay review, position elig
 ## Frozen decisions
 
 - Restore exactly two rubric model phases: generator, then independent critic/reviser. A rejected or invalid critic result cannot publish.
+- Version the restored two-phase contract as pipeline v3 / generator prompt v12 so it cannot reuse a provider key previously occupied by the regressed single-phase pipeline.
 - Preserve deterministic source grounding, compilation, idempotency, cost ledger and append-only publication. The tolerant quote locator may normalize punctuation/spacing only; persisted evidence remains a verbatim source span.
 - The rubric provider document contains product content only. It must not contain a user ID, learner answer, learning history or inferred cause.
 - Expose the preparation range as selected-region `P80 + uplift`, selected-region `P95 + uplift`, and the current-year maximum among all nationwide same-major-family positions that pass known hard conditions plus uplift. Preference region is not treated as a hard eligibility restriction.
@@ -33,6 +34,7 @@ This is a bounded release unit. It does not redesign essay review, position elig
 ## Allowed implementation surface
 
 - `backend/app/domains/essay_intelligence/rubric_ai_pipeline.py`
+- `backend/app/domains/essay_intelligence/rubric_ai_contracts.py`
 - `backend/tests/test_essay_rubric_ai_pipeline.py`
 - `backend/app/domains/position_decision/learner_target_score.py`
 - `backend/app/domains/position_decision/learner_target_runtime.py`
