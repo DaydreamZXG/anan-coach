@@ -336,6 +336,7 @@ class CauseAgentWorker:
             user_id=str(run["user_id"]),
             session_id=str(run["session_id"]),
             reflection_version_id=str(run["reflection_version_id"]),
+            input_version_refs=list(run["input_version_refs"]),
         )
 
         def event_sink(event: dict[str, Any]) -> None:

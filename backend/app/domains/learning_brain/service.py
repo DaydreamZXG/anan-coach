@@ -10,10 +10,8 @@ from sqlalchemy.orm import Session
 
 from app.domains.ability_estimation.schemas import AbilityEstimateCurrent
 from app.domains.ability_estimation.service import AbilityEstimateService
-from app.domains.calibration.repository import CalibrationRepository
 from app.domains.calibration.service import (
-    UNCLASSIFIED_KNOWLEDGE_POINT_LABEL,
-    build_knowledge_point_estimates,
+    project_knowledge_point_weaknesses,
 )
 from app.domains.learning_brain.repository import LearningBrainRepository, json_value
 from app.domains.learning_brain.schemas import (
@@ -42,7 +40,6 @@ from app.platform.outbox import OutboxRepository
 PROFILE_ALGORITHM_VERSION = "learning-brain-profile@v1"
 STRATEGY_POLICY_VERSION = "strategy-candidate@v1"
 EVIDENCE_VALIDITY_DAYS = 365
-KNOWLEDGE_POINT_WEAKNESS_PER_MODULE_LIMIT = 3
 
 
 class LearningBrainContractError(RuntimeError):
@@ -511,42 +508,23 @@ def _knowledge_point_weaknesses(
 ) -> list[KnowledgePointWeakness]:
     """知识点弱项 Top 投影：每模块最多 3 个、仅样本充足者。
 
-    只读投影，不写库、不进 input_fingerprint、不影响选题；
+    只读投影，不写库、不进 profile input_fingerprint。样本门槛、
+    排序和指纹均由 calibration 中立投影拥有，避免与 planning 互依赖。
     样本不足（lowSample）与「未分类」标签不进榜单。
     """
-    rows = CalibrationRepository(session).knowledge_point_accuracy(user_id=user_id)
-    estimates = build_knowledge_point_estimates(rows)
-    eligible = [
-        item
-        for item in estimates
-        if not item.low_sample
-        and item.accuracy is not None
-        and item.tag_value != UNCLASSIFIED_KNOWLEDGE_POINT_LABEL
-    ]
-    eligible.sort(
-        key=lambda item: (
-            item.module_name,
-            item.accuracy if item.accuracy is not None else 1.0,
-            -item.sample_size,
-            item.tag_value,
-        )
+    estimates, _fingerprint_value = project_knowledge_point_weaknesses(
+        session,
+        user_id=user_id,
     )
-    weaknesses: list[KnowledgePointWeakness] = []
-    per_module: dict[str, int] = {}
-    for item in eligible:
-        taken = per_module.get(item.module_name, 0)
-        if taken >= KNOWLEDGE_POINT_WEAKNESS_PER_MODULE_LIMIT:
-            continue
-        per_module[item.module_name] = taken + 1
-        weaknesses.append(
+    return [
             KnowledgePointWeakness(
                 module_name=item.module_name,
                 tag_value=item.tag_value,
                 accuracy=float(item.accuracy or 0.0),
                 sample_size=item.sample_size,
             )
-        )
-    return weaknesses
+        for item in estimates
+    ]
 
 
 def _xingce_module(row: RowMapping, now: datetime) -> ModuleAbility:

@@ -6129,7 +6129,7 @@ export type FormulaVersion = {
     /**
      * Source
      */
-    source: 'myscript_candidate' | 'user_confirmed';
+    source: 'myscript_candidate' | 'xfyun_candidate' | 'user_confirmed';
     /**
      * State
      */

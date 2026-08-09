@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+from hashlib import sha256
+import json
 from typing import Any
+
+from sqlalchemy.orm import Session
 
 from app.domains.calibration.repository import CalibrationRawRecord, CalibrationRepository
 from app.domains.calibration.schemas import (
@@ -13,6 +17,8 @@ from app.domains.calibration.schemas import (
 PRACTICE_MEDIUM_CONFIDENCE_MIN_ANSWERS = 30
 KNOWLEDGE_POINT_MIN_SAMPLE_SIZE = 10
 UNCLASSIFIED_KNOWLEDGE_POINT_LABEL = "未分类"
+KNOWLEDGE_POINT_WEAKNESS_PER_MODULE_LIMIT = 3
+KNOWLEDGE_POINT_WEAKNESS_PROJECTION_V1 = "knowledge-point-weakness-projection@v1"
 
 
 class CalibrationService:
@@ -95,6 +101,59 @@ def build_knowledge_point_estimates(
             )
         )
     return estimates
+
+
+def project_knowledge_point_weaknesses(
+    session: Session,
+    *,
+    user_id: str,
+) -> tuple[list[KnowledgePointAbilityEstimate], str]:
+    """Project sample-sufficient weaknesses without crossing into Planning.
+
+    Calibration owns the sample threshold and accuracy calculation.  Both
+    Learning Brain and Planning consume this deterministic, read-only
+    projection so neither domain needs to import the other.
+    """
+
+    estimates = build_knowledge_point_estimates(
+        CalibrationRepository(session).knowledge_point_accuracy(user_id=user_id)
+    )
+    eligible = [
+        item
+        for item in estimates
+        if not item.low_sample
+        and item.accuracy is not None
+        and item.tag_value != UNCLASSIFIED_KNOWLEDGE_POINT_LABEL
+    ]
+    eligible.sort(
+        key=lambda item: (
+            item.module_name,
+            item.accuracy if item.accuracy is not None else 1.0,
+            -item.sample_size,
+            item.tag_value,
+        )
+    )
+    weaknesses: list[KnowledgePointAbilityEstimate] = []
+    per_module: dict[str, int] = {}
+    for item in eligible:
+        taken = per_module.get(item.module_name, 0)
+        if taken >= KNOWLEDGE_POINT_WEAKNESS_PER_MODULE_LIMIT:
+            continue
+        per_module[item.module_name] = taken + 1
+        weaknesses.append(item)
+    payload = [item.model_dump(by_alias=True, mode="json") for item in weaknesses]
+    fingerprint = sha256(
+        json.dumps(
+            {
+                "contractVersion": KNOWLEDGE_POINT_WEAKNESS_PROJECTION_V1,
+                "items": payload,
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    return weaknesses, fingerprint
 
 
 def _module_estimates(raw: CalibrationRawRecord) -> list[ModuleAbilityEstimate]:

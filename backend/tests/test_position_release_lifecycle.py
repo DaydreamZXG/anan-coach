@@ -721,9 +721,9 @@ def test_position_release_window_migration_upgrades_forward_and_matches_artifact
         PROJECT_ROOT / "ops" / "release-db-compatibility.env",
         backend_root=BACKEND_ROOT,
     )
-    assert script.get_heads() == ["20260808_102"]
-    assert compatibility.migration_head == "20260808_102"
-    assert compatibility.compatible_revisions == {"20260808_102"}
+    assert script.get_heads() == ["20260809_103"]
+    assert compatibility.migration_head == "20260809_103"
+    assert compatibility.compatible_revisions == {"20260809_103"}
     assert "position_release_windows" not in inspect(db_engine).get_table_names(schema="product")
 
     legacy_release_id = str(uuid4())
@@ -774,6 +774,6 @@ def test_position_release_window_migration_upgrades_forward_and_matches_artifact
     with db_engine.connect() as connection:
         assert (
             connection.execute(text("select version_num from alembic_version")).scalar_one()
-            == "20260808_102"
+            == "20260809_103"
         )
         assert "position_release_windows" in inspect(db_engine).get_table_names(schema="product")

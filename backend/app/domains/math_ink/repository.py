@@ -15,6 +15,7 @@ from app.domains.ai.external_processing import (
     endpoint_fingerprint,
 )
 from app.domains.math_ink.schemas import FormulaVersion, MathInkRecognitionResult
+from app.domains.math_ink.provider import MathInkProviderDescriptor
 
 
 class MathInkConflict(RuntimeError):
@@ -53,29 +54,37 @@ class MathInkRepository:
             for item in questions
         )
 
-    def preflight(self, *, input_fingerprint: str) -> None:
-        if not self.settings.myscript_provider_release_id.strip():
-            raise MathInkConfigurationError("MyScript provider release is not declared")
-        if not self.settings.myscript_model_release.strip():
-            raise MathInkConfigurationError("MyScript model release is not declared")
+    def preflight(
+        self,
+        *,
+        input_fingerprint: str,
+        provider: MathInkProviderDescriptor,
+    ) -> None:
+        if not provider.provider_release.strip():
+            raise MathInkConfigurationError("formula provider release is not declared")
+        if not provider.model_release.strip():
+            raise MathInkConfigurationError("formula model release is not declared")
         try:
-            unit_price = Decimal(self.settings.myscript_unit_price_cny)
+            unit_price = Decimal(provider.unit_price_cny)
         except InvalidOperation as exc:
-            raise MathInkConfigurationError("MyScript price card is invalid") from exc
+            raise MathInkConfigurationError("formula price card is invalid") from exc
         if (
             not unit_price.is_finite()
             or unit_price < 0
-            or not self.settings.myscript_price_version.strip()
+            or not provider.price_version.strip()
         ):
-            raise MathInkConfigurationError("MyScript price card is incomplete")
+            raise MathInkConfigurationError("formula price card is incomplete")
         if (
             self.settings.environment.strip().casefold() == "production"
-            and not self.settings.myscript_deployment_id.strip()
+            and not provider.deployment_id.strip()
         ):
             raise MathInkConfigurationError(
-                "MyScript production deployment is not evaluated"
+                "formula production deployment is not evaluated"
             )
-        self.require_production_release(input_fingerprint=input_fingerprint)
+        self.require_production_release(
+            input_fingerprint=input_fingerprint,
+            provider=provider,
+        )
 
     def replay(self, *, owner_user_id: str, idempotency_key: str):
         return (
@@ -119,9 +128,10 @@ class MathInkRepository:
         idempotency_key: str,
         input_fingerprint: str,
         ink_payload: dict[str, object],
-        provider_release: str,
+        provider: MathInkProviderDescriptor,
         endpoint_hash: str,
         latex: str | None,
+        recognition_metadata: dict[str, object] | None,
         failure_code: str | None,
         latency_ms: int,
         created_at: datetime,
@@ -138,12 +148,13 @@ class MathInkRepository:
                   idempotency_key, input_fingerprint, ink_payload,
                   provider_release, provider_endpoint_fingerprint, state,
                   output_fingerprint, failure_code, latency_ms, created_at,
-                  completed_at
+                  completed_at, recognition_metadata
                 ) values (
                   cast(:request_id as uuid), cast(:owner as uuid),
                   cast(:session_id as uuid), :question_id, :key, :input,
                   cast(:ink as jsonb), :release, :endpoint_hash, :state,
                   :output, :failure, :latency, :created_at, :created_at
+                  , cast(:recognition_metadata as jsonb)
                 )
                 """
             ),
@@ -155,13 +166,18 @@ class MathInkRepository:
                 "key": idempotency_key,
                 "input": input_fingerprint,
                 "ink": json.dumps(ink_payload, ensure_ascii=False, sort_keys=True),
-                "release": provider_release,
+                "release": provider.provider_release,
                 "endpoint_hash": endpoint_hash,
                 "state": state,
                 "output": output_fingerprint,
                 "failure": failure_code,
                 "latency": latency_ms,
                 "created_at": created_at,
+                "recognition_metadata": (
+                    json.dumps(recognition_metadata, sort_keys=True)
+                    if recognition_metadata is not None
+                    else None
+                ),
             },
         )
         formula = None
@@ -179,7 +195,7 @@ class MathInkRepository:
                       cast(:version_id as uuid), cast(:formula_id as uuid),
                       cast(:request_id as uuid), cast(:owner as uuid),
                       cast(:session_id as uuid), :question_id, 1, 'candidate',
-                      :latex, 'myscript_candidate', :created_at
+                      :latex, :candidate_source, :created_at
                     )
                     """
                 ),
@@ -191,6 +207,7 @@ class MathInkRepository:
                     "session_id": str(session_id),
                     "question_id": question_id,
                     "latex": latex,
+                    "candidate_source": provider.candidate_source,
                     "created_at": created_at,
                 },
             )
@@ -208,6 +225,7 @@ class MathInkRepository:
             failure_code=failure_code,
             latency_ms=latency_ms,
             completed_at=created_at,
+            provider=provider,
         )
         return MathInkRecognitionResult(
             state=state,
@@ -307,14 +325,19 @@ class MathInkRepository:
         )
         return self.formula(owner_user_id=owner_user_id, formula_version_id=version_id)
 
-    def require_production_release(self, *, input_fingerprint: str) -> None:
+    def require_production_release(
+        self,
+        *,
+        input_fingerprint: str,
+        provider: MathInkProviderDescriptor,
+    ) -> None:
         if self.settings.environment.strip().casefold() != "production":
             return
         ExternalProcessingRepository().require_active_release(
             self.session,
-            declared_provider_release=self.settings.myscript_provider_release_id,
+            declared_provider_release=provider.provider_release,
             provider_endpoint_fingerprint=endpoint_fingerprint(
-                self.settings.myscript_endpoint
+                provider.endpoint
             ),
             purpose="handwriting_math_recognition",
             data_categories=("handwriting_strokes",),
@@ -333,24 +356,25 @@ class MathInkRepository:
         failure_code: str | None,
         latency_ms: int,
         completed_at: datetime,
+        provider: MathInkProviderDescriptor,
     ) -> None:
         try:
-            unit_price = Decimal(self.settings.myscript_unit_price_cny)
+            unit_price = Decimal(provider.unit_price_cny)
         except InvalidOperation as exc:
-            raise MathInkConflict("MyScript price card is invalid") from exc
+            raise MathInkConflict("formula price card is invalid") from exc
         if (
             not unit_price.is_finite()
             or unit_price < 0
-            or not self.settings.myscript_price_version.strip()
+            or not provider.price_version.strip()
         ):
-            raise MathInkConflict("MyScript price card is incomplete")
+            raise MathInkConflict("formula price card is incomplete")
         environment = self.settings.environment.strip().casefold()
-        deployment_id = self.settings.myscript_deployment_id.strip() or None
+        deployment_id = provider.deployment_id.strip() or None
         evaluation_state = (
             "passed" if environment == "production" else "local_unreleased"
         )
         if environment == "production" and deployment_id is None:
-            raise MathInkConflict("MyScript production deployment is not evaluated")
+            raise MathInkConflict("formula production deployment is not evaluated")
         if environment != "production":
             deployment_id = None
         status = "succeeded" if output_fingerprint else "failed"
@@ -367,10 +391,10 @@ class MathInkRepository:
                   latency_ms, error_code, completed_at
                 ) values (
                   cast(:request_id as uuid), :operation_key, cast(:owner as uuid),
-                  'myscript_math_recognition', 'formula_recognition',
+                  'math_ink_recognition', 'formula_recognition',
                   'recognition', 'medium', 'small', cast(:deployment_id as uuid),
-                  :evaluation_state, 'MyScript', :provider_release, :model,
-                  'myscript-math-request@v1', 'latex-candidate@v1', :price_version,
+                  :evaluation_state, :provider, :provider_release, :model,
+                  'math-ink-recognition-request@v2', 'latex-candidate@v1', :price_version,
                   'call', 1, cast(:unit_price as numeric),
                   round(cast(:unit_price as numeric), 8), :status,
                   :input, :output, cast(:evidence as jsonb), :latency,
@@ -380,13 +404,17 @@ class MathInkRepository:
             ),
             {
                 "request_id": str(request_id),
-                "operation_key": f"myscript:{owner_user_id}:{idempotency_key}",
+                "operation_key": (
+                    f"math-ink:{provider.provider.casefold()}:"
+                    f"{owner_user_id}:{idempotency_key}"
+                ),
                 "owner": owner_user_id,
                 "deployment_id": deployment_id,
                 "evaluation_state": evaluation_state,
-                "provider_release": self.settings.myscript_provider_release_id,
-                "model": self.settings.myscript_model_release,
-                "price_version": self.settings.myscript_price_version,
+                "provider": provider.provider,
+                "provider_release": provider.provider_release,
+                "model": provider.model_release,
+                "price_version": provider.price_version,
                 "unit_price": unit_price,
                 "status": status,
                 "input": input_fingerprint,
@@ -412,12 +440,12 @@ class MathInkRepository:
             self.session,
             operation_id=request_id,
             user_id=owner_user_id,
-            scenario_key="myscript_math_recognition",
+            scenario_key="math_ink_recognition",
             purpose="handwriting_math_recognition",
             data_categories=("handwriting_strokes",),
-            declared_provider_release=self.settings.myscript_provider_release_id,
+            declared_provider_release=provider.provider_release,
             provider_endpoint_fingerprint=endpoint_fingerprint(
-                self.settings.myscript_endpoint
+                provider.endpoint
             ),
             input_fingerprint=input_fingerprint,
             production_authorization_required=environment == "production",

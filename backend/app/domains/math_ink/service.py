@@ -6,7 +6,13 @@ import json
 import time
 from uuid import UUID, uuid4
 
-from app.domains.math_ink.provider import MyScriptMathClient, MyScriptResponseError
+from app.domains.math_ink.provider import (
+    MathInkProviderDescriptor,
+    MathInkProviderResponseError,
+    MathInkProviderResult,
+    MyScriptMathClient,
+    XfyunMathInkClient,
+)
 from app.domains.math_ink.repository import MathInkConflict, MathInkRepository
 from app.domains.math_ink.schemas import (
     ConfirmFormulaCommand,
@@ -20,7 +26,7 @@ class MathInkService:
     def __init__(
         self,
         repository: MathInkRepository,
-        provider: MyScriptMathClient | None,
+        provider: MyScriptMathClient | XfyunMathInkClient | None,
     ) -> None:
         self.repository = repository
         self.provider = provider
@@ -51,16 +57,46 @@ class MathInkService:
             raise MathInkConflict(
                 "math ink must bind the current user's active task question"
             )
-        self.repository.preflight(input_fingerprint=input_fingerprint)
         if self.provider is None:
             raise MathInkConflict("math ink recognition provider is unavailable")
+        descriptor = self._descriptor()
+        self.repository.preflight(
+            input_fingerprint=input_fingerprint,
+            provider=descriptor,
+        )
         started = time.monotonic()
         request_id = uuid4()
         latex = None
+        recognition_metadata = None
         failure_code = None
         try:
-            latex, _ = self.provider.recognize(command)
-        except MyScriptResponseError as exc:
+            provider_result = self.provider.recognize(command)
+            if isinstance(provider_result, MathInkProviderResult):
+                latex = provider_result.latex
+                recognition_metadata = {
+                    "contractVersion": "formula-recognition-metadata@v1",
+                    "provider": descriptor.provider,
+                    "candidateSource": descriptor.candidate_source,
+                    "providerRelease": descriptor.provider_release,
+                    "modelRelease": descriptor.model_release,
+                    "priceVersion": descriptor.price_version,
+                    "unitPriceCny": descriptor.unit_price_cny,
+                    "deploymentId": descriptor.deployment_id or None,
+                    "rendererVersion": provider_result.renderer_version,
+                    "confidence": provider_result.confidence,
+                    "providerRequestIdFingerprint": (
+                        sha256(
+                            provider_result.provider_request_id.encode("utf-8")
+                        ).hexdigest()
+                        if provider_result.provider_request_id
+                        else None
+                    ),
+                    "vectorFingerprint": provider_result.vector_fingerprint,
+                    "renderFingerprint": provider_result.render_fingerprint,
+                }
+            else:
+                latex, _ = provider_result
+        except MathInkProviderResponseError as exc:
             failure_code = exc.code
         latency_ms = int((time.monotonic() - started) * 1000)
         return self.repository.insert_result(
@@ -71,14 +107,30 @@ class MathInkService:
             idempotency_key=idempotency_key,
             input_fingerprint=input_fingerprint,
             ink_payload=payload,
-            provider_release=self.repository.settings.myscript_provider_release_id,
-            endpoint_hash=sha256(
-                self.repository.settings.myscript_endpoint.encode("utf-8")
-            ).hexdigest(),
+            provider=descriptor,
+            endpoint_hash=sha256(descriptor.endpoint.encode("utf-8")).hexdigest(),
             latex=latex,
+            recognition_metadata=recognition_metadata,
             failure_code=failure_code,
             latency_ms=latency_ms,
             created_at=datetime.now(UTC),
+        )
+
+    def _descriptor(self) -> MathInkProviderDescriptor:
+        descriptor = getattr(self.provider, "descriptor", None)
+        if isinstance(descriptor, MathInkProviderDescriptor):
+            return descriptor
+        settings = self.repository.settings
+        return MathInkProviderDescriptor(
+            provider="MyScript",
+            scenario_key="myscript_math_recognition",
+            candidate_source="myscript_candidate",
+            provider_release=settings.myscript_provider_release_id,
+            model_release=settings.myscript_model_release,
+            endpoint=settings.myscript_endpoint,
+            price_version=settings.myscript_price_version,
+            unit_price_cny=settings.myscript_unit_price_cny,
+            deployment_id=settings.myscript_deployment_id,
         )
 
     def confirm(

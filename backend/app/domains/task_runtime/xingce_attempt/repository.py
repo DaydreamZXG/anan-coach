@@ -336,7 +336,9 @@ class XingceTaskRuntimeRepository:
                   submit_command_id, user_id, session_id, question_id,
                   session_revision, answer_version_id, content_version_id,
                   scoring_policy_version, timing_evidence_ref, timing_evidence,
-                  submission_hash, source_lineage_refs, created_at
+                  submission_hash, source_lineage_refs,
+                  scratch_evidence_projection, scratch_evidence_fingerprint,
+                  created_at
                 ) values (
                   cast(:attempt_record_id as uuid), cast(:attempt_group_id as uuid),
                   :item_attempt_id, :submit_command_id, cast(:user_id as uuid),
@@ -344,7 +346,9 @@ class XingceTaskRuntimeRepository:
                   cast(:answer_version_id as uuid), :content_version_id,
                   :scoring_policy_version, :timing_evidence_ref,
                   cast(:timing_evidence as jsonb), :submission_hash,
-                  cast(:source_lineage_refs as jsonb), :created_at
+                  cast(:source_lineage_refs as jsonb),
+                  cast(:scratch_evidence_projection as jsonb),
+                  :scratch_evidence_fingerprint, :created_at
                 ) returning *
                 """
                 ),
@@ -353,6 +357,77 @@ class XingceTaskRuntimeRepository:
             .mappings()
             .one()
         )
+
+    def formula_versions_for_question(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        session_id: str,
+        question_id: str,
+    ) -> list[RowMapping]:
+        """Return only version-chain heads frozen at submit time.
+
+        A later user confirmation creates a successor and therefore cannot
+        retroactively change an already persisted scratch projection.
+        """
+
+        return list(
+            session.execute(
+                text(
+                    """
+                    select formula.*, command.recognition_metadata
+                    from learning.math_formula_versions formula
+                    join learning.math_ink_commands command
+                      on command.request_id = formula.request_id
+                     and command.owner_user_id = formula.owner_user_id
+                    where formula.owner_user_id = cast(:user_id as uuid)
+                      and formula.session_id = cast(:session_id as uuid)
+                      and formula.question_id = :question_id
+                      and formula.state <> 'rejected'
+                      and not exists (
+                        select 1 from learning.math_formula_versions successor
+                        where successor.supersedes_formula_version_id =
+                              formula.formula_version_id
+                      )
+                    order by formula.created_at, formula.formula_version_id
+                    """
+                ),
+                {
+                    "user_id": user_id,
+                    "session_id": session_id,
+                    "question_id": question_id,
+                },
+            )
+            .mappings()
+            .all()
+        )
+
+    def scratch_projection_refs(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        session_id: str,
+    ) -> list[str]:
+        rows = session.execute(
+            text(
+                """
+                select attempt_record_id, scratch_evidence_fingerprint
+                from learning.xingce_attempt_records
+                where user_id = cast(:user_id as uuid)
+                  and session_id = cast(:session_id as uuid)
+                  and scratch_evidence_projection is not null
+                order by question_id
+                """
+            ),
+            {"user_id": user_id, "session_id": session_id},
+        ).mappings()
+        return [
+            "scratch-evidence-projection:"
+            f"{row['attempt_record_id']}:{row['scratch_evidence_fingerprint']}"
+            for row in rows
+        ]
 
     def attempt_records(
         self,

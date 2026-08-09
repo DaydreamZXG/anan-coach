@@ -61,10 +61,16 @@ from app.domains.xingce_learning.real_attempt.schemas import (
     XingceResultItem,
     VerificationOutcomeProjection,
 )
+from app.domains.xingce_learning.real_attempt.scratch_evidence import (
+    build_scratch_evidence_projection,
+)
 from app.domains.task_runtime.xingce_attempt import XingceTaskRuntimeRepository
 from app.domains.task_runtime.xingce_attempt.contracts import (
     XINGCE_SESSION_GENERATION_KEY,
     XINGCE_SESSION_GENERATION_V1,
+    XingceSelectionIntentError,
+    selection_intent_fingerprint,
+    validate_selection_intent,
     xingce_question_count,
 )
 from app.domains.task_content.service import (
@@ -189,19 +195,55 @@ class XingceAttemptService:
             mode=mode,
             estimated_minutes=int(task["estimated_minutes"]),
         )
-        selection_context: dict[str, str] | None = None
+        selection_context: dict[str, Any] | None = None
         if mode == "targeted":
-            targeted_selection = self._repository.select_targeted_frozen_questions(
-                session,
-                module_name=module_name,
-                limit=question_count,
-                user_id=user_id,
-                now=created_at,
-            )
+            persisted_intent = task["selection_intent"]
+            try:
+                targeted_selection = (
+                    self._repository.select_frozen_questions_for_intent(
+                        session,
+                        intent=persisted_intent,
+                        limit=question_count,
+                        user_id=user_id,
+                        now=created_at,
+                    )
+                    if persisted_intent is not None
+                    else self._repository.select_targeted_frozen_questions(
+                        session,
+                        module_name=module_name,
+                        limit=question_count,
+                        user_id=user_id,
+                        now=created_at,
+                    )
+                )
+            except XingceSelectionIntentError as exc:
+                raise XingceAttemptError(
+                    "xingce_selection_intent_invalid",
+                    "计划冻结的个性化选题意图不完整，不能启动本次训练。",
+                    status_code=500,
+                ) from exc
             source_questions = (
                 list(targeted_selection.questions) if targeted_selection is not None else []
             )
-            if targeted_selection is not None:
+            if (
+                targeted_selection is not None
+                and persisted_intent is not None
+                and targeted_selection.selection_result is not None
+            ):
+                selection_context = {
+                    "contractVersion": "xingce-selection-context@v2",
+                    "intent": validate_selection_intent(persisted_intent),
+                    "result": targeted_selection.selection_result,
+                    "releaseId": targeted_selection.release_id,
+                    "releaseVersion": targeted_selection.release_version,
+                    "sourceDataVersion": targeted_selection.source_data_version,
+                    "vocabVersion": targeted_selection.vocab_version,
+                    "freshUntil": targeted_selection.fresh_until.isoformat(),
+                    "nodeId": targeted_selection.node_id,
+                    "nodeType": targeted_selection.node_type,
+                    "moduleName": targeted_selection.module_name,
+                }
+            elif targeted_selection is not None:
                 selection_context = {
                     "contractVersion": "xingce-targeted-selection@v1",
                     "releaseId": targeted_selection.release_id,
@@ -213,7 +255,7 @@ class XingceAttemptService:
                     "nodeType": targeted_selection.node_type,
                     "moduleName": targeted_selection.module_name,
                 }
-            elif module_name is not None:
+            elif module_name is not None and persisted_intent is None:
                 source_questions = self._repository.select_frozen_questions(
                     session,
                     module_name=module_name,
@@ -587,6 +629,18 @@ class XingceAttemptService:
         if set(answers) != set(question_ids):
             raise _conflict("every frozen question must be answered or explicitly skipped")
 
+        safe_bundle = dict(row["safe_bundle"])
+        safe_questions = {
+            str(item["questionId"]): dict(item)
+            for item in safe_bundle.get("questions", [])
+            if isinstance(item, dict) and item.get("questionId")
+        }
+        safe_materials = {
+            str(item["materialId"]): dict(item)
+            for item in safe_bundle.get("materials", [])
+            if isinstance(item, dict) and item.get("materialId")
+        }
+
         result_items: list[dict[str, Any]] = []
         assessment_ids: list[str] = []
         attempt_records: list[dict[str, Any]] = []
@@ -697,6 +751,45 @@ class XingceAttemptService:
                     "contentVersionId": frozen["contentVersionId"],
                 }
             )
+            attempt_record_id = str(uuid4())
+            safe_question = safe_questions.get(question_id)
+            if safe_question is None:
+                raise XingceAttemptError(
+                    "xingce_safe_bundle_integrity_invalid",
+                    "冻结安全题包缺少提交题目。",
+                    status_code=500,
+                )
+            material_id = safe_question.get("materialId")
+            scratch_projection, scratch_fingerprint = (
+                build_scratch_evidence_projection(
+                    projection_id=attempt_record_id,
+                    session_id=session_id,
+                    question_id=question_id,
+                    content_version_id=str(frozen["contentVersionId"]),
+                    answer_version_id=answer_version_id,
+                    answer_payload_sha256=str(answer_version["payload_sha256"]),
+                    answer=answer,
+                    question=safe_question,
+                    material=(
+                        safe_materials.get(str(material_id))
+                        if material_id is not None
+                        else None
+                    ),
+                    result=result_item,
+                    formula_versions=self._runtime_repository.formula_versions_for_question(
+                        session,
+                        user_id=user_id,
+                        session_id=session_id,
+                        question_id=question_id,
+                    ),
+                    created_at=submitted_at,
+                )
+            )
+            scratch_ref = (
+                f"scratch-evidence-projection:{attempt_record_id}:"
+                f"{scratch_fingerprint}"
+            )
+            source_lineage_refs.append(scratch_ref)
             submission_hash = _hash(
                 {
                     "itemAttemptId": item_attempt_id,
@@ -705,9 +798,9 @@ class XingceAttemptService:
                     "scoringPolicyVersion": SCORING_POLICY_VERSION,
                     "timingEvidenceRef": timing_evidence_ref,
                     "sourceLineageRefs": source_lineage_refs,
+                    "scratchEvidenceFingerprint": scratch_fingerprint,
                 }
             )
-            attempt_record_id = str(uuid4())
             attempt_record = self._runtime_repository.insert_attempt_record(
                 session,
                 values={
@@ -726,6 +819,8 @@ class XingceAttemptService:
                     "timing_evidence": _json(timing_evidence),
                     "submission_hash": submission_hash,
                     "source_lineage_refs": _json(source_lineage_refs),
+                    "scratch_evidence_projection": _json(scratch_projection),
+                    "scratch_evidence_fingerprint": scratch_fingerprint,
                     "created_at": submitted_at,
                 },
             )
@@ -1988,7 +2083,7 @@ def _freeze_bundle(
     estimated_minutes: int,
     source_mastery_version_id: str | None,
     verification_stage: str | None,
-    selection_context: dict[str, str] | None = None,
+    selection_context: dict[str, Any] | None = None,
 ) -> tuple[SafeQuestionBundle, dict[str, Any]]:
     try:
         safe_bundle, scoring_bundle = freeze_learner_bundle(
@@ -2065,8 +2160,23 @@ def _selection_lineage_refs(
         return []
     if (
         not isinstance(context, dict)
-        or context.get("contractVersion") != "xingce-targeted-selection@v1"
     ):
+        raise XingceAttemptError(
+            "xingce_selection_context_invalid",
+            "针对训练的知识树选择证据不完整，不能提交本次结果。",
+            status_code=500,
+        )
+    if context.get("contractVersion") == "xingce-selection-context@v2":
+        return _selection_v2_lineage_refs(context, scoring_bundle=scoring_bundle)
+    if context.get("contractVersion") == "xingce-module-selection@v1":
+        if (
+            set(context) != {"contractVersion", "moduleName"}
+            or not isinstance(context.get("moduleName"), str)
+            or not context["moduleName"].strip()
+        ):
+            raise _invalid_selection_context()
+        return [f"selection-module:{context['moduleName']}"]
+    if context.get("contractVersion") != "xingce-targeted-selection@v1":
         raise XingceAttemptError(
             "xingce_selection_context_invalid",
             "针对训练的知识树选择证据不完整，不能提交本次结果。",
@@ -2113,6 +2223,138 @@ def _selection_lineage_refs(
             status_code=500,
         )
     return refs
+
+
+def _selection_v2_lineage_refs(
+    context: dict[str, Any],
+    *,
+    scoring_bundle: dict[str, Any],
+) -> list[str]:
+    required_context = {
+        "contractVersion",
+        "intent",
+        "result",
+        "releaseId",
+        "releaseVersion",
+        "sourceDataVersion",
+        "vocabVersion",
+        "freshUntil",
+        "nodeId",
+        "nodeType",
+        "moduleName",
+    }
+    if set(context) != required_context:
+        raise _invalid_selection_context()
+    try:
+        intent = validate_selection_intent(context["intent"])
+    except XingceSelectionIntentError as exc:
+        raise _invalid_selection_context() from exc
+    result = context["result"]
+    required_result = {
+        "contractVersion",
+        "intentId",
+        "hitTier",
+        "hitReason",
+        "fallbackReason",
+        "skippedTiers",
+        "difficultyPolicy",
+        "questionRankingEvidence",
+        "questionIds",
+    }
+    scoring_question_ids = [
+        str(item["questionId"])
+        for item in scoring_bundle.get("questions", [])
+        if isinstance(item, dict) and item.get("questionId")
+    ]
+    if (
+        not isinstance(result, dict)
+        or set(result) != required_result
+        or result.get("contractVersion") != "xingce-selection-result@v1"
+        or result.get("intentId") != selection_intent_fingerprint(intent)
+        or result.get("difficultyPolicy") != intent["difficultyPolicy"]
+        or result.get("questionIds") != scoring_question_ids
+        or result.get("hitTier") not in {
+            "exact_knowledge_and_cause",
+            "same_knowledge",
+            "same_micro_skill",
+            "module",
+            "high_frequency_cold_start",
+        }
+        or result.get("hitReason") not in {
+            "all_required_selectors_matched",
+            "first_tier_with_sufficient_novel_supply",
+        }
+        or result.get("fallbackReason") != intent["fallbackReason"]
+        or not isinstance(result.get("questionRankingEvidence"), list)
+        or len(result["questionRankingEvidence"]) != len(scoring_question_ids)
+        or not isinstance(result.get("skippedTiers"), list)
+    ):
+        raise _invalid_selection_context()
+    if any(
+        not isinstance(item, dict)
+        or set(item) != {
+            "questionId",
+            "rank",
+            "anchorState",
+            "difficultyB",
+            "distanceToTargetTheta",
+            "stablePoolRank",
+        }
+        or item["questionId"] != scoring_question_ids[index]
+        or item["rank"] != index + 1
+        or item["anchorState"] not in {"known", "unknown"}
+        for index, item in enumerate(result["questionRankingEvidence"])
+    ):
+        raise _invalid_selection_context()
+    release = intent["knowledgeRelease"]
+    for field, expected in (
+        ("releaseId", release["releaseId"]),
+        ("releaseVersion", release["releaseVersion"]),
+        ("sourceDataVersion", release["sourceDataVersion"]),
+        ("vocabVersion", release["vocabVersion"]),
+        ("freshUntil", release["freshUntil"]),
+        ("moduleName", intent["targetModule"]),
+    ):
+        if context[field] != expected:
+            raise _invalid_selection_context()
+    try:
+        fresh_until = datetime.fromisoformat(str(context["freshUntil"]))
+    except ValueError as exc:
+        raise _invalid_selection_context() from exc
+    if fresh_until.tzinfo is None:
+        raise _invalid_selection_context()
+    refs = [
+        f"selection-intent:{intent['intentId']}",
+        f"selection-result:{_hash(result)}",
+        f"knowledge-map-release:{release['releaseId']}",
+        f"knowledge-map-release-version:{release['releaseVersion']}",
+        f"knowledge-map-source-data-version:{release['sourceDataVersion']}",
+        f"knowledge-map-vocab-version:{release['vocabVersion']}",
+    ]
+    for node_field in ("targetKnowledgeNode", "targetMicroSkillNode"):
+        node = intent[node_field]
+        if node is not None:
+            refs.append(f"knowledge-map-node:{node['nodeId']}")
+    cause = intent["confirmedCauseFocus"]
+    if cause is not None:
+        refs.extend(
+            (
+                f"confirmed-cause-version:{cause['confirmedCauseVersionId']}",
+                f"cause-decision-version:{cause['decisionVersionId']}",
+            )
+        )
+    difficulty = intent["difficultyPolicy"]
+    if difficulty["sourceVersionId"] is not None:
+        refs.append(f"ability-shadow:{difficulty['sourceVersionId']}")
+    return refs
+
+
+def _invalid_selection_context() -> XingceAttemptError:
+    return XingceAttemptError(
+        "xingce_selection_context_invalid",
+        "针对训练的个性化选择证据不完整，不能提交本次结果。",
+        status_code=500,
+    )
 
 
 def _task_scope(task: RowMapping) -> tuple[str, str | None]:

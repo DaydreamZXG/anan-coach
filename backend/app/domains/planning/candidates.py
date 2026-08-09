@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, replace
 from hashlib import sha256
-from typing import Literal
+from typing import Any, Literal
 from uuid import UUID
 
 from app.domains.planning.engine import PriorityBreakdown, TaskCandidate
@@ -93,6 +93,7 @@ class ObjectivePlanningSnapshot:
     # 已确认错因主导的针对性训练方向。有近期已确认错因时为该方向
     # （含错因码、方向 key、展示名），否则为 None，候选落到模块级最弱。
     caused_training_direction: ConfirmedCauseDirection | None = None
+    selection_intent: dict[str, Any] | None = None
 
     def __post_init__(self) -> None:
         if (
@@ -450,6 +451,11 @@ def _objective_candidates(
                 strategy_module_keys=(module,),
                 strategy_question_type=(
                     cause_direction.focus if cause_direction is not None else None
+                ),
+                selection_intent=(
+                    dict(snapshot.selection_intent)
+                    if snapshot.selection_intent is not None
+                    else None
                 ),
             )
         )

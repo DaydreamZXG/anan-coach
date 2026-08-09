@@ -12,14 +12,23 @@ from typing import Any
 from uuid import UUID, uuid4
 
 import httpx
+import pytest
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.core.config import Settings
-from app.domains.math_ink.provider import MyScriptMathClient
+from app.domains.math_ink.provider import MyScriptMathClient, XfyunMathInkClient
+import app.domains.math_ink.router as math_ink_router
+from app.domains.math_ink.rendering import InvalidInkError, render_math_ink
 from app.domains.math_ink.repository import MathInkNotFound, MathInkRepository
 from app.domains.math_ink.schemas import ConfirmFormulaCommand, RecognizeMathInkCommand
 from app.domains.math_ink.service import MathInkService
+from app.domains.xfyun.config import XfyunCredentials
+from app.domains.xfyun.formula import (
+    FormulaLine,
+    FormulaRecognition,
+    XfyunFormulaClient,
+)
 from app.domains.private_knowledge.repository import PrivateKnowledgeRepository
 from app.domains.private_knowledge.schemas import CreatePrivateSourceCommand
 from app.domains.private_knowledge.service import PrivateKnowledgeService
@@ -143,6 +152,46 @@ def test_math_ink_candidate_is_idempotent_owner_bound_and_user_confirmed(
             formula_version_id=candidate.formula.formula_version_id,
             command=ConfirmFormulaCommand(expectedVersionNo=1, latex=r"x=\frac{3}{5}"),
         )
+        xfyun_provider = XfyunMathInkClient(
+            _XfyunFormulaStub(),  # type: ignore[arg-type]
+            provider_release="xfyun-formula-test-release",
+            price_version="xfyun-formula-price-test-v1",
+            unit_price_cny="0.02",
+        )
+        xfyun_candidate = MathInkService(
+            MathInkRepository(session, settings),
+            xfyun_provider,
+        ).recognize(
+            owner_user_id=user_id,
+            command=command,
+            idempotency_key="step6-xfyun-math-recognize",
+        )
+        assert xfyun_candidate.formula is not None
+        assert xfyun_candidate.formula.source == "xfyun_candidate"
+        metadata = session.execute(
+            text(
+                "select recognition_metadata from learning.math_ink_commands "
+                "where request_id = cast(:request_id as uuid)"
+            ),
+            {"request_id": str(xfyun_candidate.request_id)},
+        ).scalar_one()
+        assert metadata == {
+            "contractVersion": "formula-recognition-metadata@v1",
+            "provider": "Xfyun",
+            "candidateSource": "xfyun_candidate",
+            "providerRelease": "xfyun-formula-test-release",
+            "modelRelease": "teach-photo-print",
+            "priceVersion": "xfyun-formula-price-test-v1",
+            "unitPriceCny": "0.02",
+            "deploymentId": None,
+            "rendererVersion": "math-ink-renderer@v1",
+            "confidence": 0.9,
+            "providerRequestIdFingerprint": sha256(b"xfyun-request-1").hexdigest(),
+            "vectorFingerprint": metadata["vectorFingerprint"],
+            "renderFingerprint": metadata["renderFingerprint"],
+        }
+        assert len(metadata["vectorFingerprint"]) == 64
+        assert len(metadata["renderFingerprint"]) == 64
         session.commit()
         assert confirmed.state == "confirmed"
         assert confirmed.version_no == 2
@@ -151,13 +200,13 @@ def test_math_ink_candidate_is_idempotent_owner_bound_and_user_confirmed(
             session.execute(
                 text("select count(*) from ai_audit.external_ai_operation_ledger")
             ).scalar_one()
-            == 1
+            == 2
         )
         assert (
             session.execute(
                 text("select count(*) from ai_audit.external_processing_receipts")
             ).scalar_one()
-            == 1
+            == 2
         )
 
     other_user = _seed_user(db_session_factory)
@@ -192,6 +241,256 @@ def test_math_ink_active_clock_must_be_in_range_and_in_order() -> None:
         assert "question elapsed time cannot exceed" in str(exc)
     else:
         raise AssertionError("question clock exceeded the session clock")
+
+
+def test_vector_renderer_is_deterministic_and_fingerprints_scale_order_and_time() -> None:
+    base = _render_command(
+        strokes=[
+            {"x": [10, 20], "y": [10, 20], "t": [0, 10]},
+            {"x": [30, 40], "y": [20, 10], "t": [20, 30]},
+        ]
+    )
+    replay = render_math_ink(base)
+    assert render_math_ink(base) == replay
+    assert replay.png.startswith(b"\x89PNG\r\n\x1a\n")
+    assert len(replay.png) <= 128 * 1024
+
+    scaled = render_math_ink(
+        _render_command(
+            scale_x=2,
+            strokes=[
+                {"x": [10, 20], "y": [10, 20], "t": [0, 10]},
+                {"x": [30, 40], "y": [20, 10], "t": [20, 30]},
+            ],
+        )
+    )
+    reordered = render_math_ink(
+        _render_command(
+            strokes=[
+                {"x": [30, 40], "y": [20, 10], "t": [20, 30]},
+                {"x": [10, 20], "y": [10, 20], "t": [0, 10]},
+            ]
+        )
+    )
+    retimed = render_math_ink(
+        _render_command(
+            strokes=[
+                {"x": [10, 20], "y": [10, 20], "t": [0, 11]},
+                {"x": [30, 40], "y": [20, 10], "t": [20, 30]},
+            ]
+        )
+    )
+    assert len(
+        {
+            replay.vector_fingerprint,
+            scaled.vector_fingerprint,
+            reordered.vector_fingerprint,
+            retimed.vector_fingerprint,
+        }
+    ) == 4
+    assert scaled.render_fingerprint != replay.render_fingerprint
+
+
+def test_vector_renderer_rejects_blank_out_of_range_and_more_than_twenty_thousand() -> None:
+    with pytest.raises(InvalidInkError, match="ink_blank"):
+        render_math_ink(
+            _render_command(strokes=[{"x": [1, 1], "y": [1, 1], "t": [0, 1]}])
+        )
+    out_of_range = RecognizeMathInkCommand.model_construct(
+        session_id=uuid4(),
+        question_id="render-out-of-range",
+        scale_x=1.0,
+        scale_y=1.0,
+        strokes=(
+            # Bypass the public schema only to prove the renderer's independent
+            # provider-boundary validation.
+            type(_render_command().strokes[0]).model_construct(
+                x=(0.0, 60_000.0),
+                y=(0.0, 1.0),
+                t=(0, 1),
+            ),
+        ),
+    )
+    with pytest.raises(InvalidInkError, match="ink_coordinate_invalid"):
+        render_math_ink(out_of_range)
+
+    stroke = {
+        "x": list(range(2_000)),
+        "y": [index % 2 for index in range(2_000)],
+        "t": list(range(2_000)),
+    }
+    maximum = _render_command(strokes=[stroke for _ in range(10)])
+    assert len(render_math_ink(maximum).png) <= 128 * 1024
+    with pytest.raises(ValueError, match="exceeds 20000 points"):
+        _render_command(strokes=[stroke for _ in range(10)] + [
+            {"x": [0, 1], "y": [0, 1], "t": [0, 1]}
+        ])
+
+
+@pytest.mark.parametrize(
+    "response_payload",
+    [
+        {"code": 0, "sid": "malformed-data", "data": []},
+        {
+            "code": 0,
+            "sid": "nan-confidence",
+            "data": {
+                "region": [
+                    {
+                        "type": "text",
+                        "recog": {
+                            "exception": 0,
+                            "content": "ifly-latex-beginx+1ifly-latex-end",
+                            "element": [{"conf": "NaN"}],
+                        },
+                    }
+                ]
+            },
+        },
+        {"sid": "read-timeout", "_raise_timeout": True},
+    ],
+)
+def test_xfyun_malformed_success_is_persisted_as_frozen_failure(
+    db_session_factory: sessionmaker[Session],
+    response_payload: dict[str, Any],
+) -> None:
+    token = f"xfyun-malformed-{response_payload['sid']}"
+    user_id = _seed_learner_and_published_essay_content(
+        db_session_factory,
+        access_token=token,
+        include_objective_questions=False,
+    )
+    seed_route_frozen_release(db_session_factory, count=3)
+    client = _client(db_session_factory)
+    auth = {"Authorization": f"Bearer {token}"}
+    task = _xingce_task(client, auth)
+    started = client.post(
+        "/api/v2/xingce/task-sessions",
+        headers={**auth, "Idempotency-Key": f"start-{token}"},
+        json={"planTaskId": task["id"]},
+    ).json()["data"]
+    question_id = started["bundle"]["questions"][0]["questionId"]
+    command = RecognizeMathInkCommand.model_validate(
+        {
+            "sessionId": started["sessionId"],
+            "questionId": question_id,
+            "scaleX": 1,
+            "scaleY": 1,
+            "strokes": [{"x": [10, 20], "y": [10, 20], "t": [0, 10]}],
+        }
+    )
+
+    def handler(_request: httpx.Request) -> httpx.Response:
+        if response_payload.get("_raise_timeout"):
+            raise httpx.ReadTimeout("xfyun test timeout", request=_request)
+        return httpx.Response(200, json=response_payload)
+
+    formula_client = XfyunFormulaClient(
+        XfyunCredentials("test-app", "test-key", "test-secret"),
+        client_factory=lambda: httpx.Client(
+            transport=httpx.MockTransport(handler)
+        ),
+    )
+    provider = XfyunMathInkClient(
+        formula_client,
+        provider_release="xfyun-malformed-test-release",
+        price_version="xfyun-malformed-price-v1",
+        unit_price_cny="0.01",
+    )
+    settings = Settings()
+    with db_session_factory() as session:
+        result = MathInkService(
+            MathInkRepository(session, settings),
+            provider,
+        ).recognize(
+            owner_user_id=user_id,
+            command=command,
+            idempotency_key=f"recognize-{response_payload['sid']}",
+        )
+        session.commit()
+        assert result.state == "failed"
+        assert result.formula is None
+        assert result.failure_code == "xfyun_provider_failed"
+        stored = session.execute(
+            text(
+                """
+                select state, failure_code, recognition_metadata
+                from learning.math_ink_commands
+                where request_id = cast(:request_id as uuid)
+                """
+            ),
+            {"request_id": str(result.request_id)},
+        ).mappings().one()
+        assert dict(stored) == {
+            "state": "failed",
+            "failure_code": "xfyun_provider_failed",
+            "recognition_metadata": None,
+        }
+        audit = session.execute(
+            text(
+                """
+                select provider, status, error_code
+                from ai_audit.external_ai_operation_ledger
+                where operation_key = :operation_key
+                """
+            ),
+            {
+                "operation_key": (
+                    f"math-ink:xfyun:{user_id}:"
+                    f"recognize-{response_payload['sid']}"
+                )
+            },
+        ).mappings().one()
+        assert dict(audit) == {
+            "provider": "Xfyun",
+            "status": "failed",
+            "error_code": "xfyun_provider_failed",
+        }
+
+
+def test_math_ink_router_factory_uses_xfyun_and_never_constructs_myscript(
+    db_session_factory: sessionmaker[Session],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    for key, value in {
+        "XFYUN_APP_ID": "router-test-app",
+        "XFYUN_API_KEY": "router-test-key",
+        "XFYUN_API_SECRET": "router-test-secret",
+        "XFYUN_FORMULA_PROVIDER_RELEASE_ID": "xfyun-router-release",
+        "XFYUN_FORMULA_PRICE_VERSION": "xfyun-router-price-v1",
+        "XFYUN_FORMULA_UNIT_PRICE_CNY": "0.01",
+        "XFYUN_FORMULA_DEPLOYMENT_ID": "",
+    }.items():
+        monkeypatch.setenv(key, value)
+
+    captured: dict[str, object] = {}
+
+    class _RouterFormulaStub:
+        def __init__(self, credentials: XfyunCredentials) -> None:
+            captured["credentials"] = credentials
+
+        def recognize(self, _image: bytes) -> FormulaRecognition:
+            raise AssertionError("router factory test must not call the network")
+
+    monkeypatch.setattr(math_ink_router, "XfyunFormulaClient", _RouterFormulaStub)
+    monkeypatch.setattr(
+        MyScriptMathClient,
+        "__init__",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("MyScript must not be constructed by the current router")
+        ),
+    )
+    with db_session_factory() as session:
+        service = math_ink_router._service(session)
+
+    assert isinstance(service.provider, XfyunMathInkClient)
+    assert service.provider.descriptor.provider == "Xfyun"
+    assert service.provider.descriptor.provider_release == "xfyun-router-release"
+    assert captured["credentials"] == XfyunCredentials(
+        "router-test-app",
+        "router-test-key",
+        "router-test-secret",
+    )
 
 
 def test_private_markdown_round_trip_search_isolation_and_complete_delete(
@@ -325,6 +624,39 @@ class _MathProvider:
     def recognize(self, command: RecognizeMathInkCommand) -> tuple[str, bytes]:
         self.calls += 1
         return r"\frac{3}{5}", json.dumps(command.model_dump(mode="json")).encode()
+
+
+class _XfyunFormulaStub:
+    def recognize(self, _image: bytes) -> FormulaRecognition:
+        return FormulaRecognition(
+            request_id="xfyun-request-1",
+            lines=(
+                FormulaLine(
+                    text=r"$\frac{3}{5}$",
+                    confidence=0.9,
+                    contains_formula=True,
+                    formulas=(r"\frac{3}{5}",),
+                ),
+            ),
+        )
+
+
+def _render_command(
+    *,
+    scale_x: float = 1.0,
+    scale_y: float = 1.0,
+    strokes: list[dict[str, list[int]]] | None = None,
+) -> RecognizeMathInkCommand:
+    return RecognizeMathInkCommand.model_validate(
+        {
+            "sessionId": str(uuid4()),
+            "questionId": "render-question",
+            "scaleX": scale_x,
+            "scaleY": scale_y,
+            "strokes": strokes
+            or [{"x": [0, 10], "y": [0, 10], "t": [0, 1]}],
+        }
+    )
 
 
 class _MarkdownReader:

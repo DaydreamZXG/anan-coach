@@ -146,11 +146,12 @@ def test_targeted_selection_is_user_isolated_and_does_not_repeat_exposed_questio
     db_session_factory: sessionmaker[Session],
 ) -> None:
     now = datetime.now(UTC)
+    yesterday = now - timedelta(days=1)
     token = "targeted-dedupe-token"
     user_id = _seed_targeted_learner(
         db_session_factory,
         token=token,
-        now=now,
+        now=yesterday,
         nodes=(
             _node(
                 "dedupe-node",
@@ -453,6 +454,7 @@ def test_repeated_training_reaches_every_eligible_question_without_a_total_pool_
     db_session_factory: sessionmaker[Session],
 ) -> None:
     now = datetime.now(UTC)
+    yesterday = now - timedelta(days=1)
     token = "targeted-full-reachability-token"
     question_ids = {
         index: f"full-reachability-{index:03d}-{sha256(str(index).encode()).hexdigest()[:7]}"
@@ -461,7 +463,7 @@ def test_repeated_training_reaches_every_eligible_question_without_a_total_pool_
     user_id = _seed_targeted_learner(
         db_session_factory,
         token=token,
-        now=now,
+        now=yesterday,
         nodes=(
             _node(
                 "full-reachability-node",
@@ -1006,7 +1008,7 @@ def test_targeted_start_freezes_selection_context_and_submit_lineage(
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
     task = _targeted_task(client, auth)
-    assert task["title"] == "行测提分练习：国考高频模块"
+    assert task["title"] == "行测提分练习：言语理解与表达"
     started = _start(client, auth, task, key="targeted-lineage-start")
     assert "selectionContext" not in started
     assert "selectionContext" not in started["bundle"]
@@ -1023,14 +1025,23 @@ def test_targeted_start_freezes_selection_context_and_submit_lineage(
             {"session_id": started["sessionId"]},
         ).scalar_one()
     context = scoring["selectionContext"]
-    assert context == {
-        "contractVersion": "xingce-targeted-selection@v1",
-        **_active_release_metadata(db_session_factory),
-        "freshUntil": context["freshUntil"],
-        "nodeId": "lineage-node",
-        "nodeType": "micro_skill",
-        "moduleName": "言语理解与表达",
-    }
+    assert context["contractVersion"] == "xingce-selection-context@v2"
+    assert context["intent"]["targetModule"] == "言语理解与表达"
+    assert context["intent"]["fallbackReason"] == "cold_start_no_grounded_evidence"
+    assert context["result"]["hitTier"] == "high_frequency_cold_start"
+    assert context["result"]["questionIds"] == [
+        item["questionId"] for item in started["bundle"]["questions"]
+    ]
+    assert {
+        key: context[key]
+        for key in (
+            "releaseId",
+            "releaseVersion",
+            "sourceDataVersion",
+            "vocabVersion",
+        )
+    } == _active_release_metadata(db_session_factory)
+    assert context["moduleName"] == "言语理解与表达"
     assert datetime.fromisoformat(context["freshUntil"]) > now
 
     submitted = _checkpoint_and_submit(
@@ -1057,11 +1068,12 @@ def test_targeted_start_freezes_selection_context_and_submit_lineage(
             .all()
         )
     expected_tree_refs = {
+        f"selection-intent:{context['intent']['intentId']}",
+        f"selection-result:{_hash(context['result'])}",
         f"knowledge-map-release:{context['releaseId']}",
         f"knowledge-map-release-version:{context['releaseVersion']}",
         f"knowledge-map-source-data-version:{context['sourceDataVersion']}",
         f"knowledge-map-vocab-version:{context['vocabVersion']}",
-        "knowledge-map-node:lineage-node",
     }
     assert lineage_rows
     assert all(expected_tree_refs <= set(refs) for refs in lineage_rows)
@@ -1150,6 +1162,224 @@ def test_pre_selection_contract_targeted_session_remains_submittable_without_fak
         )
     assert refs
     assert all(not any(str(ref).startswith("knowledge-map-") for ref in row) for row in refs)
+
+
+def test_new_intent_publishes_plan_when_node_is_short_but_module_is_sufficient(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    now = datetime.now(UTC)
+    yesterday = now - timedelta(days=1)
+    token = "targeted-intent-module-fallback-token"
+    user_id = _seed_targeted_learner(
+        db_session_factory,
+        token=token,
+        now=now,
+        nodes=(
+            _node(
+                "intent-short-node",
+                "knowledge_point",
+                "knowledge_point",
+                "中心理解",
+                0.9,
+                12,
+            ),
+            _node(
+                "intent-module-node-b",
+                "knowledge_point",
+                "knowledge_point",
+                "逻辑填空",
+                0.8,
+                10,
+            ),
+            _node(
+                "intent-module-node-c",
+                "knowledge_point",
+                "knowledge_point",
+                "片段阅读",
+                0.7,
+                8,
+            ),
+        ),
+        # 目标知识点只有2题；模块总供给6题。
+        tags={"中心理解": (1, 2), "逻辑填空": (3, 4), "片段阅读": (5, 6)},
+    )
+    planning = PlanningService()
+    with db_session_factory.begin() as session:
+        prior_plan = planning.get_or_create_today(
+            session,
+            user_id=user_id,
+            now=yesterday,
+            local_date=yesterday.date(),
+        )
+        history = _insert_objective_questions(
+            session,
+            prefix="intent-module-history",
+            module_name="言语理解",
+            count=10,
+        )
+        for index, question_id in enumerate(history, start=1):
+            session.execute(
+                text(
+                    """
+                    insert into product.question_tags (
+                      question_tag_id, question_id, tag_type, tag_value,
+                      sort_order, evidence_link_count
+                    ) values (
+                      :tag_id, :question_id, 'knowledge_point', '中心理解',
+                      1, 1
+                    )
+                    """
+                ),
+                {
+                    "tag_id": f"intent-module-history-tag-{index}",
+                    "question_id": question_id,
+                },
+            )
+        _insert_assessment_facts(
+            session,
+            user_id=user_id,
+            plan=prior_plan,
+            question_results=[
+                (question_id, index <= 2)
+                for index, question_id in enumerate(history, start=1)
+            ],
+        )
+
+    client = _client(db_session_factory)
+    auth = {"Authorization": f"Bearer {token}"}
+    task = _targeted_task(client, auth)
+    with db_session_factory() as session:
+        intent = session.execute(
+            text(
+                """
+                select selection_intent
+                from learning.daily_plan_tasks
+                where task_id = cast(:task_id as uuid)
+                """
+            ),
+            {"task_id": task["id"]},
+        ).scalar_one()
+    assert intent["targetKnowledgeNode"]["nodeId"] == "intent-short-node"
+    assert intent["fallbackReason"] is None
+
+    started = _start(client, auth, task, key="targeted-intent-module-start")
+    with db_session_factory() as session:
+        scoring = session.execute(
+            text(
+                """
+                select scoring_bundle
+                from learning.xingce_task_sessions
+                where session_id = cast(:session_id as uuid)
+                """
+            ),
+            {"session_id": started["sessionId"]},
+        ).scalar_one()
+    assert scoring["selectionContext"]["contractVersion"] == (
+        "xingce-selection-context@v2"
+    )
+    assert scoring["selectionContext"]["result"]["hitTier"] == "module"
+    assert scoring["selectionContext"]["result"]["skippedTiers"] == [
+        {
+            "tier": "same_knowledge",
+            "reason": "insufficient_eligible_questions",
+            "eligibleCount": 2,
+        }
+    ]
+
+
+def test_legacy_module_fallback_session_freezes_module_lineage_and_submits(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    now = datetime.now(UTC)
+    token = "targeted-legacy-module-fallback-token"
+    _seed_targeted_learner(
+        db_session_factory,
+        token=token,
+        now=now,
+        nodes=(
+            _node(
+                "legacy-module-node",
+                "micro_skill",
+                "micro_skill",
+                "历史技巧",
+                0.9,
+                12,
+            ),
+        ),
+        tags={"历史技巧": (1, 2, 3, 4, 5, 6)},
+    )
+    client = _client(db_session_factory)
+    auth = {"Authorization": f"Bearer {token}"}
+    task = _targeted_task(client, auth)
+    with db_session_factory.begin() as session:
+        # 模拟历史计划启动时，冻结节点已不能作为 targeted 证据：
+        # 旧 selector 返回 None，但模块级题目供给仍完整。
+        session.execute(text("set local session_replication_role = 'replica'"))
+        session.execute(
+            text(
+                """
+                update product.knowledge_map_nodes
+                   set support_status = 'image_unsupported'
+                 where node_id = 'legacy-module-node'
+                """
+            )
+        )
+        session.execute(
+            text(
+                """
+                update learning.daily_plan_tasks
+                   set selection_intent = null,
+                       candidate_key = 'xingce:言语理解与表达'
+                 where task_id = cast(:task_id as uuid)
+                """
+            ),
+            {"task_id": task["id"]},
+        )
+
+    started = _start(
+        client,
+        auth,
+        task,
+        key="targeted-legacy-module-fallback-start",
+    )
+    with db_session_factory() as session:
+        scoring = session.execute(
+            text(
+                """
+                select scoring_bundle
+                from learning.xingce_task_sessions
+                where session_id = cast(:session_id as uuid)
+                """
+            ),
+            {"session_id": started["sessionId"]},
+        ).scalar_one()
+    assert scoring["selectionContext"] == {
+        "contractVersion": "xingce-module-selection@v1",
+        "moduleName": "言语理解与表达",
+    }
+
+    submitted = _checkpoint_and_submit(
+        client,
+        auth,
+        started,
+        key_prefix="targeted-legacy-module-fallback",
+    )
+    assert submitted.status_code == 200, submitted.text
+    with db_session_factory() as session:
+        lineage_rows = session.execute(
+            text(
+                """
+                select source_lineage_refs
+                from learning.xingce_attempt_records
+                where session_id = cast(:session_id as uuid)
+                """
+            ),
+            {"session_id": started["sessionId"]},
+        ).scalars().all()
+    assert lineage_rows
+    assert all(
+        "selection-module:言语理解与表达" in refs for refs in lineage_rows
+    )
 
 
 @pytest.mark.parametrize(

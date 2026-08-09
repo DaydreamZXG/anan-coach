@@ -248,7 +248,10 @@ def test_ink_formula_tool_returns_current_confirmed_and_candidate_heads(
     assert by_state["candidate"]["confirmedAt"] is None
     # 被用户拒绝的公式链头不进入错因证据。
     assert all(item["questionId"] != second for item in formulas["items"])
-    assert formulas["evidenceRefs"] == [f"ink-formula:{first}"]
+    assert formulas["evidenceRefs"] == [
+        f"formula-version:{item['formulaVersionId']}"
+        for item in formulas["items"]
+    ]
 
 
 def test_sessions_without_trace_or_formulas_return_explicit_emptiness(
@@ -299,10 +302,17 @@ def test_candidate_citing_action_trace_and_ink_formula_refs_passes_grounding(
         submitted["review"],
         key="cause-trace-grounding-reflection",
     )
+    with db_session_factory() as session:
+        tools = _tools(session, session_id)
+        scope = _scope(session, session_id)
+        formula_refs = tools.load_ink_formulas(scope)["evidenceRefs"]
+        scratch_refs = tools.load_action_trace(scope)["scratchReasoning"][
+            "evidenceRefs"
+        ]
     cited_refs = [
         f"action-trace:{first}",
-        f"ink-formula:{first}",
-        f"scratch-reasoning:{first}",
+        *formula_refs,
+        scratch_refs[0],
     ]
     _run_one(db_session_factory, _TraceCitingProvider(cited_refs))
 
@@ -337,9 +347,11 @@ def test_candidate_citing_action_trace_and_ink_formula_refs_passes_grounding(
         )
         assert scratch["inputFingerprint"]
         assert scratch["unknownFreehandCount"] == 2
-        assert f"scratch-reasoning:{first}" in evidence["scratchReasoning"][
-            "evidenceRefs"
-        ]
+        assert scratch["projectionRef"] == scratch_refs[0]
+        assert f"scratch-reasoning:{first}" in evidence[
+            "scratchReasoning"
+        ]["evidenceRefs"]
+        assert scratch_refs[0] in evidence["scratchReasoning"]["evidenceRefs"]
 
 
 class _TraceCitingProvider(SequenceProvider):

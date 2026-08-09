@@ -1,25 +1,221 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+from dataclasses import dataclass
 from hashlib import sha512
 import hmac
 import json
+import math
+import os
+import re
+from typing import Any, Mapping
 from urllib.parse import urlsplit
 
 import httpx
 
 from app.domains.math_ink.schemas import RecognizeMathInkCommand
+from app.domains.math_ink.rendering import InvalidInkError, render_math_ink
+from app.domains.xfyun.formula import (
+    FORMULA_ENDPOINT,
+    XfyunFormulaClient,
+    XfyunFormulaError,
+)
 
 
-class MyScriptConfigurationError(RuntimeError):
+class MathInkProviderConfigurationError(RuntimeError):
     pass
 
 
-class MyScriptResponseError(RuntimeError):
+class MathInkProviderResponseError(RuntimeError):
     def __init__(self, code: str, *, status_code: int | None = None) -> None:
         super().__init__(code)
         self.code = code
         self.status_code = status_code
+
+
+FORMULA_CONFIDENCE_POLICY_VERSION = "formula-confidence-policy@v1"
+# Provider confidence is not calibrated against learner outcomes.  This high,
+# frozen threshold only upgrades a complete, auditable candidate receipt from
+# weak to medium; it never makes an unconfirmed formula strong.
+FORMULA_CANDIDATE_MEDIUM_THRESHOLD = 0.95
+FORMULA_CONFIDENCE_SEMANTICS = "provider_reported_uncalibrated"
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_CANDIDATE_PROVIDERS = {
+    "myscript_candidate": "MyScript",
+    "xfyun_candidate": "Xfyun",
+}
+
+
+def formula_evidence_strength(
+    *,
+    state: str,
+    source: str,
+    recognition_metadata: Mapping[str, Any] | None,
+) -> str:
+    """Classify formula evidence without interpreting provider confidence.
+
+    User confirmation is the only strong state.  A provider candidate can be
+    medium only when its full immutable recognition receipt is present and its
+    provider-reported (uncalibrated) confidence meets the frozen policy.
+    """
+
+    if state == "confirmed":
+        return "strong"
+    if state != "candidate" or not _valid_recognition_receipt(
+        source=source,
+        metadata=recognition_metadata,
+    ):
+        return "weak"
+    confidence = recognition_metadata.get("confidence")
+    if isinstance(confidence, bool) or not isinstance(confidence, (int, float)):
+        return "weak"
+    numeric = float(confidence)
+    return (
+        "medium"
+        if math.isfinite(numeric)
+        and numeric >= FORMULA_CANDIDATE_MEDIUM_THRESHOLD
+        else "weak"
+    )
+
+
+def _valid_recognition_receipt(
+    *,
+    source: str,
+    metadata: Mapping[str, Any] | None,
+) -> bool:
+    if metadata is None or metadata.get("contractVersion") != (
+        "formula-recognition-metadata@v1"
+    ):
+        return False
+    expected_provider = _CANDIDATE_PROVIDERS.get(source)
+    if (
+        expected_provider is None
+        or metadata.get("provider") != expected_provider
+        or metadata.get("candidateSource") != source
+        or metadata.get("rendererVersion") != "math-ink-renderer@v1"
+    ):
+        return False
+    required_text = (
+        "providerRelease",
+        "modelRelease",
+        "priceVersion",
+        "unitPriceCny",
+    )
+    if any(not isinstance(metadata.get(key), str) or not metadata[key] for key in required_text):
+        return False
+    return all(
+        isinstance(metadata.get(key), str) and _SHA256_RE.fullmatch(metadata[key])
+        for key in ("vectorFingerprint", "renderFingerprint")
+    )
+
+
+class MyScriptConfigurationError(MathInkProviderConfigurationError):
+    pass
+
+
+class MyScriptResponseError(MathInkProviderResponseError):
+    pass
+
+
+@dataclass(frozen=True, slots=True)
+class MathInkProviderResult:
+    latex: str
+    rendered_payload: bytes
+    confidence: float | None
+    provider_request_id: str | None
+    vector_fingerprint: str
+    render_fingerprint: str
+    renderer_version: str
+
+
+@dataclass(frozen=True, slots=True)
+class MathInkProviderDescriptor:
+    provider: str
+    scenario_key: str
+    candidate_source: str
+    provider_release: str
+    model_release: str
+    endpoint: str
+    price_version: str
+    unit_price_cny: str
+    deployment_id: str
+
+
+class XfyunMathInkClient:
+    """Provider-neutral vector adapter for Xfyun's image formula API."""
+
+    def __init__(
+        self,
+        client: XfyunFormulaClient,
+        *,
+        provider_release: str,
+        price_version: str,
+        unit_price_cny: str,
+        deployment_id: str = "",
+    ) -> None:
+        if not provider_release.strip():
+            raise MathInkProviderConfigurationError(
+                "Xfyun provider release is not declared"
+            )
+        if not price_version.strip() or not unit_price_cny.strip():
+            raise MathInkProviderConfigurationError(
+                "Xfyun measured price card is not declared"
+            )
+        self.client = client
+        self.descriptor = MathInkProviderDescriptor(
+            provider="Xfyun",
+            scenario_key="xfyun_math_recognition",
+            candidate_source="xfyun_candidate",
+            provider_release=provider_release.strip(),
+            model_release="teach-photo-print",
+            endpoint=FORMULA_ENDPOINT,
+            price_version=price_version.strip(),
+            unit_price_cny=unit_price_cny.strip(),
+            deployment_id=deployment_id.strip(),
+        )
+
+    @classmethod
+    def from_environment(cls, client: XfyunFormulaClient) -> "XfyunMathInkClient":
+        return cls(
+            client,
+            provider_release=os.environ.get(
+                "XFYUN_FORMULA_PROVIDER_RELEASE_ID", ""
+            ),
+            price_version=os.environ.get("XFYUN_FORMULA_PRICE_VERSION", ""),
+            unit_price_cny=os.environ.get("XFYUN_FORMULA_UNIT_PRICE_CNY", ""),
+            deployment_id=os.environ.get("XFYUN_FORMULA_DEPLOYMENT_ID", ""),
+        )
+
+    def recognize(self, command: RecognizeMathInkCommand) -> MathInkProviderResult:
+        try:
+            rendered = render_math_ink(command)
+        except InvalidInkError as exc:
+            raise MathInkProviderResponseError(exc.code) from exc
+        try:
+            recognition = self.client.recognize(rendered.png)
+        except XfyunFormulaError as exc:
+            raise MathInkProviderResponseError("xfyun_provider_failed") from exc
+        formulas = [
+            formula
+            for line in recognition.lines
+            for formula in line.formulas
+        ]
+        if not formulas:
+            raise MathInkProviderResponseError("xfyun_formula_not_found")
+        latex = " \\; ".join(formulas).strip()
+        if not latex or len(latex) > 4000 or "\x00" in latex:
+            raise MathInkProviderResponseError("xfyun_response_contract_invalid")
+        confidences = [line.confidence for line in recognition.lines if line.formulas]
+        confidence = sum(confidences) / len(confidences) if confidences else None
+        return MathInkProviderResult(
+            latex=latex,
+            rendered_payload=rendered.png,
+            confidence=confidence,
+            provider_request_id=recognition.request_id,
+            vector_fingerprint=rendered.vector_fingerprint,
+            render_fingerprint=rendered.render_fingerprint,
+            renderer_version=rendered.renderer_version,
+        )
 
 
 class MyScriptMathClient:

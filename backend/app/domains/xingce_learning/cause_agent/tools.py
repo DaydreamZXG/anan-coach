@@ -7,6 +7,12 @@ from typing import Any
 
 from sqlalchemy.orm import Session
 
+from app.domains.math_ink.provider import (
+    FORMULA_CANDIDATE_MEDIUM_THRESHOLD,
+    FORMULA_CONFIDENCE_POLICY_VERSION,
+    FORMULA_CONFIDENCE_SEMANTICS,
+    formula_evidence_strength,
+)
 from app.domains.xingce_learning.cause_agent.repository import CauseAgentRepository
 
 
@@ -58,12 +64,14 @@ class CauseAgentTools:
         user_id: str,
         session_id: str,
         reflection_version_id: str,
+        input_version_refs: list[str] | None = None,
     ) -> None:
         self._session = session
         self._repository = repository
         self._user_id = user_id
         self._session_id = session_id
         self._reflection_version_id = reflection_version_id
+        self._input_version_refs = list(input_version_refs or [])
         self._reviewable_rows: list[Any] | None = None
 
     @property
@@ -220,22 +228,70 @@ class CauseAgentTools:
         )
         if bundle is None:
             raise PermissionError("task session is not owned by the frozen learner scope")
-        formula_rows = self._repository.ink_formula_evidence(
-            self._session,
-            user_id=self._user_id,
-            session_id=self._session_id,
-        )
-        confirmed_formulas: dict[str, list[dict[str, Any]]] = {}
-        for formula in formula_rows:
-            if str(formula["state"]) != "confirmed":
-                continue
-            confirmed_formulas.setdefault(str(formula["question_id"]), []).append(formula)
         items: list[dict[str, Any]] = []
         scratch_items: list[dict[str, Any]] = []
         traced_question_ids: list[str] = []
+        exact_formula_rows = self._exact_formula_rows()
+        has_formula_version_refs = any(
+            ref.startswith("formula-version:") for ref in self._input_version_refs
+        )
+        # Only pre-version-ref historical runs may discover their current
+        # formula heads dynamically.  Any new run with frozen input refs stays
+        # fail-closed and consumes only exact formula-version refs.
+        formula_rows = (
+            exact_formula_rows
+            if has_formula_version_refs
+            else self._repository.ink_formula_evidence(
+                self._session,
+                user_id=self._user_id,
+                session_id=self._session_id,
+            )
+        )
         for row in rows:
             question_id = str(row["question_id"])
-            answer = dict(row["answer_payload"])
+            frozen_projection = (
+                dict(row["scratch_evidence_projection"])
+                if isinstance(row.get("scratch_evidence_projection"), dict)
+                else None
+            )
+            if frozen_projection is not None:
+                annotation_payload = frozen_projection.get("annotations")
+                answer = {
+                    "draftText": frozen_projection.get("typedDraft", ""),
+                    "annotations": (
+                        list(annotation_payload.get("vectorStrokes", []))
+                        if isinstance(annotation_payload, dict)
+                        else []
+                    ),
+                    "actionEvents": list(
+                        frozen_projection.get("actionSequence", [])
+                    ),
+                    "actionEventsTruncated": bool(
+                        frozen_projection.get("actionSequenceTruncated", False)
+                    ),
+                }
+                confirmed_for_question = [
+                    formula
+                    for formula in formula_rows
+                    if str(formula["question_id"]) == question_id
+                    and str(formula["state"]) == "confirmed"
+                ]
+                projection_ref = (
+                    "scratch-evidence-projection:"
+                    f"{row['attempt_record_id']}:"
+                    f"{row['scratch_evidence_fingerprint']}"
+                )
+            else:
+                # Historical attempt compatibility: before v103 the immutable
+                # answer revision was the strongest available evidence.
+                answer = dict(row["answer_payload"])
+                confirmed_for_question = [
+                    formula
+                    for formula in formula_rows
+                    if str(formula["question_id"]) == question_id
+                    and str(formula["state"]) == "confirmed"
+                ]
+                projection_ref = f"scratch-reasoning:{question_id}"
             events = [
                 {
                     "type": str(event["type"]),
@@ -293,11 +349,21 @@ class CauseAgentTools:
             scratch = _scratch_reasoning_item(
                 question_id=question_id,
                 answer=answer,
-                confirmed_formulas=confirmed_formulas.get(question_id, []),
+                confirmed_formulas=confirmed_for_question,
+                projection_ref=projection_ref,
             )
             if scratch is not None:
                 scratch_items.append(scratch)
-        scratch_refs = [f"scratch-reasoning:{item['questionId']}" for item in scratch_items]
+        scratch_refs = list(
+            dict.fromkeys(
+                ref
+                for item in scratch_items
+                for ref in (
+                    str(item["projectionRef"]),
+                    f"scratch-reasoning:{item['questionId']}",
+                )
+            )
+        )
         return {
             "contractVersion": ACTION_TRACE_CONTRACT_VERSION,
             "items": items,
@@ -323,32 +389,31 @@ class CauseAgentTools:
         """
 
         self._require_scope(arguments)
-        rows = self._repository.ink_formula_evidence(
-            self._session,
-            user_id=self._user_id,
-            session_id=self._session_id,
+        attempt_rows = self._reviewable_attempt_rows()
+        exact_rows = self._exact_formula_rows()
+        has_formula_version_refs = any(
+            ref.startswith("formula-version:") for ref in self._input_version_refs
         )
-        reviewable_question_ids = self._reviewable_question_ids()
-        items = [
-            {
-                "questionId": str(row["question_id"]),
-                "formulaVersionId": str(row["formula_version_id"]),
-                "state": str(row["state"]),
-                "latex": str(row["latex"]),
-                "source": str(row["source"]),
-                "createdAt": row["created_at"].isoformat(),
-                "confirmedAt": (
-                    row["confirmed_at"].isoformat()
-                    if row["confirmed_at"] is not None
-                    else None
-                ),
-            }
-            for row in rows
-            if str(row["question_id"]) in reviewable_question_ids
-        ]
+        current_rows = (
+            exact_rows
+            if has_formula_version_refs
+            else self._repository.ink_formula_evidence(
+                self._session,
+                user_id=self._user_id,
+                session_id=self._session_id,
+            )
+        )
+        items: list[dict[str, Any]] = []
+        for attempt in attempt_rows:
+            question_id = str(attempt["question_id"])
+            items.extend(
+                _formula_evidence_item(question_id=question_id, row=row)
+                for row in current_rows
+                if str(row["question_id"]) == question_id
+            )
         refs: list[str] = []
         for item in items:
-            ref = f"ink-formula:{item['questionId']}"
+            ref = f"formula-version:{item['formulaVersionId']}"
             if ref not in refs:
                 refs.append(ref)
         return {
@@ -394,12 +459,38 @@ class CauseAgentTools:
     def _reviewable_question_ids(self) -> set[str]:
         return {str(row["question_id"]) for row in self._reviewable_attempt_rows()}
 
+    def _exact_formula_rows(self) -> list[dict[str, Any]]:
+        refs: list[tuple[str, str]] = []
+        for ref in self._input_version_refs:
+            if not ref.startswith("formula-version:"):
+                continue
+            parts = ref.split(":", 2)
+            if len(parts) != 3 or len(parts[2]) != 64:
+                raise PermissionError("formula evidence ref is malformed")
+            refs.append((parts[1], parts[2]))
+        rows = self._repository.formula_versions_by_ids(
+            self._session,
+            user_id=self._user_id,
+            session_id=self._session_id,
+            formula_version_ids=[item[0] for item in refs],
+        )
+        expected = dict(refs)
+        if len(rows) != len(refs):
+            raise PermissionError("frozen formula evidence is unavailable")
+        for row in rows:
+            version_id = str(row["formula_version_id"])
+            actual = sha256(str(row["latex"]).encode("utf-8")).hexdigest()
+            if expected.get(version_id) != actual:
+                raise PermissionError("frozen formula evidence fingerprint changed")
+        return rows
+
 
 def _scratch_reasoning_item(
     *,
     question_id: str,
     answer: dict[str, Any],
     confirmed_formulas: list[dict[str, Any]],
+    projection_ref: str | None = None,
 ) -> dict[str, Any] | None:
     """把冻结草稿转成可审计的思路证据。
 
@@ -411,16 +502,7 @@ def _scratch_reasoning_item(
     draft_text = str(answer.get("draftText", "")).strip()
     strokes = [item for item in answer.get("annotations", []) if isinstance(item, dict)]
     formulas = [
-        {
-            "formulaVersionId": str(row["formula_version_id"]),
-            "latex": str(row["latex"]),
-            "source": str(row["source"]),
-            "confirmedAt": (
-                row["confirmed_at"].isoformat()
-                if row.get("confirmed_at") is not None
-                else None
-            ),
-        }
+        _formula_evidence_item(question_id=question_id, row=row)
         for row in confirmed_formulas
     ]
     if not draft_text and not strokes and not formulas:
@@ -458,6 +540,7 @@ def _scratch_reasoning_item(
     ).hexdigest()
     return {
         "questionId": question_id,
+        "projectionRef": projection_ref or f"scratch-reasoning:{question_id}",
         "inputFingerprint": input_fingerprint,
         "typedDraft": draft_text or None,
         "confirmedFormulas": formulas,
@@ -473,6 +556,56 @@ def _scratch_reasoning_item(
             ["未锚定的自由笔迹未做文字猜测"] if unknown_count else []
         ),
     }
+
+
+def _formula_evidence_item(
+    *,
+    question_id: str,
+    row: dict[str, Any],
+) -> dict[str, Any]:
+    metadata = row.get("recognition_metadata")
+    recognition_metadata = dict(metadata) if isinstance(metadata, dict) else None
+    # v3 historical scratch helpers only passed already-confirmed formula rows
+    # and therefore did not carry an explicit state column.
+    state = str(row.get("state", "confirmed"))
+    source = str(row["source"])
+    confidence = (
+        recognition_metadata.get("confidence")
+        if recognition_metadata is not None
+        else None
+    )
+    return {
+        "questionId": question_id,
+        "formulaVersionId": str(row["formula_version_id"]),
+        "sourceVersionRef": f"formula-version:{row['formula_version_id']}",
+        "state": state,
+        "latex": str(row["latex"]),
+        "source": source,
+        "confidence": confidence,
+        "strength": formula_evidence_strength(
+            state=state,
+            source=source,
+            recognition_metadata=recognition_metadata,
+        ),
+        "confidencePolicyVersion": FORMULA_CONFIDENCE_POLICY_VERSION,
+        "candidateMediumThreshold": FORMULA_CANDIDATE_MEDIUM_THRESHOLD,
+        "confidenceSemantics": FORMULA_CONFIDENCE_SEMANTICS,
+        "recognitionMetadata": recognition_metadata,
+        "createdAt": (
+            _isoformat(row["created_at"])
+            if row.get("created_at") is not None
+            else None
+        ),
+        "confirmedAt": (
+            _isoformat(row["confirmed_at"])
+            if row.get("confirmed_at") is not None
+            else None
+        ),
+    }
+
+
+def _isoformat(value: Any) -> str:
+    return value.isoformat() if hasattr(value, "isoformat") else str(value)
 
 
 def _scratch_observations(strokes: list[dict[str, Any]]) -> list[dict[str, Any]]:

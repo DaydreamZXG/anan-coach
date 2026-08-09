@@ -11545,6 +11545,7 @@
           "source": {
             "enum": [
               "myscript_candidate",
+              "xfyun_candidate",
               "user_confirmed"
             ],
             "title": "Source",

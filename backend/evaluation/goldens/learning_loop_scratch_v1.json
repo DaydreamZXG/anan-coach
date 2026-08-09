@@ -1,0 +1,33 @@
+{
+  "contractVersion": "learning-loop-scratch-evaluation@v1",
+  "projectionContract": "scratch-evidence-projection@v1",
+  "confidencePolicy": {
+    "version": "formula-confidence-policy@v1",
+    "semantics": "provider_reported_uncalibrated",
+    "candidateMediumThreshold": 0.95,
+    "rules": [
+      "confirmed_formula_is_strong",
+      "complete_high_confidence_candidate_is_medium",
+      "low_unknown_or_incomplete_candidate_is_weak",
+      "anchored_annotation_is_weak_until_cause_relates_it_to_independent_evidence"
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "immutable-submit-projection",
+      "expected": ["deterministic_fingerprint", "exact_answer_and_content_versions", "png_at_most_128_kib"]
+    },
+    {
+      "id": "exact-cause-input-refs",
+      "expected": ["exact_projection_ref", "exact_formula_id_and_latex_fingerprint", "no_dynamic_head_for_frozen_formula_refs"]
+    },
+    {
+      "id": "historical-no-formula-ref",
+      "expected": ["dynamic_current_formula_compatibility", "legacy_scratch_reasoning_alias"]
+    },
+    {
+      "id": "unanchored-freehand",
+      "expected": ["semantic_unknown", "no_ocr_claim", "no_automatic_medium_strength"]
+    }
+  ]
+}

@@ -10,7 +10,10 @@ from app.core.config import get_settings
 from app.db.session import get_db_session
 from app.domains.auth.deps import get_current_user
 from app.domains.auth.repository import AuthenticatedUser
-from app.domains.math_ink.provider import MyScriptConfigurationError, MyScriptMathClient
+from app.domains.math_ink.provider import (
+    MathInkProviderConfigurationError,
+    XfyunMathInkClient,
+)
 from app.domains.math_ink.repository import (
     MathInkConfigurationError,
     MathInkConflict,
@@ -24,6 +27,8 @@ from app.domains.math_ink.schemas import (
     RecognizeMathInkCommand,
 )
 from app.domains.math_ink.service import MathInkService
+from app.domains.xfyun.config import XfyunConfigurationError, credentials_from_environment
+from app.domains.xfyun.formula import XfyunFormulaClient
 from app.platform.http import (
     COMMON_API_ERROR_RESPONSES,
     PublicApiEnvelope,
@@ -52,11 +57,8 @@ def _service(session: Session, *, requires_provider: bool = True) -> MathInkServ
     settings = get_settings()
     provider = None
     if requires_provider:
-        provider = MyScriptMathClient(
-            endpoint=settings.myscript_endpoint,
-            host_allowlist=settings.myscript_https_host_allowlist,
-            application_key=settings.myscript_application_key,
-            hmac_key=settings.myscript_hmac_key,
+        provider = XfyunMathInkClient.from_environment(
+            XfyunFormulaClient(credentials_from_environment())
         )
     return MathInkService(
         MathInkRepository(session, settings),
@@ -83,7 +85,11 @@ def recognize_formula(
         )
         session.commit()
         return public_success_envelope(request=request, response=response, data=result)
-    except (MyScriptConfigurationError, MathInkConfigurationError) as exc:
+    except (
+        MathInkProviderConfigurationError,
+        XfyunConfigurationError,
+        MathInkConfigurationError,
+    ) as exc:
         session.rollback()
         raise HTTPException(
             status_code=503, detail="数学手写识别尚未完成服务端配置。"

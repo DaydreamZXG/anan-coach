@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from importlib import import_module
+import json
 from pathlib import Path
+from uuid import uuid4
 
 from alembic import command
 from alembic.config import Config
@@ -19,6 +21,7 @@ from app.domains.mock_exam.migration_compat import (
     Revision33MigrationContextError,
 )
 from app.domains.mock_exam.repository import MockExamRepository
+from app.domains.task_runtime.xingce_attempt.contracts import freeze_selection_intent
 
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
 # This intentionally compares only objects owned by W0-MIGRATION. It is not a
@@ -63,6 +66,434 @@ def test_artifact_database_contract_matches_single_alembic_head() -> None:
     assert compatibility.compatible_revisions == {
         compatibility.migration_head,
     }
+
+
+def test_learning_loop_v103_upgrade_owns_nullable_compatibility_columns(
+    db_engine: Engine,
+) -> None:
+    inspector = inspect(db_engine)
+    assert "selection_intent" in {
+        item["name"]
+        for item in inspector.get_columns("daily_plan_tasks", schema="learning")
+    }
+    assert {
+        "scratch_evidence_projection",
+        "scratch_evidence_fingerprint",
+    }.issubset(
+        {
+            item["name"]
+            for item in inspector.get_columns(
+                "xingce_attempt_records",
+                schema="learning",
+            )
+        }
+    )
+    assert "recognition_metadata" in {
+        item["name"]
+        for item in inspector.get_columns("math_ink_commands", schema="learning")
+    }
+    math_checks = {
+        item["name"]: str(item["sqltext"])
+        for item in inspector.get_check_constraints(
+            "math_ink_commands",
+            schema="learning",
+        )
+    }
+    recognition_check = math_checks["math_ink_recognition_metadata_v1_check"]
+    assert "vectorFingerprint" in recognition_check
+    assert "renderFingerprint" in recognition_check
+    assert "xfyun_candidate" in recognition_check
+    assert "myscript_candidate" in recognition_check
+
+    migration = import_module(
+        "migrations.versions.20260809_103_learning_intelligence_loop_v1"
+    )
+    assert migration.revision == "20260809_103"
+    assert migration.down_revision == "20260808_102"
+
+
+def test_learning_loop_v103_empty_upgrade_downgrade_round_trip(
+    db_engine: Engine,
+) -> None:
+    config = Config(str(BACKEND_ROOT / "alembic.ini"))
+    config.set_main_option(
+        "sqlalchemy.url",
+        db_engine.url.render_as_string(hide_password=False),
+    )
+
+    command.downgrade(config, "20260808_102")
+    inspector = inspect(db_engine)
+    assert "selection_intent" not in {
+        item["name"]
+        for item in inspector.get_columns("daily_plan_tasks", schema="learning")
+    }
+    assert "scratch_evidence_projection" not in {
+        item["name"]
+        for item in inspector.get_columns("xingce_attempt_records", schema="learning")
+    }
+    assert "recognition_metadata" not in {
+        item["name"]
+        for item in inspector.get_columns("math_ink_commands", schema="learning")
+    }
+
+    command.upgrade(config, "head")
+    with db_engine.connect() as connection:
+        assert connection.execute(
+            text("select version_num from alembic_version")
+        ).scalar_one() == "20260809_103"
+    upgraded = inspect(db_engine)
+    assert "selection_intent" in {
+        item["name"]
+        for item in upgraded.get_columns("daily_plan_tasks", schema="learning")
+    }
+    assert "scratch_evidence_projection" in {
+        item["name"]
+        for item in upgraded.get_columns("xingce_attempt_records", schema="learning")
+    }
+    assert "recognition_metadata" in {
+        item["name"]
+        for item in upgraded.get_columns("math_ink_commands", schema="learning")
+    }
+
+
+def _valid_selection_intent() -> dict[str, object]:
+    return freeze_selection_intent({
+        "contractVersion": "xingce-selection-intent@v1",
+        "knowledgeRelease": {
+            "releaseId": "knowledge-release-test",
+            "releaseVersion": "release-v1",
+            "sourceDataVersion": "source-v1",
+            "vocabVersion": "vocab-v1",
+            "freshUntil": "2026-08-20T00:00:00+00:00",
+        },
+        "targetModule": "data_analysis",
+        "targetKnowledgeNode": {
+            "releaseId": "knowledge-release-test",
+            "nodeId": "knowledge-node-test",
+            "nodeType": "knowledge_point",
+            "tagType": "knowledge_point",
+            "tagValue": "growth_rate",
+        },
+        "targetMicroSkillNode": None,
+        "confirmedCauseFocus": None,
+        "difficultyPolicy": {
+            "state": "unknown",
+            "reason": "missing_shadow_estimate",
+            "sourceVersionId": None,
+            "algorithmVersion": "ability-estimate-v2-shadow-1",
+        },
+        "noveltyPolicy": {
+            "answered": "exclude",
+            "exposed": "exclude",
+            "scope": "current_user",
+        },
+        "fallbackReason": None,
+        "evidenceRefs": ["knowledge-profile:knowledge-release-test"],
+    })
+
+
+def _insert_v103_daily_plan_task(
+    connection: object,
+    *,
+    task_id: str,
+    intent: object | None = None,
+    track: str = "xingce",
+    stage: str = "objective_practice",
+    kind: str = "practice",
+) -> None:
+    connection.execute(
+        text(
+            """
+            insert into learning.daily_plan_tasks (
+              task_id, plan_version_id, user_id, local_date, plan_version_no,
+              candidate_key, work_item_key, task_order, track, stage, kind,
+              title, reason, estimated_minutes, mandatory, start_url,
+              priority_score, goal_gain, ability_gain, verification_urgency,
+              time_fit, load_penalty, track_balance_bonus, evidence_refs,
+              completion_contract, input_fingerprint, selection_intent
+            ) values (
+              cast(:task_id as uuid), cast(:plan_id as uuid),
+              cast(:user_id as uuid), date '2026-08-09', 1,
+              :candidate_key, :work_item_key, 1, :track, :stage, :kind,
+              'v103 contract task', 'v103 migration verification', 15, true,
+              '/pages/practice/index', 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+              '[{"owner":"planning","entityType":"policy","entityId":"v103"}]'::jsonb,
+              '{"objective":"verify v103"}'::jsonb, :input_fingerprint,
+              cast(:intent as jsonb)
+            )
+            """
+        ),
+        {
+            "task_id": task_id,
+            "plan_id": str(uuid4()),
+            "user_id": str(uuid4()),
+            "candidate_key": f"v103-{task_id}",
+            "work_item_key": "3" * 64,
+            "track": track,
+            "stage": stage,
+            "kind": kind,
+            "input_fingerprint": "4" * 64,
+            "intent": json.dumps(intent) if intent is not None else None,
+        },
+    )
+
+
+def test_learning_loop_v103_selection_intent_check_is_fail_closed(
+    db_engine: Engine,
+) -> None:
+    with db_engine.connect() as connection:
+        transaction = connection.begin()
+        connection.execute(text("set local session_replication_role = 'replica'"))
+        legacy_task_id = str(uuid4())
+        _insert_v103_daily_plan_task(connection, task_id=legacy_task_id)
+        assert connection.execute(
+            text(
+                "select selection_intent from learning.daily_plan_tasks "
+                "where task_id = cast(:task_id as uuid)"
+            ),
+            {"task_id": legacy_task_id},
+        ).scalar_one() is None
+        valid_task_id = str(uuid4())
+        valid_intent = _valid_selection_intent()
+        _insert_v103_daily_plan_task(
+            connection,
+            task_id=valid_task_id,
+            intent=valid_intent,
+        )
+        assert connection.execute(
+            text(
+                "select selection_intent ->> 'intentId' "
+                "from learning.daily_plan_tasks "
+                "where task_id = cast(:task_id as uuid)"
+            ),
+            {"task_id": valid_task_id},
+        ).scalar_one() == valid_intent["intentId"]
+        transaction.rollback()
+
+    invalid_release = json.loads(json.dumps(_valid_selection_intent()))
+    invalid_release["knowledgeRelease"]["extra"] = True
+    invalid_node = json.loads(json.dumps(_valid_selection_intent()))
+    invalid_node["targetKnowledgeNode"]["nodeType"] = "micro_skill"
+    invalid_difficulty = json.loads(json.dumps(_valid_selection_intent()))
+    invalid_difficulty["difficultyPolicy"]["reason"] = "invented"
+    invalid_novelty = json.loads(json.dumps(_valid_selection_intent()))
+    invalid_novelty["noveltyPolicy"]["exposed"] = "allow"
+    invalid_cause = json.loads(json.dumps(_valid_selection_intent()))
+    invalid_cause["confirmedCauseFocus"] = {
+        "causeCode": "invented",
+        "focus": "stem_reading",
+        "questionType": None,
+        "confirmedCauseVersionId": "cause-v1",
+        "decisionVersionId": "decision-v1",
+        "candidateVersionId": "candidate-v1",
+    }
+    invalid_cases: list[tuple[object, str, str, str]] = [
+        ([], "xingce", "objective_practice", "practice"),
+        ("not-an-object", "xingce", "objective_practice", "practice"),
+        (
+            {**_valid_selection_intent(), "unexpected": True},
+            "xingce",
+            "objective_practice",
+            "practice",
+        ),
+        (invalid_release, "xingce", "objective_practice", "practice"),
+        (invalid_node, "xingce", "objective_practice", "practice"),
+        (invalid_difficulty, "xingce", "objective_practice", "practice"),
+        (invalid_novelty, "xingce", "objective_practice", "practice"),
+        (invalid_cause, "xingce", "objective_practice", "practice"),
+        (_valid_selection_intent(), "xingce", "objective_practice", "verification"),
+        (_valid_selection_intent(), "xingce", "objective_reflection", "reflection"),
+        (_valid_selection_intent(), "essay", "essay_drafting", "essay"),
+    ]
+    for intent, track, stage, kind in invalid_cases:
+        with db_engine.connect() as connection:
+            transaction = connection.begin()
+            connection.execute(text("set local session_replication_role = 'replica'"))
+            with pytest.raises(DBAPIError):
+                _insert_v103_daily_plan_task(
+                    connection,
+                    task_id=str(uuid4()),
+                    intent=intent,
+                    track=track,
+                    stage=stage,
+                    kind=kind,
+                )
+            transaction.rollback()
+
+
+def _recognition_metadata(*, provider: str, source: str) -> dict[str, object]:
+    return {
+        "contractVersion": "formula-recognition-metadata@v1",
+        "provider": provider,
+        "candidateSource": source,
+        "providerRelease": "provider-release-test",
+        "modelRelease": "model-release-test",
+        "priceVersion": "price-test",
+        "unitPriceCny": "0.001000",
+        "deploymentId": None,
+        "rendererVersion": "math-ink-renderer@v1",
+        "confidence": None,
+        "providerRequestIdFingerprint": None,
+        "vectorFingerprint": "5" * 64,
+        "renderFingerprint": "6" * 64,
+    }
+
+
+def _insert_v103_math_command(
+    connection: object,
+    *,
+    request_id: str,
+    metadata: dict[str, object] | None,
+) -> None:
+    connection.execute(
+        text(
+            """
+            insert into learning.math_ink_commands (
+              request_id, owner_user_id, session_id, question_id,
+              idempotency_key, input_fingerprint, ink_payload,
+              provider_release, provider_endpoint_fingerprint, state,
+              output_fingerprint, failure_code, latency_ms, created_at,
+              completed_at, recognition_metadata
+            ) values (
+              cast(:request_id as uuid), cast(:user_id as uuid),
+              cast(:session_id as uuid), 'v103-question', :key,
+              :input_fingerprint, '{"strokes":[]}'::jsonb,
+              'provider-release-test', :endpoint_fingerprint, 'candidate',
+              :output_fingerprint, null, 12, now(), now(), cast(:metadata as jsonb)
+            )
+            """
+        ),
+        {
+            "request_id": request_id,
+            "user_id": str(uuid4()),
+            "session_id": str(uuid4()),
+            "key": f"v103-math-{request_id}",
+            "input_fingerprint": "7" * 64,
+            "endpoint_fingerprint": "8" * 64,
+            "output_fingerprint": "9" * 64,
+            "metadata": json.dumps(metadata) if metadata is not None else None,
+        },
+    )
+
+
+def test_learning_loop_v103_recognition_provider_source_pair_is_enforced(
+    db_engine: Engine,
+) -> None:
+    with db_engine.connect() as connection:
+        transaction = connection.begin()
+        connection.execute(text("set local session_replication_role = 'replica'"))
+        _insert_v103_math_command(
+            connection,
+            request_id=str(uuid4()),
+            metadata=_recognition_metadata(
+                provider="Xfyun",
+                source="xfyun_candidate",
+            ),
+        )
+        with pytest.raises(DBAPIError):
+            _insert_v103_math_command(
+                connection,
+                request_id=str(uuid4()),
+                metadata=_recognition_metadata(
+                    provider="MyScript",
+                    source="xfyun_candidate",
+                ),
+            )
+        transaction.rollback()
+
+
+@pytest.mark.parametrize(
+    "fact_kind",
+    ["selection", "scratch", "xfyun", "recognition_metadata"],
+)
+def test_learning_loop_v103_refuses_downgrade_when_any_new_fact_exists(
+    db_engine: Engine,
+    fact_kind: str,
+) -> None:
+    migration = import_module(
+        "migrations.versions.20260809_103_learning_intelligence_loop_v1"
+    )
+    with db_engine.connect() as connection:
+        transaction = connection.begin()
+        connection.execute(text("set local session_replication_role = 'replica'"))
+        if fact_kind == "selection":
+            _insert_v103_daily_plan_task(
+                connection,
+                task_id=str(uuid4()),
+                intent=_valid_selection_intent(),
+            )
+        elif fact_kind == "scratch":
+            connection.execute(
+                text(
+                    """
+                    insert into learning.xingce_attempt_records (
+                      attempt_record_id, attempt_group_id, item_attempt_id,
+                      submit_command_id, user_id, session_id, question_id,
+                      session_revision, answer_version_id, content_version_id,
+                      scoring_policy_version, timing_evidence_ref,
+                      timing_evidence, submission_hash, source_lineage_refs,
+                      created_at, scratch_evidence_projection,
+                      scratch_evidence_fingerprint
+                    ) values (
+                      cast(:attempt_id as uuid), cast(:group_id as uuid),
+                      :item_attempt_id, 'v103-submit', cast(:user_id as uuid),
+                      cast(:session_id as uuid), 'v103-question', 2,
+                      cast(:answer_id as uuid), :content_version,
+                      'v103-scoring', :timing_ref, '{}'::jsonb,
+                      :submission_hash, '["a","b","c"]'::jsonb, now(),
+                      '{"contractVersion":"scratch-evidence-projection@v1"}'::jsonb,
+                      :scratch_fingerprint
+                    )
+                    """
+                ),
+                {
+                    "attempt_id": str(uuid4()),
+                    "group_id": str(uuid4()),
+                    "item_attempt_id": "a" * 64,
+                    "user_id": str(uuid4()),
+                    "session_id": str(uuid4()),
+                    "answer_id": str(uuid4()),
+                    "content_version": "b" * 64,
+                    "timing_ref": "c" * 64,
+                    "submission_hash": "d" * 64,
+                    "scratch_fingerprint": "e" * 64,
+                },
+            )
+        elif fact_kind == "xfyun":
+            connection.execute(
+                text(
+                    """
+                    insert into learning.math_formula_versions (
+                      formula_version_id, formula_id, request_id, owner_user_id,
+                      session_id, question_id, version_no, state, latex,
+                      source, created_at
+                    ) values (
+                      cast(:version_id as uuid), cast(:formula_id as uuid),
+                      cast(:request_id as uuid), cast(:user_id as uuid),
+                      cast(:session_id as uuid), 'v103-question', 1,
+                      'candidate', 'x+1', 'xfyun_candidate', now()
+                    )
+                    """
+                ),
+                {
+                    "version_id": str(uuid4()),
+                    "formula_id": str(uuid4()),
+                    "request_id": str(uuid4()),
+                    "user_id": str(uuid4()),
+                    "session_id": str(uuid4()),
+                },
+            )
+        else:
+            _insert_v103_math_command(
+                connection,
+                request_id=str(uuid4()),
+                metadata=_recognition_metadata(
+                    provider="Xfyun",
+                    source="xfyun_candidate",
+                ),
+            )
+        assert migration._has_new_facts(connection) is True
+        transaction.rollback()
 
 
 def test_release_switches_enforce_artifact_database_compatibility() -> None:

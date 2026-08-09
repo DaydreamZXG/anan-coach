@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from itertools import product
 from math import ceil
-from typing import Literal
+from typing import Any, Literal
 
 
 PlanTrack = Literal["xingce", "essay", "recovery", "mock"]
@@ -50,6 +50,7 @@ class TaskCandidate:
     mandatory: bool = False
     strategy_module_keys: tuple[str, ...] = ()
     strategy_question_type: str | None = None
+    selection_intent: dict[str, Any] | None = None
 
     def __post_init__(self) -> None:
         if not self.candidate_key.strip():
@@ -67,6 +68,8 @@ class TaskCandidate:
             and not self.strategy_question_type.strip()
         ):
             raise ValueError("strategy question type cannot be blank")
+        if self.selection_intent is not None and self.track != "xingce":
+            raise ValueError("only Xingce candidates can carry selection intent")
 
 
 @dataclass(frozen=True)

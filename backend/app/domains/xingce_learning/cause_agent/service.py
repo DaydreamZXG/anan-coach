@@ -124,6 +124,16 @@ class CauseAgentWorkflow:
             f"reflection-version:{reflection_version_id}",
             f"attempt-group:{task_session['attempt_group_id']}",
             f"task-session:{task_session['session_id']}:{task_session['revision']}",
+            *self._repository.scratch_projection_refs(
+                session,
+                user_id=user_id,
+                session_id=str(task_session["session_id"]),
+            ),
+            *self._repository.current_formula_version_refs(
+                session,
+                user_id=user_id,
+                session_id=str(task_session["session_id"]),
+            ),
         ]
         input_fingerprint = fingerprint(
             {
@@ -372,6 +382,16 @@ class CauseAgentWorkflow:
         input_refs = [
             f"reflection-version:{reflection_version_id}",
             f"attempt-group:{task_session['attempt_group_id']}",
+            *self._repository.scratch_projection_refs(
+                session,
+                user_id=user_id,
+                session_id=str(task_session["session_id"]),
+            ),
+            *self._repository.current_formula_version_refs(
+                session,
+                user_id=user_id,
+                session_id=str(task_session["session_id"]),
+            ),
         ]
         payload = {
             "contractVersion": "cause-candidate@v2",

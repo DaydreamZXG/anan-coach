@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from hashlib import sha256
 import json
 from typing import Any
 
@@ -323,6 +324,9 @@ class CauseAgentRepository:
                 select assessment.question_id, assessment.result_code,
                        assessment.result_snapshot, answer.payload as answer_payload,
                        assessment.assessment_id, assessment.content_version_id,
+                       attempt.attempt_record_id,
+                       attempt.scratch_evidence_projection,
+                       attempt.scratch_evidence_fingerprint,
                        exists (
                          select 1
                          from learning.xingce_question_disputes dispute
@@ -342,6 +346,11 @@ class CauseAgentRepository:
                  and answer.user_id = assessment.user_id
                  and answer.session_id = assessment.session_id
                  and answer.question_id = assessment.question_id
+                join learning.xingce_attempt_records attempt
+                  on attempt.attempt_record_id = assessment.attempt_record_id
+                 and attempt.user_id = assessment.user_id
+                 and attempt.session_id = assessment.session_id
+                 and attempt.question_id = assessment.question_id
                 where assessment.user_id = cast(:user_id as uuid)
                   and assessment.session_id = cast(:session_id as uuid)
                 order by assessment.created_at, assessment.question_id
@@ -349,6 +358,97 @@ class CauseAgentRepository:
             ),
             {"user_id": user_id, "session_id": session_id},
         ).mappings().all()
+        return [dict(row) for row in rows]
+
+    def scratch_projection_refs(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        session_id: str,
+    ) -> list[str]:
+        rows = session.execute(
+            text(
+                """
+                select attempt_record_id, scratch_evidence_fingerprint
+                from learning.xingce_attempt_records
+                where user_id = cast(:user_id as uuid)
+                  and session_id = cast(:session_id as uuid)
+                  and scratch_evidence_projection is not null
+                order by question_id
+                """
+            ),
+            {"user_id": user_id, "session_id": session_id},
+        ).mappings()
+        return [
+            "scratch-evidence-projection:"
+            f"{row['attempt_record_id']}:{row['scratch_evidence_fingerprint']}"
+            for row in rows
+        ]
+
+    def current_formula_version_refs(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        session_id: str,
+    ) -> list[str]:
+        rows = session.execute(
+            text(
+                """
+                select formula_version_id, latex
+                from learning.math_formula_versions formula
+                where owner_user_id = cast(:user_id as uuid)
+                  and session_id = cast(:session_id as uuid)
+                  and state <> 'rejected'
+                  and not exists (
+                    select 1 from learning.math_formula_versions successor
+                    where successor.supersedes_formula_version_id =
+                          formula.formula_version_id
+                  )
+                order by question_id, formula.created_at, formula_version_id
+                """
+            ),
+            {"user_id": user_id, "session_id": session_id},
+        ).mappings()
+        return [
+            f"formula-version:{row['formula_version_id']}:"
+            f"{sha256(str(row['latex']).encode('utf-8')).hexdigest()}"
+            for row in rows
+        ]
+
+    def formula_versions_by_ids(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        session_id: str,
+        formula_version_ids: list[str],
+    ) -> list[dict[str, Any]]:
+        if not formula_version_ids:
+            return []
+        rows = session.execute(
+            text(
+                """
+                select formula.*, command.recognition_metadata
+                from learning.math_formula_versions formula
+                join learning.math_ink_commands command
+                  on command.request_id = formula.request_id
+                 and command.owner_user_id = formula.owner_user_id
+                where formula.owner_user_id = cast(:user_id as uuid)
+                  and formula.session_id = cast(:session_id as uuid)
+                  and formula.formula_version_id =
+                      any(cast(:formula_version_ids as uuid[]))
+                order by formula.question_id, formula.created_at,
+                         formula.formula_version_id
+                """
+            ),
+            {
+                "user_id": user_id,
+                "session_id": session_id,
+                "formula_version_ids": formula_version_ids,
+            },
+        ).mappings()
         return [dict(row) for row in rows]
 
     def reflection_evidence(
@@ -429,8 +529,11 @@ class CauseAgentRepository:
                 select formula.question_id, formula.formula_id,
                        formula.formula_version_id, formula.state, formula.latex,
                        formula.source, formula.version_no, formula.created_at,
-                       formula.confirmed_at
+                       formula.confirmed_at, command.recognition_metadata
                 from learning.math_formula_versions formula
+                join learning.math_ink_commands command
+                  on command.request_id = formula.request_id
+                 and command.owner_user_id = formula.owner_user_id
                 where formula.owner_user_id = cast(:user_id as uuid)
                   and formula.session_id = cast(:session_id as uuid)
                   and formula.state in ('candidate', 'confirmed')

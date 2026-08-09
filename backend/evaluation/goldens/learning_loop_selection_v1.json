@@ -1,0 +1,32 @@
+{
+  "contractVersion": "learning-loop-selection-evaluation@v1",
+  "intentContract": "xingce-selection-intent@v1",
+  "fixedTierOrder": [
+    "exact_knowledge_and_cause",
+    "same_knowledge",
+    "same_micro_skill",
+    "module",
+    "high_frequency_cold_start"
+  ],
+  "scenarios": [
+    {
+      "id": "sample-sufficient-weakness-known-difficulty",
+      "facts": {"knowledgeSampleSize": 10, "difficultyState": "known"},
+      "expected": ["persisted_intent", "weakness_changes_selection", "theta_changes_ranking"]
+    },
+    {
+      "id": "sample-insufficient-cold-start",
+      "facts": {"knowledgeSampleSize": 9, "difficultyState": "unknown"},
+      "expected": ["no_published_weakness", "module_scoped_high_frequency", "explicit_fallback_reason"]
+    },
+    {
+      "id": "grounded-cause-exact-or-fixed-fallback",
+      "facts": {"confirmedCause": true, "questionBindingModuleMatches": true},
+      "expected": ["cause_changes_selector", "supply_conflict_is_recorded", "never_high_frequency"]
+    },
+    {
+      "id": "stable-replay-and-novelty-locks",
+      "expected": ["same_intent_same_ranking", "answered_excluded", "exposed_excluded", "user_isolated", "exhausted_returns_none"]
+    }
+  ]
+}

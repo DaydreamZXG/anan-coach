@@ -261,7 +261,7 @@ class PlanStorageRepositoryMixin:
                   estimated_minutes, mandatory, start_url, priority_score,
                   goal_gain, ability_gain, verification_urgency, time_fit,
                   load_penalty, track_balance_bonus, evidence_refs,
-                  completion_contract, input_fingerprint, created_at
+                  completion_contract, selection_intent, input_fingerprint, created_at
                 ) values (
                   cast(:task_id as uuid), cast(:plan_version_id as uuid),
                   cast(:user_id as uuid), :local_date, :plan_version_no,
@@ -270,7 +270,7 @@ class PlanStorageRepositoryMixin:
                   :goal_gain, :ability_gain, :verification_urgency, :time_fit,
                   :load_penalty, :track_balance_bonus,
                   cast(:evidence_refs as jsonb), cast(:completion_contract as jsonb),
-                  :input_fingerprint, :created_at
+                  cast(:selection_intent as jsonb), :input_fingerprint, :created_at
                 ) returning *
                 """
                 ),

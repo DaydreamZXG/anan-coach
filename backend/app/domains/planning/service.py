@@ -853,6 +853,7 @@ class PlanningService:
                     "planInputFingerprint": input_fingerprint,
                     "candidateKey": ranked.candidate.candidate_key,
                     "taskOrder": order,
+                    "selectionIntent": ranked.candidate.selection_intent,
                 }
             )
             task_rows.append(
@@ -888,6 +889,11 @@ class PlanningService:
                         "evidence_refs": _json(list(ranked.candidate.evidence_refs)),
                         "completion_contract": _json(
                             completion.model_dump(by_alias=True, mode="json")
+                        ),
+                        "selection_intent": (
+                            _json(ranked.candidate.selection_intent)
+                            if ranked.candidate.selection_intent is not None
+                            else None
                         ),
                         "input_fingerprint": task_fingerprint,
                         "created_at": generated_at,
@@ -950,6 +956,7 @@ def _candidate_work_item_key(local_date: date, candidate: TaskCandidate) -> str:
             "startUrl": candidate.start_url,
             "evidenceRefs": list(candidate.evidence_refs),
             "completion": completion.model_dump(by_alias=True, mode="json"),
+            "selectionIntent": candidate.selection_intent,
         }
     )
 

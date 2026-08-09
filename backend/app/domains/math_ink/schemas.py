@@ -84,7 +84,7 @@ class FormulaVersion(MathInkModel):
     version_no: int = Field(alias="versionNo", ge=1)
     state: Literal["candidate", "confirmed", "rejected"]
     latex: str
-    source: Literal["myscript_candidate", "user_confirmed"]
+    source: Literal["myscript_candidate", "xfyun_candidate", "user_confirmed"]
     supersedes_formula_version_id: UUID | None = Field(alias="supersedesFormulaVersionId")
     created_at: datetime = Field(alias="createdAt")
     confirmed_at: datetime | None = Field(alias="confirmedAt")

@@ -8,11 +8,20 @@ from typing import Any
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.domains.knowledge.module_vocabulary import load_current_module_vocabulary
+from app.domains.ability_estimation.shadow_v2 import aggregate_question_difficulty
+from app.domains.knowledge.module_vocabulary import (
+    ReleasedModuleVocabulary,
+    load_current_module_vocabulary,
+)
 from app.domains.knowledge.repository import KnowledgeRepository
 from app.domains.task_content.service import (
     TaskContentContractError,
     validate_learner_question,
+)
+from app.domains.task_runtime.xingce_attempt.contracts import (
+    XINGCE_SELECTION_RESULT_V1,
+    selection_intent_fingerprint,
+    validate_selection_intent,
 )
 
 _MIN_QUESTION_CANDIDATE_POOL_SIZE = 24
@@ -30,9 +39,10 @@ class TargetedQuestionSelection:
     source_data_version: str
     vocab_version: str
     fresh_until: datetime
-    node_id: str
-    node_type: str
+    node_id: str | None
+    node_type: str | None
     module_name: str
+    selection_result: dict[str, Any] | None = None
 
 
 def _bounded_question_candidate_batch_size(limit: int) -> int:
@@ -48,11 +58,12 @@ def _stable_question_rank(
     release_id: str,
     user_id: str,
     question_id: str,
+    selection_identity: str | None = None,
 ) -> bytes:
     seed = "\x1f".join(
         (
             _QUESTION_SELECTION_SALT,
-            release_id,
+            selection_identity or release_id,
             user_id,
             question_id,
         )
@@ -69,12 +80,13 @@ def _stable_question_selection_cursor(
     *,
     release_id: str,
     user_id: str,
+    selection_identity: str | None = None,
 ) -> bytes:
     seed = "\x1f".join(
         (
             _QUESTION_SELECTION_SALT,
             "cursor",
-            release_id,
+            selection_identity or release_id,
             user_id,
         )
     )
@@ -207,6 +219,279 @@ class XingceQuestionRepository:
             )
         return None
 
+    def select_frozen_questions_for_intent(
+        self,
+        session: Session,
+        *,
+        intent: object,
+        limit: int,
+        user_id: str,
+        now: datetime,
+    ) -> TargetedQuestionSelection | None:
+        """Consume one frozen Planning intent through an immutable tier order."""
+
+        frozen = validate_selection_intent(intent)
+        if limit <= 0:
+            return None
+        release = frozen["knowledgeRelease"]
+        vocabulary = self._current_module_vocabulary(session, now=now)
+        frozen_fresh_until = datetime.fromisoformat(str(release["freshUntil"]))
+        if (
+            vocabulary is None
+            or vocabulary.release_id != release["releaseId"]
+            or vocabulary.release_version != release["releaseVersion"]
+            or vocabulary.source_data_version != release["sourceDataVersion"]
+            or vocabulary.vocab_version != release["vocabVersion"]
+            or vocabulary.fresh_until != frozen_fresh_until
+            or vocabulary.canonicalize(str(frozen["targetModule"]))
+            != frozen["targetModule"]
+        ):
+            return None
+        release_id = str(release["releaseId"])
+        module_name = str(frozen["targetModule"])
+        knowledge = frozen["targetKnowledgeNode"]
+        micro = frozen["targetMicroSkillNode"]
+        cause = frozen["confirmedCauseFocus"]
+        tiers: list[
+            tuple[
+                str,
+                str | None,
+                tuple[str, ...] | None,
+                str | None,
+                str,
+            ]
+        ] = []
+        if knowledge is not None and cause is not None and (
+            micro is not None or cause["questionType"] is not None
+        ):
+            tiers.append(
+                (
+                    "exact_knowledge_and_cause",
+                    None,
+                    tuple(
+                        item
+                        for item in (
+                            str(knowledge["nodeId"]),
+                            str(micro["nodeId"]) if micro is not None else None,
+                        )
+                        if item is not None
+                    ),
+                    str(cause["questionType"]) if cause["questionType"] is not None else None,
+                    "insufficient_eligible_questions",
+                )
+            )
+        if knowledge is not None:
+            tiers.append(
+                (
+                    "same_knowledge",
+                    str(knowledge["nodeId"]),
+                    None,
+                    None,
+                    "insufficient_eligible_questions",
+                )
+            )
+        if micro is not None:
+            tiers.append(
+                (
+                    "same_micro_skill",
+                    str(micro["nodeId"]),
+                    None,
+                    None,
+                    "insufficient_eligible_questions",
+                )
+            )
+        if (
+            knowledge is None
+            and micro is None
+            and cause is not None
+            and cause["questionType"] is not None
+        ):
+            tiers.append(
+                (
+                    "module",
+                    None,
+                    None,
+                    str(cause["questionType"]),
+                    "cause_question_type_supply_insufficient",
+                )
+            )
+        if frozen["fallbackReason"] in {
+            "cold_start_no_grounded_evidence",
+            "insufficient_knowledge_point_evidence",
+        }:
+            tiers.append(
+                (
+                    "high_frequency_cold_start",
+                    None,
+                    None,
+                    None,
+                    "insufficient_eligible_questions",
+                )
+            )
+        else:
+            tiers.append(
+                (
+                    "module",
+                    None,
+                    None,
+                    None,
+                    "insufficient_eligible_questions",
+                )
+            )
+
+        skipped: list[dict[str, Any]] = []
+        for (
+            tier,
+            node_id,
+            required_node_ids,
+            question_type,
+            insufficient_reason,
+        ) in tiers:
+            canonical_modules = (module_name,)
+            pool = self._select_eligible_questions(
+                session,
+                release_id=release_id,
+                node_id=node_id,
+                canonical_modules=canonical_modules,
+                limit=_MAX_QUESTION_CANDIDATE_BATCH_SIZE,
+                user_id=user_id,
+                excluded_question_ids=None,
+                required_node_ids=required_node_ids,
+                question_type=question_type,
+                selection_identity=str(frozen["intentId"]),
+            )
+            ranked, ranking_evidence = self._rank_intent_candidates(
+                session,
+                questions=pool,
+                difficulty_policy=frozen["difficultyPolicy"],
+                limit=limit,
+            )
+            if len(ranked) < limit:
+                skipped.append(
+                    {
+                        "tier": tier,
+                        "reason": insufficient_reason,
+                        "eligibleCount": len(ranked),
+                    }
+                )
+                continue
+            hit_reason = (
+                "all_required_selectors_matched"
+                if tier == "exact_knowledge_and_cause"
+                else "first_tier_with_sufficient_novel_supply"
+            )
+            result = {
+                "contractVersion": XINGCE_SELECTION_RESULT_V1,
+                "intentId": selection_intent_fingerprint(frozen),
+                "hitTier": tier,
+                "hitReason": hit_reason,
+                "fallbackReason": frozen["fallbackReason"],
+                "skippedTiers": skipped,
+                "difficultyPolicy": frozen["difficultyPolicy"],
+                "questionRankingEvidence": ranking_evidence,
+                "questionIds": [str(item["question_id"]) for item in ranked],
+            }
+            selected_node = knowledge if knowledge is not None else micro
+            return TargetedQuestionSelection(
+                questions=tuple(ranked),
+                release_id=release_id,
+                release_version=str(release["releaseVersion"]),
+                source_data_version=str(release["sourceDataVersion"]),
+                vocab_version=str(release["vocabVersion"]),
+                fresh_until=datetime.fromisoformat(str(release["freshUntil"])),
+                node_id=(str(selected_node["nodeId"]) if selected_node is not None else None),
+                node_type=(str(selected_node["nodeType"]) if selected_node is not None else None),
+                module_name=module_name,
+                selection_result=result,
+            )
+        return None
+
+    @staticmethod
+    def _current_module_vocabulary(
+        session: Session,
+        *,
+        now: datetime,
+    ) -> ReleasedModuleVocabulary | None:
+        return load_current_module_vocabulary(
+            session,
+            exam_scope="guokao",
+            track="xingce",
+            now=now,
+        )
+
+    @staticmethod
+    def _rank_intent_candidates(
+        session: Session,
+        *,
+        questions: list[dict[str, Any]],
+        difficulty_policy: dict[str, Any],
+        limit: int,
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        question_ids = [str(item["question_id"]) for item in questions]
+        occurrence_rows = session.execute(
+            text(
+                """
+                select question_id, occurrence_correct_ratio, occurrence_sample_size
+                from product.question_occurrences
+                where question_id = any(cast(:question_ids as text[]))
+                order by question_id, occurrence_id
+                """
+            ),
+            {"question_ids": question_ids},
+        ).mappings().all() if question_ids else []
+        occurrences: dict[str, list[tuple[float | None, int | None]]] = {}
+        for row in occurrence_rows:
+            occurrences.setdefault(str(row["question_id"]), []).append(
+                (
+                    float(row["occurrence_correct_ratio"])
+                    if row["occurrence_correct_ratio"] is not None
+                    else None,
+                    int(row["occurrence_sample_size"])
+                    if row["occurrence_sample_size"] is not None
+                    else None,
+                )
+            )
+        target_theta = (
+            float(difficulty_policy["targetTheta"])
+            if difficulty_policy["state"] == "known"
+            else None
+        )
+        enriched: list[tuple[dict[str, Any], int, float | None, float | None]] = []
+        for stable_rank, question in enumerate(questions):
+            question_id = str(question["question_id"])
+            difficulty = aggregate_question_difficulty(occurrences.get(question_id, []))
+            distance = (
+                abs(difficulty - target_theta)
+                if difficulty is not None and target_theta is not None
+                else None
+            )
+            enriched.append((question, stable_rank, difficulty, distance))
+        if target_theta is not None:
+            enriched.sort(
+                key=lambda item: (
+                    item[3] is None,
+                    item[3] if item[3] is not None else 0.0,
+                    item[1],
+                    str(item[0]["question_id"]),
+                )
+            )
+        selected = enriched[:limit]
+        evidence = [
+            {
+                "questionId": str(question["question_id"]),
+                "rank": rank,
+                "anchorState": "known" if difficulty is not None else "unknown",
+                "difficultyB": difficulty,
+                "distanceToTargetTheta": distance,
+                "stablePoolRank": stable_rank,
+            }
+            for rank, (question, stable_rank, difficulty, distance) in enumerate(
+                selected,
+                start=1,
+            )
+        ]
+        return [item[0] for item in selected], evidence
+
     def _select_eligible_questions(
         self,
         session: Session,
@@ -217,6 +502,9 @@ class XingceQuestionRepository:
         limit: int,
         user_id: str | None,
         excluded_question_ids: list[str] | None,
+        required_node_ids: tuple[str, ...] | None = None,
+        question_type: str | None = None,
+        selection_identity: str | None = None,
     ) -> list[dict[str, Any]]:
         if limit <= 0:
             return []
@@ -243,6 +531,7 @@ class XingceQuestionRepository:
             ),
             "user_id": user_id,
             "excluded_question_ids": excluded_question_ids or [],
+            "required_node_ids": list(required_node_ids or ()),
         }
         binding_scope_conditions = [
             "binding.release_id = cast(:release_id as uuid)",
@@ -267,6 +556,19 @@ class XingceQuestionRepository:
                 "not (binding.question_id = any(cast(:excluded_question_ids as text[])))"
             )
         candidate_conditions = list(binding_scope_conditions)
+        if required_node_ids:
+            candidate_conditions.append(
+                """
+                (
+                  select count(distinct required_binding.node_id)
+                  from product.knowledge_map_question_bindings required_binding
+                  where required_binding.release_id = cast(:release_id as uuid)
+                    and required_binding.question_id = binding.question_id
+                    and required_binding.delivery_eligible
+                    and required_binding.node_id = any(cast(:required_node_ids as text[]))
+                ) = cardinality(cast(:required_node_ids as text[]))
+                """
+            )
         if user_id is not None:
             candidate_conditions.extend(
                 (
@@ -298,6 +600,7 @@ class XingceQuestionRepository:
             _stable_question_selection_cursor(
                 release_id=release_id,
                 user_id=user_id,
+                selection_identity=selection_identity,
             )
             if user_id is not None
             else bytes(sha256().digest_size)
@@ -439,6 +742,10 @@ class XingceQuestionRepository:
                 ):
                     continue
                 question = dict(row["snapshot_payload"])
+                if question_type is not None and str(
+                    question.get("question_type", question.get("questionType", ""))
+                ) != question_type:
+                    continue
                 question["question_id"] = question_id
                 question["visual_required"] = bool(row["visual_required"])
                 question["shared_context_required"] = bool(
@@ -475,6 +782,7 @@ class XingceQuestionRepository:
                         release_id=release_id,
                         user_id=user_id,
                         question_id=str(item[0]["question_id"]),
+                        selection_identity=selection_identity,
                     )
                     if user_id is not None
                     else str(item[0]["question_id"]).encode()
