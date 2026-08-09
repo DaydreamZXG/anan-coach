@@ -17,9 +17,14 @@ describe("VJ-01 real Today R2 AS-02", () => {
     vi.stubGlobal("Page", (definition: unknown) => {
       captured = definition;
     });
-    vi.stubGlobal("getApp", () => ({
-      globalData: { accessToken: "server-token-a", userId: "user-a" },
-    }));
+    const app = {
+      globalData: {
+        accessToken: "server-token-a",
+        userId: "user-a",
+        generation: "generation-a",
+      },
+    };
+    vi.stubGlobal("getApp", () => app);
     vi.stubGlobal("wx", {
       getStorageSync: () => "",
       removeStorageSync: vi.fn(),
