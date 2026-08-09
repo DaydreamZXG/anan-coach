@@ -795,38 +795,66 @@ describe("stage 2 F02 mock exam", () => {
     const overlays: Array<[string, () => void, () => void]> = [
       [
         "answer sheet",
-        () => harness.page.toggleAnswerSheet.call(harness.page),
-        () => harness.page.toggleAnswerSheet.call(harness.page),
+        () => {
+          harness.page.toggleAnswerSheet.call(harness.page);
+        },
+        () => {
+          harness.page.toggleAnswerSheet.call(harness.page);
+        },
       ],
       [
         "draft",
-        () => harness.page.toggleDraft.call(harness.page),
-        () => harness.page.toggleDraft.call(harness.page),
+        () => {
+          harness.page.toggleDraft.call(harness.page);
+        },
+        () => {
+          harness.page.toggleDraft.call(harness.page);
+        },
       ],
       [
         "tools",
-        () => harness.page.toggleTools.call(harness.page),
-        () => harness.page.toggleTools.call(harness.page),
+        () => {
+          harness.page.toggleTools.call(harness.page);
+        },
+        () => {
+          harness.page.toggleTools.call(harness.page);
+        },
       ],
       [
         "help",
-        () => harness.page.openHelp.call(harness.page),
-        () => harness.page.closeHelp.call(harness.page),
+        () => {
+          harness.page.openHelp.call(harness.page);
+        },
+        () => {
+          harness.page.closeHelp.call(harness.page);
+        },
       ],
       [
         "dispute",
-        () => harness.page.reportDispute.call(harness.page),
-        () => harness.page.closeDispute.call(harness.page),
+        () => {
+          harness.page.reportDispute.call(harness.page);
+        },
+        () => {
+          harness.page.closeDispute.call(harness.page);
+        },
       ],
       [
         "submit",
-        () => harness.page.submitExam.call(harness.page),
-        () => harness.page.closeSubmitConfirm.call(harness.page),
+        () => {
+          harness.page.submitExam.call(harness.page);
+        },
+        () => {
+          harness.page.closeSubmitConfirm.call(harness.page);
+        },
       ],
       [
         "annotation",
-        () => harness.page.openAnnotation.call(harness.page),
-        () => harness.page.closeAnnotation.call(harness.page),
+        () => {
+          harness.page.openAnnotation.call(harness.page);
+        },
+        () => {
+          harness.page.closeAnnotation.call(harness.page);
+        },
       ],
     ];
     for (const [label, open, close] of overlays) {

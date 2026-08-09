@@ -784,8 +784,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     transitionMockInteraction(
       this,
       {
-        type:
-          event.detail.state.mode === "question_first" ? "MATERIAL_CLOSED" : "MATERIAL_OPENED",
+        type: event.detail.state.mode === "question_first" ? "MATERIAL_CLOSED" : "MATERIAL_OPENED",
       },
       {
         materialReaderState: event.detail.state,

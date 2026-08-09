@@ -1,22 +1,10 @@
 export type TaskInteractionOverlay =
-  | "none"
-  | "answer_sheet"
-  | "draft"
-  | "tools"
-  | "help"
-  | "companion"
-  | "dispute"
-  | "submit_confirm";
+  "none" | "answer_sheet" | "draft" | "tools" | "help" | "companion" | "dispute" | "submit_confirm";
 
 export type TaskAnnotationSurface = "none" | "question" | "material";
 export type TaskInteractionLifecycle = "visible" | "hidden" | "unloaded";
 export type TaskInteractionMode = "question" | "material" | "paused";
-export type TaskInteractionCaptureLayer =
-  | "none"
-  | "annotation"
-  | "overlay"
-  | "material"
-  | "pause";
+export type TaskInteractionCaptureLayer = "none" | "annotation" | "overlay" | "material" | "pause";
 export type TaskTouchOwner = "question" | "annotation" | "overlay" | "material" | "none";
 
 export interface TaskInteractionState {
@@ -111,29 +99,25 @@ export function reduceTaskInteraction(
       if (!canOpenInteraction(state)) return state;
       return { ...state, overlay: "none", annotationSurface: action.surface };
     case "ANNOTATION_CLOSED":
-      return state.annotationSurface === "none"
-        ? state
-        : { ...state, annotationSurface: "none" };
+      return state.annotationSurface === "none" ? state : { ...state, annotationSurface: "none" };
     case "MATERIAL_OPENED":
       if (state.mode === "material" || !canOpenInteraction(state)) return state;
       return { ...closeSurface(state), mode: "material" };
     case "MATERIAL_CLOSED":
-      return state.mode === "material"
-        ? { ...closeSurface(state), mode: "question" }
-        : state;
+      return state.mode === "material" ? { ...closeSurface(state), mode: "question" } : state;
     case "TASK_PAUSED":
       if (state.mode === "paused" || !canOpenInteraction(state)) return state;
       return { ...closeSurface(state), mode: "paused" };
     case "TASK_RESUMED":
-      return state.mode === "paused"
-        ? { ...closeSurface(state), mode: "question" }
-        : state;
+      return state.mode === "paused" ? { ...closeSurface(state), mode: "question" } : state;
     case "INTERACTIONS_CLOSED":
       return closeSurface(state);
     case "QUESTION_CHANGED":
       return resetInteractionMode(state);
     case "PAGE_SHOWN":
-      return state.lifecycle === "unloaded" ? state : { ...closeSurface(state), lifecycle: "visible" };
+      return state.lifecycle === "unloaded"
+        ? state
+        : { ...closeSurface(state), lifecycle: "visible" };
     case "PAGE_HIDDEN":
       return { ...closeSurface(state), lifecycle: "hidden" };
     case "PAGE_UNLOADED":
@@ -154,9 +138,7 @@ export function reduceTaskInteraction(
   }
 }
 
-export function projectTaskInteraction(
-  state: TaskInteractionState,
-): TaskInteractionProjection {
+export function projectTaskInteraction(state: TaskInteractionState): TaskInteractionProjection {
   const visible = state.lifecycle === "visible";
   const taskPaused = state.mode === "paused";
   const materialOpen = state.mode === "material";

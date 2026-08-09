@@ -48,10 +48,18 @@ describe("subpackage shared generator", () => {
     const plan = generator.generatedTargetPlan(manifestEntries);
     const firstTargets = plan.filter(({ packageIndex }) => packageIndex === 0);
     const crossPackageTargets = plan.filter(({ packageIndex }) => packageIndex > 0);
+    const expectedTargetCount = manifestEntries.reduce(
+      (total, { packages }) => total + packages.length,
+      0,
+    );
+    const expectedCrossPackageTargetCount = manifestEntries.reduce(
+      (total, { packages }) => total + Math.max(0, packages.length - 1),
+      0,
+    );
 
-    expect(plan).toHaveLength(269);
-    expect(firstTargets).toHaveLength(123);
-    expect(crossPackageTargets).toHaveLength(146);
+    expect(plan).toHaveLength(expectedTargetCount);
+    expect(firstTargets).toHaveLength(manifestEntries.length);
+    expect(crossPackageTargets).toHaveLength(expectedCrossPackageTargetCount);
     expect(
       manifestEntries.every(
         ({ source }) =>

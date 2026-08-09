@@ -468,6 +468,8 @@ class CauseAgentTools:
             if len(parts) != 3 or len(parts[2]) != 64:
                 raise PermissionError("formula evidence ref is malformed")
             refs.append((parts[1], parts[2]))
+        if not refs:
+            return []
         rows = self._repository.formula_versions_by_ids(
             self._session,
             user_id=self._user_id,

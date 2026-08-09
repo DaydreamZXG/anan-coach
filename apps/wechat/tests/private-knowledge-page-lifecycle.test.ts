@@ -37,10 +37,7 @@ describe("private knowledge request owner", () => {
       const secondHiddenWait = owner.delay(1_000, request, sessionA);
 
       owner.hide();
-      await expect(Promise.all([hiddenWait, secondHiddenWait])).resolves.toEqual([
-        false,
-        false,
-      ]);
+      await expect(Promise.all([hiddenWait, secondHiddenWait])).resolves.toEqual([false, false]);
       expect(vi.getTimerCount()).toBe(0);
 
       owner.show(sessionA);

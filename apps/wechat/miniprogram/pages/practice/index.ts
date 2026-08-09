@@ -2128,7 +2128,7 @@ async function ensureCheckpointConfirmedBeforeCompanion(
   return (
     runtimes.owns(page, runtime) &&
     currentAccountOwns(runtime) &&
-    runtime.task?.syncState === "saved" &&
+    runtime.task.syncState === "saved" &&
     !page.data.hasPendingCheckpoint &&
     loadPendingXingceCheckpoint(runtime.ownerUserId, runtime.session.sessionId) === null
   );

@@ -868,13 +868,48 @@ describe("xingce practice swipe question navigation", () => {
     const runtime = await createPracticePage();
 
     const overlays: Array<[string, () => void]> = [
-      ["answer sheet", () => runtime.page.toggleAnswerSheet.call(runtime.page)],
-      ["draft", () => runtime.page.toggleDraft.call(runtime.page)],
-      ["tools", () => runtime.page.openTaskTools.call(runtime.page)],
-      ["help", () => runtime.page.openTaskHelp.call(runtime.page)],
-      ["dispute", () => runtime.page.openDispute.call(runtime.page)],
-      ["companion", () => runtime.page.openAnanContext.call(runtime.page)],
-      ["annotation", () => runtime.page.openAnnotation.call(runtime.page)],
+      [
+        "answer sheet",
+        () => {
+          runtime.page.toggleAnswerSheet.call(runtime.page);
+        },
+      ],
+      [
+        "draft",
+        () => {
+          runtime.page.toggleDraft.call(runtime.page);
+        },
+      ],
+      [
+        "tools",
+        () => {
+          runtime.page.openTaskTools.call(runtime.page);
+        },
+      ],
+      [
+        "help",
+        () => {
+          runtime.page.openTaskHelp.call(runtime.page);
+        },
+      ],
+      [
+        "dispute",
+        () => {
+          runtime.page.openDispute.call(runtime.page);
+        },
+      ],
+      [
+        "companion",
+        () => {
+          runtime.page.openAnanContext.call(runtime.page);
+        },
+      ],
+      [
+        "annotation",
+        () => {
+          runtime.page.openAnnotation.call(runtime.page);
+        },
+      ],
     ];
     for (const [label, open] of overlays) {
       open();
