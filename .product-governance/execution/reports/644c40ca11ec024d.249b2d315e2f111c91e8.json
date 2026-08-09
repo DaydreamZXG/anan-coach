@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 3,
+  "runId": "RU-FRONTEND-LIFECYCLE-001/WP-FRONTEND-LIFECYCLE-001@2026-08-09T03:15:39.430361+00:00",
+  "packageId": "WP-FRONTEND-LIFECYCLE-001",
+  "baselineCommit": "5cd8ffadd0db87a26b2fc1e9bc7c10986c428ae9",
+  "baselineTreeHash": "sha256:82c04cfe7215d95ec95865722f0c9ac66adc72ba8dac63533b4d79b747a26c9e",
+  "testedTreeHash": "sha256:82c04cfe7215d95ec95865722f0c9ac66adc72ba8dac63533b4d79b747a26c9e",
+  "testedSnapshotPath": "execution/tested-snapshots/644c40ca11ec024d.249b2d315e2f111c91e8.json",
+  "testedSnapshotSha256": "sha256:1cba63efea1cb56663d26a512bb407ff2001fd7d716c3b77a847f9d728aab2da",
+  "sourceDiff": {},
+  "ownedResultHashes": {},
+  "testedOwnedState": {
+    "schemaVersion": 1,
+    "selectionPolicy": "allowed-source-files-and-symlinks@1",
+    "allowedPaths": [
+      "apps/wechat/miniprogram/pages/reflection/**",
+      "apps/wechat/miniprogram/pages/me/index.ts",
+      "apps/wechat/miniprogram/pages/me/index.wxss",
+      "apps/wechat/miniprogram/pages/me/features/**",
+      "apps/wechat/miniprogram/pages/private-knowledge/index.ts",
+      "apps/wechat/miniprogram/pages/private-knowledge/index.wxss",
+      "apps/wechat/miniprogram/pages/private-knowledge/features/page-runtime/**",
+      "apps/wechat/tests/reflection-page-lifecycle.test.ts",
+      "apps/wechat/tests/me-page-lifecycle.test.ts",
+      "apps/wechat/tests/private-knowledge-page-lifecycle.test.ts"
+    ],
+    "excludedClasses": [
+      "governance_execution_runtime",
+      "directories_and_git_submodules",
+      "devices_sockets_and_fifos",
+      "transient_missing_entries"
+    ],
+    "pathHashes": {
+      "apps/wechat/miniprogram/pages/me/features/request-owner.ts": "sha256:8a994c961a67e68e8f1ea781de278186fbdbe22ace8d7af43426d929ab6d7a1a",
+      "apps/wechat/miniprogram/pages/me/index.ts": "sha256:4302893afc33c91880087485f00f79ec1a5616c3da6ef67adde9884eb8892a29",
+      "apps/wechat/miniprogram/pages/me/index.wxss": "sha256:e1b4713f96d0f1da358d43326641cd7758794ad186d44870293f4ee01bfd095a",
+      "apps/wechat/miniprogram/pages/private-knowledge/features/page-runtime/request-owner.ts": "sha256:61f63f7a94aa433d378bea6c703eb8c78ad68e9f46c48d759790b43b59e85c22",
+      "apps/wechat/miniprogram/pages/private-knowledge/index.ts": "sha256:4e0850484f4a5fade916a4963f29da4cb93d0af1363b05eaa42c8382bfe89817",
+      "apps/wechat/miniprogram/pages/private-knowledge/index.wxss": "sha256:b175348cda92553a1395e77a9686f9f8277964a670650fc3f9478b6793c96ff0",
+      "apps/wechat/miniprogram/pages/reflection/features/api/xfyun.ts": "sha256:ef109b575a3731778230131bfdcf32443a9125f607644a291045245201420ca7",
+      "apps/wechat/miniprogram/pages/reflection/features/replay-runtime.ts": "sha256:4c6c7c78facd54877b45b650c8d2a4ffc1faa0cfb691592657c134a87e17c4ae",
+      "apps/wechat/miniprogram/pages/reflection/features/session-owner.ts": "sha256:a54d9e3158d6f699d026908f68f2a3f4e20fe4e4ef04686793b949ffcae1bcb5",
+      "apps/wechat/miniprogram/pages/reflection/index.json": "sha256:85e8f7e6a0b73423c354c043df234b25f646b8b188fc8430df59164a9e651bdc",
+      "apps/wechat/miniprogram/pages/reflection/index.ts": "sha256:42def7734a9ce7b56b884c8c8ee28d61dc408f29dce66d005a8b5122be4164ff",
+      "apps/wechat/miniprogram/pages/reflection/index.wxml": "sha256:4fb1326524094bcc30048bc87ade2457634b374a6143bc8913af27c6668f3fa5",
+      "apps/wechat/miniprogram/pages/reflection/index.wxss": "sha256:f7338a2cbc86d82e97a8ed0ece474d279eddd3d60cb0e357cc75925ea6da9636",
+      "apps/wechat/miniprogram/pages/reflection/shared/api/learning-media.ts": "sha256:3208484d5af3fa88acde86ab996b49bdd215ce388417b8b8012d9d4162bdf864",
+      "apps/wechat/miniprogram/pages/reflection/shared/api/task-editing.ts": "sha256:b8718c6cd699aa150682875fefa1dc16d08e113f0fb9881417527b4f07861f0d",
+      "apps/wechat/miniprogram/pages/reflection/shared/api/xingce-learning.ts": "sha256:ef03e39b38643977042aed1f794041ffee74d4b480093e376275050839a7eb80",
+      "apps/wechat/miniprogram/pages/reflection/shared/app/navigation/safe-back.ts": "sha256:8625b7a2b56c8ef2594be4f981e1f831f3d087b42da77c2bb613f2d1dd1e361a",
+      "apps/wechat/miniprogram/pages/reflection/shared/components/workbench-nav/index.json": "sha256:3cac147888c7f1804ca5c8fd5aeca071cc29e1a776c6c7c6d52d823c4f568ef3",
+      "apps/wechat/miniprogram/pages/reflection/shared/components/workbench-nav/index.ts": "sha256:62df63cb67135d0f2d910a9a903bdf12b4a838ea575f13154e2329dc17bbbf1e",
+      "apps/wechat/miniprogram/pages/reflection/shared/components/workbench-nav/index.wxml": "sha256:ffe7c84cb0baa4b27444d741625bc7cbd69fc45b43627e2ee9ca46823d99903f",
+      "apps/wechat/miniprogram/pages/reflection/shared/components/workbench-nav/index.wxss": "sha256:7abf88f467cc2454b51befdc3f16f54696157eb354e840723d2960846a557ecc",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/learning-media/contracts.ts": "sha256:3f486eb765004f0513ebaa40c66580d385f0bbbb97ef0b73900e156e2fcff46f",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/learning-media/draft-store.ts": "sha256:38cbd2f9468ca4c020710fe9acb404228031acf95d9844b750298dd4c0c3393a",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/learning-media/platform.ts": "sha256:0e02957b8be49806702642bec09d0d3efb7dcb8069e575110ce6f0b2f97ec592",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/learning-media/presentation.ts": "sha256:9f6d8e47fc5390211977e2c6899c25042e08b4e7e9462b8497701c2941c6be01",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/learning-media/upload-controller.ts": "sha256:603113435b864a8b843c80071344a50bfb3603afbf14dec91080f0bc167deb88",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/xingce/real_attempt/pending-store.ts": "sha256:a2bed7eebe797903f471aded816969a9069a49be6217651f48465a8be8e10289",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/xingce/real_attempt/presentation.ts": "sha256:3475cd87a2e170fc50693a16dd66791363c0dbc14214bdb9f0ecb25af02e4279",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/anchor.ts": "sha256:b1748303eb9900f3f333cf770f1cfe38d2185495e856f35d41369f0b5914b2b0",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/index.json": "sha256:3cac147888c7f1804ca5c8fd5aeca071cc29e1a776c6c7c6d52d823c4f568ef3",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/index.ts": "sha256:4d06aa9f757fdd243df0e08c78469a9e128569723b9ba1887e2c8f76ab367988",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/index.wxml": "sha256:dc234c23cb49af72d61988cfc83894588108ad3cd3ff7e10c17a4da02da01de6",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/index.wxss": "sha256:e032a719078ef019f392f5aeea453fd8526dfaa0bd86ac086040ec042e4b916f",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/strokes.ts": "sha256:bd0dfa5e5e2948d6b845f1e69e483f5705844d18d44086c5cf434492d4da2476",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/content-renderer/index.json": "sha256:3cac147888c7f1804ca5c8fd5aeca071cc29e1a776c6c7c6d52d823c4f568ef3",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/content-renderer/index.ts": "sha256:04be03ab973257658e56d0e20d5ba3db28eaabed04d7d2895ab1888cd8582cbe",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/content-renderer/index.wxml": "sha256:bfa610838adfa14aa74fe851897bdb46d34bf2ea3de2d428c0219d7c659c57c7",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/content-renderer/index.wxss": "sha256:eede62a30ca0272afae3a8f5083ca0873934af06f7f8f73b8a576dcb089f0939",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/content-renderer/model.ts": "sha256:e6ddfa4cba1a60d9532dedca7c62e99e1b3de01b3a282f3bb5a33f6ff6a55b91",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/display-preferences.ts": "sha256:f24f0155277e2f33a1cfa1872469a9868cdbd1018137d1ffc72b64333647e24a",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/material-reader/index.json": "sha256:24d232a991ae2724e9f76e452660cf940befe0f23b89d9343823727d71dc55eb",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/material-reader/index.ts": "sha256:48bf7e549bce907df01d2072bac7134e2def744b74c17debda1da2e7fe23e55c",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/material-reader/index.wxml": "sha256:b3f3aa94c583228c6f78c9bba84ff8c1a6ac7fed9688a79120dd627e35bc210f",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/material-reader/index.wxss": "sha256:69f46d113db5bdc6c653bfa7cdce8e530880d96acfc8ba2080961d59d269075a",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/material-reader/state.ts": "sha256:8e2b080c2cf4d7a206031a47df1745ba4374e5a1d4282624c5ae1124677c5dc1",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/option-presentation.ts": "sha256:80d71e0213593769b3046a569714ceb7ca49e6594a6656d99b25476a8ab5c92b",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/swipe-nav.ts": "sha256:4e954137c51e7d23302a9359a478304a4fbd0b7838fdb708d4afe8cf74e73aad",
+      "apps/wechat/tests/me-page-lifecycle.test.ts": "sha256:0808a87897ee42b3a4fdf1e02a8e8207eba7e54426a56b6e25acf6de832b2956",
+      "apps/wechat/tests/private-knowledge-page-lifecycle.test.ts": "sha256:1e9d9774e3f7d5cab92986b5a5499fb823e17d133a222ac3bdb9a9945029c745",
+      "apps/wechat/tests/reflection-page-lifecycle.test.ts": "sha256:ef847259e9efc8689f9ae3e27b4d111294274e9130f700477654e62b6b6d6c5e"
+    }
+  },
+  "testedOwnedStateSha256": "sha256:f7b0032571ae888548d5423d1fbc08a17ce2af546578aa54003437758af03709",
+  "sourceScopeFailures": [],
+  "integrityFailures": [
+    "non-verification work package produced no source change"
+  ],
+  "assignedTo": "codex-frontend-lifecycle-window",
+  "startedAt": "2026-08-09T03:15:39.430361+00:00",
+  "finishedAt": "2026-08-09T03:16:50.974243+00:00",
+  "passed": false,
+  "commands": [],
+  "scenarioEvidence": [
+    {
+      "scenarioId": "WP-FRONTEND-LIFECYCLE-001-AS-01",
+      "path": "execution/evidence/249b2d315e2f111c91e8/644c40ca11ec024d/416b7739d5012657.json",
+      "sha256": "sha256:bd436fcc7e7c8cffeb3d56fadf00ef833ebcd0e13a67597921fae5b8f81b98b6"
+    },
+    {
+      "scenarioId": "WP-FRONTEND-LIFECYCLE-001-AS-02",
+      "path": "execution/evidence/249b2d315e2f111c91e8/644c40ca11ec024d/2b046f3a86a3220b.json",
+      "sha256": "sha256:1f39c457c5445d221a622ed6500d13023acbe866334c8306a9ee3f4f54382982"
+    },
+    {
+      "scenarioId": "WP-FRONTEND-LIFECYCLE-001-AS-03",
+      "path": "execution/evidence/249b2d315e2f111c91e8/644c40ca11ec024d/5f1e89f56c3edc5c.json",
+      "sha256": "sha256:211fe8d53e8fafaa489a066759f22ecd8c7f076915848fb5914a29539ca14d10"
+    }
+  ],
+  "scenarioEvidenceFailures": [
+    "WP-FRONTEND-LIFECYCLE-001-AS-01: registered runner proof is invalid",
+    "WP-FRONTEND-LIFECYCLE-001-AS-02: registered runner proof is invalid",
+    "WP-FRONTEND-LIFECYCLE-001-AS-03: registered runner proof is invalid"
+  ],
+  "releaseUnitId": "RU-FRONTEND-LIFECYCLE-001",
+  "releaseUnitHash": "sha256:abed67a4ab24662dcc11ec2afbbbd013f2fb4155959073da39b305e51062e711"
+}

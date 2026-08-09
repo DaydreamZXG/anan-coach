@@ -1,0 +1,14 @@
+{
+  "scenarioId": "WP-FRONTEND-LIFECYCLE-001-AS-02",
+  "assertion": "me accepts only the newest visible request for the current page instance and exact session owner",
+  "testSelector": "tests/me-page-lifecycle.test.ts",
+  "acceptanceCommandId": "frontend-lifecycle-me",
+  "runId": "RU-FRONTEND-LIFECYCLE-001/WP-FRONTEND-LIFECYCLE-001@2026-08-09T03:15:39.430361+00:00",
+  "packageId": "WP-FRONTEND-LIFECYCLE-001",
+  "evidenceOwner": "govern-product-build/verifier",
+  "passed": false,
+  "runnerProof": null,
+  "commandResultHash": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+  "releaseUnitId": "RU-FRONTEND-LIFECYCLE-001",
+  "releaseUnitHash": "sha256:abed67a4ab24662dcc11ec2afbbbd013f2fb4155959073da39b305e51062e711"
+}
