@@ -16013,6 +16013,10 @@ export type SafeQuestion = {
      */
     questionId: string;
     /**
+     * Questiontype
+     */
+    questionType?: string | null;
+    /**
      * Stem
      */
     stem: string;
@@ -16024,6 +16028,10 @@ export type SafeQuestion = {
      * Stemhtml
      */
     stemHtml?: string | null;
+    /**
+     * Visualrequired
+     */
+    visualRequired?: boolean | null;
 };
 
 /**
