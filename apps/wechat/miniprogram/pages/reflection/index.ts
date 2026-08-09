@@ -970,7 +970,10 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     try {
       const result = await runtime.xfyunApi.textToSpeech(text);
       const localPath = await persistSynthesizedSpeech(result.audioBase64);
-      if (!isMediaCurrent(this, runtime, epoch)) return;
+      if (!isMediaCurrent(this, runtime, epoch)) {
+        await deleteLocalVoice(localPath).catch(() => undefined);
+        return;
+      }
       runtime.speechPreview ??= new WechatVoicePreview();
       runtime.speechPreview.play(
         localPath,

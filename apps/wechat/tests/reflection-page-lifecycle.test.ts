@@ -30,6 +30,17 @@ describe("reflection page session lifecycle", () => {
     expect(lifecycle.ownsRequest(request, { ...sessionA, userId: "user-b" })).toBe(false);
   });
 
+  it("keeps the onLoad request current through the first framework onShow", () => {
+    const lifecycle = new ReflectionSessionLifecycle(sessionA);
+    const request = lifecycle.beginRequest(sessionA);
+
+    expect(lifecycle.show(sessionA)).toBe(true);
+    expect(lifecycle.ownsRequest(request, sessionA)).toBe(true);
+
+    lifecycle.show(sessionA);
+    expect(lifecycle.ownsRequest(request, sessionA)).toBe(false);
+  });
+
   it("invalidates late work and cleans poll, recording, previews, speech and replay on hide/unload", () => {
     const lifecycle = new ReflectionSessionLifecycle(sessionA);
     const request = lifecycle.beginRequest(sessionA);

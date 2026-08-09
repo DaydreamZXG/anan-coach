@@ -19,6 +19,7 @@ export class ReflectionSessionLifecycle {
 
   private visible = true;
   private disposed = false;
+  private initialShowPending = true;
   private requestGeneration = 0;
   private mediaGeneration = 0;
 
@@ -34,6 +35,11 @@ export class ReflectionSessionLifecycle {
       this.invalidateEffects();
       return false;
     }
+    if (this.initialShowPending) {
+      this.initialShowPending = false;
+      this.visible = true;
+      return true;
+    }
     this.visible = true;
     this.invalidateEffects();
     return true;
@@ -41,6 +47,7 @@ export class ReflectionSessionLifecycle {
 
   hide(cleanup: ReflectionActivityCleanup): void {
     if (this.disposed) return;
+    this.initialShowPending = false;
     this.visible = false;
     this.invalidateEffects();
     runCleanup(cleanup);
@@ -48,6 +55,7 @@ export class ReflectionSessionLifecycle {
 
   unload(cleanup: ReflectionActivityCleanup): void {
     if (this.disposed) return;
+    this.initialShowPending = false;
     this.visible = false;
     this.disposed = true;
     this.invalidateEffects();
