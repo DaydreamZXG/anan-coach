@@ -45,7 +45,7 @@
                 hover-class="item--hover"
                 wx:for="{{focusOptions}}"
                 wx:key="value"
-                class="control-center focus-option {{preferredXingceModule === item.value ? 'focus-option--active' : ''}}"
+                class="control-center focus-option {{preferredTrack === item.track && (item.track !== 'xingce' || preferredXingceModule === item.value) ? 'focus-option--active' : ''}}"
                 data-value="{{item.value}}"
                 disabled="{{previewing || submitting}}"
                 bindtap="chooseFocus"

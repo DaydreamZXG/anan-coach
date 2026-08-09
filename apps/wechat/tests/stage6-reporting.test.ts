@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { readFileSync } from "node:fs";
 
 import type { ApiClient } from "../miniprogram/api/client";
 import type { ApiEnvelope } from "../miniprogram/domain/contracts";
@@ -120,6 +121,40 @@ describe("stage 6 mock reporting", () => {
       "weekly_completion",
     ]);
     expect(REPORT_CHART_TEXT_CHANNELS).toEqual(["label", "primary", "secondary", "summary"]);
+  });
+
+  it("uses one native back action and translates weekly task kinds", async () => {
+    const reportOverviewTemplate = readFileSync(
+      "miniprogram/reports/report-overview/index.wxml",
+      "utf8",
+    );
+    expect(reportOverviewTemplate).not.toContain("report-nav-back");
+    vi.stubGlobal("Component", vi.fn());
+    const { reportChartRows } =
+      await import("../miniprogram/reports/shared/design-system/reporting/report-chart/index");
+    const rows = reportChartRows({
+      chartId: "weekly",
+      chartType: "weekly_completion",
+      title: "近 7 天计划执行",
+      definition: "",
+      period: "近 7 天",
+      unit: "项",
+      confidence: "low",
+      data: [
+        { track: "essay", kind: "essay", completed: 1, planned: 2, minutes: 15 },
+        { track: "mock", kind: "mock_exam", completed: 0, planned: 1, minutes: 0 },
+        { track: "xingce", kind: "practice", completed: 3, planned: 5, minutes: 45 },
+      ],
+      summary: "",
+      evidenceRefs: [],
+      partialReasons: [],
+    });
+    expect(rows.map((item) => item.label)).toEqual([
+      "申论 · 申论训练",
+      "模考 · 整卷模考",
+      "行测 · 专项训练",
+    ]);
+    expect(rows.map((item) => item.label).join(" ")).not.toMatch(/essay|mock_exam|practice/u);
   });
 
   it("turns every report conclusion into an executable return to today's plan", () => {

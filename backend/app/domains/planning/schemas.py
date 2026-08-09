@@ -171,6 +171,9 @@ class DailyCapacityVersion(PlanningContractModel):
         "政治理论",
     ] | None = Field(default=None, alias="preferredXingceModule")
     xingce_only: bool = Field(default=False, alias="xingceOnly")
+    preferred_track: Literal["balanced", "xingce", "essay"] = Field(
+        default="balanced", alias="preferredTrack"
+    )
     confirmed: bool
     source_type: Literal["weekly_preference", "user_override"] = Field(alias="sourceType")
     weekly_preference_version_id: UUID | None = Field(
@@ -186,6 +189,12 @@ class DailyCapacityVersion(PlanningContractModel):
 
     @model_validator(mode="after")
     def validate_source(self) -> "DailyCapacityVersion":
+        if self.preferred_track == "xingce" and self.preferred_xingce_module is None:
+            raise ValueError("Xingce focus requires a preferred Xingce module")
+        if self.preferred_track != "xingce" and (
+            self.preferred_xingce_module is not None or self.xingce_only
+        ):
+            raise ValueError("non-Xingce focus cannot retain a Xingce module override")
         if self.xingce_only and self.preferred_xingce_module is None:
             raise ValueError("xingce-only capacity requires a preferred Xingce module")
         if self.source_type == "weekly_preference":
@@ -216,11 +225,18 @@ class DailyCapacityCommand(PlanningContractModel):
         "政治理论",
     ] | None = Field(default=None, alias="preferredXingceModule")
     xingce_only: bool = Field(default=False, alias="xingceOnly")
+    preferred_track: Literal["balanced", "xingce", "essay"] = Field(
+        default="balanced", alias="preferredTrack"
+    )
 
     @model_validator(mode="after")
     def validate_focus(self) -> "DailyCapacityCommand":
-        if self.xingce_only and self.preferred_xingce_module is None:
-            raise ValueError("xingceOnly requires preferredXingceModule")
+        if self.preferred_track == "xingce" and self.preferred_xingce_module is None:
+            raise ValueError("Xingce focus requires preferredXingceModule")
+        if self.preferred_track != "xingce" and (
+            self.preferred_xingce_module is not None or self.xingce_only
+        ):
+            raise ValueError("non-Xingce focus cannot retain a Xingce module override")
         return self
 
 
@@ -533,6 +549,9 @@ class TodayCapacity(PlanningContractModel):
         "政治理论",
     ] | None = Field(default=None, alias="preferredXingceModule")
     xingce_only: bool = Field(default=False, alias="xingceOnly")
+    preferred_track: Literal["balanced", "xingce", "essay"] = Field(
+        default="balanced", alias="preferredTrack"
+    )
     confirmed: bool
     source_type: Literal["weekly_preference", "user_override"] = Field(alias="sourceType")
 

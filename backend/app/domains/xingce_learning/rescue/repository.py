@@ -358,7 +358,7 @@ class RescueRepository:
                            method_steps, pitfall, fix_action, time_budget_sec
                     from product.method_cards
                     where id = any(cast(:card_ids as text[]))
-                      and status = 'published'
+                      and status in ('draft', 'published')
                       and track = 'xingce'
                     """
                 ),

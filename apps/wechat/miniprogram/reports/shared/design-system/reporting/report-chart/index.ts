@@ -7,7 +7,6 @@ export interface ReportChartRowView {
   primary: string;
   secondary: string;
   width: string;
-  marker: string;
   tone: "primary" | "warning" | "neutral";
 }
 
@@ -18,18 +17,16 @@ Component({
   },
   data: {
     rows: [] as ReportChartRowView[],
-    confidenceLabel: "",
     evidenceCount: 0,
   },
   observers: {
     chart(value: ChartSpec | null) {
       if (!value) {
-        this.setData({ rows: [], confidenceLabel: "", evidenceCount: 0 });
+        this.setData({ rows: [], evidenceCount: 0 });
         return;
       }
       this.setData({
         rows: reportChartRows(value),
-        confidenceLabel: confidenceLabel(value.confidence),
         evidenceCount: value.evidenceRefs.length,
       });
     },
@@ -62,7 +59,6 @@ function mapRow(
       label: shortDate(text(row.at, `第 ${String(index + 1)} 次`)),
       primary: `${number(row.recommended).toFixed(1)} 分`,
       secondary: `${number(row.lower).toFixed(1)}–${number(row.upper).toFixed(1)} · ${confidenceLabel(normalizeConfidence(row.confidence))}`,
-      marker: "能力区间",
       tone: "primary",
     };
   }
@@ -72,7 +68,6 @@ function mapRow(
       label: text(row.module, "未知模块"),
       primary: `${number(row.actual).toFixed(1)}%`,
       secondary: comparison === null ? "无上次可比数据" : `上次 ${comparison.toFixed(1)}%`,
-      marker: comparison === null ? "当次" : "当次 / 上次",
       tone: number(row.actual) < 60 ? "warning" : "primary",
     };
   }
@@ -81,7 +76,6 @@ function mapRow(
       label: shortDate(text(row.at, `题组 ${String(index + 1)}`)),
       primary: `${number(row.accuracy).toFixed(1)}%`,
       secondary: `${number(row.secondsPerQuestion).toFixed(1)} 秒/题`,
-      marker: "正确率 / 速度",
       tone: number(row.accuracy) < 60 ? "warning" : "primary",
     };
   }
@@ -90,7 +84,6 @@ function mapRow(
       label: text(row.path, "未知错因"),
       primary: `${String(number(row.wrongCount))} 题`,
       secondary: text(row.fixAction, "待生成修正动作"),
-      marker: "错题聚类",
       tone: "warning",
     };
   }
@@ -105,15 +98,13 @@ function mapRow(
       label: labels[step] ?? step,
       primary: `${number(row.value).toFixed(1)} 分`,
       secondary: step === "gap" ? "目标减当前建议值" : "当前有效版本",
-      marker: "分差拆解",
       tone: step === "gap" ? "warning" : "primary",
     };
   }
   return {
-    label: `${trackLabel(text(row.track, ""))} · ${text(row.kind, "计划任务")}`,
+    label: `${trackLabel(text(row.track, ""))} · ${taskKindLabel(text(row.kind, ""))}`,
     primary: `${String(number(row.completed))}/${String(number(row.planned))} 项`,
     secondary: `完成 ${String(number(row.minutes))} 分钟`,
-    marker: "计划执行",
     tone: number(row.completed) < number(row.planned) ? "warning" : "primary",
   };
 }
@@ -148,6 +139,22 @@ function normalizeConfidence(value: unknown): ChartSpec["confidence"] {
 
 function trackLabel(value: string): string {
   return { xingce: "行测", essay: "申论", mock: "模考" }[value] ?? (value || "全部");
+}
+
+function taskKindLabel(value: string): string {
+  return (
+    {
+      practice: "专项训练",
+      verification: "复测",
+      mock_exam: "整卷模考",
+      mock_exam_review: "模考复盘",
+      essay: "申论训练",
+      essay_material: "申论读材料",
+      essay_draft: "申论作答",
+      essay_review: "申论复盘",
+      essay_rewrite: "申论重写",
+    }[value] ?? "学习任务"
+  );
 }
 
 function shortDate(value: string): string {

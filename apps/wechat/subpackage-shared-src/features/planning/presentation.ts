@@ -46,6 +46,15 @@ const dayModeLabels: Record<string, string> = {
   unavailable: "未安排任务",
 };
 
+const invalidationLabels: Record<string, string> = {
+  position_goal_changed: "报考目标发生变化",
+  ability_estimate_changed: "当前能力判断发生变化",
+  daily_capacity_changed: "今天的可用时间或状态发生变化",
+  essay_review_state_changed: "申论评阅结果发生变化",
+  task_execution_recorded: "新增了任务完成记录",
+  strategy_decision_changed: "学习取舍发生变化",
+};
+
 export function planningReasonLabel(codes: readonly string[], emptyLabel: string): string {
   const labels = codes
     .map((code) => reasonLabels[code])
@@ -64,6 +73,10 @@ export function changedInputLabel(keys: readonly string[]): string {
 
 export function planningDayModeLabel(value: string): string {
   return dayModeLabels[value] ?? "学习安排";
+}
+
+export function planningInvalidationLabel(value: string): string {
+  return invalidationLabels[value] ?? "相关学习依据发生变化";
 }
 
 export function weeklyRhythmLabel(value: string): string {

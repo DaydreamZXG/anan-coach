@@ -2666,6 +2666,10 @@ export type DailyCapacityCommand = {
      */
     energy: number;
     /**
+     * Preferredtrack
+     */
+    preferredTrack?: 'balanced' | 'xingce' | 'essay';
+    /**
      * Preferredxingcemodule
      */
     preferredXingceModule?: '言语理解与表达' | '数量关系' | '判断推理' | '资料分析' | '常识判断' | '政治理论' | null;
@@ -7834,6 +7838,58 @@ export type MethodCardApplicability = {
      * Include
      */
     include: Array<string>;
+};
+
+/**
+ * MethodCardCatalog
+ */
+export type MethodCardCatalog = {
+    /**
+     * Cards
+     */
+    cards: Array<MethodCardCatalogItem>;
+    /**
+     * Total
+     */
+    total: number;
+};
+
+/**
+ * MethodCardCatalogItem
+ */
+export type MethodCardCatalogItem = {
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Methodsteps
+     */
+    methodSteps: Array<string>;
+    /**
+     * Modulename
+     */
+    moduleName: string;
+    /**
+     * Pitfall
+     */
+    pitfall?: string | null;
+    /**
+     * Recognition
+     */
+    recognition: string;
+    /**
+     * Status
+     */
+    status: 'draft' | 'published';
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Track
+     */
+    track: 'xingce' | 'shenlun';
 };
 
 /**
@@ -17608,6 +17664,10 @@ export type TodayCapacity = {
      */
     localDate: string;
     /**
+     * Preferredtrack
+     */
+    preferredTrack?: 'balanced' | 'xingce' | 'essay';
+    /**
      * Preferredxingcemodule
      */
     preferredXingceModule?: '言语理解与表达' | '数量关系' | '判断推理' | '资料分析' | '常识判断' | '政治理论' | null;
@@ -19995,6 +20055,44 @@ export type UpdateProfileApiV1LearnerProfilePutResponses = {
 };
 
 export type UpdateProfileApiV1LearnerProfilePutResponse = UpdateProfileApiV1LearnerProfilePutResponses[keyof UpdateProfileApiV1LearnerProfilePutResponses];
+
+export type ListMethodCardCatalogApiV1MethodCardsGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Track
+         */
+        track?: 'xingce' | 'shenlun';
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Offset
+         */
+        offset?: number;
+    };
+    url: '/api/v1/method-cards';
+};
+
+export type ListMethodCardCatalogApiV1MethodCardsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ListMethodCardCatalogApiV1MethodCardsGetError = ListMethodCardCatalogApiV1MethodCardsGetErrors[keyof ListMethodCardCatalogApiV1MethodCardsGetErrors];
+
+export type ListMethodCardCatalogApiV1MethodCardsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: MethodCardCatalog;
+};
+
+export type ListMethodCardCatalogApiV1MethodCardsGetResponse = ListMethodCardCatalogApiV1MethodCardsGetResponses[keyof ListMethodCardCatalogApiV1MethodCardsGetResponses];
 
 export type GetMethodCardApiV1MethodCardsCardIdGetData = {
     body?: never;

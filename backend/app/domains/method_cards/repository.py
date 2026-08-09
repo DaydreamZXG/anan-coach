@@ -65,6 +65,39 @@ class MethodCardRepository:
         ).mappings().first()
         return dict(row) if row else None
 
+    def list_catalog(
+        self,
+        *,
+        track: str,
+        limit: int,
+        offset: int,
+    ) -> tuple[int, list[dict[str, Any]]]:
+        filters = "status in ('draft', 'published') and track = :track"
+        total = int(
+            self._session.execute(
+                text(f"select count(*) from product.method_cards where {filters}"),
+                {"track": track},
+            ).scalar_one()
+        )
+        rows = self._session.execute(
+            text(
+                f"""
+                select id, track, module_name, title, recognition,
+                       method_steps, pitfall, status
+                from product.method_cards
+                where {filters}
+                order by
+                  case status when 'published' then 0 else 1 end,
+                  priority desc,
+                  module_name,
+                  id
+                limit :limit offset :offset
+                """
+            ),
+            {"track": track, "limit": limit, "offset": offset},
+        ).mappings()
+        return total, [dict(row) for row in rows]
+
     def upsert_cards(self, cards: list[MethodCardRecord]) -> int:
         """Write cards through the METHOD-CARD-REPLAY@v1 database contract.
 

@@ -204,6 +204,7 @@ class PlanningService:
                 "confidence_level": command.confidence_level,
                 "preferred_xingce_module": command.preferred_xingce_module,
                 "xingce_only": command.xingce_only,
+                "preferred_track": command.preferred_track,
                 "weekly_preference_version_id": str(current["weekly_preference_version_id"]),
                 "input_fingerprint": input_fingerprint,
                 "supersedes_capacity_version_id": str(current["capacity_version_id"]),
@@ -223,6 +224,7 @@ class PlanningService:
                 "availableMinutes": command.available_minutes,
                 "preferredXingceModule": command.preferred_xingce_module,
                 "xingceOnly": command.xingce_only,
+                "preferredTrack": command.preferred_track,
                 "inputFingerprint": input_fingerprint,
             },
         )
@@ -571,6 +573,7 @@ class PlanningService:
             available_minutes=remaining_minutes,
             preferred_xingce_module=capacity.preferred_xingce_module,
             xingce_only=capacity.xingce_only,
+            preferred_track=capacity.preferred_track,
         )
         strategy_decisions = self._repository.active_strategy_decisions(
             session,
@@ -1128,6 +1131,7 @@ def _capacity_from_row(row: RowMapping) -> CapacitySnapshot:
             else None
         ),
         xingce_only=bool(row["xingce_only"]),
+        preferred_track=str(row["preferred_track"]),
         confirmed=bool(row["confirmed"]),
         source_type=str(row["source_type"]),
         input_fingerprint=str(row["input_fingerprint"]),
@@ -1145,6 +1149,7 @@ def _today_capacity(capacity: CapacitySnapshot, local_date: date) -> TodayCapaci
         confidence_level=capacity.confidence_level,
         preferred_xingce_module=capacity.preferred_xingce_module,
         xingce_only=capacity.xingce_only,
+        preferred_track=capacity.preferred_track,
         confirmed=capacity.confirmed,
         source_type=capacity.source_type,
     )

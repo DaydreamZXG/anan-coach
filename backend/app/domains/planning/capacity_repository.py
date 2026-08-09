@@ -265,13 +265,13 @@ class CapacityRepositoryMixin:
                   capacity_version_id, command_id, user_id, local_date, version_no,
                   available_minutes, energy_level, stress_level, confidence_level,
                   confirmed, source_type, weekly_preference_version_id,
-                  preferred_xingce_module, xingce_only,
+                  preferred_xingce_module, xingce_only, preferred_track,
                   input_fingerprint, supersedes_capacity_version_id, recorded_at
                 ) values (
                   cast(:capacity_version_id as uuid), :command_id,
                   cast(:user_id as uuid), :local_date, :version_no,
                   :available_minutes, 3, 3, 3, false, 'weekly_preference',
-                  cast(:preference_version_id as uuid), null, false, :input_fingerprint,
+                  cast(:preference_version_id as uuid), null, false, 'balanced', :input_fingerprint,
                   cast(:supersedes_id as uuid), :recorded_at
                 ) returning *
                 """
@@ -366,14 +366,14 @@ class CapacityRepositoryMixin:
                   capacity_version_id, command_id, user_id, local_date, version_no,
                   available_minutes, energy_level, stress_level, confidence_level,
                   confirmed, source_type, weekly_preference_version_id,
-                  preferred_xingce_module, xingce_only,
+                  preferred_xingce_module, xingce_only, preferred_track,
                   input_fingerprint, supersedes_capacity_version_id, recorded_at
                 ) values (
                   cast(:capacity_version_id as uuid), :command_id,
                   cast(:user_id as uuid), :local_date, :version_no,
                   :available_minutes, :energy, :stress, :confidence_level,
                   true, 'user_override', cast(:weekly_preference_version_id as uuid),
-                  :preferred_xingce_module, :xingce_only,
+                  :preferred_xingce_module, :xingce_only, :preferred_track,
                   :input_fingerprint,
                   cast(:supersedes_capacity_version_id as uuid), :recorded_at
                 ) returning *

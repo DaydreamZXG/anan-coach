@@ -46,6 +46,7 @@ class CapacitySnapshot:
     confidence_level: int
     preferred_xingce_module: str | None
     xingce_only: bool
+    preferred_track: str
     confirmed: bool
     source_type: str
     input_fingerprint: str
@@ -125,6 +126,7 @@ def _capacity_snapshot(row: RowMapping) -> CapacitySnapshot:
             else None
         ),
         xingce_only=bool(row["xingce_only"]),
+        preferred_track=str(row["preferred_track"]),
         confirmed=bool(row["confirmed"]),
         source_type=str(row["source_type"]),
         input_fingerprint=str(row["input_fingerprint"]),

@@ -161,6 +161,12 @@ export type TaskRuntimeEvent =
   | { type: "MATERIAL_POSITION_CHANGED"; position: MaterialPosition }
   | { type: "ANNOTATIONS_CHANGED"; strokes: AnnotationStroke[]; action: "added" | "erased" }
   | {
+      type: "SHARED_MATERIAL_ANNOTATIONS_CHANGED";
+      questionIds: string[];
+      strokes: AnnotationStroke[];
+      action: "added" | "erased";
+    }
+  | {
       type: "ACTION_LOGGED";
       action: "paused" | "resumed" | "material_expanded";
       detail?: string;

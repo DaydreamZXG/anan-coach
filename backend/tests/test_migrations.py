@@ -112,9 +112,38 @@ def test_learning_loop_v103_upgrade_owns_nullable_compatibility_columns(
     assert migration.down_revision == "20260808_102"
 
 
-def test_learning_loop_v103_empty_upgrade_downgrade_round_trip(
+def test_daily_track_focus_v104_is_the_persisted_database_contract(
     db_engine: Engine,
 ) -> None:
+    inspector = inspect(db_engine)
+    columns = {
+        item["name"]: item
+        for item in inspector.get_columns("daily_capacity_versions", schema="learning")
+    }
+    assert columns["preferred_track"]["nullable"] is False
+    checks = {
+        item["name"]: str(item["sqltext"])
+        for item in inspector.get_check_constraints(
+            "daily_capacity_versions",
+            schema="learning",
+        )
+    }
+    assert "preferred_track" in checks["daily_capacity_preferred_track_check"]
+    assert "preferred_xingce_module" in checks[
+        "daily_capacity_track_focus_consistency_check"
+    ]
+
+    migration = import_module("migrations.versions.20260809_104_daily_track_focus")
+    assert migration.revision == "20260809_104"
+    assert migration.down_revision == "20260809_103"
+    with pytest.raises(RuntimeError, match="forward-only"):
+        migration.downgrade()
+
+
+def test_learning_loop_v103_empty_upgrade_downgrade_round_trip(
+    db_engine_at_revision_103: Engine,
+) -> None:
+    db_engine = db_engine_at_revision_103
     config = Config(str(BACKEND_ROOT / "alembic.ini"))
     config.set_main_option(
         "sqlalchemy.url",
@@ -140,7 +169,7 @@ def test_learning_loop_v103_empty_upgrade_downgrade_round_trip(
     with db_engine.connect() as connection:
         assert connection.execute(
             text("select version_num from alembic_version")
-        ).scalar_one() == "20260809_103"
+        ).scalar_one() == "20260809_104"
     upgraded = inspect(db_engine)
     assert "selection_intent" in {
         item["name"]

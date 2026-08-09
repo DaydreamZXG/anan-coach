@@ -9,6 +9,10 @@ from pydantic import ValidationError
 
 from app.core.config import Settings
 from app.domains.ai.external_processing import endpoint_fingerprint
+from app.domains.ai.companion_failover import (
+    CompanionFailoverProvider,
+    openai_compatible_companion_route,
+)
 from app.domains.ai.model_cost import ModelTokenUsage
 from app.domains.ai.provider import (
     AICompanionAnswerResult,
@@ -199,7 +203,7 @@ def companion_provider(settings: Settings) -> AIProvider:
     transport = settings.ai_companion_transport.strip().casefold()
     if transport == "openai_compatible":
         companion_model = settings.ai_companion_model.strip()
-        return AIProvider(
+        primary = AIProvider(
             replace(
                 settings,
                 ai_provider_base_url=(
@@ -211,8 +215,58 @@ def companion_provider(settings: Settings) -> AIProvider:
                 ai_high_capability_model=(companion_model or settings.ai_high_capability_model),
             )
         )
-    if transport == "cloudbase_hunyuan":
-        return HunyuanCompanionProvider(settings)
-    raise AIProviderConfigurationError(
-        "AI_COMPANION_TRANSPORT must be openai_compatible or cloudbase_hunyuan"
-    )
+    elif transport == "cloudbase_hunyuan":
+        primary = HunyuanCompanionProvider(settings)
+    else:
+        raise AIProviderConfigurationError(
+            "AI_COMPANION_TRANSPORT must be openai_compatible or cloudbase_hunyuan"
+        )
+
+    routes: list[AIProvider] = [primary]
+    if settings.ai_companion_ark_api_key.strip():
+        routes.append(
+            openai_compatible_companion_route(
+                settings,
+                base_url=settings.ai_companion_ark_provider_base_url,
+                api_key=settings.ai_companion_ark_api_key,
+                model=settings.ai_companion_ark_model,
+                release_id=settings.ai_companion_ark_provider_release_id,
+                host_allowlist=settings.ai_companion_ark_provider_https_host_allowlist,
+                idempotency_capability=(
+                    settings.ai_companion_ark_provider_idempotency_capability
+                ),
+                idempotency_key_header=(
+                    settings.ai_companion_ark_provider_idempotency_key_header
+                ),
+                request_id_header=settings.ai_companion_ark_provider_request_id_header,
+                replay_retention_seconds=(
+                    settings.ai_companion_ark_provider_replay_retention_seconds
+                ),
+            )
+        )
+    if settings.ai_companion_deepseek_api_key.strip():
+        routes.append(
+            openai_compatible_companion_route(
+                settings,
+                base_url=settings.ai_companion_deepseek_provider_base_url,
+                api_key=settings.ai_companion_deepseek_api_key,
+                model=settings.ai_companion_deepseek_model,
+                release_id=settings.ai_companion_deepseek_provider_release_id,
+                host_allowlist=(
+                    settings.ai_companion_deepseek_provider_https_host_allowlist
+                ),
+                idempotency_capability=(
+                    settings.ai_companion_deepseek_provider_idempotency_capability
+                ),
+                idempotency_key_header=(
+                    settings.ai_companion_deepseek_provider_idempotency_key_header
+                ),
+                request_id_header=(
+                    settings.ai_companion_deepseek_provider_request_id_header
+                ),
+                replay_retention_seconds=(
+                    settings.ai_companion_deepseek_provider_replay_retention_seconds
+                ),
+            )
+        )
+    return primary if len(routes) == 1 else CompanionFailoverProvider(settings, routes=routes)

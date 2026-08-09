@@ -10,6 +10,8 @@ import { navigateBackOr } from "../shared/app/navigation/safe-back";
 import { currentAuthSession } from "../../auth/session";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
 
+const closingTimers = new WeakMap<object, ReturnType<typeof setTimeout>>();
+
 Page({
   data: {
     status: "loading",
@@ -32,6 +34,12 @@ Page({
         })
       | null,
     additionalOpenTaskCount: 0,
+    closing: false,
+    closingHasActivity: false,
+    closingDate: "",
+    closingTitle: "",
+    closingCopy: "",
+    closingMeta: "",
     tasks: [] as Array<
       DailySettlementView["tasks"][number] & {
         trackLabel: string;
@@ -45,6 +53,13 @@ Page({
 
   onLoad() {
     void this.loadSettlement();
+  },
+  onHide() {
+    clearClosingTimer(this);
+    if (this.data.closing) this.setData({ closing: false });
+  },
+  onUnload() {
+    clearClosingTimer(this);
   },
   async loadSettlement() {
     const client = requireAuthenticatedClient();
@@ -100,8 +115,38 @@ Page({
     navigateBackOr(routes.today);
   },
   returnToday() {
-    void wx.switchTab({ url: routes.today });
+    if (this.data.closing) return;
+    const settlement = this.data.settlement;
+    if (!settlement) return;
+    const hasActivity = settlement.elapsedMinutes > 0 || settlement.completedTaskCount > 0;
+    const duration = ritualDurationLabel(settlement.elapsedMinutes);
+    this.setData({
+      closing: true,
+      closingHasActivity: hasActivity,
+      closingDate: shortDateLabel(settlement.localDate),
+      closingTitle: hasActivity ? "今天，正式收卷" : "今天，也先收卷",
+      closingCopy: hasActivity
+        ? settlement.completedTaskCount > 0
+          ? `完成了 ${String(settlement.completedTaskCount)} 项，专注 ${duration}。这些真实投入会带到明天。`
+          : `今天投入了 ${duration}，虽然还没闭环，过程也已经留下。`
+        : "没有开始也如实记下。明天从第一项重新落笔。",
+      closingMeta: `${String(settlement.completedTaskCount)} 项完成 · ${duration}`,
+    });
+    wx.vibrateShort({ type: "light", fail: () => {} });
+    closingTimers.set(
+      this,
+      setTimeout(() => {
+        closingTimers.delete(this);
+        wx.switchTab({
+          url: routes.today,
+          fail: () => {
+            this.setData({ closing: false });
+          },
+        });
+      }, 1300),
+    );
   },
+  preventMove() {},
   openWeeklyPlan() {
     void wx.navigateTo({ url: routes.weeklyPlan });
   },
@@ -139,4 +184,22 @@ function varianceLabel(elapsedMinutes: number, scheduledMinutes: number): string
   if (difference === 0) return "与计划一致";
   const label = durationLabel(Math.abs(difference));
   return difference > 0 ? `比计划多 ${label}` : `比计划少 ${label}`;
+}
+
+function ritualDurationLabel(minutes: number): string {
+  const value = Math.max(0, minutes);
+  if (value < 60) return `${String(value)} 分钟`;
+  const hours = value / 60;
+  return `${Number.isInteger(hours) ? String(hours) : hours.toFixed(1)} 小时`;
+}
+
+function shortDateLabel(localDate: string): string {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(localDate);
+  return match ? `${String(match[2])}.${String(match[3])}` : localDate;
+}
+
+function clearClosingTimer(page: object): void {
+  const timer = closingTimers.get(page);
+  if (timer) clearTimeout(timer);
+  closingTimers.delete(page);
 }

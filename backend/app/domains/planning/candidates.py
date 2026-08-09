@@ -196,6 +196,7 @@ def build_dual_track_candidates(
     available_minutes: int,
     preferred_xingce_module: str | None = None,
     xingce_only: bool = False,
+    preferred_track: Literal["balanced", "xingce", "essay"] = "balanced",
 ) -> CandidateSet:
     candidates: list[TaskCandidate] = []
     omitted: dict[str, str] = {}
@@ -239,6 +240,18 @@ def build_dual_track_candidates(
         )
     )
     if essay_candidate is not None:
+        if preferred_track == "essay":
+            essay_candidate = replace(
+                essay_candidate,
+                priority=replace(
+                    essay_candidate.priority,
+                    goal_gain=min(1.0, essay_candidate.priority.goal_gain + 0.20),
+                    ability_gain=min(1.0, essay_candidate.priority.ability_gain + 0.20),
+                ),
+                reason=(
+                    "你今天选择了申论优先；先把当前申论阶段做完，行测仍保留在今天的安排里。"
+                ),
+            )
         candidates.append(essay_candidate)
     elif not xingce_only:
         omitted["essay"] = essay.pending_reason or (
@@ -404,6 +417,7 @@ def _objective_candidates(
         return candidates
     module = snapshot.weakest_module or "国考高频模块"
     cause_direction = snapshot.caused_training_direction
+    selection_focus = _selection_focus_label(snapshot.selection_intent)
     block_minutes = min(targeted_minutes, XINGCE_TASK_BLOCK_MINUTES)
     block_count = min(16, max(1, (available_minutes + block_minutes - 1) // block_minutes))
     for block_index in range(block_count):
@@ -411,7 +425,11 @@ def _objective_candidates(
         base_title = (
             f"行测提分练习：{module}（{cause_direction.display}）"
             if cause_direction is not None and cause_direction.display
-            else f"行测提分练习：{module}"
+            else (
+                f"{module}专项：{selection_focus}"
+                if selection_focus is not None
+                else f"行测提分练习：{module}"
+            )
         )
         candidates.append(
             TaskCandidate(
@@ -433,8 +451,13 @@ def _objective_candidates(
                     f"这块是你的提分宝地，咱们按这个方向练，重点放在「{module}」模块。"
                     if cause_direction is not None
                     else (
-                        f"「{module}」这块是你的提分宝地，今天多练练，提分最快。"
-                        "练完一组随时可以接着安排后面的时间。"
+                        f"这组按「{selection_focus}」这个知识点抽题，练完会根据"
+                        "正确率、用时和复测结果继续调整。"
+                        if selection_focus is not None
+                        else (
+                            f"「{module}」这块是你的提分宝地，今天多练练，提分最快。"
+                            "练完一组随时可以接着安排后面的时间。"
+                        )
                     )
                 ),
                 estimated_minutes=block_minutes,
@@ -460,6 +483,19 @@ def _objective_candidates(
             )
         )
     return candidates
+
+
+def _selection_focus_label(intent: dict[str, Any] | None) -> str | None:
+    if not isinstance(intent, dict):
+        return None
+    for key in ("targetKnowledgeNode", "targetMicroSkillNode"):
+        node = intent.get(key)
+        if not isinstance(node, dict):
+            continue
+        label = node.get("tagValue")
+        if isinstance(label, str) and label.strip():
+            return label.strip()
+    return None
 
 
 def _reflection_candidate_copy(

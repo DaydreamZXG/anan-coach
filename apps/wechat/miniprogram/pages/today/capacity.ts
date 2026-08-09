@@ -8,6 +8,7 @@ export interface CapacityDraft {
   confidenceLevel: number;
   preferredXingceModule: DailyCapacityCommand["preferredXingceModule"];
   xingceOnly: boolean;
+  preferredTrack: DailyCapacityCommand["preferredTrack"];
 }
 
 export interface CapacityTimeOption {
@@ -54,6 +55,7 @@ export function capacityDraftFromVersion(
     | "confidenceLevel"
     | "preferredXingceModule"
     | "xingceOnly"
+    | "preferredTrack"
   >,
 ): CapacityDraft {
   return {
@@ -63,6 +65,7 @@ export function capacityDraftFromVersion(
     confidenceLevel: capacity.confidenceLevel,
     preferredXingceModule: capacity.preferredXingceModule ?? null,
     xingceOnly: capacity.xingceOnly ?? false,
+    preferredTrack: capacity.preferredTrack ?? "balanced",
   };
 }
 
@@ -98,6 +101,7 @@ export function prepareCapacityCommand(
       energy: draft.energy,
       stress: draft.stress,
       confidenceLevel: draft.confidenceLevel,
+      preferredTrack: draft.preferredTrack ?? "balanced",
       preferredXingceModule: draft.preferredXingceModule ?? null,
       xingceOnly: Boolean(draft.preferredXingceModule && draft.xingceOnly),
     },
@@ -112,6 +116,7 @@ export function capacityCommandFingerprint(command: DailyCapacityCommand): strin
     command.energy,
     command.stress,
     command.confidenceLevel,
+    command.preferredTrack ?? "balanced",
     command.preferredXingceModule ?? "balanced",
     command.xingceOnly ? "only" : "mixed",
   ].join(":");

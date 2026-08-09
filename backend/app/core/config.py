@@ -119,6 +119,24 @@ class Settings:
     ai_companion_provider_replay_retention_seconds: int = 0
     ai_companion_max_input_bytes: int = 0
     ai_companion_max_output_bytes: int = 0
+    ai_companion_ark_provider_base_url: str = "https://ark.cn-beijing.volces.com/api/plan/v3"
+    ai_companion_ark_api_key: str = ""
+    ai_companion_ark_model: str = "ark-code-latest"
+    ai_companion_ark_provider_release_id: str = "volcengine-ark-plan-code-latest"
+    ai_companion_ark_provider_https_host_allowlist: str = "ark.cn-beijing.volces.com"
+    ai_companion_ark_provider_idempotency_capability: str = "nonreplayable_audited"
+    ai_companion_ark_provider_idempotency_key_header: str = "Idempotency-Key"
+    ai_companion_ark_provider_request_id_header: str = "body:id"
+    ai_companion_ark_provider_replay_retention_seconds: int = 0
+    ai_companion_deepseek_api_key: str = ""
+    ai_companion_deepseek_provider_base_url: str = "https://api.deepseek.com"
+    ai_companion_deepseek_model: str = "deepseek-v4-flash"
+    ai_companion_deepseek_provider_release_id: str = "deepseek-official-v4-flash"
+    ai_companion_deepseek_provider_https_host_allowlist: str = "api.deepseek.com"
+    ai_companion_deepseek_provider_idempotency_capability: str = "nonreplayable_audited"
+    ai_companion_deepseek_provider_idempotency_key_header: str = "Idempotency-Key"
+    ai_companion_deepseek_provider_request_id_header: str = "body:id"
+    ai_companion_deepseek_provider_replay_retention_seconds: int = 0
     ai_xingce_cause_model: str = "gemini-3.5-flash"
     ai_xingce_cause_provider_release_id: str = ""
     ai_xingce_cause_provider_https_host_allowlist: str = ""
@@ -418,6 +436,59 @@ def get_settings() -> Settings:
         ),
         ai_companion_max_input_bytes=int(os.getenv("AI_COMPANION_MAX_INPUT_BYTES", "0")),
         ai_companion_max_output_bytes=int(os.getenv("AI_COMPANION_MAX_OUTPUT_BYTES", "0")),
+        ai_companion_ark_provider_base_url=os.getenv(
+            "AI_COMPANION_ARK_PROVIDER_BASE_URL",
+            "https://ark.cn-beijing.volces.com/api/plan/v3",
+        ),
+        ai_companion_ark_api_key=os.getenv("AI_COMPANION_ARK_API_KEY", ""),
+        ai_companion_ark_model=os.getenv("AI_COMPANION_ARK_MODEL", "ark-code-latest"),
+        ai_companion_ark_provider_release_id=os.getenv(
+            "AI_COMPANION_ARK_PROVIDER_RELEASE_ID", "volcengine-ark-plan-code-latest"
+        ),
+        ai_companion_ark_provider_https_host_allowlist=os.getenv(
+            "AI_COMPANION_ARK_PROVIDER_HTTPS_HOST_ALLOWLIST",
+            "ark.cn-beijing.volces.com",
+        ),
+        ai_companion_ark_provider_idempotency_capability=os.getenv(
+            "AI_COMPANION_ARK_PROVIDER_IDEMPOTENCY_CAPABILITY",
+            "nonreplayable_audited",
+        ),
+        ai_companion_ark_provider_idempotency_key_header=os.getenv(
+            "AI_COMPANION_ARK_PROVIDER_IDEMPOTENCY_KEY_HEADER", "Idempotency-Key"
+        ),
+        ai_companion_ark_provider_request_id_header=os.getenv(
+            "AI_COMPANION_ARK_PROVIDER_REQUEST_ID_HEADER", "body:id"
+        ),
+        ai_companion_ark_provider_replay_retention_seconds=int(
+            os.getenv("AI_COMPANION_ARK_PROVIDER_REPLAY_RETENTION_SECONDS", "0")
+        ),
+        ai_companion_deepseek_api_key=os.getenv("AI_COMPANION_DEEPSEEK_API_KEY", ""),
+        ai_companion_deepseek_provider_base_url=os.getenv(
+            "AI_COMPANION_DEEPSEEK_PROVIDER_BASE_URL", "https://api.deepseek.com"
+        ),
+        ai_companion_deepseek_model=os.getenv(
+            "AI_COMPANION_DEEPSEEK_MODEL", "deepseek-v4-flash"
+        ),
+        ai_companion_deepseek_provider_release_id=os.getenv(
+            "AI_COMPANION_DEEPSEEK_PROVIDER_RELEASE_ID",
+            "deepseek-official-v4-flash",
+        ),
+        ai_companion_deepseek_provider_https_host_allowlist=os.getenv(
+            "AI_COMPANION_DEEPSEEK_PROVIDER_HTTPS_HOST_ALLOWLIST", "api.deepseek.com"
+        ),
+        ai_companion_deepseek_provider_idempotency_capability=os.getenv(
+            "AI_COMPANION_DEEPSEEK_PROVIDER_IDEMPOTENCY_CAPABILITY",
+            "nonreplayable_audited",
+        ),
+        ai_companion_deepseek_provider_idempotency_key_header=os.getenv(
+            "AI_COMPANION_DEEPSEEK_PROVIDER_IDEMPOTENCY_KEY_HEADER", "Idempotency-Key"
+        ),
+        ai_companion_deepseek_provider_request_id_header=os.getenv(
+            "AI_COMPANION_DEEPSEEK_PROVIDER_REQUEST_ID_HEADER", "body:id"
+        ),
+        ai_companion_deepseek_provider_replay_retention_seconds=int(
+            os.getenv("AI_COMPANION_DEEPSEEK_PROVIDER_REPLAY_RETENTION_SECONDS", "0")
+        ),
         ai_xingce_cause_model=os.getenv(
             "AI_XINGCE_CAUSE_MODEL",
             os.getenv("AI_MODEL", "gemini-3.5-flash"),

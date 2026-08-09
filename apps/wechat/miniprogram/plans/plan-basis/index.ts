@@ -13,6 +13,7 @@ import {
   requireAuthenticatedClient,
   trackLabel,
 } from "../../features/learning-brain/presentation";
+import { planningInvalidationLabel } from "../shared/features/planning/presentation";
 
 type FactorTone = "primary" | "neutral" | "warning";
 
@@ -109,7 +110,9 @@ Page({
         focusTask,
         evidenceBullets,
         factorMetrics: rawTask ? factorViews(rawTask) : [],
-        invalidationConditions: basis.invalidationConditions,
+        invalidationConditions: [
+          ...new Set(basis.invalidationConditions.map(planningInvalidationLabel)),
+        ],
         errorMessage: focusTask ? "" : "今天暂时没有需要解释的训练任务。",
       });
     } catch (error) {

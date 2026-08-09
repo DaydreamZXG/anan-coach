@@ -101,9 +101,26 @@
   </view>
 
   <view wx:if="{{settlement}}" class="s9-action-dock">
-    <button hover-class="item--hover" class="s9-primary-button settlement-primary tap-tactile" bindtap="returnToday">确认结算，结束今天</button>
+    <button hover-class="item--hover" class="s9-primary-button settlement-primary tap-tactile" bindtap="returnToday" disabled="{{closing}}">
+      {{closing ? '正在收好今天…' : '确认结算，结束今天'}}
+    </button>
     <button hover-class="item--hover" class="settlement-companion" bindtap="askAnan">
       带着今天的结果问岸岸 <text>✦</text>
     </button>
+  </view>
+
+  <view wx:if="{{closing}}" class="settlement-ritual motion-mask" catchtouchmove="preventMove" catchtap="preventMove">
+    <view class="settlement-ritual__sheet motion-sheet">
+      <view class="settlement-seal {{closingHasActivity ? '' : 'settlement-seal--quiet'}} check-pop">
+        <view class="settlement-seal__date">{{closingDate}}</view>
+        <view class="settlement-seal__rule"></view>
+        <view class="settlement-seal__word">收卷</view>
+      </view>
+      <view class="settlement-ritual__eyebrow">今日记录已确认</view>
+      <view class="settlement-ritual__title">{{closingTitle}}</view>
+      <view class="settlement-ritual__copy">{{closingCopy}}</view>
+      <view class="settlement-ritual__meta">{{closingMeta}}</view>
+      <view class="settlement-ritual__hint">即将回到今日</view>
+    </view>
   </view>
 </view>

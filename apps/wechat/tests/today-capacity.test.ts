@@ -40,6 +40,7 @@ describe("today capacity command", () => {
         energy: 2,
         stress: 4,
         confidenceLevel: 3,
+        preferredTrack: "balanced",
         preferredXingceModule: null,
         xingceOnly: false,
       },
@@ -367,6 +368,7 @@ describe("day adjustment capacity operation attempt", () => {
       "basedOnCapacityVersionId",
       "confidenceLevel",
       "energy",
+      "preferredTrack",
       "preferredXingceModule",
       "stress",
       "xingceOnly",
@@ -879,6 +881,7 @@ function expectedCapacityCommand(
     energy: 2,
     stress: 4,
     confidenceLevel: 3,
+    preferredTrack: "balanced",
     preferredXingceModule: null,
     xingceOnly: false,
   };

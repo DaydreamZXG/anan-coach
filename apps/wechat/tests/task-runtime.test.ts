@@ -763,4 +763,49 @@ describe("task runtime contract increment v1", () => {
     expect(state.attempts.q1?.annotations?.[0]?.points[1]).toMatchObject({ t: 18 });
     expect(state.attempts.q1?.actionEvents?.at(-1)).toMatchObject({ type: "annotation_erased" });
   });
+
+  it("keeps one shared material canvas across every question in the material group", () => {
+    let state = startedRuntime(["q1", "q2", "q3", "q4", "q5"]);
+    state = reduceTaskRuntime(state, {
+      type: "ANNOTATIONS_CHANGED",
+      strokes: [
+        {
+          strokeId: "question-only",
+          tool: "pen",
+          width: 0.006,
+          points: [{ x: 0.1, y: 0.1 }],
+          atMs: 100,
+        },
+      ],
+      action: "added",
+    });
+    state = reduceTaskRuntime(state, {
+      type: "SHARED_MATERIAL_ANNOTATIONS_CHANGED",
+      questionIds: ["q1", "q2", "q3", "q4", "q5"],
+      strokes: [
+        {
+          strokeId: "material-stroke-shared",
+          surface: "material",
+          tool: "highlighter",
+          width: 0.03,
+          points: [{ x: 0.2, y: 0.4 }],
+          atMs: 250,
+        },
+      ],
+      action: "added",
+    });
+
+    expect(state.attempts.q1?.annotations?.map((stroke) => stroke.strokeId)).toEqual([
+      "question-only",
+      "material-stroke-shared",
+    ]);
+    for (const questionId of ["q2", "q3", "q4", "q5"]) {
+      expect(state.attempts[questionId]?.annotations).toEqual([
+        expect.objectContaining({
+          strokeId: "material-stroke-shared",
+          surface: "material",
+        }),
+      ]);
+    }
+  });
 });

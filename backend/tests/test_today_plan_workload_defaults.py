@@ -30,6 +30,7 @@ def _capacity(
         confidence_level=3,
         preferred_xingce_module=None,
         xingce_only=False,
+        preferred_track="balanced",
         confirmed=confirmed,
         source_type=source_type,
         input_fingerprint="weekly-default-capacity",

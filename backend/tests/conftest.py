@@ -309,6 +309,17 @@ def db_engine_at_revision_85(postgres_url: str) -> Iterator[Engine]:
 
 
 @pytest.fixture()
+def db_engine_at_revision_103(postgres_url: str) -> Iterator[Engine]:
+    engine = create_engine(postgres_url, pool_pre_ping=True, future=True)
+    _reset_test_schema(engine, target_revision="20260809_103")
+    try:
+        yield engine
+    finally:
+        _drop_test_schema(engine)
+        engine.dispose()
+
+
+@pytest.fixture()
 def db_session_factory(db_engine: Engine) -> sessionmaker[Session]:
     return sessionmaker(
         bind=db_engine,

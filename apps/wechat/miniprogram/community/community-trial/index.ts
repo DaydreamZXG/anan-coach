@@ -5,6 +5,7 @@ import {
   type CommunityFeedbackReason,
   type CommunityFeedbackVote,
   type CommunityReportCategory,
+  type SystemMethodCard,
   type CommunityTrack,
   type CommunityTrialReceipt,
 } from "../shared/api/community-method-cards";
@@ -61,12 +62,18 @@ interface TrialPageData {
   trialMessage: string;
   evidenceReady: boolean;
   interactionLocked: boolean;
+  systemCards: SystemMethodCard[];
+  selectedSystemCard: SystemMethodCard | null;
+  systemCardCount: number;
+  systemActiveIndex: number;
 }
 
 interface TrialPageCustom {
   loadCards(): Promise<void>;
   stateAction(): void;
   selectCard(event: WechatMiniprogram.BaseEvent): void;
+  selectSystemCard(event: WechatMiniprogram.BaseEvent): void;
+  stepSystemCard(event: WechatMiniprogram.BaseEvent): void;
   optIn(): Promise<void>;
   completeTrial(): Promise<void>;
   chooseVote(event: WechatMiniprogram.BaseEvent): void;
@@ -115,6 +122,10 @@ Page<TrialPageData, TrialPageCustom>({
     trialMessage: "",
     evidenceReady: false,
     interactionLocked: false,
+    systemCards: [],
+    selectedSystemCard: null,
+    systemCardCount: 0,
+    systemActiveIndex: 0,
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -167,11 +178,25 @@ Page<TrialPageData, TrialPageCustom>({
     const epoch = ++runtime.requestEpoch;
     setState(this, "loading");
     try {
-      const response = await runtime.api.discover(runtime.track, runtime.applicability);
+      const [communityResult, systemResult] = await Promise.all([
+        runtime.api
+          .discover(runtime.track, runtime.applicability)
+          .then((value) => ({ value, error: null }))
+          .catch((error: unknown) => ({ value: null, error })),
+        runtime.api
+          .listSystemMethods(runtime.track)
+          .then((value) => ({ value, error: null }))
+          .catch((error: unknown) => ({ value: null, error })),
+      ]);
       if (!runtimes.owns(this, runtime, epoch)) return;
-      runtime.rankingPolicyVersion = response.rankingPolicyVersion;
-      response.cards.forEach(assertTrialCard);
-      const cards = response.cards.map(presentTrialCard);
+      if (!communityResult.value && !systemResult.value) {
+        throw communityResult.error ?? systemResult.error;
+      }
+      const response = communityResult.value;
+      runtime.rankingPolicyVersion = response?.rankingPolicyVersion ?? "";
+      response?.cards.forEach(assertTrialCard);
+      const cards = response?.cards.map(presentTrialCard) ?? [];
+      const systemCards = systemResult.value?.cards ?? [];
       this.setData({
         cards,
         selectedCard: cards[0] ?? null,
@@ -181,12 +206,20 @@ Page<TrialPageData, TrialPageCustom>({
         feedbackEligible: false,
         feedbackRecorded: false,
         trialMessage: "",
+        systemCards,
+        selectedSystemCard: systemCards[0] ?? null,
+        systemCardCount: systemResult.value?.total ?? 0,
+        systemActiveIndex: 0,
       });
       runtime.recoveryOperation = null;
       setState(
         this,
-        cards.length ? "default" : "empty",
-        cards.length ? undefined : "当前适用范围还没有可试用的方法。",
+        cards.length || systemCards.length ? "default" : "empty",
+        cards.length || systemCards.length
+          ? undefined
+          : "当前还没有可浏览的系统方法，也没有通过独立试用的考友方法。",
+        "",
+        cards.length || systemCards.length ? undefined : "方法库还在整理",
       );
     } catch (error) {
       if (!runtimes.owns(this, runtime, epoch)) return;
@@ -226,6 +259,24 @@ Page<TrialPageData, TrialPageCustom>({
       trialMessage: "",
       reportMessage: "",
     });
+  },
+
+  selectSystemCard(event) {
+    const index = Number(event.currentTarget.dataset.index);
+    const card = this.data.systemCards[index];
+    if (!card) return;
+    this.setData({ selectedSystemCard: card, systemActiveIndex: index });
+  },
+
+  stepSystemCard(event) {
+    const delta = Number(event.currentTarget.dataset.delta);
+    if (!Number.isInteger(delta) || !this.data.systemCards.length) return;
+    const index = Math.max(
+      0,
+      Math.min(this.data.systemCards.length - 1, this.data.systemActiveIndex + delta),
+    );
+    const card = this.data.systemCards[index];
+    if (card) this.setData({ selectedSystemCard: card, systemActiveIndex: index });
   },
 
   async optIn() {

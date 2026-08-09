@@ -88,6 +88,61 @@ def test_explicit_xingce_only_focus_excludes_other_tracks_and_targets_the_module
     assert "essay" not in result.omitted_track_reasons
 
 
+def test_explicit_essay_focus_keeps_both_tracks_but_promotes_the_essay_task() -> None:
+    baseline = build_dual_track_candidates(
+        goal=_goal(readiness="partial"),
+        objective=ObjectivePlanningSnapshot(
+            False,
+            0,
+            0,
+            "资料分析",
+            "objective-focus-v1",
+            "available",
+            None,
+            targeted_question_count=30,
+        ),
+        essay=EssayPlanningSnapshot(
+            "baseline_due",
+            "essay-task-v1",
+            material_bundle_version_id="essay-material-v1",
+            rubric_version_id="essay-rubric-v1",
+            question_type="summary",
+            word_limit=200,
+        ),
+        available_minutes=120,
+    )
+    focused = build_dual_track_candidates(
+        goal=_goal(readiness="partial"),
+        objective=ObjectivePlanningSnapshot(
+            False,
+            0,
+            0,
+            "资料分析",
+            "objective-focus-v1",
+            "available",
+            None,
+            targeted_question_count=30,
+        ),
+        essay=EssayPlanningSnapshot(
+            "baseline_due",
+            "essay-task-v1",
+            material_bundle_version_id="essay-material-v1",
+            rubric_version_id="essay-rubric-v1",
+            question_type="summary",
+            word_limit=200,
+        ),
+        available_minutes=120,
+        preferred_track="essay",
+    )
+
+    baseline_essay = next(item for item in baseline.candidates if item.track == "essay")
+    focused_essay = next(item for item in focused.candidates if item.track == "essay")
+    assert {item.track for item in focused.candidates} == {"xingce", "essay"}
+    assert focused_essay.priority.goal_gain > baseline_essay.priority.goal_gain
+    assert focused_essay.priority.ability_gain > baseline_essay.priority.ability_gain
+    assert "申论优先" in focused_essay.reason
+
+
 @pytest.mark.parametrize(
     ("available_minutes", "expected_blocks", "block_minutes"),
     ((480, 16, 30), (600, 16, 30), (720, 16, 30)),

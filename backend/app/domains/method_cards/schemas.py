@@ -36,3 +36,19 @@ class MethodCard(MethodCardBaseModel):
     pitfall: str | None = None
     priority: int
     status: Literal["published"]
+
+
+class MethodCardCatalogItem(MethodCardBaseModel):
+    id: str
+    track: Literal["xingce", "shenlun"]
+    module_name: str = Field(alias="moduleName")
+    title: str
+    recognition: str
+    method_steps: list[str] = Field(alias="methodSteps")
+    pitfall: str | None = None
+    status: Literal["draft", "published"]
+
+
+class MethodCardCatalog(MethodCardBaseModel):
+    total: int
+    cards: list[MethodCardCatalogItem]

@@ -161,6 +161,22 @@ def test_method_card_service_returns_only_published_cards(db_session: Session) -
         raise AssertionError("Draft card must not be returned by service")
 
 
+def test_method_card_catalog_exposes_system_cards_for_candidate_validation(
+    db_session: Session,
+) -> None:
+    import_method_cards(session=db_session, paths=[FIXTURE_DIR])
+    catalog = MethodCardService(MethodCardRepository(db_session)).list_catalog(
+        track="xingce",
+        limit=20,
+        offset=0,
+    )
+
+    assert catalog.total == 2
+    assert [card.status for card in catalog.cards] == ["published", "draft"]
+    assert catalog.cards[1].title
+    assert catalog.cards[1].method_steps
+
+
 def test_method_card_api_requires_bearer_and_hides_internal_fields(
     db_session: Session,
     db_session_factory: sessionmaker[Session],
@@ -184,6 +200,25 @@ def test_method_card_api_requires_bearer_and_hides_internal_fields(
     assert body["errorSignatures"][0]["code"] == "base_period_formula_flip"
     assert "authorNote" not in body
     assert "validation" not in body
+
+
+def test_method_card_catalog_api_keeps_validation_state_visible(
+    db_session: Session,
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    import_method_cards(session=db_session, paths=[FIXTURE_DIR])
+    client = make_client(db_session_factory)
+
+    response = client.get(
+        "/api/v1/method-cards?track=xingce&limit=20&offset=0",
+        headers={"Authorization": "Bearer valid-session"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["total"] == 2
+    assert {card["status"] for card in body["cards"]} == {"draft", "published"}
+    assert all("authorNote" not in card for card in body["cards"])
 
 
 def test_method_card_api_returns_404_for_draft_or_missing_cards(

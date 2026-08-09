@@ -5,6 +5,73 @@
   white-space: nowrap;
 }
 
+.system-method-head,
+.system-method-pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(20 * var(--rpx));
+}
+
+.system-method-status {
+  flex: none;
+  padding: calc(8 * var(--rpx)) calc(14 * var(--rpx));
+  border-radius: var(--figma-radius-pill);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
+.system-method-pager {
+  margin-top: calc(28 * var(--rpx));
+  color: var(--color-muted);
+  font-family: var(--font-family-data);
+  font-size: var(--text-micro);
+}
+
+button.system-method-page-button {
+  min-width: calc(148 * var(--rpx));
+  margin: 0;
+  border-radius: var(--radius-16);
+  background: var(--color-surface-soft);
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
+  line-height: calc(72 * var(--rpx));
+}
+
+button.system-method-page-button::after {
+  border: 0;
+}
+
+.system-method-tabs {
+  margin-top: calc(20 * var(--rpx));
+  white-space: nowrap;
+}
+
+.system-method-tabs__inner {
+  display: inline-flex;
+  gap: calc(12 * var(--rpx));
+}
+
+.system-method-tab {
+  padding: calc(12 * var(--rpx)) calc(18 * var(--rpx));
+  border-radius: var(--figma-radius-pill);
+  background: var(--color-surface-soft);
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+}
+
+.system-method-tab--active {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+}
+
+.community-section-heading {
+  margin-top: calc(32 * var(--rpx));
+  padding: 0 calc(4 * var(--rpx));
+}
+
 .card-tabs-inner {
   display: inline-flex;
   gap: calc(12 * var(--rpx));

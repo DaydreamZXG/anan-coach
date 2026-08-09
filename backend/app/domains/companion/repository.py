@@ -240,7 +240,7 @@ class CompanionRepository:
                   and kmn.exam_scope = 'guokao'
                   and kmn.track = 'xingce'
                   and kmn.status = 'published'
-                  and mc.status = 'published'
+                  and mc.status in ('draft', 'published')
                 order by mc.priority desc, mc.id
                 limit 3
                 """

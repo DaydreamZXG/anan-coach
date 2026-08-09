@@ -28,10 +28,12 @@ interface EnergyOption {
 }
 
 type XingceModule = NonNullable<DailyCapacityCommand["preferredXingceModule"]>;
+type PreferredTrack = NonNullable<DailyCapacityCommand["preferredTrack"]>;
 
 interface FocusOption {
   label: string;
-  value: XingceModule | "";
+  value: XingceModule | "essay" | "";
+  track: PreferredTrack;
 }
 
 const ENERGY_OPTIONS: readonly EnergyOption[] = [
@@ -57,10 +59,12 @@ const FOCUS_LABELS: Readonly<Record<XingceModule, string>> = {
 };
 
 const FOCUS_OPTIONS: readonly FocusOption[] = [
-  { label: "综合安排", value: "" },
+  { label: "综合安排", value: "", track: "balanced" },
+  { label: "申论", value: "essay", track: "essay" },
   ...XINGCE_MODULE_BASELINE.map<FocusOption>((item) => ({
     label: FOCUS_LABELS[item.moduleKey as XingceModule],
     value: item.moduleKey as XingceModule,
+    track: "xingce",
   })),
 ];
 
@@ -95,6 +99,10 @@ const attemptRuntimes = new WeakMap<object, CapacityAttemptRuntime>();
 const inFlightCapacityWrites = new Map<string, Promise<void>>();
 const inFlightCapacityWriteGroups = new Map<string, CapacityWriteGroup>();
 
+function initialPreferredTrack(): PreferredTrack {
+  return "balanced";
+}
+
 Page({
   data: {
     status: "loading",
@@ -113,6 +121,7 @@ Page({
     energyOptions: ENERGY_OPTIONS,
     timePresets: TIME_PRESETS,
     focusOptions: FOCUS_OPTIONS,
+    preferredTrack: initialPreferredTrack(),
     preferredXingceModule: "",
     xingceOnly: false,
     minutesStep: MINUTES_STEP,
@@ -205,6 +214,7 @@ Page({
               ? {}
               : {
                   preferredXingceModule: agentPrefillModule,
+                  preferredTrack: "xingce",
                   xingceOnly: this.data.agentPrefillXingceOnly,
                   agentPrefillModule: null,
                   agentPrefillXingceOnly: false,
@@ -217,7 +227,8 @@ Page({
         return;
       }
 
-      if (!isCapacityCanonicalInput(unfinished.canonicalInput)) {
+      const recoveredInput = normalizeCapacityCanonicalInput(unfinished.canonicalInput);
+      if (!recoveredInput) {
         const authoritative = settleCapacityAttempt(store, unfinished, "terminal", Date.now());
         if (
           authoritative?.state === "succeeded" &&
@@ -240,7 +251,7 @@ Page({
         return;
       }
 
-      if (unfinished.canonicalInput.localDate !== data.localDate) {
+      if (recoveredInput.localDate !== data.localDate) {
         const authoritative = settleCapacityAttempt(store, unfinished, "terminal", Date.now());
         if (
           authoritative?.state === "succeeded" &&
@@ -286,7 +297,7 @@ Page({
       try {
         await sendCapacityAttempt(
           api,
-          unfinished.canonicalInput.command,
+          recoveredInput.command,
           unfinished,
           originSession,
           publishAuthoritativeSuccess,
@@ -387,11 +398,13 @@ Page({
 
   chooseFocus(event: WechatMiniprogram.BaseEvent) {
     if (this.data.previewing || this.data.submitting) return;
-    const preferredXingceModule = String(event.currentTarget.dataset.value ?? "") as
-      XingceModule | "";
-    if (!FOCUS_OPTIONS.some((item) => item.value === preferredXingceModule)) return;
+    const value = String(event.currentTarget.dataset.value ?? "") as FocusOption["value"];
+    const option = FOCUS_OPTIONS.find((item) => item.value === value);
+    if (!option) return;
+    const preferredXingceModule = option.track === "xingce" ? (value as XingceModule) : "";
     attemptRuntime(this).editBoundary = true;
     this.setData({
+      preferredTrack: option.track,
       preferredXingceModule,
       xingceOnly: preferredXingceModule ? this.data.xingceOnly : false,
       preview: null,
@@ -422,6 +435,7 @@ Page({
         energy: this.data.energy,
         stress: this.data.stress,
         confidenceLevel: this.data.confidenceLevel,
+        preferredTrack: this.data.preferredTrack,
         preferredXingceModule: selectedFocusModule(this.data.preferredXingceModule),
         xingceOnly: this.data.xingceOnly,
       },
@@ -450,11 +464,14 @@ Page({
           ? "今天设为休息啦，不安排任务，好好放松。"
           : `今天有 ${capacityDuration} 可用。`;
       const goalEvidence = proposed.goalGap.evidenceSummary.trim();
-      const focusImpact = proposed.capacity.preferredXingceModule
-        ? proposed.capacity.xingceOnly
-          ? `今天只练${proposed.capacity.preferredXingceModule}。`
-          : `今天优先练${proposed.capacity.preferredXingceModule}。`
-        : "今天行测申论一起安排。";
+      const focusImpact =
+        proposed.capacity.preferredTrack === "essay"
+          ? "今天申论优先，行测仍会保留。"
+          : proposed.capacity.preferredXingceModule
+            ? proposed.capacity.xingceOnly
+              ? `今天只练${proposed.capacity.preferredXingceModule}。`
+              : `今天优先练${proposed.capacity.preferredXingceModule}。`
+            : "今天行测申论一起安排。";
       this.setData({
         previewing: false,
         step: "preview",
@@ -627,7 +644,7 @@ export function parseAgentPrefillFocus(
 ): { module: XingceModule; xingceOnly: boolean } | null {
   if (options.source !== "anan") return null;
   const module = options.preferredXingceModule ?? "";
-  if (!FOCUS_OPTIONS.some((item) => item.value === module && item.value !== "")) return null;
+  if (!FOCUS_OPTIONS.some((item) => item.track === "xingce" && item.value === module)) return null;
   return {
     module: module as XingceModule,
     xingceOnly: options.xingceOnly === "1",
@@ -635,8 +652,8 @@ export function parseAgentPrefillFocus(
 }
 
 function selectedFocusModule(value: string): XingceModule | null {
-  const matched = FOCUS_OPTIONS.find((item) => item.value === value && item.value !== "");
-  return matched?.value || null;
+  const matched = FOCUS_OPTIONS.find((item) => item.value === value && item.track === "xingce");
+  return matched ? (matched.value as XingceModule) : null;
 }
 
 function normalizedEnergy(value: number): number {
@@ -662,6 +679,7 @@ function dashboardPresentation(dashboard: TodayDashboard) {
     stress: dashboard.capacity.stress,
     confidenceLevel: dashboard.capacity.confidenceLevel,
     preferredXingceModule: dashboard.capacity.preferredXingceModule ?? "",
+    preferredTrack: dashboard.capacity.preferredTrack ?? "balanced",
     xingceOnly: dashboard.capacity.xingceOnly ?? false,
     errorMessage: "",
     requestId: "",
@@ -853,24 +871,29 @@ function ownsPageLifecycle(
   );
 }
 
-function isCapacityCanonicalInput(value: unknown): value is CapacityCanonicalInput {
-  if (!hasExactKeys(value, ["command", "localDate"])) return false;
-  if (!isLocalDate(value.localDate)) return false;
+function normalizeCapacityCanonicalInput(value: unknown): CapacityCanonicalInput | null {
+  if (!hasExactKeys(value, ["command", "localDate"])) return null;
+  if (!isLocalDate(value.localDate)) return null;
   const command = value.command;
-  if (
-    !hasExactKeys(command, [
-      "availableMinutes",
-      "basedOnCapacityVersionId",
-      "confidenceLevel",
-      "energy",
-      "preferredXingceModule",
-      "stress",
-      "xingceOnly",
-    ])
-  ) {
-    return false;
-  }
-  return (
+  const currentKeys = [
+    "availableMinutes",
+    "basedOnCapacityVersionId",
+    "confidenceLevel",
+    "energy",
+    "preferredXingceModule",
+    "preferredTrack",
+    "stress",
+    "xingceOnly",
+  ] as const;
+  const legacyKeys = currentKeys.filter((key) => key !== "preferredTrack");
+  if (!hasExactKeys(command, currentKeys) && !hasExactKeys(command, legacyKeys)) return null;
+
+  const preferredTrack = Object.prototype.hasOwnProperty.call(command, "preferredTrack")
+    ? command.preferredTrack
+    : command.preferredXingceModule === null
+      ? "balanced"
+      : "xingce";
+  const valid =
     typeof command.basedOnCapacityVersionId === "string" &&
     command.basedOnCapacityVersionId.length > 0 &&
     command.basedOnCapacityVersionId.length <= 256 &&
@@ -881,10 +904,28 @@ function isCapacityCanonicalInput(value: unknown): value is CapacityCanonicalInp
     isBoundedInteger(command.confidenceLevel, 1, 5) &&
     (command.preferredXingceModule === null ||
       (typeof command.preferredXingceModule === "string" &&
-        FOCUS_OPTIONS.some((item) => item.value === command.preferredXingceModule))) &&
+        FOCUS_OPTIONS.some(
+          (item) => item.track === "xingce" && item.value === command.preferredXingceModule,
+        ))) &&
     typeof command.xingceOnly === "boolean" &&
-    (!command.xingceOnly || command.preferredXingceModule !== null)
-  );
+    ["balanced", "xingce", "essay"].includes(String(preferredTrack)) &&
+    (preferredTrack === "xingce"
+      ? command.preferredXingceModule !== null
+      : command.preferredXingceModule === null && !command.xingceOnly);
+  if (!valid) return null;
+  return {
+    localDate: value.localDate,
+    command: {
+      basedOnCapacityVersionId: command.basedOnCapacityVersionId as string,
+      availableMinutes: command.availableMinutes as number,
+      energy: command.energy as number,
+      stress: command.stress as number,
+      confidenceLevel: command.confidenceLevel as number,
+      preferredTrack: preferredTrack as PreferredTrack,
+      preferredXingceModule: command.preferredXingceModule as XingceModule | null,
+      xingceOnly: command.xingceOnly as boolean,
+    },
+  };
 }
 
 function hasExactKeys(

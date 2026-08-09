@@ -96,6 +96,67 @@ def test_targeted_selection_uses_frozen_eligibility_after_live_option_deletion(
     }
 
 
+def test_data_analysis_selection_returns_one_complete_material_group_and_skips_orphans(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    now = datetime.now(UTC)
+    material = "同一份完整资料，必须连同连续五道题一起进入训练。"
+    question_ids = {
+        index: f"data-analysis-group-question-{index}" for index in range(1, 7)
+    }
+    user_id = _seed_targeted_learner(
+        db_session_factory,
+        token="data-analysis-atomic-group-token",
+        now=now,
+        nodes=(
+            _node(
+                "data-analysis-node",
+                "knowledge_point",
+                "knowledge_point",
+                "增长率计算",
+                0.90,
+                20,
+                module_name="资料分析",
+            ),
+        ),
+        tags={"增长率计算": tuple(range(1, 7))},
+        question_ids_by_index=question_ids,
+        material_text_by_index={index: material for index in range(1, 6)},
+    )
+    with db_session_factory.begin() as session:
+        grouped_ids = [question_ids[index] for index in range(1, 6)]
+        for number, question_id in enumerate(grouped_ids, start=96):
+            session.execute(
+                text(
+                    """
+                    insert into product.question_occurrences (
+                      occurrence_id, question_id, source_dataset_id,
+                      occurrence_paper_title, number, section
+                    ) values (
+                      :occurrence_id, :question_id, 'data-analysis-test',
+                      'paper-data-analysis-test', :number, '资料分析'
+                    )
+                    """
+                ),
+                {
+                    "occurrence_id": f"occurrence-data-analysis-{number}",
+                    "question_id": question_id,
+                    "number": number,
+                },
+            )
+        selection = XingceAttemptRepository().select_targeted_frozen_questions(
+            session,
+            module_name="资料分析",
+            limit=3,
+            user_id=user_id,
+            now=now,
+        )
+
+    assert selection is not None
+    assert [str(item["question_id"]) for item in selection.questions] == grouped_ids
+    assert question_ids[6] not in {str(item["question_id"]) for item in selection.questions}
+
+
 def test_targeted_selection_fails_closed_for_stale_release_and_never_crosses_module(
     db_session_factory: sessionmaker[Session],
 ) -> None:
@@ -1450,6 +1511,7 @@ def _seed_targeted_learner(
     nodes: tuple[dict[str, Any], ...],
     tags: dict[str, tuple[int, ...]],
     question_ids_by_index: dict[int, str] | None = None,
+    material_text_by_index: dict[int, str] | None = None,
     legacy_visual_schema: bool = False,
 ) -> str:
     user_id = _seed_learner_and_published_essay_content(
@@ -1483,6 +1545,7 @@ def _seed_targeted_learner(
         node_id_by_index=node_id_by_index,
         module_name_by_index=module_name_by_index,
         question_ids_by_index=question_ids_by_index,
+        material_text_by_index=material_text_by_index,
     )
     with factory.begin() as session:
         _insert_complete_ability_estimate(session, user_id=user_id, now=now)
@@ -1512,6 +1575,7 @@ def _shared_question_seeds(
     node_id_by_index: dict[int, str],
     module_name_by_index: dict[int, str] | None = None,
     question_ids_by_index: dict[int, str] | None = None,
+    material_text_by_index: dict[int, str] | None = None,
 ) -> tuple[FrozenQuestionSeed, ...]:
     labels = ("A", "B", "C", "D")
     return tuple(
@@ -1524,6 +1588,8 @@ def _shared_question_seeds(
             answer=labels[(index - 1) % len(labels)],
             node_id=node_id_by_index[index],
             module_name=(module_name_by_index or {}).get(index, "言语理解"),
+            material_text=(material_text_by_index or {}).get(index),
+            shared_context_required=index in (material_text_by_index or {}),
             occurrence_count=10_000 - index,
             latest_year=2025,
         )

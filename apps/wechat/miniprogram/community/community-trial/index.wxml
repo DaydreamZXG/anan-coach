@@ -1,11 +1,11 @@
 <view class="page community-page">
   <view class="community-hero">
-    <view class="hero-kicker">社区方法试用</view>
-    <view class="hero-title">先小范围验证，再决定是否公开</view>
-    <view class="hero-copy">同类考生试用后只回传结构化结果，不交换原题和个人资料。</view>
+    <view class="hero-kicker">方法库</view>
+    <view class="hero-title">先看方法，再用题验证</view>
+    <view class="hero-copy">系统整理的方法可以直接浏览；考友方法通过独立试用后再公开。</view>
     <view class="privacy-strip">
       <view class="privacy-dot"></view>
-      <view>效果只按你实际试用的内容、独立新题与延时验证计算；后续编辑不会继承原来的结果。</view>
+      <view>先在题目里试用，再结合你的正确率、用时和复测结果判断是否适合。</view>
     </view>
   </view>
 
@@ -21,6 +21,37 @@
   />
 
   <block wx:if="{{pageState === 'default' || pageState === 'partial'}}">
+    <view wx:if="{{selectedSystemCard}}" class="community-card system-method-card">
+      <view class="system-method-head">
+        <view>
+          <view class="section-label">系统方法库 · 共 {{systemCardCount}} 张</view>
+          <view class="section-title">{{selectedSystemCard.title}}</view>
+        </view>
+        <view class="system-method-status">{{selectedSystemCard.status === 'published' ? '效果稳定' : '考友试用中'}}</view>
+      </view>
+      <view class="tag-line">{{selectedSystemCard.moduleName}}</view>
+      <view class="section-copy">{{selectedSystemCard.recognition}}</view>
+      <view class="detail-title">怎么做</view>
+      <view wx:for="{{selectedSystemCard.methodSteps}}" wx:key="index" class="method-step">
+        <text class="step-index">{{index + 1}}</text><text>{{item}}</text>
+      </view>
+      <view wx:if="{{selectedSystemCard.pitfall}}" class="boundary-note">容易踩坑：{{selectedSystemCard.pitfall}}</view>
+      <view class="system-method-pager">
+        <button hover-class="item--hover" class="system-method-page-button" disabled="{{systemActiveIndex === 0}}" data-delta="-1" bindtap="stepSystemCard">上一个</button>
+        <view>{{systemActiveIndex + 1}} / {{systemCards.length}}</view>
+        <button hover-class="item--hover" class="system-method-page-button" disabled="{{systemActiveIndex + 1 >= systemCards.length}}" data-delta="1" bindtap="stepSystemCard">下一个</button>
+      </view>
+      <scroll-view wx:if="{{systemCards.length > 1}}" class="system-method-tabs" scroll-x enhanced>
+        <view class="system-method-tabs__inner">
+          <view wx:for="{{systemCards}}" wx:key="id" class="system-method-tab {{systemActiveIndex === index ? 'system-method-tab--active' : ''}}" data-index="{{index}}" bindtap="selectSystemCard">{{item.moduleName}}</view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view wx:if="{{cards.length}}" class="community-section-heading">
+      <view class="section-label">考友方法</view>
+      <view class="section-title">已进入独立试用的方法</view>
+    </view>
     <scroll-view wx:if="{{cards.length > 1}}" class="card-tabs" scroll-x enhanced>
       <view class="card-tabs-inner">
         <view hover-class="item--hover"

@@ -13,6 +13,8 @@ import type {
   DraftReceipt as GeneratedDraftReceipt,
   ExposureReceipt as GeneratedExposureReceipt,
   FeedbackReceipt as GeneratedFeedbackReceipt,
+  MethodCardCatalog as GeneratedMethodCardCatalog,
+  MethodCardCatalogItem as GeneratedMethodCardCatalogItem,
   ReportReceipt as GeneratedReportReceipt,
   ReviewOutcome as GeneratedReviewOutcome,
   StructureCandidate as GeneratedStructureCandidate,
@@ -213,8 +215,31 @@ export interface CommunityRewardLedgerResponse extends GeneratedCommunityRewardL
   entitlementVersion: string;
 }
 
+export interface SystemMethodCard extends Omit<GeneratedMethodCardCatalogItem, "track"> {
+  track: CommunityTrack;
+}
+
+export interface SystemMethodCatalog extends Omit<GeneratedMethodCardCatalog, "cards"> {
+  cards: SystemMethodCard[];
+}
+
 export class CommunityMethodCardsApi {
   constructor(private readonly client: ApiClient) {}
+
+  async listSystemMethods(track: CommunityTrack): Promise<SystemMethodCatalog> {
+    const systemTrack = track === "essay" ? "shenlun" : "xingce";
+    const response = await this.client.get<GeneratedMethodCardCatalog>(
+      `/api/v1/method-cards?track=${systemTrack}&limit=100&offset=0`,
+      { timeoutMs: 30_000 },
+    );
+    return {
+      ...response.data,
+      cards: response.data.cards.map((card) => ({
+        ...card,
+        track: card.track === "shenlun" ? "essay" : "xingce",
+      })),
+    };
+  }
 
   async createDraft(command: CommunityDraftCreateCommand): Promise<CommunityDraftReceipt> {
     const response = await this.client.post<CommunityDraftReceipt>(

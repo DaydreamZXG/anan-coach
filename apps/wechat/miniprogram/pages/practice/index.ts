@@ -65,7 +65,6 @@ import { createIdempotencyKey } from "../../platform/command-id";
 import { decideAutosave, decideExit } from "./features/task-runtime/state/autosave";
 import {
   appendStrokeWithinLimit,
-  replaceMaterialAnnotations,
   replaceQuestionAnnotations,
   splitAnnotationSurfaces,
 } from "./shared/task-runtime/annotation-layer/strokes";
@@ -753,14 +752,13 @@ Page<PracticePageData, PracticePageCustom>({
 
   changeMaterialAnnotations(event) {
     const runtime = runtimes.get(this);
-    if (!runtime?.task || this.data.interactionLocked) return;
+    if (!runtime?.task || !runtime.session || this.data.interactionLocked) return;
+    const currentQuestionId = runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? "";
+    const sharedQuestionIds = sharedMaterialQuestionIds(runtime.session, currentQuestionId);
     runtime.task = reduceTaskRuntime(runtime.task, {
-      type: "ANNOTATIONS_CHANGED",
-      strokes: replaceMaterialAnnotations(
-        runtime.task.attempts[runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""]
-          ?.annotations ?? [],
-        event.detail.strokes,
-      ),
+      type: "SHARED_MATERIAL_ANNOTATIONS_CHANGED",
+      questionIds: sharedQuestionIds.length ? sharedQuestionIds : [currentQuestionId],
+      strokes: event.detail.strokes,
       action: event.detail.action,
     });
     render(this, runtime);
@@ -1752,13 +1750,20 @@ function render(
   const alreadyReady = page.data.status === "ready";
   const favoriteQuestionChanged = page.data.favoriteQuestionId !== currentQuestionId;
   const annotationSurfaces = splitAnnotationSurfaces(view.question.annotations);
+  const sharedMaterialAnnotations = sharedMaterialAnnotationStrokes(
+    runtime.session,
+    runtime.task,
+    currentQuestionId,
+  );
   page.setData({
     ...(alreadyReady ? { status: "ready" as const } : {}),
     errorTitle: "",
     errorMessage: "",
     view,
     questionAnnotations: annotationSurfaces.question,
-    materialAnnotations: annotationSurfaces.material,
+    materialAnnotations: sharedMaterialAnnotations.length
+      ? sharedMaterialAnnotations
+      : annotationSurfaces.material,
     sessionState: runtime.session.state,
     canSubmit: runtime.session.state === "answering",
     answerSheetItems,
@@ -2605,4 +2610,39 @@ function taskHelpReference(session: XingceTaskSession): TaskHelpPageObjectRefere
     taskMode: session.mode === "verification" ? "retest" : session.mode,
     lifecycle: session.state === "answering" ? "answering" : "submitted",
   };
+}
+
+function sharedMaterialQuestionIds(
+  session: XingceTaskSession,
+  currentQuestionId: string,
+): string[] {
+  const current = session.bundle.questions.find(
+    (question) => question.questionId === currentQuestionId,
+  );
+  if (!current?.materialId) return currentQuestionId ? [currentQuestionId] : [];
+  return session.bundle.questions
+    .filter((question) => question.materialId === current.materialId)
+    .map((question) => question.questionId);
+}
+
+function sharedMaterialAnnotationStrokes(
+  session: XingceTaskSession,
+  task: NonNullable<ReturnType<typeof runtimes.get>>["task"],
+  currentQuestionId: string,
+): AnnotationStroke[] {
+  if (!task) return [];
+  const questionIds = sharedMaterialQuestionIds(session, currentQuestionId);
+  const strokes = new Map<string, AnnotationStroke>();
+  for (const questionId of questionIds) {
+    const material = splitAnnotationSurfaces(task.attempts[questionId]?.annotations).material;
+    for (const stroke of material) {
+      const previous = strokes.get(stroke.strokeId);
+      if (!previous || (stroke.erasedAtMs ?? -1) >= (previous.erasedAtMs ?? -1)) {
+        strokes.set(stroke.strokeId, stroke);
+      }
+    }
+  }
+  return [...strokes.values()].sort(
+    (left, right) => left.atMs - right.atMs || left.strokeId.localeCompare(right.strokeId),
+  );
 }

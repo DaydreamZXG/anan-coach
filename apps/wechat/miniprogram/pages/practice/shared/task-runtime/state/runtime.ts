@@ -306,6 +306,42 @@ export function reduceTaskRuntime(
           sessionElapsedMs(state),
         ),
       );
+    case "SHARED_MATERIAL_ANNOTATIONS_CHANGED": {
+      assertAnswering(state);
+      const questionIds = unique(event.questionIds);
+      if (questionIds.length === 0 || questionIds.some((questionId) => !questionId.trim())) {
+        throw new TaskTransitionError("Shared material question IDs are required");
+      }
+      if (questionIds.some((questionId) => !state.questionOrder.includes(questionId))) {
+        throw new TaskTransitionError("Shared material questions must belong to the task");
+      }
+      const materialStrokes = event.strokes.map((stroke) => ({
+        ...stroke,
+        surface: "material" as const,
+        ...(stroke.anchor ? { anchor: { ...stroke.anchor } } : {}),
+        points: stroke.points.map((point) => ({ ...point })),
+      }));
+      const attempts = { ...state.attempts };
+      for (const questionId of questionIds) {
+        const attempt = attempts[questionId];
+        if (!attempt) throw new TaskTransitionError("Shared material attempt does not exist");
+        const questionStrokes = (attempt.annotations ?? []).filter(
+          (stroke) => stroke.surface !== "material",
+        );
+        if (questionStrokes.length + materialStrokes.length > MAX_ANNOTATION_STROKES) {
+          throw new TaskTransitionError("Annotation strokes exceed the checkpoint limit");
+        }
+        attempts[questionId] = withActionEvent(
+          {
+            ...attempt,
+            annotations: [...questionStrokes, ...materialStrokes],
+          },
+          event.action === "added" ? "annotation_added" : "annotation_erased",
+          sessionElapsedMs(state),
+        );
+      }
+      return changed(state, { attempts });
+    }
     case "ACTION_LOGGED":
       assertAnswering(state);
       return updateAttempt(state, (attempt) =>
