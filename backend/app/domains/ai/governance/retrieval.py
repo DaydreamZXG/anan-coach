@@ -17,6 +17,10 @@ from app.domains.private_knowledge.projection import (
     PrivateKnowledgeProjectionGateway,
     build_projection_gateway,
 )
+from app.domains.companion.xingce_context import (
+    load_frozen_material_context,
+    load_frozen_question_context,
+)
 
 
 RETRIEVAL_POLICY_VERSION = "authorized-hybrid-retrieval@v1"
@@ -141,11 +145,24 @@ class AuthorizedHybridRetriever:
                 1.0,
                 (0.55 * lexical) + (0.25 * semantic) + (0.20 * candidate.source_weight),
             )
+            if candidate.trust_scope in {
+                "authorized_question",
+                "authorized_material",
+                "current_checkpoint",
+                "authorized_scoring",
+            }:
+                # Explicit current-task objects are not merely authorization
+                # hints: they must survive ranking so the provider and the
+                # answering-stage output guard observe the same frozen facts.
+                score = max(score, 0.95)
             if score > 0.20 or candidate.trust_scope in {
                 "learning_brain",
                 "learner_activity",
                 "target_position",
                 "authorized_question",
+                "authorized_material",
+                "current_checkpoint",
+                "authorized_scoring",
                 "owned_attempt",
                 "authorized_essay_review",
                 "authorized_plan",
@@ -265,8 +282,15 @@ class AuthorizedHybridRetriever:
                   from learning.xingce_task_sessions task_session,
                        jsonb_array_elements(task_session.safe_bundle -> 'materials') material
                   where task_session.user_id = cast(:user_id as uuid)
-                    and task_session.state = 'active'
                     and material ->> 'materialId' = :object_id
+                    and exists (
+                      select 1
+                      from jsonb_array_elements(
+                        task_session.safe_bundle -> 'questions'
+                      ) question
+                      where question ->> 'materialId' = :object_id
+                        and question ->> 'contentVersionId' = :version
+                    )
                 )
             """,
         }
@@ -311,16 +335,15 @@ class AuthorizedHybridRetriever:
         ).scalar_one()
         if bool(xingce):
             return True
-        # 做题中的题目也属于当前用户：请求解答当前题时，题目尚未写入
-        # xingce_attempt_records（还没提交答案），但从进行中的 task session
-        # 的 scoring_bundle 里能找到。做题页的「岸岸 · 当前题目」依赖这条授权。
+        # 做题中的题目也属于当前用户：未提交时还没有
+        # attempt record，授权必须只读无答案的 frozen safe bundle。
         in_active_session = self._session.execute(
             text(
                 """
                 select exists (
                   select 1
                   from learning.xingce_task_sessions task_session,
-                       jsonb_array_elements(task_session.scoring_bundle -> 'questions') question
+                       jsonb_array_elements(task_session.safe_bundle -> 'questions') question
                   where task_session.user_id = cast(:user_id as uuid)
                     and task_session.state = 'active'
                     and question ->> 'questionId' = :question_id
@@ -464,7 +487,49 @@ class AuthorizedHybridRetriever:
                 )
                 if candidate is not None:
                     candidates.append(candidate)
+            elif item.type == "material":
+                candidate = self._material_context_candidate(
+                    user_id=user_id,
+                    material_id=item.id,
+                    version=item.version,
+                )
+                if candidate is not None:
+                    candidates.append(candidate)
         return tuple(candidates)
+
+    def _material_context_candidate(
+        self,
+        *,
+        user_id: str,
+        material_id: str,
+        version: str,
+    ) -> _Candidate | None:
+        frozen = load_frozen_material_context(
+            self._session,
+            user_id=user_id,
+            material_id=material_id,
+            linked_content_version_id=version,
+        )
+        if frozen is None:
+            # Private/essay materials keep their existing domain candidates;
+            # this path is specifically the frozen Xingce session material.
+            return None
+        material_text = _frozen_material_text(frozen.material)
+        if not material_text:
+            material_text = "该冻结材料只包含视觉资产，未提供可核验文字描述。"
+        return context_candidate(
+            kind="xingce_material",
+            source_id=f"xingce-material:{frozen.session_id}:{material_id}",
+            version=frozen.bundle_version_id,
+            anchor=f"server-stage:{frozen.server_stage}",
+            title="行测当前题 · 冻结材料",
+            text_value=_join_context_text(
+                ("服务端会话阶段", frozen.server_stage),
+                ("材料", material_text),
+            ),
+            trust_scope="authorized_material",
+            source_weight=1.0,
+        )
 
     def _plan_context_candidate(
         self,
@@ -817,119 +882,78 @@ class AuthorizedHybridRetriever:
         question_id: str,
         version: str,
     ) -> tuple[_Candidate, ...]:
-        xingce = (
-            self._session.execute(
-                text(
-                    """
-                select attempt.attempt_record_id, question.module_name,
-                       question.question_type, question.stem, question.answer,
-                       question.material_text,
-                       (
-                         select string_agg(
-                           option.label || '．' || option.option_text,
-                           E'\n' order by option.option_index
-                         )
-                         from product.question_options option
-                         where option.question_id = question.question_id
-                       ) as options_text,
-                       coalesce(
-                         explanation.preferred_analysis,
-                         explanation.stored_analysis,
-                         explanation.original_analysis
-                       ) as explanation,
-                       answer.payload as answer_payload,
-                       attempt.timing_evidence,
-                       assessment.result_snapshot
-                  from learning.xingce_attempt_records attempt
-                  join product.questions question
-                    on question.question_id = attempt.question_id
-                  join learning.xingce_answer_versions answer
-                    on answer.answer_version_id = attempt.answer_version_id
-                   and answer.user_id = attempt.user_id
-                   and answer.session_id = attempt.session_id
-                   and answer.question_id = attempt.question_id
-                  left join product.question_explanations explanation
-                    on explanation.question_id = question.question_id
-                  left join learning.xingce_assessments assessment
-                    on assessment.attempt_record_id = attempt.attempt_record_id
-                   and assessment.user_id = attempt.user_id
-                   and assessment.session_id = attempt.session_id
-                   and assessment.question_id = attempt.question_id
-                 where attempt.user_id = cast(:user_id as uuid)
-                   and attempt.question_id = :question_id
-                   and attempt.content_version_id = :version
-                 order by attempt.created_at desc
-                 limit 1
-                """
-                ),
-                {
-                    "user_id": user_id,
-                    "question_id": question_id,
-                    "version": version,
-                },
-            )
-            .mappings()
-            .one_or_none()
+        frozen = load_frozen_question_context(
+            self._session,
+            user_id=user_id,
+            question_id=question_id,
+            content_version_id=version,
         )
-        if xingce is not None:
-            title = str(xingce["module_name"] or "行测题目")
-            canonical_text = _join_context_text(
-                ("题型", xingce["question_type"]),
-                ("题干", xingce["stem"]),
-                ("共享材料", xingce["material_text"]),
-                ("选项", xingce["options_text"]),
-                ("正确答案", xingce["answer"]),
-                ("解析", xingce["explanation"]),
+        if frozen is not None:
+            question = frozen.question
+            title = str(question.get("moduleName") or "行测题目")
+            question_text = _join_context_text(
+                ("服务端会话阶段", frozen.server_stage),
+                ("题型", question.get("questionType") or "unknown"),
+                ("视觉信息必需", question.get("visualRequired")),
+                ("题干", question.get("stem")),
+                ("选项", _frozen_options_text(question)),
+                ("共享材料摘要", _frozen_material_text(frozen.material)),
             )
-            attempt_text = _join_context_text(
-                (
-                    "作答轨迹",
-                    _selected_json(
-                        xingce["answer_payload"],
-                        (
-                            "selectedOptionIds",
-                            "eliminatedOptionIds",
-                            "confidence",
-                            "marked",
-                            "skipped",
-                            "elapsedSeconds",
-                        ),
-                    ),
-                ),
-                ("用时证据", xingce["timing_evidence"]),
-                ("判分结果", xingce["result_snapshot"]),
-            )
-            attempt_id = str(xingce["attempt_record_id"])
-            return tuple(
-                candidate
-                for candidate in (
-                    context_candidate(
-                        kind="question_content",
-                        source_id=f"question:{question_id}:{version}",
-                        version=version,
-                        anchor="canonical-question",
-                        title=f"{title} · 当前题",
-                        text_value=canonical_text,
-                        trust_scope="authorized_question",
-                        source_weight=1.0,
-                    )
-                    if canonical_text
-                    else None,
-                    context_candidate(
-                        kind="question_attempt",
-                        source_id=f"question-attempt:{attempt_id}",
-                        version=version,
-                        anchor="submitted-attempt",
-                        title=f"{title} · 本次作答记录",
-                        text_value=attempt_text,
-                        trust_scope="owned_attempt",
-                        source_weight=1.0,
-                    )
-                    if attempt_text
-                    else None,
+            candidates: list[_Candidate] = [
+                context_candidate(
+                    kind="xingce_question",
+                    source_id=f"xingce-question:{frozen.session_id}:{question_id}",
+                    version=frozen.bundle_version_id,
+                    anchor=f"server-stage:{frozen.server_stage}",
+                    title=f"{title} · 冻结当前题",
+                    text_value=question_text,
+                    trust_scope="authorized_question",
+                    source_weight=1.0,
                 )
-                if candidate is not None
-            )
+            ]
+            checkpoint_text = _checkpoint_evidence_text(frozen.checkpoint_answer)
+            if checkpoint_text:
+                candidates.append(
+                    _Candidate(
+                        reference=EvidenceReference(
+                            kind="xingce_checkpoint",
+                            sourceId=(
+                                f"xingce-checkpoint:{frozen.session_id}:{question_id}"
+                            ),
+                            version=str(frozen.revision),
+                            anchor=f"server-stage:{frozen.server_stage}",
+                            title=f"{title} · 最新作答检查点",
+                        ),
+                        text=checkpoint_text,
+                        trust_scope="current_checkpoint",
+                        source_weight=1.0,
+                        # draftText and event detail originate from the learner.
+                        untrusted_input=True,
+                    )
+                )
+            if frozen.scoring is not None:
+                scoring_text = _join_context_text(
+                    ("服务端会话阶段", frozen.server_stage),
+                    ("正确选项", frozen.scoring.get("correctOptionIds")),
+                    ("解析", frozen.scoring.get("explanation")),
+                    ("解析来源", frozen.scoring.get("explanationSource")),
+                )
+                if scoring_text:
+                    candidates.append(
+                        context_candidate(
+                            kind="xingce_scoring",
+                            source_id=(
+                                f"xingce-scoring:{frozen.session_id}:{question_id}"
+                            ),
+                            version=frozen.bundle_version_id,
+                            anchor="submitted-frozen-scoring",
+                            title=f"{title} · 提交后冻结解析",
+                            text_value=scoring_text,
+                            trust_scope="authorized_scoring",
+                            source_weight=1.0,
+                        )
+                    )
+            return tuple(candidates)
 
         essay_version = _uuid_or_none(version)
         if essay_version is None:
@@ -1279,6 +1303,108 @@ def _join_context_text(*parts: tuple[str, object]) -> str:
         if rendered and rendered not in {"{}", "[]", "null"}:
             values.append(f"{label}：{rendered}")
     return "\n".join(values)
+
+
+def _frozen_options_text(question: dict[str, Any]) -> str | None:
+    options = question.get("options")
+    if not isinstance(options, list):
+        return None
+    rendered: list[str] = []
+    for option in options:
+        if not isinstance(option, dict):
+            continue
+        label = str(option.get("label") or option.get("optionId") or "").strip()
+        option_text = str(option.get("text") or "").strip()
+        if label and option_text:
+            rendered.append(f"{label}．{option_text}")
+    return "\n".join(rendered) or None
+
+
+def _frozen_material_text(material: dict[str, Any] | None) -> str | None:
+    if not isinstance(material, dict):
+        return None
+    parts: list[str] = []
+    title = str(material.get("title") or "").strip()
+    body = str(material.get("text") or "").strip()
+    if title:
+        parts.append(title)
+    if body:
+        parts.append(body)
+    assets = material.get("assets")
+    if isinstance(assets, list):
+        descriptions = [
+            str(item.get("altText") or "").strip()
+            for item in assets
+            if isinstance(item, dict) and str(item.get("altText") or "").strip()
+        ]
+        if descriptions:
+            parts.append("视觉资产描述：" + "；".join(descriptions))
+    return "\n".join(parts) or None
+
+
+def _checkpoint_evidence_text(answer: dict[str, Any] | None) -> str | None:
+    if not isinstance(answer, dict):
+        return None
+    strokes = [
+        item for item in answer.get("annotations", []) if isinstance(item, dict)
+    ]
+    active_strokes = [item for item in strokes if item.get("erasedAtMs") is None]
+    anchored = []
+    for stroke in active_strokes:
+        anchor = stroke.get("anchor")
+        if not isinstance(anchor, dict):
+            continue
+        anchored.append(
+            {
+                "surface": stroke.get("surface", "question"),
+                "tool": stroke.get("tool"),
+                "segmentText": anchor.get("segmentText"),
+                "blockId": anchor.get("blockId"),
+                "segmentIndex": anchor.get("segmentIndex"),
+            }
+        )
+    unanchored_count = sum(
+        1 for stroke in active_strokes if not isinstance(stroke.get("anchor"), dict)
+    )
+    events = [
+        item for item in answer.get("actionEvents", []) if isinstance(item, dict)
+    ]
+    action_counts: dict[str, int] = {}
+    for event in events:
+        event_type = str(event.get("type") or "unknown")
+        action_counts[event_type] = action_counts.get(event_type, 0) + 1
+    action_summary: dict[str, Any] | None = None
+    if events or answer.get("actionEventsTruncated"):
+        action_summary = {
+            "countsByType": action_counts,
+            "latestAtMs": max(
+                (int(item.get("atMs", 0)) for item in events),
+                default=0,
+            ),
+            "truncated": bool(answer.get("actionEventsTruncated")),
+        }
+    annotation_summary: dict[str, Any] | None = None
+    if strokes:
+        annotation_summary = {
+            "anchoredActive": anchored,
+            "unanchoredActiveCount": unanchored_count,
+            "unanchoredSemantics": (
+                "present_but_semantic_unknown" if unanchored_count else None
+            ),
+            "erasedCount": len(strokes) - len(active_strokes),
+        }
+    return _join_context_text(
+        ("已选项", answer.get("selectedOptionIds")),
+        ("已排除项", answer.get("eliminatedOptionIds")),
+        ("置信度", answer.get("confidence")),
+        ("已标记", answer.get("marked")),
+        ("已跳过", answer.get("skipped")),
+        ("本题用时秒", answer.get("elapsedSeconds")),
+        ("草稿文字", answer.get("draftText")),
+        ("材料阅读位置", answer.get("materialPosition")),
+        ("锚定批注与未识别自由笔迹", annotation_summary),
+        ("作答动作摘要", action_summary),
+    ) or None
 
 
 def _selected_json(value: object, keys: tuple[str, ...]) -> object | None:

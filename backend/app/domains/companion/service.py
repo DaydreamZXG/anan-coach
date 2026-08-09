@@ -20,7 +20,11 @@ from app.domains.ai.governance.retrieval import (
     ObjectAuthorizationError,
     RetrievalBundle,
 )
-from app.domains.ai.governance.routing import GlobalAskPolicyError, route_global_question
+from app.domains.ai.governance.routing import (
+    GlobalAskPolicyError,
+    refine_companion_model_route,
+    route_global_question,
+)
 from app.domains.ai.model_cost import (
     ModelCallLedgerError,
     ModelCallLedgerRepository,
@@ -161,6 +165,7 @@ class CompanionService:
             decision = route_global_question(
                 question=request.question_text,
                 context=request.context,
+                conversation_turns=len(short_term_history),
             )
         except GlobalAskPolicyError as exc:
             raise CompanionCommandFailure(
@@ -219,6 +224,12 @@ class CompanionService:
                     error_code="context_reference_forbidden",
                 ) from exc
             retrieval = context_bundle.retrieval
+            decision = refine_companion_model_route(
+                decision=decision,
+                question=request.question_text,
+                conversation_turns=len(short_term_history),
+                retrieved_texts=tuple(item.excerpt for item in retrieval.sources),
+            )
             if not retrieval.sources or not _high_impact_evidence_ready(
                 decision=decision,
                 retrieval=retrieval,
@@ -430,6 +441,13 @@ class CompanionService:
                     action.model_dump(by_alias=True, mode="json")
                     for action in allowed_actions
                 ],
+                "modelTier": route_decision.model_tier,
+                "modelRouteReasonCodes": list(route_decision.reason_codes),
+                "outputSafetyDecision": (
+                    "answering_safe_hint"
+                    if result.response_summary.startswith("[answering_output_safe_hint]")
+                    else "passed"
+                ),
             },
             commit=False,
         )

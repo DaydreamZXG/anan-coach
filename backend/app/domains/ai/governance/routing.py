@@ -103,15 +103,9 @@ _PLAN_TERMS = (
     "生成一组",
     "练一组",
 )
-_ANSWER_LEAK_TERMS = (
-    "答案",
-    "选哪个",
-    "正确选项",
-    "参考要点",
-    "范文",
-    "怎么答",
-    "直接写",
-)
+_VISUAL_REASONING_TERMS = ("图形", "图表", "图片", "坐标", "涂画", "曲线", "柱状")
+_COMPLEX_REASONING_TERMS = ("推导", "分析思路", "详细讲", "综合比较", "逐步", "论证")
+_UNRESOLVED_FOLLOWUP_TERMS = ("没懂", "还是不懂", "再讲", "继续提示", "换个思路")
 _REST_TERMS = (
     "累",
     "状态差",
@@ -146,7 +140,12 @@ def prompt_injection_detected(value: str) -> bool:
     return any(pattern.search(value) is not None for pattern in _INJECTION_PATTERNS)
 
 
-def route_global_question(*, question: str, context: GlobalAskContext) -> IntentDecision:
+def route_global_question(
+    *,
+    question: str,
+    context: GlobalAskContext,
+    conversation_turns: int = 0,
+) -> IntentDecision:
     validate_page_permission(context)
     normalized = " ".join(question.strip().split())
     if prompt_injection_detected(normalized):
@@ -159,20 +158,6 @@ def route_global_question(*, question: str, context: GlobalAskContext) -> Intent
             policyDecision="security_blocked",
             companionIntent="reminder",
             reasonCodes=("prompt_injection_detected",),
-        )
-
-    if context.task_stage in {"reading", "answering"} and any(
-        term in normalized for term in _ANSWER_LEAK_TERMS
-    ):
-        policy = scenario_policy("tutoring_explanation")
-        return IntentDecision(
-            scenarioKey=policy.scenario_key,
-            respondingAgent=policy.responding_agent,
-            answerType="operation_help",
-            modelTier=policy.model_tier,
-            policyDecision="post_submit_only",
-            companionIntent="reminder",
-            reasonCodes=("answer_leakage_blocked_before_submit",),
         )
 
     if any(term in normalized for term in _STRATEGY_TERMS):
@@ -205,7 +190,7 @@ def route_global_question(*, question: str, context: GlobalAskContext) -> Intent
         if any(term in normalized for term in _ENCOURAGEMENT_TERMS)
         else "thinking"
     )
-    return IntentDecision(
+    decision = IntentDecision(
         scenarioKey=policy.scenario_key,
         respondingAgent=policy.responding_agent,
         answerType=answer_type,
@@ -213,6 +198,60 @@ def route_global_question(*, question: str, context: GlobalAskContext) -> Intent
         policyDecision="answer",
         companionIntent=companion_intent,
         reasonCodes=(reason,),
+    )
+    return refine_companion_model_route(
+        decision=decision,
+        question=normalized,
+        conversation_turns=conversation_turns,
+    )
+
+
+def refine_companion_model_route(
+    *,
+    decision: IntentDecision,
+    question: str,
+    conversation_turns: int,
+    retrieved_texts: tuple[str, ...] = (),
+) -> IntentDecision:
+    """Select one model before dispatch and persist auditable reason codes.
+
+    This remains a single-provider, single-main-call route.  Frozen source text
+    may escalate capability after retrieval, but can never downgrade a policy's
+    existing high tier or create an additional model approval pipeline.
+    """
+
+    if decision.policy_decision != "answer":
+        return decision
+    normalized = " ".join(question.strip().split())
+    source_text = "\n".join(retrieved_texts)
+    normalized_source_text = source_text.casefold()
+    reasons = list(decision.reason_codes)
+    if any(term in normalized for term in _VISUAL_REASONING_TERMS) or (
+        "视觉信息必需：true" in normalized_source_text
+    ):
+        reasons.append("visual_reasoning_required")
+    if len(normalized) >= 120 or len(source_text) >= 3_000:
+        reasons.append("long_context_reasoning")
+    if any(term in normalized for term in _COMPLEX_REASONING_TERMS):
+        reasons.append("complex_reasoning_requested")
+    if conversation_turns >= 2 and any(
+        term in normalized for term in _UNRESOLVED_FOLLOWUP_TERMS
+    ):
+        reasons.append("multi_turn_unresolved")
+    reasons = list(dict.fromkeys(reasons))[:8]
+    capability_reasons = {
+        "visual_reasoning_required",
+        "long_context_reasoning",
+        "complex_reasoning_requested",
+        "multi_turn_unresolved",
+    }
+    model_tier = (
+        "high"
+        if decision.model_tier == "high" or capability_reasons.intersection(reasons)
+        else "small"
+    )
+    return decision.model_copy(
+        update={"model_tier": model_tier, "reason_codes": tuple(reasons)}
     )
 
 

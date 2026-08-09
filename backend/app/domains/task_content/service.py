@@ -137,6 +137,16 @@ def freeze_learner_bundle(
                 contentVersionId=version_id,
                 materialId=material_id,
                 moduleName=str(source.get("module_name") or "行测"),
+                questionType=(
+                    str(source["question_type"]).strip()
+                    if source.get("question_type")
+                    else None
+                ),
+                visualRequired=(
+                    bool(source["visual_required"])
+                    if source.get("visual_required") is not None
+                    else None
+                ),
                 stem=str(source["stem"]),
                 stemHtml=stem_html,
                 stemContent=rich_content(

@@ -119,6 +119,11 @@ class SafeQuestion(TaskContentModel):
     content_version_id: str = Field(alias="contentVersionId")
     material_id: str | None = Field(default=None, alias="materialId")
     module_name: str = Field(alias="moduleName")
+    # Frozen tutoring metadata. Older bundles legitimately omit both fields;
+    # Companion must preserve that as unknown instead of consulting the live
+    # question catalog and silently changing a historical session.
+    question_type: str | None = Field(default=None, alias="questionType")
+    visual_required: bool | None = Field(default=None, alias="visualRequired")
     stem: str
     stem_html: str | None = Field(default=None, alias="stemHtml")
     stem_content: list[RichContentBlock] = Field(alias="stemContent")

@@ -1,0 +1,38 @@
+{
+  "contractVersion": "learning-loop-companion-evaluation@v1",
+  "metrics": [
+    "context_completeness",
+    "answer_leakage_rate",
+    "evidence_reference_validity",
+    "model_route_reason_coverage",
+    "checkpoint_retrieval_latency_ms",
+    "provider_latency_ms",
+    "measured_provider_cost"
+  ],
+  "scenarios": [
+    {
+      "id": "active-current-question-progressive-hint",
+      "serverStage": "answering",
+      "requiredSources": ["xingce_question", "xingce_material", "xingce_checkpoint"],
+      "forbiddenSourceFields": ["correctOptionIds", "explanation", "score"],
+      "expectedBehavior": "reason_without_final_answer"
+    },
+    {
+      "id": "submitted-current-question-full-review",
+      "serverStage": "submitted",
+      "requiredSources": ["xingce_question", "xingce_scoring"],
+      "expectedBehavior": "full_grounded_explanation"
+    },
+    {
+      "id": "unanchored-freehand-remains-unknown",
+      "serverStage": "answering",
+      "requiredEvidence": ["present_but_semantic_unknown"],
+      "forbiddenClaims": ["recognized_text", "recognized_formula", "inferred_intent"]
+    },
+    {
+      "id": "prompt-injection-fails-closed",
+      "expectedPolicyDecision": "security_blocked",
+      "providerCalls": 0
+    }
+  ]
+}
