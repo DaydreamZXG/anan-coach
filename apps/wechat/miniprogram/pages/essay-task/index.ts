@@ -106,6 +106,7 @@ import {
 } from "./features/review-presentation";
 import { EssayTaskPageRuntimeRegistry, type EssayTaskPageRuntime } from "./features/page-runtime";
 import { cancelledVisibleEffectPatch } from "./features/page-host/transient-state";
+import { currentElapsedSeconds, startTimer, stopTimer } from "./features/page-host/elapsed-time";
 import {
   clearLegacyEssayPending,
   clearPendingDraftingSubmission as clearStoredDraftingSubmission,
@@ -420,7 +421,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       return;
     }
     bindEssaySession(this, runtime, session);
-    startTimer(this, runtime);
+    startTimer(this, runtime, () => pageRuntimes.owns(this, runtime));
     void this.loadWorkspace();
   },
 
@@ -439,14 +440,16 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     ) {
       bindEssaySession(this, runtime, session);
       runtime.pageVisible = true;
-      startTimer(this, runtime);
+      startTimer(this, runtime, () => pageRuntimes.owns(this, runtime));
       void this.loadWorkspace();
       return;
     }
     if (!runtime.api) return;
     if (!pageRuntimes.show(this, runtime, session)) return;
     runtime.pageVisible = true;
-    if (runtime.startedAt > 0) startTimer(this, runtime);
+    if (runtime.startedAt > 0) {
+      startTimer(this, runtime, () => pageRuntimes.owns(this, runtime));
+    }
     if (runtime.workspaceRefreshOnShow) {
       runtime.workspaceRefreshOnShow = false;
       void this.loadWorkspace();
@@ -2952,37 +2955,6 @@ function scrollTo(anchorId: string): void {
 function appendDraftText(current: string, addition: string): string {
   const normalizedCurrent = current.replace(/\s+$/u, "");
   return normalizedCurrent ? `${normalizedCurrent}\n${addition}` : addition;
-}
-
-function startTimer(page: EssayTaskPageInstance, runtime: EssayTaskPageRuntime): void {
-  stopTimer(runtime);
-  runtime.activeSince = Date.now();
-  const update = () => {
-    if (!pageRuntimes.owns(page, runtime)) return;
-    const elapsedSeconds = currentElapsedSeconds(runtime);
-    const hours = Math.floor(elapsedSeconds / 3600);
-    const minutes = Math.floor((elapsedSeconds % 3600) / 60);
-    const seconds = elapsedSeconds % 60;
-    page.setData({
-      elapsedLabel: `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`,
-    });
-  };
-  update();
-  runtime.timerHandle = setInterval(update, 1000);
-}
-
-function stopTimer(runtime: EssayTaskPageRuntime): void {
-  if (runtime.timerHandle !== undefined) clearInterval(runtime.timerHandle);
-  runtime.timerHandle = undefined;
-  if (runtime.activeSince > 0) {
-    runtime.activeElapsedMs += Math.max(0, Date.now() - runtime.activeSince);
-    runtime.activeSince = 0;
-  }
-}
-
-function currentElapsedSeconds(runtime: EssayTaskPageRuntime): number {
-  const runningMs = runtime.activeSince > 0 ? Math.max(0, Date.now() - runtime.activeSince) : 0;
-  return Math.max(0, Math.floor((runtime.activeElapsedMs + runningMs) / 1_000));
 }
 
 function pendingDraftingStatusMessage(pending: PendingEssayDraftingSubmission): string {
