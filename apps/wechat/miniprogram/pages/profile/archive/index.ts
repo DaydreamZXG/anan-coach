@@ -18,9 +18,11 @@ import {
   routes,
   type RegisteredNavigationTarget,
 } from "../../../app/navigation/routes";
-import { currentAccessToken } from "../../../auth/session";
+import { PageEffectOwner } from "../../../app/runtime/page-effect-owner";
+import { currentAuthSession } from "../../../auth/session";
 
 type ArchiveModuleKey = "identity" | "qualification" | "preference" | "time" | "ability";
+const requestOwners = new WeakMap<object, PageEffectOwner>();
 
 interface ArchiveModuleView {
   key: ArchiveModuleKey;
@@ -43,7 +45,28 @@ Page({
   },
 
   onShow() {
+    const auth = currentAuthSession();
+    if (!auth) {
+      requestOwners.get(this)?.unload();
+      requestOwners.delete(this);
+      void wx.reLaunch({ url: routes.login });
+      return;
+    }
+    const previous = requestOwners.get(this);
+    const requestOwner = previous?.matches(auth) ? previous : new PageEffectOwner(auth);
+    if (previous && previous !== requestOwner) previous.unload();
+    requestOwners.set(this, requestOwner);
+    requestOwner.show(auth);
     void this.loadArchive();
+  },
+
+  onHide() {
+    requestOwners.get(this)?.hide();
+  },
+
+  onUnload() {
+    requestOwners.get(this)?.unload();
+    requestOwners.delete(this);
   },
 
   back() {
@@ -59,13 +82,11 @@ Page({
   },
 
   async loadArchive() {
-    const token = currentAccessToken();
-    if (!token) {
-      void wx.reLaunch({ url: routes.login });
-      return;
-    }
+    const requestOwner = requestOwners.get(this);
+    const request = requestOwner?.begin("archive", currentAuthSession()) ?? null;
+    if (!requestOwner || !request) return;
     this.setData({ status: "loading", errorMessage: "", requestId: "" });
-    const client = new ApiClient(undefined, token);
+    const client = new ApiClient(undefined, request.owner.accessToken);
     const onboarding = new OnboardingApi(client);
     try {
       const [accountResponse, progressResponse, qualificationResponse, brainResponse] =
@@ -75,6 +96,7 @@ Page({
           new QualificationApi(client).getProfile(),
           new LearningBrainApi(client).getProfile(),
         ]);
+      if (!requestOwner.owns(request, currentAuthSession())) return;
       const progress = progressResponse.data;
       const [experience, positionPreference, preference, abilityBaseline, planning] =
         await Promise.all([
@@ -96,6 +118,7 @@ Page({
             ? new PlanningApi(client).getToday().then((response) => response.data)
             : Promise.resolve(null),
         ]);
+      if (!requestOwner.owns(request, currentAuthSession())) return;
       const modules = buildModules({
         displayName: accountResponse.data.displayName,
         progress,
@@ -121,6 +144,7 @@ Page({
         ),
       });
     } catch (error) {
+      if (!requestOwner.owns(request, currentAuthSession())) return;
       if (error instanceof ApiClientError && error.statusCode === 401) {
         void wx.reLaunch({ url: routes.login });
         return;

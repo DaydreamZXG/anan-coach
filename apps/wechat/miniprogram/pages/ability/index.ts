@@ -7,6 +7,7 @@ import { LearningBrainApi } from "../../api/learning-brain";
 import { OnboardingApi } from "../../api/onboarding";
 import { PlanningApi } from "../../api/planning";
 import { routes } from "../../app/navigation/routes";
+import { PageEffectOwner } from "../../app/runtime/page-effect-owner";
 import { currentAuthSession } from "../../auth/session";
 import { scoreRangeLabel } from "../../domain/presentation";
 import { ESSAY_MODULE_BASELINE, XINGCE_MODULE_BASELINE } from "../../domain/module-baselines";
@@ -20,6 +21,11 @@ import {
   readinessLabel,
   requireAuthenticatedClient,
 } from "../../features/learning-brain/presentation";
+import {
+  isAuthenticationFailure,
+  loadAbilityGoal,
+  type AbilityGoalLoadResult,
+} from "./features/goal-load";
 
 type ScoreRange = { lower: number; upper: number };
 
@@ -37,6 +43,7 @@ type ModuleView = ModuleAbility & {
 
 const EMPTY_XINGCE_MODULES = XINGCE_MODULE_BASELINE.map(emptyXingceModule);
 const EMPTY_ESSAY_MODULES = ESSAY_MODULE_BASELINE.map(emptyEssayModule);
+const requestOwners = new WeakMap<object, PageEffectOwner>();
 
 Page({
   data: {
@@ -70,7 +77,28 @@ Page({
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({ active: "ability" });
     }
+    const auth = currentAuthSession();
+    if (!auth) {
+      requestOwners.get(this)?.unload();
+      requestOwners.delete(this);
+      void wx.reLaunch({ url: routes.login });
+      return;
+    }
+    const previous = requestOwners.get(this);
+    const requestOwner = previous?.matches(auth) ? previous : new PageEffectOwner(auth);
+    if (previous && previous !== requestOwner) previous.unload();
+    requestOwners.set(this, requestOwner);
+    requestOwner.show(auth);
     void this.loadProfile();
+  },
+
+  onHide() {
+    requestOwners.get(this)?.hide();
+  },
+
+  onUnload() {
+    requestOwners.get(this)?.unload();
+    requestOwners.delete(this);
   },
 
   onShareAppMessage() {
@@ -82,8 +110,11 @@ Page({
   },
 
   async loadProfile() {
+    const requestOwner = requestOwners.get(this);
+    const request = requestOwner?.begin("profile", currentAuthSession()) ?? null;
+    if (!requestOwner || !request) return;
     const client = requireAuthenticatedClient();
-    if (!client) return;
+    if (!client || !requestOwner.owns(request, currentAuthSession())) return;
     // 已渲染过内容时静默刷新，避免每次切回 Tab 都整页闪骨架屏。
     const silentRefresh = this.data.status === "ready";
     if (silentRefresh) {
@@ -96,9 +127,12 @@ Page({
         new LearningBrainApi(client).getProfile(),
         new OnboardingApi(client).getProgress(),
       ]);
-      const dashboardResult = progress.studyPreferenceReady
-        ? await new PlanningApi(client).getToday().catch(() => null)
-        : null;
+      if (!requestOwner.owns(request, currentAuthSession())) return;
+      const goalResult = await loadAbilityGoal(progress.studyPreferenceReady, async () => {
+        const { data } = await new PlanningApi(client).getToday();
+        return data;
+      });
+      if (!requestOwner.owns(request, currentAuthSession())) return;
       const estimate = profile.ability.estimate;
       const trim = (value: number): string =>
         Number.isInteger(value) ? String(value) : value.toFixed(1);
@@ -135,6 +169,11 @@ Page({
         (profile.evidenceSummary.externalAnswerCount ?? 0);
       this.setData({
         status: "ready",
+        errorMessage:
+          goalResult.kind === "failed"
+            ? "岗位对照暂时没加载出来，能力档案仍可查看。"
+            : "",
+        requestId: goalResult.kind === "failed" ? goalResult.requestId : "",
         profile,
         totalScoreLabel: score(estimate?.total),
         xingceScoreLabel: score(estimate?.xingce),
@@ -147,9 +186,14 @@ Page({
         xingceModules: visibleXingceModules,
         essayModules: visibleEssayModules,
         radarPoints: visibleXingceModules.map(radarPoint),
-        ...goalView(dashboardResult?.data ?? null),
+        ...goalView(goalResult),
       });
     } catch (error) {
+      if (!requestOwner.owns(request, currentAuthSession())) return;
+      if (isAuthenticationFailure(error)) {
+        void wx.reLaunch({ url: routes.login });
+        return;
+      }
       const view = errorView(error, "档案没加载出来，别急，再试一次。");
       // 静默刷新失败时保留旧数据，只用行内提示说明刷新未成功。
       this.setData({
@@ -306,16 +350,26 @@ function radarPoint(module: ModuleView): RadarPoint {
   };
 }
 
-function goalView(dashboard: TodayDashboard | null) {
-  const gap = dashboard?.goalGap;
+function goalView(result: AbilityGoalLoadResult) {
+  if (result.kind === "failed") {
+    return {
+      goalAvailable: false,
+      goalName: "岗位对照暂时不可用",
+      targetScoreLabel: "读取失败",
+      currentScoreLabel: "待重试",
+      scoreGapLabel: "待重试",
+      goalBoundaryLabel: "岗位请求失败，不会把这次错误伪装成尚未设置目标。",
+    };
+  }
+  const gap = result.kind === "ready" ? result.dashboard.goalGap : null;
   if (!gap) {
     return {
       goalAvailable: false,
-      goalName: "岗位信息还没载入",
+      goalName: "尚未确认主目标岗位",
       targetScoreLabel: "待建立",
       currentScoreLabel: "待建立",
       scoreGapLabel: "待建立",
-      goalBoundaryLabel: "能力档案是好的，岗位对照这次没加载出来，别急，稍后再看看。",
+      goalBoundaryLabel: "目前没有可用的主目标岗位数据，确认目标后会在这里显示同口径对照。",
     };
   }
   const targetScore = gap.targetScore;
