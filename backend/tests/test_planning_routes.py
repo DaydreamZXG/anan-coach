@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 from collections.abc import Iterator
+from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, date, datetime, timedelta
 from hashlib import sha256
 import json
+from threading import Event
+from time import monotonic
 from typing import Any, cast
 from urllib.parse import parse_qs, urlsplit
 from uuid import uuid4
@@ -21,6 +24,7 @@ from app.domains.essay_intelligence.router import get_essay_learning_artifact_se
 from app.domains.essay_intelligence.closure.service import EssayClosureService
 from app.domains.essay_intelligence.router import get_essay_closure_service
 from app.domains.planning.repository import (
+    PlanningContractError,
     PlanningRepository,
     _review_is_learning_eligible,
     _weakest_dimension,
@@ -564,6 +568,207 @@ def test_capacity_command_is_idempotent_and_creates_a_new_plan_version(
                 )
             ).scalar_one()
             == 1
+        )
+
+
+def test_replan_rejects_stale_capacity_for_different_command_id(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    token = "planning-stale-capacity-token"
+    user_id = _seed_learner_and_published_essay_content(
+        db_session_factory,
+        access_token=token,
+    )
+    client = _client(db_session_factory)
+    auth = {"Authorization": f"Bearer {token}"}
+    initial = client.get("/api/v2/plans/today", headers=auth).json()["data"]
+    command = {
+        "basedOnCapacityVersionId": initial["capacity"]["capacityVersionId"],
+        "availableMinutes": 30,
+        "energy": 4,
+        "stress": 2,
+        "confidenceLevel": 4,
+    }
+
+    first = client.put(
+        "/api/v2/plans/today/capacity",
+        headers={**auth, "Idempotency-Key": "stale-capacity-first-command"},
+        json=command,
+    )
+    stale = client.put(
+        "/api/v2/plans/today/capacity",
+        headers={**auth, "Idempotency-Key": "stale-capacity-second-command"},
+        json=command,
+    )
+
+    assert first.status_code == 200, first.text
+    assert stale.status_code == 409, stale.text
+    assert stale.json()["code"] == "revision_conflict"
+    with db_session_factory() as session:
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.daily_capacity_versions "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 2
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.daily_plan_versions "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 2
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.outbox_events "
+                    "where event_type = 'daily_capacity.changed'"
+                )
+            ).scalar_one()
+            == 1
+        )
+
+
+def test_concurrent_replans_serialize_on_planning_user_row_lock(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id = _seed_learner_and_published_essay_content(db_session_factory)
+    with db_session_factory.begin() as session:
+        initial = PlanningService().get_or_create_today(
+            session,
+            user_id=user_id,
+            now=NOW,
+            local_date=NOW.date(),
+        )
+    first_has_lock = Event()
+    release_first = Event()
+    second_entered_service = Event()
+
+    def replan(
+        command_id: str,
+        available_minutes: int,
+        *,
+        hold_user_lock: bool,
+    ) -> str:
+        with db_session_factory.begin() as session:
+            repository = PlanningRepository()
+            if hold_user_lock:
+                repository.lock_user(session, user_id=user_id)
+                first_has_lock.set()
+                assert release_first.wait(timeout=10)
+            else:
+                assert first_has_lock.wait(timeout=10)
+                session.execute(
+                    text(
+                        "set local application_name = "
+                        "'planning-row-lock-race-second'"
+                    )
+                )
+                second_entered_service.set()
+            result = PlanningService(repository=repository).set_today_capacity(
+                session,
+                user_id=user_id,
+                command_id=command_id,
+                command=DailyCapacityCommand(
+                    based_on_capacity_version_id=str(
+                        initial.capacity.capacity_version_id
+                    ),
+                    available_minutes=available_minutes,
+                    energy=4,
+                    stress=2,
+                    confidence_level=4,
+                ),
+                now=NOW,
+            )
+            return str(result.capacity.capacity_version_id)
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        first_future = executor.submit(
+            replan,
+            "concurrent-replan-command-a",
+            30,
+            hold_user_lock=True,
+        )
+        assert first_has_lock.wait(timeout=10)
+        second_future = executor.submit(
+            replan,
+            "concurrent-replan-command-b",
+            35,
+            hold_user_lock=False,
+        )
+        assert second_entered_service.wait(timeout=10)
+        deadline = monotonic() + 10
+        second_wait_event_type = None
+        try:
+            while monotonic() < deadline:
+                with db_session_factory() as observer:
+                    second_wait_event_type = observer.execute(
+                        text(
+                            "select wait_event_type from pg_stat_activity "
+                            "where application_name = "
+                            "'planning-row-lock-race-second'"
+                        )
+                    ).scalar_one_or_none()
+                if second_wait_event_type == "Lock":
+                    break
+                release_first.wait(timeout=0.01)
+            assert second_wait_event_type == "Lock"
+        finally:
+            release_first.set()
+
+        assert first_future.result(timeout=10)
+        with pytest.raises(PlanningContractError) as conflict:
+            second_future.result(timeout=10)
+
+    assert str(conflict.value) == (
+        "Daily capacity changed; reload the current version before submitting"
+    )
+    with db_session_factory() as session:
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.daily_capacity_versions "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 2
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.daily_plan_versions "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 2
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.outbox_events "
+                    "where event_type = 'daily_capacity.changed'"
+                )
+            ).scalar_one()
+            == 1
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.task_execution_versions "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
         )
 
 
