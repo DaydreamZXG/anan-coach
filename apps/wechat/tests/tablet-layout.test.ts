@@ -84,14 +84,18 @@ describe("tablet responsive layout contract", () => {
     expect(taskShellStyles).toContain("@media (min-width: 1024px)");
   });
 
-  it("treats narrow portrait tablets as tablets without forcing wide-screen columns", () => {
-    for (const viewportWidth of [600, 744, 767]) {
+  it("treats 600-1023px task surfaces as medium without forcing wide-screen columns", () => {
+    for (const viewportWidth of [600, 744, 768, 1023]) {
       expect(viewportWidth).toBeGreaterThanOrEqual(600);
-      expect(viewportWidth).toBeLessThan(768);
+      expect(viewportWidth).toBeLessThan(1024);
     }
     expect(responsiveStyles).toContain("@media (min-width: 600px)");
-    expect(taskShellStyles).toContain("@media (min-width: 768px)");
+    expect(taskShellStyles).toContain("@media (min-width: 600px)");
+    expect(taskShellStyles).not.toContain("@media (min-width: 768px)");
+    expect(materialReaderStyles).toContain("@media (min-width: 600px)");
+    expect(materialReaderStyles).not.toContain("@media (min-width: 768px)");
     expect(taskShellStyles).toContain("@media (min-width: 1024px)");
+    expect(materialReaderStyles).toContain("@media (min-width: 1024px)");
   });
 
   it("turns xingce and mock answering into material-question workbenches", () => {
