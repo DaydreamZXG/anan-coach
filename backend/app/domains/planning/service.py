@@ -106,11 +106,12 @@ class PlanningService:
         if projection.trend_reference_year is not None:
             target_basis += (
                 f"对比 {projection.trend_reference_year} 年同口径"
-                f" {projection.trend_sample_count} 个样本，目标上抛"
-                f" {projection.trend_uplift:g} 分（仅一年对照，置信度有限）。"
+                f" {projection.trend_sample_count} 个样本，下一届参考线保守预留"
+                f" {projection.trend_uplift:g} 分备考余量（一年同比只采纳一半，"
+                "且最多预留 2 分）。"
             )
         else:
-            target_basis += "没有足量同口径上年度样本，本次未加入趋势上抛。"
+            target_basis += "没有可比的上年度同口径样本，本次不增加备考余量。"
         return replace(
             snapshot,
             goal_version_id=projection.version_id,

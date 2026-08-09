@@ -230,7 +230,7 @@ function pointPayload(
   drafts: EssayFormDrafts,
 ): PointExtractionPayload {
   const source = workspace.currentArtifacts.material_annotation;
-  if (!source) throw new EssayFormError("先完成并保存材料地图，再来提炼要点。");
+  if (!source) throw new EssayFormError("先完成并保存材料梳理，再来提炼要点。");
   if (drafts.points.length === 0) throw new EssayFormError("先提炼出至少 1 个要点。");
   return {
     schemaType: "point_extraction",

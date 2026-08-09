@@ -23,7 +23,7 @@ import {
   type AbilityGoalLoadResult,
 } from "./features/goal-load";
 
-type ScoreRange = { lower: number; upper: number };
+type ScoreRange = { lower: number; recommended: number; upper: number };
 
 interface RadarPoint {
   label: string;
@@ -65,6 +65,7 @@ Page({
     currentScoreLabel: "待建立",
     scoreGapLabel: "待建立",
     goalBoundaryLabel: "先定好主目标岗位，再补一份同口径的双科成绩。",
+    showGoalEvidence: false,
   },
 
   onShow() {
@@ -133,7 +134,7 @@ Page({
       const trim = (value: number): string =>
         Number.isInteger(value) ? String(value) : value.toFixed(1);
       const score = (range: ScoreRange | null | undefined): string =>
-        range ? `${trim(range.lower)}–${trim(range.upper)}` : "数据不足";
+        range ? `${trim(range.recommended)} 分` : "数据不足";
       const xingceModules = profile.modules
         .filter((module) => module.track === "xingce")
         .map(moduleView);
@@ -180,7 +181,7 @@ Page({
         xingceModules: visibleXingceModules,
         essayModules: visibleEssayModules,
         radarPoints: visibleXingceModules.map(radarPoint),
-        ...goalView(goalResult),
+        ...goalView(goalResult, estimate?.total?.recommended ?? null),
       });
     } catch (error) {
       if (!requestOwner.owns(request, currentAuthSession())) return;
@@ -223,8 +224,8 @@ Page({
     }
   },
 
-  openPlanBasis() {
-    void wx.navigateTo({ url: routes.planBasis });
+  toggleGoalEvidence() {
+    this.setData({ showGoalEvidence: !this.data.showGoalEvidence });
   },
 
   openCompanion() {
@@ -344,7 +345,7 @@ function radarPoint(module: ModuleView): RadarPoint {
   };
 }
 
-function goalView(result: AbilityGoalLoadResult) {
+function goalView(result: AbilityGoalLoadResult, currentRecommended: number | null) {
   if (result.kind === "failed") {
     return {
       goalAvailable: false,
@@ -393,10 +394,17 @@ function goalView(result: AbilityGoalLoadResult) {
     goalAvailable: true,
     goalName: gap.positionName ?? "主目标岗位",
     targetScoreLabel: scoreRangeLabel(targetScore.lower, targetScore.upper),
-    currentScoreLabel: scoreRangeLabel(currentScore.lower, currentScore.upper),
+    currentScoreLabel: scorePointLabel(
+      currentRecommended ?? (currentScore.lower + currentScore.upper) / 2,
+    ),
     scoreGapLabel: stableLineGapLabel(baselineGap),
     goalBoundaryLabel: gap.evidenceSummary || "用于备考定位，不代表录取结果。",
   };
+}
+
+function scorePointLabel(score: number): string {
+  const value = Number.isInteger(score) ? String(score) : score.toFixed(1);
+  return `${value} 分`;
 }
 
 function stableLineGapLabel(gap: number): string {

@@ -397,7 +397,7 @@ describe("essay artifact forms", () => {
     expect(() => buildArtifactCommand("essay_point_extraction", workspace, drafts)).toThrow(
       EssayFormError,
     );
-    expect(stageBlockingReason("essay_point_extraction", workspace)).toContain("材料地图");
+    expect(stageBlockingReason("essay_point_extraction", workspace)).toContain("材料还没梳理完");
   });
 
   it("requires one explicit decision per finding while limiting priorities to accepted findings", () => {

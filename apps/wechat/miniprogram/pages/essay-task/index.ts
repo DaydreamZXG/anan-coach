@@ -693,7 +693,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
   },
 
   openMaterialPage(anchorId: string) {
-    const materialUrl = this.data.workbenchLinks.find((item) => item.label === "材料地图")?.url;
+    const materialUrl = this.data.workbenchLinks.find((item) => item.label === "材料")?.url;
     if (!materialUrl) return;
     const anchorQuery = anchorId ? `&anchor=${encodeURIComponent(anchorId)}` : "";
     void wx.navigateTo({
@@ -2812,8 +2812,8 @@ function essayWorkbenchLinks(
   const plan = encodeURIComponent(planTaskId);
   const suffix = `taskVersionId=${task}&planTaskId=${plan}`;
   const links = [
-    { label: "材料地图", url: `${routes.essayMaterial}?${suffix}` },
-    { label: "要点与正文", url: `${routes.essayCompose}?${suffix}` },
+    { label: "材料", url: `${routes.essayMaterial}?${suffix}` },
+    { label: "作答", url: `${routes.essayCompose}?${suffix}` },
   ];
   const reviewVersionId = workspace.progression.reviewVersionId;
   if (reviewVersionId) {

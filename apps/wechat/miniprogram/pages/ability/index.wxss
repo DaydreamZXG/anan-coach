@@ -147,9 +147,10 @@
 }
 
 .goal-boundary {
-  margin-top: calc(32 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
   color: var(--ink-3);
   font-size: var(--text-micro);
+  line-height: 1.65;
   text-align: center;
 }
 
@@ -177,31 +178,32 @@
 }
 
 .overview-row {
-  align-items: flex-end;
-  gap: calc(48 * var(--rpx));
-  margin-top: calc(8 * var(--rpx));
+  display: grid;
+  align-items: stretch;
+  gap: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  margin-top: 0;
+  padding: calc(28 * var(--rpx)) 0;
+  border-radius: var(--radius-32);
+  background: var(--bg);
 }
 
 .overview-total {
-  position: relative;
-}
-
-.overview-total::before {
-  position: absolute;
-  background: linear-gradient(90deg, var(--primary), var(--color-ai-violet));
-  filter: blur(calc(40 * var(--rpx)));
-  opacity: 0.15;
-  content: "";
-  inset: 0;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 calc(24 * var(--rpx));
+  text-align: center;
 }
 
 .overview-total__value {
-  position: relative;
-  margin-top: calc(2 * var(--rpx));
+  margin-top: calc(8 * var(--rpx));
   background: linear-gradient(90deg, var(--color-primary-deep), var(--figma-color-ai-violet));
   background-clip: text;
   color: transparent;
-  font-size: var(--text-hero);
+  font-size: calc(48 * var(--rpx));
   white-space: nowrap;
   font-weight: 700;
   letter-spacing: calc(-1 * var(--rpx));
@@ -209,13 +211,30 @@
 }
 
 .overview-scores {
-  align-items: flex-end;
-  gap: calc(40 * var(--rpx));
-  padding-bottom: calc(12 * var(--rpx));
+  display: grid;
+  min-width: 0;
+  align-items: stretch;
+  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0 calc(12 * var(--rpx));
+  border-left: calc(1 * var(--rpx)) solid var(--line);
+}
+
+.overview-score {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.overview-score + .overview-score {
+  border-left: calc(1 * var(--rpx)) solid var(--line);
 }
 
 .overview-score__value {
-  margin-top: calc(2 * var(--rpx));
+  margin-top: calc(8 * var(--rpx));
   color: var(--color-ink-secondary);
   font-size: var(--text-section);
   font-weight: 700;

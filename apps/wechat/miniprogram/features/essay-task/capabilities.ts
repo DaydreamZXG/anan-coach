@@ -46,8 +46,8 @@ export type EssayWriterContext = EssayRewriteWriterContext | EssayTransferWriter
 const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
   essay_material_reading: {
     stage: "essay_material_reading",
-    title: "申论材料地图",
-    modeLabel: "申论 Agent · 材料理解",
+    title: "梳理材料",
+    modeLabel: "申论 · 阅读材料",
     artifactType: "material_annotation",
     writable: true,
     unavailableReason: "",

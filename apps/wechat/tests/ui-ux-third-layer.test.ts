@@ -69,7 +69,7 @@ describe("third-layer UI and UX contracts", () => {
   it("keeps empty training and settings actions routed to real destinations", () => {
     expect(practiceTemplate).toContain('bindtap="goToday"');
     expect(practiceTemplate).toContain("去今日计划");
-    expect(abilityTemplate).toContain('bindtap="openPlanBasis"');
+    expect(abilityTemplate).toContain('bindtap="toggleGoalEvidence"');
     expect(meTemplate).toContain('bindtap="openAuthorizationSettings"');
     expect(meLogic).toContain("await wx.openSetting()");
     expect(meTemplate).not.toContain("申论记录");

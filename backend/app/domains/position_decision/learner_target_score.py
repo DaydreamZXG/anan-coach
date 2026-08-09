@@ -6,9 +6,10 @@ import json
 from typing import Literal, Sequence
 
 
-MODEL_VERSION = "historical-position-cohort-v5"
+MODEL_VERSION = "historical-position-cohort-v6"
 PRIMARY_REFERENCE_YEAR = 2026
 MIN_REFERENCE_POSITIONS = 3
+MAX_NEXT_EXAM_MARGIN = 2.0
 MAX_GUOKAO_TOTAL_SCORE = 200.0
 
 Gender = Literal["男", "女"]
@@ -271,12 +272,12 @@ def _trend_uplift(
     selected_scores: Sequence[float],
     reference_year: int,
 ) -> tuple[float, int | None, int]:
-    """Derive one transparent next-exam allowance from comparable high quantiles.
+    """Derive a conservative preparation margin from comparable high quantiles.
 
     A single extreme position must not determine the trend.  P80 and P95 preserve
     the high-score preparation intent while remaining comparable across cohorts.
-    The whole-point floor deliberately avoids claiming decimal forecast precision
-    from only one year-over-year comparison.
+    One year-over-year change is not a forecast, so only half of it is considered
+    and the learner-facing preparation margin is capped at two points.
     """
 
     prior_year = reference_year - 1
@@ -293,7 +294,8 @@ def _trend_uplift(
     prior_scores = sorted(item.entry_score for item in prior)
     p80_delta = _quantile(selected_scores, 0.8) - _quantile(prior_scores, 0.8)
     p95_delta = _quantile(selected_scores, 0.95) - _quantile(prior_scores, 0.95)
-    uplift = float(max(0, int((p80_delta + p95_delta) / 2)))
+    observed_change = max(0.0, (p80_delta + p95_delta) / 2)
+    uplift = float(min(MAX_NEXT_EXAM_MARGIN, round(observed_change / 2)))
     return uplift, prior_year, len(prior)
 
 
@@ -442,10 +444,11 @@ def _limitations(
     if years != [reference_year]:
         messages.append(f"实际引用分数年份：{', '.join(str(year) for year in years)}。")
     if trend_reference_year is None:
-        messages.append("缺少至少 3 个同口径上年度样本，下一届目标暂未加入趋势上抛。")
+        messages.append("缺少可比的上年度同口径样本，下一届参考线暂不增加备考余量。")
     else:
         messages.append(
             f"对比 {trend_reference_year} 年同口径 {trend_sample_count} 个样本，"
-            f"下一届目标上抛 {trend_uplift:g} 分；该趋势仅有一年对照，置信度有限。"
+            f"下一届参考线预留 {trend_uplift:g} 分备考余量；一年同比只作轻量参考，"
+            "且最多预留 2 分。"
         )
     return tuple(messages)

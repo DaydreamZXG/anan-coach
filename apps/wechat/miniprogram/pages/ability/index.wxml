@@ -26,14 +26,14 @@
             <text class="card-title">目标对照</text>
             <text class="goal-name">· {{goalName}}</text>
           </view>
-          <button hover-class="item--hover" class="text-action" bindtap="openPlanBasis">
-            <text>查看怎么算的</text>
+          <button wx:if="{{goalAvailable}}" hover-class="item--hover" class="text-action" bindtap="toggleGoalEvidence">
+            <text>{{showGoalEvidence ? '收起' : '查看怎么算的'}}</text>
             <image class="icon icon--chevron" src="/assets/icons/ability/chevron-right-muted.png" mode="aspectFit" />
           </button>
         </view>
         <view class="goal-metrics">
           <view class="goal-metric">
-            <view class="metric-label">能力估计</view>
+            <view class="metric-label">当前水平</view>
             <view class="metric-value type-data">{{currentScoreLabel}}</view>
           </view>
           <view class="goal-metric">
@@ -45,7 +45,8 @@
             <view class="metric-value type-data">{{scoreGapLabel}}</view>
           </view>
         </view>
-        <view class="goal-boundary {{goalAvailable ? '' : 'goal-boundary--pending'}}">{{goalBoundaryLabel}}</view>
+        <view wx:if="{{goalAvailable && showGoalEvidence}}" class="goal-boundary">{{goalBoundaryLabel}}</view>
+        <view wx:elif="{{!goalAvailable}}" class="goal-boundary goal-boundary--pending">{{goalBoundaryLabel}}</view>
       </view>
 
       <view class="ability-card overview-card">
@@ -55,7 +56,7 @@
         </view>
         <view class="overview-row">
           <view class="overview-total">
-            <view class="metric-label">综合区间</view>
+            <view class="metric-label">当前估计</view>
             <view class="overview-total__value type-data">{{totalScoreLabel}}</view>
           </view>
           <view class="overview-scores">

@@ -30,7 +30,6 @@ export interface WorkspaceView {
   questionTypeLabel: string;
   wordLimit: number;
   maximumScore: number;
-  materialSourceLabel: string;
   segments: MaterialSegmentView[];
   materialParagraphCount: number;
   directory: MaterialDirectoryView[];
@@ -57,7 +56,7 @@ const questionTypeLabels: Record<EssayTaskWorkspace["task"]["questionType"], str
 };
 
 const artifactLabels: Record<EssayArtifactType, string> = {
-  material_annotation: "材料地图",
+  material_annotation: "材料梳理",
   point_extraction: "要点提炼",
   outline: "结构提纲",
   review_acknowledgement: "评阅确认",
@@ -125,11 +124,6 @@ export function presentEssayWorkspace(
     questionTypeLabel: questionTypeLabels[workspace.task.questionType],
     wordLimit: workspace.task.wordLimit,
     maximumScore: workspace.task.maximumScore,
-    materialSourceLabel: {
-      own_bank: "自研题库",
-      official: "官方材料",
-      external_confirmed: "外部材料(已核对)",
-    }[workspace.material.sourceKind],
     segments,
     materialParagraphCount: segments.reduce((total, item) => total + item.paragraphCount, 0),
     directory,
@@ -157,7 +151,7 @@ export function stageBlockingReason(stage: EssayTaskStage, workspace: EssayTaskW
       return "评分依据还没备好，稍微等等再提炼要点。";
     }
     if (!workspace.currentArtifacts.material_annotation) {
-      return "材料地图还没做完，先去读材料、给每段划个重点。";
+      return "材料还没梳理完，先读材料、给每段划个重点。";
     }
   }
   if (stage === "essay_outlining") {

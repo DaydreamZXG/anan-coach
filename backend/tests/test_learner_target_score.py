@@ -119,10 +119,10 @@ def test_next_exam_range_uses_high_quantiles_maximum_and_comparable_year_uplift(
     assert target.coverage_sample_count == 5
     assert target.trend_reference_year == 2025
     assert target.trend_sample_count == 5
-    assert target.trend_uplift == 10
-    assert (target.lower, target.recommended, target.upper) == (152, 158, 160)
+    assert target.trend_uplift == 2
+    assert (target.lower, target.recommended, target.upper) == (144, 150, 152)
     assert [item.entry_score for item in target.reference_positions[:3]] == [150, 140, 130]
-    assert "置信度有限" in "".join(target.limitations)
+    assert "最多预留 2 分" in "".join(target.limitations)
 
 
 def test_next_exam_range_does_not_invent_uplift_without_comparable_prior_cohort() -> None:
@@ -135,7 +135,7 @@ def test_next_exam_range_does_not_invent_uplift_without_comparable_prior_cohort(
     assert target.trend_uplift == 0
     assert target.trend_reference_year is None
     assert target.upper == 132
-    assert "暂未加入趋势上抛" in "".join(target.limitations)
+    assert "暂不增加备考余量" in "".join(target.limitations)
 
 
 def test_returns_unavailable_instead_of_inventing_score_for_too_few_samples() -> None:
