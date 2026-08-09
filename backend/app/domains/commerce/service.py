@@ -252,7 +252,8 @@ class CommerceService:
                 "appAccountToken does not match authenticated user"
             )
 
-        verification_status = _transaction_status(transaction)
+        now = self._now()
+        verification_status = _transaction_status(transaction, at=now)
         self._repository.record_verified_transaction(
             user_id=user_id,
             product_id=transaction.product_id,
@@ -271,7 +272,7 @@ class CommerceService:
                 raise AppStoreTransactionVerificationError(
                     "Subscription transaction must include expiresDate"
                 )
-        self._repository.reconcile_pro_entitlement(user_id=user_id)
+        self._repository.reconcile_pro_entitlement(user_id=user_id, at=now)
         self._repository.log_entitlement_event(
             user_id=user_id,
             action="app_store_transaction_registered",
@@ -322,7 +323,8 @@ class CommerceService:
             )
             product = self._repository.get_product(transaction.product_id)
             if product is not None and transaction.app_account_token is not None:
-                verification_status = _transaction_status(transaction)
+                now = self._now()
+                verification_status = _transaction_status(transaction, at=now)
                 user_id = str(UUID(transaction.app_account_token))
                 event_user_id = user_id
                 self._repository.record_verified_transaction(
@@ -345,7 +347,7 @@ class CommerceService:
                     raise AppStoreTransactionVerificationError(
                         "Subscription transaction must include expiresDate"
                     )
-                self._repository.reconcile_pro_entitlement(user_id=user_id)
+                self._repository.reconcile_pro_entitlement(user_id=user_id, at=now)
                 processed = True
         if processed:
             self._repository.mark_notification_event_processed(
@@ -375,12 +377,16 @@ class CommerceService:
         )
 
 
-def _transaction_status(transaction: VerifiedAppStoreTransaction) -> str:
+def _transaction_status(
+    transaction: VerifiedAppStoreTransaction,
+    *,
+    at: datetime,
+) -> str:
     if transaction.revocation_date is not None:
         return "verified_revoked"
     if (
         transaction.expires_date is not None
-        and transaction.expires_date <= datetime.now(UTC)
+        and transaction.expires_date <= at
     ):
         return "verified_expired"
     return "verified_active"

@@ -58,6 +58,7 @@ class EntitlementRecord:
     subscription_start: datetime | None
     subscription_end: datetime | None
     product_ids: list[str]
+    evaluated_at: datetime
 
     @property
     def is_active(self) -> bool:
@@ -65,7 +66,7 @@ class EntitlementRecord:
             return True
         if self.subscription_end is None:
             return False
-        return self.subscription_end > datetime.now(UTC)
+        return self.subscription_end > self.evaluated_at
 
 
 @dataclass(frozen=True)
@@ -201,6 +202,7 @@ class CommerceRepository:
                 subscription_start=None,
                 subscription_end=None,
                 product_ids=[],
+                evaluated_at=at,
             )
         purchase_start = row["subscription_start"] if row is not None else None
         purchase_end = row["subscription_end"] if row is not None else None
@@ -232,6 +234,7 @@ class CommerceRepository:
             subscription_start=min(starts),
             subscription_end=max(ends),
             product_ids=sorted(product_ids),
+            evaluated_at=at,
         )
 
     def unlocked_features(self, *, user_id: str) -> list[str]:
@@ -947,7 +950,13 @@ class CommerceRepository:
             },
         )
 
-    def reconcile_pro_entitlement(self, *, user_id: str) -> None:
+    def reconcile_pro_entitlement(
+        self,
+        *,
+        user_id: str,
+        at: datetime | None = None,
+    ) -> None:
+        at = at or datetime.now(UTC)
         active_rows = self._session.execute(
             text(
                 """
@@ -957,7 +966,7 @@ class CommerceRepository:
                   and verification_status = 'verified_active'
                   and revocation_date is null
                   and expires_date is not null
-                  and expires_date > now()
+                  and expires_date > :at
                   and not exists (
                     select 1
                     from commerce.app_store_transactions revoked_transaction
@@ -975,7 +984,7 @@ class CommerceRepository:
                   )
                 """
             ),
-            {"user_id": user_id},
+            {"user_id": user_id, "at": at},
         ).mappings().all()
         if active_rows:
             self._set_pro_entitlement(
@@ -999,7 +1008,7 @@ class CommerceRepository:
         ).scalar_one()
         self._expire_user_entitlement(
             user_id=user_id,
-            ended_at=ended_at or datetime.now(UTC),
+            ended_at=ended_at or at,
         )
 
     def _set_pro_entitlement(
