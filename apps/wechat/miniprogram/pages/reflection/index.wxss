@@ -512,11 +512,17 @@
 }
 
 .review-tabs {
-  display: flex;
-  justify-content: center;
-  gap: calc(16 * var(--rpx));
+  width: 100%;
   margin-bottom: calc(32 * var(--rpx));
-  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.review-tabs__inner {
+  display: flex;
+  justify-content: flex-start;
+  gap: calc(16 * var(--rpx));
+  width: max-content;
+  padding: 0 calc(4 * var(--rpx));
 }
 
 .review-tab {

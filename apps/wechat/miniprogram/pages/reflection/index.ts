@@ -187,6 +187,7 @@ interface ReflectionPageData {
   reviewItems: XingceResultItemView[];
   activeReviewItem: XingceResultItemView | null;
   currentReviewIndex: number;
+  reviewTabIntoView: string;
   materialReaderState: MaterialReaderState;
   displayPreferences: ContentDisplayPreferences;
   emptyRichContentBlocks: RichContentBlock[];
@@ -344,6 +345,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     reviewItems: [],
     activeReviewItem: null,
     currentReviewIndex: 0,
+    reviewTabIntoView: "",
     materialReaderState: createMaterialReaderState(),
     displayPreferences: { fontScale: 1, colorMode: "standard" },
     emptyRichContentBlocks: [],
@@ -1763,6 +1765,7 @@ function applySession(
     result: resultView,
     reviewItems,
     currentReviewIndex,
+    reviewTabIntoView: reviewTabId(currentReviewIndex),
     activeReviewItem,
     materialReaderState: materialReaderStateFor(activeReviewItem, page.data.displayPreferences),
     completionClosure,
@@ -1827,12 +1830,17 @@ function selectReviewIndex(page: ReflectionPageInstance, index: number): void {
   if (!item || reviewSwipeBlocked(page)) return;
   page.setData({
     currentReviewIndex: index,
+    reviewTabIntoView: reviewTabId(index),
     activeReviewItem: item,
     materialReaderState: materialReaderStateFor(item, page.data.displayPreferences),
   });
   if (typeof wx.pageScrollTo === "function") {
     void wx.pageScrollTo({ scrollTop: 0, duration: 0 });
   }
+}
+
+function reviewTabId(index: number): string {
+  return `review-tab-${String(index)}`;
 }
 
 function materialReaderStateFor(

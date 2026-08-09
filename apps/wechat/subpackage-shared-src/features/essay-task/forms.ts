@@ -87,6 +87,13 @@ export function initialEssayFormDrafts(workspace: EssayTaskWorkspace): EssayForm
     acknowledgement?.payload.schemaType === "review_acknowledgement"
       ? acknowledgement.payload
       : null;
+  const segmentCountsByMaterial = new Map<number, number>();
+  for (const segment of workspace.material.segments) {
+    segmentCountsByMaterial.set(
+      segment.materialOrder,
+      (segmentCountsByMaterial.get(segment.materialOrder) ?? 0) + 1,
+    );
+  }
 
   return {
     overallTheme: materialPayload?.overallTheme ?? "",
@@ -94,7 +101,10 @@ export function initialEssayFormDrafts(workspace: EssayTaskWorkspace): EssayForm
       const saved = annotationBySegment.get(segment.segmentId);
       return {
         segmentId: segment.segmentId,
-        label: `材料 ${String(segment.materialOrder)} · 第 ${String(segment.segmentOrder)} 段`,
+        label:
+          segmentCountsByMaterial.get(segment.materialOrder) === 1
+            ? `材料 ${String(segment.materialOrder)} · 整则梳理`
+            : `材料 ${String(segment.materialOrder)} · 片段 ${String(segment.segmentOrder)}`,
         paragraphSummary: saved?.paragraphSummary ?? "",
         subjectsText: saved?.subjects.join("、") ?? "",
         evidenceQuote: saved?.evidenceQuote ?? "",
@@ -163,7 +173,7 @@ export function buildArtifactCommand(
     materialBundleVersionId: workspace.material.materialBundleVersionId,
   };
   if (stage === "essay_material_reading") {
-    const payload = materialPayload(drafts);
+    const payload = materialPayload(workspace, drafts);
     return withBasedOn(
       { artifactType: "material_annotation", ...common, payload },
       workspace.currentArtifacts.material_annotation?.artifactVersionId,
@@ -205,13 +215,23 @@ export function buildArtifactCommand(
   throw new EssayFormError("这一步的信息还没填完整，先补一下再存。");
 }
 
-function materialPayload(drafts: EssayFormDrafts): MaterialAnnotationPayload {
+function materialPayload(
+  workspace: EssayTaskWorkspace,
+  drafts: EssayFormDrafts,
+): MaterialAnnotationPayload {
   const overallTheme = required(drafts.overallTheme, "先写下整组材料围绕什么主题。");
+  const sourceTextBySegment = new Map(
+    workspace.material.segments.map((segment) => [segment.segmentId, segment.text] as const),
+  );
   return {
     schemaType: "material_annotation",
     overallTheme,
     annotations: drafts.materialAnnotations.map((item) => {
       const evidenceQuote = item.evidenceQuote.trim();
+      const sourceText = sourceTextBySegment.get(item.segmentId);
+      if (evidenceQuote && (!sourceText || !sourceText.includes(evidenceQuote))) {
+        throw new EssayFormError(`${item.label}的“可引用原文”需要从左侧材料逐字摘录，不能改写。`);
+      }
       return {
         segmentId: item.segmentId,
         paragraphSummary: required(

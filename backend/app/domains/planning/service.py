@@ -55,7 +55,7 @@ from app.platform.outbox import OutboxRepository
 
 
 PLAN_CONTRACT_VERSION = "daily-plan-v3"
-PLAN_ALGORITHM_VERSION = "dual-track-direct-essay-v6"
+PLAN_ALGORITHM_VERSION = "dual-track-direct-essay-v7"
 PLAN_BASIS = "evidence_priority_v2"
 SHANGHAI = ZoneInfo("Asia/Shanghai")
 STRATEGY_ADJUSTABLE_STAGES = {
@@ -537,8 +537,9 @@ class PlanningService:
             user_id=user_id,
             local_date=day,
         )
-        spent_minutes = sum(int(item["elapsed_minutes"]) for item in execution_inputs)
-        remaining_minutes = max(0, capacity.available_minutes - spent_minutes)
+        elapsed_minutes = sum(int(item["elapsed_minutes"]) for item in execution_inputs)
+        committed_minutes = sum(_committed_capacity_minutes(item) for item in execution_inputs)
+        remaining_minutes = max(0, capacity.available_minutes - committed_minutes)
         goal_ability = self._repository.goal_and_ability(session, user_id=user_id)
         goal_ability = self._with_learner_target(
             session,
@@ -590,8 +591,11 @@ class PlanningService:
             and capacity.confirmed
             and capacity.available_minutes > 0
         )
+        first_diagnostic_due = objective.baseline_required and objective.baseline_question_count > 0
         scheduled_recovery_day = (
-            day.isoweekday() == preference.regular_rest_weekday and not user_chose_to_study_today
+            day.isoweekday() == preference.regular_rest_weekday
+            and not user_chose_to_study_today
+            and not first_diagnostic_due
         )
         adaptive_recovery_day = _needs_adaptive_recovery(capacity)
         recovery_day = scheduled_recovery_day or adaptive_recovery_day
@@ -759,7 +763,8 @@ class PlanningService:
             "objective": asdict(objective),
             "essay": asdict(essay),
             "capacity": asdict(capacity),
-            "spentMinutes": spent_minutes,
+            "elapsedMinutes": elapsed_minutes,
+            "committedMinutes": committed_minutes,
             "remainingMinutes": remaining_minutes,
             "preference": asdict(preference),
             "recentTrackMinutes": recent_minutes,
@@ -934,7 +939,7 @@ class PlanningService:
                 "dayMode": day_mode,
                 "xingceMinutes": explanation.xingce_minutes,
                 "essayMinutes": explanation.essay_minutes,
-                "spentMinutes": spent_minutes,
+                "spentMinutes": elapsed_minutes,
                 "taskExecutionState": execution_state_fingerprint,
                 "inputFingerprint": input_fingerprint,
             },
@@ -1579,6 +1584,13 @@ def _day_mode(
     if not selection:
         return "unavailable"
     return "normal"
+
+
+def _committed_capacity_minutes(execution: RowMapping) -> int:
+    elapsed = int(execution["elapsed_minutes"])
+    if str(execution["status"]) not in {"complete", "abandoned"}:
+        return elapsed
+    return max(elapsed, int(execution["estimated_minutes"]))
 
 
 def _needs_adaptive_recovery(capacity: CapacitySnapshot) -> bool:

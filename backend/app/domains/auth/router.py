@@ -200,8 +200,7 @@ def get_account_overview(
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
     repository: Annotated[AuthRepository, Depends(get_auth_repository)],
 ) -> PublicApiEnvelope[AccountOverview]:
-    overview = repository.get_account_overview(user_id=current_user.user_id)
-    sessions = repository.list_active_sessions(
+    overview = repository.get_account_overview(
         user_id=current_user.user_id,
         current_access_token=access_token,
     )
@@ -226,7 +225,7 @@ def get_account_overview(
                     expires_at=item.expires_at,
                     is_current=item.is_current,
                 )
-                for item in sessions
+                for item in overview.sessions
             ],
         ),
     )

@@ -103,6 +103,8 @@ export interface TodayView {
   activeTasks: TaskView[];
   secondaryTasks: TaskQueueView[];
   completedTasks: TaskView[];
+  hiddenCompletedCount: number;
+  hiddenCompletedLabel: string;
   hasTasks: boolean;
   hasExecutionActivity: boolean;
   dayState: TodayDayState;
@@ -209,10 +211,17 @@ export function presentTodayDashboard(dashboard: TodayDashboard): TodayView {
     (task) => task.status === "ready" || task.status === "in_progress",
   );
   const completedTasks = tasks.filter((task) => task.status === "complete");
+  const completedExecutionCount = new Set(
+    dashboard.evidenceRefs
+      .filter((item) => item.entityType === "task_execution_version" && item.role === "complete")
+      .map((item) => item.entityId),
+  ).size;
+  const hiddenCompletedCount = Math.max(0, completedExecutionCount - completedTasks.length);
   const secondaryTasks = presentSecondaryTaskQueues(activeTasks.slice(1));
-  const hasExecutionActivity = tasks.some(
-    (task) => task.status === "in_progress" || task.status === "complete" || task.elapsedMinutes,
-  );
+  const hasExecutionActivity =
+    tasks.some(
+      (task) => task.status === "in_progress" || task.status === "complete" || task.elapsedMinutes,
+    ) || completedExecutionCount > 0;
   const dayState = todayDayState(dashboard, activeTasks, hasExecutionActivity);
   const allocationTracks = new Set(
     dashboard.dualTrackExplanation.allocations.map((item) => item.track),
@@ -242,6 +251,8 @@ export function presentTodayDashboard(dashboard: TodayDashboard): TodayView {
     activeTasks,
     secondaryTasks,
     completedTasks,
+    hiddenCompletedCount,
+    hiddenCompletedLabel: `今日已完成 ${String(hiddenCompletedCount)} 项`,
     hasTasks: activeTasks.length > 0,
     hasExecutionActivity,
     dayState,

@@ -491,33 +491,76 @@ class CompanionRepository:
                          (
                            select jsonb_agg(
                              jsonb_build_object(
-                               'taskId', task.task_id,
-                               'track', task.track,
-                               'stage', task.stage,
-                               'title', task.title,
-                               'reason', task.reason,
-                               'estimatedMinutes', task.estimated_minutes,
-                               'status', coalesce(
-                                 (
-                                   select item.status
-                                     from learning.task_execution_versions item
-                                    where item.task_id = task.task_id
-                                      and not exists (
-                                        select 1
-                                          from learning.task_execution_versions successor
-                                         where successor.supersedes_execution_version_id =
-                                               item.execution_version_id
-                                      )
-                                    order by item.recorded_at desc,
-                                             item.execution_version_id
-                                    limit 1
-                                 ),
-                                 'pending'
-                               )
-                             ) order by task.task_order
+                               'taskId', fact.task_id,
+                               'track', fact.track,
+                               'stage', fact.stage,
+                               'title', fact.title,
+                               'reason', fact.reason,
+                               'estimatedMinutes', fact.estimated_minutes,
+                               'status', fact.status
+                             ) order by fact.plan_version_no, fact.task_order
                            )
-                             from learning.daily_plan_tasks task
-                            where task.plan_version_id = plan.plan_version_id
+                             from (
+                               select task.task_id,
+                                      task.plan_version_no,
+                                      task.task_order,
+                                      task.work_item_key,
+                                      task.track,
+                                      task.stage,
+                                      task.title,
+                                      task.reason,
+                                      task.estimated_minutes,
+                                      coalesce(
+                                        (
+                                          select item.status
+                                            from learning.task_execution_versions item
+                                           where item.task_id = task.task_id
+                                             and not exists (
+                                               select 1
+                                                 from learning.task_execution_versions successor
+                                                where successor.supersedes_execution_version_id =
+                                                      item.execution_version_id
+                                             )
+                                           order by item.recorded_at desc,
+                                                    item.execution_version_id
+                                           limit 1
+                                        ),
+                                        'pending'
+                                      ) as status
+                                 from learning.daily_plan_tasks task
+                                where task.plan_version_id = plan.plan_version_id
+                               union all
+                               select task.task_id,
+                                      task.plan_version_no,
+                                      task.task_order,
+                                      task.work_item_key,
+                                      task.track,
+                                      task.stage,
+                                      task.title,
+                                      task.reason,
+                                      task.estimated_minutes,
+                                      execution.status
+                                 from learning.task_execution_versions execution
+                                 join learning.daily_plan_tasks task
+                                   on task.task_id = execution.task_id
+                                  and task.plan_version_id = execution.plan_version_id
+                                  and task.user_id = execution.user_id
+                                where execution.user_id = plan.user_id
+                                  and execution.local_date = plan.local_date
+                                  and execution.status in ('complete', 'abandoned')
+                                  and not exists (
+                                    select 1
+                                      from learning.task_execution_versions successor
+                                     where successor.supersedes_execution_version_id =
+                                           execution.execution_version_id
+                                  )
+                                  and not exists (
+                                    select 1
+                                      from learning.daily_plan_tasks current_task
+                                     where current_task.plan_version_id = plan.plan_version_id
+                                       and current_task.work_item_key = task.work_item_key
+                                  )
+                             ) fact
                          ),
                          '[]'::jsonb
                        ) as tasks

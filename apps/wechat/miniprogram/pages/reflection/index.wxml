@@ -136,15 +136,26 @@
         <view class="legacy-notice__copy">没有逐题过程记录，只保留原始成绩，不再追溯当时的用时、信心或计算过程。</view>
       </view>
 
-      <view wx:if="{{reviewItems.length > 1}}" class="review-tabs">
-        <button hover-class="item--hover"
-          wx:for="{{reviewItems}}"
-          wx:key="questionId"
-          class="control-center review-tab {{index === currentReviewIndex ? 'review-tab--active' : ''}}"
-          data-index="{{index}}"
-          bindtap="selectReviewItem"
-        >{{item.positionNumber}}</button>
-      </view>
+      <scroll-view
+        wx:if="{{reviewItems.length > 1}}"
+        class="review-tabs"
+        scroll-x
+        enhanced
+        show-scrollbar="{{false}}"
+        scroll-with-animation
+        scroll-into-view="{{reviewTabIntoView}}"
+      >
+        <view class="review-tabs__inner">
+          <button hover-class="item--hover"
+            wx:for="{{reviewItems}}"
+            wx:key="questionId"
+            id="review-tab-{{index}}"
+            class="control-center review-tab {{index === currentReviewIndex ? 'review-tab--active' : ''}}"
+            data-index="{{index}}"
+            bindtap="selectReviewItem"
+          >{{item.positionNumber}}</button>
+        </view>
+      </scroll-view>
 
       <!-- Figma 14:2：共享材料收起为入口条，点开进入沉浸阅读，不在页内堆满长材料。 -->
       <button

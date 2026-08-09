@@ -147,6 +147,7 @@ Page<TodayPageData, TodayPageCustom>({
   onShow() {
     enableAppShareMenu();
     suppressNativeTabBar();
+    void wx.pageScrollTo({ scrollTop: 0, duration: 0 });
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({ active: "today" });
     }

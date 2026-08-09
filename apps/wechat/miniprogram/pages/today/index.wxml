@@ -160,6 +160,11 @@
       </block>
 
       <view class="other-tasks">
+        <view wx:if="{{view.hiddenCompletedCount > 0}}" class="completed-task">
+          <image class="icon icon--completed" src="/assets/icons/today/circle-check-muted.png" mode="aspectFit" />
+          <view class="completed-task__title">{{view.hiddenCompletedLabel}}</view>
+          <button hover-class="item--hover" class="completed-task__action" bindtap="openDailySettlement">查看记录</button>
+        </view>
         <block wx:for="{{view.secondaryTasks}}" wx:key="id">
           <view class="compact-task">
             <view class="compact-task__main">

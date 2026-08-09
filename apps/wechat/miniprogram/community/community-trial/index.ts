@@ -221,6 +221,9 @@ Page<TrialPageData, TrialPageCustom>({
         "",
         cards.length || systemCards.length ? undefined : "方法库还在整理",
       );
+      if (!cards.length && !systemCards.length) {
+        this.setData({ stateActionLabel: "贡献一个方法" });
+      }
     } catch (error) {
       if (!runtimes.owns(this, runtime, epoch)) return;
       setOperationError(this, error, "load_cards");
@@ -231,6 +234,7 @@ Page<TrialPageData, TrialPageCustom>({
 
   stateAction() {
     if (this.data.pageState === "expired") void wx.reLaunch({ url: routes.login });
+    else if (this.data.pageState === "empty") void wx.navigateTo({ url: routes.communityDraft });
     else if (this.data.pageState === "recovery") {
       const operation = runtimes.get(this)?.recoveryOperation ?? "load_cards";
       if (operation === "opt_in") void this.optIn();

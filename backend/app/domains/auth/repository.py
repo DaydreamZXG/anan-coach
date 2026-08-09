@@ -51,6 +51,7 @@ class AccountOverviewRecord:
     wechat_linked: bool
     profile_version: int
     created_at: datetime
+    sessions: tuple[SessionRecord, ...]
 
 
 @dataclass(frozen=True)
@@ -450,16 +451,27 @@ class AuthRepository:
         row = self._session.execute(
             text(
                 """
+                with current_session as (
+                  update learner.app_sessions target_session
+                     set last_seen_at = now()
+                   where target_session.session_token_hash = :session_token_hash
+                     and target_session.revoked_at is null
+                     and target_session.expires_at > now()
+                     and exists (
+                       select 1 from learner.users active_user
+                        where active_user.user_id = target_session.user_id
+                          and active_user.is_active = true
+                          and active_user.account_status = 'active'
+                     )
+                   returning target_session.user_id
+                )
                 select
                   u.user_id::text as user_id,
                   u.display_name,
                   u.email
-                from learner.app_sessions s
-                join learner.users u on u.user_id = s.user_id
-                where s.session_token_hash = :session_token_hash
-                  and s.revoked_at is null
-                  and s.expires_at > now()
-                  and u.is_active = true
+                from current_session session
+                join learner.users u on u.user_id = session.user_id
+                where u.is_active = true
                   and u.account_status = 'active'
                 """
             ),
@@ -467,16 +479,6 @@ class AuthRepository:
         ).mappings().first()
         if row is None:
             return None
-        self._session.execute(
-            text(
-                """
-                update learner.app_sessions
-                set last_seen_at = now()
-                where session_token_hash = :session_token_hash
-                """
-            ),
-            {"session_token_hash": _token_hash(access_token)},
-        )
         self._session.commit()
         user_id = str(row["user_id"])
         return AuthenticatedUser(
@@ -537,8 +539,13 @@ class AuthRepository:
             )
         self._session.commit()
 
-    def get_account_overview(self, *, user_id: str) -> AccountOverviewRecord:
-        row = self._session.execute(
+    def get_account_overview(
+        self,
+        *,
+        user_id: str,
+        current_access_token: str,
+    ) -> AccountOverviewRecord:
+        rows = self._session.execute(
             text(
                 """
                 select u.user_id::text as user_id, u.display_name, u.avatar_style,
@@ -547,14 +554,37 @@ class AuthRepository:
                        exists (
                          select 1 from learner.wechat_identities wi
                          where wi.user_id = u.user_id
-                       ) as wechat_linked
+                       ) as wechat_linked,
+                       active_session.session_id::text as session_id,
+                       active_session.device_id,
+                       active_session.session_created_at,
+                       active_session.last_seen_at,
+                       active_session.expires_at,
+                       active_session.is_current
                 from learner.users u
                 join learner.profiles p on p.user_id = u.user_id
+                left join lateral (
+                  select session.session_id,
+                         session.device_id,
+                         session.created_at as session_created_at,
+                         session.last_seen_at,
+                         session.expires_at,
+                         session.session_token_hash = :current_hash as is_current
+                    from learner.app_sessions session
+                   where session.user_id = u.user_id
+                     and session.revoked_at is null
+                     and session.expires_at > now()
+                   order by is_current desc, session.last_seen_at desc, session.session_id
+                ) active_session on true
                 where u.user_id = cast(:user_id as uuid)
                 """
             ),
-            {"user_id": user_id},
-        ).mappings().one()
+            {
+                "user_id": user_id,
+                "current_hash": _token_hash(current_access_token),
+            },
+        ).mappings().all()
+        row = rows[0]
         return AccountOverviewRecord(
             user_id=row["user_id"],
             display_name=row["display_name"],
@@ -563,6 +593,18 @@ class AuthRepository:
             wechat_linked=bool(row["wechat_linked"]),
             profile_version=int(row["profile_version"]),
             created_at=row["created_at"],
+            sessions=tuple(
+                SessionRecord(
+                    session_id=session["session_id"],
+                    device_id=session["device_id"],
+                    created_at=session["session_created_at"],
+                    last_seen_at=session["last_seen_at"],
+                    expires_at=session["expires_at"],
+                    is_current=bool(session["is_current"]),
+                )
+                for session in rows
+                if session["session_id"] is not None
+            ),
         )
 
     def update_account_profile(

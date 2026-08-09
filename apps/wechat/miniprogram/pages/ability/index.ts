@@ -120,15 +120,17 @@ Page({
       this.setData({ status: "loading", errorMessage: "", requestId: "" });
     }
     try {
-      const [{ data: profile }, { data: progress }] = await Promise.all([
-        new LearningBrainApi(client).getProfile(),
-        new OnboardingApi(client).getProgress(),
-      ]);
-      if (!requestOwner.owns(request, currentAuthSession())) return;
-      const goalResult = await loadAbilityGoal(progress.studyPreferenceReady, async () => {
-        const { data } = await new PlanningApi(client).getToday();
-        return data;
-      });
+      const progressRequest = (async (): Promise<
+        { kind: "ready"; studyPreferenceReady: boolean } | { kind: "failed"; error: unknown }
+      > => {
+        try {
+          const { data: progress } = await new OnboardingApi(client).getProgress();
+          return { kind: "ready", studyPreferenceReady: progress.studyPreferenceReady };
+        } catch (error) {
+          return { kind: "failed", error };
+        }
+      })();
+      const { data: profile } = await new LearningBrainApi(client).getProfile();
       if (!requestOwner.owns(request, currentAuthSession())) return;
       const estimate = profile.ability.estimate;
       const trim = (value: number): string =>
@@ -166,9 +168,8 @@ Page({
         (profile.evidenceSummary.externalAnswerCount ?? 0);
       this.setData({
         status: "ready",
-        errorMessage:
-          goalResult.kind === "failed" ? "岗位对照暂时没加载出来，能力档案仍可查看。" : "",
-        requestId: goalResult.kind === "failed" ? goalResult.requestId : "",
+        errorMessage: "",
+        requestId: "",
         profile,
         totalScoreLabel: score(estimate?.total),
         xingceScoreLabel: score(estimate?.xingce),
@@ -181,6 +182,43 @@ Page({
         xingceModules: visibleXingceModules,
         essayModules: visibleEssayModules,
         radarPoints: visibleXingceModules.map(radarPoint),
+        ...(silentRefresh
+          ? {}
+          : {
+              goalAvailable: false,
+              goalName: "正在同步目标岗位",
+              targetScoreLabel: "正在同步",
+              currentScoreLabel: score(estimate?.total),
+              scoreGapLabel: "正在同步",
+              goalBoundaryLabel: "能力档案已加载，正在核对目标岗位。",
+            }),
+      });
+      const progressContext = await progressRequest;
+      if (!requestOwner.owns(request, currentAuthSession())) return;
+      if (progressContext.kind === "failed") {
+        if (isAuthenticationFailure(progressContext.error)) {
+          void wx.reLaunch({ url: routes.login });
+          return;
+        }
+        const view = errorView(progressContext.error, "岗位对照暂时没加载出来。");
+        this.setData({
+          errorMessage: view.message,
+          requestId: view.requestId,
+          ...goalView(
+            { kind: "failed", message: view.message, requestId: view.requestId },
+            estimate?.total?.recommended ?? null,
+          ),
+        });
+        return;
+      }
+      const goalResult = await loadAbilityGoal(progressContext.studyPreferenceReady, async () => {
+        const { data } = await new PlanningApi(client).getToday();
+        return data;
+      });
+      if (!requestOwner.owns(request, currentAuthSession())) return;
+      this.setData({
+        errorMessage: goalResult.kind === "failed" ? goalResult.message : "",
+        requestId: goalResult.kind === "failed" ? goalResult.requestId : "",
         ...goalView(goalResult, estimate?.total?.recommended ?? null),
       });
     } catch (error) {

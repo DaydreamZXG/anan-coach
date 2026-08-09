@@ -2453,8 +2453,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         draftLocked: false,
         canSubmit: false,
         hasSavedEvidence: true,
-        blockingReason: "这一步的学习和今天的任务都存好了，回今日页接着学吧。",
-        submissionMessage: "这次的学习记录已存好，今天的任务完成了。",
+        blockingReason: "材料梳理已保存，今天安排的这一步完成了；要点提炼会按后续计划继续。",
+        submissionMessage: "材料梳理已保存，今天安排的这一步完成了。",
       });
     } catch (error) {
       if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;

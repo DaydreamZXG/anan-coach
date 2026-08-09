@@ -28,6 +28,7 @@ describe("VJ-01 real Today R2 AS-03", () => {
     vi.stubGlobal("getApp", () => ({ globalData: {} }));
     vi.stubGlobal("wx", {
       getStorageSync: () => "",
+      pageScrollTo: vi.fn(() => Promise.resolve()),
       removeStorageSync: vi.fn(),
       reLaunch,
       request,

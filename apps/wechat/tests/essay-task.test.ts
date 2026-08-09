@@ -385,6 +385,22 @@ describe("essay artifact forms", () => {
     });
   });
 
+  it("explains an edited evidence quote before submitting the artifact", () => {
+    const workspace = createWorkspace();
+    const drafts = initialEssayFormDrafts(workspace);
+    drafts.overallTheme = "基层治理需要协同和数字能力";
+    drafts.materialAnnotations[0] = {
+      ...requiredFirst(drafts.materialAnnotations),
+      paragraphSummary: "基层通过协同平台解决重复跑腿问题",
+      subjectsText: "基层干部、群众",
+      evidenceQuote: "让群众少跑一次腿",
+    };
+
+    expect(() => buildArtifactCommand("essay_material_reading", workspace, drafts)).toThrow(
+      "需要从左侧材料逐字摘录",
+    );
+  });
+
   it("refuses point extraction without its canonical material annotation dependency", () => {
     const workspace = createWorkspace({ rubric: true });
     const drafts = initialEssayFormDrafts(workspace);

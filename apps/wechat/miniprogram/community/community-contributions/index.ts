@@ -189,6 +189,7 @@ Page<ContributionsPageData, ContributionsPageCustom>({
           "",
           "还没有贡献记录",
         );
+        this.setData({ stateActionLabel: "创建方法草稿" });
       } else {
         setState(this, "default");
       }
@@ -203,6 +204,7 @@ Page<ContributionsPageData, ContributionsPageCustom>({
 
   stateAction() {
     if (this.data.pageState === "expired") void wx.reLaunch({ url: routes.login });
+    else if (this.data.pageState === "empty") void wx.navigateTo({ url: routes.communityDraft });
     else void this.loadContributions();
   },
 });

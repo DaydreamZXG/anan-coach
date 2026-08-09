@@ -107,6 +107,26 @@ describe("today dual-track planning", () => {
     expect(view.emptyStateTitle).toBe("今天的任务已经完成");
   });
 
+  it("keeps a completed task visible after replanning removes it from the active queue", () => {
+    const view = presentTodayDashboard({
+      ...prototypeToday,
+      evidenceRefs: [
+        ...prototypeToday.evidenceRefs,
+        {
+          owner: "planning_execution",
+          entityType: "task_execution_version",
+          entityId: "00000000-0000-4000-8000-000000000099",
+          versionId: "00000000-0000-4000-8000-000000000099",
+          role: "complete",
+        },
+      ],
+    });
+
+    expect(view.hasExecutionActivity).toBe(true);
+    expect(view.hiddenCompletedCount).toBe(1);
+    expect(view.hiddenCompletedLabel).toBe("今日已完成 1 项");
+  });
+
   it("makes every assignment traceable to evidence and an explicit priority score", () => {
     for (const task of prototypeToday.tasks) {
       const breakdown = task.priorityBreakdown;

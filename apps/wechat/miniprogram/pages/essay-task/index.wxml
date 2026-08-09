@@ -179,14 +179,14 @@
             <view class="caption">和上面的材料段落一一对应</view>
           </view>
         </view>
-        <view class="field-label">段落主旨</view>
+        <view class="field-label">这则材料的整体主旨</view>
         <textarea cursor-spacing="24"
           class="essay-textarea essay-textarea--compact"
           value="{{item.paragraphSummary}}"
           maxlength="500"
           data-index="{{index}}"
           data-field="paragraphSummary"
-          placeholder="这一段在说什么？"
+          placeholder="用一句话概括这则材料主要在说什么。"
           bindinput="inputMaterialField"
         ></textarea>
         <view class="field-label">涉及对象 / 主体</view>

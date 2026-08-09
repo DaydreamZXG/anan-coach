@@ -27,6 +27,7 @@ describe("VJ-01 real Today R2 AS-02", () => {
     vi.stubGlobal("getApp", () => app);
     vi.stubGlobal("wx", {
       getStorageSync: () => "",
+      pageScrollTo: vi.fn(() => Promise.resolve()),
       removeStorageSync: vi.fn(),
       reLaunch,
       request: (options: WechatMiniprogram.RequestOption) => requests.push(options),

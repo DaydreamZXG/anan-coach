@@ -230,6 +230,12 @@ class AuthorizedHybridRetriever:
                 attempt_id=object_id,
                 version=version,
             )
+        if object_type == "material":
+            return self._material_ref_owned(
+                user_id=user_id,
+                material_id=object_id,
+                version=version,
+            )
         statements = {
             "position": """
                 select exists (
@@ -265,34 +271,6 @@ class AuthorizedHybridRetriever:
                     and report.input_fingerprint = :version
                 )
             """,
-            "material": """
-                select exists (
-                  select 1 from learning.source_artifact_versions artifact
-                  where artifact.owner_user_id = cast(:user_id as uuid)
-                    and artifact.artifact_id = cast(:object_id as uuid)
-                    and artifact.artifact_version_id = cast(:version as uuid)
-                    and artifact.state = 'available'
-                  union all
-                  select 1 from learning.essay_attempts attempt
-                  where attempt.user_id = cast(:user_id as uuid)
-                    and attempt.material_bundle_version_id = cast(:object_id as uuid)
-                    and attempt.task_version_id = cast(:version as uuid)
-                  union all
-                  select 1
-                  from learning.xingce_task_sessions task_session,
-                       jsonb_array_elements(task_session.safe_bundle -> 'materials') material
-                  where task_session.user_id = cast(:user_id as uuid)
-                    and material ->> 'materialId' = :object_id
-                    and exists (
-                      select 1
-                      from jsonb_array_elements(
-                        task_session.safe_bundle -> 'questions'
-                      ) question
-                      where question ->> 'materialId' = :object_id
-                        and question ->> 'contentVersionId' = :version
-                    )
-                )
-            """,
         }
         statement = statements[object_type]
         try:
@@ -308,6 +286,73 @@ class AuthorizedHybridRetriever:
             )
         except Exception as exc:
             raise ObjectAuthorizationError(f"malformed_{object_type}_reference") from exc
+
+    def _material_ref_owned(
+        self,
+        *,
+        user_id: str,
+        material_id: str,
+        version: str,
+    ) -> bool:
+        xingce = self._session.execute(
+            text(
+                """
+                select exists (
+                  select 1
+                  from learning.xingce_task_sessions task_session,
+                       jsonb_array_elements(
+                         coalesce(task_session.safe_bundle -> 'materials', '[]'::jsonb)
+                       ) material
+                  where task_session.user_id = cast(:user_id as uuid)
+                    and material ->> 'materialId' = :object_id
+                    and exists (
+                      select 1
+                      from jsonb_array_elements(
+                        coalesce(task_session.safe_bundle -> 'questions', '[]'::jsonb)
+                      ) question
+                      where question ->> 'materialId' = :object_id
+                        and question ->> 'contentVersionId' = :version
+                    )
+                )
+                """
+            ),
+            {
+                "user_id": user_id,
+                "object_id": material_id,
+                "version": version,
+            },
+        ).scalar_one()
+        if bool(xingce):
+            return True
+        material_uuid = _uuid_or_none(material_id)
+        version_uuid = _uuid_or_none(version)
+        if material_uuid is None or version_uuid is None:
+            return False
+        return bool(
+            self._session.execute(
+                text(
+                    """
+                    select exists (
+                      select 1 from learning.source_artifact_versions artifact
+                      where artifact.owner_user_id = cast(:user_id as uuid)
+                        and artifact.artifact_id = cast(:material_id as uuid)
+                        and artifact.artifact_version_id = cast(:version as uuid)
+                        and artifact.state = 'available'
+                      union all
+                      select 1 from learning.essay_attempts attempt
+                      where attempt.user_id = cast(:user_id as uuid)
+                        and attempt.material_bundle_version_id = cast(:material_id as uuid)
+                        and attempt.task_version_id = cast(:version as uuid)
+                    )
+                    """
+                ),
+                {
+                    "user_id": user_id,
+                    "material_id": material_uuid,
+                    "version": version_uuid,
+                },
+            ).scalar_one()
+        )
 
     def _question_ref_owned(
         self,

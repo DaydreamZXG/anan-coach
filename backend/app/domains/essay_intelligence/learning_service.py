@@ -413,22 +413,38 @@ class EssayLearningArtifactService:
             for item in segments
             if int(item["material_order"]) in selected_orders
         ]
-        artifact_state = self.current_for_task(
-            session,
-            user_id=user_id,
-            task_version_id=task_version_id,
+        rubric_id = (
+            str(content["rubric_version_id"])
+            if content["rubric_version_id"] is not None
+            else None
         )
         progression = self._repository.workspace_progression(
             session,
             user_id=user_id,
             task_version_id=task_version_id,
             material_bundle_version_id=material_id,
-            rubric_version_id=(
-                str(content["rubric_version_id"])
-                if content["rubric_version_id"] is not None
-                else None
-            ),
+            rubric_version_id=rubric_id,
         )
+        current_artifacts = {
+            str(row["artifact_type"]): _artifact_from_row(row)
+            for row in self._repository.current_for_task(
+                session,
+                user_id=user_id,
+                task_version_id=task_version_id,
+                material_bundle_version_id=material_id,
+                rubric_version_id=rubric_id,
+                review_version_id=(
+                    str(progression["review_version_id"])
+                    if progression is not None and progression["review_version_id"] is not None
+                    else None
+                ),
+                answer_version_id=(
+                    str(progression["answer_version_id"])
+                    if progression is not None and progression["answer_version_id"] is not None
+                    else None
+                ),
+            )
+        }
         rubric = None
         if content["rubric_version_id"] is not None:
             rubric = EssayWorkspaceRubric.model_validate_json(
@@ -478,7 +494,7 @@ class EssayLearningArtifactService:
                 status="published" if rubric else "pending",
                 rubric=rubric,
             ),
-            current_artifacts=artifact_state.current_by_type,
+            current_artifacts=current_artifacts,  # type: ignore[arg-type]
             progression=_progression_from_row(progression),
         )
 
@@ -744,6 +760,5 @@ def _scoped_material_segments(
         for item in segment_rows
         if int(item["material_order"]) in selected_orders
     }
-
 
 

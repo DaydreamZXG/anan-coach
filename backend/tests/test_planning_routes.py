@@ -873,7 +873,10 @@ def test_capacity_preview_can_make_today_an_explicit_single_module_day(
 def test_positive_capacity_override_turns_scheduled_rest_day_into_normal_plan(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    user_id = _seed_learner_and_published_essay_content(db_session_factory)
+    user_id = _seed_learner_and_published_essay_content(
+        db_session_factory,
+        include_objective_questions=False,
+    )
     _seed_today_as_regular_rest_day(db_session_factory, user_id=user_id)
     service = PlanningService()
 
@@ -902,7 +905,7 @@ def test_positive_capacity_override_turns_scheduled_rest_day_into_normal_plan(
         )
     assert preview.current_plan.day_mode == "recovery"
     assert preview.proposed_plan.day_mode == "normal"
-    assert {task.track for task in preview.proposed_plan.tasks} == {"xingce", "essay"}
+    assert {task.track for task in preview.proposed_plan.tasks} == {"essay"}
 
     with db_session_factory.begin() as session:
         confirmed = service.set_today_capacity(
@@ -924,6 +927,26 @@ def test_positive_capacity_override_turns_scheduled_rest_day_into_normal_plan(
         (task.track, task.stage, task.title, task.estimated_minutes)
         for task in preview.proposed_plan.tasks
     ]
+
+
+def test_first_available_diagnostic_is_not_hidden_by_scheduled_rest_day(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id = _seed_learner_and_published_essay_content(db_session_factory)
+    with db_session_factory.begin() as session:
+        _seed_shared_objective_question_bank(session)
+    _seed_today_as_regular_rest_day(db_session_factory, user_id=user_id)
+
+    with db_session_factory.begin() as session:
+        plan = PlanningService().get_or_create_today(
+            session,
+            user_id=user_id,
+            now=NOW,
+            local_date=NOW.astimezone(ZoneInfo("Asia/Shanghai")).date(),
+        )
+
+    assert plan.day_mode == "normal"
+    assert any(task.stage == "objective_baseline" for task in plan.tasks)
 
 
 def test_scheduled_rest_override_does_not_bypass_zero_or_adaptive_recovery(

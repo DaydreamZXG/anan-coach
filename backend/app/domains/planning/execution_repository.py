@@ -62,9 +62,14 @@ class ExecutionRepositoryMixin:
                       execution.work_item_key,
                       execution.status,
                       execution.elapsed_minutes,
+                      task.estimated_minutes,
                       execution.input_fingerprint,
                       execution.recorded_at
                     from learning.task_execution_versions execution
+                    join learning.daily_plan_tasks task
+                      on task.task_id = execution.task_id
+                     and task.plan_version_id = execution.plan_version_id
+                     and task.user_id = execution.user_id
                     where execution.user_id = cast(:user_id as uuid)
                       and execution.local_date = :local_date
                       and not exists (
