@@ -135,7 +135,8 @@
   background: var(--color-danger-soft);
 }
 
-@media (min-width: 768px) {
+/* Host layout tiers: compact <600, medium >=600, wide >=1024. */
+@media (min-width: 600px) {
   .question-tool {
     width: 48px;
     min-height: 52px;

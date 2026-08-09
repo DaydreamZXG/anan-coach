@@ -95,6 +95,10 @@ describe("tablet responsive layout contract", () => {
   });
 
   it("turns xingce and mock answering into material-question workbenches", () => {
+    expect(practiceStyles).toContain("@media (min-width: 600px)");
+    expect(practiceStyles).toContain("@media (min-width: 1024px)");
+    expect(mockStyles).toContain("@media (min-width: 600px)");
+    expect(mockStyles).toContain("@media (min-width: 1024px)");
     expect(practiceTemplate).toContain('class="practice-workspace ');
     expect(practiceTemplate).toMatch(
       /class="practice-question-stage"[\s\S]*class="practice-question-pane"[\s\S]*class="practice-annotation-host/u,
@@ -161,7 +165,8 @@ describe("tablet responsive layout contract", () => {
 
   it("keeps the practice answer card and CTA inside phone and tablet viewports", () => {
     const [phoneRule, tabletRule] = ruleBodies(answerSheetStyles, ".answer-card__sheet");
-    expect(practiceStyles).toContain("@media (min-width: 768px)");
+    expect(practiceStyles).toContain("@media (min-width: 600px)");
+    expect(answerSheetStyles).toContain("@media (min-width: 600px)");
     expect(phoneRule).toBeDefined();
     expect(tabletRule).toBeDefined();
 
@@ -175,7 +180,7 @@ describe("tablet responsive layout contract", () => {
     expect(tabletRule).toMatch(/\btransform:\s*translateX\(50%\);/u);
     expect(tabletRule).toMatch(/\bpadding:\s*8px 20px/u);
 
-    for (const viewportWidth of [320, 363, 390, 767]) {
+    for (const viewportWidth of [320, 363, 390, 599]) {
       const horizontalPadding = (40 * viewportWidth) / 750;
       const sheetLeft = 0;
       const sheetRight = viewportWidth;
@@ -188,7 +193,7 @@ describe("tablet responsive layout contract", () => {
       expect(ctaRight).toBeLessThanOrEqual(sheetRight);
     }
 
-    for (const viewportWidth of [768, 800, 1024]) {
+    for (const viewportWidth of [600, 744, 800, 1024]) {
       const sheetWidth = Math.min(viewportWidth, 560);
       const sheetLeft = (viewportWidth - sheetWidth) / 2;
       const sheetRight = sheetLeft + sheetWidth;
