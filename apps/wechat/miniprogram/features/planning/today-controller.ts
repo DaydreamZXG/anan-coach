@@ -384,5 +384,7 @@ function capacityFingerprint(command: DailyCapacityCommand): string {
 }
 
 function authSessionKey(session: AuthSession | undefined): string {
-  return session ? `${session.userId}\u0000${session.accessToken}` : "anonymous";
+  return session
+    ? `${session.userId}\u0000${session.accessToken}\u0000${session.generation ?? "legacy"}`
+    : "anonymous";
 }
