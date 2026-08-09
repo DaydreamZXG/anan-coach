@@ -23,7 +23,7 @@ This is a bounded release unit. It does not redesign essay review, position elig
 ## Frozen decisions
 
 - Restore exactly two rubric model phases: generator, then independent critic/reviser. A rejected or invalid critic result cannot publish.
-- Version the restored two-phase contract as pipeline v3 / generator prompt v12 so it cannot reuse a provider key previously occupied by the regressed single-phase pipeline.
+- Version the restored two-phase contract as pipeline v3. Production prompt v12 is retained as the successful dry-run receipt; the provider failed same-key replay, so publication uses prompt v13 in one generate-review-compile-publish transaction without deleting the v12 ledger or weakening fingerprint checks.
 - Preserve deterministic source grounding, compilation, idempotency, cost ledger and append-only publication. The tolerant quote locator may normalize punctuation/spacing only; persisted evidence remains a verbatim source span.
 - The rubric provider document contains product content only. It must not contain a user ID, learner answer, learning history or inferred cause.
 - Expose the preparation range as selected-region `P80 + uplift`, selected-region `P95 + uplift`, and the current-year maximum among all nationwide same-major-family positions that pass known hard conditions plus uplift. Preference region is not treated as a hard eligibility restriction.
