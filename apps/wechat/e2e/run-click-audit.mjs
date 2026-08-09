@@ -27,6 +27,8 @@ const literalDomJourneys = [
   ["deep-capture-mode-track", captureModeTrack],
   ["deep-capture-restart", captureRestart],
   ["deep-xingce-toolbar", xingceToolbar],
+  ["deep-practice-interaction-release", practiceInteractionRelease],
+  ["deep-mock-interaction-release", mockInteractionRelease],
   ["deep-submitted-mock-report", submittedMockReport],
   ["deep-essay-compose-actions", essayComposeActions],
   ["deep-report-return-today", reportReturnToday],
@@ -91,8 +93,11 @@ assert.deepEqual(
   `Mini Program runtime warnings:\n${runtimeWarnings.join("\n")}`,
 );
 process.stdout.write(
-  `Audited ${String(selectedJourneys.length)} mock-backed page binding/controller journeys; ` +
-    "this command is not literal DOM tap, real-backend, or device evidence.\n",
+  process.env.LITERAL_DOM_AUDIT === "1"
+    ? `Audited ${String(selectedJourneys.length)} selected mock-backed journeys, including literal ` +
+        "Mini Program DOM taps/touches where declared; this is not real-backend or device evidence.\n"
+    : `Audited ${String(selectedJourneys.length)} mock-backed page binding/controller journeys; ` +
+        "this command is not literal DOM tap, real-backend, or device evidence.\n",
 );
 
 function pagePurposeJourney(contract) {
@@ -218,6 +223,164 @@ async function xingceToolbar(program) {
   await invokePageHandler(program, page, "toggleTaskPause");
   await waitForData(page, (data) => data.taskPaused === true, "timer did not pause");
   await installNetworkGuard(program);
+}
+
+async function practiceInteractionRelease(program) {
+  await setAuthentication(program, true);
+  await installXingceMocks(program);
+  const page = await program.reLaunch(
+    "/pages/practice/index?mode=targeted&planTaskId=audit-plan-task",
+  );
+  await waitForData(page, (data) => data.status === "ready", "practice page did not become ready");
+  await literalTaskInteractionRelease(page, {
+    current: (data) => data.view?.current,
+    paneSelector: ".practice-question-pane",
+    selected: (data) => data.view?.question?.selectedOptionIds?.length > 0,
+  });
+  await installNetworkGuard(program);
+}
+
+async function mockInteractionRelease(program) {
+  await setAuthentication(program, true);
+  await installMockExamMocks(program);
+  const page = await program.reLaunch("/pages/mock-exam/index?sessionId=audit-mock-session");
+  await waitForData(page, (data) => data.status === "ready", "mock page did not become ready");
+  await literalTaskInteractionRelease(page, {
+    current: (data) => data.current,
+    paneSelector: ".mock-question-pane",
+    selected: (data) => data.question?.options?.some((option) => option.selected) === true,
+  });
+  await installNetworkGuard(program);
+}
+
+async function literalTaskInteractionRelease(page, contract) {
+  const toolbar = await requiredElement(page, "question-toolbar");
+  const draftButton = await requiredElement(toolbar, ".question-tool--draft");
+  await draftButton.tap();
+  await waitForData(
+    page,
+    (data) =>
+      data.annotationOpen === true &&
+      data.annotationSurface === "question" &&
+      data.annotationMode === "annotate" &&
+      data.touchOwner === "annotation",
+    `${page.path} did not give annotation the touch owner`,
+  );
+
+  const questionPane = await requiredElement(page, contract.paneSelector);
+  assert.equal(
+    await questionPane.attribute("data-touch-owner"),
+    "annotation",
+    `${page.path} did not project annotation touch ownership into WXML`,
+  );
+  const annotation = await requiredElement(page, "annotation-layer");
+  const tools = await annotation.$$(".annotation-layer__tool");
+  assert.ok(tools.length >= 2, `${page.path} annotation toolbar does not expose a pen tool`);
+  await tools[1].tap();
+  const capture = await waitForElement(
+    annotation,
+    ".annotation-layer__capture",
+    `${page.path} did not physically mount its drawing capture layer`,
+  );
+  await capture.touchstart({ touches: [{ clientX: 180, clientY: 260 }] });
+  await capture.touchend({ touches: [], changeTouches: [{ clientX: 180, clientY: 260 }] });
+
+  const annotationActions = await annotation.$$(".annotation-layer__secondary-action");
+  assert.ok(annotationActions.length >= 3, `${page.path} annotation toolbar has no more action`);
+  await annotationActions[2].tap();
+  await waitForData(
+    page,
+    (data) =>
+      data.annotationOpen === false &&
+      data.annotationSurface === "" &&
+      data.annotationMode === "static" &&
+      data.toolsOpen === true &&
+      data.touchOwner === "overlay",
+    `${page.path} did not transfer touch ownership from annotation to tools`,
+  );
+  await assertDrawingCaptureAbsent(page);
+  assert.equal(
+    await questionPane.attribute("data-touch-owner"),
+    "overlay",
+    `${page.path} did not project overlay touch ownership into WXML`,
+  );
+
+  const toolsPanel = await requiredElement(page, "task-tools-panel");
+  const sheet = await requiredElement(toolsPanel, "ui-sheet");
+  const closeButton = await requiredElement(sheet, ".ui-sheet__close");
+  await closeButton.tap();
+  await waitForData(
+    page,
+    (data) => data.toolsOpen === false && data.touchOwner === "question",
+    `${page.path} did not release overlay touch ownership`,
+  );
+  await assertDrawingCaptureAbsent(page);
+  assert.equal(
+    await questionPane.attribute("data-touch-owner"),
+    "question",
+    `${page.path} did not return touch ownership to the question WXML`,
+  );
+
+  const firstOption = (await page.$$(".option-card"))[0];
+  assert.ok(firstOption, `${page.path} has no literal option card`);
+  await firstOption.tap();
+  await waitForData(page, contract.selected, `${page.path} option remained blocked after release`);
+
+  const beforeScroll = contract.current(await readPageData(miniProgram, page));
+  const paneSize = await questionPane.size();
+  const scrollHeight = Number(await questionPane.scrollHeight());
+  const viewportHeight = Number(paneSize.height);
+  assert.ok(
+    scrollHeight > viewportHeight + 1,
+    `${page.path} scroll fixture must overflow: ${String(scrollHeight)} <= ${String(viewportHeight)}`,
+  );
+  await questionPane.scrollTo(0, Math.min(160, scrollHeight - viewportHeight));
+  await waitForData(
+    page,
+    (data) => data.questionScrollPosition > 0,
+    `${page.path} question scroll-view remained blocked after release`,
+  );
+  assert.equal(
+    contract.current(await readPageData(miniProgram, page)),
+    beforeScroll,
+    `${page.path} vertical scrolling changed question`,
+  );
+
+  await questionPane.touchstart({ touches: [{ clientX: 330, clientY: 260 }] });
+  await questionPane.touchmove({ touches: [{ clientX: 210, clientY: 262 }] });
+  await questionPane.touchend({ touches: [], changeTouches: [{ clientX: 70, clientY: 264 }] });
+  await waitForData(
+    page,
+    (data) => contract.current(data) === Number(beforeScroll) + 1,
+    `${page.path} horizontal question swipe remained blocked after release`,
+  );
+  await assertDrawingCaptureAbsent(page);
+}
+
+async function requiredElement(root, selector) {
+  const element = await root.$(selector);
+  assert.ok(element, `Missing literal Mini Program element ${selector}`);
+  return element;
+}
+
+async function waitForElement(root, selector, message) {
+  let found = null;
+  await waitForPredicate(async () => {
+    found = await root.$(selector);
+    return found !== null;
+  }, message);
+  assert.ok(found, message);
+  return found;
+}
+
+async function assertDrawingCaptureAbsent(page) {
+  const annotation = await page.$("annotation-layer");
+  if (!annotation) return;
+  assert.equal(
+    await annotation.$(".annotation-layer__capture"),
+    null,
+    `${page.path} retained a physical drawing capture layer outside draw state`,
+  );
 }
 
 async function submittedMockReport(program) {
@@ -456,21 +619,125 @@ async function installXingceMocks(program) {
       wx.request = function auditXingceRequest(options) {
         const url = String(options.url ?? "");
         globalThis.__ananClickAuditXingceRequests.push(url);
-        const response = url.includes("/api/v2/task-editing/leases")
-          ? lease
-          : url.includes("/api/v2/xingce/task-sessions")
-            ? session
-            : {
+        let response;
+        if (url.includes("/api/v2/task-editing/leases")) {
+          response = lease;
+        } else if (url.includes("/api/v2/xingce/task-sessions")) {
+          if (url.endsWith("/checkpoint")) {
+            const command = options.data ?? {};
+            const savedSession = session.data.data;
+            savedSession.revision = Number(command.expectedRevision ?? savedSession.revision) + 1;
+            savedSession.currentQuestionId = String(
+              command.currentQuestionId ?? savedSession.currentQuestionId,
+            );
+            savedSession.answers = Array.isArray(command.answers) ? command.answers : [];
+          }
+          response = session;
+        } else {
+          response = {
+            data: {
+              code: "click_audit_network_guard",
+              message: "Click journeys must install explicit API mocks before network access.",
+              requestId: "click-audit-network-guard",
+            },
+            statusCode: 503,
+            header: {},
+            cookies: [],
+            errMsg: "request:ok",
+          };
+        }
+        setTimeout(() => {
+          options.success?.(response);
+          options.complete?.(response);
+        }, 0);
+        return {
+          abort() {},
+          onHeadersReceived() {},
+          offHeadersReceived() {},
+        };
+      };
+    },
+    sessionResponse,
+    leaseResponse,
+  );
+}
+
+async function installMockExamMocks(program) {
+  const sessionResponse = {
+    data: envelope(createMockExamSession()),
+    statusCode: 200,
+    header: {},
+    cookies: [],
+    errMsg: "request:ok",
+  };
+  const leaseResponse = {
+    data: envelope(createMockExamLease()),
+    statusCode: 200,
+    header: {},
+    cookies: [],
+    errMsg: "request:ok",
+  };
+  await program.evaluate(
+    function installAuditMockExamMocks(session, lease) {
+      globalThis.__ananClickAuditMockExamRequests = [];
+      wx.request = function auditMockExamRequest(options) {
+        const url = String(options.url ?? "");
+        globalThis.__ananClickAuditMockExamRequests.push(url);
+        let response;
+        if (url.includes("/api/v2/task-editing/leases")) {
+          response = lease;
+        } else if (url.endsWith("/trajectory-events")) {
+          response = {
+            data: {
+              data: null,
+              requestId: "click-audit-mock-trajectory",
+              generatedAt: "2026-08-09T00:00:00.000Z",
+            },
+            statusCode: 200,
+            header: {},
+            cookies: [],
+            errMsg: "request:ok",
+          };
+        } else if (url.includes("/api/v1/mock-exams/audit-mock-session")) {
+          const savedSession = session.data.data;
+          if (url.endsWith("/checkpoint")) {
+            const command = options.data ?? {};
+            savedSession.revision = Number(command.expectedRevision ?? savedSession.revision) + 1;
+            savedSession.checkpoint = {
+              currentQuestionId: String(
+                command.currentQuestionId ?? savedSession.checkpoint.currentQuestionId,
+              ),
+              answers: Array.isArray(command.answers) ? command.answers : [],
+            };
+            response = {
+              ...session,
+              data: {
+                ...session.data,
                 data: {
-                  code: "click_audit_network_guard",
-                  message: "Click journeys must install explicit API mocks before network access.",
-                  requestId: "click-audit-network-guard",
+                  sessionId: savedSession.sessionId,
+                  status: "assigned",
+                  revision: savedSession.revision,
+                  checkpoint: savedSession.checkpoint,
+                  checkpointUpdatedAt: "2026-08-09T00:00:00.000Z",
                 },
-                statusCode: 503,
-                header: {},
-                cookies: [],
-                errMsg: "request:ok",
-              };
+              },
+            };
+          } else {
+            response = session;
+          }
+        } else {
+          response = {
+            data: {
+              code: "click_audit_network_guard",
+              message: "Click journeys must install explicit API mocks before network access.",
+              requestId: "click-audit-network-guard",
+            },
+            statusCode: 503,
+            header: {},
+            cookies: [],
+            errMsg: "request:ok",
+          };
+        }
         setTimeout(() => {
           options.success?.(response);
           options.complete?.(response);
@@ -600,6 +867,109 @@ function createXingceLease() {
     localBaseRevision: 1,
     acquiredAt: "2026-07-18T00:00:00Z",
     lastSeenAt: "2026-07-18T00:00:00Z",
+    takenOverAt: null,
+  };
+}
+
+function createMockExamSession() {
+  const material = {
+    materialId: "audit-mock-material",
+    title: "增长资料",
+    text: "2025 年为 120，2024 年为 100。",
+    html: null,
+    assets: [],
+    content: [
+      {
+        type: "paragraph",
+        blockId: "audit-mock-material-paragraph",
+        text: "2025 年为 120，2024 年为 100。",
+        html: null,
+      },
+    ],
+    anchors: [
+      {
+        anchorId: "audit-mock-material-start",
+        blockId: "audit-mock-material-paragraph",
+        label: "材料开头",
+      },
+    ],
+  };
+  const questions = ["audit-mock-q-1", "audit-mock-q-2"].map((questionId, index) => ({
+    questionId,
+    contentVersionId: String(index + 1).repeat(64),
+    moduleName: "资料分析",
+    materialId: material.materialId,
+    stem: "某指标同比增长率为多少？",
+    stemHtml: null,
+    stemContent: [
+      {
+        type: "paragraph",
+        blockId: `audit-mock-stem-${String(index + 1)}`,
+        text: "某指标同比增长率为多少？请结合材料完成计算并选择最合理的答案。",
+        html: null,
+      },
+    ],
+    options: ["A", "B", "C", "D"].map((label, optionIndex) => ({
+      optionId: label,
+      label,
+      text: `${String((optionIndex + 1) * 10)}%`,
+      html: null,
+      content: [
+        {
+          type: "paragraph",
+          blockId: `audit-mock-${String(index + 1)}-${label}`,
+          text: `${String((optionIndex + 1) * 10)}% · 根据材料数据计算得出的候选项。`,
+          html: null,
+        },
+      ],
+    })),
+  }));
+  return {
+    sessionId: "audit-mock-session",
+    planTaskId: null,
+    status: "assigned",
+    title: "国考行测整卷模考",
+    durationMinutes: 120,
+    questionCount: questions.length,
+    blueprint: [{ moduleName: "资料分析", questionCount: questions.length }],
+    bundleVersionId: "b".repeat(64),
+    paperVersionId: "00000000-0000-4000-8000-000000000602",
+    scoringPolicyVersionId: "mock-balanced-performance-index-v1",
+    scoreMetricName: "balanced_performance_index",
+    scoreMetricUnit: "index_points",
+    scoreMetricDefinition: "五个行测模块各占 20 点，不是官方原始分。",
+    nextTrajectoryEventSeq: 1,
+    materials: [material],
+    questions,
+    revision: 3,
+    startedAt: "2026-08-09T00:00:00.000Z",
+    deadlineAt: "2099-08-09T02:00:00.000Z",
+    checkpoint: {
+      currentQuestionId: questions[0].questionId,
+      answers: questions.map((question) => ({
+        questionId: question.questionId,
+        selectedAnswer: null,
+        eliminatedOptionIds: [],
+        marked: false,
+        draftText: "",
+      })),
+    },
+  };
+}
+
+function createMockExamLease() {
+  return {
+    state: "owned",
+    resourceType: "mock_exam_session",
+    resourceId: "audit-mock-session",
+    leaseId: "audit-mock-lease",
+    generation: 1,
+    deviceId: "audit-device-id-000000000000",
+    deviceLabel: "审计设备",
+    serverRevision: 3,
+    localBaseRevision: 3,
+    acquiredAt: "2026-08-09T00:00:00.000Z",
+    lastSeenAt: "2026-08-09T00:00:00.000Z",
     takenOverAt: null,
   };
 }
