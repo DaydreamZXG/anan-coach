@@ -28,6 +28,9 @@ provider release。任意一项变更都会产生新的输入指纹和调用键�
 使用 prompt v13 的新键并在同一次运行内完成生成、复核、编译和发布；它不得复用
 历史单阶段或 v12 dry-run 占用过的 generator 幂等键。供应商回放能力必须另行
 整改，不能通过删除账本或放松输出指纹校验来掩盖。
+发现器会继续接受当前官方 rubric；旧的 `system_compiled` rubric 如果没有
+pipeline v3 的 generator/critic 双调用审计，则视为待升级并只追加发布 successor，
+不修改或删除旧版本。
 
 ## provider 数据边界与安全门禁
 

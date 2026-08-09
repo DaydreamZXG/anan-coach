@@ -512,6 +512,53 @@ def test_pipeline_dry_run_replay_cost_audit_and_append_only_publish(
         assert pipeline.discover_pending_sources(session) == ()
 
 
+def test_legacy_single_phase_system_rubric_is_discovered_and_upgraded_append_only(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    source = _seed_source(db_session_factory, suffix="legacy-upgrade")
+    provider = FakeRubricProvider(source=source)
+    pipeline = _pipeline(provider)
+    with db_session_factory() as session:
+        first = pipeline.run_source(session, source=source, dry_run=False)
+    first_id = first.publish_result.versions[0].rubric_version_id
+
+    with db_session_factory.begin() as session:
+        session.execute(
+            text(
+                "update product.essay_rubric_versions "
+                "set compilation_audit = compilation_audit - 'pipelineAudit', "
+                "compilation_input_fingerprint = :legacy_fingerprint "
+                "where rubric_version_id = cast(:rubric_id as uuid)"
+            ),
+            {"legacy_fingerprint": "0" * 64, "rubric_id": first_id},
+        )
+    with db_session_factory() as session:
+        assert pipeline.discover_pending_sources(session) == (source,)
+        upgraded = pipeline.run_source(session, source=source, dry_run=False)
+
+    assert upgraded.publish_result.inserted_count == 1
+    assert upgraded.publish_result.versions[0].rubric_version_id != first_id
+    with db_session_factory() as session:
+        rows = (
+            session.execute(
+                text(
+                    "select rubric_version_id::text, supersedes_rubric_version_id::text, "
+                    "compilation_audit from product.essay_rubric_versions "
+                    "where task_version_id = cast(:task_id as uuid) order by version_no"
+                ),
+                {"task_id": str(source.task_version_id)},
+            )
+            .mappings()
+            .all()
+        )
+        assert len(rows) == 2
+        assert rows[1]["supersedes_rubric_version_id"] == first_id
+        assert rows[1]["compilation_audit"]["pipelineAudit"]["pipelineVersion"] == (
+            "guokao-essay-rubric-ai-pipeline-v3"
+        )
+        assert pipeline.discover_pending_sources(session) == ()
+
+
 def test_critic_rejection_is_audited_and_never_published(
     db_session_factory: sessionmaker[Session],
 ) -> None:

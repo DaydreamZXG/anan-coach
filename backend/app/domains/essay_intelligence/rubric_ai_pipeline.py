@@ -145,7 +145,7 @@ class GuokaoRubricAIPipeline:
         if task_version_ids == ():
             return ()
         filter_sql = ""
-        params: dict[str, object] = {}
+        params: dict[str, object] = {"pipeline_version": RUBRIC_AI_PIPELINE_VERSION}
         if task_version_ids is not None:
             filter_sql = " and task.task_version_id = any(cast(:task_version_ids as uuid[]))"
             params["task_version_ids"] = [str(item) for item in task_version_ids]
@@ -185,6 +185,16 @@ class GuokaoRubricAIPipeline:
                              and successor.task_version_id = rubric.task_version_id
                              and successor.material_bundle_version_id =
                                  rubric.material_bundle_version_id
+                        )
+                        and (
+                          rubric.source_kind = 'official'
+                          or (
+                            rubric.source_kind = 'system_compiled'
+                            and rubric.compilation_audit #>>
+                                  '{pipelineAudit,pipelineVersion}' = :pipeline_version
+                            and rubric.compilation_audit #>>
+                                  '{pipelineAudit,criticApproved}' = 'true'
+                          )
                         )
                    )
                 """
