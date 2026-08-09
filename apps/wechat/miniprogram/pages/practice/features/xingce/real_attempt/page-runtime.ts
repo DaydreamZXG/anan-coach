@@ -24,6 +24,8 @@ export interface XingcePageRuntime {
   /** 契约增量 v1：上一次 TICK 的 Date.now()，用于累计真实活跃毫秒。 */
   lastTickAtMs: number;
   saveInFlight: boolean;
+  /** 当前服务端 checkpoint 写入；岸岸询问与其他保存调用复用同一承诺。 */
+  checkpointSavePromise: Promise<void> | null;
   /** 输入/笔画先防抖落本机，网络仍沿用 15 秒自动保存节奏。 */
   localCheckpointTimer: ReturnType<typeof setTimeout> | undefined;
   localCheckpointDirty: boolean;
@@ -61,6 +63,7 @@ function createRuntime(): XingcePageRuntime {
     timerHandle: undefined,
     lastTickAtMs: 0,
     saveInFlight: false,
+    checkpointSavePromise: null,
     localCheckpointTimer: undefined,
     localCheckpointDirty: false,
     localCheckpointWarningShown: false,
@@ -117,6 +120,7 @@ export class XingcePageRuntimeRegistry<TPage extends object> {
     runtime.timerHandle = undefined;
     if (runtime.localCheckpointTimer !== undefined) clearTimeout(runtime.localCheckpointTimer);
     runtime.localCheckpointTimer = undefined;
+    runtime.checkpointSavePromise = null;
     runtime.api = null;
     runtime.favoriteApi = null;
     runtime.editingApi = null;

@@ -65,6 +65,79 @@ describe("xingce practice page lifecycle", () => {
     runtime.page.onUnload.call(runtime.page);
   });
 
+  it("awaits the current checkpoint before asking 岸岸 without creating a second save", async () => {
+    let confirmCheckpoint: (() => void) | undefined;
+    const runtime = await createPracticePage((options, session) => {
+      if (options.method === "PUT" && options.url.endsWith("/checkpoint")) {
+        const command = options.data as XingceCheckpointCommand;
+        confirmCheckpoint = () =>
+          options.success?.(
+            apiSuccess({
+              ...session,
+              revision: command.expectedRevision + 1,
+              answers: command.answers,
+              currentQuestionId: command.currentQuestionId,
+              totalElapsedSeconds: command.totalElapsedSeconds,
+            }),
+          );
+        return true;
+      }
+      if (options.url.endsWith("/api/v2/companion/ask")) {
+        options.success?.(
+          apiSuccess({
+            answer: "先确认你刚保存的选择，再看题干限定。",
+            companionIntent: "thinking",
+          }),
+        );
+        return true;
+      }
+      return false;
+    });
+    runtime.page.data.learnerStateVersion = "profile-version-1";
+
+    runtime.page.selectOption.call(runtime.page, {
+      currentTarget: { dataset: { optionid: "B" } },
+    } as unknown as WechatMiniprogram.BaseEvent);
+    await flushMicrotasks();
+    expect(confirmCheckpoint).toBeTypeOf("function");
+
+    const ask = runtime.page.askAnan.call(runtime.page, "我刚才为什么会选 B？");
+    await flushMicrotasks();
+    expect(runtime.requests.filter((item) => item.url.endsWith("/checkpoint"))).toHaveLength(1);
+    expect(runtime.requests.some((item) => item.url.endsWith("/api/v2/companion/ask"))).toBe(false);
+
+    confirmCheckpoint?.();
+    await ask;
+    const checkpointIndex = runtime.requests.findIndex((item) => item.url.endsWith("/checkpoint"));
+    const companionIndex = runtime.requests.findIndex((item) =>
+      item.url.endsWith("/api/v2/companion/ask"),
+    );
+    expect(checkpointIndex).toBeGreaterThanOrEqual(0);
+    expect(companionIndex).toBeGreaterThan(checkpointIndex);
+    expect(runtime.page.data.ananReply).toBe("先确认你刚保存的选择，再看题干限定。");
+    runtime.page.onUnload.call(runtime.page);
+  });
+
+  it("blocks 岸岸 when the current checkpoint is not confirmed and keeps the retry fact", async () => {
+    const runtime = await createPracticePage((options) => {
+      if (options.method !== "PUT" || !options.url.endsWith("/checkpoint")) return false;
+      options.fail?.(requestFailure());
+      return true;
+    });
+    runtime.page.data.learnerStateVersion = "profile-version-1";
+
+    runtime.page.selectOption.call(runtime.page, {
+      currentTarget: { dataset: { optionid: "B" } },
+    } as unknown as WechatMiniprogram.BaseEvent);
+    await runtime.page.askAnan.call(runtime.page, "我刚才为什么会选 B？");
+    await flushMicrotasks();
+
+    expect(runtime.requests.some((item) => item.url.endsWith("/api/v2/companion/ask"))).toBe(false);
+    expect(runtime.page.data.ananError).toContain("进度还没保存好");
+    expect(loadPendingXingceCheckpoint("user-a", xingceIds.session)).not.toBeNull();
+    runtime.page.onUnload.call(runtime.page);
+  });
+
   it("retries a failed draft and both scratch surfaces with the same checkpoint command", async () => {
     vi.useFakeTimers();
     let checkpointAttempts = 0;
@@ -1069,6 +1142,7 @@ interface CapturedPracticePage {
   openTaskTools(this: TestPracticePage): void;
   closeTaskOverlay(this: TestPracticePage): void;
   openAnanContext(this: TestPracticePage): void;
+  askAnan(this: TestPracticePage, question: string): Promise<void>;
   openTaskHelp(this: TestPracticePage): void;
   openDispute(this: TestPracticePage): void;
   toggleAnswerSheet(this: TestPracticePage): void;

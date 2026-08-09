@@ -941,6 +941,15 @@ Page<PracticePageData, PracticePageCustom>({
     if (!runtime?.session || !auth || !view || this.data.ananAsking) return;
     this.setData({ ananAsking: true, ananError: "", ananReply: "", ananReplyTitle: "" });
     try {
+      const checkpointConfirmed = await ensureCheckpointConfirmedBeforeCompanion(this, runtime);
+      if (!runtimes.owns(this, runtime)) return;
+      if (!checkpointConfirmed) {
+        this.setData({
+          ananAsking: false,
+          ananError: "这次进度还没保存好。先重试保存，草稿会留在本机，确认后再问岸岸。",
+        });
+        return;
+      }
       const client = new ApiClient(environment.apiBaseUrl, auth.accessToken);
       let learnerStateVersion = this.data.learnerStateVersion;
       if (!learnerStateVersion) {
@@ -2079,10 +2088,75 @@ async function saveCheckpointIfPossible(
   await saveCheckpoint(page, runtime);
 }
 
+/**
+ * 岸岸会从服务端最新 checkpoint 读取本题选择、草稿、批注和动作事实。
+ * 因此询问前必须复用或完成当前保存；保存失败时不允许退回上一版上下文。
+ * 只有当前题尚无任何可持久化事实时，现有服务端 revision 已经是完整事实。
+ */
+async function ensureCheckpointConfirmedBeforeCompanion(
+  page: PracticePageInstance,
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+): Promise<boolean> {
+  if (!runtime.task || !runtime.session || runtime.session.state !== "answering") return true;
+
+  const inFlight = runtime.checkpointSavePromise;
+  if (inFlight) await inFlight;
+  if (!runtimes.owns(page, runtime) || !currentAccountOwns(runtime)) return false;
+
+  let hasCheckpointFacts = true;
+  try {
+    checkpointCommand(runtime.task);
+  } catch {
+    hasCheckpointFacts = false;
+  }
+  if (!hasCheckpointFacts) {
+    return (
+      !page.data.hasPendingCheckpoint &&
+      loadPendingXingceCheckpoint(runtime.ownerUserId, runtime.session.sessionId) === null
+    );
+  }
+
+  if (
+    runtime.task.syncState !== "saved" ||
+    runtime.localCheckpointDirty ||
+    page.data.hasPendingCheckpoint ||
+    loadPendingXingceCheckpoint(runtime.ownerUserId, runtime.session.sessionId) !== null
+  ) {
+    await saveCheckpoint(page, runtime);
+  }
+
+  return (
+    runtimes.owns(page, runtime) &&
+    currentAccountOwns(runtime) &&
+    runtime.task?.syncState === "saved" &&
+    !page.data.hasPendingCheckpoint &&
+    loadPendingXingceCheckpoint(runtime.ownerUserId, runtime.session.sessionId) === null
+  );
+}
+
 async function saveCheckpoint(
   page: PracticePageInstance,
   runtime: NonNullable<ReturnType<typeof runtimes.get>>,
   conflictRetry = true,
+): Promise<void> {
+  if (!runtime.api || !runtime.task || !runtime.session) return;
+  if (runtime.checkpointSavePromise) {
+    await runtime.checkpointSavePromise;
+    return;
+  }
+  const promise = performCheckpointSave(page, runtime, conflictRetry);
+  runtime.checkpointSavePromise = promise;
+  try {
+    await promise;
+  } finally {
+    if (runtime.checkpointSavePromise === promise) runtime.checkpointSavePromise = null;
+  }
+}
+
+async function performCheckpointSave(
+  page: PracticePageInstance,
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+  conflictRetry: boolean,
 ): Promise<void> {
   if (!runtime.api || !runtime.task || !runtime.session || runtime.saveInFlight) return;
   runtime.localCheckpointDirty = true;
@@ -2170,7 +2244,7 @@ async function saveCheckpoint(
       runtime.session = current.data;
       runtime.task = mergePendingDraft(current.data, localDraft);
       runtime.saveInFlight = false;
-      await saveCheckpoint(page, runtime, false);
+      await performCheckpointSave(page, runtime, false);
       return;
     }
     runtime.task = reduceTaskRuntime(runtime.task, {
