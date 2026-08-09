@@ -201,23 +201,41 @@ def openai_compatible_companion_route(
     idempotency_key_header: str,
     request_id_header: str,
     replay_retention_seconds: int,
+    allow_model_alias_resolution: bool = False,
 ) -> AIProvider:
-    return AIProvider(
-        replace(
-            settings,
-            ai_provider_base_url=base_url,
-            ai_api_key=api_key,
-            ai_model=model,
-            ai_small_model=model,
-            ai_high_capability_model=model,
-            ai_companion_provider_release_id=release_id,
-            ai_companion_provider_https_host_allowlist=host_allowlist,
-            ai_companion_provider_idempotency_capability=idempotency_capability,
-            ai_companion_provider_idempotency_key_header=idempotency_key_header,
-            ai_companion_provider_request_id_header=request_id_header,
-            ai_companion_provider_replay_retention_seconds=replay_retention_seconds,
-        )
+    route_settings = replace(
+        settings,
+        ai_provider_base_url=base_url,
+        ai_api_key=api_key,
+        ai_model=model,
+        ai_small_model=model,
+        ai_high_capability_model=model,
+        ai_companion_provider_release_id=release_id,
+        ai_companion_provider_https_host_allowlist=host_allowlist,
+        ai_companion_provider_idempotency_capability=idempotency_capability,
+        ai_companion_provider_idempotency_key_header=idempotency_key_header,
+        ai_companion_provider_request_id_header=request_id_header,
+        ai_companion_provider_replay_retention_seconds=replay_retention_seconds,
     )
+    if allow_model_alias_resolution:
+        return ArkPlanAutoCompanionProvider(route_settings)
+    return AIProvider(route_settings)
+
+
+class ArkPlanAutoCompanionProvider(AIProvider):
+    """Allow Ark Plan's frozen Auto alias to resolve to a concrete model."""
+
+    def accepts_returned_model(
+        self,
+        *,
+        requested_model: str,
+        returned_model: object,
+    ) -> bool:
+        return (
+            requested_model == "ark-code-latest"
+            and isinstance(returned_model, str)
+            and 0 < len(returned_model.strip()) <= 200
+        )
 
 
 def _route_idempotency_key(base: str, index: int) -> str:

@@ -242,6 +242,7 @@ def companion_provider(settings: Settings) -> AIProvider:
                 replay_retention_seconds=(
                     settings.ai_companion_ark_provider_replay_retention_seconds
                 ),
+                allow_model_alias_resolution=True,
             )
         )
     if settings.ai_companion_deepseek_api_key.strip():

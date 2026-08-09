@@ -6,7 +6,10 @@ from typing import Any
 from httpx import HTTPStatusError, Request, Response
 
 from app.core.config import Settings
-from app.domains.ai.companion_failover import CompanionFailoverProvider
+from app.domains.ai.companion_failover import (
+    ArkPlanAutoCompanionProvider,
+    CompanionFailoverProvider,
+)
 from app.domains.ai.model_cost import ModelTokenUsage
 from app.domains.ai.provider import AICompanionAnswerResult, AIProvider
 
@@ -129,3 +132,20 @@ def test_companion_failover_does_not_call_fallback_when_primary_succeeds() -> No
 
     assert result.answer == "在呀。"
     assert calls == ["primary"]
+
+
+def test_ark_plan_auto_alias_accepts_a_concrete_model_release() -> None:
+    provider = ArkPlanAutoCompanionProvider(Settings())
+
+    assert provider.accepts_returned_model(
+        requested_model="ark-code-latest",
+        returned_model="doubao-seed-code-preview-250828",
+    )
+    assert not provider.accepts_returned_model(
+        requested_model="another-model",
+        returned_model="doubao-seed-code-preview-250828",
+    )
+    assert not AIProvider(Settings()).accepts_returned_model(
+        requested_model="fixed-model",
+        returned_model="another-model",
+    )

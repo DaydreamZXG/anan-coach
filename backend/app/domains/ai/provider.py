@@ -398,7 +398,11 @@ class AIProvider:
             envelope=data,
             configured_source=(self._settings.ai_companion_provider_request_id_header),
         )
-        if data.get("model") is not None and data.get("model") != prepared["model"]:
+        returned_model = data.get("model")
+        if returned_model is not None and not self.accepts_returned_model(
+            requested_model=str(prepared["model"]),
+            returned_model=returned_model,
+        ):
             raise AIProviderResponseError(
                 "AI provider returned a different model release",
                 code="provider_model_drift",
@@ -481,6 +485,14 @@ class AIProvider:
             provider_request_id_header=audit_header,
             provider_request_id_fingerprint=request_id_fingerprint,
         )
+
+    def accepts_returned_model(
+        self,
+        *,
+        requested_model: str,
+        returned_model: object,
+    ) -> bool:
+        return returned_model == requested_model
 
     def validate_prepared_companion_question(
         self,
