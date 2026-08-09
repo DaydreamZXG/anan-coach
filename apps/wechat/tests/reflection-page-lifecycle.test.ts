@@ -21,15 +21,9 @@ describe("reflection page session lifecycle", () => {
     expect(media).not.toBeNull();
     expect(lifecycle.ownsRequest(request, sessionA)).toBe(true);
     expect(lifecycle.ownsMedia(media, sessionA)).toBe(true);
-    expect(
-      lifecycle.ownsRequest(request, { ...sessionA, accessToken: "token-b" }),
-    ).toBe(false);
-    expect(
-      lifecycle.ownsRequest(request, { ...sessionA, generation: "generation-b" }),
-    ).toBe(false);
-    expect(
-      lifecycle.ownsRequest(request, { ...sessionA, userId: "user-b" }),
-    ).toBe(false);
+    expect(lifecycle.ownsRequest(request, { ...sessionA, accessToken: "token-b" })).toBe(false);
+    expect(lifecycle.ownsRequest(request, { ...sessionA, generation: "generation-b" })).toBe(false);
+    expect(lifecycle.ownsRequest(request, { ...sessionA, userId: "user-b" })).toBe(false);
   });
 
   it("invalidates late work and cleans poll, recording, previews, speech and replay on hide/unload", () => {

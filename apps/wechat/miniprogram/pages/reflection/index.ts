@@ -109,6 +109,10 @@ import {
   type ReplaySource,
   type TrajectoryReplayState,
 } from "./features/replay-runtime";
+import {
+  ReflectionSessionLifecycle,
+  type ReflectionActivityCleanup,
+} from "./features/session-owner";
 
 type ReflectionStatus = "loading" | "ready" | "error" | "unavailable";
 type ReflectionPhase =
@@ -262,18 +266,15 @@ interface ReflectionRuntime {
   mediaApi: LearningMediaApi;
   xfyunApi: XfyunApi;
   mediaUploader: ReflectionVoiceUploadCoordinator;
-  ownerUserId: string;
+  lifecycle: ReflectionSessionLifecycle;
   sessionId: string;
   reviewId: string;
   fallbackRoute: AppRoute;
   session: XingceTaskSession | null;
   selectedTags: Set<XingceReflectionTag>;
   selectedInterpretationQuestionIds: Set<string>;
-  disposed: boolean;
-  requestEpoch: number;
   submitting: boolean;
   mediaDraft: ReflectionLearningMediaDraft;
-  mediaEpoch: number;
   mediaBusy: boolean;
   recorder: WechatVoiceRecorder | null;
   preview: WechatVoicePreview | null;
@@ -395,7 +396,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       mediaApi,
       xfyunApi: new XfyunApi(client),
       mediaUploader: new ReflectionVoiceUploadCoordinator(mediaApi),
-      ownerUserId: auth.userId,
+      lifecycle: new ReflectionSessionLifecycle(auth),
       sessionId,
       reviewId,
       fallbackRoute: options.returnTo === "mastery" ? routes.xingceMastery : routes.today,
@@ -404,11 +405,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       selectedInterpretationQuestionIds: new Set(
         mediaDraft.methodCorrectCalculationErrorQuestionIds,
       ),
-      disposed: false,
-      requestEpoch: 0,
       submitting: false,
       mediaDraft,
-      mediaEpoch: 0,
       mediaBusy: false,
       recorder: null,
       preview: null,
@@ -427,43 +425,51 @@ Page<ReflectionPageData, ReflectionPageCustom>({
 
   onShow() {
     const runtime = runtimes.get(this);
-    if (!runtime || runtime.disposed) return;
-    runtime.verificationNavigationStarted = false;
-    this.setData({ verificationNavigationLocked: false });
-    if (!currentAccountOwns(runtime)) {
+    if (!runtime) return;
+    if (!runtime.lifecycle.show(currentAuthSession())) {
       invalidateForAccountChange(this, runtime);
       return;
     }
+    runtime.verificationNavigationStarted = false;
+    this.setData({
+      verificationNavigationLocked: false,
+      isRecording: false,
+      voiceBusy: false,
+      playingVoiceId: "",
+      speechBusy: false,
+      speechPlaying: false,
+      replayOpen: false,
+      replayPlaying: false,
+      analysisOpen: false,
+    });
     if (!runtime.session) return;
     void this.loadReview();
+  },
+
+  onHide() {
+    const runtime = runtimes.get(this);
+    if (!runtime) return;
+    runtime.lifecycle.hide(reflectionCleanup(this, runtime));
+    resetSuspendedRuntime(runtime);
   },
 
   onUnload() {
     const runtime = runtimes.get(this);
     if (!runtime) return;
-    runtime.disposed = true;
-    runtime.requestEpoch += 1;
-    runtime.mediaEpoch += 1;
-    clearCausePoll(runtime);
-    runtime.recorder?.dispose();
-    runtime.preview?.dispose();
-    runtime.speechPreview?.dispose();
-    replayClock.stop(this);
+    runtime.lifecycle.unload(reflectionCleanup(this, runtime));
+    resetSuspendedRuntime(runtime);
     runtimes.delete(this);
   },
 
   async loadReview() {
     const runtime = runtimes.get(this);
-    if (!runtime || runtime.disposed) return;
-    const epoch = ++runtime.requestEpoch;
+    if (!runtime) return;
+    const epoch = runtime.lifecycle.beginRequest(currentAuthSession());
+    if (epoch === null) return;
     this.setData({ status: "loading", errorTitle: "", errorMessage: "" });
     try {
       const response = await runtime.api.getSession(runtime.sessionId);
       if (!isCurrent(this, runtime, epoch)) return;
-      if (!currentAccountOwns(runtime)) {
-        invalidateForAccountChange(this, runtime);
-        return;
-      }
       applySession(this, runtime, response.data);
     } catch (error) {
       if (!isCurrent(this, runtime, epoch)) return;
@@ -474,15 +480,15 @@ Page<ReflectionPageData, ReflectionPageCustom>({
   retry() {
     const runtime = runtimes.get(this);
     if (!runtime) return;
-    if (loadPendingXingceReflection(runtime.ownerUserId, runtime.reviewId)) {
+    if (loadPendingXingceReflection(runtime.lifecycle.owner.userId, runtime.reviewId)) {
       void this.submitReflection();
       return;
     }
-    if (loadPendingXingceCauseFollowup(runtime.ownerUserId, runtime.reviewId)) {
+    if (loadPendingXingceCauseFollowup(runtime.lifecycle.owner.userId, runtime.reviewId)) {
       void submitCauseFollowup(this, runtime);
       return;
     }
-    if (loadPendingXingceCauseDecision(runtime.ownerUserId, runtime.reviewId)) {
+    if (loadPendingXingceCauseDecision(runtime.lifecycle.owner.userId, runtime.reviewId)) {
       void decideCause(this, runtime);
       return;
     }
@@ -607,7 +613,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
 
   onReviewTouchStart(event) {
     const runtime = runtimes.get(this);
-    if (!runtime || runtime.disposed || reviewSwipeBlocked(this)) return;
+    if (!runtime || !runtimeIsActive(this, runtime) || reviewSwipeBlocked(this)) return;
     runtime.swipeGesture = beginSwipeGesture(event);
   },
 
@@ -619,7 +625,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
 
   onReviewTouchEnd(event) {
     const runtime = runtimes.get(this);
-    if (!runtime || runtime.disposed) return;
+    if (!runtime || !runtimeIsActive(this, runtime)) return;
     const settled = finishSwipeGesture(runtime.swipeGesture, event);
     runtime.swipeGesture = settled.state;
     if (reviewSwipeBlocked(this)) return;
@@ -821,9 +827,11 @@ Page<ReflectionPageData, ReflectionPageCustom>({
 
   async openRecordPermission() {
     const runtime = runtimes.get(this);
-    if (!runtime || runtime.disposed) return;
+    if (!runtime) return;
+    const epoch = runtime.lifecycle.beginMedia(currentAuthSession());
+    if (epoch === null) return;
     const granted = await requestRecordSetting();
-    if (runtimes.get(this) !== runtime || !currentAccountOwns(runtime)) return;
+    if (!isMediaCurrent(this, runtime, epoch)) return;
     this.setData({
       recordPermission: granted ? "granted" : "denied",
       voiceMessage: granted ? "麦克风已开启，可以开始录制。" : "麦克风权限仍未开启。",
@@ -834,7 +842,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     const runtime = runtimes.get(this);
     if (
       !runtime ||
-      runtime.disposed ||
+      !runtimeIsActive(this, runtime) ||
       runtime.mediaBusy ||
       runtime.submitting ||
       this.data.isRecording ||
@@ -843,7 +851,11 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       return;
     }
     runtime.mediaBusy = true;
-    const epoch = ++runtime.mediaEpoch;
+    const epoch = runtime.lifecycle.beginMedia(currentAuthSession());
+    if (epoch === null) {
+      runtime.mediaBusy = false;
+      return;
+    }
     this.setData({ voiceBusy: true, voiceMessage: "岸岸正在检查录音…" });
     try {
       const segments = await runtime.mediaUploader.uploadAll(
@@ -883,9 +895,10 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     const runtime = runtimes.get(this);
     const segmentId = String(event.currentTarget.dataset.id ?? "");
     const segment = runtime?.mediaDraft.voiceSegments.find((item) => item.segmentId === segmentId);
-    if (!runtime || !segment || runtime.disposed) return;
+    if (!runtime || !segment || !runtimeIsActive(this, runtime)) return;
     runtime.preview ??= new WechatVoicePreview();
-    const epoch = runtime.mediaEpoch;
+    const epoch = runtime.lifecycle.beginMedia(currentAuthSession());
+    if (epoch === null) return;
     try {
       runtime.preview.play(
         segment.localPath,
@@ -909,8 +922,16 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     const runtime = runtimes.get(this);
     const segmentId = String(event.currentTarget.dataset.id ?? "");
     const segment = runtime?.mediaDraft.voiceSegments.find((item) => item.segmentId === segmentId);
-    if (!runtime || !segment || runtime.disposed || runtime.mediaBusy || this.data.speechBusy)
+    if (
+      !runtime ||
+      !segment ||
+      !runtimeIsActive(this, runtime) ||
+      runtime.mediaBusy ||
+      this.data.speechBusy
+    )
       return;
+    const epoch = runtime.lifecycle.beginMedia(currentAuthSession());
+    if (epoch === null) return;
     this.setData({ speechBusy: true, voiceMessage: "正在把这段原话转成文字…" });
     try {
       const audioBase64 = await readVoiceFileBase64(segment.localPath);
@@ -918,7 +939,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
         audioBase64,
         durationMilliseconds: segment.durationMilliseconds,
       });
-      if (!runtimeIsActive(this, runtime)) return;
+      if (!isMediaCurrent(this, runtime, epoch)) return;
       const transcript = result.transcript.trim();
       if (!transcript) throw new Error("这段录音没转出清楚的字，可以重录，也可以直接手写。");
       const rawText = [runtime.mediaDraft.rawText.trim(), transcript].filter(Boolean).join("\n");
@@ -929,46 +950,48 @@ Page<ReflectionPageData, ReflectionPageCustom>({
         voiceMessage: "转出的文字已放到上方，你可以改好再提交。",
       });
     } catch (error) {
-      if (runtimeIsActive(this, runtime)) {
+      if (isMediaCurrent(this, runtime, epoch)) {
         this.setData({
           voiceMessage: error instanceof Error ? error.message : "这段录音暂时转不了文字。",
         });
       }
     } finally {
-      if (runtimeIsActive(this, runtime)) this.setData({ speechBusy: false });
+      if (isMediaCurrent(this, runtime, epoch)) this.setData({ speechBusy: false });
     }
   },
 
   async readRawText() {
     const runtime = runtimes.get(this);
     const text = this.data.rawText.trim();
-    if (!runtime || runtime.disposed || this.data.speechBusy || !text) return;
+    if (!runtime || !runtimeIsActive(this, runtime) || this.data.speechBusy || !text) return;
+    const epoch = runtime.lifecycle.beginMedia(currentAuthSession());
+    if (epoch === null) return;
     this.setData({ speechBusy: true });
     try {
       const result = await runtime.xfyunApi.textToSpeech(text);
       const localPath = await persistSynthesizedSpeech(result.audioBase64);
-      if (!runtimeIsActive(this, runtime)) return;
+      if (!isMediaCurrent(this, runtime, epoch)) return;
       runtime.speechPreview ??= new WechatVoicePreview();
       runtime.speechPreview.play(
         localPath,
         () => {
-          if (runtimeIsActive(this, runtime)) this.setData({ speechPlaying: false });
+          if (isMediaCurrent(this, runtime, epoch)) this.setData({ speechPlaying: false });
         },
         (error) => {
-          if (runtimeIsActive(this, runtime)) {
+          if (isMediaCurrent(this, runtime, epoch)) {
             this.setData({ speechPlaying: false, voiceMessage: error.message });
           }
         },
       );
       this.setData({ speechPlaying: true });
     } catch (error) {
-      if (runtimeIsActive(this, runtime)) {
+      if (isMediaCurrent(this, runtime, epoch)) {
         this.setData({
           voiceMessage: error instanceof Error ? error.message : "这段文字暂时无法朗读。",
         });
       }
     } finally {
-      if (runtimeIsActive(this, runtime)) this.setData({ speechBusy: false });
+      if (isMediaCurrent(this, runtime, epoch)) this.setData({ speechBusy: false });
     }
   },
 
@@ -987,7 +1010,9 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     const review = runtime?.session?.review;
     if (!runtime || !review || runtime.submitting || runtime.mediaBusy || this.data.isRecording)
       return;
-    let pending = loadPendingXingceReflection(runtime.ownerUserId, runtime.reviewId);
+    const epoch = runtime.lifecycle.beginRequest(currentAuthSession());
+    if (epoch === null) return;
+    let pending = loadPendingXingceReflection(runtime.lifecycle.owner.userId, runtime.reviewId);
     const rawText = this.data.rawText.trim();
     const unreadyVoice = runtime.mediaDraft.voiceSegments.some(
       (segment) => segment.state !== "available",
@@ -1013,7 +1038,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
           }),
         );
         const idempotencyKey = await createIdempotencyKey("xingce-reflection");
-        if (!runtimeIsActive(this, runtime)) return;
+        if (!isCurrent(this, runtime, epoch)) return;
         pending = {
           kind: "reflection",
           sessionId: runtime.sessionId,
@@ -1031,28 +1056,31 @@ Page<ReflectionPageData, ReflectionPageCustom>({
             itemInterpretations,
           },
         };
-        storePendingXingceReflection(runtime.ownerUserId, pending);
+        storePendingXingceReflection(runtime.lifecycle.owner.userId, pending);
       }
       const response = await runtime.api.submitReflection(
         pending.reviewId,
         pending.command,
         pending.idempotencyKey,
       );
-      if (!runtimeIsActive(this, runtime)) {
+      if (!isCurrent(this, runtime, epoch)) {
         if (!currentAccountOwns(runtime)) invalidateForAccountChange(this, runtime);
         return;
       }
-      clearPendingXingceReflection(runtime.ownerUserId, runtime.reviewId);
+      clearPendingXingceReflection(runtime.lifecycle.owner.userId, runtime.reviewId);
       const localPaths = runtime.mediaDraft.voiceSegments.map((segment) => segment.localPath);
-      clearReflectionLearningMediaDraft(runtime.ownerUserId, runtime.reviewId);
-      runtime.mediaDraft = loadReflectionLearningMediaDraft(runtime.ownerUserId, runtime.reviewId);
+      clearReflectionLearningMediaDraft(runtime.lifecycle.owner.userId, runtime.reviewId);
+      runtime.mediaDraft = loadReflectionLearningMediaDraft(
+        runtime.lifecycle.owner.userId,
+        runtime.reviewId,
+      );
       void deleteVoiceFiles(localPaths);
       applySession(this, runtime, response.data);
       returnToTodayForBackgroundCause = response.data.review?.state === "cause_candidate_pending";
     } catch (error) {
-      if (!runtimeIsActive(this, runtime)) return;
+      if (!isCurrent(this, runtime, epoch)) return;
       if (error instanceof ApiClientError && error.statusCode === 409) {
-        clearPendingXingceReflection(runtime.ownerUserId, runtime.reviewId);
+        clearPendingXingceReflection(runtime.lifecycle.owner.userId, runtime.reviewId);
         await reloadAfterConflict(this, runtime);
         return;
       }
@@ -1072,7 +1100,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
 
   async refreshCauseCandidate() {
     const runtime = runtimes.get(this);
-    if (!runtime || runtime.disposed || runtime.submitting) return;
+    if (!runtime || !runtimeIsActive(this, runtime) || runtime.submitting) return;
     // 用户手动重试：重置轮询上限
     runtime.causePollCount = 0;
     await pollCauseCandidate(this, runtime, true);
@@ -1086,8 +1114,10 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     const runtime = runtimes.get(this);
     const review = runtime?.session?.review;
     if (!runtime || !review || runtime.submitting) return;
-    let pending = loadPendingXingceCauseFollowup(runtime.ownerUserId, runtime.reviewId);
+    let pending = loadPendingXingceCauseFollowup(runtime.lifecycle.owner.userId, runtime.reviewId);
     if (!pending) {
+      const epoch = runtime.lifecycle.beginRequest(currentAuthSession());
+      if (epoch === null) return;
       const candidateVersionId = review.aiCandidate.candidateVersionId;
       const answer = this.data.followupAnswer.trim();
       if (review.aiCandidate.state !== "followup_required" || !candidateVersionId) {
@@ -1099,7 +1129,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
         return;
       }
       const idempotencyKey = await createIdempotencyKey("xingce-cause-followup");
-      if (!runtimeIsActive(this, runtime)) return;
+      if (!isCurrent(this, runtime, epoch)) return;
       pending = {
         kind: "cause_followup",
         sessionId: runtime.sessionId,
@@ -1111,7 +1141,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
           answer,
         },
       };
-      storePendingXingceCauseFollowup(runtime.ownerUserId, pending);
+      storePendingXingceCauseFollowup(runtime.lifecycle.owner.userId, pending);
     }
     await submitCauseFollowup(this, runtime);
   },
@@ -1176,7 +1206,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
 
   async retryRescue() {
     const runtime = runtimes.get(this);
-    if (!runtime || runtime.disposed) return;
+    if (!runtime || !runtimeIsActive(this, runtime)) return;
     await loadRescue(this, runtime);
   },
 
@@ -1195,7 +1225,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     const runtime = runtimes.get(this);
     if (
       !runtime?.session ||
-      runtime.disposed ||
+      !runtimeIsActive(this, runtime) ||
       runtime.verificationNavigationStarted ||
       this.data.verificationNavigationLocked
     ) {
@@ -1228,7 +1258,7 @@ async function beginVoiceRecording(
   const runtime = runtimes.get(page);
   if (
     !runtime ||
-    runtime.disposed ||
+    !runtimeIsActive(page, runtime) ||
     runtime.mediaBusy ||
     runtime.submitting ||
     page.data.interactionLocked ||
@@ -1249,7 +1279,8 @@ async function beginVoiceRecording(
   ) {
     return;
   }
-  const epoch = ++runtime.mediaEpoch;
+  const epoch = runtime.lifecycle.beginMedia(currentAuthSession());
+  if (epoch === null) return;
   const permission = await ensureRecordPermission();
   if (!isMediaCurrent(page, runtime, epoch)) return;
   if (permission === "denied") {
@@ -1367,20 +1398,22 @@ async function removeVoiceSegment(
   if (
     !runtime ||
     !segment ||
-    runtime.disposed ||
+    !runtimeIsActive(page, runtime) ||
     runtime.mediaBusy ||
     runtime.submitting ||
     page.data.isRecording
   ) {
     return;
   }
+  const epoch = runtime.lifecycle.beginMedia(currentAuthSession());
+  if (epoch === null) return;
   if (confirm) {
     const decision = await wx.showModal({
       title: "删除这段录音？",
       content: "删除后这次复盘就不会带上它，本地录音也会一起清掉。",
       confirmText: "确认删除",
     });
-    if (!decision.confirm || !currentAccountOwns(runtime)) return;
+    if (!decision.confirm || !isMediaCurrent(page, runtime, epoch)) return;
   }
   try {
     runtime.preview?.stop();
@@ -1389,11 +1422,11 @@ async function removeVoiceSegment(
       (item) => item.segmentId !== segmentId,
     );
     persistDraft(runtime);
-    if (runtimes.get(page) !== runtime || !currentAccountOwns(runtime)) return;
+    if (!isMediaCurrent(page, runtime, epoch)) return;
     syncVoiceView(page, runtime);
     page.setData({ playingVoiceId: "", voiceMessage: "这段录音已删除。" });
   } catch (error) {
-    if (runtimes.get(page) !== runtime || !currentAccountOwns(runtime)) return;
+    if (!isMediaCurrent(page, runtime, epoch)) return;
     page.setData({
       voiceMessage: error instanceof Error ? error.message : "本地录音删除失败。",
     });
@@ -1401,7 +1434,11 @@ async function removeVoiceSegment(
 }
 
 function persistDraft(runtime: ReflectionRuntime): void {
-  storeReflectionLearningMediaDraft(runtime.ownerUserId, runtime.reviewId, runtime.mediaDraft);
+  storeReflectionLearningMediaDraft(
+    runtime.lifecycle.owner.userId,
+    runtime.reviewId,
+    runtime.mediaDraft,
+  );
 }
 
 function syncVoiceView(page: ReflectionPageInstance, runtime: ReflectionRuntime): void {
@@ -1427,12 +1464,7 @@ function isMediaCurrent(
   runtime: ReflectionRuntime,
   epoch: number,
 ): boolean {
-  return (
-    runtimes.get(page) === runtime &&
-    !runtime.disposed &&
-    runtime.mediaEpoch === epoch &&
-    currentAccountOwns(runtime)
-  );
+  return runtimes.get(page) === runtime && runtime.lifecycle.ownsMedia(epoch, currentAuthSession());
 }
 
 function voiceSegmentId(): string {
@@ -1448,8 +1480,10 @@ async function submitCauseFollowup(
   runtime: ReflectionRuntime,
 ): Promise<void> {
   if (runtime.submitting) return;
-  const pending = loadPendingXingceCauseFollowup(runtime.ownerUserId, runtime.reviewId);
+  const pending = loadPendingXingceCauseFollowup(runtime.lifecycle.owner.userId, runtime.reviewId);
   if (!pending) return;
+  const epoch = runtime.lifecycle.beginRequest(currentAuthSession());
+  if (epoch === null) return;
   runtime.submitting = true;
   page.setData({ interactionLocked: true, pendingMessage: "正在提交追问回答…" });
   try {
@@ -1458,16 +1492,16 @@ async function submitCauseFollowup(
       pending.command,
       pending.idempotencyKey,
     );
-    if (!runtimeIsActive(page, runtime)) {
+    if (!isCurrent(page, runtime, epoch)) {
       if (!currentAccountOwns(runtime)) invalidateForAccountChange(page, runtime);
       return;
     }
-    clearPendingXingceCauseFollowup(runtime.ownerUserId, runtime.reviewId);
+    clearPendingXingceCauseFollowup(runtime.lifecycle.owner.userId, runtime.reviewId);
     applySession(page, runtime, response.data);
   } catch (error) {
-    if (!runtimeIsActive(page, runtime)) return;
+    if (!isCurrent(page, runtime, epoch)) return;
     if (error instanceof ApiClientError && error.statusCode === 409) {
-      clearPendingXingceCauseFollowup(runtime.ownerUserId, runtime.reviewId);
+      clearPendingXingceCauseFollowup(runtime.lifecycle.owner.userId, runtime.reviewId);
       await reloadAfterConflict(page, runtime);
       return;
     }
@@ -1495,8 +1529,10 @@ async function prepareCauseDecision(
     void wx.showToast({ title: "现有证据还不足以确认这个错因", icon: "none" });
     return;
   }
+  const epoch = runtime.lifecycle.beginRequest(currentAuthSession());
+  if (epoch === null) return;
   const idempotencyKey = await createIdempotencyKey("xingce-cause");
-  if (!runtimeIsActive(page, runtime)) return;
+  if (!isCurrent(page, runtime, epoch)) return;
   const pending = {
     kind: "cause_decision" as const,
     sessionId: runtime.sessionId,
@@ -1511,7 +1547,7 @@ async function prepareCauseDecision(
       ...(decision === "replace" && replacementCode ? { replacementCode } : {}),
     },
   };
-  storePendingXingceCauseDecision(runtime.ownerUserId, pending);
+  storePendingXingceCauseDecision(runtime.lifecycle.owner.userId, pending);
   await decideCause(page, runtime);
 }
 
@@ -1522,11 +1558,12 @@ async function pollCauseCandidate(
 ): Promise<void> {
   if (!runtimeIsActive(page, runtime) || runtime.submitting) return;
   clearCausePoll(runtime);
-  const epoch = ++runtime.requestEpoch;
+  const epoch = runtime.lifecycle.beginRequest(currentAuthSession());
+  if (epoch === null) return;
   if (userInitiated) page.setData({ pendingMessage: "正在重新核对错因线索…" });
   try {
     const response = await runtime.api.getSession(runtime.sessionId);
-    if (!isCurrent(page, runtime, epoch) || !currentAccountOwns(runtime)) return;
+    if (!isCurrent(page, runtime, epoch)) return;
     applySession(page, runtime, response.data);
   } catch (error) {
     if (!isCurrent(page, runtime, epoch)) return;
@@ -1566,12 +1603,13 @@ function clearCausePoll(runtime: ReflectionRuntime): void {
 
 /** 错题即时救场：错因确认后拉方法卡 + 同类题（只读，失败静默不影响完成态）。 */
 async function loadRescue(page: ReflectionPageInstance, runtime: ReflectionRuntime): Promise<void> {
-  if (runtime.disposed || page.data.rescueLoading) return;
-  const epoch = ++runtime.requestEpoch;
+  if (!runtimeIsActive(page, runtime) || page.data.rescueLoading) return;
+  const epoch = runtime.lifecycle.beginRequest(currentAuthSession());
+  if (epoch === null) return;
   page.setData({ rescueLoading: true, rescueError: false });
   try {
     const response = await runtime.api.getRescue(runtime.reviewId);
-    if (!isCurrent(page, runtime, epoch) || !currentAccountOwns(runtime)) return;
+    if (!isCurrent(page, runtime, epoch)) return;
     page.setData({ rescue: response.data, rescueLoading: false, rescueError: false });
   } catch {
     if (!isCurrent(page, runtime, epoch)) return;
@@ -1584,8 +1622,10 @@ async function decideCause(
   runtime: ReflectionRuntime,
 ): Promise<void> {
   if (runtime.submitting) return;
-  const pending = loadPendingXingceCauseDecision(runtime.ownerUserId, runtime.reviewId);
+  const pending = loadPendingXingceCauseDecision(runtime.lifecycle.owner.userId, runtime.reviewId);
   if (!pending) return;
+  const epoch = runtime.lifecycle.beginRequest(currentAuthSession());
+  if (epoch === null) return;
   runtime.submitting = true;
   page.setData({ interactionLocked: true, pendingMessage: "正在整理复盘和今日任务…" });
   try {
@@ -1594,16 +1634,16 @@ async function decideCause(
       pending.command,
       pending.idempotencyKey,
     );
-    if (!runtimeIsActive(page, runtime)) {
+    if (!isCurrent(page, runtime, epoch)) {
       if (!currentAccountOwns(runtime)) invalidateForAccountChange(page, runtime);
       return;
     }
-    clearPendingXingceCauseDecision(runtime.ownerUserId, runtime.reviewId);
+    clearPendingXingceCauseDecision(runtime.lifecycle.owner.userId, runtime.reviewId);
     applySession(page, runtime, response.data);
   } catch (error) {
-    if (!runtimeIsActive(page, runtime)) return;
+    if (!isCurrent(page, runtime, epoch)) return;
     if (error instanceof ApiClientError && error.statusCode === 409) {
-      clearPendingXingceCauseDecision(runtime.ownerUserId, runtime.reviewId);
+      clearPendingXingceCauseDecision(runtime.lifecycle.owner.userId, runtime.reviewId);
       await reloadAfterConflict(page, runtime);
       return;
     }
@@ -1617,9 +1657,11 @@ async function reloadAfterConflict(
   page: ReflectionPageInstance,
   runtime: ReflectionRuntime,
 ): Promise<void> {
+  const epoch = runtime.lifecycle.beginRequest(currentAuthSession());
+  if (epoch === null) return;
   try {
     const current = await runtime.api.getSession(runtime.sessionId);
-    if (!runtimeIsActive(page, runtime)) {
+    if (!isCurrent(page, runtime, epoch)) {
       if (!currentAccountOwns(runtime)) invalidateForAccountChange(page, runtime);
       return;
     }
@@ -1629,6 +1671,7 @@ async function reloadAfterConflict(
       interactionLocked: false,
     });
   } catch (error) {
+    if (!isCurrent(page, runtime, epoch)) return;
     handleWriteError(page, error, "没刷新到最新复盘，稍后再试。");
   }
 }
@@ -1643,9 +1686,18 @@ function applySession(
     throw new Error("复盘记录与当前作答不匹配。");
   }
   runtime.session = session;
-  const pendingReflection = loadPendingXingceReflection(runtime.ownerUserId, runtime.reviewId);
-  const pendingFollowup = loadPendingXingceCauseFollowup(runtime.ownerUserId, runtime.reviewId);
-  const pendingCause = loadPendingXingceCauseDecision(runtime.ownerUserId, runtime.reviewId);
+  const pendingReflection = loadPendingXingceReflection(
+    runtime.lifecycle.owner.userId,
+    runtime.reviewId,
+  );
+  const pendingFollowup = loadPendingXingceCauseFollowup(
+    runtime.lifecycle.owner.userId,
+    runtime.reviewId,
+  );
+  const pendingCause = loadPendingXingceCauseDecision(
+    runtime.lifecycle.owner.userId,
+    runtime.reviewId,
+  );
   const existingTags = review.reflection?.tags.filter(isXingceReflectionTag) ?? [];
   const pendingTags = pendingReflection?.command.tags?.filter(isXingceReflectionTag) ?? [];
   const localDraft = runtime.mediaDraft;
@@ -1869,15 +1921,46 @@ function isCurrent(
   runtime: ReflectionRuntime,
   epoch: number,
 ): boolean {
-  return runtimes.get(page) === runtime && !runtime.disposed && runtime.requestEpoch === epoch;
+  return (
+    runtimes.get(page) === runtime && runtime.lifecycle.ownsRequest(epoch, currentAuthSession())
+  );
 }
 
 function currentAccountOwns(runtime: ReflectionRuntime): boolean {
-  return currentAuthSession()?.userId === runtime.ownerUserId;
+  return runtime.lifecycle.ownerMatches(currentAuthSession());
 }
 
 function runtimeIsActive(page: ReflectionPageInstance, runtime: ReflectionRuntime): boolean {
-  return runtimes.get(page) === runtime && !runtime.disposed && currentAccountOwns(runtime);
+  return runtimes.get(page) === runtime && runtime.lifecycle.active(currentAuthSession());
+}
+
+function reflectionCleanup(
+  page: ReflectionPageInstance,
+  runtime: ReflectionRuntime,
+): ReflectionActivityCleanup {
+  return {
+    clearCausePoll: () => clearCausePoll(runtime),
+    stopRecorder: () => {
+      runtime.recorder?.dispose();
+      runtime.recorder = null;
+    },
+    stopVoicePreview: () => {
+      runtime.preview?.dispose();
+      runtime.preview = null;
+    },
+    stopSpeechPreview: () => {
+      runtime.speechPreview?.dispose();
+      runtime.speechPreview = null;
+    },
+    stopReplay: () => replayClock.stop(page),
+  };
+}
+
+function resetSuspendedRuntime(runtime: ReflectionRuntime): void {
+  runtime.mediaBusy = false;
+  runtime.submitting = false;
+  runtime.replacingSegmentId = null;
+  runtime.verificationNavigationStarted = false;
 }
 
 function invalidateForAccountChange(
@@ -1885,13 +1968,8 @@ function invalidateForAccountChange(
   runtime: ReflectionRuntime,
 ): void {
   if (runtimes.get(page) !== runtime) return;
-  runtime.disposed = true;
-  runtime.requestEpoch += 1;
-  runtime.mediaEpoch += 1;
-  clearCausePoll(runtime);
-  runtime.recorder?.dispose();
-  runtime.preview?.dispose();
-  runtime.speechPreview?.dispose();
+  runtime.lifecycle.invalidate(reflectionCleanup(page, runtime));
+  resetSuspendedRuntime(runtime);
   runtimes.delete(page);
   page.setData({
     status: "unavailable",
@@ -1917,6 +1995,9 @@ function invalidateForAccountChange(
     voiceSummary: presentReflectionVoiceSummary([]),
     speechBusy: false,
     speechPlaying: false,
+    replayOpen: false,
+    replayPlaying: false,
+    analysisOpen: false,
     rescue: null,
     rescueLoading: false,
     rescueError: false,
@@ -1931,9 +2012,12 @@ const replayClock = new ReplayClock();
 const REPLAY_TICK_MS = 120;
 
 function startReplayTimer(page: ReflectionPageInstance): void {
+  const runtime = runtimes.get(page);
+  if (!runtime || !runtimeIsActive(page, runtime)) return;
   replayClock.start(
     page,
     () => {
+      if (!runtimeIsActive(page, runtime)) return false;
       const item = page.data.activeReviewItem;
       if (!page.data.replayOpen || !page.data.replayPlaying || !item) {
         return false;
@@ -1968,11 +2052,12 @@ function applyReplayPosition(page: ReflectionPageInstance, milliseconds: number)
 }
 
 function measureReplayContent(page: ReflectionPageInstance): void {
-  if (!page.data.replayOpen) return;
+  const runtime = runtimes.get(page);
+  if (!runtime || !runtimeIsActive(page, runtime) || !page.data.replayOpen) return;
   const query = page.createSelectorQuery();
   query.select(".replay-body").fields({ size: true, scrollOffset: true });
   query.exec((results: Array<{ height?: number; scrollHeight?: number } | null>) => {
-    if (!page.data.replayOpen) return;
+    if (!runtimeIsActive(page, runtime) || !page.data.replayOpen) return;
     const height = results[0]?.scrollHeight ?? results[0]?.height ?? 0;
     if (Number.isFinite(height) && height > 0) page.setData({ replayContentHeight: height });
   });
