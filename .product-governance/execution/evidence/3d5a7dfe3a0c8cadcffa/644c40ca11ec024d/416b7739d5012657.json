@@ -1,0 +1,28 @@
+{
+  "scenarioId": "WP-FRONTEND-LIFECYCLE-001-AS-01",
+  "assertion": "reflection rejects same-user token/generation and account-switch late effects and clears replay, poll, recording, preview, speech and timers on hide/unload",
+  "testSelector": "tests/reflection-page-lifecycle.test.ts",
+  "acceptanceCommandId": "frontend-lifecycle-reflection",
+  "runId": "RU-FRONTEND-LIFECYCLE-001/WP-FRONTEND-LIFECYCLE-001@2026-08-09T03:17:46.167565+00:00",
+  "packageId": "WP-FRONTEND-LIFECYCLE-001",
+  "evidenceOwner": "govern-product-build/verifier",
+  "passed": true,
+  "runnerProof": {
+    "schemaVersion": 1,
+    "adapter": "vitest-json@1",
+    "selector": "tests/reflection-page-lifecycle.test.ts",
+    "cwd": "apps/wechat",
+    "executedPassingTests": 6,
+    "actualExitCode": 0,
+    "runnerMetadataSha256": "sha256:41a87bf4e151b834c82a5893d3194d964dd9abd23b525f6b20cb349978e12170",
+    "machineReportSha256": "sha256:e1c1b64ffdc066d54c809b2bee7b29f20053b5034256039e0046d5b46000fbf0",
+    "isolation": {
+      "adapter": "darwin-sandbox-exec-readonly-source@1",
+      "policySha256": "sha256:294325f04c79185c00546f34b3a71d892e3f4687412a1153e767e0ef89059bed",
+      "executableSha256": "sha256:97da2b6160df132c0a559e30fb5d931c65560d99e48172324531b87a5bf5b5fd"
+    }
+  },
+  "commandResultHash": "sha256:60660324c9bc2b31ab8e2d2749f75f931a39910996421dcba62a9dafc974726c",
+  "releaseUnitId": "RU-FRONTEND-LIFECYCLE-001",
+  "releaseUnitHash": "sha256:abed67a4ab24662dcc11ec2afbbbd013f2fb4155959073da39b305e51062e711"
+}

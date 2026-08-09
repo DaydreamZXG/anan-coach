@@ -823,7 +823,8 @@ button.citation-sheet__close {
   line-height: 1.6;
 }
 
-@media (min-width: 700px) {
+/* medium layout: viewport width >= 600px */
+@media (min-width: 600px) {
   .library-content {
     padding-right: max(calc(40 * var(--rpx)), calc((100vw - 860px) / 2));
     padding-left: max(calc(40 * var(--rpx)), calc((100vw - 860px) / 2));
@@ -835,6 +836,7 @@ button.citation-sheet__close {
   }
 }
 
+/* wide layout: viewport width >= 1024px */
 @media (min-width: 1024px) {
   .source-grid,
   .citation-grid {

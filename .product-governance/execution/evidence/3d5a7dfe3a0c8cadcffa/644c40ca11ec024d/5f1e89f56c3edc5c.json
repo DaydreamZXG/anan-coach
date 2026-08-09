@@ -1,0 +1,28 @@
+{
+  "scenarioId": "WP-FRONTEND-LIFECYCLE-001-AS-03",
+  "assertion": "private-knowledge accepts only the newest visible exact-owner request and cancels deletion polling waits on hide/unload",
+  "testSelector": "tests/private-knowledge-page-lifecycle.test.ts",
+  "acceptanceCommandId": "frontend-lifecycle-private-knowledge",
+  "runId": "RU-FRONTEND-LIFECYCLE-001/WP-FRONTEND-LIFECYCLE-001@2026-08-09T03:17:46.167565+00:00",
+  "packageId": "WP-FRONTEND-LIFECYCLE-001",
+  "evidenceOwner": "govern-product-build/verifier",
+  "passed": true,
+  "runnerProof": {
+    "schemaVersion": 1,
+    "adapter": "vitest-json@1",
+    "selector": "tests/private-knowledge-page-lifecycle.test.ts",
+    "cwd": "apps/wechat",
+    "executedPassingTests": 4,
+    "actualExitCode": 0,
+    "runnerMetadataSha256": "sha256:edc12ab82a9ca96bb4779087728434b13d71ee6a6a90fde8f1d60b5a6983ed0a",
+    "machineReportSha256": "sha256:4233f22c17b4fd992e8ce2fabe59cc94c7df441d13236e3df228eef725172bb1",
+    "isolation": {
+      "adapter": "darwin-sandbox-exec-readonly-source@1",
+      "policySha256": "sha256:0ab002b0e21aed20914c10dca4da8df64cd3ebfa1f3cfeeeb6bdf2feebb63023",
+      "executableSha256": "sha256:97da2b6160df132c0a559e30fb5d931c65560d99e48172324531b87a5bf5b5fd"
+    }
+  },
+  "commandResultHash": "sha256:a7d0b1396323521d892655b7e036a162d3841de7d6d02fc423accde9d98e8417",
+  "releaseUnitId": "RU-FRONTEND-LIFECYCLE-001",
+  "releaseUnitHash": "sha256:abed67a4ab24662dcc11ec2afbbbd013f2fb4155959073da39b305e51062e711"
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "domains": [
+    {
+      "id": "wechat_frontend_lifecycle",
+      "owner": "apps/wechat/miniprogram/pages",
+      "scope": "target",
+      "owns": ["wechat-page-session-owner"],
+      "trackScope": ["frontend-lifecycle"],
+      "invariants": [
+        "页面 session owner 由 userId、accessToken、generation 与页面实例共同确定，展示名不参与 owner。",
+        "只有当前可见页面实例的最新 lane request 才能提交 setData；hide、unload 或 owner 变化单调失效旧 lease。",
+        "页面 owner 只拥有客户端瞬时生命周期，不拥有 API、认证事实、存储 key 或业务事实。"
+      ],
+      "commands": [],
+      "queries": [],
+      "emits": [],
+      "consumes": []
+    }
+  ]
+}

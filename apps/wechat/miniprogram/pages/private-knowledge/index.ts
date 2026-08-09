@@ -14,6 +14,10 @@ import {
   chooseQuestionPdf,
 } from "./shared/features/external-learning/platform";
 import { createIdempotencyKey } from "../../platform/command-id";
+import {
+  PrivateKnowledgeRequestOwner,
+  type PrivateKnowledgeRequestLease,
+} from "./features/page-runtime/request-owner";
 
 const noReviewableTextMessage = "没有识别到可逐段核对的文字。";
 
@@ -67,7 +71,7 @@ interface PageData {
 }
 
 interface PageCustom {
-  loadSources(): Promise<void>;
+  loadSources(): Promise<boolean>;
   inputTitle(event: WechatMiniprogram.Input): void;
   selectDocumentKind(event: WechatMiniprogram.PickerChange): void;
   chooseImage(): Promise<void>;
@@ -84,7 +88,11 @@ interface PageCustom {
   exportMarkdown(event: WechatMiniprogram.BaseEvent): Promise<void>;
   deleteSource(event: WechatMiniprogram.BaseEvent): void;
   confirmDelete(source: PrivateSourceSummary): Promise<void>;
-  waitForDeletion(gateway: PrivateKnowledgeApi, deletionId: string): Promise<void>;
+  waitForDeletion(
+    gateway: PrivateKnowledgeApi,
+    deletionId: string,
+    request: PrivateKnowledgeRequest,
+  ): Promise<boolean>;
   inputQuery(event: WechatMiniprogram.Input): void;
   search(): Promise<void>;
   retry(): void;
@@ -113,10 +121,17 @@ type PrivateKnowledgePageInstance = WechatMiniprogram.Page.Instance<PageData, Pa
 
 const retryFiles = new WeakMap<PrivateKnowledgePageInstance, LocalSourceArtifactFile>();
 
-function api(): PrivateKnowledgeApi | null {
-  const auth = currentAuthSession();
-  return auth ? new PrivateKnowledgeApi(new ApiClient(undefined, auth.accessToken)) : null;
+interface PrivateKnowledgeRuntime {
+  requests: PrivateKnowledgeRequestOwner;
+  gateway: PrivateKnowledgeApi;
 }
+
+interface PrivateKnowledgeRequest {
+  runtime: PrivateKnowledgeRuntime;
+  lease: PrivateKnowledgeRequestLease;
+}
+
+const pageRuntimes = new WeakMap<PrivateKnowledgePageInstance, PrivateKnowledgeRuntime>();
 
 Page<PageData, PageCustom>({
   data: {
@@ -161,30 +176,57 @@ Page<PageData, PageCustom>({
   },
 
   onShow() {
-    void this.loadSources().then(() => {
-      this.applyInitialSection();
+    const auth = currentAuthSession();
+    if (!auth) {
+      void wx.reLaunch({ url: "/pages/login/index" });
+      return;
+    }
+    const existing = pageRuntimes.get(this);
+    const sameOwner = existing?.requests.show(auth) ?? false;
+    if (!sameOwner) {
+      existing?.requests.unload();
+      const requests = new PrivateKnowledgeRequestOwner(auth);
+      const runtime = {
+        requests,
+        gateway: new PrivateKnowledgeApi(new ApiClient(undefined, auth.accessToken)),
+      };
+      pageRuntimes.set(this, runtime);
+      requests.show(auth);
+      retryFiles.delete(this);
+      resetForSessionChange(this);
+    }
+    this.setData({ busy: false, searching: false, backgroundProcessing: false });
+    void this.loadSources().then((current) => {
+      if (current) this.applyInitialSection();
     });
   },
 
+  onHide() {
+    pageRuntimes.get(this)?.requests.hide();
+  },
+
   onUnload() {
+    pageRuntimes.get(this)?.requests.unload();
+    pageRuntimes.delete(this);
     retryFiles.delete(this);
   },
 
   async loadSources() {
-    const gateway = api();
-    if (!gateway) {
-      void wx.reLaunch({ url: "/pages/login/index" });
-      return;
-    }
+    const request = beginRequest(this, "sources");
+    if (!request) return false;
     this.setData({ status: "loading", errorMessage: "", requestId: "" });
     try {
-      const result = await gateway.listSources();
+      const result = await request.runtime.gateway.listSources();
+      if (!requestIsCurrent(this, request)) return false;
       this.setData({
         status: result.sources.length ? "ready" : "empty",
         sources: result.sources.map(privateSourceView),
       });
+      return true;
     } catch (error) {
+      if (!requestIsCurrent(this, request)) return false;
       this.fail(error, "私人资料库没有加载成功。");
+      return true;
     }
   },
 
@@ -197,20 +239,29 @@ Page<PageData, PageCustom>({
   },
 
   async chooseImage() {
+    const request = beginRequest(this, "file-picker");
+    if (!request) return;
     this.setData({ importTarget: null });
     const file = await chooseQuestionImage("album");
+    if (!requestIsCurrent(this, request)) return;
     if (file) await this.uploadAndProcess(file);
   },
 
   async chooseCameraNote() {
+    const request = beginRequest(this, "file-picker");
+    if (!request) return;
     this.setData({ importTarget: null });
     const file = await chooseQuestionImage("camera");
+    if (!requestIsCurrent(this, request)) return;
     if (file) await this.uploadAndProcess(file);
   },
 
   async choosePdf() {
+    const request = beginRequest(this, "file-picker");
+    if (!request) return;
     this.setData({ importTarget: null });
     const file = await chooseQuestionPdf();
+    if (!requestIsCurrent(this, request)) return;
     if (file) await this.uploadAndProcess(file);
   },
 
@@ -219,12 +270,18 @@ Page<PageData, PageCustom>({
   },
 
   async chooseReplacementImage() {
+    const request = beginRequest(this, "file-picker");
+    if (!request) return;
     const file = await chooseQuestionImage("album");
+    if (!requestIsCurrent(this, request)) return;
     if (file) await this.uploadAndProcess(file);
   },
 
   async chooseReplacementPdf() {
+    const request = beginRequest(this, "file-picker");
+    if (!request) return;
     const file = await chooseQuestionPdf();
+    if (!requestIsCurrent(this, request)) return;
     if (file) await this.uploadAndProcess(file);
   },
 
@@ -233,12 +290,15 @@ Page<PageData, PageCustom>({
   },
 
   async pickMarkdown(importTarget: PrivateSourceView | null) {
+    const request = beginRequest(this, "file-picker");
+    if (!request) return;
     try {
       const result = await wx.chooseMessageFile({
         count: 1,
         type: "file",
         extension: ["md", "markdown"],
       });
+      if (!requestIsCurrent(this, request)) return;
       const selected = result.tempFiles[0];
       if (!selected) return;
       const file: LocalSourceArtifactFile = {
@@ -263,6 +323,7 @@ Page<PageData, PageCustom>({
       });
       await this.uploadAndProcess(file);
     } catch (error) {
+      if (!requestIsCurrent(this, request)) return;
       const message = (error as { errMsg?: string }).errMsg ?? "";
       if (!message.includes("cancel")) {
         this.failImport(error);
@@ -276,10 +337,14 @@ Page<PageData, PageCustom>({
   },
 
   async uploadAndProcess(file: LocalSourceArtifactFile) {
-    const gateway = api();
-    if (!gateway || this.data.busy) return;
+    if (this.data.busy) return;
+    const request = beginRequest(this, "import");
+    if (!request) return;
+    const gateway = request.runtime.gateway;
     retryFiles.set(this, file);
     const title = this.data.title.trim() || file.displayName.replace(/\.[^.]+$/u, "");
+    const importTarget = this.data.importTarget;
+    const documentKind = this.currentDocumentKind();
     this.setData({
       busy: true,
       uploadPercent: 0,
@@ -292,38 +357,45 @@ Page<PageData, PageCustom>({
       title,
     });
     try {
-      const uploaded = await gateway.upload(
-        file,
-        await createIdempotencyKey("private-source-upload"),
-        (progress) => {
+      const uploadKey = await createIdempotencyKey("private-source-upload");
+      if (!requestIsCurrent(this, request)) return;
+      const uploaded = await gateway.upload(file, uploadKey, (progress) => {
+        if (requestIsCurrent(this, request)) {
           this.setData({ uploadPercent: progress.percent });
-        },
-      );
+        }
+      });
+      if (!requestIsCurrent(this, request)) return;
       if (file.mimeType === "text/markdown") {
+        const createKey = await createIdempotencyKey("private-source-create");
+        if (!requestIsCurrent(this, request)) return;
         await gateway.createSource(
           {
             artifactVersionId: uploaded.artifact.artifactVersionId,
             recognitionRevisionId: null,
             title,
-            documentKind: this.currentDocumentKind(),
-            ...(this.data.importTarget
+            documentKind,
+            ...(importTarget
               ? {
-                  sourceId: this.data.importTarget.sourceId,
-                  expectedVersionNo: this.data.importTarget.versionNo,
+                  sourceId: importTarget.sourceId,
+                  expectedVersionNo: importTarget.versionNo,
                 }
               : {}),
           },
-          await createIdempotencyKey("private-source-create"),
+          createKey,
         );
+        if (!requestIsCurrent(this, request)) return;
         this.setData({ busy: false, title: "", importTarget: null, importPanelOpen: false });
         retryFiles.delete(this);
         await this.loadSources();
         return;
       }
+      const recognitionKey = await createIdempotencyKey("private-source-ocr");
+      if (!requestIsCurrent(this, request)) return;
       const revision = await gateway.recognizePrinted(
         uploaded.artifact.artifactVersionId,
-        await createIdempotencyKey("private-source-ocr"),
+        recognitionKey,
       );
+      if (!requestIsCurrent(this, request)) return;
       const reviewSpans = recognitionSpans(revision);
       if (!reviewSpans.length) throw new Error(noReviewableTextMessage);
       this.setData({
@@ -336,6 +408,7 @@ Page<PageData, PageCustom>({
       });
       retryFiles.delete(this);
     } catch (error) {
+      if (!requestIsCurrent(this, request)) return;
       this.failImport(error);
     }
   },
@@ -350,42 +423,55 @@ Page<PageData, PageCustom>({
   },
 
   async confirmReview() {
-    const gateway = api();
     const revision = this.data.reviewRevision;
-    if (!gateway || !revision || this.data.busy) return;
+    if (!revision || this.data.busy) return;
     if (this.data.reviewSpans.some((span) => !span.text.trim())) {
       this.setData({ errorMessage: "每一段识别文字都需要保留或修正，不能留空。" });
       return;
     }
+    const request = beginRequest(this, "review");
+    if (!request) return;
+    const gateway = request.runtime.gateway;
+    const reviewSpans = this.data.reviewSpans;
+    const artifactVersionId = this.data.reviewArtifactVersionId;
+    const title = this.data.title.trim() || this.data.reviewFilename;
+    const documentKind = this.currentDocumentKind();
+    const importTarget = this.data.importTarget;
     this.setData({ busy: true, errorMessage: "" });
     try {
       let current = revision;
-      if (this.data.reviewSpans.some((span) => span.text !== span.originalText)) {
+      if (reviewSpans.some((span) => span.text !== span.originalText)) {
+        const correctionKey = await createIdempotencyKey("private-source-ocr-correct");
+        if (!requestIsCurrent(this, request)) return;
         current = await gateway.correctRecognition(
           revision,
-          correctedPayload(revision, this.data.reviewSpans),
-          await createIdempotencyKey("private-source-ocr-correct"),
+          correctedPayload(revision, reviewSpans),
+          correctionKey,
         );
+        if (!requestIsCurrent(this, request)) return;
       }
-      const confirmed = await gateway.confirmRecognition(
-        current,
-        await createIdempotencyKey("private-source-ocr-confirm"),
-      );
+      const confirmKey = await createIdempotencyKey("private-source-ocr-confirm");
+      if (!requestIsCurrent(this, request)) return;
+      const confirmed = await gateway.confirmRecognition(current, confirmKey);
+      if (!requestIsCurrent(this, request)) return;
+      const createKey = await createIdempotencyKey("private-source-create");
+      if (!requestIsCurrent(this, request)) return;
       await gateway.createSource(
         {
-          artifactVersionId: this.data.reviewArtifactVersionId,
+          artifactVersionId,
           recognitionRevisionId: confirmed.recognitionRevisionId,
-          title: this.data.title.trim() || this.data.reviewFilename,
-          documentKind: this.currentDocumentKind(),
-          ...(this.data.importTarget
+          title,
+          documentKind,
+          ...(importTarget
             ? {
-                sourceId: this.data.importTarget.sourceId,
-                expectedVersionNo: this.data.importTarget.versionNo,
+                sourceId: importTarget.sourceId,
+                expectedVersionNo: importTarget.versionNo,
               }
             : {}),
         },
-        await createIdempotencyKey("private-source-create"),
+        createKey,
       );
+      if (!requestIsCurrent(this, request)) return;
       this.setData({
         busy: false,
         title: "",
@@ -399,6 +485,7 @@ Page<PageData, PageCustom>({
       retryFiles.delete(this);
       await this.loadSources();
     } catch (error) {
+      if (!requestIsCurrent(this, request)) return;
       this.setData({ busy: false });
       this.fail(error, "文字核对结果没有保存成功。");
     }
@@ -421,17 +508,22 @@ Page<PageData, PageCustom>({
   },
 
   async exportMarkdown(event: WechatMiniprogram.BaseEvent) {
-    const gateway = api();
     const source = this.sourceFromEvent(event);
-    if (!gateway || !source || this.data.busy) return;
+    if (!source || this.data.busy) return;
+    const request = beginRequest(this, "export");
+    if (!request) return;
+    const gateway = request.runtime.gateway;
     this.setData({ busy: true, errorMessage: "" });
     try {
       const exported = await gateway.exportMarkdown(source.sourceId);
+      if (!requestIsCurrent(this, request)) return;
       const path = `${wx.env.USER_DATA_PATH}/${safeFilename(exported.filename)}`;
       wx.getFileSystemManager().writeFileSync(path, exported.content, "utf8");
       await wx.shareFileMessage({ filePath: path, fileName: exported.filename });
+      if (!requestIsCurrent(this, request)) return;
       this.setData({ busy: false });
     } catch (error) {
+      if (!requestIsCurrent(this, request)) return;
       this.setData({ busy: false });
       this.fail(error, "Markdown 导出失败。");
     }
@@ -440,41 +532,57 @@ Page<PageData, PageCustom>({
   deleteSource(event: WechatMiniprogram.BaseEvent) {
     const source = this.sourceFromEvent(event);
     if (!source || this.data.busy) return;
+    const runtime = pageRuntimes.get(this);
     wx.showModal({
       title: "彻底删除这份资料？",
       content: "原文件、识别文字和检索内容会一起删除，不能恢复。",
       confirmText: "彻底删除",
       confirmColor: "#C83F56",
       success: (result) => {
-        if (result.confirm) void this.confirmDelete(source);
+        if (result.confirm && runtimeIsActive(this, runtime)) {
+          void this.confirmDelete(source);
+        }
       },
     });
   },
 
   async confirmDelete(source: PrivateSourceSummary) {
-    const gateway = api();
-    if (!gateway) return;
+    const request = beginRequest(this, "delete");
+    if (!request) return;
+    const gateway = request.runtime.gateway;
     this.setData({ busy: true, errorMessage: "" });
     try {
-      const deletion = await gateway.deleteSource(
-        source.sourceId,
-        await createIdempotencyKey("private-source-delete"),
-      );
-      await this.waitForDeletion(gateway, deletion.deletionRequestId);
+      const deletionKey = await createIdempotencyKey("private-source-delete");
+      if (!requestIsCurrent(this, request)) return;
+      const deletion = await gateway.deleteSource(source.sourceId, deletionKey);
+      if (!requestIsCurrent(this, request)) return;
+      const completed = await this.waitForDeletion(gateway, deletion.deletionRequestId, request);
+      if (!completed || !requestIsCurrent(this, request)) return;
       this.setData({ busy: false });
       await this.loadSources();
     } catch (error) {
+      if (!requestIsCurrent(this, request)) return;
       this.setData({ busy: false });
       this.fail(error, "资料删除没有完成。");
     }
   },
 
-  async waitForDeletion(gateway: PrivateKnowledgeApi, deletionId: string) {
+  async waitForDeletion(
+    gateway: PrivateKnowledgeApi,
+    deletionId: string,
+    request: PrivateKnowledgeRequest,
+  ) {
     for (let attempt = 0; attempt < 40; attempt += 1) {
       const current = await gateway.deletionStatus(deletionId);
-      if (current.state === "completed") return;
+      if (!requestIsCurrent(this, request)) return false;
+      if (current.state === "completed") return true;
       if (current.state === "failed") throw new Error("删除任务失败，请稍后重试。");
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const currentAfterDelay = await request.runtime.requests.delay(
+        500,
+        request.lease,
+        currentAuthSession(),
+      );
+      if (!currentAfterDelay || !requestIsCurrent(this, request)) return false;
     }
     throw new Error("删除任务仍在处理中，请稍后刷新查看。");
   },
@@ -491,9 +599,11 @@ Page<PageData, PageCustom>({
   },
 
   async search() {
-    const gateway = api();
     const query = this.data.query.trim();
-    if (!gateway || !query || this.data.searching) return;
+    if (!query || this.data.searching) return;
+    const request = beginRequest(this, "search");
+    if (!request) return;
+    const gateway = request.runtime.gateway;
     this.setData({
       searching: true,
       searchStatus: "loading",
@@ -504,6 +614,7 @@ Page<PageData, PageCustom>({
     });
     try {
       const result = await gateway.search(query);
+      if (!requestIsCurrent(this, request)) return;
       this.setData({
         searching: false,
         searchStatus: "ready",
@@ -513,6 +624,7 @@ Page<PageData, PageCustom>({
         })),
       });
     } catch (error) {
+      if (!requestIsCurrent(this, request)) return;
       const apiError = error instanceof ApiClientError ? error : null;
       this.setData({
         searching: false,
@@ -610,6 +722,8 @@ Page<PageData, PageCustom>({
   },
 
   applyInitialSection() {
+    const runtime = pageRuntimes.get(this);
+    if (!runtimeIsActive(this, runtime)) return;
     const target = this.data.initialSection;
     if (!target) return;
     this.setData({ initialSection: "" });
@@ -624,7 +738,9 @@ Page<PageData, PageCustom>({
     const selector = selectors[target];
     if (selector) {
       wx.nextTick(() => {
-        void wx.pageScrollTo({ selector, duration: 0 });
+        if (runtimeIsActive(this, runtime)) {
+          void wx.pageScrollTo({ selector, duration: 0 });
+        }
       });
     }
   },
@@ -646,11 +762,15 @@ Page<PageData, PageCustom>({
   navigateToDetail(event: WechatMiniprogram.BaseEvent) {
     const sourceId = String(event.currentTarget.dataset.sourceId ?? "");
     if (!sourceId) return;
+    const runtime = pageRuntimes.get(this);
+    if (!runtimeIsActive(this, runtime)) return;
     void wx.navigateTo({
       url: `${routes.privateKnowledgeDetail}?id=${encodeURIComponent(sourceId)}`,
       events: {
         replaceSource: (payload: { sourceId?: string }) => {
-          this.prepareReplacement(payload.sourceId ?? "");
+          if (runtimeIsActive(this, runtime)) {
+            this.prepareReplacement(payload.sourceId ?? "");
+          }
         },
       },
     });
@@ -659,6 +779,8 @@ Page<PageData, PageCustom>({
   prepareReplacement(sourceId) {
     const source = this.data.sources.find((item) => item.sourceId === sourceId);
     if (!source || this.data.busy) return;
+    const runtime = pageRuntimes.get(this);
+    if (!runtimeIsActive(this, runtime)) return;
     const documentKindIndex = this.data.documentKinds.findIndex(
       (item) => item.value === source.documentKind,
     );
@@ -671,6 +793,7 @@ Page<PageData, PageCustom>({
     wx.showActionSheet({
       itemList: ["图片", "PDF", "Markdown"],
       success: (result) => {
+        if (!runtimeIsActive(this, runtime)) return;
         if (result.tapIndex === 0) void this.chooseReplacementImage();
         else if (result.tapIndex === 1) void this.chooseReplacementPdf();
         else if (result.tapIndex === 2) void this.chooseReplacementMarkdown();
@@ -678,6 +801,67 @@ Page<PageData, PageCustom>({
     });
   },
 });
+
+function beginRequest(
+  page: PrivateKnowledgePageInstance,
+  lane: string,
+): PrivateKnowledgeRequest | null {
+  const runtime = pageRuntimes.get(page);
+  const lease = runtime?.requests.begin(lane, currentAuthSession()) ?? null;
+  return runtime && lease ? { runtime, lease } : null;
+}
+
+function requestIsCurrent(
+  page: PrivateKnowledgePageInstance,
+  request: PrivateKnowledgeRequest,
+): boolean {
+  return (
+    pageRuntimes.get(page) === request.runtime &&
+    request.runtime.requests.owns(request.lease, currentAuthSession())
+  );
+}
+
+function runtimeIsActive(
+  page: PrivateKnowledgePageInstance,
+  runtime: PrivateKnowledgeRuntime | undefined,
+): runtime is PrivateKnowledgeRuntime {
+  return (
+    runtime !== undefined &&
+    pageRuntimes.get(page) === runtime &&
+    runtime.requests.active(currentAuthSession())
+  );
+}
+
+function resetForSessionChange(page: PrivateKnowledgePageInstance): void {
+  page.setData({
+    status: "loading",
+    sources: [],
+    title: "",
+    busy: false,
+    uploadPercent: 0,
+    reviewRevision: null,
+    reviewSpans: [],
+    reviewArtifactVersionId: "",
+    reviewFilename: "",
+    importTarget: null,
+    query: "",
+    searching: false,
+    searchStatus: "idle",
+    searchedQuery: "",
+    searchErrorMessage: "",
+    searchRequestId: "",
+    citations: [],
+    importPanelOpen: false,
+    importErrorMessage: "",
+    importRequestId: "",
+    importRetryAvailable: false,
+    errorMessage: "",
+    requestId: "",
+    backgroundProcessing: false,
+    citationOpen: false,
+    activeCitation: null,
+  });
+}
 
 function recognitionSpans(revision: RecognitionRevision): ReviewSpan[] {
   const raw = revision.candidatePayload.textSpans;

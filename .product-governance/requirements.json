@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "requirements": [
+    {
+      "id": "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001",
+      "statement": "reflection、me 与 private-knowledge 的异步页面状态只能由当前页面实例且 userId、accessToken、generation 全部匹配的可见 session owner 更新；更新的 onShow、onHide、onUnload 或账号切换必须使旧响应与资源失效。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "wechat_frontend_lifecycle",
+      "evidenceRefs": [
+        "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+        "E-CODE-AUTH-SESSION-OWNER-001",
+        "E-CODE-REFLECTION-OWNER-GAP-001",
+        "E-CODE-ME-REQUEST-GAP-001",
+        "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001"
+      ],
+      "acceptance": [
+        "同 user 更换 token 或 generation 后，旧请求、回调、timer 与媒体回调不能 setData。",
+        "账号 A 切换到 B、快速切页、onHide、onUnload 后，A 或旧页面实例的迟到响应不能改变当前页面。",
+        "重复 onShow 的列表/档案加载仅最新请求可提交页面状态。",
+        "reflection 隐藏或卸载时停止 replay、cause poll、录音、试听和 speech preview，并使进行中的 media/speech 请求失效。",
+        "private-knowledge 删除轮询的等待 timer 在隐藏或卸载时被清理且等待正常结束。",
+        "页面 WXSS 只使用 600px 与 1024px 布局层级断点，不用方向或设备身份决定 wide 布局。"
+      ]
+    }
+  ]
+}

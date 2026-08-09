@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "releaseUnits": [
+    {
+      "id": "RU-FRONTEND-LIFECYCLE-001",
+      "status": "frozen",
+      "objective": "冻结且只授权 reflection、me、private-knowledge 的页面实例/session 生命周期重构；不扩大为全产品冻结或生产发布单元。",
+      "decisionRef": "DEC-FREEZE-RU-FRONTEND-LIFECYCLE-001",
+      "dependsOnReleaseUnits": [],
+      "supersedesReleaseUnits": [],
+      "roots": {
+        "workPackages": [
+          "WP-FRONTEND-LIFECYCLE-001"
+        ],
+        "requirements": [],
+        "nonFunctionalRequirements": [],
+        "domains": [],
+        "contracts": [],
+        "stateMachines": [],
+        "pages": [],
+        "journeys": [],
+        "dataLifecycleResources": [],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": []
+      },
+      "closure": {
+        "workPackages": [
+          "WP-FRONTEND-LIFECYCLE-001"
+        ],
+        "requirements": [
+          "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "wechat_frontend_lifecycle"
+        ],
+        "contracts": [
+          "wechat-page-request-owner@v1"
+        ],
+        "stateMachines": [],
+        "pages": [],
+        "pageStateProfiles": [],
+        "journeys": [],
+        "actors": [],
+        "dataLifecycleResources": [],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": [],
+        "evidence": [
+          "E-CODE-AUTH-SESSION-OWNER-001",
+          "E-CODE-BASELINE-001",
+          "E-CODE-ME-REQUEST-GAP-001",
+          "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001",
+          "E-CODE-REFLECTION-OWNER-GAP-001",
+          "E-USER-FRONTEND-LIFECYCLE-UNIT-001"
+        ],
+        "decisions": [
+          "DEC-FREEZE-RU-FRONTEND-LIFECYCLE-001",
+          "DEC-FRONTEND-LAYOUT-BREAKPOINTS-001",
+          "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001"
+        ],
+        "conflicts": [],
+        "glossaryTerms": [],
+        "resources": [],
+        "tracks": [
+          "frontend-lifecycle"
+        ]
+      },
+      "deferredSnapshot": {
+        "schemaVersion": 1,
+        "catalogHash": "sha256:3c0ab35453811874d187f5a356a07effaef54a473751c4c30e76dadd2ae3ce33",
+        "items": [
+          {
+            "subjectKind": "actors",
+            "subjectId": "*",
+            "message": "No product actors are defined"
+          },
+          {
+            "subjectKind": "aiScenarios",
+            "subjectId": "*",
+            "message": "No AI scenarios are defined"
+          },
+          {
+            "subjectKind": "entitlements",
+            "subjectId": "*",
+            "message": "No entitlement capabilities are defined"
+          },
+          {
+            "subjectKind": "glossaryTerms",
+            "subjectId": "*",
+            "message": "No canonical glossary terms are defined"
+          },
+          {
+            "subjectKind": "journeys",
+            "subjectId": "*",
+            "message": "No end-to-end journeys are defined"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-accessibility",
+            "message": "High-impact non-functional requirement is unresolved: NFR-accessibility (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_cost",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_cost (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_quality",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_quality (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-backup_restore",
+            "message": "High-impact non-functional requirement is unresolved: NFR-backup_restore (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-capacity",
+            "message": "High-impact non-functional requirement is unresolved: NFR-capacity (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-commerce",
+            "message": "High-impact non-functional requirement is unresolved: NFR-commerce (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-migration",
+            "message": "High-impact non-functional requirement is unresolved: NFR-migration (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-observability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-observability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-operations",
+            "message": "High-impact non-functional requirement is unresolved: NFR-operations (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-performance",
+            "message": "High-impact non-functional requirement is unresolved: NFR-performance (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-privacy",
+            "message": "High-impact non-functional requirement is unresolved: NFR-privacy (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-reliability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-reliability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-security",
+            "message": "High-impact non-functional requirement is unresolved: NFR-security (unknown)"
+          },
+          {
+            "subjectKind": "pages",
+            "subjectId": "*",
+            "message": "No pages are defined"
+          },
+          {
+            "subjectKind": "stateMachines",
+            "subjectId": "*",
+            "message": "No canonical state machines are defined"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::frontend-lifecycle",
+            "message": "Capability ability_estimate/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::frontend-lifecycle",
+            "message": "Capability attempt/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::frontend-lifecycle",
+            "message": "Capability evidence/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::frontend-lifecycle",
+            "message": "Capability global_ask/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::frontend-lifecycle",
+            "message": "Capability mastery/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::frontend-lifecycle",
+            "message": "Capability planning/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::frontend-lifecycle",
+            "message": "Capability reflection/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::frontend-lifecycle",
+            "message": "Capability report/frontend-lifecycle remains unknown"
+          }
+        ]
+      },
+      "freeze": {
+        "releaseUnitId": "RU-FRONTEND-LIFECYCLE-001",
+        "decisionId": "DEC-FREEZE-RU-FRONTEND-LIFECYCLE-001",
+        "commit": "a46e655cd246b5ce72a1cc3fa2f49f40d06e535b",
+        "frozenAt": "2026-08-09T02:59:14.177187+00:00",
+        "releaseUnitHash": "sha256:abed67a4ab24662dcc11ec2afbbbd013f2fb4155959073da39b305e51062e711",
+        "snapshotPath": "execution/release-unit-snapshots/abed67a4ab24662dcc11ec2afbbbd013f2fb4155959073da39b305e51062e711/release-unit.json"
+      }
+    }
+  ]
+}

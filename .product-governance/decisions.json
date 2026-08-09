@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "decisions": [
+    {
+      "id": "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001",
+      "question": "本并行窗口允许改变哪些 owner 与页面行为？",
+      "choice": "只在 reflection、me、private-knowledge 页面及其页面私有 runtime/test 内建立 user+token+generation owner；onHide/onUnload 立即使请求、轮询、录音、试听、speech、replay 与 timer 失效，重复 onShow 只接受最新请求。API、存储 key、路由、支付、data_rights、业务智能和其他窗口文件均不改变。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-09T10:45:00+08:00",
+      "evidenceRefs": ["E-USER-FRONTEND-LIFECYCLE-UNIT-001"]
+    },
+    {
+      "id": "DEC-FRONTEND-LAYOUT-BREAKPOINTS-001",
+      "question": "本单元页面布局断点如何解释？",
+      "choice": "compact 小于 600px、medium 大于等于 600px、wide 大于等于 1024px；断点只表达布局层级，不推断设备、平台或方向身份。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-09T10:45:00+08:00",
+      "evidenceRefs": ["E-USER-FRONTEND-LIFECYCLE-UNIT-001"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-FRONTEND-LIFECYCLE-001",
+      "question": "是否授权该最小后继 release unit 进入实现？",
+      "choice": "授权 RU-FRONTEND-LIFECYCLE-001，仅覆盖一个无共享文件冲突的前端生命周期工作包；全产品、生产、部署与后续公式候选集成继续保持 deferred。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-09T10:45:00+08:00",
+      "evidenceRefs": ["E-USER-FRONTEND-LIFECYCLE-UNIT-001", "E-CODE-BASELINE-001"]
+    },
+    {
+      "id": "DEC-DEFER-OUT-OF-SCOPE-NFR-001",
+      "question": "本页面生命周期单元是否确定全产品商业 NFR 数值和发布门槛？",
+      "choice": "不确定。本单元只验证页面内 owner、竞态与资源清理；安全、隐私、容量、成本、运维、备份等全产品门槛继续保持 unknown/deferred，不能由本单元宣称通过。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-09T10:45:00+08:00",
+      "evidenceRefs": ["E-USER-FRONTEND-LIFECYCLE-UNIT-001"]
+    }
+  ]
+}

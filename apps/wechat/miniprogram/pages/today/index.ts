@@ -38,6 +38,8 @@ import { capacityScaleLabel, createCapacityIdempotencyKey } from "./capacity";
 import { presentTodayDashboard, type TodayView } from "./presentation";
 
 class TodayPageControllers {
+  private initialShowPending = true;
+
   constructor(
     readonly today: TodayController,
     readonly opening: DailyOpeningController,
@@ -46,6 +48,12 @@ class TodayPageControllers {
   dispose(): void {
     this.today.dispose();
     this.opening.dispose();
+  }
+
+  consumeInitialShow(): boolean {
+    if (!this.initialShowPending) return false;
+    this.initialShowPending = false;
+    return true;
   }
 }
 
@@ -146,7 +154,7 @@ Page<TodayPageData, TodayPageCustom>({
     const controller = controllers.get(this)?.controller;
     const latest = consumeLatestTodayDashboard();
     if (latest) controller?.today.acceptLatestDashboard(latest);
-    void controller?.today.load();
+    if (!controller?.consumeInitialShow()) void controller?.today.load();
   },
 
   onShareAppMessage() {

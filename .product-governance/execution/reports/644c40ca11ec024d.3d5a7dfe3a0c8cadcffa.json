@@ -1,0 +1,695 @@
+{
+  "schemaVersion": 3,
+  "runId": "RU-FRONTEND-LIFECYCLE-001/WP-FRONTEND-LIFECYCLE-001@2026-08-09T03:17:46.167565+00:00",
+  "packageId": "WP-FRONTEND-LIFECYCLE-001",
+  "baselineCommit": "5cd8ffadd0db87a26b2fc1e9bc7c10986c428ae9",
+  "baselineTreeHash": "sha256:82c04cfe7215d95ec95865722f0c9ac66adc72ba8dac63533b4d79b747a26c9e",
+  "testedTreeHash": "sha256:90aa6675103fbfd3c88307d79a33561fb10240069ed6554cbb6876ac1a80722d",
+  "testedSnapshotPath": "execution/tested-snapshots/644c40ca11ec024d.3d5a7dfe3a0c8cadcffa.json",
+  "testedSnapshotSha256": "sha256:76ac784768f597eff24ea73d34591725481f325ae87f0fce5c334c9cc35fcf08",
+  "sourceDiff": {
+    "apps/wechat/tests/private-knowledge-page-lifecycle.test.ts": "sha256:dc5b3f2de30d9eeb32cdd2dfd6463baf984b70e8a70d0aca72ae600e855e9e4e"
+  },
+  "ownedResultHashes": {
+    "apps/wechat/tests/private-knowledge-page-lifecycle.test.ts": "sha256:dc5b3f2de30d9eeb32cdd2dfd6463baf984b70e8a70d0aca72ae600e855e9e4e"
+  },
+  "testedOwnedState": {
+    "schemaVersion": 1,
+    "selectionPolicy": "allowed-source-files-and-symlinks@1",
+    "allowedPaths": [
+      "apps/wechat/miniprogram/pages/reflection/**",
+      "apps/wechat/miniprogram/pages/me/index.ts",
+      "apps/wechat/miniprogram/pages/me/index.wxss",
+      "apps/wechat/miniprogram/pages/me/features/**",
+      "apps/wechat/miniprogram/pages/private-knowledge/index.ts",
+      "apps/wechat/miniprogram/pages/private-knowledge/index.wxss",
+      "apps/wechat/miniprogram/pages/private-knowledge/features/page-runtime/**",
+      "apps/wechat/tests/reflection-page-lifecycle.test.ts",
+      "apps/wechat/tests/me-page-lifecycle.test.ts",
+      "apps/wechat/tests/private-knowledge-page-lifecycle.test.ts"
+    ],
+    "excludedClasses": [
+      "governance_execution_runtime",
+      "directories_and_git_submodules",
+      "devices_sockets_and_fifos",
+      "transient_missing_entries"
+    ],
+    "pathHashes": {
+      "apps/wechat/miniprogram/pages/me/features/request-owner.ts": "sha256:8a994c961a67e68e8f1ea781de278186fbdbe22ace8d7af43426d929ab6d7a1a",
+      "apps/wechat/miniprogram/pages/me/index.ts": "sha256:4302893afc33c91880087485f00f79ec1a5616c3da6ef67adde9884eb8892a29",
+      "apps/wechat/miniprogram/pages/me/index.wxss": "sha256:e1b4713f96d0f1da358d43326641cd7758794ad186d44870293f4ee01bfd095a",
+      "apps/wechat/miniprogram/pages/private-knowledge/features/page-runtime/request-owner.ts": "sha256:61f63f7a94aa433d378bea6c703eb8c78ad68e9f46c48d759790b43b59e85c22",
+      "apps/wechat/miniprogram/pages/private-knowledge/index.ts": "sha256:4e0850484f4a5fade916a4963f29da4cb93d0af1363b05eaa42c8382bfe89817",
+      "apps/wechat/miniprogram/pages/private-knowledge/index.wxss": "sha256:b175348cda92553a1395e77a9686f9f8277964a670650fc3f9478b6793c96ff0",
+      "apps/wechat/miniprogram/pages/reflection/features/api/xfyun.ts": "sha256:ef109b575a3731778230131bfdcf32443a9125f607644a291045245201420ca7",
+      "apps/wechat/miniprogram/pages/reflection/features/replay-runtime.ts": "sha256:4c6c7c78facd54877b45b650c8d2a4ffc1faa0cfb691592657c134a87e17c4ae",
+      "apps/wechat/miniprogram/pages/reflection/features/session-owner.ts": "sha256:a54d9e3158d6f699d026908f68f2a3f4e20fe4e4ef04686793b949ffcae1bcb5",
+      "apps/wechat/miniprogram/pages/reflection/index.json": "sha256:85e8f7e6a0b73423c354c043df234b25f646b8b188fc8430df59164a9e651bdc",
+      "apps/wechat/miniprogram/pages/reflection/index.ts": "sha256:42def7734a9ce7b56b884c8c8ee28d61dc408f29dce66d005a8b5122be4164ff",
+      "apps/wechat/miniprogram/pages/reflection/index.wxml": "sha256:4fb1326524094bcc30048bc87ade2457634b374a6143bc8913af27c6668f3fa5",
+      "apps/wechat/miniprogram/pages/reflection/index.wxss": "sha256:f7338a2cbc86d82e97a8ed0ece474d279eddd3d60cb0e357cc75925ea6da9636",
+      "apps/wechat/miniprogram/pages/reflection/shared/api/learning-media.ts": "sha256:3208484d5af3fa88acde86ab996b49bdd215ce388417b8b8012d9d4162bdf864",
+      "apps/wechat/miniprogram/pages/reflection/shared/api/task-editing.ts": "sha256:b8718c6cd699aa150682875fefa1dc16d08e113f0fb9881417527b4f07861f0d",
+      "apps/wechat/miniprogram/pages/reflection/shared/api/xingce-learning.ts": "sha256:ef03e39b38643977042aed1f794041ffee74d4b480093e376275050839a7eb80",
+      "apps/wechat/miniprogram/pages/reflection/shared/app/navigation/safe-back.ts": "sha256:8625b7a2b56c8ef2594be4f981e1f831f3d087b42da77c2bb613f2d1dd1e361a",
+      "apps/wechat/miniprogram/pages/reflection/shared/components/workbench-nav/index.json": "sha256:3cac147888c7f1804ca5c8fd5aeca071cc29e1a776c6c7c6d52d823c4f568ef3",
+      "apps/wechat/miniprogram/pages/reflection/shared/components/workbench-nav/index.ts": "sha256:62df63cb67135d0f2d910a9a903bdf12b4a838ea575f13154e2329dc17bbbf1e",
+      "apps/wechat/miniprogram/pages/reflection/shared/components/workbench-nav/index.wxml": "sha256:ffe7c84cb0baa4b27444d741625bc7cbd69fc45b43627e2ee9ca46823d99903f",
+      "apps/wechat/miniprogram/pages/reflection/shared/components/workbench-nav/index.wxss": "sha256:7abf88f467cc2454b51befdc3f16f54696157eb354e840723d2960846a557ecc",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/learning-media/contracts.ts": "sha256:3f486eb765004f0513ebaa40c66580d385f0bbbb97ef0b73900e156e2fcff46f",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/learning-media/draft-store.ts": "sha256:38cbd2f9468ca4c020710fe9acb404228031acf95d9844b750298dd4c0c3393a",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/learning-media/platform.ts": "sha256:0e02957b8be49806702642bec09d0d3efb7dcb8069e575110ce6f0b2f97ec592",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/learning-media/presentation.ts": "sha256:9f6d8e47fc5390211977e2c6899c25042e08b4e7e9462b8497701c2941c6be01",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/learning-media/upload-controller.ts": "sha256:603113435b864a8b843c80071344a50bfb3603afbf14dec91080f0bc167deb88",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/xingce/real_attempt/pending-store.ts": "sha256:a2bed7eebe797903f471aded816969a9069a49be6217651f48465a8be8e10289",
+      "apps/wechat/miniprogram/pages/reflection/shared/features/xingce/real_attempt/presentation.ts": "sha256:3475cd87a2e170fc50693a16dd66791363c0dbc14214bdb9f0ecb25af02e4279",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/anchor.ts": "sha256:b1748303eb9900f3f333cf770f1cfe38d2185495e856f35d41369f0b5914b2b0",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/index.json": "sha256:3cac147888c7f1804ca5c8fd5aeca071cc29e1a776c6c7c6d52d823c4f568ef3",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/index.ts": "sha256:4d06aa9f757fdd243df0e08c78469a9e128569723b9ba1887e2c8f76ab367988",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/index.wxml": "sha256:dc234c23cb49af72d61988cfc83894588108ad3cd3ff7e10c17a4da02da01de6",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/index.wxss": "sha256:e032a719078ef019f392f5aeea453fd8526dfaa0bd86ac086040ec042e4b916f",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/strokes.ts": "sha256:bd0dfa5e5e2948d6b845f1e69e483f5705844d18d44086c5cf434492d4da2476",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/content-renderer/index.json": "sha256:3cac147888c7f1804ca5c8fd5aeca071cc29e1a776c6c7c6d52d823c4f568ef3",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/content-renderer/index.ts": "sha256:04be03ab973257658e56d0e20d5ba3db28eaabed04d7d2895ab1888cd8582cbe",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/content-renderer/index.wxml": "sha256:bfa610838adfa14aa74fe851897bdb46d34bf2ea3de2d428c0219d7c659c57c7",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/content-renderer/index.wxss": "sha256:eede62a30ca0272afae3a8f5083ca0873934af06f7f8f73b8a576dcb089f0939",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/content-renderer/model.ts": "sha256:e6ddfa4cba1a60d9532dedca7c62e99e1b3de01b3a282f3bb5a33f6ff6a55b91",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/display-preferences.ts": "sha256:f24f0155277e2f33a1cfa1872469a9868cdbd1018137d1ffc72b64333647e24a",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/material-reader/index.json": "sha256:24d232a991ae2724e9f76e452660cf940befe0f23b89d9343823727d71dc55eb",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/material-reader/index.ts": "sha256:48bf7e549bce907df01d2072bac7134e2def744b74c17debda1da2e7fe23e55c",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/material-reader/index.wxml": "sha256:b3f3aa94c583228c6f78c9bba84ff8c1a6ac7fed9688a79120dd627e35bc210f",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/material-reader/index.wxss": "sha256:69f46d113db5bdc6c653bfa7cdce8e530880d96acfc8ba2080961d59d269075a",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/material-reader/state.ts": "sha256:8e2b080c2cf4d7a206031a47df1745ba4374e5a1d4282624c5ae1124677c5dc1",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/option-presentation.ts": "sha256:80d71e0213593769b3046a569714ceb7ca49e6594a6656d99b25476a8ab5c92b",
+      "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/swipe-nav.ts": "sha256:4e954137c51e7d23302a9359a478304a4fbd0b7838fdb708d4afe8cf74e73aad",
+      "apps/wechat/tests/me-page-lifecycle.test.ts": "sha256:0808a87897ee42b3a4fdf1e02a8e8207eba7e54426a56b6e25acf6de832b2956",
+      "apps/wechat/tests/private-knowledge-page-lifecycle.test.ts": "sha256:dc5b3f2de30d9eeb32cdd2dfd6463baf984b70e8a70d0aca72ae600e855e9e4e",
+      "apps/wechat/tests/reflection-page-lifecycle.test.ts": "sha256:ef847259e9efc8689f9ae3e27b4d111294274e9130f700477654e62b6b6d6c5e"
+    }
+  },
+  "testedOwnedStateSha256": "sha256:94632298d4a097a16e644bc61c40aa39571cd58a0f5a31fac97a494b001719b0",
+  "sourceScopeFailures": [],
+  "integrityFailures": [],
+  "assignedTo": "codex-frontend-lifecycle-window",
+  "startedAt": "2026-08-09T03:17:46.167565+00:00",
+  "finishedAt": "2026-08-09T03:18:29.027834+00:00",
+  "passed": true,
+  "commands": [
+    {
+      "schemaVersion": 1,
+      "declaredCommand": {
+        "id": "frontend-lifecycle-reflection",
+        "kind": "scenario_test",
+        "adapter": "vitest-json@1",
+        "selector": "tests/reflection-page-lifecycle.test.ts",
+        "cwd": "apps/wechat",
+        "timeoutSeconds": 300
+      },
+      "runnerMetadata": {
+        "adapter": "vitest-json@1",
+        "declaredCwd": "apps/wechat",
+        "cwd": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat",
+        "selector": "tests/reflection-page-lifecycle.test.ts",
+        "selectorRealpath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/tests/reflection-page-lifecycle.test.ts",
+        "runnerArgv": [
+          "/Users/zxg/.local/node-v24.16.0-darwin-x64/bin/node",
+          "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest/vitest.mjs",
+          "run",
+          "tests/reflection-page-lifecycle.test.ts",
+          "--reporter=json",
+          "--outputFile=/Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-e2jsfau8/vitest-machine-report.json",
+          "--cache=false"
+        ],
+        "sandboxedArgv": [
+          "/usr/bin/sandbox-exec",
+          "-p",
+          "(version 1)\n(allow default)\n(deny file-write*\n  (require-not\n    (require-any\n      (subpath \"/Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-e2jsfau8\")\n      (literal \"/dev/null\"))))\n",
+          "/Users/zxg/.local/node-v24.16.0-darwin-x64/bin/node",
+          "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest/vitest.mjs",
+          "run",
+          "tests/reflection-page-lifecycle.test.ts",
+          "--reporter=json",
+          "--outputFile=/Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-e2jsfau8/vitest-machine-report.json",
+          "--cache=false"
+        ],
+        "nodeExecutable": "/Users/zxg/.local/node-v24.16.0-darwin-x64/bin/node",
+        "nodeExecutableSha256": "sha256:47483a524a057d93e246bb0e63867e2b4d189810aef53a6978d9e708a3d0f453",
+        "nodeVersion": "v24.16.0",
+        "manifestPath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/package.json",
+        "manifestSha256": "sha256:3d1a463938f48b517068f78fc1bac30587a1e90019a3d2301ca1fbbc479721b6",
+        "lockfilePath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/package-lock.json",
+        "lockfileSha256": "sha256:6e7f8cc8d981cf809f9138402392a42714ea324700fff673c8ad0268c7acc79d",
+        "lockfileVersion": 3,
+        "packageVersion": "4.1.10",
+        "lockIntegrity": "sha512-R9jUTe5S4Qb0HCd4TNqpC7oGcrMssMRGXLW80ubjWsW9VH5GF8y1Y0SFLY9AbqSk6nt0PnOx4H4WNJYZ13GUPw==",
+        "installedPackagePath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest",
+        "installedPackageManifestPath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest/package.json",
+        "installedPackageManifestSha256": "sha256:caa41f04799bd42f3cfd100c4282e630d77ffc7deb1e7e4927794fcb7f137f34",
+        "cliPath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest/vitest.mjs",
+        "cliSha256": "sha256:39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6",
+        "integrityAlgorithm": "sha512",
+        "integrityTarballPath": "/Users/zxg/.npm/_cacache/content-v2/sha512/47/d8/d44dee52e106f41c27784cdaa90bba0672b32cb0c4465cb5bcd2e6e35ac5bd547e4617ccb56344852d8f406ea4a4ea7b743e73b1e07e16349619d771943f",
+        "integrityTarballSha256": "sha256:0b999a3e14e4bc096026ea61f1229aace5f2db2b9895245535bd1f8cfef8100e",
+        "installedPackageTreeSha256": "sha256:6c6039787531c8ae34984f5babe96e64fca756f859b3cbf063da1f43e8231770",
+        "integrityVerified": true,
+        "isolation": {
+          "adapter": "darwin-sandbox-exec-readonly-source@1",
+          "executable": "/usr/bin/sandbox-exec",
+          "executableSha256": "sha256:97da2b6160df132c0a559e30fb5d931c65560d99e48172324531b87a5bf5b5fd",
+          "policySha256": "sha256:294325f04c79185c00546f34b3a71d892e3f4687412a1153e767e0ef89059bed",
+          "projectRoot": "/Users/zxg/.codex/worktrees/1c50/新项目",
+          "writableRoot": "/Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-e2jsfau8",
+          "policyVersion": 1
+        }
+      },
+      "machineReport": {
+        "numTotalTestSuites": 2,
+        "numPassedTestSuites": 2,
+        "numFailedTestSuites": 0,
+        "numPendingTestSuites": 0,
+        "numTotalTests": 6,
+        "numPassedTests": 6,
+        "numFailedTests": 0,
+        "numPendingTests": 0,
+        "numTodoTests": 0,
+        "snapshot": {
+          "added": 0,
+          "failure": false,
+          "filesAdded": 0,
+          "filesRemoved": 0,
+          "filesRemovedList": [],
+          "filesUnmatched": 0,
+          "filesUpdated": 0,
+          "matched": 0,
+          "total": 0,
+          "unchecked": 0,
+          "uncheckedKeysByFile": [],
+          "unmatched": 0,
+          "updated": 0,
+          "didUpdate": false
+        },
+        "startTime": 1786245503335,
+        "success": true,
+        "testResults": [
+          {
+            "assertionResults": [
+              {
+                "ancestorTitles": [
+                  "reflection page session lifecycle"
+                ],
+                "fullName": "reflection page session lifecycle binds every request and media effect to user, token, generation and visibility",
+                "status": "passed",
+                "title": "binds every request and media effect to user, token, generation and visibility",
+                "duration": 2.0264219999999966,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              },
+              {
+                "ancestorTitles": [
+                  "reflection page session lifecycle"
+                ],
+                "fullName": "reflection page session lifecycle keeps the onLoad request current through the first framework onShow",
+                "status": "passed",
+                "title": "keeps the onLoad request current through the first framework onShow",
+                "duration": 0.3799139999999852,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              },
+              {
+                "ancestorTitles": [
+                  "reflection page session lifecycle"
+                ],
+                "fullName": "reflection page session lifecycle invalidates late work and cleans poll, recording, previews, speech and replay on hide/unload",
+                "status": "passed",
+                "title": "invalidates late work and cleans poll, recording, previews, speech and replay on hide/unload",
+                "duration": 1.0389509999999973,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              },
+              {
+                "ancestorTitles": [
+                  "reflection page session lifecycle"
+                ],
+                "fullName": "reflection page session lifecycle refuses to reactivate the old page after an exact-owner change",
+                "status": "passed",
+                "title": "refuses to reactivate the old page after an exact-owner change",
+                "duration": 0.15955800000000409,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              },
+              {
+                "ancestorTitles": [
+                  "reflection page session lifecycle"
+                ],
+                "fullName": "reflection page session lifecycle wires hide/unload and every late request or media commit through the lifecycle",
+                "status": "passed",
+                "title": "wires hide/unload and every late request or media commit through the lifecycle",
+                "duration": 0.4443640000000073,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              },
+              {
+                "ancestorTitles": [
+                  "reflection page session lifecycle"
+                ],
+                "fullName": "reflection page session lifecycle uses the width-only 600px medium layout boundary",
+                "status": "passed",
+                "title": "uses the width-only 600px medium layout boundary",
+                "duration": 0.35793599999999515,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              }
+            ],
+            "startTime": 1786245503619,
+            "endTime": 1786245503623.358,
+            "status": "passed",
+            "message": "",
+            "name": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/tests/reflection-page-lifecycle.test.ts"
+          }
+        ]
+      },
+      "process": {
+        "actualExitCode": 0,
+        "timedOut": false,
+        "stdout": "JSON report written to /Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-e2jsfau8/vitest-machine-report.json\n",
+        "stderr": ""
+      },
+      "validationErrors": [],
+      "runnerProof": {
+        "schemaVersion": 1,
+        "adapter": "vitest-json@1",
+        "selector": "tests/reflection-page-lifecycle.test.ts",
+        "cwd": "apps/wechat",
+        "executedPassingTests": 6,
+        "actualExitCode": 0,
+        "runnerMetadataSha256": "sha256:41a87bf4e151b834c82a5893d3194d964dd9abd23b525f6b20cb349978e12170",
+        "machineReportSha256": "sha256:e1c1b64ffdc066d54c809b2bee7b29f20053b5034256039e0046d5b46000fbf0",
+        "isolation": {
+          "adapter": "darwin-sandbox-exec-readonly-source@1",
+          "policySha256": "sha256:294325f04c79185c00546f34b3a71d892e3f4687412a1153e767e0ef89059bed",
+          "executableSha256": "sha256:97da2b6160df132c0a559e30fb5d931c65560d99e48172324531b87a5bf5b5fd"
+        }
+      },
+      "passed": true,
+      "id": "frontend-lifecycle-reflection",
+      "kind": "scenario_test",
+      "actualExitCode": 0,
+      "timedOut": false,
+      "scenarioId": "WP-FRONTEND-LIFECYCLE-001-AS-01"
+    },
+    {
+      "schemaVersion": 1,
+      "declaredCommand": {
+        "id": "frontend-lifecycle-me",
+        "kind": "scenario_test",
+        "adapter": "vitest-json@1",
+        "selector": "tests/me-page-lifecycle.test.ts",
+        "cwd": "apps/wechat",
+        "timeoutSeconds": 300
+      },
+      "runnerMetadata": {
+        "adapter": "vitest-json@1",
+        "declaredCwd": "apps/wechat",
+        "cwd": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat",
+        "selector": "tests/me-page-lifecycle.test.ts",
+        "selectorRealpath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/tests/me-page-lifecycle.test.ts",
+        "runnerArgv": [
+          "/Users/zxg/.local/node-v24.16.0-darwin-x64/bin/node",
+          "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest/vitest.mjs",
+          "run",
+          "tests/me-page-lifecycle.test.ts",
+          "--reporter=json",
+          "--outputFile=/Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-h1jtewdm/vitest-machine-report.json",
+          "--cache=false"
+        ],
+        "sandboxedArgv": [
+          "/usr/bin/sandbox-exec",
+          "-p",
+          "(version 1)\n(allow default)\n(deny file-write*\n  (require-not\n    (require-any\n      (subpath \"/Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-h1jtewdm\")\n      (literal \"/dev/null\"))))\n",
+          "/Users/zxg/.local/node-v24.16.0-darwin-x64/bin/node",
+          "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest/vitest.mjs",
+          "run",
+          "tests/me-page-lifecycle.test.ts",
+          "--reporter=json",
+          "--outputFile=/Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-h1jtewdm/vitest-machine-report.json",
+          "--cache=false"
+        ],
+        "nodeExecutable": "/Users/zxg/.local/node-v24.16.0-darwin-x64/bin/node",
+        "nodeExecutableSha256": "sha256:47483a524a057d93e246bb0e63867e2b4d189810aef53a6978d9e708a3d0f453",
+        "nodeVersion": "v24.16.0",
+        "manifestPath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/package.json",
+        "manifestSha256": "sha256:3d1a463938f48b517068f78fc1bac30587a1e90019a3d2301ca1fbbc479721b6",
+        "lockfilePath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/package-lock.json",
+        "lockfileSha256": "sha256:6e7f8cc8d981cf809f9138402392a42714ea324700fff673c8ad0268c7acc79d",
+        "lockfileVersion": 3,
+        "packageVersion": "4.1.10",
+        "lockIntegrity": "sha512-R9jUTe5S4Qb0HCd4TNqpC7oGcrMssMRGXLW80ubjWsW9VH5GF8y1Y0SFLY9AbqSk6nt0PnOx4H4WNJYZ13GUPw==",
+        "installedPackagePath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest",
+        "installedPackageManifestPath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest/package.json",
+        "installedPackageManifestSha256": "sha256:caa41f04799bd42f3cfd100c4282e630d77ffc7deb1e7e4927794fcb7f137f34",
+        "cliPath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest/vitest.mjs",
+        "cliSha256": "sha256:39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6",
+        "integrityAlgorithm": "sha512",
+        "integrityTarballPath": "/Users/zxg/.npm/_cacache/content-v2/sha512/47/d8/d44dee52e106f41c27784cdaa90bba0672b32cb0c4465cb5bcd2e6e35ac5bd547e4617ccb56344852d8f406ea4a4ea7b743e73b1e07e16349619d771943f",
+        "integrityTarballSha256": "sha256:0b999a3e14e4bc096026ea61f1229aace5f2db2b9895245535bd1f8cfef8100e",
+        "installedPackageTreeSha256": "sha256:6c6039787531c8ae34984f5babe96e64fca756f859b3cbf063da1f43e8231770",
+        "integrityVerified": true,
+        "isolation": {
+          "adapter": "darwin-sandbox-exec-readonly-source@1",
+          "executable": "/usr/bin/sandbox-exec",
+          "executableSha256": "sha256:97da2b6160df132c0a559e30fb5d931c65560d99e48172324531b87a5bf5b5fd",
+          "policySha256": "sha256:9132376b0acc2cbfe562f6d628a8dbdecdff3b75893b9c6f714155537e9dfc90",
+          "projectRoot": "/Users/zxg/.codex/worktrees/1c50/新项目",
+          "writableRoot": "/Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-h1jtewdm",
+          "policyVersion": 1
+        }
+      },
+      "machineReport": {
+        "numTotalTestSuites": 2,
+        "numPassedTestSuites": 2,
+        "numFailedTestSuites": 0,
+        "numPendingTestSuites": 0,
+        "numTotalTests": 4,
+        "numPassedTests": 4,
+        "numFailedTests": 0,
+        "numPendingTests": 0,
+        "numTodoTests": 0,
+        "snapshot": {
+          "added": 0,
+          "failure": false,
+          "filesAdded": 0,
+          "filesRemoved": 0,
+          "filesRemovedList": [],
+          "filesUnmatched": 0,
+          "filesUpdated": 0,
+          "matched": 0,
+          "total": 0,
+          "unchecked": 0,
+          "uncheckedKeysByFile": [],
+          "unmatched": 0,
+          "updated": 0,
+          "didUpdate": false
+        },
+        "startTime": 1786245504793,
+        "success": true,
+        "testResults": [
+          {
+            "assertionResults": [
+              {
+                "ancestorTitles": [
+                  "me page request owner"
+                ],
+                "fullName": "me page request owner lets repeated onShow keep only the newest request per page instance",
+                "status": "passed",
+                "title": "lets repeated onShow keep only the newest request per page instance",
+                "duration": 1.7842249999999922,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              },
+              {
+                "ancestorTitles": [
+                  "me page request owner"
+                ],
+                "fullName": "me page request owner rejects same-user token/generation changes, account switches, hide and unload",
+                "status": "passed",
+                "title": "rejects same-user token/generation changes, account switches, hide and unload",
+                "duration": 0.48629599999998163,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              },
+              {
+                "ancestorTitles": [
+                  "me page request owner"
+                ],
+                "fullName": "me page request owner guards page requests and destroys the owner with the page instance",
+                "status": "passed",
+                "title": "guards page requests and destroys the owner with the page instance",
+                "duration": 0.37490300000001753,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              },
+              {
+                "ancestorTitles": [
+                  "me page request owner"
+                ],
+                "fullName": "me page request owner uses width-only compact, medium and wide layout boundaries",
+                "status": "passed",
+                "title": "uses width-only compact, medium and wide layout boundaries",
+                "duration": 0.4007210000000043,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              }
+            ],
+            "startTime": 1786245505051,
+            "endTime": 1786245505053.4863,
+            "status": "passed",
+            "message": "",
+            "name": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/tests/me-page-lifecycle.test.ts"
+          }
+        ]
+      },
+      "process": {
+        "actualExitCode": 0,
+        "timedOut": false,
+        "stdout": "JSON report written to /Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-h1jtewdm/vitest-machine-report.json\n",
+        "stderr": ""
+      },
+      "validationErrors": [],
+      "runnerProof": {
+        "schemaVersion": 1,
+        "adapter": "vitest-json@1",
+        "selector": "tests/me-page-lifecycle.test.ts",
+        "cwd": "apps/wechat",
+        "executedPassingTests": 4,
+        "actualExitCode": 0,
+        "runnerMetadataSha256": "sha256:34cfa8e87dfa744c8db03d6ece269f56ea6eb1f1d16c21b75d864185170cc826",
+        "machineReportSha256": "sha256:22d7731c9d88afd8cbbb64edd67295d4318575e2a3d29866327dd60d314a940f",
+        "isolation": {
+          "adapter": "darwin-sandbox-exec-readonly-source@1",
+          "policySha256": "sha256:9132376b0acc2cbfe562f6d628a8dbdecdff3b75893b9c6f714155537e9dfc90",
+          "executableSha256": "sha256:97da2b6160df132c0a559e30fb5d931c65560d99e48172324531b87a5bf5b5fd"
+        }
+      },
+      "passed": true,
+      "id": "frontend-lifecycle-me",
+      "kind": "scenario_test",
+      "actualExitCode": 0,
+      "timedOut": false,
+      "scenarioId": "WP-FRONTEND-LIFECYCLE-001-AS-02"
+    },
+    {
+      "schemaVersion": 1,
+      "declaredCommand": {
+        "id": "frontend-lifecycle-private-knowledge",
+        "kind": "scenario_test",
+        "adapter": "vitest-json@1",
+        "selector": "tests/private-knowledge-page-lifecycle.test.ts",
+        "cwd": "apps/wechat",
+        "timeoutSeconds": 300
+      },
+      "runnerMetadata": {
+        "adapter": "vitest-json@1",
+        "declaredCwd": "apps/wechat",
+        "cwd": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat",
+        "selector": "tests/private-knowledge-page-lifecycle.test.ts",
+        "selectorRealpath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/tests/private-knowledge-page-lifecycle.test.ts",
+        "runnerArgv": [
+          "/Users/zxg/.local/node-v24.16.0-darwin-x64/bin/node",
+          "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest/vitest.mjs",
+          "run",
+          "tests/private-knowledge-page-lifecycle.test.ts",
+          "--reporter=json",
+          "--outputFile=/Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-pxg1n6dw/vitest-machine-report.json",
+          "--cache=false"
+        ],
+        "sandboxedArgv": [
+          "/usr/bin/sandbox-exec",
+          "-p",
+          "(version 1)\n(allow default)\n(deny file-write*\n  (require-not\n    (require-any\n      (subpath \"/Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-pxg1n6dw\")\n      (literal \"/dev/null\"))))\n",
+          "/Users/zxg/.local/node-v24.16.0-darwin-x64/bin/node",
+          "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest/vitest.mjs",
+          "run",
+          "tests/private-knowledge-page-lifecycle.test.ts",
+          "--reporter=json",
+          "--outputFile=/Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-pxg1n6dw/vitest-machine-report.json",
+          "--cache=false"
+        ],
+        "nodeExecutable": "/Users/zxg/.local/node-v24.16.0-darwin-x64/bin/node",
+        "nodeExecutableSha256": "sha256:47483a524a057d93e246bb0e63867e2b4d189810aef53a6978d9e708a3d0f453",
+        "nodeVersion": "v24.16.0",
+        "manifestPath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/package.json",
+        "manifestSha256": "sha256:3d1a463938f48b517068f78fc1bac30587a1e90019a3d2301ca1fbbc479721b6",
+        "lockfilePath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/package-lock.json",
+        "lockfileSha256": "sha256:6e7f8cc8d981cf809f9138402392a42714ea324700fff673c8ad0268c7acc79d",
+        "lockfileVersion": 3,
+        "packageVersion": "4.1.10",
+        "lockIntegrity": "sha512-R9jUTe5S4Qb0HCd4TNqpC7oGcrMssMRGXLW80ubjWsW9VH5GF8y1Y0SFLY9AbqSk6nt0PnOx4H4WNJYZ13GUPw==",
+        "installedPackagePath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest",
+        "installedPackageManifestPath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest/package.json",
+        "installedPackageManifestSha256": "sha256:caa41f04799bd42f3cfd100c4282e630d77ffc7deb1e7e4927794fcb7f137f34",
+        "cliPath": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/node_modules/vitest/vitest.mjs",
+        "cliSha256": "sha256:39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6",
+        "integrityAlgorithm": "sha512",
+        "integrityTarballPath": "/Users/zxg/.npm/_cacache/content-v2/sha512/47/d8/d44dee52e106f41c27784cdaa90bba0672b32cb0c4465cb5bcd2e6e35ac5bd547e4617ccb56344852d8f406ea4a4ea7b743e73b1e07e16349619d771943f",
+        "integrityTarballSha256": "sha256:0b999a3e14e4bc096026ea61f1229aace5f2db2b9895245535bd1f8cfef8100e",
+        "installedPackageTreeSha256": "sha256:6c6039787531c8ae34984f5babe96e64fca756f859b3cbf063da1f43e8231770",
+        "integrityVerified": true,
+        "isolation": {
+          "adapter": "darwin-sandbox-exec-readonly-source@1",
+          "executable": "/usr/bin/sandbox-exec",
+          "executableSha256": "sha256:97da2b6160df132c0a559e30fb5d931c65560d99e48172324531b87a5bf5b5fd",
+          "policySha256": "sha256:0ab002b0e21aed20914c10dca4da8df64cd3ebfa1f3cfeeeb6bdf2feebb63023",
+          "projectRoot": "/Users/zxg/.codex/worktrees/1c50/新项目",
+          "writableRoot": "/Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-pxg1n6dw",
+          "policyVersion": 1
+        }
+      },
+      "machineReport": {
+        "numTotalTestSuites": 2,
+        "numPassedTestSuites": 2,
+        "numFailedTestSuites": 0,
+        "numPendingTestSuites": 0,
+        "numTotalTests": 4,
+        "numPassedTests": 4,
+        "numFailedTests": 0,
+        "numPendingTests": 0,
+        "numTodoTests": 0,
+        "snapshot": {
+          "added": 0,
+          "failure": false,
+          "filesAdded": 0,
+          "filesRemoved": 0,
+          "filesRemovedList": [],
+          "filesUnmatched": 0,
+          "filesUpdated": 0,
+          "matched": 0,
+          "total": 0,
+          "unchecked": 0,
+          "uncheckedKeysByFile": [],
+          "unmatched": 0,
+          "updated": 0,
+          "didUpdate": false
+        },
+        "startTime": 1786245506229,
+        "success": true,
+        "testResults": [
+          {
+            "assertionResults": [
+              {
+                "ancestorTitles": [
+                  "private knowledge request owner"
+                ],
+                "fullName": "private knowledge request owner deduplicates repeated onShow and rejects cross-session late responses",
+                "status": "passed",
+                "title": "deduplicates repeated onShow and rejects cross-session late responses",
+                "duration": 1.9164180000000215,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              },
+              {
+                "ancestorTitles": [
+                  "private knowledge request owner"
+                ],
+                "fullName": "private knowledge request owner clears deletion polling timers and resolves the wait as cancelled on hide/unload",
+                "status": "passed",
+                "title": "clears deletion polling timers and resolves the wait as cancelled on hide/unload",
+                "duration": 3.4541759999999897,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              },
+              {
+                "ancestorTitles": [
+                  "private knowledge request owner"
+                ],
+                "fullName": "private knowledge request owner guards list, search, import and deletion polling at the page boundary",
+                "status": "passed",
+                "title": "guards list, search, import and deletion polling at the page boundary",
+                "duration": 0.42884599999999296,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              },
+              {
+                "ancestorTitles": [
+                  "private knowledge request owner"
+                ],
+                "fullName": "private knowledge request owner uses width-only compact, medium and wide layout boundaries",
+                "status": "passed",
+                "title": "uses width-only compact, medium and wide layout boundaries",
+                "duration": 0.35617500000000746,
+                "failureMessages": [],
+                "meta": {},
+                "tags": []
+              }
+            ],
+            "startTime": 1786245506488,
+            "endTime": 1786245506494.429,
+            "status": "passed",
+            "message": "",
+            "name": "/Users/zxg/.codex/worktrees/1c50/新项目/apps/wechat/tests/private-knowledge-page-lifecycle.test.ts"
+          }
+        ]
+      },
+      "process": {
+        "actualExitCode": 0,
+        "timedOut": false,
+        "stdout": "JSON report written to /Users/zxg/.codex/worktrees/1c50/新项目/.product-governance/execution/tmp/scenario-pxg1n6dw/vitest-machine-report.json\n",
+        "stderr": ""
+      },
+      "validationErrors": [],
+      "runnerProof": {
+        "schemaVersion": 1,
+        "adapter": "vitest-json@1",
+        "selector": "tests/private-knowledge-page-lifecycle.test.ts",
+        "cwd": "apps/wechat",
+        "executedPassingTests": 4,
+        "actualExitCode": 0,
+        "runnerMetadataSha256": "sha256:edc12ab82a9ca96bb4779087728434b13d71ee6a6a90fde8f1d60b5a6983ed0a",
+        "machineReportSha256": "sha256:4233f22c17b4fd992e8ce2fabe59cc94c7df441d13236e3df228eef725172bb1",
+        "isolation": {
+          "adapter": "darwin-sandbox-exec-readonly-source@1",
+          "policySha256": "sha256:0ab002b0e21aed20914c10dca4da8df64cd3ebfa1f3cfeeeb6bdf2feebb63023",
+          "executableSha256": "sha256:97da2b6160df132c0a559e30fb5d931c65560d99e48172324531b87a5bf5b5fd"
+        }
+      },
+      "passed": true,
+      "id": "frontend-lifecycle-private-knowledge",
+      "kind": "scenario_test",
+      "actualExitCode": 0,
+      "timedOut": false,
+      "scenarioId": "WP-FRONTEND-LIFECYCLE-001-AS-03"
+    }
+  ],
+  "scenarioEvidence": [
+    {
+      "scenarioId": "WP-FRONTEND-LIFECYCLE-001-AS-01",
+      "path": "execution/evidence/3d5a7dfe3a0c8cadcffa/644c40ca11ec024d/416b7739d5012657.json",
+      "sha256": "sha256:f5afac44f24d9ecb28c7d034373407ba0b63adb0a1889de5fb545646771f9537"
+    },
+    {
+      "scenarioId": "WP-FRONTEND-LIFECYCLE-001-AS-02",
+      "path": "execution/evidence/3d5a7dfe3a0c8cadcffa/644c40ca11ec024d/2b046f3a86a3220b.json",
+      "sha256": "sha256:ea8351f1123096d728de31e4bd460ae895cf1d2234706b20a2aa3d5bc11be2b9"
+    },
+    {
+      "scenarioId": "WP-FRONTEND-LIFECYCLE-001-AS-03",
+      "path": "execution/evidence/3d5a7dfe3a0c8cadcffa/644c40ca11ec024d/5f1e89f56c3edc5c.json",
+      "sha256": "sha256:620e9307fe69ea2531e787efaca41ba1bf76242444ee5500301437eed21f9dc6"
+    }
+  ],
+  "scenarioEvidenceFailures": [],
+  "releaseUnitId": "RU-FRONTEND-LIFECYCLE-001",
+  "releaseUnitHash": "sha256:abed67a4ab24662dcc11ec2afbbbd013f2fb4155959073da39b305e51062e711"
+}

@@ -14,8 +14,15 @@ import type {
   WechatVoiceRecorder,
 } from "../shared/features/learning-media/platform";
 import type { ReflectionVoiceUploadCoordinator } from "../shared/features/learning-media/upload-controller";
+import { currentAuthSession, type ActiveAuthSession } from "../../../auth/session";
+import {
+  EssayTaskEffectOwner,
+  type EssayTaskEffectLane,
+  type EssayTaskEffectLease,
+} from "./page-host/effect-owner";
 
 export interface EssayTaskPageRuntime {
+  effectOwner: EssayTaskEffectOwner | null;
   api: EssayIntelligenceApi | null;
   learningMediaApi: LearningMediaApi | null;
   essayHandwritingApi: EssayHandwritingApi | null;
@@ -46,13 +53,14 @@ export interface EssayTaskPageRuntime {
   draftingAutosaveHandle: ReturnType<typeof setTimeout> | undefined;
   reviewPollHandle: ReturnType<typeof setTimeout> | undefined;
   reviewPollInFlight: boolean;
+  workspaceRefreshOnShow: boolean;
   pageVisible: boolean;
-  requestEpoch: number;
   disposed: boolean;
 }
 
 export function createEssayTaskPageRuntime(): EssayTaskPageRuntime {
   return {
+    effectOwner: null,
     api: null,
     learningMediaApi: null,
     essayHandwritingApi: null,
@@ -83,8 +91,8 @@ export function createEssayTaskPageRuntime(): EssayTaskPageRuntime {
     draftingAutosaveHandle: undefined,
     reviewPollHandle: undefined,
     reviewPollInFlight: false,
+    workspaceRefreshOnShow: false,
     pageVisible: false,
-    requestEpoch: 0,
     disposed: false,
   };
 }
@@ -112,17 +120,70 @@ export class EssayTaskPageRuntimeRegistry<TPage extends object> {
     this.runtimes.delete(page);
   }
 
-  beginRequest(runtime: EssayTaskPageRuntime): number {
-    runtime.requestEpoch += 1;
-    return runtime.requestEpoch;
+  bindEffects(page: TPage, runtime: EssayTaskPageRuntime, session: ActiveAuthSession): boolean {
+    if (!this.owns(page, runtime)) return false;
+    runtime.effectOwner?.unload();
+    runtime.effectOwner = new EssayTaskEffectOwner(page, session);
+    return runtime.effectOwner.show(page, session);
   }
 
-  isCurrent(page: TPage, runtime: EssayTaskPageRuntime, requestEpoch: number): boolean {
+  show(page: TPage, runtime: EssayTaskPageRuntime, session: ActiveAuthSession): boolean {
+    return this.owns(page, runtime) && Boolean(runtime.effectOwner?.show(page, session));
+  }
+
+  hide(runtime: EssayTaskPageRuntime): Set<EssayTaskEffectLane> {
+    return runtime.effectOwner?.hide() ?? new Set();
+  }
+
+  invalidateAll(runtime: EssayTaskPageRuntime): Set<EssayTaskEffectLane> {
+    return runtime.effectOwner?.invalidateAll() ?? new Set();
+  }
+
+  beginEffect(
+    page: TPage,
+    runtime: EssayTaskPageRuntime,
+    lane: EssayTaskEffectLane,
+  ): EssayTaskEffectLease | null {
+    if (!this.owns(page, runtime)) return null;
+    return runtime.effectOwner?.begin(page, lane, currentAuthSession()) ?? null;
+  }
+
+  isEffectCurrent(
+    page: TPage,
+    runtime: EssayTaskPageRuntime,
+    effect: EssayTaskEffectLease | null,
+  ): boolean {
     return (
-      this.runtimes.get(page) === runtime &&
-      !runtime.disposed &&
-      runtime.requestEpoch === requestEpoch
+      this.owns(page, runtime) &&
+      Boolean(runtime.effectOwner?.owns(page, effect, currentAuthSession()))
     );
+  }
+
+  isEffectCurrentOrSessionCleared(
+    page: TPage,
+    runtime: EssayTaskPageRuntime,
+    effect: EssayTaskEffectLease | null,
+  ): boolean {
+    if (!this.owns(page, runtime)) return false;
+    const session = currentAuthSession();
+    return session
+      ? Boolean(runtime.effectOwner?.owns(page, effect, session))
+      : Boolean(runtime.effectOwner?.ownsOrigin(page, effect));
+  }
+
+  finishEffect(
+    page: TPage,
+    runtime: EssayTaskPageRuntime,
+    effect: EssayTaskEffectLease | null,
+  ): boolean {
+    return (
+      this.owns(page, runtime) &&
+      Boolean(runtime.effectOwner?.finish(page, effect, currentAuthSession()))
+    );
+  }
+
+  hasActiveEffect(runtime: EssayTaskPageRuntime, lane: EssayTaskEffectLane): boolean {
+    return Boolean(runtime.effectOwner?.hasActive(lane));
   }
 
   owns(page: TPage, runtime: EssayTaskPageRuntime): boolean {
@@ -131,7 +192,8 @@ export class EssayTaskPageRuntimeRegistry<TPage extends object> {
 
   private dispose(runtime: EssayTaskPageRuntime): void {
     runtime.disposed = true;
-    runtime.requestEpoch += 1;
+    runtime.effectOwner?.unload();
+    runtime.effectOwner = null;
     if (runtime.timerHandle !== undefined) clearInterval(runtime.timerHandle);
     if (runtime.draftingAutosaveHandle !== undefined) clearTimeout(runtime.draftingAutosaveHandle);
     if (runtime.reviewPollHandle !== undefined) clearTimeout(runtime.reviewPollHandle);

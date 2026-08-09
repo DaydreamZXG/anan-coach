@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "product": {
+    "name": "岸岸小程序前端生命周期重构单元",
+    "createdAt": "2026-08-09T02:51:09.269724+00:00"
+  },
+  "status": "draft",
+  "authority": {
+    "bundleRoot": ".product-governance",
+    "precedence": [
+      "user_confirmed",
+      "applicable_policy",
+      "frozen_decision",
+      "code_observed",
+      "existing_document",
+      "inferred",
+      "proposed"
+    ]
+  },
+  "tracks": [
+    "frontend-lifecycle"
+  ],
+  "trackDecisionRefs": {
+    "frontend-lifecycle": "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001"
+  },
+  "requiredPageStates": [
+    "default",
+    "loading",
+    "empty",
+    "partial",
+    "error",
+    "expired",
+    "conflict",
+    "recovery",
+    "processing"
+  ],
+  "dualTrackCapabilities": [
+    "evidence",
+    "attempt",
+    "reflection",
+    "mastery",
+    "ability_estimate",
+    "planning",
+    "report",
+    "global_ask"
+  ],
+  "requiredNfrCategories": [
+    "security",
+    "privacy",
+    "reliability",
+    "observability",
+    "performance",
+    "capacity",
+    "accessibility",
+    "ai_quality",
+    "ai_cost",
+    "commerce",
+    "migration",
+    "backup_restore",
+    "operations"
+  ],
+  "artifacts": {
+    "evidenceLedger": "evidence-ledger.json",
+    "conflictRegister": "conflicts.json",
+    "decisionRegister": "decisions.json",
+    "glossary": "glossary.json",
+    "requirements": "requirements.json",
+    "journeys": "journeys.json",
+    "domains": "domains.json",
+    "stateMachines": "state-machines.json",
+    "contracts": "contracts.json",
+    "pageMatrix": "page-matrix.json",
+    "trackCoverage": "track-coverage.json",
+    "dataLifecycle": "data-lifecycle.json",
+    "aiScenarios": "ai-scenarios.json",
+    "entitlements": "entitlements.json",
+    "nonFunctionalRequirements": "nfr.json",
+    "workPackages": "work-packages.json",
+    "releaseUnits": "release-units.json"
+  },
+  "freeze": {
+    "decisionId": null,
+    "commit": null,
+    "frozenAt": null,
+    "manifestHash": null
+  }
+}

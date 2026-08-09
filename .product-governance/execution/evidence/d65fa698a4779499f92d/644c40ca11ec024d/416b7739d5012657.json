@@ -1,0 +1,14 @@
+{
+  "scenarioId": "WP-FRONTEND-LIFECYCLE-001-AS-01",
+  "assertion": "reflection rejects same-user token/generation and account-switch late effects and clears replay, poll, recording, preview, speech and timers on hide/unload",
+  "testSelector": "tests/reflection-page-lifecycle.test.ts",
+  "acceptanceCommandId": "frontend-lifecycle-reflection",
+  "runId": "RU-FRONTEND-LIFECYCLE-001/WP-FRONTEND-LIFECYCLE-001@2026-08-09T02:59:22.721551+00:00",
+  "packageId": "WP-FRONTEND-LIFECYCLE-001",
+  "evidenceOwner": "govern-product-build/verifier",
+  "passed": false,
+  "runnerProof": null,
+  "commandResultHash": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+  "releaseUnitId": "RU-FRONTEND-LIFECYCLE-001",
+  "releaseUnitHash": "sha256:abed67a4ab24662dcc11ec2afbbbd013f2fb4155959073da39b305e51062e711"
+}

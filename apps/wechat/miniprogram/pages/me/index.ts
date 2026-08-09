@@ -17,7 +17,7 @@ import {
   clearAllPendingAuthReturns,
   clearPendingAuthReturn,
 } from "../../app/navigation/auth-return";
-import { currentAccessToken, currentUserId, updateAuthDisplayName } from "../../auth/session";
+import { currentAuthSession, currentUserId, updateAuthDisplayName } from "../../auth/session";
 import {
   clearAllEssayPending,
   clearEssayPendingForUser,
@@ -43,6 +43,7 @@ import {
   clearDataRightsPendingForUser,
 } from "../../features/data-rights/pending-store";
 import { routes } from "../../app/navigation/routes";
+import { MePageRequestOwner, type MePageRequestLease } from "./features/request-owner";
 
 type SessionView = AccountSessionView & {
   lastSeenLabel: string;
@@ -87,6 +88,13 @@ function avatarInitial(value: string): string {
 }
 
 type QualificationKey = QualificationFact["key"];
+
+interface MeRequest {
+  runtime: MePageRequestOwner;
+  lease: MePageRequestLease;
+}
+
+const requestOwners = new WeakMap<object, MePageRequestOwner>();
 
 Page({
   data: {
@@ -144,6 +152,7 @@ Page({
     if (this.data.profileEditorOpen || this.data.wechatChannelOpen) {
       this.setTabBarHidden(false);
     }
+    requestOwners.get(this)?.hide();
   },
 
   onShow() {
@@ -155,12 +164,33 @@ Page({
         hidden: this.data.profileEditorOpen || this.data.wechatChannelOpen,
       });
     }
-    if (!currentAccessToken()) {
+    const auth = currentAuthSession();
+    if (!auth) {
       void wx.reLaunch({ url: "/pages/login/index" });
       return;
     }
+    const existing = requestOwners.get(this);
+    const sameOwner = existing?.show(auth) ?? false;
+    if (!sameOwner) {
+      existing?.unload();
+      const runtime = new MePageRequestOwner(auth);
+      requestOwners.set(this, runtime);
+      runtime.show(auth);
+      resetForSessionChange(this);
+    }
+    this.setData({
+      profileSaving: false,
+      revokingSessionId: "",
+      loggingOut: false,
+      loggingOutAll: false,
+    });
     void this.loadAccount();
     void this.loadProfileContext();
+  },
+
+  onUnload() {
+    requestOwners.get(this)?.unload();
+    requestOwners.delete(this);
   },
 
   onShareAppMessage() {
@@ -172,8 +202,9 @@ Page({
   },
 
   async loadAccount() {
-    const token = currentAccessToken();
-    if (!token) return;
+    const request = beginRequest(this, "account");
+    if (!request) return;
+    const token = request.lease.owner.accessToken;
     // 已渲染过内容时静默刷新，避免每次切回 Tab 都整页闪骨架屏。
     const silentRefresh = this.data.status === "ready";
     if (silentRefresh) {
@@ -183,6 +214,7 @@ Page({
     }
     try {
       const response = await new AccountApi(new ApiClient(undefined, token)).getOverview();
+      if (!requestIsCurrent(this, request)) return;
       const displayName = displayNameOrDefault(response.data.displayName);
       updateAuthDisplayName(response.data.displayName);
       this.setData({
@@ -199,6 +231,7 @@ Page({
         sessions: response.data.sessions.map(sessionView),
       });
     } catch (error) {
+      if (!requestIsCurrent(this, request)) return;
       if (error instanceof ApiClientError && error.statusCode === 401) {
         this.finishLogout();
         return;
@@ -219,8 +252,9 @@ Page({
   },
 
   async loadProfileContext() {
-    const token = currentAccessToken();
-    if (!token) return;
+    const request = beginRequest(this, "profile-context");
+    if (!request) return;
+    const token = request.lease.owner.accessToken;
     this.setData({
       qualificationContextStatus: "loading",
       qualificationContextError: "",
@@ -238,6 +272,7 @@ Page({
       new QualificationApi(client).getProfile(),
       onboarding.getProgress(),
     ]);
+    if (!requestIsCurrent(this, request)) return;
     const unauthorized = [qualification, progress].some(
       (result) =>
         result.status === "rejected" &&
@@ -303,6 +338,7 @@ Page({
       onboarding.getStudyPreference(),
       new PlanningApi(client).getToday(),
     ]);
+    if (!requestIsCurrent(this, request)) return;
     if (
       [preference, dashboard].some(
         (result) =>
@@ -394,19 +430,22 @@ Page({
   },
 
   async saveProfile() {
-    const token = currentAccessToken();
     const displayName = this.data.profileDraftName.trim().replace(/\s+/gu, " ");
-    if (!token || this.data.profileSaving) return;
+    if (this.data.profileSaving) return;
     if (!displayName || Array.from(displayName).length > 24) {
       this.setData({ profileEditorError: "昵称请填写 1–24 个字。" });
       return;
     }
+    const request = beginRequest(this, "save-profile");
+    if (!request) return;
+    const token = request.lease.owner.accessToken;
     this.setData({ profileSaving: true, profileEditorError: "" });
     try {
       const { data } = await new AccountApi(new ApiClient(undefined, token)).updateProfile({
         displayName,
         avatarStyle: this.data.profileDraftAvatarStyle,
       });
+      if (!requestIsCurrent(this, request)) return;
       updateAuthDisplayName(data.displayName);
       this.setData({
         displayName: data.displayName,
@@ -421,6 +460,7 @@ Page({
       this.setTabBarHidden(false);
       void wx.showToast({ title: "个人资料已更新", icon: "success" });
     } catch (error) {
+      if (!requestIsCurrent(this, request)) return;
       const apiError = error instanceof ApiClientError ? error : undefined;
       this.setData({
         profileSaving: false,
@@ -509,9 +549,12 @@ Page({
   },
 
   async openAuthorizationSettings() {
+    const request = beginRequest(this, "authorization-settings");
+    if (!request) return;
     try {
       await wx.openSetting();
     } catch {
+      if (!requestIsCurrent(this, request)) return;
       void wx.showToast({ title: "授权设置没打开，再试一次", icon: "none" });
     }
   },
@@ -530,25 +573,31 @@ Page({
     const sessionId = String(event.currentTarget.dataset.sessionId ?? "");
     const session = this.data.sessions.find((item) => item.sessionId === sessionId);
     if (!session || session.isCurrent || this.data.revokingSessionId) return;
+    const runtime = requestOwners.get(this);
     wx.showModal({
       title: "退出这台设备？",
       content: "该设备需要重新通过微信登录，不影响当前设备。",
       confirmText: "确认退出",
       confirmColor: "#C83F56",
       success: (result) => {
-        if (result.confirm) void this.confirmRevokeSession(sessionId);
+        if (result.confirm && requestRuntimeIsActive(this, runtime)) {
+          void this.confirmRevokeSession(sessionId);
+        }
       },
     });
   },
 
   async confirmRevokeSession(sessionId: string) {
-    const token = currentAccessToken();
-    if (!token) return;
+    const request = beginRequest(this, "revoke-session");
+    if (!request) return;
+    const token = request.lease.owner.accessToken;
     this.setData({ revokingSessionId: sessionId, errorMessage: "" });
     try {
       await new AccountApi(new ApiClient(undefined, token)).revokeSession(sessionId);
+      if (!requestIsCurrent(this, request)) return;
       await this.loadAccount();
     } catch (error) {
+      if (!requestIsCurrent(this, request)) return;
       const apiError = error instanceof ApiClientError ? error : undefined;
       this.setData({
         revokingSessionId: "",
@@ -559,24 +608,30 @@ Page({
 
   requestLogout() {
     if (this.data.loggingOut || this.data.loggingOutAll) return;
+    const runtime = requestOwners.get(this);
     wx.showModal({
       title: "退出当前设备？",
       content: "你的资格档案和学习记录仍保存在账户中。",
       confirmText: "退出登录",
       success: (result) => {
-        if (result.confirm) void this.logoutCurrent();
+        if (result.confirm && requestRuntimeIsActive(this, runtime)) {
+          void this.logoutCurrent();
+        }
       },
     });
   },
 
   async logoutCurrent() {
-    const token = currentAccessToken();
-    if (!token) return;
+    const request = beginRequest(this, "logout-current");
+    if (!request) return;
+    const token = request.lease.owner.accessToken;
     this.setData({ loggingOut: true });
     try {
       await new AccountApi(new ApiClient(undefined, token)).logoutCurrent();
+      if (!requestIsCurrent(this, request)) return;
       this.finishLogout();
     } catch (error) {
+      if (!requestIsCurrent(this, request)) return;
       const apiError = error instanceof ApiClientError ? error : undefined;
       this.setData({
         loggingOut: false,
@@ -587,25 +642,31 @@ Page({
 
   requestLogoutAll() {
     if (this.data.loggingOut || this.data.loggingOutAll) return;
+    const runtime = requestOwners.get(this);
     wx.showModal({
       title: "退出全部设备？",
       content: "包括当前设备在内的全部登录会话都会失效。",
       confirmText: "全部退出",
       confirmColor: "#C83F56",
       success: (result) => {
-        if (result.confirm) void this.logoutAll();
+        if (result.confirm && requestRuntimeIsActive(this, runtime)) {
+          void this.logoutAll();
+        }
       },
     });
   },
 
   async logoutAll() {
-    const token = currentAccessToken();
-    if (!token) return;
+    const request = beginRequest(this, "logout-all");
+    if (!request) return;
+    const token = request.lease.owner.accessToken;
     this.setData({ loggingOutAll: true });
     try {
       await new AccountApi(new ApiClient(undefined, token)).logoutAll();
+      if (!requestIsCurrent(this, request)) return;
       this.finishLogout();
     } catch (error) {
+      if (!requestIsCurrent(this, request)) return;
       const apiError = error instanceof ApiClientError ? error : undefined;
       this.setData({
         loggingOutAll: false,
@@ -637,6 +698,69 @@ Page({
     void wx.reLaunch({ url: "/pages/login/index" });
   },
 });
+
+function beginRequest(page: object, lane: string): MeRequest | null {
+  const runtime = requestOwners.get(page);
+  const lease = runtime?.begin(lane, currentAuthSession()) ?? null;
+  return runtime && lease ? { runtime, lease } : null;
+}
+
+function requestIsCurrent(page: object, request: MeRequest): boolean {
+  return (
+    requestOwners.get(page) === request.runtime &&
+    request.runtime.owns(request.lease, currentAuthSession())
+  );
+}
+
+function requestRuntimeIsActive(page: object, runtime: MePageRequestOwner | undefined): boolean {
+  return (
+    runtime !== undefined &&
+    requestOwners.get(page) === runtime &&
+    runtime.active(currentAuthSession())
+  );
+}
+
+function resetForSessionChange(page: { setData(patch: Record<string, unknown>): void }): void {
+  page.setData({
+    status: "loading",
+    errorMessage: "",
+    requestId: "",
+    accountIdLabel: "",
+    accountStatusLabel: "",
+    wechatLinkedLabel: "",
+    profileVersion: 0,
+    displayName: "岸岸学员",
+    avatarInitial: "岸",
+    avatarStyle: defaultAvatarStyle(),
+    establishedLabel: "",
+    studyDayLabel: "国考备考中",
+    sessions: [],
+    qualificationReady: false,
+    educationMajorLabel: "待补充",
+    candidateIdentityLabel: "待补充",
+    politicalStatusLabel: "待补充",
+    regionLabel: "待补充",
+    workExperienceLabel: "待补充",
+    serviceProjectLabel: "待补充",
+    studyPreferenceReady: false,
+    studyModeLabel: "待设置",
+    weekdayHoursLabel: "待设置",
+    weekendHoursLabel: "待设置",
+    studyRhythmLabel: "待设置",
+    targetPositionLabel: "尚未确认主目标岗位",
+    targetPositionDepartmentLabel: "确认岗位后显示招录机关",
+    targetPositionStatusLabel: "待确认",
+    qualificationContextStatus: "loading",
+    qualificationContextError: "",
+    qualificationContextRequestId: "",
+    studyContextStatus: "loading",
+    studyContextError: "",
+    studyContextRequestId: "",
+    targetContextStatus: "loading",
+    targetContextError: "",
+    targetContextRequestId: "",
+  });
+}
 
 function qualificationView(profile: QualificationProfile) {
   const education = factText(profile, "education");

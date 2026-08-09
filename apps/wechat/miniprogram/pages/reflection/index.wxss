@@ -1497,7 +1497,8 @@ button.voice-item__play {
   width: calc(58 * var(--rpx));
 }
 
-@media (min-width: 700px) {
+/* medium layout: viewport width >= 600px */
+@media (min-width: 600px) {
   .summary-question-map {
     padding: var(--figma-space-20);
   }

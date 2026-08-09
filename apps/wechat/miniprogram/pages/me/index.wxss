@@ -785,7 +785,8 @@ button.profile-editor__save {
   line-height: calc(86 * var(--rpx));
 }
 
-@media (min-width: 768px) {
+/* medium layout: viewport width >= 600px */
+@media (min-width: 600px) {
   .profile-page {
     width: 100%;
     max-width: 820px;
@@ -841,12 +842,12 @@ button.profile-editor__save {
 }
 
 /*
- * 平板横屏：把“我的”组成一张备考工作台。
+ * wide 布局：把“我的”组成一张备考工作台。
  * 档案跨两行，与右侧的岗位 + 提醒形成一组；
  * 学习方式与方法卡社区等高对应，避免自动两列造成的大面积空洞。
- * 该断点只命中横屏，不改动手机和平板竖屏的单列阅读顺序。
+ * 断点只由可用布局宽度决定，不推断设备、平台或屏幕方向。
  */
-@media (min-width: 1024px) and (orientation: landscape) {
+@media (min-width: 1024px) {
   .profile-page {
     max-width: 1160px;
   }

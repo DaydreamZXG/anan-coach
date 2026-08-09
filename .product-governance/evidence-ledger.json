@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+      "claim": "当前独立 worktree 只实施 reflection、me 与 private-knowledge 页面生命周期重构；owner 必须绑定 user、token、generation，覆盖重复 onShow、账号切换、快速切页、onHide/onUnload、资源清理和迟到响应隔离；不部署、不上传、不推送。",
+      "class": "user_confirmed",
+      "locator": "conversation:2026-08-09:delegated-frontend-lifecycle-unit",
+      "observedAt": "2026-08-09T10:45:00+08:00",
+      "scope": "target",
+      "status": "active",
+      "verificationLevel": 0,
+      "basisRefs": []
+    },
+    {
+      "id": "E-CODE-AUTH-SESSION-OWNER-001",
+      "claim": "当前认证模块将 session owner 定义为 accessToken、userId 与 generation 三者完全相等，并提供 sameSessionOwner。",
+      "class": "code_observed",
+      "locator": "apps/wechat/miniprogram/auth/session.ts:83",
+      "observedAt": "2026-08-09T10:55:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": []
+    },
+    {
+      "id": "E-CODE-REFLECTION-OWNER-GAP-001",
+      "claim": "当前 reflection runtime 只保存 ownerUserId，currentAccountOwns 也只比较 userId；同 user 更换 token 或 generation 不会使旧页面失去 owner。",
+      "class": "code_observed",
+      "locator": "apps/wechat/miniprogram/pages/reflection/index.ts:261",
+      "observedAt": "2026-08-09T10:55:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": []
+    },
+    {
+      "id": "E-CODE-ME-REQUEST-GAP-001",
+      "claim": "当前 me 页面每次请求只读取 token，没有页面实例 owner、onUnload 保护或重复 onShow 请求世代。",
+      "class": "code_observed",
+      "locator": "apps/wechat/miniprogram/pages/me/index.ts:143",
+      "observedAt": "2026-08-09T10:55:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": []
+    },
+    {
+      "id": "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001",
+      "claim": "当前 private-knowledge 页面按操作重新读取当前认证创建 API gateway，onUnload 只删除 retry file，列表、搜索、上传、删除轮询均没有页面实例/session request owner。",
+      "class": "code_observed",
+      "locator": "apps/wechat/miniprogram/pages/private-knowledge/index.ts:111",
+      "observedAt": "2026-08-09T10:55:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": []
+    },
+    {
+      "id": "E-CODE-BASELINE-001",
+      "claim": "本单元起点是干净的 a46e655cd246b5ce72a1cc3fa2f49f40d06e535b，来源分支 codex/structural-refactor-v2。",
+      "class": "code_observed",
+      "locator": "command:git-status-and-log:2026-08-09T10:50:00+08:00",
+      "observedAt": "2026-08-09T10:50:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": []
+    }
+  ]
+}

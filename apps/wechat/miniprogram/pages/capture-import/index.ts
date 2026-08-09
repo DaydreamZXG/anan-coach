@@ -1,5 +1,6 @@
 import { currentAuthSession } from "../../auth/session";
 import { loginUrlForReturn } from "../../app/navigation/auth-return";
+import { PageEffectOwner, type PageEffectLease } from "../../app/runtime/page-effect-owner";
 import {
   answerIngestionUrl,
   captureImportUrl,
@@ -96,6 +97,12 @@ const runtimes = new ExternalLearningPageRuntimeRegistry<
   CaptureImportPage,
   CaptureImportController
 >();
+const captureEffects = new WeakMap<CaptureImportPage, PageEffectOwner>();
+
+interface CaptureEffect {
+  owner: PageEffectOwner;
+  lease: PageEffectLease;
+}
 
 Page<CaptureImportPageData, CaptureImportPageCustom>({
   imageEditorOpening: false,
@@ -123,6 +130,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
       void wx.reLaunch({ url: loginUrlForReturn(captureImportUrl(options.importId)) });
       return;
     }
+    activateCaptureEffects(this, session);
     if (options.channel === "open") {
       this.setData({ channelSheetOpen: true });
     }
@@ -176,13 +184,39 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     }
   },
 
+  onShow() {
+    const session = currentAuthSession();
+    if (!session) {
+      captureEffects.get(this)?.unload();
+      captureEffects.delete(this);
+      void wx.reLaunch({ url: loginUrlForReturn(captureImportUrl()) });
+      return;
+    }
+    activateCaptureEffects(this, session);
+    this.imageEditorOpening = false;
+  },
+
+  onHide() {
+    captureEffects.get(this)?.hide();
+    this.imageEditorOpening = false;
+  },
+
   onUnload() {
+    captureEffects.get(this)?.unload();
+    captureEffects.delete(this);
+    this.imageEditorOpening = false;
     runtimes.detach(this);
   },
 
   async chooseCamera() {
+    const effect = beginCaptureEffect(this, "picker");
+    if (!effect) return;
     let granted = (await ensureCameraPermission()) === "granted";
-    if (!granted) granted = await requestCameraSetting();
+    if (!captureEffectIsCurrent(this, effect)) return;
+    if (!granted) {
+      granted = await requestCameraSetting();
+      if (!captureEffectIsCurrent(this, effect)) return;
+    }
     if (!granted) {
       this.setData({ permissionDenied: true });
       return;
@@ -196,6 +230,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     }
     try {
       const file = await takeQuestionPhoto();
+      if (!captureEffectIsCurrent(this, effect)) return;
       this.setData({
         captureStage: "crop",
         cameraReady: false,
@@ -205,6 +240,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
         recordSheetOpen: false,
       });
     } catch (error) {
+      if (!captureEffectIsCurrent(this, effect)) return;
       const message = externalLearningError(error).message;
       if (cameraPermissionWasDenied(error)) {
         this.setData({ permissionDenied: true, cameraReady: false, cameraError: "" });
@@ -254,15 +290,20 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
   },
 
   async chooseAlbum() {
-    await chooseForReview(this, "album");
+    const effect = beginCaptureEffect(this, "picker");
+    if (effect) await chooseForReview(this, "album", effect);
   },
 
   async choosePdf() {
+    const effect = beginCaptureEffect(this, "picker");
+    if (!effect) return;
     try {
       const file = await chooseQuestionPdf();
+      if (!captureEffectIsCurrent(this, effect)) return;
       const controller = runtimes.get(this);
       if (file && controller) await controller.startImport(file);
     } catch {
+      if (!captureEffectIsCurrent(this, effect)) return;
       void wx.showToast({
         title: "裁剪没打开，直接用原图也行",
         icon: "none",
@@ -274,14 +315,18 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     if (this.imageEditorOpening) return;
     const file = this.data.pendingFile;
     if (!file) return;
+    const effect = beginCaptureEffect(this, "crop");
+    if (!effect) return;
     this.imageEditorOpening = true;
     try {
       const edited = await editQuestionImage(file);
+      if (!captureEffectIsCurrent(this, effect)) return;
       if (edited) this.setData({ pendingFile: edited });
     } catch (error) {
+      if (!captureEffectIsCurrent(this, effect)) return;
       void wx.showToast({ title: externalLearningError(error).message, icon: "none" });
     } finally {
-      this.imageEditorOpening = false;
+      if (captureEffectIsCurrent(this, effect)) this.imageEditorOpening = false;
     }
   },
 
@@ -309,7 +354,10 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
   },
 
   async retryCameraPermission() {
+    const effect = beginCaptureEffect(this, "picker");
+    if (!effect) return;
     const granted = await requestCameraSetting();
+    if (!captureEffectIsCurrent(this, effect)) return;
     this.setData({
       permissionDenied: !granted,
       cameraReady: false,
@@ -391,11 +439,11 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
       void wx.showToast({ title: "先确认一下匹配的题目吧", icon: "none" });
       return;
     }
-    void wx.navigateTo({ url: learningPacketsUrl({ contentVersionId }) });
+    navigateFromRecordSheet(this, learningPacketsUrl({ contentVersionId }));
   },
 
   openAnswerIngestion() {
-    void wx.navigateTo({ url: answerIngestionUrl() });
+    navigateFromRecordSheet(this, answerIngestionUrl());
   },
 
   askAnan() {
@@ -479,10 +527,14 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
   noop() {},
 });
 
-async function chooseForReview(page: CaptureImportPage, source: "camera" | "album") {
+async function chooseForReview(
+  page: CaptureImportPage,
+  source: "camera" | "album",
+  effect: CaptureEffect,
+) {
   try {
     const file = await chooseQuestionImage(source);
-    if (file) {
+    if (file && captureEffectIsCurrent(page, effect)) {
       page.setData({
         captureStage: "crop",
         pendingFile: file,
@@ -491,8 +543,41 @@ async function chooseForReview(page: CaptureImportPage, source: "camera" | "albu
       });
     }
   } catch (error) {
+    if (!captureEffectIsCurrent(page, effect)) return;
     void wx.showToast({ title: externalLearningError(error).message, icon: "none" });
   }
+}
+
+function activateCaptureEffects(
+  page: CaptureImportPage,
+  session: NonNullable<ReturnType<typeof currentAuthSession>>,
+): PageEffectOwner {
+  const previous = captureEffects.get(page);
+  const owner = previous?.matches(session) ? previous : new PageEffectOwner(session);
+  if (previous && previous !== owner) previous.unload();
+  captureEffects.set(page, owner);
+  owner.show(session);
+  return owner;
+}
+
+function beginCaptureEffect(page: CaptureImportPage, lane: string): CaptureEffect | null {
+  const owner = captureEffects.get(page);
+  const lease = owner?.begin(lane, currentAuthSession()) ?? null;
+  return owner && lease ? { owner, lease } : null;
+}
+
+function captureEffectIsCurrent(page: CaptureImportPage, effect: CaptureEffect): boolean {
+  return (
+    captureEffects.get(page) === effect.owner &&
+    effect.owner.owns(effect.lease, currentAuthSession())
+  );
+}
+
+function navigateFromRecordSheet(page: CaptureImportPage, url: string): void {
+  const owner = captureEffects.get(page);
+  page.setData({ recordSheetOpen: false }, () => {
+    if (owner?.active(currentAuthSession())) void wx.navigateTo({ url });
+  });
 }
 
 function cameraPermissionWasDenied(error: unknown): boolean {
