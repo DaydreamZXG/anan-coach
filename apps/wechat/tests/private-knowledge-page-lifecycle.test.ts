@@ -34,9 +34,13 @@ describe("private knowledge request owner", () => {
       owner.show(sessionA);
       const request = owner.begin("delete", sessionA);
       const hiddenWait = owner.delay(500, request, sessionA);
+      const secondHiddenWait = owner.delay(1_000, request, sessionA);
 
       owner.hide();
-      await expect(hiddenWait).resolves.toBe(false);
+      await expect(Promise.all([hiddenWait, secondHiddenWait])).resolves.toEqual([
+        false,
+        false,
+      ]);
       expect(vi.getTimerCount()).toBe(0);
 
       owner.show(sessionA);
