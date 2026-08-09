@@ -78,6 +78,7 @@
         blocks="{{question.material.content}}"
         anchors="{{question.material.anchors}}"
         state="{{materialReaderState}}"
+        interactionActive="{{materialCaptureActive}}"
         annotateAvailable="{{true}}"
         inlineAnnotateButton="{{true}}"
         annotateActive="{{annotationMode === 'annotate' && annotationSurface === 'material'}}"

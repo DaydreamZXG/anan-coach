@@ -98,6 +98,7 @@
             blocks="{{view && view.question && view.question.material && view.question.material.content ? view.question.material.content : emptyRichContentBlocks}}"
             anchors="{{view && view.question && view.question.material && view.question.material.anchors ? view.question.material.anchors : emptyContentAnchors}}"
             state="{{materialReaderState}}"
+            interactionActive="{{materialCaptureActive}}"
             annotateAvailable="{{true}}"
             annotateActive="{{annotationMode === 'annotate' && annotationSurface === 'material'}}"
             annotationOpen="{{annotationMode === 'annotate' && annotationSurface === 'material'}}"
@@ -383,7 +384,7 @@
       </ui-sheet>
 
       <!-- Figma 82:155/82:156：暂停卡位于屏幕视觉中心，背景题目降权保留。 -->
-      <view wx:if="{{taskPaused}}" class="pause-mask motion-mask" catchtouchmove="noop">
+      <view wx:if="{{pauseCaptureActive}}" class="pause-mask motion-mask" catchtouchmove="noop">
         <view class="pause-card">
           <view class="pause-icon" aria-hidden="true">
             <view class="pause-icon__bar"></view>

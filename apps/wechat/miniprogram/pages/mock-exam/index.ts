@@ -132,7 +132,6 @@ interface MockExamPageData extends TaskInteractionProjection {
   annotationSegments: AnchorSegmentRect[];
   questionScrollPosition: number;
   questionContentHeight: number;
-  materialOpen: boolean;
   fontScale: FontScale;
   eyeCare: boolean;
   contentPreferences: ContentDisplayPreferences;
@@ -300,7 +299,6 @@ Page<MockExamPageData, MockExamPageCustom>({
     annotationSegments: [] as AnchorSegmentRect[],
     questionScrollPosition: 0,
     questionContentHeight: 0,
-    materialOpen: false,
     fontScale: "standard",
     eyeCare: false,
     contentPreferences: { fontScale: 1, colorMode: "standard" },
@@ -764,10 +762,11 @@ Page<MockExamPageData, MockExamPageCustom>({
       this.data.materialReaderState,
       this.data.materialOpen ? { type: "RETURN_TO_QUESTION" } : { type: "OPEN_DRAWER" },
     );
-    this.setData({
-      materialOpen: materialReaderState.mode !== "question_first",
-      materialReaderState,
-    });
+    transitionMockInteraction(
+      this,
+      { type: opening ? "MATERIAL_OPENED" : "MATERIAL_CLOSED" },
+      { materialReaderState },
+    );
     // 契约增量 v1：展开材料是可见的作答动作事实（与真实训练同套采集）。
     const runtime = runtimes.get(this);
     if (opening && runtime?.task && runtime.task.phase === "answering") {
@@ -782,13 +781,19 @@ Page<MockExamPageData, MockExamPageCustom>({
     const preferencesChanged =
       event.detail.state.preferences.fontScale !== this.data.contentPreferences.fontScale ||
       event.detail.state.preferences.colorMode !== this.data.contentPreferences.colorMode;
-    this.setData({
-      materialReaderState: event.detail.state,
-      materialOpen: event.detail.state.mode !== "question_first",
-      contentPreferences: event.detail.state.preferences,
-      fontScale: event.detail.state.preferences.fontScale > 1 ? "large" : "standard",
-      eyeCare: event.detail.state.preferences.colorMode === "eye_care",
-    });
+    transitionMockInteraction(
+      this,
+      {
+        type:
+          event.detail.state.mode === "question_first" ? "MATERIAL_CLOSED" : "MATERIAL_OPENED",
+      },
+      {
+        materialReaderState: event.detail.state,
+        contentPreferences: event.detail.state.preferences,
+        fontScale: event.detail.state.preferences.fontScale > 1 ? "large" : "standard",
+        eyeCare: event.detail.state.preferences.colorMode === "eye_care",
+      },
+    );
     if (preferencesChanged) storeTaskDisplayPreferences(event.detail.state.preferences);
   },
 
@@ -1007,12 +1012,11 @@ function mutateTask(
  */
 function swipeNavigationBlocked(page: MockExamPageInstance): boolean {
   const data = page.data;
-  return (
-    data.status !== "ready" || data.question === null || data.materialOpen || data.swipeBlocked
-  );
+  return data.status !== "ready" || data.question === null || data.swipeBlocked;
 }
 
 function moveQuestion(page: MockExamPageInstance, delta: number): void {
+  if (page.data.interactionLocked) return;
   const runtime = requiredRuntime(page);
   const task = requiredTask(runtime);
   const index = task.currentQuestionIndex + delta;
@@ -1137,6 +1141,9 @@ function applyRuntimeToPage(
           },
           page.data.contentPreferences,
         );
+  const projectedMaterialReaderState = page.data.materialOpen
+    ? materialReaderState
+    : reduceMaterialReader(materialReaderState, { type: "RETURN_TO_QUESTION" });
   const answerSheetItems = task.questionOrder.map((questionId, index): MockAnswerSheetItem => {
     const item = task.attempts[questionId];
     if (!item) throw new Error("Mock answer sheet is incomplete");
@@ -1183,12 +1190,8 @@ function applyRuntimeToPage(
       marked: counts.marked,
       syncLabel,
       answerSheetItems,
-      materialReaderState,
+      materialReaderState: projectedMaterialReaderState,
       materialQuestionId: question.questionId,
-      materialOpen:
-        page.data.materialQuestionId === question.questionId && Boolean(material)
-          ? page.data.materialOpen
-          : false,
       pageObjectReference: {
         pageCode: "F02",
         route: "/pages/mock-exam/index",
@@ -1918,7 +1921,6 @@ function convergeToTerminalSession(
       showLoginAction: false,
       question: null,
       syncLabel: reviewed ? "批改已完成" : "提交已确认",
-      materialOpen: false,
       questionTransition: "",
       receipt: null,
       reportSessionId: session.sessionId,
@@ -1992,7 +1994,6 @@ function bindMockSession(
     {
       showLoginAction: false,
       question: null,
-      materialOpen: false,
     },
   );
   return runtime;
@@ -2038,7 +2039,6 @@ function showMockLoginRequired(
       showLoginAction: true,
       question: null,
       syncLabel: expired ? "等你重新登录" : "还没登录",
-      materialOpen: false,
     },
   );
 }

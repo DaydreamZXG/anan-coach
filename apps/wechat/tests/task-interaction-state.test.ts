@@ -75,6 +75,108 @@ describe("task interaction authority", () => {
     });
   });
 
+  it("owns pause capture and releases it while the page is hidden or unloaded", () => {
+    const paused = reduceTaskInteraction(createTaskInteractionState(), { type: "TASK_PAUSED" });
+    expect(projectTaskInteraction(paused)).toMatchObject({
+      interactionMode: "paused",
+      taskPaused: true,
+      materialOpen: false,
+      pauseCaptureActive: true,
+      materialCaptureActive: false,
+      captureLayer: "pause",
+      touchOwner: "overlay",
+      interactionLocked: true,
+      swipeBlocked: true,
+    });
+
+    const hidden = reduceTaskInteraction(paused, { type: "PAGE_HIDDEN" });
+    expect(projectTaskInteraction(hidden)).toMatchObject({
+      interactionMode: "paused",
+      taskPaused: true,
+      pauseCaptureActive: false,
+      captureLayer: "none",
+      touchOwner: "none",
+      swipeBlocked: true,
+    });
+
+    const shown = reduceTaskInteraction(hidden, { type: "PAGE_SHOWN" });
+    expect(projectTaskInteraction(shown)).toMatchObject({
+      taskPaused: true,
+      pauseCaptureActive: true,
+      captureLayer: "pause",
+      touchOwner: "overlay",
+    });
+
+    const resumed = reduceTaskInteraction(shown, { type: "TASK_RESUMED" });
+    expect(projectTaskInteraction(resumed)).toMatchObject({
+      interactionMode: "question",
+      taskPaused: false,
+      pauseCaptureActive: false,
+      captureLayer: "none",
+      touchOwner: "question",
+      interactionLocked: false,
+      swipeBlocked: false,
+    });
+
+    const unloaded = reduceTaskInteraction(paused, { type: "PAGE_UNLOADED" });
+    expect(projectTaskInteraction(unloaded)).toMatchObject({
+      interactionMode: "question",
+      taskPaused: false,
+      pauseCaptureActive: false,
+      captureLayer: "none",
+      touchOwner: "none",
+    });
+  });
+
+  it("owns the material surface and closes it through question and session transitions", () => {
+    const material = reduceTaskInteraction(createTaskInteractionState(), {
+      type: "MATERIAL_OPENED",
+    });
+    expect(projectTaskInteraction(material)).toMatchObject({
+      interactionMode: "material",
+      materialOpen: true,
+      taskPaused: false,
+      materialCaptureActive: true,
+      captureLayer: "material",
+      touchOwner: "material",
+      swipeBlocked: true,
+    });
+
+    const tools = reduceTaskInteraction(material, {
+      type: "OVERLAY_OPENED",
+      overlay: "tools",
+    });
+    expect(projectTaskInteraction(tools)).toMatchObject({
+      materialOpen: true,
+      materialCaptureActive: true,
+      captureLayer: "overlay",
+      touchOwner: "overlay",
+    });
+
+    const hidden = reduceTaskInteraction(tools, { type: "PAGE_HIDDEN" });
+    expect(projectTaskInteraction(hidden)).toMatchObject({
+      materialOpen: true,
+      materialCaptureActive: false,
+      captureLayer: "none",
+      touchOwner: "none",
+    });
+
+    const changed = reduceTaskInteraction(hidden, { type: "QUESTION_CHANGED" });
+    expect(projectTaskInteraction(changed)).toMatchObject({
+      interactionMode: "question",
+      materialOpen: false,
+      materialCaptureActive: false,
+      captureLayer: "none",
+    });
+
+    const ready = reduceTaskInteraction(material, { type: "SESSION_READY" });
+    expect(projectTaskInteraction(ready)).toMatchObject({
+      interactionMode: "question",
+      materialOpen: false,
+      touchOwner: "question",
+    });
+  });
+
   it("fails closed for account changes and submit until the session is ready again", () => {
     const help = reduceTaskInteraction(createTaskInteractionState(), {
       type: "OVERLAY_OPENED",

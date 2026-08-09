@@ -119,7 +119,6 @@ interface PracticePageData extends TaskInteractionProjection {
   favoriteMessage: string;
   favoriteRequestId: string;
   sessionState: XingceTaskSession["state"] | "";
-  materialOpen: boolean;
   materialQuestionId: string;
   materialReaderState: MaterialReaderState;
   displayPreferences: ContentDisplayPreferences;
@@ -170,7 +169,6 @@ interface PracticePageData extends TaskInteractionProjection {
   mathInkCandidate: FormulaVersion | null;
   mathInkLatex: string;
   mathInkError: string;
-  taskPaused: boolean;
   canSubmit: boolean;
   hasPendingCheckpoint: boolean;
   pendingCheckpointMessage: string;
@@ -308,7 +306,6 @@ Page<PracticePageData, PracticePageCustom>({
     favoriteMessage: "",
     favoriteRequestId: "",
     sessionState: "",
-    materialOpen: false,
     materialQuestionId: "",
     materialReaderState: createMaterialReaderState(),
     displayPreferences: { fontScale: 1, colorMode: "standard" },
@@ -353,7 +350,6 @@ Page<PracticePageData, PracticePageCustom>({
     mathInkCandidate: null,
     mathInkLatex: "",
     mathInkError: "",
-    taskPaused: false,
     canSubmit: false,
     hasPendingCheckpoint: false,
     pendingCheckpointMessage: "",
@@ -589,15 +585,16 @@ Page<PracticePageData, PracticePageCustom>({
 
   toggleMaterial() {
     // Figma 80:2：材料标题行的展开入口直接进入沉浸阅读，全屏态承载全部阅读工具。
-    const event =
-      this.data.materialReaderState.mode === "question_first"
-        ? ({ type: "OPEN_FULLSCREEN" } as const)
-        : ({ type: "RETURN_TO_QUESTION" } as const);
+    const opening = !this.data.materialOpen;
+    const event = opening
+      ? ({ type: "OPEN_FULLSCREEN" } as const)
+      : ({ type: "RETURN_TO_QUESTION" } as const);
     const materialReaderState = reduceMaterialReader(this.data.materialReaderState, event);
-    this.setData({
-      materialOpen: materialReaderState.mode !== "question_first",
-      materialReaderState,
-    });
+    transitionPracticeInteraction(
+      this,
+      { type: opening ? "MATERIAL_OPENED" : "MATERIAL_CLOSED" },
+      { materialReaderState },
+    );
     const runtime = runtimes.get(this);
     if (runtime?.task && event.type === "OPEN_FULLSCREEN") {
       runtime.task = reduceTaskRuntime(runtime.task, {
@@ -617,11 +614,14 @@ Page<PracticePageData, PracticePageCustom>({
     const preferencesChanged =
       next.preferences.fontScale !== this.data.displayPreferences.fontScale ||
       next.preferences.colorMode !== this.data.displayPreferences.colorMode;
-    this.setData({
-      materialOpen: next.mode !== "question_first",
-      materialReaderState: next,
-      displayPreferences: next.preferences,
-    });
+    transitionPracticeInteraction(
+      this,
+      { type: next.mode === "question_first" ? "MATERIAL_CLOSED" : "MATERIAL_OPENED" },
+      {
+        materialReaderState: next,
+        displayPreferences: next.preferences,
+      },
+    );
     if (preferencesChanged) storeTaskDisplayPreferences(next.preferences);
     const current = attempt.materialPosition;
     if (
@@ -1139,13 +1139,9 @@ Page<PracticePageData, PracticePageCustom>({
     const runtime = runtimes.get(this);
     if (!runtime?.task || runtime.task.phase !== "answering") return;
     const taskPaused = !this.data.taskPaused;
-    transitionPracticeInteraction(
-      this,
-      { type: "INTERACTIONS_CLOSED" },
-      {
-        taskPaused,
-      },
-    );
+    transitionPracticeInteraction(this, {
+      type: taskPaused ? "TASK_PAUSED" : "TASK_RESUMED",
+    });
     // Figma 78:2：暂停/继续是可见的作答动作事实。
     runtime.task = reduceTaskRuntime(runtime.task, {
       type: "ACTION_LOGGED",
@@ -1717,6 +1713,9 @@ function render(
           preferences: page.data.displayPreferences,
         }
       : createMaterialReaderState(materialPosition, page.data.displayPreferences);
+  const projectedMaterialReaderState = page.data.materialOpen
+    ? materialReaderState
+    : reduceMaterialReader(materialReaderState, { type: "RETURN_TO_QUESTION" });
   const answerSheetItems = runtime.task.questionOrder.map((questionId, index) => {
     const attempt = runtime.task?.attempts[questionId];
     return {
@@ -1759,8 +1758,7 @@ function render(
     answerSheetModuleName,
     answerSheetModuleCounts,
     materialQuestionId: currentQuestionId,
-    materialOpen: materialReaderState.mode !== "question_first",
-    materialReaderState,
+    materialReaderState: projectedMaterialReaderState,
     toolPolicy: taskToolPolicy(
       runtime.session.mode === "verification" ? "retest" : "targeted",
       runtime.session.state === "answering" ? "answering" : "submitted",
@@ -1974,13 +1972,7 @@ function measureQuestionContent(
  */
 function swipeNavigationBlocked(page: PracticePageInstance): boolean {
   const data = page.data;
-  return (
-    data.status !== "ready" ||
-    data.sessionState !== "answering" ||
-    data.taskPaused ||
-    data.materialOpen ||
-    data.swipeBlocked
-  );
+  return data.status !== "ready" || data.sessionState !== "answering" || data.swipeBlocked;
 }
 
 function selectQuestionAtIndex(page: PracticePageInstance, index: number): void {

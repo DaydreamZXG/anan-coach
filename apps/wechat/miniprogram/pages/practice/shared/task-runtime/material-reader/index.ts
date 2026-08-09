@@ -29,6 +29,7 @@ interface MaterialReaderData {
   returnLabel: string;
   annotateAvailable: boolean;
   annotateActive: boolean;
+  interactionActive: boolean;
   readerMode: MaterialReaderMode;
   position: MaterialReaderPosition;
   preferences: ContentDisplayPreferences;
@@ -67,6 +68,7 @@ type MaterialReaderViewData = Omit<
   | "returnLabel"
   | "annotateAvailable"
   | "annotateActive"
+  | "interactionActive"
   | "inlineAnnotateButton"
   | "annotationOpen"
   | "annotationStrokes"
@@ -102,6 +104,8 @@ Component({
     returnLabel: { type: String, value: "" },
     annotateAvailable: { type: Boolean, value: false },
     annotateActive: { type: Boolean, value: false },
+    /** 宿主 interaction projection 关闭时，物理卸载全屏触摸捕获面。 */
+    interactionActive: { type: Boolean, value: true },
     inlineAnnotateButton: { type: Boolean, value: false },
     annotationOpen: { type: Boolean, value: false },
     annotationStrokes: { type: null, value: [] },

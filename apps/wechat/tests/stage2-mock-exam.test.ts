@@ -400,6 +400,13 @@ describe("stage 2 F02 mock exam", () => {
       annotationOpen: false,
       annotationSurface: "",
       annotationMode: "static",
+      materialOpen: true,
+      touchOwner: "material",
+      swipeBlocked: true,
+    });
+    harness.page.toggleMaterial.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      materialOpen: false,
       touchOwner: "question",
       swipeBlocked: false,
     });
@@ -412,6 +419,7 @@ describe("stage 2 F02 mock exam", () => {
     const harness = await createMockPage(twoQuestionSessionPayload());
 
     expect(mockExamTemplate).toContain('data-touch-owner="{{touchOwner}}"');
+    expect(mockExamTemplate).toContain('interactionActive="{{materialCaptureActive}}"');
     expect(mockExamTemplate).toContain(
       "wx:if=\"{{annotationMode === 'annotate' || questionAnnotations.length}}\"",
     );
@@ -446,6 +454,57 @@ describe("stage 2 F02 mock exam", () => {
     expect(harness.page.data).toMatchObject({
       annotationOpen: false,
       interactionLocked: true,
+      touchOwner: "none",
+    });
+  });
+
+  it("projects material capture and releases it on question and lifecycle boundaries", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:10:00.000Z"));
+    const harness = await createMockPage(twoQuestionSessionPayload());
+
+    harness.page.toggleMaterial.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      interactionMode: "material",
+      materialOpen: true,
+      materialCaptureActive: true,
+      captureLayer: "material",
+      touchOwner: "material",
+      swipeBlocked: true,
+    });
+
+    harness.page.onHide.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      materialOpen: true,
+      materialCaptureActive: false,
+      captureLayer: "none",
+      touchOwner: "none",
+    });
+    harness.page.onShow.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      materialOpen: true,
+      materialCaptureActive: true,
+      captureLayer: "material",
+      touchOwner: "material",
+    });
+
+    harness.page.nextQuestion.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      current: 2,
+      interactionMode: "question",
+      materialOpen: false,
+      materialCaptureActive: false,
+      captureLayer: "none",
+      touchOwner: "question",
+    });
+
+    harness.page.toggleMaterial.call(harness.page);
+    harness.page.onUnload.call(harness.page);
+    expect(harness.page.data).toMatchObject({
+      interactionMode: "question",
+      materialOpen: false,
+      materialCaptureActive: false,
+      captureLayer: "none",
       touchOwner: "none",
     });
   });
@@ -777,10 +836,10 @@ describe("stage 2 F02 mock exam", () => {
       expect(harness.page.data.current).toBe(1);
       close();
     }
-    harness.page.data.materialOpen = true;
+    harness.page.toggleMaterial.call(harness.page);
     swipeOnQuestion(harness.page, { fromX: 300, toX: 140, y: 400 });
     expect(harness.page.data.current).toBe(1);
-    harness.page.data.materialOpen = false;
+    harness.page.toggleMaterial.call(harness.page);
 
     harness.page.onHide.call(harness.page);
     swipeOnQuestion(harness.page, { fromX: 300, toX: 140, y: 400 });
@@ -1412,6 +1471,7 @@ interface CapturedMockPage {
   reportDispute(this: TestMockPage): void;
   closeDispute(this: TestMockPage): void;
   closeSubmitConfirm(this: TestMockPage): void;
+  toggleMaterial(this: TestMockPage): void;
   changeAnnotations(
     this: TestMockPage,
     event: WechatMiniprogram.CustomEvent<{

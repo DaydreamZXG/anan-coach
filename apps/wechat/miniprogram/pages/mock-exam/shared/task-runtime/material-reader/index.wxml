@@ -1,6 +1,6 @@
 <view class="material-reader material-reader--{{appearance}}">
   <view
-    wx:if="{{readerMode === 'question_first'}}"
+    wx:if="{{readerMode === 'question_first' || !interactionActive}}"
     class="material-reader__inline material-reader__inline--{{preferences.colorMode}}"
   >
     <button

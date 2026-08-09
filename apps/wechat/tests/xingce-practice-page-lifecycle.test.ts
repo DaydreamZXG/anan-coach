@@ -378,6 +378,9 @@ describe("xingce practice page lifecycle", () => {
     const runtime = await createPracticePage();
 
     expect(practiceTemplate).toContain('data-touch-owner="{{touchOwner}}"');
+    expect(practiceTemplate).toContain('interactionActive="{{materialCaptureActive}}"');
+    expect(practiceTemplate).toContain('wx:if="{{pauseCaptureActive}}"');
+    expect(practiceTemplate).not.toContain('wx:if="{{taskPaused}}" class="pause-mask');
     expect(practiceTemplate).toContain(
       "wx:if=\"{{annotationMode === 'annotate' || questionAnnotations.length}}\"",
     );
@@ -423,6 +426,89 @@ describe("xingce practice page lifecycle", () => {
     expect(runtime.page.data).toMatchObject({
       annotationOpen: false,
       interactionLocked: true,
+      touchOwner: "none",
+    });
+  });
+
+  it("projects pause and material capture through the same lifecycle authority", async () => {
+    vi.useFakeTimers();
+    const runtime = await createPracticePage(undefined, "targeted", { sharedMaterial: true });
+
+    runtime.page.toggleTaskPause.call(runtime.page);
+    expect(runtime.page.data).toMatchObject({
+      interactionMode: "paused",
+      taskPaused: true,
+      materialOpen: false,
+      pauseCaptureActive: true,
+      materialCaptureActive: false,
+      captureLayer: "pause",
+      touchOwner: "overlay",
+      swipeBlocked: true,
+    });
+
+    runtime.page.onHide.call(runtime.page);
+    expect(runtime.page.data).toMatchObject({
+      taskPaused: true,
+      pauseCaptureActive: false,
+      captureLayer: "none",
+      touchOwner: "none",
+    });
+    runtime.page.onShow.call(runtime.page);
+    expect(runtime.page.data).toMatchObject({
+      taskPaused: true,
+      pauseCaptureActive: true,
+      captureLayer: "pause",
+      touchOwner: "overlay",
+    });
+
+    runtime.page.toggleTaskPause.call(runtime.page);
+    await flushMicrotasks();
+    runtime.page.toggleMaterial.call(runtime.page);
+    expect(runtime.page.data).toMatchObject({
+      interactionMode: "material",
+      taskPaused: false,
+      materialOpen: true,
+      materialCaptureActive: true,
+      captureLayer: "material",
+      touchOwner: "material",
+      swipeBlocked: true,
+    });
+
+    runtime.page.onHide.call(runtime.page);
+    expect(runtime.page.data).toMatchObject({
+      materialOpen: true,
+      materialCaptureActive: false,
+      captureLayer: "none",
+      touchOwner: "none",
+    });
+    runtime.page.onShow.call(runtime.page);
+    expect(runtime.page.data).toMatchObject({
+      materialOpen: true,
+      materialCaptureActive: true,
+      captureLayer: "material",
+      touchOwner: "material",
+    });
+    await flushMicrotasks();
+
+    runtime.page.nextQuestion.call(runtime.page);
+    await flushMicrotasks();
+    expect(runtime.page.data).toMatchObject({
+      interactionMode: "question",
+      materialOpen: false,
+      materialCaptureActive: false,
+      captureLayer: "none",
+      touchOwner: "question",
+    });
+    expect(runtime.page.data.view).toMatchObject({ current: 2 });
+
+    runtime.page.toggleMaterial.call(runtime.page);
+    runtime.page.onUnload.call(runtime.page);
+    expect(runtime.page.data).toMatchObject({
+      interactionMode: "question",
+      materialOpen: false,
+      materialCaptureActive: false,
+      pauseCaptureActive: false,
+      captureLayer: "none",
       touchOwner: "none",
     });
   });
@@ -724,20 +810,22 @@ describe("xingce practice swipe question navigation", () => {
       expect(currentOf(runtime.page)).toBe(1);
       runtime.page.closeTaskOverlay.call(runtime.page);
     }
-    runtime.page.data.materialOpen = true;
+    runtime.page.toggleMaterial.call(runtime.page);
     swipe(runtime.page, { fromX: 300, toX: 140, y: 400 });
     expect(currentOf(runtime.page)).toBe(1);
-    runtime.page.data.materialOpen = false;
+    runtime.page.toggleMaterial.call(runtime.page);
 
-    runtime.page.data.taskPaused = true;
+    runtime.page.toggleTaskPause.call(runtime.page);
     swipe(runtime.page, { fromX: 300, toX: 140, y: 400 });
     expect(currentOf(runtime.page)).toBe(1);
-    runtime.page.data.taskPaused = false;
+    runtime.page.toggleTaskPause.call(runtime.page);
+    await flushMicrotasks();
 
     runtime.page.onHide.call(runtime.page);
     swipe(runtime.page, { fromX: 300, toX: 140, y: 400 });
     expect(currentOf(runtime.page)).toBe(1);
     runtime.page.onShow.call(runtime.page);
+    await flushMicrotasks();
     // 守卫恢复后同一手势立即生效，证明守卫矩阵是唯一拦截原因。
     swipe(runtime.page, { fromX: 300, toX: 140, y: 400 });
     expect(currentOf(runtime.page)).toBe(2);
@@ -985,6 +1073,8 @@ interface CapturedPracticePage {
   openDispute(this: TestPracticePage): void;
   toggleAnswerSheet(this: TestPracticePage): void;
   toggleDraft(this: TestPracticePage): void;
+  toggleMaterial(this: TestPracticePage): void;
+  toggleTaskPause(this: TestPracticePage): void;
 }
 
 interface TestPracticePage extends CapturedPracticePage {
