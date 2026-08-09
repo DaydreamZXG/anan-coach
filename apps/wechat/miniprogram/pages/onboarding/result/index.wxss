@@ -272,7 +272,7 @@ button.result-primary {
 }
 
 /* 平板层：结果内容限可读宽。 */
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .result-content {
     width: 100%;
     max-width: var(--layout-readable-max);
