@@ -234,7 +234,9 @@ async function practiceInteractionRelease(program) {
   await waitForData(page, (data) => data.status === "ready", "practice page did not become ready");
   await literalTaskInteractionRelease(page, {
     current: (data) => data.view?.current,
+    materialOpenSelector: ".practice-material-action--collapse",
     paneSelector: ".practice-question-pane",
+    pauseAvailable: true,
     selected: (data) => data.view?.question?.selectedOptionIds?.length > 0,
   });
   await installNetworkGuard(program);
@@ -247,13 +249,190 @@ async function mockInteractionRelease(program) {
   await waitForData(page, (data) => data.status === "ready", "mock page did not become ready");
   await literalTaskInteractionRelease(page, {
     current: (data) => data.current,
+    materialOpenSelector: ".material-reader__inline-expand",
     paneSelector: ".mock-question-pane",
+    pauseAvailable: false,
     selected: (data) => data.question?.options?.some((option) => option.selected) === true,
   });
   await installNetworkGuard(program);
 }
 
 async function literalTaskInteractionRelease(page, contract) {
+  let questionPane = await requiredElement(page, contract.paneSelector);
+
+  if (contract.pauseAvailable) {
+    const taskShell = await requiredElement(page, "task-shell");
+    const timerControl = await requiredElement(taskShell, ".task-timer-control");
+    await timerControl.tap();
+    await waitForData(
+      page,
+      (data) =>
+        data.interactionMode === "paused" &&
+        data.taskPaused === true &&
+        data.pauseCaptureActive === true &&
+        data.captureLayer === "pause" &&
+        data.touchOwner === "overlay",
+      `${page.path} did not project pause capture ownership`,
+    );
+    await waitForElement(page, ".pause-mask", `${page.path} did not mount the pause capture mask`);
+
+    await invokePageHandler(miniProgram, page, "onHide");
+    await waitForData(
+      page,
+      (data) =>
+        data.taskPaused === true &&
+        data.pauseCaptureActive === false &&
+        data.captureLayer === "none" &&
+        data.touchOwner === "none",
+      `${page.path} did not release pause capture on hide`,
+    );
+    assert.equal(
+      await page.$(".pause-mask"),
+      null,
+      `${page.path} retained the physical pause mask while hidden`,
+    );
+
+    await invokePageHandler(miniProgram, page, "onShow");
+    await waitForData(
+      page,
+      (data) => data.pauseCaptureActive === true && data.captureLayer === "pause",
+      `${page.path} did not restore paused state on show`,
+    );
+    const pauseMask = await waitForElement(
+      page,
+      ".pause-mask",
+      `${page.path} did not remount the paused state on show`,
+    );
+    const resumeButton = await requiredElement(pauseMask, ".pause-resume");
+    await resumeButton.tap();
+    await waitForData(
+      page,
+      (data) =>
+        data.taskPaused === false &&
+        data.pauseCaptureActive === false &&
+        data.captureLayer === "none" &&
+        data.touchOwner === "question" &&
+        data.interactionLocked === false,
+      `${page.path} did not release pause capture after resume`,
+    );
+  }
+
+  const beforeMaterial = Number(contract.current(await readPageData(miniProgram, page)));
+  const materialReader = await requiredElement(page, "material-reader");
+  const materialOpenRoot = contract.materialOpenSelector.startsWith(".material-reader__")
+    ? materialReader
+    : page;
+  const materialOpenButton = await requiredElement(materialOpenRoot, contract.materialOpenSelector);
+  await materialOpenButton.tap();
+  await waitForData(
+    page,
+    (data) =>
+      data.interactionMode === "material" &&
+      data.materialOpen === true &&
+      data.materialCaptureActive === true &&
+      data.captureLayer === "material" &&
+      data.touchOwner === "material" &&
+      data.swipeBlocked === true,
+    `${page.path} did not project material capture ownership`,
+  );
+  await waitForElement(
+    materialReader,
+    ".material-reader__surface",
+    `${page.path} did not physically mount its material capture surface`,
+  );
+  assert.equal(
+    await questionPane.attribute("data-touch-owner"),
+    "material",
+    `${page.path} did not project material ownership into WXML`,
+  );
+
+  await invokePageHandler(miniProgram, page, "onHide");
+  await waitForData(
+    page,
+    (data) =>
+      data.materialOpen === true &&
+      data.materialCaptureActive === false &&
+      data.captureLayer === "none" &&
+      data.touchOwner === "none",
+    `${page.path} did not release material capture on hide`,
+  );
+  await assertMaterialCaptureAbsent(page);
+
+  await invokePageHandler(miniProgram, page, "onShow");
+  await waitForData(
+    page,
+    (data) =>
+      data.materialCaptureActive === true &&
+      data.captureLayer === "material" &&
+      data.touchOwner === "material" &&
+      data.interactionLocked === false,
+    `${page.path} did not restore material capture on show`,
+  );
+  const restoredMaterialReader = await requiredElement(page, "material-reader");
+  await waitForElement(
+    restoredMaterialReader,
+    ".material-reader__surface",
+    `${page.path} did not remount material capture on show`,
+  );
+
+  await invokePageHandler(miniProgram, page, "nextQuestion");
+  await waitForData(
+    page,
+    (data) =>
+      contract.current(data) === beforeMaterial + 1 &&
+      data.materialOpen === false &&
+      data.materialCaptureActive === false &&
+      data.captureLayer === "none" &&
+      data.touchOwner === "question",
+    `${page.path} did not release material capture on question change`,
+  );
+  await assertMaterialCaptureAbsent(page);
+  await waitForData(
+    page,
+    (data) => data.interactionLocked === false,
+    `${page.path} did not finish its question-change checkpoint`,
+  );
+  await invokePageHandler(miniProgram, page, "previousQuestion");
+  await waitForData(
+    page,
+    (data) => contract.current(data) === beforeMaterial && data.touchOwner === "question",
+    `${page.path} did not return to the initial question after material release`,
+  );
+
+  const closeCheckReader = await requiredElement(page, "material-reader");
+  const closeCheckOpenRoot = contract.materialOpenSelector.startsWith(".material-reader__")
+    ? closeCheckReader
+    : page;
+  const closeCheckOpenButton = await requiredElement(
+    closeCheckOpenRoot,
+    contract.materialOpenSelector,
+  );
+  await closeCheckOpenButton.tap();
+  await waitForData(
+    page,
+    (data) => data.materialCaptureActive === true && data.touchOwner === "material",
+    `${page.path} did not reopen material capture`,
+  );
+  const closeReader = await requiredElement(page, "material-reader");
+  const materialBack = await waitForElement(
+    closeReader,
+    ".material-reader__back",
+    `${page.path} material reader has no return action`,
+  );
+  await materialBack.tap();
+  await waitForData(
+    page,
+    (data) =>
+      data.interactionMode === "question" &&
+      data.materialOpen === false &&
+      data.materialCaptureActive === false &&
+      data.captureLayer === "none" &&
+      data.touchOwner === "question",
+    `${page.path} did not release material capture through its close action`,
+  );
+  await assertMaterialCaptureAbsent(page);
+  questionPane = await requiredElement(page, contract.paneSelector);
+
   const toolbar = await requiredElement(page, "question-toolbar");
   const draftButton = await requiredElement(toolbar, ".question-tool--draft");
   await draftButton.tap();
@@ -267,7 +446,6 @@ async function literalTaskInteractionRelease(page, contract) {
     `${page.path} did not give annotation the touch owner`,
   );
 
-  const questionPane = await requiredElement(page, contract.paneSelector);
   assert.equal(
     await questionPane.attribute("data-touch-owner"),
     "annotation",
@@ -380,6 +558,16 @@ async function assertDrawingCaptureAbsent(page) {
     await annotation.$(".annotation-layer__capture"),
     null,
     `${page.path} retained a physical drawing capture layer outside draw state`,
+  );
+}
+
+async function assertMaterialCaptureAbsent(page) {
+  const materialReader = await page.$("material-reader");
+  if (!materialReader) return;
+  assert.equal(
+    await materialReader.$(".material-reader__surface"),
+    null,
+    `${page.path} retained a physical material capture surface outside material ownership`,
   );
 }
 
