@@ -1,0 +1,25 @@
+<view class="component-token-host structured-visual" role="group" aria-label="{{ariaLabel}}">
+  <view wx:if="{{status === 'valid'}}" class="structured-visual__ready">
+    <view wx:if="{{title}}" class="structured-visual__title">{{title}}</view>
+    <canvas
+      id="structuredVisualCanvas"
+      type="2d"
+      class="structured-visual__canvas"
+      style="height: {{canvasHeight}}px"
+      role="img"
+      aria-label="{{ariaLabel}}"
+    ></canvas>
+    <view wx:if="{{warningText}}" class="structured-visual__evidence" role="note">
+      <text class="structured-visual__evidence-mark" aria-hidden="true">!</text>
+      <text>{{warningText}}</text>
+    </view>
+  </view>
+
+  <view wx:else class="structured-visual__state structured-visual__state--{{status}}" role="status">
+    <view class="structured-visual__state-mark" aria-hidden="true">
+      {{status === 'empty' ? '＋' : '!'}}
+    </view>
+    <view class="structured-visual__state-title">{{stateTitle}}</view>
+    <view class="structured-visual__state-description">{{stateDescription}}</view>
+  </view>
+</view>
