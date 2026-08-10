@@ -18,10 +18,12 @@
     ]
   },
   "tracks": [
-    "frontend-lifecycle"
+    "frontend-lifecycle",
+    "companion-memory"
   ],
   "trackDecisionRefs": {
-    "frontend-lifecycle": "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001"
+    "frontend-lifecycle": "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001",
+    "companion-memory": "DEC-COMPANION-MEMORY-AUTHORITY-001"
   },
   "requiredPageStates": [
     "default",

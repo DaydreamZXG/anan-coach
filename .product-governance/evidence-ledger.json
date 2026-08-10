@@ -66,6 +66,61 @@
       "status": "active",
       "verificationLevel": 1,
       "basisRefs": []
+    },
+    {
+      "id": "E-USER-COMPANION-MEMORY-001",
+      "claim": "用户授权完善岸岸的页面上下文、用户记忆和记忆管理；接受上一轮中的最小方案：短期对话可清除，长期记忆只保存用户明确确认的偏好与约束，支持查看、修改、删除和关闭，不自动把普通聊天转成能力事实。",
+      "class": "user_confirmed",
+      "locator": "conversation:2026-08-10:companion-memory-completion",
+      "observedAt": "2026-08-10T09:45:00+08:00",
+      "scope": "target",
+      "status": "active",
+      "verificationLevel": 0,
+      "basisRefs": []
+    },
+    {
+      "id": "E-CODE-COMPANION-SHORT-TERM-001",
+      "claim": "当前未提交实现已在 platform.companion_short_term_memory_turns 中按授权页面上下文保存最近 4 轮、2 小时过期的对话，但没有用户查询或清除接口。",
+      "class": "code_observed",
+      "locator": "backend/app/domains/companion/short_term_memory.py:15",
+      "observedAt": "2026-08-10T09:45:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": []
+    },
+    {
+      "id": "E-CODE-COMPANION-CONTEXT-GAPS-001",
+      "claim": "错误模式详情和每日结算进入岸岸时 objectRefs 为空；客户端上下文存储又仅允许 pages/ 前缀，与 reports/ 和 plans/ 真实路由冲突。",
+      "class": "code_observed",
+      "locator": "apps/wechat/miniprogram/features/companion/context-store.ts:92",
+      "observedAt": "2026-08-10T09:45:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": []
+    },
+    {
+      "id": "E-CODE-COMPANION-PRIVACY-GAP-001",
+      "claim": "当前隐私清单和个人数据导出未计数或导出岸岸短期对话，且没有长期对话偏好的独立管理界面。",
+      "class": "code_observed",
+      "locator": "backend/app/domains/data_rights/repository.py:45",
+      "observedAt": "2026-08-10T09:45:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": []
+    },
+    {
+      "id": "E-CODE-COMPANION-BASELINE-001",
+      "claim": "本实现单元基线为 main@9e6eda911714b191bcaedf17312c817f3d51062c；工作树已包含拍照题上下文和短期记忆的未提交改动，本单元保留并在其上完成用户记忆闭环。",
+      "class": "code_observed",
+      "locator": "command:git-status-and-log:2026-08-10T09:39:00+08:00",
+      "observedAt": "2026-08-10T09:45:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": []
     }
   ]
 }

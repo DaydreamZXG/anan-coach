@@ -19,6 +19,7 @@
     "plans/plan-basis/index",
     "plans/weekly-plan/index",
     "account/membership/index",
+    "account/memory/index",
     "account/privacy/index",
     "account/terms/index",
     "pages/positions/index",

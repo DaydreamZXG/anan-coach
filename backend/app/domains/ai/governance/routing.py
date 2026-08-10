@@ -15,11 +15,28 @@ class GlobalAskPolicyError(RuntimeError):
 _PAGE_PERMISSIONS: dict[str, tuple[set[str], set[str]]] = {
     "pages/anan/index": (
         {"today", "training", "position", "profile"},
-        {"position", "question", "material", "attempt", "plan", "report"},
+        {
+            "position",
+            "question",
+            "external_question",
+            "material",
+            "attempt",
+            "plan",
+            "report",
+            "error_pattern",
+        },
     ),
     "pages/companion/index": (
         {"today", "training", "position", "profile"},
-        {"position", "question", "material", "attempt", "plan", "report"},
+        {
+            "position",
+            "question",
+            "external_question",
+            "material",
+            "attempt",
+            "plan",
+            "report",
+        },
     ),
     "pages/today/index": ({"today"}, {"plan", "report"}),
     "plans/plan-basis/index": ({"today"}, {"plan", "report"}),
@@ -31,9 +48,15 @@ _PAGE_PERMISSIONS: dict[str, tuple[set[str], set[str]]] = {
     "pages/positions/goal/index": ({"position"}, {"position", "report"}),
     "pages/practice/index": ({"training"}, {"question", "attempt", "material"}),
     "pages/essay-task/index": ({"training"}, {"question", "attempt", "material"}),
-    "reports/error-pattern/index": ({"profile"}, {"report", "attempt"}),
+    "reports/error-pattern/index": (
+        {"profile"},
+        {"report", "attempt", "error_pattern"},
+    ),
     "essay/essay-review/index": ({"training"}, {"question", "attempt", "material"}),
-    "pages/capture-import/index": ({"training"}, {"question", "attempt", "material"}),
+    "pages/capture-import/index": (
+        {"training"},
+        {"external_question", "attempt", "material"},
+    ),
     "pages/reflection/index": ({"training"}, {"question", "attempt", "material"}),
     "reports/report-overview/index": (
         {"training", "profile"},

@@ -82,6 +82,12 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
         "migrations.versions.20260809_103_learning_intelligence_loop_v1"
     )
     revision104 = import_module("migrations.versions.20260809_104_daily_track_focus")
+    revision105 = import_module(
+        "migrations.versions.20260810_105_companion_short_term_memory"
+    )
+    revision106 = import_module(
+        "migrations.versions.20260810_106_companion_user_memory"
+    )
     script = ScriptDirectory.from_config(Config(str(BACKEND_ROOT / "alembic.ini")))
 
     assert revision71.down_revision == "20260728_70"
@@ -118,7 +124,9 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     assert revision102.down_revision == "20260808_101"
     assert revision103.down_revision == "20260808_102"
     assert revision104.down_revision == "20260809_103"
-    assert script.get_heads() == ["20260809_104"]
+    assert revision105.down_revision == "20260809_104"
+    assert revision106.down_revision == "20260810_105"
+    assert script.get_heads() == ["20260810_106"]
     with pytest.raises(RuntimeError, match="forward-only"):
         revision77.downgrade()
     with pytest.raises(RuntimeError, match="forward-only"):

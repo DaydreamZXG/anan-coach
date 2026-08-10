@@ -139,6 +139,7 @@ class PlanningInsightsService:
             summary = "今天的任务还没有开始，完成后这里会汇总真实投入和学习结果。"
         return DailySettlementView(
             planVersionId=dashboard.plan_version_id,
+            planVersionNo=dashboard.version_no,
             localDate=dashboard.local_date,
             status=status,
             scheduledMinutes=sum(item.planned_minutes for item in tasks),

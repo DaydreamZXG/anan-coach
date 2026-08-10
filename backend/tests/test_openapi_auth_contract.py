@@ -71,7 +71,7 @@ def test_openapi_bearer_operations_match_code_dependency_graph() -> None:
         }
     }
     code_operations = _code_bearer_operations(app)
-    assert len(code_operations) == 232
+    assert len(code_operations) == 240
     assert {
         ("/api/v2/xfyun/speech-to-text", "post"),
         ("/api/v2/xfyun/text-to-speech", "post"),

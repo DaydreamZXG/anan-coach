@@ -32,6 +32,15 @@
     </view>
 
     <view class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">岸岸的记忆</view><view class="s9-section-meta">你可控</view></view>
+      <navigator hover-class="item--hover" class="s9-card" url="/account/memory/index">
+        <view class="s9-card-title">查看岸岸记住了什么</view>
+        <view class="s9-card-copy">长期记忆只来自你主动添加的偏好；会话记忆 2 小时后自动过期。</view>
+        <view class="s9-card-meta">管理记忆 →</view>
+      </navigator>
+    </view>
+
+    <view class="s9-section">
       <view class="s9-section-head"><view class="s9-section-title">导出个人数据</view><view class="s9-section-meta">生成后 24 小时过期</view></view>
       <view class="s9-card export-card">
         <view class="s9-card-copy export-copy">包括账户、资格岗位、学习记录、原始资料、报告、订单和会员信息；不包括密钥和第三方支付凭据。</view>

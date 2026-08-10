@@ -958,6 +958,7 @@ function isCompanionObjectType(
   return (
     value === "position" ||
     value === "question" ||
+    value === "external_question" ||
     value === "material" ||
     value === "attempt" ||
     value === "plan" ||

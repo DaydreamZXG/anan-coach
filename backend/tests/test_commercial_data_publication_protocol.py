@@ -61,7 +61,7 @@ def _request(*, candidate: str = CANDIDATE_COMMIT, data_version: str = "position
         candidate_commit=candidate,
         rollback_commit=ROLLBACK_COMMIT,
         environment="preproduction",
-        expected_revision="20260809_104",
+        expected_revision="20260810_106",
         position_exam_code="guokao",
         position_exam_year=2026,
         position_rule_set_version="rules-v1",

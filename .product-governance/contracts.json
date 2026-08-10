@@ -56,6 +56,98 @@
         "metrics": "No production metric is added in this scoped unit; tests count accepted versus stale effects deterministically."
       },
       "status": "specified"
+    },
+    {
+      "id": "companion-memory-control@v1",
+      "kind": "api",
+      "owner": "companion_memory",
+      "consumers": ["companion-memory-page", "companion-answer-context", "personal-data-export"],
+      "schemaLocator": "inline://contracts.json#/contracts/companion-memory-control@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "One authenticated Companion memory list, create, update, delete, clear or enablement request.",
+        "properties": {
+          "operation": {
+            "type": "string",
+            "description": "Requested memory management operation.",
+            "enum": ["list", "create", "update", "delete_one", "clear_long_term", "clear_short_term", "set_enabled"]
+          },
+          "memoryId": { "type": "string", "description": "Stable memory item identifier when one item is addressed.", "minLength": 1, "maxLength": 80 },
+          "revision": { "type": "integer", "description": "Current optimistic concurrency revision for an exact update.", "minimum": 1 },
+          "category": {
+            "type": "string",
+            "description": "User-selected non-canonical memory category.",
+            "enum": ["explanation_preference", "study_constraint", "personal_note"]
+          },
+          "content": { "type": "string", "description": "Normalized user-authored memory text.", "minLength": 1, "maxLength": 240 },
+          "longTermEnabled": { "type": "boolean", "description": "Exact setting controlling provider-context injection." }
+        },
+        "required": ["operation"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "The user-owned memory item, current memory snapshot or deterministic mutation result.",
+        "properties": {
+          "operation": {
+            "type": "string",
+            "description": "Operation represented by this response.",
+            "enum": ["list", "create", "update", "delete_one", "clear_long_term", "clear_short_term", "set_enabled"]
+          },
+          "success": { "type": "boolean", "description": "Whether the represented operation completed deterministically." },
+          "longTermEnabled": { "type": "boolean", "description": "Current long-term memory injection setting." },
+          "changedCount": { "type": "integer", "description": "Rows changed by a clear or delete operation.", "minimum": 0 },
+          "memoryId": { "type": "string", "description": "Stable identifier of the returned item." },
+          "revision": { "type": "integer", "description": "Current item revision after the operation.", "minimum": 1 },
+          "category": {
+            "type": "string",
+            "description": "Current user-selected memory category.",
+            "enum": ["explanation_preference", "study_constraint", "personal_note"]
+          },
+          "content": { "type": "string", "description": "Current normalized user-authored memory text.", "maxLength": 240 },
+          "items": {
+            "type": "array",
+            "description": "Current long-term memory items for the authenticated user.",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "description": "One explicit user-owned long-term memory item.",
+              "properties": {
+                "memoryId": { "type": "string", "description": "Stable item identifier." },
+                "category": {
+                  "type": "string",
+                  "description": "User-selected item category.",
+                  "enum": ["explanation_preference", "study_constraint", "personal_note"]
+                },
+                "content": { "type": "string", "description": "Normalized memory text.", "maxLength": 240 },
+                "source": { "type": "string", "description": "Evidence that the user explicitly created the item.", "enum": ["explicit_user"] },
+                "revision": { "type": "integer", "description": "Optimistic concurrency revision.", "minimum": 1 },
+                "createdAt": { "type": "string", "description": "ISO-8601 creation time." },
+                "updatedAt": { "type": "string", "description": "ISO-8601 last update time." }
+              },
+              "required": ["memoryId", "category", "content", "source", "revision", "createdAt", "updatedAt"],
+              "additionalProperties": false
+            }
+          },
+          "shortTermTurnCount": { "type": "integer", "description": "Number of live short-term turns across supported Companion channels.", "minimum": 0 },
+          "shortTermExpiresAt": { "type": "string", "description": "Latest ISO-8601 expiry among the live short-term turns." }
+        },
+        "required": ["operation", "success"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["personal", "sensitive"],
+      "authorization": "Bearer-authenticated user; every select, update and delete is constrained by the exact current user_id.",
+      "idempotency": "Create requires an Idempotency-Key and deterministically replays only the same normalized payload; updates require the current revision and exact-state PUT semantics; clear and setting writes are naturally idempotent.",
+      "compatibility": "Additive fields may be added within v1; categories, delete semantics, ownership and revision conflicts require a new version.",
+      "errorSemantics": ["MEMORY_NOT_FOUND", "MEMORY_LIMIT_REACHED", "MEMORY_COMMAND_CONFLICT", "STALE_MEMORY_REVISION", "UNAUTHENTICATED"],
+      "requirementRefs": ["REQ-COMPANION-MEMORY-CONTROL-001", "REQ-COMPANION-EXACT-CONTEXT-001"],
+      "evidenceRefs": ["E-USER-COMPANION-MEMORY-001", "E-CODE-COMPANION-SHORT-TERM-001", "E-CODE-COMPANION-CONTEXT-GAPS-001", "E-CODE-COMPANION-PRIVACY-GAP-001"],
+      "observability": {
+        "correlation": "HTTP request IDs correlate mutations; Idempotency-Key is fingerprinted rather than returned or logged as content.",
+        "audit": "Mutation outcomes and stale revision conflicts are observable through request correlation; memory content is not written to application logs.",
+        "metrics": "Count create, update, delete, clear and conflict outcomes without memory content labels."
+      },
+      "status": "specified"
     }
   ]
 }

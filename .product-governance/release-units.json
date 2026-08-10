@@ -221,6 +221,276 @@
         "releaseUnitHash": "sha256:abed67a4ab24662dcc11ec2afbbbd013f2fb4155959073da39b305e51062e711",
         "snapshotPath": "execution/release-unit-snapshots/abed67a4ab24662dcc11ec2afbbbd013f2fb4155959073da39b305e51062e711/release-unit.json"
       }
+    },
+    {
+      "id": "RU-COMPANION-MEMORY-001",
+      "status": "frozen",
+      "objective": "冻结且只授权岸岸精确页面上下文、用户显式长期记忆、短期对话清除、用户管理与隐私闭环。",
+      "decisionRef": "DEC-FREEZE-RU-COMPANION-MEMORY-001",
+      "dependsOnReleaseUnits": [],
+      "supersedesReleaseUnits": [],
+      "roots": {
+        "workPackages": [
+          "WP-COMPANION-MEMORY-001"
+        ],
+        "requirements": [],
+        "nonFunctionalRequirements": [],
+        "domains": [],
+        "contracts": [],
+        "stateMachines": [],
+        "pages": [
+          "companion-memory-page"
+        ],
+        "journeys": [],
+        "dataLifecycleResources": [
+          "companion-memory-item",
+          "companion-memory-setting",
+          "companion-short-term-memory-turn"
+        ],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": []
+      },
+      "closure": {
+        "workPackages": [
+          "WP-COMPANION-MEMORY-001"
+        ],
+        "requirements": [
+          "REQ-COMPANION-EXACT-CONTEXT-001",
+          "REQ-COMPANION-MEMORY-CONTROL-001"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "companion_memory"
+        ],
+        "contracts": [
+          "companion-memory-control@v1"
+        ],
+        "stateMachines": [],
+        "pages": [
+          "companion-memory-page"
+        ],
+        "pageStateProfiles": [
+          "companion-memory-management-states@v1"
+        ],
+        "journeys": [],
+        "actors": [],
+        "dataLifecycleResources": [
+          "companion-memory-item",
+          "companion-memory-setting",
+          "companion-short-term-memory-turn"
+        ],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": [],
+        "evidence": [
+          "E-CODE-COMPANION-BASELINE-001",
+          "E-CODE-COMPANION-CONTEXT-GAPS-001",
+          "E-CODE-COMPANION-PRIVACY-GAP-001",
+          "E-CODE-COMPANION-SHORT-TERM-001",
+          "E-USER-COMPANION-MEMORY-001"
+        ],
+        "decisions": [
+          "DEC-COMPANION-MEMORY-AUTHORITY-001",
+          "DEC-COMPANION-MEMORY-LIFECYCLE-001",
+          "DEC-FREEZE-RU-COMPANION-MEMORY-001"
+        ],
+        "conflicts": [],
+        "glossaryTerms": [],
+        "resources": [],
+        "tracks": [
+          "companion-memory"
+        ]
+      },
+      "deferredSnapshot": {
+        "schemaVersion": 1,
+        "catalogHash": "sha256:e13fc78a06b6f263715b7fc42bbce9b78b754a67c3a94a11741a6b1ac5de0754",
+        "items": [
+          {
+            "subjectKind": "actors",
+            "subjectId": "*",
+            "message": "No product actors are defined"
+          },
+          {
+            "subjectKind": "aiScenarios",
+            "subjectId": "*",
+            "message": "No AI scenarios are defined"
+          },
+          {
+            "subjectKind": "entitlements",
+            "subjectId": "*",
+            "message": "No entitlement capabilities are defined"
+          },
+          {
+            "subjectKind": "glossaryTerms",
+            "subjectId": "*",
+            "message": "No canonical glossary terms are defined"
+          },
+          {
+            "subjectKind": "journeys",
+            "subjectId": "*",
+            "message": "No end-to-end journeys are defined"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-accessibility",
+            "message": "High-impact non-functional requirement is unresolved: NFR-accessibility (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_cost",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_cost (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_quality",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_quality (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-backup_restore",
+            "message": "High-impact non-functional requirement is unresolved: NFR-backup_restore (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-capacity",
+            "message": "High-impact non-functional requirement is unresolved: NFR-capacity (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-commerce",
+            "message": "High-impact non-functional requirement is unresolved: NFR-commerce (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-migration",
+            "message": "High-impact non-functional requirement is unresolved: NFR-migration (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-observability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-observability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-operations",
+            "message": "High-impact non-functional requirement is unresolved: NFR-operations (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-performance",
+            "message": "High-impact non-functional requirement is unresolved: NFR-performance (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-privacy",
+            "message": "High-impact non-functional requirement is unresolved: NFR-privacy (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-reliability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-reliability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-security",
+            "message": "High-impact non-functional requirement is unresolved: NFR-security (unknown)"
+          },
+          {
+            "subjectKind": "stateMachines",
+            "subjectId": "*",
+            "message": "No canonical state machines are defined"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::companion-memory",
+            "message": "Capability ability_estimate lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::frontend-lifecycle",
+            "message": "Capability ability_estimate/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::companion-memory",
+            "message": "Capability attempt lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::frontend-lifecycle",
+            "message": "Capability attempt/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::companion-memory",
+            "message": "Capability evidence lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::frontend-lifecycle",
+            "message": "Capability evidence/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::companion-memory",
+            "message": "Capability global_ask lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::frontend-lifecycle",
+            "message": "Capability global_ask/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::companion-memory",
+            "message": "Capability mastery lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::frontend-lifecycle",
+            "message": "Capability mastery/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::companion-memory",
+            "message": "Capability planning lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::frontend-lifecycle",
+            "message": "Capability planning/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::companion-memory",
+            "message": "Capability reflection lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::frontend-lifecycle",
+            "message": "Capability reflection/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::companion-memory",
+            "message": "Capability report lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::frontend-lifecycle",
+            "message": "Capability report/frontend-lifecycle remains unknown"
+          }
+        ]
+      },
+      "freeze": {
+        "releaseUnitId": "RU-COMPANION-MEMORY-001",
+        "decisionId": "DEC-FREEZE-RU-COMPANION-MEMORY-001",
+        "commit": "9e6eda911714b191bcaedf17312c817f3d51062c",
+        "frozenAt": "2026-08-10T01:53:14.644921+00:00",
+        "releaseUnitHash": "sha256:b22923f67c06a6b0b978a581d52421cb03b4e170db23fea02c91d239c7d4ea06",
+        "snapshotPath": "execution/release-unit-snapshots/b22923f67c06a6b0b978a581d52421cb03b4e170db23fea02c91d239c7d4ea06/release-unit.json"
+      }
     }
   ]
 }

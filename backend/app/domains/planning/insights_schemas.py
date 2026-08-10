@@ -75,6 +75,7 @@ class DailySettlementView(PlanningContractModel):
         default="daily-settlement@v1", alias="contractVersion"
     )
     plan_version_id: UUID = Field(alias="planVersionId")
+    plan_version_no: int = Field(default=1, alias="planVersionNo", ge=1)
     local_date: date = Field(alias="localDate")
     status: Literal["empty", "not_started", "in_progress", "partial", "complete"]
     scheduled_minutes: int = Field(alias="scheduledMinutes", ge=0)

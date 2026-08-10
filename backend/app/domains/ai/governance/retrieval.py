@@ -21,6 +21,7 @@ from app.domains.companion.xingce_context import (
     load_frozen_material_context,
     load_frozen_question_context,
 )
+from app.domains.external_ingestion.recognition.models import RecognitionCandidatePayload
 
 
 RETRIEVAL_POLICY_VERSION = "authorized-hybrid-retrieval@v1"
@@ -147,9 +148,11 @@ class AuthorizedHybridRetriever:
             )
             if candidate.trust_scope in {
                 "authorized_question",
+                "authorized_external_question",
                 "authorized_material",
                 "current_checkpoint",
                 "authorized_scoring",
+                "authorized_error_pattern",
             }:
                 # Explicit current-task objects are not merely authorization
                 # hints: they must survive ranking so the provider and the
@@ -160,6 +163,7 @@ class AuthorizedHybridRetriever:
                 "learner_activity",
                 "target_position",
                 "authorized_question",
+                "authorized_external_question",
                 "authorized_material",
                 "current_checkpoint",
                 "authorized_scoring",
@@ -168,6 +172,7 @@ class AuthorizedHybridRetriever:
                 "authorized_plan",
                 "authorized_position",
                 "authorized_report",
+                "authorized_error_pattern",
             }:
                 ranked.append((score, candidate, lexical, semantic))
         ranked.sort(key=lambda item: (-item[0], item[1].reference.source_id))
@@ -223,6 +228,18 @@ class AuthorizedHybridRetriever:
                 user_id=user_id,
                 question_id=object_id,
                 version=version,
+            )
+        if object_type == "external_question":
+            return self._external_question_ref_owned(
+                user_id=user_id,
+                question_unit_id=object_id,
+                recognition_revision_id=version,
+            )
+        if object_type == "error_pattern":
+            return self._error_pattern_ref_owned(
+                user_id=user_id,
+                pattern_id=object_id,
+                profile_version_id=version,
             )
         if object_type == "attempt":
             return self._attempt_ref_owned(
@@ -286,6 +303,81 @@ class AuthorizedHybridRetriever:
             )
         except Exception as exc:
             raise ObjectAuthorizationError(f"malformed_{object_type}_reference") from exc
+
+    def _error_pattern_ref_owned(
+        self,
+        *,
+        user_id: str,
+        pattern_id: str,
+        profile_version_id: str,
+    ) -> bool:
+        profile_id = _uuid_or_none(profile_version_id)
+        if profile_id is None or re.fullmatch(r"[0-9a-f]{64}", pattern_id) is None:
+            return False
+        return bool(
+            self._session.execute(
+                text(
+                    """
+                    select exists (
+                      select 1
+                      from learning.learner_brain_profile_versions profile,
+                           jsonb_array_elements(profile.error_patterns) pattern
+                      where profile.user_id = cast(:user_id as uuid)
+                        and profile.profile_version_id = cast(:profile_version_id as uuid)
+                        and pattern ->> 'patternId' = :pattern_id
+                    )
+                    """
+                ),
+                {
+                    "user_id": user_id,
+                    "profile_version_id": str(profile_id),
+                    "pattern_id": pattern_id,
+                },
+            ).scalar_one()
+        )
+
+    def _external_question_ref_owned(
+        self,
+        *,
+        user_id: str,
+        question_unit_id: str,
+        recognition_revision_id: str,
+    ) -> bool:
+        revision_id = _uuid_or_none(recognition_revision_id)
+        if revision_id is None or re.fullmatch(r"[0-9a-f]{64}", question_unit_id) is None:
+            return False
+        return bool(
+            self._session.execute(
+                text(
+                    """
+                    select exists (
+                      select 1
+                      from learning.recognition_revisions recognition
+                      where recognition.recognition_revision_id = cast(:revision_id as uuid)
+                        and recognition.owner_user_id = cast(:user_id as uuid)
+                        and recognition.recognition_kind = 'exam_segmentation'
+                        and recognition.state = 'confirmed'
+                        and recognition.expires_at > statement_timestamp()
+                        and recognition.candidate_payload -> 'questionUnits'
+                              @> jsonb_build_array(
+                                jsonb_build_object('questionUnitId', :question_unit_id)
+                              )
+                        and not exists (
+                          select 1
+                          from learning.recognition_revisions successor
+                          where successor.supersedes_recognition_revision_id =
+                                recognition.recognition_revision_id
+                        )
+                    )
+                    """
+                ),
+                {
+                    "user_id": user_id,
+                    "revision_id": str(revision_id),
+                    "question_unit_id": question_unit_id,
+                },
+            ).scalar_one()
+        )
 
     def _material_ref_owned(
         self,
@@ -508,6 +600,22 @@ class AuthorizedHybridRetriever:
                         version=item.version,
                     )
                 )
+            elif item.type == "external_question":
+                candidate = self._external_question_context_candidate(
+                    user_id=user_id,
+                    question_unit_id=item.id,
+                    recognition_revision_id=item.version,
+                )
+                if candidate is not None:
+                    candidates.append(candidate)
+            elif item.type == "error_pattern":
+                candidate = self._error_pattern_context_candidate(
+                    user_id=user_id,
+                    pattern_id=item.id,
+                    profile_version_id=item.version,
+                )
+                if candidate is not None:
+                    candidates.append(candidate)
             elif item.type == "plan":
                 candidate = self._plan_context_candidate(
                     user_id=user_id,
@@ -541,6 +649,156 @@ class AuthorizedHybridRetriever:
                 if candidate is not None:
                     candidates.append(candidate)
         return tuple(candidates)
+
+    def _error_pattern_context_candidate(
+        self,
+        *,
+        user_id: str,
+        pattern_id: str,
+        profile_version_id: str,
+    ) -> _Candidate | None:
+        profile_id = _uuid_or_none(profile_version_id)
+        if profile_id is None or re.fullmatch(r"[0-9a-f]{64}", pattern_id) is None:
+            return None
+        row = (
+            self._session.execute(
+                text(
+                    """
+                    select profile.version_no, profile.generated_at, pattern
+                    from learning.learner_brain_profile_versions profile,
+                         jsonb_array_elements(profile.error_patterns) pattern
+                    where profile.user_id = cast(:user_id as uuid)
+                      and profile.profile_version_id = cast(:profile_version_id as uuid)
+                      and pattern ->> 'patternId' = :pattern_id
+                    """
+                ),
+                {
+                    "user_id": user_id,
+                    "profile_version_id": str(profile_id),
+                    "pattern_id": pattern_id,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
+        if row is None:
+            return None
+        pattern = dict(row["pattern"])
+        content = _join_context_text(
+            ("错误模式", pattern.get("displayName")),
+            ("科目", pattern.get("track")),
+            ("模块", pattern.get("moduleKey")),
+            ("错因", pattern.get("causeCode")),
+            ("当前状态", pattern.get("status")),
+            ("出现次数", pattern.get("occurrenceCount")),
+            ("反向证据数", pattern.get("counterevidenceCount")),
+            ("可信度", pattern.get("confidence")),
+            ("最近观察", pattern.get("latestObservedAt")),
+            ("证据引用", pattern.get("evidenceRefs")),
+        )
+        return context_candidate(
+            kind="learning_error_pattern",
+            source_id=f"error-pattern:{profile_id}:{pattern_id}",
+            version=str(profile_id),
+            anchor=f"learning-brain-profile:{row['version_no']}",
+            title=f"错误模式 · {pattern.get('displayName') or pattern_id[:8]}",
+            text_value=content,
+            trust_scope="authorized_error_pattern",
+            source_weight=1.0,
+        )
+
+    def _external_question_context_candidate(
+        self,
+        *,
+        user_id: str,
+        question_unit_id: str,
+        recognition_revision_id: str,
+    ) -> _Candidate | None:
+        revision_id = _uuid_or_none(recognition_revision_id)
+        if revision_id is None or re.fullmatch(r"[0-9a-f]{64}", question_unit_id) is None:
+            return None
+        row = (
+            self._session.execute(
+                text(
+                    """
+                    select recognition.artifact_version_id,
+                           recognition.revision_no,
+                           recognition.candidate_payload
+                    from learning.recognition_revisions recognition
+                    where recognition.recognition_revision_id = cast(:revision_id as uuid)
+                      and recognition.owner_user_id = cast(:user_id as uuid)
+                      and recognition.recognition_kind = 'exam_segmentation'
+                      and recognition.state = 'confirmed'
+                      and recognition.expires_at > statement_timestamp()
+                      and not exists (
+                        select 1
+                        from learning.recognition_revisions successor
+                        where successor.supersedes_recognition_revision_id =
+                              recognition.recognition_revision_id
+                      )
+                    """
+                ),
+                {"user_id": user_id, "revision_id": str(revision_id)},
+            )
+            .mappings()
+            .one_or_none()
+        )
+        if row is None:
+            return None
+        payload = RecognitionCandidatePayload.model_validate(
+            dict(row["candidate_payload"])
+        )
+        unit = next(
+            (
+                item
+                for item in payload.question_units
+                if item.question_unit_id == question_unit_id
+            ),
+            None,
+        )
+        if unit is None:
+            return None
+        spans = {item.span_id: item.text for item in payload.text_spans}
+        segments = {item.segment_id: item for item in payload.segments}
+
+        def segment_text(refs: tuple[str, ...]) -> str:
+            values: list[str] = []
+            for ref in refs:
+                segment = segments.get(ref)
+                if segment is None:
+                    continue
+                value = "\n".join(
+                    spans[span_ref]
+                    for span_ref in segment.text_span_refs
+                    if span_ref in spans
+                ).strip()
+                if value:
+                    values.append(value)
+            return "\n\n".join(values)
+
+        question_text = _join_context_text(
+            ("题目序号", unit.ordinal),
+            ("材料", segment_text(unit.material_segment_refs)),
+            ("题干", segment_text(unit.prompt_segment_refs)),
+            ("选项", segment_text(unit.option_segment_refs)),
+        )
+        if not question_text:
+            return None
+        return _Candidate(
+            reference=EvidenceReference(
+                kind="external_question",
+                sourceId=f"external-question:{revision_id}:{question_unit_id}",
+                version=str(revision_id),
+                anchor=f"artifact:{row['artifact_version_id']}:revision:{row['revision_no']}",
+                title=f"拍照搜题 · 第 {unit.ordinal} 题",
+            ),
+            text=question_text,
+            trust_scope="authorized_external_question",
+            source_weight=1.0,
+            # OCR text came from a user-controlled image. It is useful evidence,
+            # but never receives authority to alter routing or system policy.
+            untrusted_input=True,
+        )
 
     def _material_context_candidate(
         self,
@@ -603,7 +861,11 @@ class AuthorizedHybridRetriever:
                              'reason', task.reason,
                              'estimatedMinutes', task.estimated_minutes,
                              'mandatory', task.mandatory,
-                             'priorityScore', task.priority_score
+                             'priorityScore', task.priority_score,
+                             'status', coalesce(execution.status, 'ready'),
+                             'elapsedMinutes', coalesce(execution.elapsed_minutes, 0),
+                             'executionEvidenceRefs',
+                               coalesce(execution.evidence_refs, '[]'::jsonb)
                            )
                            order by task.task_order
                          ) filter (where task.task_id is not null),
@@ -614,6 +876,22 @@ class AuthorizedHybridRetriever:
                     on task.plan_version_id = plan.plan_version_id
                    and task.user_id = plan.user_id
                    and task.local_date = plan.local_date
+                  left join lateral (
+                    select execution.status, execution.elapsed_minutes,
+                           execution.evidence_refs
+                    from learning.task_execution_versions execution
+                    where execution.user_id = task.user_id
+                      and execution.task_id = task.task_id
+                      and not exists (
+                        select 1
+                        from learning.task_execution_versions successor
+                        where successor.supersedes_execution_version_id =
+                              execution.execution_version_id
+                      )
+                    order by execution.recorded_at desc,
+                             execution.execution_version_id desc
+                    limit 1
+                  ) execution on true
                  where plan.user_id = cast(:user_id as uuid)
                    and plan.plan_version_id = cast(:plan_id as uuid)
                    and plan.version_no::text = :version

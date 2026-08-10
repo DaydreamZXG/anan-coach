@@ -16,6 +16,23 @@
       "queries": [],
       "emits": [],
       "consumes": []
+    },
+    {
+      "id": "companion_memory",
+      "owner": "backend/app/domains/companion",
+      "scope": "target",
+      "owns": ["companion-memory-item", "companion-memory-setting", "companion-short-term-memory-turn"],
+      "trackScope": ["companion-memory"],
+      "invariants": [
+        "长期记忆只由认证用户显式创建，不将 AI 推断或普通聊天自动写入。",
+        "成绩、能力、错题、计划、资格和岗位事实的权威所有者不变，聊天记忆不得复制或覆盖。",
+        "所有查询和变更均按 user_id 隔离；关闭长期记忆只停止注入，删除和清空才清除内容。",
+        "长期记忆不得改变鉴权、路由、商业权益或高影响事实判断。"
+      ],
+      "commands": [],
+      "queries": [],
+      "emits": [],
+      "consumes": []
     }
   ]
 }

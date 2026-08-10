@@ -7,10 +7,10 @@
     "productPlan": "docs/engineering/2026-07-24-ui-ux-remediation-plan.md"
   },
   "summary": {
-    "registeredRouteCount": 60,
+    "registeredRouteCount": 61,
     "directlyMappedRouteCount": 31,
-    "unmappedRouteCount": 29,
-    "reuseExistingDesignCount": 12,
+    "unmappedRouteCount": 30,
+    "reuseExistingDesignCount": 13,
     "mergeIntoDesignedFlowCount": 9,
     "hideUntilProductActivationCount": 2,
     "newDesignRequiredCount": 6
@@ -62,6 +62,17 @@
       "targetFigmaNodeIds": [],
       "targetFlow": "profile.membershipExplanation",
       "reason": "公测期开放会员说明页并复用现有账户卡片设计；页面仍禁止购买和扣款。"
+    },
+    {
+      "routeName": "memory",
+      "route": "/account/memory/index",
+      "disposition": "reuse_existing_design",
+      "targetFigmaNodeIds": [
+        "4:2",
+        "31:2"
+      ],
+      "targetFlow": "account.companionMemory",
+      "reason": "记忆管理属于我的与隐私子流程，复用现有 Stage 9 卡片、时间线和账户控件，不建立新的视觉语言。"
     },
     {
       "routeName": "privacy",

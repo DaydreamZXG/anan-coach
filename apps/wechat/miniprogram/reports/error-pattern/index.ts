@@ -85,7 +85,13 @@ Page({
         "这个错误模式我到底卡在哪一步？帮我指出触发条件，再给我一个下次做题时用得上的检查动作。",
       routeId: "reports/error-pattern/index",
       workspace: "profile",
-      objectRefs: [],
+      objectRefs: [
+        {
+          type: "error_pattern",
+          id: detail.pattern.patternId,
+          version: detail.profileVersionId,
+        },
+      ],
     });
     void wx.switchTab({ url: routes.anan });
   },

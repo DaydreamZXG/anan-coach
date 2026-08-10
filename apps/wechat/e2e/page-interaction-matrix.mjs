@@ -112,6 +112,10 @@ export const pageInteractionMatrix = [
     handler: "createExport",
     selector: ".privacy-secondary",
   }),
+  page("account/memory/index", "g03-companion-memory-ready", "主动添加一条岸岸长期记忆", {
+    handler: "saveMemory",
+    selector: ".composer__save",
+  }),
   page("account/terms/index", "g03-terms-ready", "阅读用户协议", {
     evidence: RUNTIME_READ_ONLY,
   }),

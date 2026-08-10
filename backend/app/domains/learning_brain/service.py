@@ -239,6 +239,7 @@ class LearningBrainService:
             counterevidence = []
             interpretation = "该模式来自用户确认或 canonical 评阅决定，仍需后续独立验证才能退出当前弱项。"
         return ErrorPatternDetail(
+            profileVersionId=profile.profile_version_id,
             pattern=pattern,
             supportingEvidence=supporting,
             counterevidence=counterevidence,

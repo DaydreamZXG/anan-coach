@@ -25,6 +25,7 @@
       "name": "account",
       "pages": [
         "membership/index",
+        "memory/index",
         "privacy/index",
         "terms/index",
         "notification-settings/index",

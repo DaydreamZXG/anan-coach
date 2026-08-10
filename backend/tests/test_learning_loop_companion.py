@@ -27,6 +27,8 @@ SESSION_ID = "00000000-0000-4000-8000-000000000101"
 QUESTION_ID = "xingce-question-1"
 VERSION = "content-v1"
 BUNDLE_VERSION = "b" * 64
+EXTERNAL_QUESTION_ID = "e" * 64
+EXTERNAL_RECOGNITION_ID = "00000000-0000-4000-8000-000000000201"
 
 
 class _Result:
@@ -165,6 +167,109 @@ def _context(*, claimed_stage: str) -> GlobalAskContext:
         taskStage=claimed_stage,
         learnerStateVersion="brain-v1",
     )
+
+
+def _external_question_context() -> GlobalAskContext:
+    return GlobalAskContext(
+        routeId="pages/capture-import/index",
+        workspace="training",
+        objectRefs=[
+            {
+                "type": "external_question",
+                "id": EXTERNAL_QUESTION_ID,
+                "version": EXTERNAL_RECOGNITION_ID,
+            }
+        ],
+        taskMode="practice",
+        taskStage="reviewing",
+        learnerStateVersion="brain-v1",
+    )
+
+
+def _external_recognition_payload() -> dict[str, object]:
+    box = {"pageNo": 1, "x": 0.1, "y": 0.1, "width": 0.8, "height": 0.1}
+    return {
+        "schemaVersion": "recognition-candidate-payload@v1",
+        "kind": "exam_segmentation",
+        "textSpans": [
+            {"spanId": "material-span", "text": "2025 年为 120，2024 年为 100。", "box": box, "confidence": 0.98},
+            {"spanId": "prompt-span", "text": "同比增长率是多少？", "box": box, "confidence": 0.99},
+            {"spanId": "option-span", "text": "A. 10%  B. 20%", "box": box, "confidence": 0.99},
+        ],
+        "segments": [
+            {
+                "segmentId": "material",
+                "segmentKind": "material",
+                "box": box,
+                "textSpanRefs": ["material-span"],
+                "confidence": 0.98,
+            },
+            {
+                "segmentId": "prompt",
+                "segmentKind": "question",
+                "box": box,
+                "textSpanRefs": ["prompt-span"],
+                "confidence": 0.99,
+            },
+            {
+                "segmentId": "options",
+                "segmentKind": "options",
+                "box": box,
+                "textSpanRefs": ["option-span"],
+                "confidence": 0.99,
+            },
+        ],
+        "questionUnits": [
+            {
+                "questionUnitId": EXTERNAL_QUESTION_ID,
+                "ordinal": 1,
+                "promptSegmentRefs": ["prompt"],
+                "optionSegmentRefs": ["options"],
+                "materialSegmentRefs": ["material"],
+            }
+        ],
+        "omrMarks": [],
+        "pageImageSha256": [],
+        "visualFingerprints": [],
+        "visualFeatureHashes": [],
+        "processorRequestIdHash": "1" * 64,
+        "processorOutputContract": "exam-segmentation@v1",
+        "requestHash": "2" * 64,
+        "predecessorRevisionId": None,
+        "correctionReason": None,
+    }
+
+
+def test_confirmed_external_question_ref_retrieves_ocr_material_and_prompt() -> None:
+    session = _Session(
+        True,
+        {
+            "artifact_version_id": "00000000-0000-4000-8000-000000000202",
+            "revision_no": 1,
+            "candidate_payload": _external_recognition_payload(),
+        },
+        [],
+    )
+
+    bundle = AuthorizedHybridRetriever(
+        session,  # type: ignore[arg-type]
+        resolve_projection_from_environment=False,
+    ).retrieve(
+        user_id=USER_ID,
+        question="结合当前题面讲清楚增长率怎么算",
+        context=_external_question_context(),
+    )
+
+    current = next(
+        source
+        for source in bundle.sources
+        if source.trust_scope == "authorized_external_question"
+    )
+    assert "2025 年为 120" in current.excerpt
+    assert "同比增长率是多少" in current.excerpt
+    assert "A. 10% B. 20%" in current.excerpt
+    assert current.untrusted_input is True
+    assert "recognition.expires_at > statement_timestamp()" in session.statements[0]
 
 
 def test_active_frozen_question_material_and_checkpoint_never_read_scoring() -> None:
@@ -344,7 +449,17 @@ def test_provider_prompt_separates_personal_facts_from_exam_reasoning() -> None:
     prepared = AIProvider(Settings()).prepare_companion_question(
         route_decision={"modelTier": "small"},
         question_text="这题怎么思考？",
-        context={},
+        context={
+            "userMemory": {
+                "source": "explicit_user",
+                "items": [
+                    {
+                        "category": "explanation_preference",
+                        "content": "先给列式，再说为什么。",
+                    }
+                ],
+            }
+        },
         sources=[
             {
                 "sourceRef": "xingce-question:1",
@@ -363,6 +478,9 @@ def test_provider_prompt_separates_personal_facts_from_exam_reasoning() -> None:
     assert "不得给出最终选项或直接答案" in system_prompt
     assert "present_but_semantic_unknown" in system_prompt
     assert "一般用二到四句话" not in system_prompt
+    user_prompt = prepared["body"]["messages"][1]["content"]
+    assert "explicit_user" in user_prompt
+    assert "先给列式，再说为什么。" in user_prompt
 
 
 def test_new_safe_bundle_freezes_type_and_visual_flag_while_old_is_unknown() -> None:

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "岸岸的记忆",
+  "usingComponents": {
+    "state-view": "../../design-system/primitives/state-view/index",
+    "ui-toggle": "../shared/design-system/primitives/ui-toggle/index"
+  }
+}

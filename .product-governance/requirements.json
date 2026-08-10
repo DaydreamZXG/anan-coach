@@ -23,6 +23,36 @@
         "private-knowledge 删除轮询的等待 timer 在隐藏或卸载时被清理且等待正常结束。",
         "页面 WXSS 只使用 600px 与 1024px 布局层级断点，不用方向或设备身份决定 wide 布局。"
       ]
+    },
+    {
+      "id": "REQ-COMPANION-EXACT-CONTEXT-001",
+      "statement": "从错误模式详情和每日结算进入岸岸时，请求必须携带当前账户所有的精确不可变版本引用，后端校验归属后将对应对象作为高权重语境；子包路由不得被客户端上下文存储拒绝。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "companion_memory",
+      "evidenceRefs": ["E-USER-COMPANION-MEMORY-001", "E-CODE-COMPANION-CONTEXT-GAPS-001"],
+      "acceptance": [
+        "错误模式引用包含 patternId 和 profileVersionId，引用属于其他用户或版本不匹配时返回 403。",
+        "每日结算引用包含 planVersionId 和 versionNo，检索内容同时包含计划任务和当前执行状态。",
+        "reports/ 与 plans/ 路由可以正常存储为岸岸启动上下文。"
+      ]
+    },
+    {
+      "id": "REQ-COMPANION-MEMORY-CONTROL-001",
+      "statement": "认证用户必须能在小程序中查看、新增、修改、单条删除和全部清空自己明确创建的岸岸长期记忆，关闭时停止模型注入但不删除；还必须能清除全部未过期短期对话。所有数据按 user_id 隔离，进入隐私统计、导出和账户删除。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "companion_memory",
+      "evidenceRefs": ["E-USER-COMPANION-MEMORY-001", "E-CODE-COMPANION-SHORT-TERM-001", "E-CODE-COMPANION-PRIVACY-GAP-001"],
+      "acceptance": [
+        "每条长期记忆有稳定 ID、类别、内容、来源、revision 和时间，输入受长度和数量上限约束。",
+        "新增幂等重放不重复创建；修改必须携带当前 revision，过期 revision 返回 409 并可重新加载。",
+        "长期记忆关闭后不出现在岸岸供应商请求中；重新开启后恢复。",
+        "管理页明确区分 2 小时短期对话和长期偏好，在 loading、empty、error、conflict 和 recovery 状态给出可操作的下一步。",
+        "隐私概览计数包含长期记忆与短期对话，导出载荷包含其完整记录。"
+      ]
     }
   ]
 }

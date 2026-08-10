@@ -1,0 +1,66 @@
+<view class="s9-page memory-page">
+  <view class="memory-hero">
+    <view class="memory-eyebrow">岸岸的记忆</view>
+    <view class="memory-title">记住什么，由你决定</view>
+    <view class="memory-intro">普通聊天不会被自动变成长期记忆。只有你在这里主动添加的内容，才会被岸岸长期使用。</view>
+  </view>
+
+  <state-view wx:if="{{status === 'loading'}}" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" state="error" title="记忆清单没加载出来" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+
+  <block wx:else>
+    <view class="memory-card memory-switch-card">
+      <view class="memory-card__main">
+        <view class="memory-card__title">在回答中使用长期记忆</view>
+        <view class="memory-card__copy">关闭后已保存的内容不会丢失，但岸岸回答时不再读取。</view>
+      </view>
+      <ui-toggle label="在回答中使用长期记忆" checked="{{longTermEnabled}}" disabled="{{busy}}" bind:change="toggleLongTerm" />
+    </view>
+
+    <view class="memory-section">
+      <view class="memory-section__head">
+        <view><view class="memory-section__title">近期会话</view><view class="memory-section__copy">只帮岸岸接住连续追问，不会进入长期记忆。</view></view>
+        <view class="memory-badge">2 小时</view>
+      </view>
+      <view class="short-term-rail">
+        <view class="short-term-rail__dot"></view>
+        <view class="short-term-rail__main"><view class="short-term-rail__value">{{shortTermExpiresLabel}}</view><view class="short-term-rail__source">来路 · 小程序问答与微信发题</view></view>
+        <button hover-class="item--hover" class="text-action" disabled="{{busy || shortTermTurnCount === 0}}" bindtap="clearShortTerm">立即清除</button>
+      </view>
+    </view>
+
+    <view class="memory-section">
+      <view class="memory-section__head">
+        <view><view class="memory-section__title">{{editingId ? '修改这条记忆' : '添加一条长期记忆'}}</view><view class="memory-section__copy">只写稳定偏好或真实约束，不要写密码、证件号等敏感信息。</view></view>
+      </view>
+      <view class="composer">
+        <picker mode="selector" range="{{categories}}" range-key="label" value="{{categoryIndex}}" disabled="{{busy}}" bindchange="onCategoryChange">
+          <view class="composer__picker">{{currentCategoryLabel}}<text>⌟</text></view>
+        </picker>
+        <textarea class="composer__input" value="{{draftContent}}" maxlength="240" disabled="{{busy}}" placeholder="例如：讲资料分析时，先给我列式，再解释心算步骤。" bindinput="onContentInput" />
+        <view class="composer__footer"><view class="composer__count">{{draftContent.length}} / 240</view><view class="composer__actions"><button hover-class="item--hover" wx:if="{{editingId}}" class="composer__cancel" disabled="{{busy}}" bindtap="cancelEdit">取消</button><button hover-class="item--hover" class="composer__save control-center" loading="{{busy}}" disabled="{{busy}}" bindtap="saveMemory">{{editingId ? '保存修改' : '让岸岸记住'}}</button></view></view>
+      </view>
+    </view>
+
+    <view class="memory-section">
+      <view class="memory-section__head memory-section__head--list">
+        <view><view class="memory-section__title">长期记忆</view><view class="memory-section__copy">已保存 {{items.length}} / {{maximumLongTermItems}} 条</view></view>
+        <button hover-class="item--hover" class="text-action text-action--danger" disabled="{{busy || items.length === 0}}" bindtap="clearLongTerm">全部删除</button>
+      </view>
+      <view wx:if="{{items.length === 0}}" class="memory-empty"><view class="memory-empty__title">还没有长期记忆</view><view class="memory-empty__copy">岸岸不会从你的日常问答里暗自提取。</view></view>
+      <view wx:else class="memory-list">
+        <view class="memory-item" wx:for="{{items}}" wx:key="memoryId">
+          <view class="memory-item__rail"><view class="memory-item__dot"></view><view class="memory-item__line"></view></view>
+          <view class="memory-item__body">
+            <view class="memory-item__meta"><view class="memory-item__category">{{item.categoryLabel}}</view><view class="memory-item__time">{{item.updatedLabel}}</view></view>
+            <view class="memory-item__content">{{item.content}}</view>
+            <view class="memory-item__source">记忆来路 · 你主动添加</view>
+            <view class="memory-item__actions"><button hover-class="item--hover" data-id="{{item.memoryId}}" disabled="{{busy}}" bindtap="editMemory">修改</button><button hover-class="item--hover" class="memory-item__delete" data-id="{{item.memoryId}}" disabled="{{busy}}" bindtap="deleteMemory">删除</button></view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{errorMessage}}" class="s9-inline-error">{{errorMessage}}<text wx:if="{{requestId}}">　问题编号 · {{requestId}}</text></view>
+  </block>
+</view>

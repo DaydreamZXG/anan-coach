@@ -36,6 +36,33 @@
       "decidedBy": "user",
       "decidedAt": "2026-08-09T10:45:00+08:00",
       "evidenceRefs": ["E-USER-FRONTEND-LIFECYCLE-UNIT-001"]
+    },
+    {
+      "id": "DEC-COMPANION-MEMORY-AUTHORITY-001",
+      "question": "岸岸能够长期记住什么，哪些事实不得由聊天记忆所有？",
+      "choice": "长期岸岸记忆只保存用户主动新增的解释偏好、学习约束和备注；不从普通聊天自动提取，不保存成绩、能力、错题、计划、资格或岗位事实。这些事实继续由各自业务域和学习脑所有。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-10T09:45:00+08:00",
+      "evidenceRefs": ["E-USER-COMPANION-MEMORY-001"]
+    },
+    {
+      "id": "DEC-COMPANION-MEMORY-LIFECYCLE-001",
+      "question": "岸岸对话和长期记忆如何保留、使用和删除？",
+      "choice": "短期对话继续最多 4 轮、2 小时自动过期，用户可随时全部清除；长期记忆在用户删除、清空或注销账户前保留，关闭开关时保留但不注入模型。长期记忆和短期对话都进入个人数据清单与导出，删除账户时删除。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-10T09:45:00+08:00",
+      "evidenceRefs": ["E-USER-COMPANION-MEMORY-001"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-COMPANION-MEMORY-001",
+      "question": "是否授权岸岸上下文与记忆管理的最小实现单元？",
+      "choice": "授权 RU-COMPANION-MEMORY-001，仅覆盖错误模式与日结算的精确对象上下文、用户明确维护的长期偏好记忆、短期对话清除、隐私清单与导出。不引入外部记忆框架，不做 AI 自动提取，不合并不同渠道会话，不部署或声明生产就绪。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-10T09:45:00+08:00",
+      "evidenceRefs": ["E-USER-COMPANION-MEMORY-001", "E-CODE-COMPANION-BASELINE-001"]
     }
   ]
 }

@@ -65,6 +65,7 @@ from app.domains.companion.context import (
     _selected_citations,
 )
 from app.domains.companion.model_reply import CompanionModelReply
+from app.domains.companion.memory import CompanionMemoryStore
 from app.domains.companion.provider_context import CompanionProviderContextAssembler
 from app.domains.companion.repository import (
     CompanionRepository,
@@ -242,10 +243,19 @@ class CompanionService:
                     decision=decision,
                     retrieval=retrieval,
                 )
+            provider_context = dict(context_bundle.provider_payload)
+            user_memory = CompanionMemoryStore(self._session).active_provider_items(
+                user_id=user_id,
+            )
+            if user_memory:
+                provider_context["userMemory"] = {
+                    "source": "explicit_user",
+                    "items": list(user_memory),
+                }
             provider_request = CompanionProviderContextAssembler(self._ai_provider).prepare(
                 decision=decision,
                 question_text=request.question_text,
-                context_payload=context_bundle.provider_payload,
+                context_payload=provider_context,
                 retrieval=retrieval,
                 persona=_build_persona_prompt(),
                 short_term_history=short_term_history,
@@ -255,7 +265,7 @@ class CompanionService:
                 "request": request_payload,
                 "routeDecision": decision.model_dump(by_alias=True, mode="json"),
                 "providerRequest": provider_request,
-                "context": context_bundle.provider_payload,
+                "context": provider_context,
                 "learnerStateVersion": current_state_version,
                 "retrievalBundle": retrieval.model_dump(by_alias=True, mode="json"),
             }

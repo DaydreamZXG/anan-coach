@@ -89,7 +89,13 @@ function assertContext(context: CompanionLaunchContext): void {
   required(context.summary, "summary");
   required(context.suggestedQuestion, "suggestedQuestion");
   const routeId = normalizeRouteId(context.routeId);
-  if (!routeId.startsWith("pages/")) throw new Error("Companion context route is invalid");
+  if (
+    !/^[a-z0-9][a-z0-9-]*(?:\/[a-z0-9][a-z0-9-]*)+\/index$/u.test(routeId) ||
+    routeId.includes("//") ||
+    routeId.includes("..")
+  ) {
+    throw new Error("Companion context route is invalid");
+  }
   if (context.objectRefs.length > 12) throw new Error("Companion context has too many objects");
   const identities = new Set<string>();
   for (const item of context.objectRefs) {

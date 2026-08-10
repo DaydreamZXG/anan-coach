@@ -457,7 +457,11 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     const state = this.data.state;
     const workspace = state?.workspace;
     const unit = state?.activeQuestionUnit;
-    if (!state || !workspace || !unit) return;
+    const recognitionRevisionId = workspace?.recognition?.recognitionRevisionId.trim() ?? "";
+    if (!state || !workspace || !unit || !recognitionRevisionId) {
+      void wx.showToast({ title: "题面还没确认好，请稍后再问", icon: "none" });
+      return;
+    }
     const questionText = state.segments
       .filter((segment) => unit.segmentIds.includes(segment.segmentId))
       .map((segment) => segment.text)
@@ -473,9 +477,9 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
       workspace: "training",
       objectRefs: [
         {
-          type: "question",
+          type: "external_question",
           id: unit.questionUnitId,
-          version: workspace.importId,
+          version: recognitionRevisionId,
         },
       ],
       taskMode: state.learningTrack === "essay" ? "essay" : "practice",

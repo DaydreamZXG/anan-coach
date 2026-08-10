@@ -169,6 +169,7 @@ class LearningBrainProfileVersion(LearningBrainModel):
 
 
 class ErrorPatternDetail(LearningBrainModel):
+    profile_version_id: UUID = Field(alias="profileVersionId")
     pattern: ErrorPatternSummary
     supporting_evidence: list[BrainEvidenceRef] = Field(alias="supportingEvidence")
     counterevidence: list[BrainEvidenceRef]

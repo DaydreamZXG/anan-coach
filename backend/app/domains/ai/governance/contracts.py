@@ -49,7 +49,16 @@ class GovernanceModel(BaseModel):
 
 
 class GlobalAskObjectRef(GovernanceModel):
-    type: Literal["position", "question", "material", "attempt", "plan", "report"]
+    type: Literal[
+        "position",
+        "question",
+        "external_question",
+        "material",
+        "attempt",
+        "plan",
+        "report",
+        "error_pattern",
+    ]
     id: str = Field(min_length=1, max_length=200)
     version: str = Field(min_length=1, max_length=200)
 

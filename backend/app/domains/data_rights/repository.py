@@ -85,10 +85,13 @@ class DataRightsRepository:
                   (select count(*) from ai_audit.external_ai_operation_ledger where user_id = cast(:user_id as uuid)) as external_ai_count,
                   (select count(*) from commerce.wechat_orders where user_id = cast(:user_id as uuid)) as order_count,
                   (select count(*) from messaging.coach_notification_deliveries where user_id = cast(:user_id as uuid)) as notification_count,
+                  (select count(*) from platform.companion_memory_items where user_id = cast(:user_id as uuid)) as companion_memory_count,
+                  (select count(*) from platform.companion_short_term_memory_turns where user_id = cast(:user_id as uuid) and expires_at > :now) as companion_short_term_count,
+                  (select count(*) from messaging.ilink_short_term_memory_turns where user_id = cast(:user_id as uuid) and expires_at > :now) as ilink_short_term_count,
                   (select count(*) from learning.task_edit_events where user_id = cast(:user_id as uuid)) as device_activity_count
                 """
                 ),
-                {"user_id": user_id},
+                {"user_id": user_id, "now": now},
             )
             .mappings()
             .one()
@@ -132,9 +135,14 @@ class DataRightsRepository:
                 ),
                 DataCategoryView(
                     category="communications",
-                    title="AI 督学偏好与消息记录",
-                    item_count=int(counts["notification_count"]),
-                    retention="账户存续期间；注销时删除消息偏好与发送记录",
+                    title="岸岸记忆、AI 督学与消息",
+                    item_count=(
+                        int(counts["notification_count"])
+                        + int(counts["companion_memory_count"])
+                        + int(counts["companion_short_term_count"])
+                        + int(counts["ilink_short_term_count"])
+                    ),
+                    retention="长期记忆由你主动管理；会话记忆 2 小时后自动过期；注销时删除",
                 ),
                 DataCategoryView(
                     category="device_activity",
@@ -152,7 +160,7 @@ class DataRightsRepository:
             account_deletion_effect=[
                 "立即冻结登录并撤销全部设备会话",
                 "删除微信/Apple 身份映射与私有上传对象",
-                "删除 AI 督学偏好、授权、发送与打开记录",
+                "删除岸岸长期记忆、会话记忆与 AI 督学消息记录",
                 "删除作答设备标识、编辑租约与接管记录",
                 "删除题目收藏状态与幂等命令记录",
                 "清除显示名、邮箱和支付 OpenID",
@@ -526,6 +534,31 @@ class DataRightsRepository:
                 where receipt.user_id = cast(:user_id as uuid)
                 order by receipt.dispatched_at
                 """,
+                user_id,
+            ),
+            "companionMemorySettings": self._many_json(
+                "select long_term_enabled, updated_at "
+                "from platform.companion_memory_settings "
+                "where user_id = cast(:user_id as uuid)",
+                user_id,
+            ),
+            "companionMemories": self._many_json(
+                "select memory_id, category, content, source, revision, created_at, updated_at "
+                "from platform.companion_memory_items "
+                "where user_id = cast(:user_id as uuid) order by updated_at, memory_id",
+                user_id,
+            ),
+            "companionShortTermConversation": self._many_json(
+                "select turn_id, user_text, assistant_text, context_scope_fingerprint, "
+                "created_at, expires_at "
+                "from platform.companion_short_term_memory_turns "
+                "where user_id = cast(:user_id as uuid) order by created_at, turn_id",
+                user_id,
+            ),
+            "ilinkShortTermConversation": self._many_json(
+                "select turn_id, user_text, assistant_text, created_at, expires_at "
+                "from messaging.ilink_short_term_memory_turns "
+                "where user_id = cast(:user_id as uuid) order by created_at, turn_id",
                 user_id,
             ),
             "coachNotificationPreferences": self._many_json(
@@ -939,6 +972,26 @@ class DataRightsRepository:
                 "account erasure waits for in-flight coach notifications to settle"
             )
         statements: tuple[tuple[str, str], ...] = (
+            (
+                "companion_memory_items",
+                "delete from platform.companion_memory_items "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "companion_memory_settings",
+                "delete from platform.companion_memory_settings "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "companion_short_term_memory",
+                "delete from platform.companion_short_term_memory_turns "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "ilink_short_term_memory",
+                "delete from messaging.ilink_short_term_memory_turns "
+                "where user_id = cast(:user_id as uuid)",
+            ),
             (
                 "luckin_order_confirmations",
                 "delete from messaging.luckin_order_confirmations "

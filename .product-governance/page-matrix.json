@@ -1,5 +1,106 @@
 {
   "schemaVersion": 1,
-  "stateProfiles": [],
-  "pages": []
+  "stateProfiles": [
+    {
+      "id": "companion-memory-management-states@v1",
+      "states": {
+        "default": {
+          "behavior": "Show the current enablement, short-term turn count and every explicit long-term memory with source and update time.",
+          "visibleTruth": "Only data returned for the authenticated account is shown.",
+          "prohibitedClaims": ["Do not imply that learning scores or abilities are stored here."],
+          "allowedActions": ["toggle long-term use", "add", "edit", "delete", "clear short-term", "clear long-term"],
+          "freshness": "Reload on every page show and after each mutation.",
+          "recovery": "Reload the current server snapshot.",
+          "correlation": "Show the request ID when a server operation fails."
+        },
+        "loading": {
+          "behavior": "Show an explicit loading state and disable all mutations until the owner snapshot arrives.",
+          "visibleTruth": "No stale local memory list is presented as current.",
+          "prohibitedClaims": ["Do not show zero memories before the request completes."],
+          "allowedActions": [],
+          "freshness": "Bound to the active page request generation.",
+          "recovery": "A failed request transitions to error with retry.",
+          "correlation": "The active HTTP request ID identifies failure."
+        },
+        "empty": {
+          "behavior": "Explain that 岸岸 has no long-term preference yet and offer one concrete example plus Add memory.",
+          "visibleTruth": "The authenticated account currently has no long-term memory items.",
+          "prohibitedClaims": ["Do not imply that the structured learning profile is empty."],
+          "allowedActions": ["add", "toggle long-term use", "clear short-term when present"],
+          "freshness": "Derived from the latest successful list response.",
+          "recovery": "Add a memory or reload.",
+          "correlation": "The list request ID is retained for support."
+        },
+        "partial": {
+          "behavior": "Keep the loaded memory controls usable and show which secondary refresh failed.",
+          "visibleTruth": "Only successfully loaded sections are presented as current.",
+          "prohibitedClaims": ["Do not replace an unknown count with zero."],
+          "allowedActions": ["retry", "manage loaded long-term memories"],
+          "freshness": "Each section retains its own last successful response.",
+          "recovery": "Retry the failed section without discarding loaded data.",
+          "correlation": "Show the failed section request ID."
+        },
+        "error": {
+          "behavior": "Show a human-readable failure and a retry action; do not mutate local memory state.",
+          "visibleTruth": "The current server state is unavailable.",
+          "prohibitedClaims": ["Do not claim a create, edit, delete or clear succeeded without a response."],
+          "allowedActions": ["retry"],
+          "freshness": "No failed result is treated as current.",
+          "recovery": "Repeat the idempotent request or reload the list.",
+          "correlation": "Show the server request ID."
+        },
+        "expired": {
+          "behavior": "Remove expired short-term turns from the visible count on the next reload.",
+          "visibleTruth": "Expired conversation turns are no longer usable by 岸岸.",
+          "prohibitedClaims": ["Do not imply expired turns remain active context."],
+          "allowedActions": ["reload", "manage long-term memories"],
+          "freshness": "Short-term expiry is evaluated by the server clock.",
+          "recovery": "Start a new conversation; no restoration action is offered.",
+          "correlation": "Use the latest list request ID."
+        },
+        "conflict": {
+          "behavior": "Explain that the memory changed elsewhere and reload before allowing another edit.",
+          "visibleTruth": "The submitted revision is stale and no overwrite occurred.",
+          "prohibitedClaims": ["Do not silently overwrite a newer memory revision."],
+          "allowedActions": ["reload"],
+          "freshness": "The local item is stale until reload completes.",
+          "recovery": "Reload, reopen the editor and resubmit the exact new state.",
+          "correlation": "Show the conflict request ID."
+        },
+        "recovery": {
+          "behavior": "After an uncertain transport result, reload the server snapshot instead of repeating a different mutation.",
+          "visibleTruth": "The prior mutation outcome is unknown until server state is fetched.",
+          "prohibitedClaims": ["Do not announce success from a client timeout."],
+          "allowedActions": ["reload"],
+          "freshness": "Resolved only by a new authenticated list response.",
+          "recovery": "Use the same create idempotency key or reload exact state for PUT and DELETE.",
+          "correlation": "Preserve both the mutation and reload request IDs."
+        },
+        "processing": {
+          "behavior": "Disable the affected control while one mutation is in flight and keep unrelated facts visible.",
+          "visibleTruth": "The requested change is pending and not yet confirmed.",
+          "prohibitedClaims": ["Do not optimistically show a durable change as saved."],
+          "allowedActions": [],
+          "freshness": "The displayed snapshot remains the last confirmed server state.",
+          "recovery": "On completion reload or apply the confirmed response; on uncertainty enter recovery.",
+          "correlation": "The mutation request ID identifies the operation."
+        }
+      }
+    }
+  ],
+  "pages": [
+    {
+      "id": "companion-memory-page",
+      "route": "account/memory/index",
+      "purpose": "Let one authenticated learner understand and control what 岸岸 temporarily and durably remembers.",
+      "trackScope": ["companion-memory"],
+      "dataOwners": ["companion_memory"],
+      "entryConditions": ["authenticated active account"],
+      "actions": ["list", "toggle", "add", "edit", "delete one", "clear long-term", "clear short-term"],
+      "exitRoutes": ["pages/me/index", "account/privacy/index", "pages/anan/index"],
+      "permissions": ["current account only"],
+      "stateProfileRef": "companion-memory-management-states@v1",
+      "states": {}
+    }
+  ]
 }

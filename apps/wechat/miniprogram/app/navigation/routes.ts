@@ -28,6 +28,7 @@ export const routes = {
   notificationSettings: "/account/notification-settings/index",
   studyPreference: "/plans/study-preference/index",
   membership: "/account/membership/index",
+  memory: "/account/memory/index",
   privacy: "/account/privacy/index",
   terms: "/account/terms/index",
   support: "/account/support/index",

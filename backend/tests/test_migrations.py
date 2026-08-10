@@ -169,7 +169,7 @@ def test_learning_loop_v103_empty_upgrade_downgrade_round_trip(
     with db_engine.connect() as connection:
         assert connection.execute(
             text("select version_num from alembic_version")
-        ).scalar_one() == "20260809_104"
+        ).scalar_one() == "20260810_106"
     upgraded = inspect(db_engine)
     assert "selection_intent" in {
         item["name"]
@@ -1042,9 +1042,12 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             "background_job_type_registry",
             "background_jobs",
             "commercial_data_publication_state",
-            "commercial_data_publication_transitions",
-            "companion_paid_commands",
-            "outbox_events",
+                "commercial_data_publication_transitions",
+                "companion_memory_items",
+                "companion_memory_settings",
+                "companion_paid_commands",
+                "companion_short_term_memory_turns",
+                "outbox_events",
         }
         companion_command_indexes = {
             index["name"]

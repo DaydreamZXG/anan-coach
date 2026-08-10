@@ -118,6 +118,159 @@
         "A destructive, deployment, upload or push action is required"
       ],
       "status": "planned"
+    },
+    {
+      "id": "WP-COMPANION-MEMORY-001",
+      "wave": "integration",
+      "owner": "companion-memory-release-unit",
+      "riskClass": "high",
+      "objective": "补齐错误模式与日结算的精确岸岸上下文，并交付只保存用户显式偏好的长期记忆、短期对话清除、用户管理页和隐私数据闭环。",
+      "deliverables": [
+        "可校验归属的 error_pattern 引用和包含执行状态的日计划引用",
+        "长期记忆列表、幂等新增、revision 修改、单条删除、清空和注入开关 API",
+        "短期对话统计与全部清除 API",
+        "我的与数据隐私可达的岸岸记忆管理页",
+        "个人数据概览、导出和账户擦除中的岸岸记忆数据",
+        "数据库迁移、OpenAPI 与小程序生成类型"
+      ],
+      "requirementRefs": ["REQ-COMPANION-EXACT-CONTEXT-001", "REQ-COMPANION-MEMORY-CONTROL-001"],
+      "decisionRefs": ["DEC-COMPANION-MEMORY-AUTHORITY-001", "DEC-COMPANION-MEMORY-LIFECYCLE-001", "DEC-FREEZE-RU-COMPANION-MEMORY-001"],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不从普通聊天或 AI 推断自动创建长期记忆",
+        "不把成绩、能力、错题、计划、资格或岗位事实复制进聊天记忆",
+        "不引入 Mem0、LangMem、向量数据库或新的 Agent 编排框架",
+        "不合并小程序与 iLink 会话上下文，仅在用户清除和导出时一并处理",
+        "不修改商业权益、模型路由、学习脑事实所有权或生产发布状态",
+        "不部署、不上传、不推送，不声明全产品或生产就绪"
+      ],
+      "dependsOn": [],
+      "allowedPaths": [
+        "backend/app/domains/companion/**",
+        "backend/app/domains/ai/governance/contracts.py",
+        "backend/app/domains/ai/governance/retrieval.py",
+        "backend/app/domains/ai/governance/routing.py",
+        "backend/app/domains/learning_brain/schemas.py",
+        "backend/app/domains/learning_brain/service.py",
+        "backend/app/domains/planning/insights_schemas.py",
+        "backend/app/domains/planning/insights_service.py",
+        "backend/app/domains/data_rights/repository.py",
+        "backend/migrations/versions/20260810_106_companion_user_memory.py",
+        "backend/tests/test_companion_memory_management.py",
+        "backend/tests/test_companion_memory_context.py",
+        "backend/tests/test_backup_recovery_contract.py",
+        "backend/tests/test_commercial_data_publication_protocol.py",
+        "backend/tests/test_migrations.py",
+        "backend/tests/test_position_release_lifecycle.py",
+        "backend/tests/test_wave1_db_contracts.py",
+        "ops/env.example",
+        "ops/release-db-compatibility.env",
+        "audit/api-contract/openapi.json",
+        "apps/wechat/miniprogram/api/companion.ts",
+        "apps/wechat/miniprogram/api/generated/types.gen.ts",
+        "apps/wechat/miniprogram/app.json",
+        "apps/wechat/miniprogram/app/navigation/routes.ts",
+        "apps/wechat/miniprogram/features/companion/context-store.ts",
+        "apps/wechat/miniprogram/reports/error-pattern/index.ts",
+        "apps/wechat/miniprogram/plans/daily-settlement/index.ts",
+        "apps/wechat/miniprogram/account/memory/**",
+        "apps/wechat/miniprogram/account/privacy/index.wxml",
+        "apps/wechat/miniprogram/pages/me/index.wxml",
+        "apps/wechat/tests/companion-memory-page.test.ts",
+        "apps/wechat/tests/companion-context-store.test.ts"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "apps/wechat/miniprogram/pages/practice/**",
+        "apps/wechat/miniprogram/pages/essay-task/**",
+        "apps/wechat/miniprogram/pages/reflection/**",
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/me/index.wxss",
+        "backend/app/domains/learning_brain/repository.py",
+        "backend/app/domains/commerce/**",
+        "backend/app/domains/auth/**"
+      ],
+      "migrationPolicy": {
+        "mode": "owner",
+        "ownedPaths": ["backend/migrations/versions/20260810_106_companion_user_memory.py"],
+        "dataBackfill": "No existing chat is promoted to long-term memory; the settings row is created lazily and absence means enabled with zero explicit items.",
+        "rollback": "Before production use, downgrade removes only the new long-term memory tables and their disable trigger; already-existing short-term memory migration remains intact."
+      },
+      "compatibilityPolicy": {
+        "strategy": "Add new v2 endpoints and additive response fields; existing Companion ask callers continue to work with no long-term items.",
+        "supportedVersions": "Existing companion ask v2 plus companion-memory-control@v1.",
+        "removalGate": "Changing category meaning, ownership, hard-delete semantics or default enablement requires a superseding contract and release unit."
+      },
+      "inputContracts": [],
+      "outputContracts": ["companion-memory-control@v1"],
+      "acceptanceCommands": [
+        {
+          "id": "companion-memory-backend",
+          "kind": "scenario_test",
+          "adapter": "pytest-json@1",
+          "selector": "tests/test_companion_memory_management.py",
+          "cwd": "backend",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "companion-memory-context",
+          "kind": "scenario_test",
+          "adapter": "pytest-json@1",
+          "selector": "tests/test_companion_memory_context.py",
+          "cwd": "backend",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "companion-memory-frontend",
+          "kind": "scenario_test",
+          "adapter": "vitest-json@1",
+          "selector": "tests/companion-memory-page.test.ts",
+          "cwd": "apps/wechat",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "companion-context-store-frontend",
+          "kind": "scenario_test",
+          "adapter": "vitest-json@1",
+          "selector": "tests/companion-context-store.test.ts",
+          "cwd": "apps/wechat",
+          "timeoutSeconds": 300
+        }
+      ],
+      "requiredAcceptanceScenarios": [
+        {
+          "id": "WP-COMPANION-MEMORY-001-AS-01",
+          "assertion": "duplicate creates replay one item, stale revisions cannot overwrite newer content, account isolation holds, and clear operations converge idempotently",
+          "testSelector": "tests/test_companion_memory_management.py",
+          "acceptanceCommandId": "companion-memory-backend"
+        },
+        {
+          "id": "WP-COMPANION-MEMORY-001-AS-02",
+          "assertion": "error-pattern and daily-settlement references authorize only exact owned versions and retrieve the named pattern plus current task execution facts",
+          "testSelector": "tests/test_companion_memory_context.py",
+          "acceptanceCommandId": "companion-memory-context"
+        },
+        {
+          "id": "WP-COMPANION-MEMORY-001-AS-03",
+          "assertion": "the memory page renders loading, empty and populated truth, gates mutations in flight, and recovers stale or uncertain operations by reloading server state",
+          "testSelector": "tests/companion-memory-page.test.ts",
+          "acceptanceCommandId": "companion-memory-frontend"
+        },
+        {
+          "id": "WP-COMPANION-MEMORY-001-AS-04",
+          "assertion": "registered plans and reports subpackage routes persist as Companion launch context while malformed or traversal routes remain rejected",
+          "testSelector": "tests/companion-context-store.test.ts",
+          "acceptanceCommandId": "companion-context-store-frontend"
+        }
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "A required change would let AI or ordinary chat silently create durable memory",
+        "A required change would duplicate a canonical score, ability, plan, qualification or position fact",
+        "A required path overlaps the frozen frontend lifecycle unit or falls outside allowedPaths",
+        "A destructive production migration, deployment, upload or push is required"
+      ],
+      "status": "planned"
     }
   ]
 }

@@ -165,7 +165,13 @@ Page({
       suggestedQuestion: "结合今天的完成记录和新风险，帮我判断明天第一件最应该做的事，并说明依据。",
       routeId: "plans/daily-settlement/index",
       workspace: "today",
-      objectRefs: [],
+      objectRefs: [
+        {
+          type: "plan",
+          id: settlement.planVersionId,
+          version: String(settlement.planVersionNo),
+        },
+      ],
     });
     void wx.switchTab({ url: routes.anan });
   },

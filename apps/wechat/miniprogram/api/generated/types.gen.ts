@@ -2223,6 +2223,139 @@ export type CompanionHighImpactDecision = {
 };
 
 /**
+ * CompanionMemoryItem
+ */
+export type CompanionMemoryItem = {
+    /**
+     * Category
+     */
+    category: 'explanation_preference' | 'study_constraint' | 'personal_note';
+    /**
+     * Content
+     */
+    content: string;
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Memoryid
+     */
+    memoryId: string;
+    /**
+     * Revision
+     */
+    revision: number;
+    /**
+     * Source
+     */
+    source: 'explicit_user';
+    /**
+     * Updatedat
+     */
+    updatedAt: string;
+};
+
+/**
+ * CompanionMemoryMutationResponse
+ */
+export type CompanionMemoryMutationResponse = {
+    /**
+     * Changedcount
+     */
+    changedCount: number;
+};
+
+/**
+ * CompanionMemorySettingRequest
+ */
+export type CompanionMemorySettingRequest = {
+    /**
+     * Longtermenabled
+     */
+    longTermEnabled: boolean;
+};
+
+/**
+ * CompanionMemorySettingResponse
+ */
+export type CompanionMemorySettingResponse = {
+    /**
+     * Longtermenabled
+     */
+    longTermEnabled: boolean;
+};
+
+/**
+ * CompanionMemoryState
+ */
+export type CompanionMemoryState = {
+    /**
+     * Items
+     */
+    items: Array<CompanionMemoryItem>;
+    /**
+     * Longtermenabled
+     */
+    longTermEnabled: boolean;
+    /**
+     * Maximumlongtermitems
+     */
+    maximumLongTermItems?: 20;
+    shortTerm: CompanionMemorySummary;
+};
+
+/**
+ * CompanionMemorySummary
+ */
+export type CompanionMemorySummary = {
+    /**
+     * Expiresat
+     */
+    expiresAt?: string | null;
+    /**
+     * Retentionhours
+     */
+    retentionHours?: 2;
+    /**
+     * Turncount
+     */
+    turnCount: number;
+};
+
+/**
+ * CompanionMemoryUpdateRequest
+ */
+export type CompanionMemoryUpdateRequest = {
+    /**
+     * Category
+     */
+    category: 'explanation_preference' | 'study_constraint' | 'personal_note';
+    /**
+     * Content
+     */
+    content: string;
+    /**
+     * Revision
+     */
+    revision: number;
+};
+
+/**
+ * CompanionMemoryWriteRequest
+ */
+export type CompanionMemoryWriteRequest = {
+    /**
+     * Category
+     */
+    category: 'explanation_preference' | 'study_constraint' | 'personal_note';
+    /**
+     * Content
+     */
+    content: string;
+};
+
+/**
  * CompanionPromptCard
  */
 export type CompanionPromptCard = {
@@ -2790,6 +2923,10 @@ export type DailySettlementView = {
      */
     planVersionId: string;
     /**
+     * Planversionno
+     */
+    planVersionNo?: number;
+    /**
      * Scheduledminutes
      */
     scheduledMinutes: number;
@@ -3346,6 +3483,10 @@ export type ErrorPatternDetail = {
      */
     limitations: Array<string>;
     pattern: ErrorPatternSummary;
+    /**
+     * Profileversionid
+     */
+    profileVersionId: string;
     /**
      * Supportingevidence
      */
@@ -6189,7 +6330,7 @@ export type GlobalAskObjectRef = {
     /**
      * Type
      */
-    type: 'position' | 'question' | 'material' | 'attempt' | 'plan' | 'report';
+    type: 'position' | 'question' | 'external_question' | 'material' | 'attempt' | 'plan' | 'report' | 'error_pattern';
     /**
      * Version
      */
@@ -11778,6 +11919,66 @@ export type PublicApiEnvelopeCommunityRewardLedgerResponse = {
  */
 export type PublicApiEnvelopeCompanionAskResponse = {
     data: CompanionAskResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[CompanionMemoryItem]
+ */
+export type PublicApiEnvelopeCompanionMemoryItem = {
+    data: CompanionMemoryItem;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[CompanionMemoryMutationResponse]
+ */
+export type PublicApiEnvelopeCompanionMemoryMutationResponse = {
+    data: CompanionMemoryMutationResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[CompanionMemorySettingResponse]
+ */
+export type PublicApiEnvelopeCompanionMemorySettingResponse = {
+    data: CompanionMemorySettingResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[CompanionMemoryState]
+ */
+export type PublicApiEnvelopeCompanionMemoryState = {
+    data: CompanionMemoryState;
     /**
      * Generatedat
      */
@@ -23237,6 +23438,421 @@ export type AskCompanionV2ApiV2CompanionAskPostResponses = {
 };
 
 export type AskCompanionV2ApiV2CompanionAskPostResponse = AskCompanionV2ApiV2CompanionAskPostResponses[keyof AskCompanionV2ApiV2CompanionAskPostResponses];
+
+export type ClearCompanionConversationMemoryApiV2CompanionConversationMemoryDeleteData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v2/companion/conversation-memory';
+};
+
+export type ClearCompanionConversationMemoryApiV2CompanionConversationMemoryDeleteErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ClearCompanionConversationMemoryApiV2CompanionConversationMemoryDeleteError = ClearCompanionConversationMemoryApiV2CompanionConversationMemoryDeleteErrors[keyof ClearCompanionConversationMemoryApiV2CompanionConversationMemoryDeleteErrors];
+
+export type ClearCompanionConversationMemoryApiV2CompanionConversationMemoryDeleteResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCompanionMemoryMutationResponse;
+};
+
+export type ClearCompanionConversationMemoryApiV2CompanionConversationMemoryDeleteResponse = ClearCompanionConversationMemoryApiV2CompanionConversationMemoryDeleteResponses[keyof ClearCompanionConversationMemoryApiV2CompanionConversationMemoryDeleteResponses];
+
+export type ClearCompanionMemoriesApiV2CompanionMemoriesDeleteData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v2/companion/memories';
+};
+
+export type ClearCompanionMemoriesApiV2CompanionMemoriesDeleteErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ClearCompanionMemoriesApiV2CompanionMemoriesDeleteError = ClearCompanionMemoriesApiV2CompanionMemoriesDeleteErrors[keyof ClearCompanionMemoriesApiV2CompanionMemoriesDeleteErrors];
+
+export type ClearCompanionMemoriesApiV2CompanionMemoriesDeleteResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCompanionMemoryMutationResponse;
+};
+
+export type ClearCompanionMemoriesApiV2CompanionMemoriesDeleteResponse = ClearCompanionMemoriesApiV2CompanionMemoriesDeleteResponses[keyof ClearCompanionMemoriesApiV2CompanionMemoriesDeleteResponses];
+
+export type GetCompanionMemoriesApiV2CompanionMemoriesGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v2/companion/memories';
+};
+
+export type GetCompanionMemoriesApiV2CompanionMemoriesGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetCompanionMemoriesApiV2CompanionMemoriesGetError = GetCompanionMemoriesApiV2CompanionMemoriesGetErrors[keyof GetCompanionMemoriesApiV2CompanionMemoriesGetErrors];
+
+export type GetCompanionMemoriesApiV2CompanionMemoriesGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCompanionMemoryState;
+};
+
+export type GetCompanionMemoriesApiV2CompanionMemoriesGetResponse = GetCompanionMemoriesApiV2CompanionMemoriesGetResponses[keyof GetCompanionMemoriesApiV2CompanionMemoriesGetResponses];
+
+export type CreateCompanionMemoryApiV2CompanionMemoriesPostData = {
+    body: CompanionMemoryWriteRequest;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/companion/memories';
+};
+
+export type CreateCompanionMemoryApiV2CompanionMemoriesPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CreateCompanionMemoryApiV2CompanionMemoriesPostError = CreateCompanionMemoryApiV2CompanionMemoriesPostErrors[keyof CreateCompanionMemoryApiV2CompanionMemoriesPostErrors];
+
+export type CreateCompanionMemoryApiV2CompanionMemoriesPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCompanionMemoryItem;
+};
+
+export type CreateCompanionMemoryApiV2CompanionMemoriesPostResponse = CreateCompanionMemoryApiV2CompanionMemoriesPostResponses[keyof CreateCompanionMemoryApiV2CompanionMemoriesPostResponses];
+
+export type DeleteCompanionMemoryApiV2CompanionMemoriesMemoryIdDeleteData = {
+    body?: never;
+    path: {
+        /**
+         * Memory Id
+         */
+        memory_id: string;
+    };
+    query?: never;
+    url: '/api/v2/companion/memories/{memory_id}';
+};
+
+export type DeleteCompanionMemoryApiV2CompanionMemoriesMemoryIdDeleteErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type DeleteCompanionMemoryApiV2CompanionMemoriesMemoryIdDeleteError = DeleteCompanionMemoryApiV2CompanionMemoriesMemoryIdDeleteErrors[keyof DeleteCompanionMemoryApiV2CompanionMemoriesMemoryIdDeleteErrors];
+
+export type DeleteCompanionMemoryApiV2CompanionMemoriesMemoryIdDeleteResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCompanionMemoryMutationResponse;
+};
+
+export type DeleteCompanionMemoryApiV2CompanionMemoriesMemoryIdDeleteResponse = DeleteCompanionMemoryApiV2CompanionMemoriesMemoryIdDeleteResponses[keyof DeleteCompanionMemoryApiV2CompanionMemoriesMemoryIdDeleteResponses];
+
+export type UpdateCompanionMemoryApiV2CompanionMemoriesMemoryIdPutData = {
+    body: CompanionMemoryUpdateRequest;
+    path: {
+        /**
+         * Memory Id
+         */
+        memory_id: string;
+    };
+    query?: never;
+    url: '/api/v2/companion/memories/{memory_id}';
+};
+
+export type UpdateCompanionMemoryApiV2CompanionMemoriesMemoryIdPutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type UpdateCompanionMemoryApiV2CompanionMemoriesMemoryIdPutError = UpdateCompanionMemoryApiV2CompanionMemoriesMemoryIdPutErrors[keyof UpdateCompanionMemoryApiV2CompanionMemoriesMemoryIdPutErrors];
+
+export type UpdateCompanionMemoryApiV2CompanionMemoriesMemoryIdPutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCompanionMemoryItem;
+};
+
+export type UpdateCompanionMemoryApiV2CompanionMemoriesMemoryIdPutResponse = UpdateCompanionMemoryApiV2CompanionMemoriesMemoryIdPutResponses[keyof UpdateCompanionMemoryApiV2CompanionMemoriesMemoryIdPutResponses];
+
+export type PutCompanionMemorySettingsApiV2CompanionMemorySettingsPutData = {
+    body: CompanionMemorySettingRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v2/companion/memory-settings';
+};
+
+export type PutCompanionMemorySettingsApiV2CompanionMemorySettingsPutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type PutCompanionMemorySettingsApiV2CompanionMemorySettingsPutError = PutCompanionMemorySettingsApiV2CompanionMemorySettingsPutErrors[keyof PutCompanionMemorySettingsApiV2CompanionMemorySettingsPutErrors];
+
+export type PutCompanionMemorySettingsApiV2CompanionMemorySettingsPutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCompanionMemorySettingResponse;
+};
+
+export type PutCompanionMemorySettingsApiV2CompanionMemorySettingsPutResponse = PutCompanionMemorySettingsApiV2CompanionMemorySettingsPutResponses[keyof PutCompanionMemorySettingsApiV2CompanionMemorySettingsPutResponses];
 
 export type RequestDeletionApiV2DataRightsDeletionsPostData = {
     body: AccountDeletionCreateRequest;

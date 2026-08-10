@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import re
-from typing import Literal
+from datetime import datetime
+from typing import Literal, TypeAlias
+from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
@@ -93,6 +95,68 @@ class CompanionAskResponse(CompanionBaseModel):
         default=None, alias="highImpactDecision"
     )
     quota: AIQuotaState
+
+
+CompanionMemoryCategory: TypeAlias = Literal[
+    "explanation_preference",
+    "study_constraint",
+    "personal_note",
+]
+
+
+class CompanionMemoryItem(CompanionBaseModel):
+    memory_id: UUID = Field(alias="memoryId")
+    category: CompanionMemoryCategory
+    content: str = Field(min_length=1, max_length=240)
+    source: Literal["explicit_user"]
+    revision: int = Field(ge=1)
+    created_at: datetime = Field(alias="createdAt")
+    updated_at: datetime = Field(alias="updatedAt")
+
+
+class CompanionMemorySummary(CompanionBaseModel):
+    turn_count: int = Field(alias="turnCount", ge=0)
+    expires_at: datetime | None = Field(default=None, alias="expiresAt")
+    retention_hours: Literal[2] = Field(default=2, alias="retentionHours")
+
+
+class CompanionMemoryState(CompanionBaseModel):
+    long_term_enabled: bool = Field(alias="longTermEnabled")
+    items: list[CompanionMemoryItem]
+    short_term: CompanionMemorySummary = Field(alias="shortTerm")
+    maximum_long_term_items: Literal[20] = Field(
+        default=20,
+        alias="maximumLongTermItems",
+    )
+
+
+class CompanionMemoryWriteRequest(CompanionBaseModel):
+    category: CompanionMemoryCategory
+    content: str = Field(min_length=1, max_length=240)
+
+    @field_validator("content")
+    @classmethod
+    def normalize_content(cls, value: str) -> str:
+        normalized = " ".join(value.split())
+        if not normalized:
+            raise ValueError("memory content cannot be empty")
+        return normalized
+
+
+class CompanionMemoryUpdateRequest(CompanionMemoryWriteRequest):
+    revision: int = Field(ge=1)
+
+
+class CompanionMemorySettingRequest(CompanionBaseModel):
+    long_term_enabled: bool = Field(alias="longTermEnabled")
+
+
+class CompanionMemoryMutationResponse(CompanionBaseModel):
+    changed_count: int = Field(alias="changedCount", ge=0)
+
+
+class CompanionMemorySettingResponse(CompanionBaseModel):
+    long_term_enabled: bool = Field(alias="longTermEnabled")
 
 
 class ExtractedTagCandidate(CompanionBaseModel):

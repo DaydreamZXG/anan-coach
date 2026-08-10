@@ -17,11 +17,11 @@ const routeManifest = readJson(
   resolve(projectRoot, "miniprogram/app/navigation/routes.manifest.json"),
 );
 
-test("classifies all 60 registered routes as business pages", () => {
+test("classifies all 61 registered routes as business pages", () => {
   const inventory = routeInventory(appConfig, routeManifest);
 
-  assert.equal(inventory.allRoutes.length, 60);
-  assert.equal(inventory.businessRoutes.length, 60);
+  assert.equal(inventory.allRoutes.length, 61);
+  assert.equal(inventory.businessRoutes.length, 61);
   assert.deepEqual(inventory.assetEntryRoutes, []);
 });
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Annotated
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Request, status
 from fastapi.responses import JSONResponse
@@ -15,10 +16,24 @@ from app.domains.auth.repository import AuthenticatedUser
 from app.domains.commerce.deps import get_commerce_service
 from app.domains.commerce.service import CommerceService
 from app.domains.companion.commands import CompanionCommandConflict
+from app.domains.companion.memory import (
+    CompanionMemoryConflict,
+    CompanionMemoryLimitReached,
+    CompanionMemoryNotFound,
+    CompanionMemoryStore,
+    CompanionMemoryUnsafeContent,
+)
 from app.domains.companion.repository import CompanionRepository
 from app.domains.companion.schemas import (
     CompanionAskRequest,
     CompanionAskResponse,
+    CompanionMemoryItem,
+    CompanionMemoryMutationResponse,
+    CompanionMemorySettingRequest,
+    CompanionMemorySettingResponse,
+    CompanionMemoryState,
+    CompanionMemoryUpdateRequest,
+    CompanionMemoryWriteRequest,
     ExternalQuestionConfirmRequest,
     ExternalQuestionConfirmResponse,
     ExternalQuestionResolveRequest,
@@ -30,12 +45,17 @@ from app.domains.companion.service import (
     ExternalQuestionConfirmationError,
     ExternalQuestionIntakeNotFoundError,
 )
+from app.domains.companion.short_term_memory import (
+    CompanionShortTermMemory,
+    companion_context_scope_fingerprint,
+)
 from app.domains.learning_brain.agent import maybe_suggest_strategy_safely
 from app.domains.learning_brain.service import LearningBrainContractError, LearningBrainService
 from app.domains.qualification.repository import PositionRuleReleaseUnavailable
 from app.platform.http import (
     COMMON_API_ERROR_RESPONSES,
     PublicApiEnvelope,
+    public_error_response,
     public_success_response,
 )
 
@@ -120,12 +140,27 @@ def ask_companion_v2(
             user_id=current_user.user_id,
             trigger_kind="on_demand",
         )
+        context_scope_fingerprint = companion_context_scope_fingerprint(command.context)
+        memory = CompanionShortTermMemory(session)
         result = service.ask(
             user_id=current_user.user_id,
             learner_key=current_user.learner_key,
             idempotency_key=idempotency_key,
             request=command,
+            short_term_history=memory.recent_messages(
+                user_id=current_user.user_id,
+                context_scope_fingerprint=context_scope_fingerprint,
+            ),
         )
+        if result.semantic_state == "ready":
+            memory.remember(
+                user_id=current_user.user_id,
+                context_scope_fingerprint=context_scope_fingerprint,
+                source_message_id=idempotency_key,
+                user_text=command.question_text,
+                assistant_text=result.answer,
+            )
+            session.commit()
         return public_success_response(request=request, data=result)
     except CompanionCommandConflict as exc:
         raise HTTPException(
@@ -137,6 +172,196 @@ def ask_companion_v2(
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
     except CompanionCommandFailure as exc:
         raise HTTPException(status_code=exc.status_code, detail=exc.detail) from exc
+
+
+@v2_router.get(
+    "/memories",
+    response_model=PublicApiEnvelope[CompanionMemoryState],
+)
+def get_companion_memories(
+    request: Request,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> JSONResponse:
+    memory = CompanionMemoryStore(session).state(user_id=current_user.user_id)
+    return public_success_response(request=request, data=memory)
+
+
+@v2_router.post(
+    "/memories",
+    response_model=PublicApiEnvelope[CompanionMemoryItem],
+)
+def create_companion_memory(
+    command: CompanionMemoryWriteRequest,
+    request: Request,
+    idempotency_key: IdempotencyKey,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> JSONResponse:
+    try:
+        item = CompanionMemoryStore(session).create(
+            user_id=current_user.user_id,
+            idempotency_key=idempotency_key,
+            category=command.category,
+            content=command.content,
+        )
+        session.commit()
+        return public_success_response(request=request, data=item)
+    except CompanionMemoryNotFound:
+        session.rollback()
+        return public_error_response(
+            request=request,
+            status_code=status.HTTP_404_NOT_FOUND,
+            code="memory_account_not_found",
+            message="当前账户无法保存记忆。",
+        )
+    except CompanionMemoryConflict:
+        session.rollback()
+        return public_error_response(
+            request=request,
+            status_code=status.HTTP_409_CONFLICT,
+            code="memory_command_conflict",
+            message="这次保存和之前的操作冲突，请刷新后再试。",
+        )
+    except CompanionMemoryLimitReached:
+        session.rollback()
+        return public_error_response(
+            request=request,
+            status_code=status.HTTP_409_CONFLICT,
+            code="memory_limit_reached",
+            message="最多保存 20 条记忆，请先删除一条。",
+        )
+    except CompanionMemoryUnsafeContent:
+        session.rollback()
+        return public_error_response(
+            request=request,
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            code="unsafe_memory_content",
+            message="这段内容不能作为学习记忆，请只描述偏好或学习安排。",
+        )
+
+
+@v2_router.put(
+    "/memories/{memory_id}",
+    response_model=PublicApiEnvelope[CompanionMemoryItem],
+)
+def update_companion_memory(
+    memory_id: UUID,
+    command: CompanionMemoryUpdateRequest,
+    request: Request,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> JSONResponse:
+    try:
+        item = CompanionMemoryStore(session).update(
+            user_id=current_user.user_id,
+            memory_id=memory_id,
+            revision=command.revision,
+            category=command.category,
+            content=command.content,
+        )
+        session.commit()
+        return public_success_response(request=request, data=item)
+    except CompanionMemoryNotFound:
+        session.rollback()
+        return public_error_response(
+            request=request,
+            status_code=status.HTTP_404_NOT_FOUND,
+            code="memory_not_found",
+            message="这条记忆已不存在。",
+        )
+    except CompanionMemoryConflict:
+        session.rollback()
+        return public_error_response(
+            request=request,
+            status_code=status.HTTP_409_CONFLICT,
+            code="memory_revision_conflict",
+            message="这条记忆已发生变化，请刷新后再修改。",
+        )
+    except CompanionMemoryUnsafeContent:
+        session.rollback()
+        return public_error_response(
+            request=request,
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            code="unsafe_memory_content",
+            message="这段内容不能作为学习记忆，请只描述偏好或学习安排。",
+        )
+
+
+@v2_router.delete(
+    "/memories/{memory_id}",
+    response_model=PublicApiEnvelope[CompanionMemoryMutationResponse],
+)
+def delete_companion_memory(
+    memory_id: UUID,
+    request: Request,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> JSONResponse:
+    changed = CompanionMemoryStore(session).delete(
+        user_id=current_user.user_id,
+        memory_id=memory_id,
+    )
+    session.commit()
+    return public_success_response(
+        request=request,
+        data=CompanionMemoryMutationResponse(changedCount=changed),
+    )
+
+
+@v2_router.delete(
+    "/memories",
+    response_model=PublicApiEnvelope[CompanionMemoryMutationResponse],
+)
+def clear_companion_memories(
+    request: Request,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> JSONResponse:
+    changed = CompanionMemoryStore(session).clear_long_term(user_id=current_user.user_id)
+    session.commit()
+    return public_success_response(
+        request=request,
+        data=CompanionMemoryMutationResponse(changedCount=changed),
+    )
+
+
+@v2_router.put(
+    "/memory-settings",
+    response_model=PublicApiEnvelope[CompanionMemorySettingResponse],
+)
+def put_companion_memory_settings(
+    command: CompanionMemorySettingRequest,
+    request: Request,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> JSONResponse:
+    enabled = CompanionMemoryStore(session).set_enabled(
+        user_id=current_user.user_id,
+        enabled=command.long_term_enabled,
+    )
+    session.commit()
+    return public_success_response(
+        request=request,
+        data=CompanionMemorySettingResponse(longTermEnabled=enabled),
+    )
+
+
+@v2_router.delete(
+    "/conversation-memory",
+    response_model=PublicApiEnvelope[CompanionMemoryMutationResponse],
+)
+def clear_companion_conversation_memory(
+    request: Request,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> JSONResponse:
+    changed = CompanionMemoryStore(session).clear_short_term(user_id=current_user.user_id)
+    session.commit()
+    return public_success_response(
+        request=request,
+        data=CompanionMemoryMutationResponse(changedCount=changed),
+    )
 
 
 @router.post(
