@@ -14,7 +14,7 @@ interface StructuredVisualComponent {
     visual: unknown;
   };
   data: {
-    status: "valid" | "empty" | "invalid";
+    status: "valid" | "empty" | "needs_review" | "invalid";
     title: string;
     stateTitle: string;
     stateDescription: string;

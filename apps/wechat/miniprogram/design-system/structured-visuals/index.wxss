@@ -74,6 +74,16 @@
   color: #0092b8;
 }
 
+.structured-visual__state--needs_review {
+  border-color: #fed7aa;
+  background: #fffbeb;
+}
+
+.structured-visual__state--needs_review .structured-visual__state-mark {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
 .structured-visual__state-title {
   font-size: calc(32 * var(--rpx));
   font-weight: 700;

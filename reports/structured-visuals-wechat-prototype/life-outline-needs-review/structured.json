@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "graphic-primitives-v2",
+  "visualGrammar": "primitive_scene",
+  "fidelityTier": "needs_review",
+  "reviewReason": "火箭、瓢虫、鸟等手绘生活轮廓缺少经逐点验证的矢量路径；用相似图标替代会改变关键拓扑。",
+  "sourceQuestionId": "16593051",
+  "sourceAsset": "source.png",
+  "audit": {
+    "expectedPanelCount": 6,
+    "expectedOptionCount": 0,
+    "sourceSha256": "bbb6eb45fdd3ad1b57c03bd5a71be35c91c97251044aedf1fb8ae37366eb43dd",
+    "observedLabels": ["1", "2", "3", "4", "5", "6"],
+    "decision": "do_not_redraw_without_verified_vector_paths"
+  }
+}

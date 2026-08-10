@@ -1,7 +1,7 @@
 import type { StructuredVisualValidation, ValidationIssue } from "./schema";
 
 export interface StructuredVisualPresentation {
-  status: "valid" | "empty" | "invalid";
+  status: "valid" | "empty" | "needs_review" | "invalid";
   title: string;
   stateTitle: string;
   stateDescription: string;
@@ -33,6 +33,20 @@ export function presentStructuredVisual(
       stateDescription: issueDescription(emptyIssue, "请提供完整的结构化数据。"),
       warningText: "",
       ariaLabel: `${name}暂无数据`,
+    };
+  }
+  if (validation.status === "needs_review") {
+    const reviewIssue = validation.issues.at(-1);
+    return {
+      status: "needs_review",
+      title: "",
+      stateTitle: "这份图形需要人工复核",
+      stateDescription: issueDescription(
+        reviewIssue,
+        "当前证据不足以可信重绘，已停止渲染以避免画错。",
+      ),
+      warningText: "",
+      ariaLabel: `${name}需要人工复核`,
     };
   }
 

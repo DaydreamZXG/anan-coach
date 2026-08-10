@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="374" viewBox="0 0 700 374">
+  <rect width="700" height="374" fill="#fff"/>
+  <g fill="none" stroke="#101828" stroke-width="2">
+    <rect x="5" y="18" width="683" height="137"/>
+    <path d="M145 18V155 M283 18V155 M422 18V155 M553 18V155"/>
+    <rect x="73" y="189" width="552" height="138"/>
+    <path d="M211 189V327 M349 189V327 M487 189V327"/>
+  </g>
+  <g fill="#101828" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="77" text-anchor="middle">
+    <text x="75" y="110">c</text><text x="214" y="110">e</text><text x="353" y="110">6</text><text x="488" y="110">l</text>
+    <text x="621" y="110" font-family="Arial, sans-serif" font-style="normal">?</text>
+    <text x="142" y="282">J</text><text x="280" y="282">3</text><text x="418" y="282">w</text><text x="556" y="282">β</text>
+  </g>
+  <g fill="#101828" font-family="Arial, sans-serif" font-size="30" text-anchor="middle">
+    <text x="142" y="365">A</text><text x="280" y="365">B</text><text x="418" y="365">C</text><text x="556" y="365">D</text>
+  </g>
+</svg>

@@ -1,0 +1,31 @@
+{
+  "result": "verified",
+  "panelCount": { "source": 13, "structured": 13, "redrawn": 13, "pass": true },
+  "optionCount": { "source": 4, "structured": 4, "redrawn": 4, "pass": true },
+  "outerFrame": {
+    "source": "3x3 stem plus four options",
+    "redrawn": "frontend-owned matrix and option frames",
+    "pass": true
+  },
+  "majorTopology": {
+    "checks": [
+      "straight segment connectivity",
+      "intersections",
+      "missing panel",
+      "option ordering"
+    ],
+    "pass": true
+  },
+  "textContent": {
+    "source": ["A", "B", "C", "D"],
+    "redrawn": ["A", "B", "C", "D"],
+    "pass": true
+  },
+  "relativePosition": {
+    "checks": [
+      "matrix row/column placement",
+      "segment endpoints within each panel"
+    ],
+    "pass": true
+  }
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="572" height="450" viewBox="0 0 572 450">
+  <rect width="572" height="450" fill="#fff"/>
+  <g fill="none" stroke="#101828" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="13" y="10" width="157" height="157"/><rect x="207" y="10" width="157" height="157"/><rect x="400" y="10" width="157" height="157"/>
+    <rect x="13" y="241" width="157" height="157"/><rect x="207" y="241" width="157" height="157"/><rect x="400" y="241" width="157" height="157"/>
+    <ellipse cx="91.5" cy="42" rx="50" ry="13"/><path d="M41.5 42V122 M141.5 42V122 A50 13 0 0 1 41.5 122"/>
+    <path d="M285 28 L301 73 L346 73 L310 100 L324 149 L285 119 L246 149 L260 100 L224 73 L269 73 Z"/><circle cx="285" cy="92" r="17"/><circle cx="285" cy="92" r="9"/>
+    <rect x="422" y="31" width="73" height="114"/><path d="M458.5 31V145 M495 59H506V43L535 88L506 133V117H495Z"/>
+    <path d="M91.5 254 L43 286 L35 326 L55 381 L128 381 L148 326 L140 286 Z M91.5 254 L35 326 H148 Z"/>
+    <path d="M228 291 H313 V375 H228 Z M228 291 L257 263 H342 L313 291 M342 263 V347 L313 375"/>
+    <circle cx="478.5" cy="319.5" r="60"/><path d="M436 277L521 362 M521 277L436 362"/>
+  </g>
+  <g fill="#101828" font-family="Arial, sans-serif" font-size="27" text-anchor="middle">
+    <text x="91.5" y="205">①</text><text x="285" y="205">②</text><text x="478.5" y="205">③</text>
+    <text x="91.5" y="437">④</text><text x="285" y="437">⑤</text><text x="478.5" y="437">⑥</text>
+  </g>
+</svg>

@@ -1,0 +1,201 @@
+{
+  "schemaVersion": "graphic-primitives-v2",
+  "visualGrammar": "primitive_scene",
+  "fidelityTier": "semantic",
+  "layoutType": "classification_2x3",
+  "coordinateSpace": { "width": 100, "height": 100 },
+  "sourceQuestionId": "15833882",
+  "sourceAsset": "source.png",
+  "verification": {
+    "sourceSha256": "f360525fb7eedfe7f1917c080265ea96199440ae84fc92eae25e25ef761a7595",
+    "method": "manual_topology_and_relative_position_audit",
+    "verified": true
+  },
+  "panels": [
+    {
+      "id": "1",
+      "role": "sample",
+      "row": 1,
+      "column": 1,
+      "primitives": [
+        {
+          "type": "semanticSymbol",
+          "semanticLabel": "cylinder_outline",
+          "primitives": [
+            {
+              "type": "ellipse",
+              "center": { "x": 50, "y": 25 },
+              "radiusX": 31,
+              "radiusY": 8,
+              "rotationDegrees": 0
+            },
+            {
+              "type": "line",
+              "from": { "x": 19, "y": 25 },
+              "to": { "x": 19, "y": 75 }
+            },
+            {
+              "type": "line",
+              "from": { "x": 81, "y": 25 },
+              "to": { "x": 81, "y": 75 }
+            },
+            {
+              "type": "arc",
+              "center": { "x": 50, "y": 75 },
+              "radiusX": 31,
+              "radiusY": 8,
+              "rotationDegrees": 0,
+              "startDegrees": 0,
+              "endDegrees": 180,
+              "anticlockwise": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "role": "sample",
+      "row": 1,
+      "column": 2,
+      "primitives": [
+        {
+          "type": "polygon",
+          "points": [
+            { "x": 50, "y": 13 },
+            { "x": 60, "y": 40 },
+            { "x": 89, "y": 40 },
+            { "x": 66, "y": 57 },
+            { "x": 75, "y": 87 },
+            { "x": 50, "y": 69 },
+            { "x": 25, "y": 87 },
+            { "x": 34, "y": 57 },
+            { "x": 11, "y": 40 },
+            { "x": 40, "y": 40 }
+          ]
+        },
+        { "type": "circle", "center": { "x": 50, "y": 52 }, "radius": 11 },
+        { "type": "circle", "center": { "x": 50, "y": 52 }, "radius": 6 }
+      ]
+    },
+    {
+      "id": "3",
+      "role": "sample",
+      "row": 1,
+      "column": 3,
+      "primitives": [
+        {
+          "type": "semanticSymbol",
+          "semanticLabel": "door_with_right_arrow",
+          "primitives": [
+            {
+              "type": "rect",
+              "box": { "x": 15, "y": 16, "width": 46, "height": 68 }
+            },
+            {
+              "type": "line",
+              "from": { "x": 38, "y": 16 },
+              "to": { "x": 38, "y": 84 }
+            },
+            {
+              "type": "polygon",
+              "points": [
+                { "x": 61, "y": 34 },
+                { "x": 68, "y": 34 },
+                { "x": 68, "y": 23 },
+                { "x": 91, "y": 50 },
+                { "x": 68, "y": 77 },
+                { "x": 68, "y": 66 },
+                { "x": 61, "y": 66 }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "role": "sample",
+      "row": 2,
+      "column": 1,
+      "primitives": [
+        {
+          "type": "wireframe",
+          "interpretation": "geometry_only",
+          "vertices": [
+            { "x": 50, "y": 12 },
+            { "x": 19, "y": 34 },
+            { "x": 14, "y": 60 },
+            { "x": 27, "y": 89 },
+            { "x": 73, "y": 89 },
+            { "x": 86, "y": 60 },
+            { "x": 81, "y": 34 }
+          ],
+          "edges": [
+            [0, 1],
+            [1, 2],
+            [2, 3],
+            [3, 4],
+            [4, 5],
+            [5, 6],
+            [6, 0],
+            [0, 2],
+            [0, 5],
+            [2, 5]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "role": "sample",
+      "row": 2,
+      "column": 2,
+      "primitives": [
+        {
+          "type": "wireframe",
+          "interpretation": "geometry_only",
+          "vertices": [
+            { "x": 19, "y": 33 },
+            { "x": 68, "y": 33 },
+            { "x": 68, "y": 83 },
+            { "x": 19, "y": 83 },
+            { "x": 37, "y": 16 },
+            { "x": 86, "y": 16 },
+            { "x": 86, "y": 66 }
+          ],
+          "edges": [
+            [0, 1],
+            [1, 2],
+            [2, 3],
+            [3, 0],
+            [0, 4],
+            [4, 5],
+            [5, 1],
+            [5, 6],
+            [6, 2]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "role": "sample",
+      "row": 2,
+      "column": 3,
+      "primitives": [
+        { "type": "circle", "center": { "x": 50, "y": 50 }, "radius": 36 },
+        {
+          "type": "line",
+          "from": { "x": 25, "y": 25 },
+          "to": { "x": 75, "y": 75 }
+        },
+        {
+          "type": "line",
+          "from": { "x": 75, "y": 25 },
+          "to": { "x": 25, "y": 75 }
+        }
+      ]
+    }
+  ]
+}

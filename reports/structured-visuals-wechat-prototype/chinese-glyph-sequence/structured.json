@@ -1,0 +1,243 @@
+{
+  "schemaVersion": "graphic-primitives-v2",
+  "visualGrammar": "primitive_scene",
+  "fidelityTier": "semantic",
+  "layoutType": "sequence",
+  "coordinateSpace": { "width": 100, "height": 100 },
+  "sourceQuestionId": "14077",
+  "sourceAsset": "source.png",
+  "verification": {
+    "sourceSha256": "b0941c827b102a0327120e4d218ad620779fec9f042d29299f9aa92be779cbdb",
+    "method": "manual_text_order_and_group_audit",
+    "sourceGrouping": [3, 3],
+    "verified": true
+  },
+  "panels": [
+    {
+      "id": "千",
+      "role": "sequence",
+      "position": 1,
+      "primitives": [
+        {
+          "type": "textGlyph",
+          "content": "千",
+          "position": { "x": 50, "y": 52 },
+          "fontCategory": "serif",
+          "fontStyle": "normal",
+          "fontWeight": 400,
+          "fontSize": 62,
+          "direction": "ltr",
+          "align": "center",
+          "style": {
+            "stroke": null,
+            "fill": "#101828",
+            "lineWidth": 0,
+            "dash": [],
+            "opacity": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "个",
+      "role": "sequence",
+      "position": 2,
+      "primitives": [
+        {
+          "type": "textGlyph",
+          "content": "个",
+          "position": { "x": 50, "y": 52 },
+          "fontCategory": "serif",
+          "fontStyle": "normal",
+          "fontWeight": 400,
+          "fontSize": 62,
+          "direction": "ltr",
+          "align": "center",
+          "style": {
+            "stroke": null,
+            "fill": "#101828",
+            "lineWidth": 0,
+            "dash": [],
+            "opacity": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "百",
+      "role": "sequence",
+      "position": 3,
+      "primitives": [
+        {
+          "type": "textGlyph",
+          "content": "百",
+          "position": { "x": 50, "y": 52 },
+          "fontCategory": "serif",
+          "fontStyle": "normal",
+          "fontWeight": 400,
+          "fontSize": 62,
+          "direction": "ltr",
+          "align": "center",
+          "style": {
+            "stroke": null,
+            "fill": "#101828",
+            "lineWidth": 0,
+            "dash": [],
+            "opacity": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "五",
+      "role": "sequence",
+      "position": 4,
+      "primitives": [
+        {
+          "type": "textGlyph",
+          "content": "五",
+          "position": { "x": 50, "y": 52 },
+          "fontCategory": "serif",
+          "fontStyle": "normal",
+          "fontWeight": 400,
+          "fontSize": 62,
+          "direction": "ltr",
+          "align": "center",
+          "style": {
+            "stroke": null,
+            "fill": "#101828",
+            "lineWidth": 0,
+            "dash": [],
+            "opacity": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "拾",
+      "role": "sequence",
+      "position": 5,
+      "primitives": [
+        {
+          "type": "textGlyph",
+          "content": "拾",
+          "position": { "x": 50, "y": 52 },
+          "fontCategory": "serif",
+          "fontStyle": "normal",
+          "fontWeight": 400,
+          "fontSize": 62,
+          "direction": "ltr",
+          "align": "center",
+          "style": {
+            "stroke": null,
+            "fill": "#101828",
+            "lineWidth": 0,
+            "dash": [],
+            "opacity": 1
+          }
+        }
+      ]
+    },
+    { "id": "missing", "role": "missing", "position": 6, "primitives": [] },
+    {
+      "id": "A",
+      "role": "option",
+      "position": 7,
+      "primitives": [
+        {
+          "type": "textGlyph",
+          "content": "四",
+          "position": { "x": 50, "y": 52 },
+          "fontCategory": "serif",
+          "fontStyle": "normal",
+          "fontWeight": 400,
+          "fontSize": 62,
+          "direction": "ltr",
+          "align": "center",
+          "style": {
+            "stroke": null,
+            "fill": "#101828",
+            "lineWidth": 0,
+            "dash": [],
+            "opacity": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "role": "option",
+      "position": 8,
+      "primitives": [
+        {
+          "type": "textGlyph",
+          "content": "亿",
+          "position": { "x": 50, "y": 52 },
+          "fontCategory": "serif",
+          "fontStyle": "normal",
+          "fontWeight": 400,
+          "fontSize": 62,
+          "direction": "ltr",
+          "align": "center",
+          "style": {
+            "stroke": null,
+            "fill": "#101828",
+            "lineWidth": 0,
+            "dash": [],
+            "opacity": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "role": "option",
+      "position": 9,
+      "primitives": [
+        {
+          "type": "textGlyph",
+          "content": "万",
+          "position": { "x": 50, "y": 52 },
+          "fontCategory": "serif",
+          "fontStyle": "normal",
+          "fontWeight": 400,
+          "fontSize": 62,
+          "direction": "ltr",
+          "align": "center",
+          "style": {
+            "stroke": null,
+            "fill": "#101828",
+            "lineWidth": 0,
+            "dash": [],
+            "opacity": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "role": "option",
+      "position": 10,
+      "primitives": [
+        {
+          "type": "textGlyph",
+          "content": "零",
+          "position": { "x": 50, "y": 52 },
+          "fontCategory": "serif",
+          "fontStyle": "normal",
+          "fontWeight": 400,
+          "fontSize": 62,
+          "direction": "ltr",
+          "align": "center",
+          "style": {
+            "stroke": null,
+            "fill": "#101828",
+            "lineWidth": 0,
+            "dash": [],
+            "opacity": 1
+          }
+        }
+      ]
+    }
+  ]
+}

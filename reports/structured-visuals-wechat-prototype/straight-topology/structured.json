@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "graphic-line-topology-candidate-v1",
+  "sourceAsset": "img_0084_3d7e7c60c1e2f078.png",
+  "layoutType": "matrix_3x3",
+  "visualGrammar": "line_art",
+  "items": [
+    {
+      "id": "r1c1",
+      "role": "stem",
+      "row": 1,
+      "column": 1,
+      "viewBox": [0, 0, 79, 75],
+      "path": "M11 12 L11 63 L12 64 L65 64 L65 38 L38 11 L12 11 Z M38 42 L39 41 L40 41 L61 62 L60 63 L39 63 L38 62 Z M41 40 L42 39 L62 39 L63 40 L63 60 L62 61 Z M13 40 L14 39 L36 39 L37 40 L37 62 L36 63 L14 63 L13 62 Z M38 16 L39 15 L40 15 L61 36 L61 37 L60 38 L40 38 L38 36 Z M13 16 L14 15 L35 36 L35 37 L34 38 L14 38 L13 37 Z M15 14 L16 13 L36 13 L37 14 L37 34 L36 35 Z",
+      "longLineEvidenceCount": 20
+    },
+    {
+      "id": "r1c2",
+      "role": "stem",
+      "row": 1,
+      "column": 2,
+      "viewBox": [0, 0, 80, 75],
+      "path": "M13 11 L12 12 L12 63 L13 64 L65 64 L66 63 L65 62 L65 14 L66 13 L64 11 Z M14 40 L15 39 L63 39 L64 40 L64 62 L63 63 L15 63 L14 62 Z M14 14 L15 13 L63 13 L64 14 L64 37 L63 38 L15 38 L14 37 Z",
+      "longLineEvidenceCount": 14
+    },
+    {
+      "id": "r1c3",
+      "role": "stem",
+      "row": 1,
+      "column": 3,
+      "viewBox": [0, 0, 80, 75],
+      "path": "M11 12 L11 13 L37 39 L37 64 L38 64 L38 42 L39 41 L40 41 L63 64 L64 64 L64 63 L38 37 L38 16 L39 15 L40 15 L63 38 L64 38 L64 12 L63 11 L38 11 L37 12 L37 34 L36 35 L13 12 Z M41 14 L42 13 L62 13 L63 14 L63 34 L62 35 Z",
+      "longLineEvidenceCount": 15
+    },
+    {
+      "id": "r2c1",
+      "role": "stem",
+      "row": 2,
+      "column": 1,
+      "viewBox": [0, 0, 79, 79],
+      "path": "M12 12 L11 13 L11 65 L12 66 L64 66 L65 65 L65 39 L40 39 L38 37 L38 12 Z M12 15 L13 14 L36 14 L37 15 L37 39 L38 40 L62 40 L63 41 L63 64 L62 65 L14 65 L12 63 Z",
+      "longLineEvidenceCount": 13
+    },
+    {
+      "id": "r2c2",
+      "role": "stem",
+      "row": 2,
+      "column": 2,
+      "viewBox": [0, 0, 80, 79],
+      "path": "M65 12 L13 12 L12 13 L12 65 L13 66 L39 66 L40 65 L40 41 L41 40 L65 40 L65 39 L66 38 L65 37 Z M14 41 L15 40 L38 40 L39 41 L39 63 L37 65 L15 65 L14 64 Z M14 15 L15 14 L63 14 L64 15 L64 38 L63 39 L15 39 L14 38 Z",
+      "longLineEvidenceCount": 17
+    },
+    {
+      "id": "r2c3",
+      "role": "stem",
+      "row": 2,
+      "column": 3,
+      "viewBox": [0, 0, 80, 79],
+      "path": "M64 12 L38 12 L37 13 L37 37 L35 39 L11 39 L11 66 L38 66 L38 15 L39 14 L62 14 L63 15 L63 39 L64 39 Z M12 41 L13 40 L36 40 L37 41 L37 64 L36 65 L14 65 L12 63 Z",
+      "longLineEvidenceCount": 13
+    },
+    {
+      "id": "r3c1",
+      "role": "stem",
+      "row": 3,
+      "column": 1,
+      "viewBox": [0, 0, 80, 79],
+      "path": "M11 14 L11 65 L13 67 L64 67 L65 66 L65 14 Z M13 18 L14 17 L38 41 L62 17 L63 18 L63 64 L62 65 L14 65 L13 64 Z M15 16 L16 15 L60 15 L61 16 L38 39 Z",
+      "longLineEvidenceCount": 22
+    },
+    {
+      "id": "r3c2",
+      "role": "stem",
+      "row": 3,
+      "column": 2,
+      "viewBox": [0, 0, 80, 79],
+      "path": "M12 14 L12 65 L13 66 L66 66 L66 65 L24 23 L23 23 L13 13 Z M16 63 L38 41 L40 41 L63 64 L62 65 L17 65 L16 64 Z M15 17 L32 34 L33 34 L38 39 L15 62 L14 61 L14 18 Z",
+      "longLineEvidenceCount": 13
+    },
+    {
+      "id": "r3c3",
+      "role": "missing",
+      "row": 3,
+      "column": 3,
+      "viewBox": [0, 0, 80, 79],
+      "path": null,
+      "longLineEvidenceCount": 5
+    },
+    {
+      "id": "A",
+      "role": "option",
+      "position": 1,
+      "viewBox": [0, 0, 77, 79],
+      "path": "M11 13 L11 14 L36 39 L36 40 L12 64 L12 65 L13 65 L38 40 L39 40 L63 16 L64 17 L64 66 L65 65 L65 13 Z M15 16 L15 15 L16 14 L60 14 L61 15 L38 38 L17 17 L16 17 Z",
+      "longLineEvidenceCount": 13
+    },
+    {
+      "id": "B",
+      "role": "option",
+      "position": 2,
+      "viewBox": [0, 0, 77, 79],
+      "path": "M11 13 L11 14 L58 14 L59 15 L59 16 L10 65 L10 66 L11 66 L36 41 L37 41 L62 66 L63 65 L63 13 Z M61 16 L62 17 L62 61 L61 62 L60 62 L38 40 L38 39 Z",
+      "longLineEvidenceCount": 11
+    },
+    {
+      "id": "C",
+      "role": "option",
+      "position": 3,
+      "viewBox": [0, 0, 78, 79],
+      "path": "M13 13 L13 66 L14 66 L39 41 L40 41 L65 66 L65 64 L16 15 L17 14 L66 14 L66 13 Z M15 16 L38 39 L38 40 L16 62 L15 62 L14 61 L14 17 Z",
+      "longLineEvidenceCount": 9
+    },
+    {
+      "id": "D",
+      "role": "option",
+      "position": 4,
+      "viewBox": [0, 0, 78, 79],
+      "path": "M12 13 L12 66 L13 66 L13 18 L14 17 L37 40 L38 40 L64 66 L65 66 L65 65 L40 40 L40 39 L41 38 L42 38 L46 34 L46 33 L65 14 L64 13 Z M16 15 L17 14 L18 15 L59 15 L60 14 L61 15 L61 16 L39 38 L38 38 L16 16 Z",
+      "longLineEvidenceCount": 11
+    }
+  ],
+  "validation": {
+    "panelCount": 13,
+    "stemPanelCount": 9,
+    "optionPanelCount": 4,
+    "missingPanel": "r3c3",
+    "missingHasFewestLongLines": true
+  }
+}

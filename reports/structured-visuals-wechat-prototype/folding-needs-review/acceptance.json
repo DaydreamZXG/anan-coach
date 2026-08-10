@@ -1,0 +1,20 @@
+{
+  "result": "needs_review",
+  "panelCount": { "source": 5, "audit": 5, "pass": true },
+  "optionCount": { "source": 4, "audit": 4, "pass": true },
+  "outerFrame": {
+    "source": "one cube stem plus four labelled nets",
+    "audit": "recorded",
+    "pass": true
+  },
+  "majorTopology": {
+    "checks": ["handled cube", "four distinct nets", "face marks 1 and 6"],
+    "pass": false
+  },
+  "textContent": {
+    "source": ["1", "6", "A", "B", "C", "D"],
+    "audit": ["1", "6", "A", "B", "C", "D"],
+    "pass": true
+  },
+  "redrawDecision": "withheld: geometry renderer is available, folding correspondence is not verified"
+}

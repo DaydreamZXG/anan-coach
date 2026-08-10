@@ -18,9 +18,10 @@ describe("structured visual component contract", () => {
     expect(componentLogic).toContain("preferredCanvasHeight");
   });
 
-  it("shows explicit valid, empty, invalid, and missing-evidence states", () => {
+  it("shows explicit valid, empty, needs-review, invalid, and missing-evidence states", () => {
     expect(componentTemplate).toContain("status === 'valid'");
     expect(componentTemplate).toContain("structured-visual__state--{{status}}");
+    expect(componentTemplate).toContain("status === 'needs_review'");
     expect(componentTemplate).toContain("warningText");
     expect(componentLogic).toContain('triggerEvent("validationchange"');
   });

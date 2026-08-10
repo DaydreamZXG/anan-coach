@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="307" viewBox="0 0 700 307">
+  <rect width="700" height="307" fill="#fff"/>
+  <g fill="none" stroke="#101828" stroke-width="2">
+    <rect x="19" y="19" width="309" height="106"/><path d="M122 19V125 M225 19V125"/>
+    <rect x="378" y="19" width="310" height="106"/><path d="M482 19V125 M585 19V125"/>
+    <rect x="144" y="155" width="412" height="108"/><path d="M247 155V263 M350 155V263 M453 155V263"/>
+  </g>
+  <g fill="#101828" font-family="Songti SC, STSong, serif" font-size="68" text-anchor="middle">
+    <text x="70" y="99">千</text><text x="173" y="99">个</text><text x="276" y="99">百</text>
+    <text x="430" y="99">五</text><text x="533" y="99">拾</text><text x="636" y="99" font-family="Arial, sans-serif">?</text>
+    <text x="196" y="238">四</text><text x="299" y="238">亿</text><text x="402" y="238">万</text><text x="505" y="238">零</text>
+  </g>
+  <g fill="#101828" font-family="Arial, sans-serif" font-size="22" text-anchor="middle">
+    <text x="196" y="294">A</text><text x="299" y="294">B</text><text x="402" y="294">C</text><text x="505" y="294">D</text>
+  </g>
+</svg>

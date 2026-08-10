@@ -10,6 +10,15 @@ export const fixturePaths = {
   binaryGrid: "graphic-reasoning-structure-test/structured-binary-grid-prototype.json",
   topologyPaths: "graphic-reasoning-structure-test/structured-line-matrix-prototype.json",
   lineArt: "graphic-reasoning-structure-test/structured-cq_09fc9cc57c86e57c553944c2.json",
+  primitiveClassification:
+    "structured-visuals-wechat-prototype/curve-arrow-wireframe/structured.json",
+  glyphSequence: "structured-visuals-wechat-prototype/glyph-sequence/structured.json",
+  chineseGlyphSequence:
+    "structured-visuals-wechat-prototype/chinese-glyph-sequence/structured.json",
+  lifeNeedsReview: "structured-visuals-wechat-prototype/life-outline-needs-review/structured.json",
+  foldingNeedsReview: "structured-visuals-wechat-prototype/folding-needs-review/structured.json",
+  shadedNeedsReview:
+    "structured-visuals-wechat-prototype/shaded-polygons-needs-review/structured.json",
 } as const;
 
 export function reportFixture(path: string): unknown {

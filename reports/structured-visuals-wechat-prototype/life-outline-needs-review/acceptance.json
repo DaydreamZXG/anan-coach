@@ -1,0 +1,27 @@
+{
+  "result": "needs_review",
+  "panelCount": { "source": 6, "audit": 6, "pass": true },
+  "optionCount": { "source": 0, "audit": 0, "pass": true },
+  "outerFrame": {
+    "source": "six square panels in 2x3",
+    "audit": "recorded",
+    "pass": true
+  },
+  "majorTopology": {
+    "checks": [
+      "rocket",
+      "five rings",
+      "ladybug",
+      "pinwheel-like outline",
+      "angular Z outline",
+      "bird-like outline"
+    ],
+    "pass": false
+  },
+  "textContent": {
+    "source": ["1", "2", "3", "4", "5", "6"],
+    "audit": ["1", "2", "3", "4", "5", "6"],
+    "pass": true
+  },
+  "redrawDecision": "withheld: no verified vector pathGroup; no similar icon substitution"
+}

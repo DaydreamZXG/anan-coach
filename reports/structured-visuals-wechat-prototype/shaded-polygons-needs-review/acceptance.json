@@ -1,0 +1,20 @@
+{
+  "result": "needs_review",
+  "panelCount": { "source": 6, "audit": 6, "pass": true },
+  "optionCount": { "source": 0, "audit": 0, "pass": true },
+  "outerFrame": {
+    "source": "six square panels in 2x3",
+    "audit": "recorded",
+    "pass": true
+  },
+  "majorTopology": {
+    "checks": ["six distinct polygon partitions", "one gray face per panel"],
+    "pass": false
+  },
+  "textContent": {
+    "source": ["1", "2", "3", "4", "5", "6"],
+    "audit": ["1", "2", "3", "4", "5", "6"],
+    "pass": true
+  },
+  "redrawDecision": "withheld: fill/opacity support does not prove the six polygon boundaries"
+}

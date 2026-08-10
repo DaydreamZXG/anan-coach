@@ -1,0 +1,31 @@
+{
+  "result": "verified",
+  "panelCount": { "source": 10, "structured": 10, "redrawn": 10, "pass": true },
+  "optionCount": { "source": 4, "structured": 4, "redrawn": 4, "pass": true },
+  "outerFrame": {
+    "source": "two groups of three sequence cells and four option cells",
+    "redrawn": "same evidence layout; runtime owns responsive frame reflow",
+    "pass": true
+  },
+  "majorTopology": {
+    "checks": [
+      "one standard print glyph per non-missing panel",
+      "missing cell explicit"
+    ],
+    "pass": true
+  },
+  "textContent": {
+    "source": ["千", "个", "百", "五", "拾", "?", "四", "亿", "万", "零"],
+    "structured": ["千", "个", "百", "五", "拾", "四", "亿", "万", "零"],
+    "pass": true
+  },
+  "relativePosition": {
+    "checks": [
+      "source grouping 3+3 retained as evidence",
+      "glyph order retained",
+      "options remain A-D"
+    ],
+    "pass": true
+  },
+  "fontBoundary": "standard print characters use textGlyph; no claim of exact font-file identity"
+}

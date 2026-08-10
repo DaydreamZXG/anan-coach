@@ -17,7 +17,7 @@
 
   <view wx:else class="structured-visual__state structured-visual__state--{{status}}" role="status">
     <view class="structured-visual__state-mark" aria-hidden="true">
-      {{status === 'empty' ? '＋' : '!'}}
+      {{status === 'empty' ? '＋' : status === 'needs_review' ? '◇' : '!'}}
     </view>
     <view class="structured-visual__state-title">{{stateTitle}}</view>
     <view class="structured-visual__state-description">{{stateDescription}}</view>

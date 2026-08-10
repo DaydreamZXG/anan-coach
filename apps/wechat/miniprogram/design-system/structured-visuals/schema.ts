@@ -1,4 +1,5 @@
 import { parseLinearSvgPath, type PathInstruction } from "./path";
+import { validateGraphicPrimitives, type GraphicPrimitivesVisual } from "./primitives";
 import {
   selectStructuredVisual,
   type StructuredVisualKind,
@@ -125,7 +126,12 @@ export interface PathPanelsVisual {
 }
 
 export type ValidatedStructuredVisual =
-  GroupedBarVisual | BarLineVisual | PieVisual | BinaryGridVisual | PathPanelsVisual;
+  | GroupedBarVisual
+  | BarLineVisual
+  | PieVisual
+  | BinaryGridVisual
+  | PathPanelsVisual
+  | GraphicPrimitivesVisual;
 
 export type StructuredVisualValidation =
   | {
@@ -137,6 +143,12 @@ export type StructuredVisualValidation =
     }
   | {
       status: "empty";
+      registration: StructuredVisualRegistration;
+      issues: ValidationIssue[];
+      evidence: Record<string, unknown>;
+    }
+  | {
+      status: "needs_review";
       registration: StructuredVisualRegistration;
       issues: ValidationIssue[];
       evidence: Record<string, unknown>;
@@ -187,7 +199,37 @@ export function validateStructuredVisual(input: unknown): StructuredVisualValida
       return validateTopologyPaths(input, registration, evidence);
     case "graphic-line-art-v1":
       return validateLineArtPaths(input, registration, evidence);
+    case "graphic-primitives-v2":
+      return validatePrimitivePanels(input, registration, evidence);
   }
+}
+
+function validatePrimitivePanels(
+  input: UnknownRecord,
+  registration: StructuredVisualRegistration,
+  evidence: Record<string, unknown>,
+): StructuredVisualValidation {
+  const result = validateGraphicPrimitives(input, evidence);
+  if (result.status === "valid") {
+    return valid(registration, evidence, result.issues, result.visual);
+  }
+  if (result.status === "empty") {
+    return {
+      status: "empty",
+      registration,
+      evidence,
+      issues: result.issues,
+    };
+  }
+  if (result.status === "needs_review") {
+    return {
+      status: "needs_review",
+      registration,
+      evidence,
+      issues: result.issues,
+    };
+  }
+  return invalid(registration, evidence, result.issues);
 }
 
 function validateGroupedBar(
@@ -876,6 +918,9 @@ function collectEvidence(input: unknown): Record<string, unknown> {
     "verification",
     "extraction",
     "validation",
+    "fidelityTier",
+    "reviewReason",
+    "audit",
   ]) {
     if (key in input) evidence[key] = input[key];
   }

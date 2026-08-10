@@ -1,0 +1,31 @@
+{
+  "result": "verified",
+  "panelCount": { "source": 9, "structured": 9, "redrawn": 9, "pass": true },
+  "optionCount": { "source": 4, "structured": 4, "redrawn": 4, "pass": true },
+  "outerFrame": {
+    "source": "five sequence cells and four option cells",
+    "redrawn": "same inventory; runtime may responsively reflow frames",
+    "pass": true
+  },
+  "majorTopology": {
+    "checks": [
+      "one print glyph per non-missing panel",
+      "missing cell remains explicit"
+    ],
+    "pass": true
+  },
+  "textContent": {
+    "source": ["c", "e", "6", "l", "?", "J", "3", "w", "β"],
+    "structured": ["c", "e", "6", "l", "J", "3", "w", "β"],
+    "pass": true
+  },
+  "relativePosition": {
+    "checks": [
+      "sequence order c/e/6/l/?",
+      "option order J/3/w/β",
+      "glyphs centered"
+    ],
+    "pass": true
+  },
+  "fontBoundary": "serif italic category is preserved; exact source font file is not embedded"
+}

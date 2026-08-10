@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "graphic-primitives-v2",
+  "visualGrammar": "primitive_scene",
+  "fidelityTier": "needs_review",
+  "reviewReason": "立方体把手与四个展开图可按 wireframe 重绘，但当前证据未验证各面折叠映射；渲染几何不等于理解折叠关系。",
+  "sourceQuestionId": "16070182",
+  "sourceAsset": "source.png",
+  "audit": {
+    "expectedPanelCount": 5,
+    "expectedOptionCount": 4,
+    "sourceSha256": "a3f760ad2486f853176250fb13c099f5ed46a892077e78a8b579473900f80a9c",
+    "observedText": ["1", "6", "A", "B", "C", "D"],
+    "decision": "geometry_capable_folding_semantics_unverified"
+  }
+}

@@ -10,6 +10,8 @@ import type {
   ValidatedStructuredVisual,
 } from "./schema";
 import type { StructuredVisualKind } from "./registry";
+import type { GraphicPrimitivesVisual } from "./primitives";
+import { buildPrimitivePanelsScene } from "./primitive-scene";
 
 export interface Point {
   x: number;
@@ -29,11 +31,58 @@ interface StrokeStyle {
   dash?: number[];
 }
 
+export type Matrix2D = [number, number, number, number, number, number];
+
+interface DrawOptions {
+  matrix?: Matrix2D;
+  opacity?: number;
+}
+
 export type DrawCommand =
-  | ({ type: "line"; from: Point; to: Point } & StrokeStyle)
-  | ({ type: "polyline"; points: Point[]; closed: boolean; fill?: string } & StrokeStyle)
-  | ({ type: "rect"; box: Box; fill?: string } & StrokeStyle)
-  | ({ type: "circle"; center: Point; radius: number; fill?: string } & StrokeStyle)
+  | ({ type: "line"; from: Point; to: Point } & StrokeStyle & DrawOptions)
+  | ({ type: "polyline"; points: Point[]; closed: boolean; fill?: string } & StrokeStyle &
+      DrawOptions)
+  | ({ type: "rect"; box: Box; fill?: string } & StrokeStyle & DrawOptions)
+  | ({ type: "roundedRect"; box: Box; radius: number; fill?: string } & StrokeStyle & DrawOptions)
+  | ({ type: "circle"; center: Point; radius: number; fill?: string } & StrokeStyle & DrawOptions)
+  | ({
+      type: "ellipse";
+      center: Point;
+      radiusX: number;
+      radiusY: number;
+      rotationRadians: number;
+      fill?: string;
+    } & StrokeStyle &
+      DrawOptions)
+  | ({
+      type: "arc";
+      center: Point;
+      radiusX: number;
+      radiusY: number;
+      rotationRadians: number;
+      startAngle: number;
+      endAngle: number;
+      anticlockwise: boolean;
+      fill?: string;
+    } & StrokeStyle &
+      DrawOptions)
+  | ({
+      type: "quadraticBezier";
+      from: Point;
+      control: Point;
+      to: Point;
+      fill?: string;
+    } & StrokeStyle &
+      DrawOptions)
+  | ({
+      type: "cubicBezier";
+      from: Point;
+      control1: Point;
+      control2: Point;
+      to: Point;
+      fill?: string;
+    } & StrokeStyle &
+      DrawOptions)
   | ({
       type: "sector";
       center: Point;
@@ -41,24 +90,30 @@ export type DrawCommand =
       startAngle: number;
       endAngle: number;
       fill: string;
-    } & StrokeStyle)
-  | {
+    } & StrokeStyle &
+      DrawOptions)
+  | ({
       type: "text";
       text: string;
       at: Point;
       color: string;
       fontSize: number;
       fontWeight: 400 | 500 | 600 | 700;
-      fontFamily: "ui" | "data";
+      fontFamily: "ui" | "data" | "serif" | "monospace" | "symbol";
+      fontStyle?: "normal" | "italic";
+      direction?: "ltr" | "rtl" | "inherit";
       align: "left" | "center" | "right";
       baseline: "top" | "middle" | "bottom";
-    }
-  | {
+    } & DrawOptions)
+  | ({
       type: "path";
       instructions: PathInstruction[];
-      fill: string;
+      stroke: string;
+      lineWidth: number;
+      dash?: number[];
+      fill?: string;
       fillRule: "nonzero" | "evenodd";
-    };
+    } & DrawOptions);
 
 export interface SceneLabelBox extends Box {
   id: string;
@@ -119,6 +174,8 @@ export function preferredCanvasHeight(kind: StructuredVisualKind, width: number)
     case "binaryGrid":
     case "pathPanels":
       return safeWidth >= 600 ? 520 : Math.round(clamp(safeWidth * 1.5, 430, 540));
+    case "primitivePanels":
+      return safeWidth >= 600 ? 500 : Math.round(clamp(safeWidth * 1.42, 430, 560));
   }
 }
 
@@ -143,6 +200,8 @@ export function buildStructuredVisualScene(
       buildBinaryGridScene(value as BinaryGridVisual, sceneWidth, sceneHeight),
     pathPanels: (value, sceneWidth, sceneHeight) =>
       buildPathPanelsScene(value as PathPanelsVisual, sceneWidth, sceneHeight),
+    primitivePanels: (value, sceneWidth, sceneHeight) =>
+      buildPrimitivePanelsScene(value as GraphicPrimitivesVisual, sceneWidth, sceneHeight),
   };
   return builders[visual.kind](visual, safeWidth, safeHeight);
 }
@@ -703,17 +762,58 @@ function drawPathPanel(commands: DrawCommand[], panel: Box, item: PathPanel): vo
   item.paths.forEach((path) => {
     commands.push({
       type: "path",
-      instructions: path.instructions.map((instruction): PathInstruction => {
-        if (instruction.op === "close") return instruction;
-        return {
-          op: instruction.op,
-          x: offsetX + instruction.x * scale,
-          y: offsetY + instruction.y * scale,
-        };
-      }),
+      instructions: transformPathInstructions(path.instructions, scale, offsetX, offsetY),
       fill: theme.ink,
+      stroke: theme.ink,
+      lineWidth: 0,
       fillRule: path.fillRule,
     });
+  });
+}
+
+function transformPathInstructions(
+  instructions: PathInstruction[],
+  scale: number,
+  offsetX: number,
+  offsetY: number,
+): PathInstruction[] {
+  const point = (x: number, y: number): Point => ({
+    x: offsetX + x * scale,
+    y: offsetY + y * scale,
+  });
+  return instructions.map((instruction): PathInstruction => {
+    if (instruction.op === "close") return instruction;
+    const end = point(instruction.x, instruction.y);
+    if (instruction.op === "move" || instruction.op === "line") {
+      return { op: instruction.op, ...end };
+    }
+    if (instruction.op === "quadratic") {
+      const control = point(instruction.controlX, instruction.controlY);
+      return {
+        op: "quadratic",
+        controlX: control.x,
+        controlY: control.y,
+        ...end,
+      };
+    }
+    if (instruction.op === "cubic") {
+      const control1 = point(instruction.control1X, instruction.control1Y);
+      const control2 = point(instruction.control2X, instruction.control2Y);
+      return {
+        op: "cubic",
+        control1X: control1.x,
+        control1Y: control1.y,
+        control2X: control2.x,
+        control2Y: control2.y,
+        ...end,
+      };
+    }
+    return {
+      ...instruction,
+      radiusX: instruction.radiusX * scale,
+      radiusY: instruction.radiusY * scale,
+      ...end,
+    };
   });
 }
 

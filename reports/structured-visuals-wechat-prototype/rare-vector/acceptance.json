@@ -1,0 +1,29 @@
+{
+  "result": "verified_deterministic_vector",
+  "panelCount": {
+    "source": 10,
+    "structuredPlusFrontendMissing": 10,
+    "redrawn": 10,
+    "pass": true
+  },
+  "optionCount": { "source": 4, "structured": 4, "redrawn": 4, "pass": true },
+  "outerFrame": {
+    "source": "five sequence panels, one missing, four options",
+    "redrawn": "same inventory",
+    "pass": true
+  },
+  "majorTopology": {
+    "checks": [
+      "rectangular partitions",
+      "curved boundaries retained as verified vector contours",
+      "option order"
+    ],
+    "pass": true
+  },
+  "textContent": {
+    "source": ["A", "B", "C", "D"],
+    "redrawn": ["A", "B", "C", "D"],
+    "pass": true
+  },
+  "semanticBoundary": "B layer only: the contours are redrawable but their puzzle semantics are not claimed"
+}

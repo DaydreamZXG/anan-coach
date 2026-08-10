@@ -1,0 +1,27 @@
+{
+  "result": "verified",
+  "panelCount": { "source": 13, "structured": 13, "redrawn": 13, "pass": true },
+  "optionCount": { "source": 4, "structured": 4, "redrawn": 4, "pass": true },
+  "outerFrame": {
+    "source": "3x3 stem plus four options",
+    "redrawn": "same inventory",
+    "pass": true
+  },
+  "majorTopology": {
+    "checks": [
+      "every populated panel is exactly 9x9",
+      "occupied cells retain row/column positions",
+      "missing panel remains explicit"
+    ],
+    "pass": true
+  },
+  "textContent": {
+    "source": ["A", "B", "C", "D"],
+    "redrawn": ["A", "B", "C", "D"],
+    "pass": true
+  },
+  "relativePosition": {
+    "checks": ["matrix cell positions", "option order"],
+    "pass": true
+  }
+}

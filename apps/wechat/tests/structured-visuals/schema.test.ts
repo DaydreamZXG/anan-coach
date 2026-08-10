@@ -94,7 +94,7 @@ describe("structured visual schema", () => {
     expect(errorCodes(validateStructuredVisual(malformed))).toContain("BINARY_GRID_CELL_INVALID");
   });
 
-  it("rejects unknown versions and unsupported path geometry", () => {
+  it("rejects unknown versions and malformed path geometry", () => {
     expect(selectStructuredVisual("future-chart-v9")).toBeNull();
     expect(validateStructuredVisual({ schemaVersion: "future-chart-v9" })).toMatchObject({
       status: "invalid",
@@ -105,7 +105,12 @@ describe("structured visual schema", () => {
     const curved = clonedFixture(fixturePaths.topologyPaths);
     const items = curved.items as Array<Record<string, unknown>>;
     items[0] = { ...(items[0] ?? {}), path: "M0 0 C5 5 10 10 15 15 Z" };
-    expect(errorCodes(validateStructuredVisual(curved))).toContain("PATH_UNSUPPORTED");
+    expect(validateStructuredVisual(curved).status).toBe("valid");
+
+    const malformed = clonedFixture(fixturePaths.topologyPaths);
+    const malformedItems = malformed.items as Array<Record<string, unknown>>;
+    malformedItems[0] = { ...(malformedItems[0] ?? {}), path: "M0 0 A5 5 0 2 0 10 10" };
+    expect(errorCodes(validateStructuredVisual(malformed))).toContain("PATH_UNSUPPORTED");
   });
 });
 

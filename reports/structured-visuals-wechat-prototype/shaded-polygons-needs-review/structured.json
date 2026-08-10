@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "graphic-primitives-v2",
+  "visualGrammar": "primitive_scene",
+  "fidelityTier": "needs_review",
+  "reviewReason": "六个不规则多边形的边界和灰色阴影面尚无逐点验证数据；虽然 fill/opacity 可渲染，但不能据此声称样本已无损结构化。",
+  "sourceQuestionId": "16070043",
+  "sourceAsset": "source.png",
+  "audit": {
+    "expectedPanelCount": 6,
+    "expectedOptionCount": 0,
+    "sourceSha256": "44681fbe9989fb9fe00a0232901d86456ca3f1ed834da10de71fc75e1fb9b566",
+    "observedLabels": ["1", "2", "3", "4", "5", "6"],
+    "decision": "fill_supported_sample_vectorization_unverified"
+  }
+}

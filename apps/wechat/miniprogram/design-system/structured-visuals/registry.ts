@@ -23,6 +23,10 @@ export const STRUCTURED_VISUAL_REGISTRY = {
     kind: "pathPanels",
     accessibleName: "路径图形推理",
   },
+  "graphic-primitives-v2": {
+    kind: "primitivePanels",
+    accessibleName: "结构化图形推理",
+  },
 } as const;
 
 export type StructuredVisualSchemaVersion = keyof typeof STRUCTURED_VISUAL_REGISTRY;
